@@ -3,6 +3,9 @@ import { I18nOptions, createI18n } from 'vue-i18n'
 
 import { ILocalStorageUtil, useLocalStorageUtil } from '../helpers/utils/local-storage.util'
 
+import en from '../assets/locales/en/en.json'
+import fr from '../assets/locales/fr/fr.json'
+
 const TOKEN: string = 'i18n-locale'
 type locales = 'en' | 'fr'
 
@@ -11,16 +14,8 @@ const config: I18nOptions = {
   fallbackLocale: 'en',
   locale: useLocalStorageUtil(TOKEN).getItem<string>() || 'en',
   messages: {
-    en: {
-      message: {
-        hello: 'Hello World!'
-      }
-    },
-    fr: {
-      message: {
-        hello: 'Bonjour!'
-      }
-    }
+    en,
+    fr
   }
 }
 

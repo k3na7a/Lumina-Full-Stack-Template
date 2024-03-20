@@ -15,12 +15,12 @@ class VueRouterService {
     this.$router.beforeEach(async (to, _from, next) => {
       document.title = `${to.meta.pageTitle}`
 
+      next()
       window.scrollTo({
         top: 0,
         left: 0,
         behavior: 'smooth'
       } as ScrollToOptions)
-      next()
     })
 
     app.use(this.$router as Router)

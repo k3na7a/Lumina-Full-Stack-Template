@@ -26,7 +26,9 @@ const computedCount = computed({
   <h1>{{ props.msg }}</h1>
 
   <div class="card">
-    <button type="button" @click="computedCount++">count is {{ computedCount + data.count }}</button>
+    <button type="button" @click="computedCount++" class="btn btn-primary">
+      count is {{ computedCount + data.count }}
+    </button>
     <p>
       Edit
       <code>components/HelloWorld.vue</code> to test HMR
