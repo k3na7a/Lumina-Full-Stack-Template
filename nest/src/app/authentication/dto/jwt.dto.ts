@@ -7,9 +7,9 @@ export interface JWTInterface {
 
 export class JWTDto {
   @ApiProperty()
-  public timestamp: Date;
+  public readonly timestamp: Date;
   @ApiProperty()
-  public token: string;
+  public readonly token: string;
 
   constructor({ refresh_token }: JWTInterface) {
     this.token = refresh_token;

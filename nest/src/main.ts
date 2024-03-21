@@ -6,6 +6,7 @@ import { Logger, ValidationPipe } from '@nestjs/common';
 import { AppModule } from './app/app.module';
 import { SwaggerPlugin } from './plugins/swagger.plugin';
 import { SendGridPlugin } from './plugins/sendgrid.plugin';
+import { json, urlencoded } from 'express';
 // #endregion
 
 async function bootstrap(): Promise<void> {
@@ -16,6 +17,11 @@ async function bootstrap(): Promise<void> {
 
   app.setGlobalPrefix(prefix);
   app.useGlobalPipes(new ValidationPipe({ whitelist: true, transform: true }));
+
+  app.enableCors();
+
+  app.use(json({ limit: '50mb' }));
+  app.use(urlencoded({ extended: true, limit: '50mb' }));
 
   SwaggerPlugin.init(app, prefix);
   SendGridPlugin.init();

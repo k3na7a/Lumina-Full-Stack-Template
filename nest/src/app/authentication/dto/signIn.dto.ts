@@ -4,10 +4,10 @@ import { IsEmail, IsNotEmpty, IsString } from 'class-validator';
 export class SignInDto {
   @ApiProperty()
   @IsEmail()
-  public email!: string;
+  public readonly email!: string;
 
   @ApiProperty()
   @IsString()
   @IsNotEmpty()
-  public password!: string;
+  public readonly password!: string;
 }

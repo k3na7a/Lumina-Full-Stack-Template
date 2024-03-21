@@ -1,6 +1,13 @@
 <script setup lang="ts">
-import { reactive, computed } from 'vue'
+import { reactive, computed, onMounted } from 'vue'
 import { useTestStore } from './store/test.store'
+import { LocalhostAPI } from './helpers/apis/localhost.api'
+
+onMounted(async () => {
+  await LocalhostAPI.authentication.signIn({ email: '', password: '' }).catch((e: Error) => {
+    console.log(e)
+  })
+})
 
 const store = useTestStore()
 

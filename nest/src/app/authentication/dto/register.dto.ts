@@ -6,12 +6,12 @@ import { PasswordValidation } from 'src/library/regex/validation.regex';
 export class RegisterDto {
   @ApiProperty()
   @IsEmail()
-  public email!: string;
+  public readonly email!: string;
 
   @ApiProperty()
   @IsString()
   @Matches(PasswordValidation.regex, {
     message: PasswordValidation.message,
   })
-  public password!: string;
+  public readonly password!: string;
 }
