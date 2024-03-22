@@ -17,13 +17,14 @@ import {
   ApiBearerAuth,
 } from '@nestjs/swagger';
 // PROJECT IMPORTS
-import { AuthService } from './auth.service';
-import { RegisterDto } from './dto/register.dto';
-import { JWTDto } from './dto/jwt.dto';
-import { SignInDto } from './dto/signIn.dto';
-import { LocalAuthGuard } from './guards/localAuth.guard';
-import { UserEntity } from '../models/users/entities/user.entity';
-import { RefreshTokenGuard } from './guards/refreshtoken.guard';
+import { AuthService } from '../services/auth.service';
+import { RegisterDto } from '../dto/register.dto';
+import { JWTDto } from '../dto/jwt.dto';
+import { SignInDto } from '../dto/signIn.dto';
+import { LocalAuthGuard } from '../guards/localAuth.guard';
+import { UserEntity } from '../../models/users/entities/user.entity';
+import { RefreshTokenGuard } from '../guards/refreshtoken.guard';
+import { RefreshTokenRequest } from '../interfaces/refreshToken.interface';
 // #endregion
 
 @ApiTags('Authentication')
@@ -54,7 +55,15 @@ export class AuthController {
   @ApiBearerAuth('access-token')
   @UseGuards(RefreshTokenGuard)
   @ApiOkResponse({ type: JWTDto })
-  async signOut(): Promise<string> {
-    return 'HELLO THIS IS A TEST';
+  async signOut(@Request() { user }: RefreshTokenRequest): Promise<JWTDto> {
+    return this.authService.signOut(user.userEntity);
+  }
+
+  @Post('/verify-token')
+  @ApiBearerAuth('access-token')
+  @UseGuards(RefreshTokenGuard)
+  @ApiOkResponse({ type: JWTDto })
+  async verifyToken(@Request() { user }: RefreshTokenRequest): Promise<JWTDto> {
+    return this.authService.verifyToken(user.userEntity);
   }
 }

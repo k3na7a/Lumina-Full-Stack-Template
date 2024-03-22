@@ -15,8 +15,9 @@ async function bootstrap(): Promise<void> {
 
   Router.init(app, routes)
   I18n.init(app)
-  Pinia.init(app)
   FontAwesome.init(app)
+
+  await Pinia.init(app)
 
   app.mount('#app')
 }

@@ -16,7 +16,7 @@ export class UserEntity extends BaseEntity {
   @Exclude()
   public password: string;
 
-  @Column({ default: null })
+  @Column({ type: 'text', nullable: true, default: null })
   @Exclude()
-  public refreshToken: string;
+  public refreshToken!: string | null;
 }

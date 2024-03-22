@@ -3,12 +3,14 @@
 import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import * as bcrypt from 'bcrypt';
+
+import { createHmac } from 'node:crypto';
 // PROJECT IMPORTS
-import { RegisterDto } from './dto/register.dto';
-import { UserEntity } from '../models/users/entities/user.entity';
-import { UserService } from '../models/users/users.service';
-import { Payload } from './interfaces/payload.interface';
-import { JWTInterface, JWTDto } from './dto/jwt.dto';
+import { RegisterDto } from '../dto/register.dto';
+import { UserEntity } from '../../models/users/entities/user.entity';
+import { UserService } from '../../models/users/services/users.service';
+import { Payload } from '../interfaces/payload.interface';
+import { JWTInterface, JWTDto } from '../dto/jwt.dto';
 // #endregion
 
 @Injectable()
@@ -33,9 +35,14 @@ export class AuthService {
     return { access_token, refresh_token };
   }
 
-  private async refreshTokens(id: string, token: string): Promise<UserEntity> {
-    const salt = await bcrypt.genSalt();
-    const hash = await bcrypt.hash(token, salt);
+  private async refreshTokens(
+    id: string,
+    token: string | null,
+  ): Promise<UserEntity> {
+    if (!token) return this.userService.update(id, { refreshToken: null });
+
+    const hmac = createHmac('sha256', process.env.CRYPTO_SECRET || '');
+    const hash = hmac.update(token).digest('hex');
 
     return this.userService.update(id, {
       refreshToken: hash,
@@ -65,6 +72,19 @@ export class AuthService {
   }
 
   public async signIn(user: UserEntity): Promise<JWTDto> {
+    const payload: Payload = { email: user.email, sub: user.$id };
+    const tokens: JWTInterface = await this.getTokens(payload);
+
+    await this.refreshTokens(user.$id, tokens.refresh_token);
+    return new JWTDto(tokens);
+  }
+
+  public async signOut(user: UserEntity): Promise<JWTDto> {
+    await this.refreshTokens(user.$id, null);
+    return new JWTDto({ refresh_token: null, access_token: null });
+  }
+
+  public async verifyToken(user: UserEntity): Promise<JWTDto> {
     const payload: Payload = { email: user.email, sub: user.$id };
     const tokens: JWTInterface = await this.getTokens(payload);
 

@@ -10,8 +10,8 @@ import {
 } from '@nestjs/common';
 import { ApiBearerAuth, ApiOkResponse, ApiTags } from '@nestjs/swagger';
 // PROJECT IMPORTS
-import { UserService } from './users.service';
-import { UserEntity } from './entities/user.entity';
+import { UserService } from '../services/users.service';
+import { UserEntity } from '../entities/user.entity';
 import { RefreshTokenGuard } from 'src/app/authentication/guards/refreshtoken.guard';
 import { RefreshTokenRequest } from 'src/app/authentication/interfaces/refreshToken.interface';
 // #endregion
@@ -23,10 +23,10 @@ import { RefreshTokenRequest } from 'src/app/authentication/interfaces/refreshTo
 export class UserController {
   constructor(private readonly userService: UserService) {}
 
-  @Get('/me')
+  @Get('')
   @ApiOkResponse({ type: UserEntity })
   @UseGuards(RefreshTokenGuard)
   async getMe(@Request() req: RefreshTokenRequest): Promise<UserEntity> {
-    return req.user;
+    return req.user.userEntity;
   }
 }

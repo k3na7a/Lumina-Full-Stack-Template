@@ -3,10 +3,11 @@ import { ExtractJwt, Strategy } from 'passport-jwt';
 import { Injectable, UnauthorizedException } from '@nestjs/common';
 
 import { Request } from 'express';
-import * as bcrypt from 'bcrypt';
+// import * as bcrypt from 'bcrypt';
 
-import { UserService } from 'src/app/models/users/users.service';
+import { UserService } from 'src/app/models/users/services/users.service';
 import { Payload } from '../interfaces/payload.interface';
+import { createHmac } from 'node:crypto';
 
 @Injectable()
 class RefreshTokenStrategy extends PassportStrategy(Strategy, 'jwt-refresh') {
@@ -22,18 +23,15 @@ class RefreshTokenStrategy extends PassportStrategy(Strategy, 'jwt-refresh') {
     const refreshToken = req.get('Authorization')?.replace('Bearer', '').trim();
     const user = await this.usersService.findOneByEmail(payload.email);
 
-    console.log(payload);
-
     if (!user || !user.refreshToken || !refreshToken)
       throw new UnauthorizedException();
 
-    const isMatch: boolean = user
-      ? await bcrypt.compare(refreshToken, user.refreshToken)
-      : false;
+    const hmac = createHmac('sha256', process.env.CRYPTO_SECRET || '');
+    const hash = hmac.update(refreshToken).digest('hex');
 
-    if (!isMatch) throw new UnauthorizedException();
+    if (hash !== user.refreshToken) throw new UnauthorizedException();
 
-    return { ...payload, user, refreshToken };
+    return { ...payload, userEntity: user, refreshToken };
   }
 }
 

@@ -1,10 +1,14 @@
 import { UserEntity } from 'src/app/models/users/entities/user.entity';
 
-export interface RefreshTokenRequest {
+interface user {
   email: string;
   sub: string;
   iat: number;
   exp: number;
-  user: UserEntity;
+  userEntity: UserEntity;
   refreshToken: string;
+}
+
+export interface RefreshTokenRequest {
+  user: user;
 }

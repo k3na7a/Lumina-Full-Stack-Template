@@ -13,6 +13,12 @@ class authentication {
     this.$token = token
   }
 
+  public readonly register = async (payload: { email: string; password: string }): Promise<JWTDto> => {
+    return this.$api
+      .put<JWTDto>('auth/register', payload)
+      .then((response: AxiosResponse) => new JWTDto(response['data']))
+  }
+
   public readonly signIn = async (payload: { email: string; password: string }): Promise<JWTDto> => {
     return this.$api
       .post<JWTDto>('auth/sign-in', payload)
@@ -21,7 +27,13 @@ class authentication {
 
   public readonly signOut = async (): Promise<JWTDto> => {
     return this.$api
-      .post<JWTDto>('auth/sign-out', null, AxiosService.requestConfig({ token: this.$token.getItem() }))
+      .post<JWTDto>('auth/sign-out', {}, AxiosService.requestConfig({ token: this.$token.getItem() }))
+      .then((response: AxiosResponse) => new JWTDto(response['data']))
+  }
+
+  public readonly verifyToken = async (): Promise<JWTDto> => {
+    return this.$api
+      .post<JWTDto>('auth/verify-token', {}, AxiosService.requestConfig({ token: this.$token.getItem() }))
       .then((response: AxiosResponse) => new JWTDto(response['data']))
   }
 }

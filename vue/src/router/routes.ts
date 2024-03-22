@@ -10,7 +10,7 @@ export const routes: RouteRecordRaw[] = [
       {
         path: '/home',
         name: 'home',
-        component: () => import('@/App.vue'),
+        component: () => import('@/views/app/App.vue'),
         meta: {
           pageTitle: 'Home',
           breadcrumbs: ['Home']

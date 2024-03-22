@@ -5,9 +5,9 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import * as bcrypt from 'bcrypt';
 // PROJECT IMPORTS
-import { UserEntity } from './entities/user.entity';
-import { CreateUserInterface } from './interfaces/create.interface';
-import { UpdateUserInterface } from './interfaces/update.interface';
+import { UserEntity } from '../entities/user.entity';
+import { CreateUserInterface } from '../interfaces/create.interface';
+import { UpdateUserInterface } from '../interfaces/update.interface';
 // #endregion
 
 @Injectable()

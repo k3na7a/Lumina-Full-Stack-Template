@@ -1,8 +1,7 @@
 import { AxiosRequestConfig } from 'axios'
 
-type IContentType = 'application/json'
 interface IRequestConfig {
-  content?: IContentType
+  content?: string
   token?: string | null
   params?: Object
 }
