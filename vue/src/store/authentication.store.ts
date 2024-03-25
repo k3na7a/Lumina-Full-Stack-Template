@@ -5,10 +5,6 @@ import { Store, StoreDefinition, defineStore } from 'pinia'
 
 type credentials = { email: string; password: string }
 
-function sleep(ms: number): Promise<void> {
-  return new Promise((resolve) => setTimeout(resolve, ms))
-}
-
 interface IAuthState {
   $authenticated: boolean
   $user: UserDto | undefined
@@ -19,6 +15,7 @@ interface AuthGetters {
 }
 interface AuthActions {
   init(): Promise<void>
+  register(props: credentials): Promise<void>
   singIn(props: credentials): Promise<void>
   signOut(): Promise<void>
 }
@@ -41,12 +38,21 @@ const useAuthStore: StoreDef = defineStore({
   actions: {
     // since we rely on `this`, we cannot use an arrow function
     async init(): Promise<void> {
-      const token = TOKEN.getItem<string>()
-      if (!token) return
+      if (!TOKEN.getItem()) return
 
       const new_token = await API.authentication.verifyToken()
 
       TOKEN.saveItem(new_token.token)
+
+      const user = await API.users.getMe()
+
+      this.$user = user
+      this.$authenticated = true
+    },
+    async register(props: credentials): Promise<void> {
+      const dto = await API.authentication.register(props)
+
+      TOKEN.saveItem(dto.token)
 
       const user = await API.users.getMe()
 

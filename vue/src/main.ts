@@ -13,11 +13,11 @@ import { routes } from './router/routes'
 async function bootstrap(): Promise<void> {
   const app = createApp(App)
 
+  await Pinia.init(app)
+
   Router.init(app, routes)
   I18n.init(app)
   FontAwesome.init(app)
-
-  await Pinia.init(app)
 
   app.mount('#app')
 }
