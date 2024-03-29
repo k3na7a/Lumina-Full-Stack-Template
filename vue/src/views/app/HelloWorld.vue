@@ -1,5 +1,7 @@
 <script setup lang="ts">
+// import { useModalStore } from '@/store/modal.store'
 import { useToastStore } from '@/store/toast.store'
+// import { markRaw } from 'vue'
 import {
   reactive,
   // computed,
@@ -11,15 +13,26 @@ import { RouteLocationNormalizedLoaded } from 'vue-router'
 // import { useAuthStore } from '@/store/authentication.store'
 import { useRoute } from 'vue-router'
 
+// import GenericModalComponent from '@/components/modal/templates/generic.modal.vue'
+
 // const store = useAuthStore()
 const route: RouteLocationNormalizedLoaded = useRoute()
 
 const toastStore = useToastStore()
 
+// const modalStore = useModalStore()
+
 // const authenticated = computed<boolean>(() => store.isAuthenticated)
 
 function init() {
   toastStore.addToast({ title: 'Hello World', body: 'This is a toast message' })
+  // modalStore.openModal({
+  //   title: 'TEST MODAL',
+  //   view: markRaw(GenericModalComponent),
+  //   properties: {
+  //     text: 'THIS IS A TEST'
+  //   }
+  // })
 }
 
 onMounted(async () => {
@@ -46,8 +59,10 @@ const state = reactive<{
 
   {{ route.meta.pageTitle }}
 
-  <div class="card">
-    <button type="button" @click="init" class="btn btn-primary">count is {{ state.count }}</button>
+  {{ state.count }}
+
+  <div class="card p-2">
+    <button type="button" @click="init" class="btn btn-primary rounded-0">count is {{ state.count }}</button>
     <p>
       Edit
       <code>components/HelloWorld.vue</code> to test HMR

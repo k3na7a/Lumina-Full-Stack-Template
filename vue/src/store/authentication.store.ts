@@ -1,5 +1,5 @@
-import { UserDto } from '@/helpers/apis/dto/user.dto'
-import { LocalhostAPI as API, TOKEN_ID } from '@/helpers/apis/localhost.api'
+import { UserDto } from '@/helpers/apis/localhost/dto/user.dto'
+import { LocalhostAPI as API, TOKEN_ID } from '@/helpers/apis'
 import { useLocalStorageUtil } from '@/helpers/utils/local-storage.util'
 import { Store, StoreDefinition, defineStore } from 'pinia'
 
@@ -36,17 +36,14 @@ const useAuthStore: StoreDef = defineStore({
     authenticatedUser: (state: IAuthState): UserDto | undefined => state.$user
   },
   actions: {
-    // since we rely on `this`, we cannot use an arrow function
     async init(): Promise<void> {
       if (!TOKEN.getItem()) return
 
-      const new_token = await API.authentication.verifyToken()
+      const dto = await API.authentication.verifyToken()
 
-      TOKEN.saveItem(new_token.token)
+      TOKEN.saveItem(dto.token)
 
-      const user = await API.users.getMe()
-
-      this.$user = user
+      this.$user = dto.user
       this.$authenticated = true
     },
     async register(props: credentials): Promise<void> {
@@ -54,9 +51,7 @@ const useAuthStore: StoreDef = defineStore({
 
       TOKEN.saveItem(dto.token)
 
-      const user = await API.users.getMe()
-
-      this.$user = user
+      this.$user = dto.user
       this.$authenticated = true
     },
     async singIn(props: credentials): Promise<void> {
@@ -64,9 +59,7 @@ const useAuthStore: StoreDef = defineStore({
 
       TOKEN.saveItem(dto.token)
 
-      const user = await API.users.getMe()
-
-      this.$user = user
+      this.$user = dto.user
       this.$authenticated = true
     },
     async signOut(): Promise<void> {

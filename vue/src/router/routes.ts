@@ -15,15 +15,15 @@ export const routes: RouteRecordRaw[] = [
           pageTitle: 'Home',
           breadcrumbs: ['Home']
         }
+      },
+      {
+        path: '/sign-in',
+        name: 'sign-in',
+        meta: {
+          guest: true
+        },
+        component: () => import('@/views/app/singIn.vue')
       }
     ]
-  },
-  {
-    path: '/sign-in',
-    name: 'sign-in',
-    meta: {
-      guest: true
-    },
-    component: () => import('@/views/app/singIn.vue')
   }
 ]

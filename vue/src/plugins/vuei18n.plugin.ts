@@ -3,8 +3,8 @@ import { I18nOptions, createI18n } from 'vue-i18n'
 
 import { ILocalStorageUtil, useLocalStorageUtil } from '../helpers/utils/local-storage.util'
 
-import en from '../assets/locales/en/en.json'
-import fr from '../assets/locales/fr/fr.json'
+import en from '@@/public/locales/en/en.json'
+import fr from '@@/public/locales/fr/fr.json'
 
 const TOKEN: string = 'i18n-locale'
 type locales = 'en' | 'fr'

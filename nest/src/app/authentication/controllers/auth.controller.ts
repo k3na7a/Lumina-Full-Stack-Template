@@ -25,6 +25,7 @@ import { LocalAuthGuard } from '../guards/localAuth.guard';
 import { UserEntity } from '../../models/users/entities/user.entity';
 import { RefreshTokenGuard } from '../guards/refreshtoken.guard';
 import { RefreshTokenRequest } from '../interfaces/refreshToken.interface';
+import { ForgotPasswordDto } from '../dto/forgotPassword.dto';
 // #endregion
 
 @ApiTags('Authentication')
@@ -44,18 +45,20 @@ export class AuthController {
   @ApiBody({ type: SignInDto })
   @ApiOkResponse({ type: JWTDto })
   @UseGuards(LocalAuthGuard)
-  async signIn(
-    @Request()
-    { user }: { user: UserEntity },
-  ): Promise<JWTDto> {
+  async signIn(@Request() { user }: { user: UserEntity }): Promise<JWTDto> {
     return this.authService.signIn(user);
+  }
+
+  @Post('/forgot-password')
+  @ApiBody({ type: ForgotPasswordDto })
+  async forgotPassword(@Body() dto: ForgotPasswordDto): Promise<any> {
+    return this.authService.forgotPassword(dto.email);
   }
 
   @Post('/sign-out')
   @ApiBearerAuth('access-token')
   @UseGuards(RefreshTokenGuard)
-  @ApiOkResponse({ type: JWTDto })
-  async signOut(@Request() { user }: RefreshTokenRequest): Promise<JWTDto> {
+  async signOut(@Request() { user }: RefreshTokenRequest): Promise<void> {
     return this.authService.signOut(user.userEntity);
   }
 

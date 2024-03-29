@@ -1,0 +1,19 @@
+#wrapper {
+  margin-top: map-get($header-config, height, desktop);
+}
+
+#footer {
+  font-size: 0.75rem !important;
+}
+
+@include media-breakpoint-up(lg) {
+  #wrapper {
+    padding: map-get($content-spacing, desktop);
+  }
+}
+
+@include media-breakpoint-down(lg) {
+  #wrapper {
+    padding: map-get($content-spacing, tablet-and-mobile);
+  }
+}

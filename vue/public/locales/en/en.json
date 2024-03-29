@@ -1,0 +1,8 @@
+{
+  "message": {
+    "hello": "Hello World!"
+  },
+  "footer": {
+    "legal": "© {year} John Desjardins {'|'} All Rights Reserved"
+  }
+}

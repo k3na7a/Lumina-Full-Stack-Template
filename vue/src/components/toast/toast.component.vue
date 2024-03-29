@@ -13,7 +13,7 @@ const toasts: ComputedRef<Toast[]> = computed<Toast[]>(() => store.getToasts)
         v-for="(toast, _index) of toasts"
         :id="`${toast.id}`"
         :key="toast.id"
-        class="toast d-block align-items-center text-bg-primary rounded-0 border border-black"
+        class="toast d-block align-items-center text-bg-primary rounded-0 border border-dark"
         role="alert"
       >
         <div class="d-flex">
@@ -25,21 +25,9 @@ const toasts: ComputedRef<Toast[]> = computed<Toast[]>(() => store.getToasts)
             :key="toast.id"
             type="button"
             class="btn-close btn-close me-2 m-auto"
-            v-on:click="(_$event: MouseEvent) => store.removeToast(toast.id)"
+            v-on:click="(_event: MouseEvent) => store.removeToast(toast.id)"
           />
         </div>
-        <!-- <TimerComponent :timeout="toast.timeout - 0.5" /> -->
-        <!-- <div class="toast-header">
-          <span class="me-auto fw-bold">{{ toast.id }}</span>
-          <span>{{ new Date(toast.id).toLocaleDateString() }}</span>
-          <button
-            :key="toast.id"
-            type="button"
-            class="btn-close btn-close-white"
-            v-on:click="(_$event: MouseEvent) => store.removeToast(toast.id)"
-          />
-        </div>
-        <div class="toast-body lext-align-start">{{ toast.body }}</div> -->
       </div>
     </TransitionGroup>
   </div>

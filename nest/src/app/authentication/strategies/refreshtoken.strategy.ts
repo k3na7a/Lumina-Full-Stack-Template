@@ -11,7 +11,7 @@ import { createHmac } from 'node:crypto';
 
 @Injectable()
 class RefreshTokenStrategy extends PassportStrategy(Strategy, 'jwt-refresh') {
-  constructor(private usersService: UserService) {
+  constructor(private readonly usersService: UserService) {
     super({
       jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
       secretOrKey: process.env.REFRESH_SECRET_KEY,
@@ -21,8 +21,8 @@ class RefreshTokenStrategy extends PassportStrategy(Strategy, 'jwt-refresh') {
 
   async validate(req: Request, payload: Payload) {
     const refreshToken = req.get('Authorization')?.replace('Bearer', '').trim();
-    const user = await this.usersService.findOneByEmail(payload.email);
 
+    const user = await this.usersService.findOneByEmail(payload.email);
     if (!user || !user.refreshToken || !refreshToken)
       throw new UnauthorizedException();
 

@@ -1,12 +1,5 @@
-<script setup lang="ts">
-import { useRoute } from 'vue-router'
-
-import ToastComponent from '@/components/toast/toast.component.vue'
-
-const route = useRoute()
-</script>
+<script setup lang="ts" />
 
 <template>
-  <RouterView :key="route.fullPath" />
-  <ToastComponent />
+  <RouterView />
 </template>

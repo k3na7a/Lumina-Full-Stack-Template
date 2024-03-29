@@ -1,4 +1,3 @@
-import { Palette } from '@/config/types/color.type'
 import { Store, StoreDefinition, defineStore } from 'pinia'
 
 const DEFAULT_TIMEOUT = 5
@@ -7,8 +6,6 @@ interface Toast {
   id: number
   title: string
   body: string
-  type?: Palette
-  timeout: number
   expire: NodeJS.Timeout
 }
 
@@ -23,7 +20,6 @@ interface NewToast {
 }
 
 interface ToastOptions {
-  type?: Palette
   timeout?: number
 }
 
@@ -53,10 +49,8 @@ const useToastStore: StoreDef = defineStore({
 
       this.$toasts.push({
         id,
-        type: options?.type || 'primary',
         title,
         body,
-        timeout: options?.timeout || DEFAULT_TIMEOUT,
         expire: setTimeout(this.removeToast, (options?.timeout || DEFAULT_TIMEOUT) * 1000, id)
       })
     },

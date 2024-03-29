@@ -1,0 +1,11 @@
+#modal {
+  & .modal-content {
+    background-color: $backgroundLight;
+    box-shadow: $boxShadow;
+  }
+
+  pointer-events: none;
+
+  backdrop-filter: blur(3px);
+  background-color: rgba(0, 0, 0, 0.5);
+}
