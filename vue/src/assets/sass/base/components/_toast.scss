@@ -1,0 +1,8 @@
+.toast-container {
+  backface-visibility: hidden;
+}
+
+.toast {
+  box-shadow: $boxShadow;
+  background-color: $primary;
+}

@@ -4,6 +4,7 @@ import {
   Body,
   ClassSerializerInterceptor,
   Controller,
+  Patch,
   Post,
   Put,
   Request,
@@ -26,6 +27,9 @@ import { UserEntity } from '../../models/users/entities/user.entity';
 import { RefreshTokenGuard } from '../guards/refreshtoken.guard';
 import { RefreshTokenRequest } from '../interfaces/refreshToken.interface';
 import { ForgotPasswordDto } from '../dto/forgotPassword.dto';
+import { AccessTokenGuard } from '../guards/accesstoken.guard';
+import { AccessTokenRequest } from '../interfaces/accessToken.interface';
+import { ResetPasswordDto } from '../dto/resetPassword.dto';
 // #endregion
 
 @ApiTags('Authentication')
@@ -68,5 +72,16 @@ export class AuthController {
   @ApiOkResponse({ type: JWTDto })
   async verifyToken(@Request() { user }: RefreshTokenRequest): Promise<JWTDto> {
     return this.authService.verifyToken(user.userEntity);
+  }
+
+  @Patch('/reset-password')
+  @ApiBearerAuth('access-token')
+  @UseGuards(AccessTokenGuard)
+  @ApiBody({ type: ResetPasswordDto })
+  async resetPassword(
+    @Request() { user }: AccessTokenRequest,
+    @Body() { confirm_password }: ResetPasswordDto,
+  ) {
+    return this.authService.resetPassword(user.userEntity, confirm_password);
   }
 }

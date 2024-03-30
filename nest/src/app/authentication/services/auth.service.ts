@@ -131,7 +131,6 @@ export class AuthService {
     const payload: Payload = { email: user.email, sub: user.$id };
     const tokens: JWTInterface = await this.getTokens(payload);
 
-    const template = ForgotPasswordEmailBody;
     const data: ForgotPasswordOptions = {
       name: user.email,
       email: user.email,
@@ -142,9 +141,19 @@ export class AuthService {
       to: [user.email],
       subject: ForgotPasswordEmailSubject,
       html: HandlebarsPlugin.compile<ForgotPasswordOptions>({
-        template,
+        template: ForgotPasswordEmailBody,
         data,
       }),
     });
+  }
+
+  public async resetPassword(
+    user: UserEntity,
+    password: string,
+  ): Promise<void> {
+    const salt: string = await bcrypt.genSalt();
+    const hash: string = await bcrypt.hash(password, salt);
+
+    await this.userService.update(user.$id, { password: hash });
   }
 }

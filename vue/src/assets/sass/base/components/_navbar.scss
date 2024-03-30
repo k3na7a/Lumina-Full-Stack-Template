@@ -1,4 +1,4 @@
-.nav-header {
+#header {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -9,6 +9,8 @@
   position: fixed;
   height: map-get($header-config, height, desktop);
   z-index: map-get($header-config, z-index);
+
+  padding: 8px map-get($content-spacing, desktop);
 
   top: 0;
   right: 0;

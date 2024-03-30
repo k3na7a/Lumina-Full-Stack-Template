@@ -8,6 +8,7 @@ import { Request } from 'express';
 import { UserService } from 'src/app/models/users/services/users.service';
 import { Payload } from '../interfaces/payload.interface';
 import { createHmac } from 'node:crypto';
+import { UserEntity } from 'src/app/models/users/entities/user.entity';
 
 @Injectable()
 class RefreshTokenStrategy extends PassportStrategy(Strategy, 'jwt-refresh') {
@@ -19,7 +20,15 @@ class RefreshTokenStrategy extends PassportStrategy(Strategy, 'jwt-refresh') {
     });
   }
 
-  async validate(req: Request, payload: Payload) {
+  async validate(
+    req: Request,
+    payload: Payload,
+  ): Promise<{
+    userEntity: UserEntity;
+    refreshToken: string;
+    email: string;
+    sub: string;
+  }> {
     const refreshToken = req.get('Authorization')?.replace('Bearer', '').trim();
 
     const user = await this.usersService.findOneByEmail(payload.email);

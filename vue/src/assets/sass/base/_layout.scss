@@ -2,7 +2,7 @@
   margin-top: map-get($header-config, height, desktop);
 }
 
-#footer {
+#footer-secondary {
   font-size: 0.75rem !important;
 }
 
@@ -10,10 +10,18 @@
   #wrapper {
     padding: map-get($content-spacing, desktop);
   }
+
+  .wrapper {
+    padding: 8px map-get($content-spacing, desktop);
+  }
 }
 
 @include media-breakpoint-down(lg) {
   #wrapper {
     padding: map-get($content-spacing, tablet-and-mobile);
+  }
+
+  .wrapper {
+    padding: 8px map-get($content-spacing, tablet-and-mobile);
   }
 }

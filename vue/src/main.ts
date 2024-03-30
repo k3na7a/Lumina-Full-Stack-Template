@@ -1,6 +1,6 @@
 import { createApp } from 'vue'
 
-import '@@/public/sass/style.scss'
+import '@/assets/sass/style.scss'
 
 import App from './views/App.view.vue'
 

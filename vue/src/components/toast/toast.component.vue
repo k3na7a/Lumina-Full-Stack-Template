@@ -13,31 +13,25 @@ const toasts: ComputedRef<Toast[]> = computed<Toast[]>(() => store.getToasts)
         v-for="(toast, _index) of toasts"
         :id="`${toast.id}`"
         :key="toast.id"
-        class="toast d-block align-items-center text-bg-primary rounded-0 border border-dark"
+        class="toast d-block align-items-center rounded-0 border border-dark"
         role="alert"
       >
         <div class="d-flex">
-          <div class="toast-body">
-            <strong>{{ toast.title }}!</strong> {{ toast.body }}.
+          <div class="toast-body flex-grow-1">
+            <span class="text-dark"
+              ><strong>{{ toast.title }}!</strong> {{ toast.body }}.</span
+            >
           </div>
 
           <button
-            :key="toast.id"
             type="button"
-            class="btn-close btn-close me-2 m-auto"
-            v-on:click="(_event: MouseEvent) => store.removeToast(toast.id)"
-          />
+            class="btn btn-link link-dark link-opacity-75-hover p-0 px-2"
+            @click="(_event: MouseEvent) => store.removeToast(toast.id)"
+          >
+            <font-awesome-icon :icon="['fas', 'close']" />
+          </button>
         </div>
       </div>
     </TransitionGroup>
   </div>
 </template>
-
-<style>
-.toast-container {
-  backface-visibility: hidden;
-}
-.toast {
-  box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
-}
-</style>

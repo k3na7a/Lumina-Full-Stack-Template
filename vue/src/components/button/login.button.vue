@@ -18,5 +18,11 @@ const submit = (): void => {
 </script>
 
 <template>
-  <button type="button" class="btn btn-link p-0 rounded-0 text-decoration-none" @click="submit">Login</button>
+  <button
+    type="button"
+    class="btn btn-link link-light link-opacity-75-hover p-0 rounded-0 text-decoration-none"
+    @click="submit"
+  >
+    Login
+  </button>
 </template>

@@ -43,7 +43,7 @@ watch(isOpen, async (value: boolean, _prev: boolean): Promise<void> => {
       <div class="modal-content rounded-0 border border-dark">
         <div class="modal-header rounded-0 border-0 d-flex justify-content-between">
           <span class="modal-title fw-bold fs-6">{{ options.title }}</span>
-          <button type="button" class="btn btn-link link-light p-0" @click="store.closeModal">
+          <button type="button" class="btn btn-link link-light link-opacity-75-hover p-0" @click="store.closeModal">
             <font-awesome-icon :icon="['fas', 'close']" />
           </button>
         </div>
