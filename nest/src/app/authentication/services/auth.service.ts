@@ -23,6 +23,7 @@ import {
   options as ForgotPasswordOptions,
 } from 'src/library/templates/forgotPassword.template';
 import { HandlebarsPlugin } from 'src/plugins/handlebars.plugin';
+import { updatePasswordDto } from '../dto/updatePassword.dto';
 // #endregion
 
 @Injectable()
@@ -154,6 +155,60 @@ export class AuthService {
     const salt: string = await bcrypt.genSalt();
     const hash: string = await bcrypt.hash(password, salt);
 
-    await this.userService.update(user.$id, { password: hash });
+    await this.userService.update(user.$id, {
+      password: hash,
+      refreshToken: null,
+    });
+  }
+
+  public async updateEmail(
+    user: UserEntity,
+    { password, new_email }: { password: string; new_email: string },
+  ): Promise<JWTDto> {
+    await this.validateUser(user.email, password);
+
+    await this.userService.update(user.$id, { email: new_email });
+
+    const payload: Payload = { email: user.email, sub: user.$id };
+
+    const tokens: JWTInterface = await this.getTokens(payload);
+    const decoded = this.decodeToken(tokens.refresh_token);
+
+    await this.refreshTokens(user.$id, tokens.refresh_token);
+
+    return new JWTDto({
+      token: tokens.refresh_token,
+      iat: decoded.iat,
+      exp: decoded.exp,
+      user,
+    });
+  }
+
+  public async updatePassword(
+    user: UserEntity,
+    { old_password, new_password }: updatePasswordDto,
+  ): Promise<JWTDto> {
+    await this.validateUser(user.email, old_password);
+
+    const salt: string = await bcrypt.genSalt();
+    const hash: string = await bcrypt.hash(new_password, salt);
+
+    await this.userService.update(user.$id, {
+      password: hash,
+    });
+
+    const payload: Payload = { email: user.email, sub: user.$id };
+
+    const tokens: JWTInterface = await this.getTokens(payload);
+    const decoded = this.decodeToken(tokens.refresh_token);
+
+    await this.refreshTokens(user.$id, tokens.refresh_token);
+
+    return new JWTDto({
+      token: tokens.refresh_token,
+      iat: decoded.iat,
+      exp: decoded.exp,
+      user,
+    });
   }
 }
