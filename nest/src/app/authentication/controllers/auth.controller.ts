@@ -1,5 +1,3 @@
-// #region @imports
-// NODE IMPORTS
 import {
   Body,
   ClassSerializerInterceptor,
@@ -18,7 +16,7 @@ import {
   ApiTags,
   ApiBearerAuth,
 } from '@nestjs/swagger';
-// PROJECT IMPORTS
+
 import { AuthService } from '../services/auth.service';
 import { RegisterDto } from '../dto/register.dto';
 import { JWTDto } from '../dto/jwt.dto';
@@ -33,9 +31,9 @@ import { AccessTokenRequest } from '../interfaces/accessToken.interface';
 import { ResetPasswordDto } from '../dto/resetPassword.dto';
 import { updatePasswordDto } from '../dto/updatePassword.dto';
 import { updateEmailDto } from '../dto/updateEmail.dto';
-// #endregion
+import { deleteAccountDto } from '../dto/deleteAccount.dto';
 
-@ApiTags('Authentication')
+@ApiTags('Authentication (Self Management)')
 @Controller('auth')
 @UseInterceptors(ClassSerializerInterceptor)
 export class AuthController {
@@ -92,10 +90,11 @@ export class AuthController {
   @ApiBearerAuth('access-token')
   @UseGuards(RefreshTokenGuard)
   @ApiBody({ type: updateEmailDto })
+  @ApiOkResponse({ type: JWTDto })
   async updateEmail(
     @Request() { user }: RefreshTokenRequest,
     @Body() dto: updateEmailDto,
-  ) {
+  ): Promise<JWTDto> {
     return this.authService.updateEmail(user.userEntity, dto);
   }
 
@@ -103,17 +102,22 @@ export class AuthController {
   @ApiBearerAuth('access-token')
   @UseGuards(RefreshTokenGuard)
   @ApiBody({ type: updatePasswordDto })
+  @ApiOkResponse({ type: JWTDto })
   async updatePassword(
     @Request() { user }: RefreshTokenRequest,
     @Body() dto: updatePasswordDto,
-  ) {
+  ): Promise<JWTDto> {
     return this.authService.updatePassword(user.userEntity, dto);
   }
 
   @Delete('/delete-account')
   @ApiBearerAuth('access-token')
   @UseGuards(RefreshTokenGuard)
-  async deleteAccount(@Request() { user }: RefreshTokenRequest) {
-    
+  @ApiBody({ type: deleteAccountDto })
+  async deleteAccount(
+    @Request() { user }: RefreshTokenRequest,
+    @Body() dto: deleteAccountDto,
+  ): Promise<void> {
+    return this.authService.deleteAccount(user.userEntity, dto);
   }
 }

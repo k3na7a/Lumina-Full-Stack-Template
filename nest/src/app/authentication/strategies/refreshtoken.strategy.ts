@@ -3,7 +3,6 @@ import { ExtractJwt, Strategy } from 'passport-jwt';
 import { Injectable, UnauthorizedException } from '@nestjs/common';
 
 import { Request } from 'express';
-// import * as bcrypt from 'bcrypt';
 
 import { UserService } from 'src/app/models/users/services/users.service';
 import { Payload } from '../interfaces/payload.interface';

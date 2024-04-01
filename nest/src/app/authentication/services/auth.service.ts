@@ -1,5 +1,3 @@
-// #region @imports
-// NODE IMPORTS
 import {
   Injectable,
   NotFoundException,
@@ -7,9 +5,8 @@ import {
 } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import * as bcrypt from 'bcrypt';
-
 import { createHmac } from 'node:crypto';
-// PROJECT IMPORTS
+
 import { RegisterDto } from '../dto/register.dto';
 import { UserEntity } from '../../models/users/entities/user.entity';
 import { UserService } from '../../models/users/services/users.service';
@@ -24,7 +21,7 @@ import {
 } from 'src/library/templates/forgotPassword.template';
 import { HandlebarsPlugin } from 'src/plugins/handlebars.plugin';
 import { updatePasswordDto } from '../dto/updatePassword.dto';
-// #endregion
+import { deleteAccountDto } from '../dto/deleteAccount.dto';
 
 @Injectable()
 export class AuthService {
@@ -210,5 +207,14 @@ export class AuthService {
       exp: decoded.exp,
       user,
     });
+  }
+
+  public async deleteAccount(
+    user: UserEntity,
+    { password }: deleteAccountDto,
+  ): Promise<void> {
+    await this.validateUser(user.email, password);
+
+    await this.userService.remove(user.$id);
   }
 }

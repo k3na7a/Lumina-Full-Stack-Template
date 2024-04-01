@@ -1,8 +1,5 @@
-// #region @imports
-// # NODE IMPORTS
 import { INestApplication } from '@nestjs/common';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
-// #endregion
 
 const CONFIG = new DocumentBuilder()
   .setTitle('Nest Api Example')

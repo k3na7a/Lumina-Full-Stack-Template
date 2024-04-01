@@ -1,14 +1,12 @@
-// #region @imports
-// NODE IMPORTS
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import * as bcrypt from 'bcrypt';
-// PROJECT IMPORTS
+
 import { UserEntity } from '../entities/user.entity';
 import { CreateUserInterface } from '../interfaces/create.interface';
 import { UpdateUserInterface } from '../interfaces/update.interface';
-// #endregion
+
 
 @Injectable()
 export class UserService {
@@ -40,5 +38,11 @@ export class UserService {
     const user = await this.findOneById(id);
     if (!user) throw new NotFoundException();
     return this.userRepository.save({ ...user, ...dto });
+  }
+
+  public async remove(id: string): Promise<UserEntity> {
+    const user = await this.findOneById(id);
+    if (!user) throw new NotFoundException();
+    return this.userRepository.remove(user);
   }
 }

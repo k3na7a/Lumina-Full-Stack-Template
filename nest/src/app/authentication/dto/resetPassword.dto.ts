@@ -10,11 +10,11 @@ class ResetPasswordDto {
   @Matches(PasswordValidation.regex, {
     message: PasswordValidation.message,
   })
-  public readonly new_password: string;
+  public readonly new_password!: string;
 
   @ApiProperty()
   @Match(ResetPasswordDto, (s: ResetPasswordDto) => s.new_password)
-  public readonly confirm_password: string;
+  public readonly confirm_password!: string;
 }
 
 export { ResetPasswordDto };

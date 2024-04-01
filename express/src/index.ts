@@ -1,15 +1,15 @@
-import express, { Express, Request, Response } from 'express'
+import express, { type Express, type Request, type Response } from 'express'
 import dotenv from 'dotenv'
 import cors from 'cors'
 import compression from 'compression'
 import helmet from 'helmet'
 
-function bootstrap() {
+function bootstrap (): void {
   const app: Express = express()
 
   dotenv.config()
 
-  const port = process.env.PORT || 3000
+  const port = process.env.PORT
 
   app.use(cors())
   app.use(compression())
