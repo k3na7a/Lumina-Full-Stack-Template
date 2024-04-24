@@ -1,5 +1,6 @@
 import { TypeOrmModule, TypeOrmModuleOptions } from '@nestjs/typeorm';
 import { EntityClassOrSchema } from '@nestjs/typeorm/dist/interfaces/entity-class-or-schema.type';
+import { ProfileEntity } from 'src/app/models/users/entities/profile.entity';
 import { UserEntity } from 'src/app/models/users/entities/user.entity';
 
 const config: TypeOrmModuleOptions = {
@@ -9,7 +10,7 @@ const config: TypeOrmModuleOptions = {
   username: 'root',
   password: 'password',
   database: 'demo_nest_api',
-  entities: [UserEntity],
+  entities: [UserEntity, ProfileEntity],
   synchronize: true,
 };
 

@@ -1,37 +1,25 @@
 import { Store, StoreDefinition, defineStore } from 'pinia'
 
-import { Palette } from '@/config/types/color.type'
-
 interface Modal {
   isOpen: boolean
   options?: ModalOptions
 }
 
-type size = 'sm' | 'lg' | 'xl'
+type size = 'sm' | 'md' | 'lg' | 'xl'
 
 const DefaultModal: Modal = {
   isOpen: false,
   options: {
-    title: undefined,
     view: undefined,
-    actions: [],
-    size: 'sm',
+    size: 'md',
     properties: undefined
   }
 }
 
 interface ModalOptions {
-  title: string | undefined
   properties?: Object | undefined
   size?: size
   view: object | undefined
-  actions?: ModalAction[]
-}
-
-interface ModalAction {
-  label: string
-  type: Palette
-  callback: (props?: any) => Promise<void>
 }
 
 interface ModalStoreGetters {}
@@ -53,7 +41,7 @@ const useModalStore: StoreDef = defineStore({
       this.options = DefaultModal.options
     },
     openModal(options: ModalOptions): void {
-      this.options = options
+      this.options = { ...this.options, ...options }
       this.isOpen = true
     },
     closeModal(): void {
@@ -63,4 +51,4 @@ const useModalStore: StoreDef = defineStore({
 })
 
 export { useModalStore }
-export type { ModalStore, ModalOptions, ModalAction }
+export type { ModalStore, ModalOptions }

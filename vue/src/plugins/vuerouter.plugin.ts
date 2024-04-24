@@ -27,7 +27,7 @@ class VueRouterService {
     }
 
     this.$router.beforeEach(async (to, _from, next) => {
-      document.title = `${to.meta.pageTitle}`
+      document.title = `${to.meta.pageTitle} | ${process.env.TITLE}`
 
       if (to.matched.some((record) => record.meta['requiresAuth']) && !store.isAuthenticated)
         next({

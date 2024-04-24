@@ -7,7 +7,6 @@ import { UserEntity } from '../entities/user.entity';
 import { CreateUserInterface } from '../interfaces/create.interface';
 import { UpdateUserInterface } from '../interfaces/update.interface';
 
-
 @Injectable()
 export class UserService {
   constructor(
@@ -20,6 +19,7 @@ export class UserService {
     const hash: string = await bcrypt.hash(dto.password, salt);
 
     const user = this.userRepository.create({ ...dto, password: hash });
+
     return this.userRepository.save(user);
   }
 

@@ -5,12 +5,12 @@ export const routes: RouteRecordRaw[] = [
     path: '/',
     name: 'main',
     redirect: '/home',
-    component: () => import('@/layouts/base.layout.vue'),
+    component: () => import('@/components/layouts/main.layout.vue'),
     children: [
       {
         path: '/home',
         name: 'home',
-        component: () => import('@/views/app/App.vue'),
+        component: () => import('@/views/helloworld/App.vue'),
         meta: {
           pageTitle: 'Home',
           breadcrumbs: ['Home']
@@ -22,7 +22,7 @@ export const routes: RouteRecordRaw[] = [
         meta: {
           guest: true
         },
-        component: () => import('@/views/app/singIn.vue')
+        component: () => import('@/views/helloworld/SingIn.vue')
       }
     ]
   }

@@ -9,6 +9,20 @@ import fr from '@/assets/locales/fr/fr.json'
 const TOKEN: string = 'i18n-locale'
 type locales = 'en' | 'fr'
 
+type Ilocales = { [id: string]: { display: string; key: locales; flag: string } }
+const LOCALES: Ilocales = {
+  en: {
+    display: 'English',
+    key: 'en',
+    flag: '/media/flags/united-kingdom.svg'
+  },
+  fr: {
+    display: 'Français',
+    key: 'fr',
+    flag: '/media/flags/france.svg'
+  }
+}
+
 const config: I18nOptions = {
   legacy: true,
   fallbackLocale: 'en',
@@ -33,4 +47,5 @@ class I18nService {
   }
 }
 
-export { I18nService }
+export { I18nService, LOCALES }
+export type { locales }

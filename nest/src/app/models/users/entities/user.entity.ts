@@ -1,11 +1,10 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { Exclude } from 'class-transformer';
-
-import { Column } from 'typeorm/decorator/columns/Column';
-import { Entity } from 'typeorm/decorator/entity/Entity';
+import { OneToOne, Column, Entity, JoinColumn } from 'typeorm';
 
 import { BaseEntity } from 'src/library/entities/base.entity';
 import { Role } from 'src/library/enums/role.enum';
+import { ProfileEntity } from './profile.entity';
 
 @Entity()
 export class UserEntity extends BaseEntity {
@@ -13,9 +12,7 @@ export class UserEntity extends BaseEntity {
   @Column({ unique: true })
   public readonly email!: string;
 
-  @Column()
-  @Exclude()
-  public readonly password!: string;
+  @Column() @Exclude() public readonly password!: string;
 
   @ApiProperty({ enum: Role })
   @Column({
@@ -23,9 +20,21 @@ export class UserEntity extends BaseEntity {
     enum: Role,
     default: Role.USER,
   })
-  public readonly role: Role;
+  public readonly role!: Role;
 
   @Column({ type: 'text', nullable: true, default: null })
   @Exclude()
   public readonly refreshToken!: string | null;
+
+  @ApiProperty({ type: () => ProfileEntity })
+  @JoinColumn()
+  @OneToOne(() => ProfileEntity, {
+    cascade: true,
+    eager: true,
+  })
+  public readonly profile!: ProfileEntity;
+
+  public getFullName(): string {
+    return [this.profile.name.first, this.profile.name.last].join(' ');
+  }
 }

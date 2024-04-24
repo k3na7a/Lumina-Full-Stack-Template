@@ -1,0 +1,19 @@
+@include media-breakpoint-up(lg) {
+  #wrapper {
+    padding: map-get($content-spacing, desktop);
+  }
+
+  .wrapper {
+    padding: 8px map-get($content-spacing, desktop);
+  }
+}
+
+@include media-breakpoint-down(lg) {
+  #wrapper {
+    padding: map-get($content-spacing, tablet-and-mobile);
+  }
+
+  .wrapper {
+    padding: 8px map-get($content-spacing, tablet-and-mobile);
+  }
+}
