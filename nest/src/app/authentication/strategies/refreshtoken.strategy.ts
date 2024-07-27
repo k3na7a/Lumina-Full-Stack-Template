@@ -5,9 +5,9 @@ import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { Request } from 'express';
 
 import { UserService } from 'src/app/models/users/services/users.service';
-import { Payload } from '../interfaces/payload.interface';
 import { createHmac } from 'node:crypto';
-import { UserEntity } from 'src/app/models/users/entities/user.entity';
+import { UserEntity } from 'src/library/entities/user.entity';
+import { Payload } from 'src/library/interfaces/payload.interface';
 
 @Injectable()
 class RefreshTokenStrategy extends PassportStrategy(Strategy, 'jwt-refresh') {

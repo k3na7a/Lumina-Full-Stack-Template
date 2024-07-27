@@ -7,11 +7,10 @@ import { JwtService } from '@nestjs/jwt';
 import * as bcrypt from 'bcrypt';
 import { createHmac } from 'node:crypto';
 
-import { RegisterDto } from '../dto/register.dto';
-import { UserEntity } from '../../models/users/entities/user.entity';
+import { RegisterDto } from 'src/library/dto/register.dto';
 import { UserService } from '../../models/users/services/users.service';
-import { Payload } from '../interfaces/payload.interface';
-import { JWTInterface, JWTDto, DecodedJWT } from '../dto/jwt.dto';
+import { Payload } from '../../../library/interfaces/payload.interface';
+import { JWTInterface, JWTDto, DecodedJWT } from 'src/library/dto/jwt.dto';
 import { SendGridPlugin } from 'src/plugins/sendgrid.plugin';
 
 import {
@@ -20,13 +19,17 @@ import {
   options as ForgotPasswordOptions,
 } from 'src/library/templates/forgotPassword.template';
 import { HandlebarsPlugin } from 'src/plugins/handlebars.plugin';
-import { updatePasswordDto } from '../dto/updatePassword.dto';
-import { deleteAccountDto } from '../dto/deleteAccount.dto';
+import { updatePasswordDto } from 'src/library/dto/updatePassword.dto';
+import { deleteAccountDto } from 'src/library/dto/deleteAccount.dto';
+import { UserEntity } from 'src/library/entities/user.entity';
+import { CreateUserProfile } from 'src/library/interfaces/user.interfaces';
+import { UserProfileService } from 'src/app/models/users/services/profile.service';
 
 @Injectable()
 export class AuthService {
   constructor(
     private readonly userService: UserService,
+    private readonly userProfileService: UserProfileService,
     private readonly jwtService: JwtService,
   ) {}
 
@@ -74,33 +77,11 @@ export class AuthService {
   public async register(dto: RegisterDto): Promise<JWTDto> {
     const user: UserEntity = await this.userService.create(dto);
 
-    const payload: Payload = { email: user.email, sub: user.$id };
-    const tokens: JWTInterface = await this.getTokens(payload);
-
-    const decoded = this.decodeToken(tokens.refresh_token);
-
-    await this.refreshTokens(user.$id, tokens.refresh_token);
-    return new JWTDto({
-      token: tokens.refresh_token,
-      iat: decoded.iat,
-      exp: decoded.exp,
-      user,
-    });
+    return this.verifyToken(user);
   }
 
   public async signIn(user: UserEntity): Promise<JWTDto> {
-    const payload: Payload = { email: user.email, sub: user.$id };
-    const tokens: JWTInterface = await this.getTokens(payload);
-
-    const decoded = this.decodeToken(tokens.refresh_token);
-
-    await this.refreshTokens(user.$id, tokens.refresh_token);
-    return new JWTDto({
-      token: tokens.refresh_token,
-      iat: decoded.iat,
-      exp: decoded.exp,
-      user,
-    });
+    return this.verifyToken(user);
   }
 
   public async signOut(user: UserEntity): Promise<void> {
@@ -114,6 +95,7 @@ export class AuthService {
     const decoded = this.decodeToken(tokens.refresh_token);
 
     await this.refreshTokens(user.$id, tokens.refresh_token);
+
     return new JWTDto({
       token: tokens.refresh_token,
       iat: decoded.iat,
@@ -164,21 +146,23 @@ export class AuthService {
   ): Promise<JWTDto> {
     await this.validateUser(user.email, password);
 
-    await this.userService.update(user.$id, { email: new_email });
-
-    const payload: Payload = { email: user.email, sub: user.$id };
-
-    const tokens: JWTInterface = await this.getTokens(payload);
-    const decoded = this.decodeToken(tokens.refresh_token);
-
-    await this.refreshTokens(user.$id, tokens.refresh_token);
-
-    return new JWTDto({
-      token: tokens.refresh_token,
-      iat: decoded.iat,
-      exp: decoded.exp,
-      user,
+    const new_user = await this.userService.update(user.$id, {
+      email: new_email,
     });
+
+    return this.verifyToken(new_user);
+  }
+
+  public async updateProfile(
+    user: UserEntity,
+    profile: CreateUserProfile,
+  ): Promise<JWTDto> {
+    await this.userProfileService.update(user.profile.$id, profile);
+
+    const new_user = await this.userService.findOneById(user.$id);
+    if (!new_user) throw new NotFoundException();
+
+    return this.verifyToken(new_user);
   }
 
   public async updatePassword(
@@ -190,23 +174,11 @@ export class AuthService {
     const salt: string = await bcrypt.genSalt();
     const hash: string = await bcrypt.hash(new_password, salt);
 
-    await this.userService.update(user.$id, {
+    const new_user = await this.userService.update(user.$id, {
       password: hash,
     });
 
-    const payload: Payload = { email: user.email, sub: user.$id };
-
-    const tokens: JWTInterface = await this.getTokens(payload);
-    const decoded = this.decodeToken(tokens.refresh_token);
-
-    await this.refreshTokens(user.$id, tokens.refresh_token);
-
-    return new JWTDto({
-      token: tokens.refresh_token,
-      iat: decoded.iat,
-      exp: decoded.exp,
-      user,
-    });
+    return this.verifyToken(new_user);
   }
 
   public async deleteAccount(

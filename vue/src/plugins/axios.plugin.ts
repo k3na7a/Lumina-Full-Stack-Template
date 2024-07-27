@@ -19,3 +19,4 @@ class AxiosService {
 }
 
 export { AxiosService }
+export type { IRequestConfig }

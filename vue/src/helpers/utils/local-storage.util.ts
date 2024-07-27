@@ -1,4 +1,4 @@
-interface ILocalStorageUtil {
+type ILocalStorageUtil = {
   getItem: <T>() => T | null
   saveItem: <T>(data: T) => void
   destroyItem: () => void

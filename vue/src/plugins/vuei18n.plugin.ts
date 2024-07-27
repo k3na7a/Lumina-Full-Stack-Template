@@ -1,20 +1,27 @@
 import { App } from 'vue'
 import { I18nOptions, createI18n } from 'vue-i18n'
 
-import { ILocalStorageUtil, useLocalStorageUtil } from '../helpers/utils/local-storage.util'
+import { ILocalStorageUtil, useLocalStorageUtil } from '@/helpers/utils/local-storage.util'
 
-import en from '@/assets/locales/en/en.json'
-import fr from '@/assets/locales/fr/fr.json'
+import en from '@/library/locales/en/en.json'
+import es from '@/library/locales/es/es.json'
+import fr from '@/library/locales/fr/fr.json'
 
 const TOKEN: string = 'i18n-locale'
-type locales = 'en' | 'fr'
+type locales = 'en' | 'es' | 'fr'
 
 type Ilocales = { [id: string]: { display: string; key: locales; flag: string } }
+
 const LOCALES: Ilocales = {
   en: {
     display: 'English',
     key: 'en',
     flag: '/media/flags/united-kingdom.svg'
+  },
+  es: {
+    display: 'Español',
+    key: 'es',
+    flag: '/media/flags/spain.svg'
   },
   fr: {
     display: 'Français',
@@ -29,6 +36,7 @@ const config: I18nOptions = {
   locale: useLocalStorageUtil(TOKEN).getItem<string>() || 'en',
   messages: {
     en,
+    es,
     fr
   }
 }

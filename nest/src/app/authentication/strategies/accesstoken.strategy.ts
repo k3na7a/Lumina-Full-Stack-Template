@@ -3,9 +3,11 @@ import { PassportStrategy } from '@nestjs/passport';
 import { ExtractJwt, Strategy } from 'passport-jwt';
 import { Request } from 'express';
 
-import { UserEntity } from 'src/app/models/users/entities/user.entity';
 import { UserService } from 'src/app/models/users/services/users.service';
-import { Payload } from '../interfaces/payload.interface';
+import {
+  AccessTokenValidationPayload,
+  Payload,
+} from 'src/library/interfaces/payload.interface';
 
 @Injectable()
 class AccessTokenStrategy extends PassportStrategy(Strategy, 'jwt') {
@@ -21,12 +23,7 @@ class AccessTokenStrategy extends PassportStrategy(Strategy, 'jwt') {
   async validate(
     req: Request,
     payload: Payload,
-  ): Promise<{
-    accessToken: string;
-    userEntity: UserEntity;
-    email: string;
-    sub: string;
-  }> {
+  ): Promise<AccessTokenValidationPayload> {
     const accessToken = req.get('Authorization')?.replace('Bearer', '').trim();
     if (!accessToken) throw new UnauthorizedException();
 

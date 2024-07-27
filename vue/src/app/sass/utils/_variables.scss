@@ -1,0 +1,18 @@
+$boxShadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
+
+$header-config: (
+  height: (
+    desktop: 50px,
+    tablet-and-mobile: 50px
+  ),
+  z-index: 100
+) !default;
+
+$content-spacing: (
+  desktop: 12px,
+  tablet-and-mobile: 12px
+) !default;
+
+$min-width: 320px;
+
+$border-radius: 0rem;

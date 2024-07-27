@@ -1,15 +1,11 @@
 import { App } from 'vue'
 import { RouteRecordRaw, Router, RouterOptions, createRouter, createWebHistory } from 'vue-router'
 
-import { AuthStore, useAuthStore } from '@/store/authentication.store'
-
 declare module 'vue-router' {
   interface RouteMeta {
     isAdmin?: boolean
     pageTitle?: string
     breadcrumbs?: string[]
-    requiresAuth?: boolean
-    guest?: boolean
   }
 }
 
@@ -19,23 +15,14 @@ class VueRouterService {
     routes: [] as Array<RouteRecordRaw>
   } as RouterOptions)
 
-  public static init(app: App<Element>, routes: RouteRecordRaw[]): void {
-    const store: AuthStore = useAuthStore()
-
+  public static init(app: App<Element>, routes: RouteRecordRaw[], debug: boolean = false): void {
     for (const route of routes) {
+      if (debug) console.log(route)
       this.$router.addRoute(route as RouteRecordRaw)
     }
 
-    this.$router.beforeEach(async (to, _from, next) => {
+    this.$router.beforeResolve((to) => {
       document.title = `${to.meta.pageTitle} | ${process.env.TITLE}`
-
-      if (to.matched.some((record) => record.meta['requiresAuth']) && !store.isAuthenticated)
-        next({
-          path: '/sign-in',
-          query: { redirect: to.fullPath }
-        })
-      else if (to.matched.some((record) => record.meta['guest']) && store.isAuthenticated) next({ path: '/' })
-      else next()
 
       window.scrollTo({
         top: 0,

@@ -1,0 +1,8 @@
+{
+  "name": "example-full-stack-application",
+  "version": "1.0.0",
+  "description": "Full-Stack Web Application",
+  "scripts": {},
+  "author": "John Desjardins",
+  "license": "ISC"
+}

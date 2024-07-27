@@ -1,0 +1,16 @@
+{
+  "navigation": {
+    "home": "Home",
+    "following": "Siguiendo",
+    "browse": "Explorar"
+  },
+  "actions": {
+    "log-in": "Iniciar Sesión",
+    "log-out": "Cerrar Sesión",
+    "sign-up": "Registrarse"
+  },
+  "general": {
+    "language": "Idioma",
+    "settings": "Configuración"
+  }
+}

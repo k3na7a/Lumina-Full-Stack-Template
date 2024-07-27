@@ -3,9 +3,11 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import * as bcrypt from 'bcrypt';
 
-import { UserEntity } from '../entities/user.entity';
-import { CreateUserInterface } from '../interfaces/create.interface';
-import { UpdateUserInterface } from '../interfaces/update.interface';
+import { UserEntity } from 'src/library/entities/user.entity';
+import {
+  CreateUserInterface,
+  UpdateUserInterface,
+} from 'src/library/interfaces/user.interfaces';
 
 @Injectable()
 export class UserService {

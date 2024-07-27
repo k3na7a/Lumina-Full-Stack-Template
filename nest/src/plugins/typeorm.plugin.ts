@@ -1,7 +1,7 @@
 import { TypeOrmModule, TypeOrmModuleOptions } from '@nestjs/typeorm';
 import { EntityClassOrSchema } from '@nestjs/typeorm/dist/interfaces/entity-class-or-schema.type';
-import { ProfileEntity } from 'src/app/models/users/entities/profile.entity';
-import { UserEntity } from 'src/app/models/users/entities/user.entity';
+import { ProfileEntity } from 'src/library/entities/profile.entity';
+import { UserEntity } from 'src/library/entities/user.entity';
 
 const config: TypeOrmModuleOptions = {
   type: 'mysql',

@@ -1,0 +1,39 @@
+{
+  "navigation": {
+    "home": "Home",
+    "following": "Following",
+    "browse": "Browse",
+    "subnavigation": {
+      "about": "About",
+      "blog": "Blog",
+      "developers": "Developers",
+      "jobs": "Jobs",
+      "partners": "Partners",
+      "community": "Community Guidelines",
+      "cookies": "Cookie Policy",
+      "help": "Help",
+      "privacy": "Privacy Policy",
+      "terms": "Terms"
+    }
+  },
+  "actions": {
+    "log-in": "Log In",
+    "log-out": "Log Out",
+    "sign-up": "Sign Up",
+    "loading": "Loading..."
+  },
+  "authentication": {
+    "log-in-title": "Log in to Testhub",
+    "trouble": "Trouble logging in?"
+  },
+  "general": {
+    "email": "Email",
+    "password": "Password",
+    "general": "General",
+    "help&legal": "Help & Legal",
+    "dashboard": "Dashboard",
+    "language": "Language",
+    "settings": "Settings",
+    "legal": "© {year} John Desjardins {'|'} All Rights Reserved"
+  }
+}

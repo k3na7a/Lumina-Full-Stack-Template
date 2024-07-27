@@ -18,22 +18,22 @@ import {
 } from '@nestjs/swagger';
 
 import { AuthService } from '../services/auth.service';
-import { RegisterDto } from '../dto/register.dto';
-import { JWTDto } from '../dto/jwt.dto';
-import { SignInDto } from '../dto/signIn.dto';
+import { RegisterDto, RegisterProfileDto } from 'src/library/dto/register.dto';
+import { JWTDto } from 'src/library/dto/jwt.dto';
+import { SignInDto } from 'src/library/dto/signIn.dto';
 import { LocalAuthGuard } from '../guards/localAuth.guard';
-import { UserEntity } from '../../models/users/entities/user.entity';
+import { UserEntity } from 'src/library/entities/user.entity';
 import { RefreshTokenGuard } from '../guards/refreshtoken.guard';
-import { RefreshTokenRequest } from '../interfaces/refreshToken.interface';
-import { ForgotPasswordDto } from '../dto/forgotPassword.dto';
+import { RefreshTokenRequest } from 'src/library/interfaces/refreshToken.interface';
+import { ForgotPasswordDto } from 'src/library/dto/forgotPassword.dto';
 import { AccessTokenGuard } from '../guards/accesstoken.guard';
-import { AccessTokenRequest } from '../interfaces/accessToken.interface';
-import { ResetPasswordDto } from '../dto/resetPassword.dto';
-import { updatePasswordDto } from '../dto/updatePassword.dto';
-import { updateEmailDto } from '../dto/updateEmail.dto';
-import { deleteAccountDto } from '../dto/deleteAccount.dto';
+import { AccessTokenRequest } from 'src/library/interfaces/accessToken.interface';
+import { ResetPasswordDto } from 'src/library/dto/resetPassword.dto';
+import { updatePasswordDto } from 'src/library/dto/updatePassword.dto';
+import { updateEmailDto } from 'src/library/dto/updateEmail.dto';
+import { deleteAccountDto } from 'src/library/dto/deleteAccount.dto';
 
-@ApiTags('Authentication (Self Management)')
+@ApiTags('Authentication Controller (Self Management)')
 @Controller('auth')
 @UseInterceptors(ClassSerializerInterceptor)
 export class AuthController {
@@ -44,12 +44,6 @@ export class AuthController {
   @ApiOkResponse({ type: JWTDto })
   async register(@Body() dto: RegisterDto): Promise<JWTDto> {
     return this.authService.register(dto);
-  }
-
-  @Post('/forgot-password')
-  @ApiBody({ type: ForgotPasswordDto })
-  async forgotPassword(@Body() dto: ForgotPasswordDto): Promise<any> {
-    return this.authService.forgotPassword(dto.email);
   }
 
   @Post('/sign-in')
@@ -64,7 +58,7 @@ export class AuthController {
   @ApiBearerAuth('access-token')
   @UseGuards(RefreshTokenGuard)
   async signOut(@Request() { user }: RefreshTokenRequest): Promise<void> {
-    return this.authService.signOut(user.userEntity);
+    await this.authService.signOut(user.userEntity);
   }
 
   @Post('/verify-token')
@@ -75,6 +69,12 @@ export class AuthController {
     return this.authService.verifyToken(user.userEntity);
   }
 
+  @Post('/forgot-password')
+  @ApiBody({ type: ForgotPasswordDto })
+  async forgotPassword(@Body() dto: ForgotPasswordDto): Promise<void> {
+    await this.authService.forgotPassword(dto.email);
+  }
+
   @Patch('/reset-password')
   @ApiBearerAuth('access-token')
   @UseGuards(AccessTokenGuard)
@@ -83,7 +83,19 @@ export class AuthController {
     @Request() { user }: AccessTokenRequest,
     @Body() { confirm_password }: ResetPasswordDto,
   ): Promise<void> {
-    return this.authService.resetPassword(user.userEntity, confirm_password);
+    await this.authService.resetPassword(user.userEntity, confirm_password);
+  }
+
+  @Patch('/update-profile')
+  @ApiBearerAuth('access-token')
+  @UseGuards(RefreshTokenGuard)
+  @ApiBody({ type: RegisterProfileDto })
+  @ApiOkResponse({ type: JWTDto })
+  async updateProfile(
+    @Request() { user }: RefreshTokenRequest,
+    @Body() dto: RegisterProfileDto,
+  ): Promise<JWTDto> {
+    return this.authService.updateProfile(user.userEntity, dto);
   }
 
   @Patch('/update-email')
@@ -118,6 +130,6 @@ export class AuthController {
     @Request() { user }: RefreshTokenRequest,
     @Body() dto: deleteAccountDto,
   ): Promise<void> {
-    return this.authService.deleteAccount(user.userEntity, dto);
+    await this.authService.deleteAccount(user.userEntity, dto);
   }
 }
