@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import NavigationDropdown from './dropdowns/navigation.dropdown.vue'
+import NavigationDropdown from '../dropdowns/navigation.dropdown.vue'
 import { more_navigation } from '@/library/config/more.navigation.config'
 
 type PropType = {

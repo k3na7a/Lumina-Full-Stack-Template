@@ -41,7 +41,7 @@
         font-size: 1.1rem;
 
         color: $light;
-        transition: color 0.25s ease;
+        transition: color 0.15s ease-in-out;
 
         &:hover {
           color: $primary;
