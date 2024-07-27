@@ -21,8 +21,6 @@ import { UserDto } from '@/library/dto/user.dto'
 
 import { MORE_NAVIGATION } from '@/library/config/more.navigation.config'
 
-// const localState = reactive<{ loading: boolean }>({ loading: true })
-
 const route: RouteLocationNormalizedLoaded = useRoute()
 
 const authStore: AuthStore = useAuthStore()

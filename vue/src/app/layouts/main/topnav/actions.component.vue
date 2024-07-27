@@ -41,7 +41,8 @@ const props = defineProps<PropType>()
         <div class="vr"></div>
       </div>
       <nav class="align-content-center flex-grow-1 ps-1">
-        <UserActionsDropdown :authenticated-user :signout="props.signout" /></nav
-    ></template>
+        <UserActionsDropdown :authenticated-user :signout="props.signout" />
+      </nav>
+    </template>
   </div>
 </template>
