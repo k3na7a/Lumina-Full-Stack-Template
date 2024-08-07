@@ -33,40 +33,18 @@ watch(isOpen, async (value: boolean, _prev: boolean): Promise<void> => {
 <template>
   <div ref="modalRef" class="modal fade" id="modal" data-bs-backdrop="static" role="dialog">
     <div class="modal-dialog modal-dialog-centered" :class="`modal-${options.size}`">
-      <div class="modal-content p-4">
+      <div class="modal-content p-3 position-relative border-radius bg-alt box-shadow">
         <component :is="options.view" v-model="localstate.model" v-bind="options.properties" />
-        <div class="modal-close">
-          <button type="button" class="btn btn-link link-light link-opacity-75-hover p-0" v-on:click="store.closeModal">
-            <span><font-awesome-icon :icon="['fas', 'close']" /></span>
+        <div class="modal-close position-absolute top-0 end-0">
+          <button
+            type="button"
+            class="btn btn-link link-light link-opacity-75-hover p-0 me-1 mt-1"
+            v-on:click="store.closeModal"
+          >
+            <font-awesome-icon size="lg" :icon="['fas', 'close']" />
           </button>
         </div>
       </div>
     </div>
   </div>
 </template>
-
-<style lang="scss">
-@import '@/app/sass/utils/utils';
-
-#modal {
-  & .modal-content {
-    position: relative;
-    border-radius: $border-radius;
-    background-color: $backgroundAlt;
-    box-shadow: $boxShadow;
-
-    .modal-close {
-      position: absolute;
-      top: 8px;
-      right: 8px;
-
-      button {
-        width: 30px;
-        height: 30px;
-      }
-    }
-  }
-
-  pointer-events: none;
-}
-</style>

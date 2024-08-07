@@ -1,51 +1,26 @@
 <script setup lang="ts">
 import { RouteLocationNormalizedLoaded, useRoute } from 'vue-router'
-import { computed, ComputedRef, markRaw } from 'vue'
-import { AxiosError } from 'axios'
-
-// import OffcanvasComponent from '@/app/components/offcanvas/base/offcanvas.component.vue'
-import ToastComponent from '@/app/components/toast/toast.component.vue'
-import ModalComponent from '@/app/components/modal/modal.component.vue'
-
-import { ModalStore, useModalStore } from '@/app/store/modal.store'
+import { computed, ComputedRef } from 'vue'
 
 import NavbarComponent from '@/app/components/navbar/navbar.component.vue'
-import NavigationComponent from './topnav/navigation.component.vue'
-import ActionComponent from './topnav/actions.component.vue'
+import NavigationComponent from '@/app/layouts/main/components/navbar/navigation.component.vue'
+import ActionComponent from '@/app/layouts/main/components/navbar/actions.component.vue'
 
-import SignInModal from '@/app/layouts/main/modals/signin.modal.component.vue'
-
-import { useToastStore } from '@/app/store/toast.store'
 import { AuthStore, useAuthStore } from '@/app/store/authentication.store'
 import { UserDto } from '@/library/dto/user.dto'
+
+import { AuthController } from '@/app/controllers/auth.controller'
 
 import { MORE_NAVIGATION } from '@/library/config/more.navigation.config'
 
 const route: RouteLocationNormalizedLoaded = useRoute()
-
 const authStore: AuthStore = useAuthStore()
-const { openModal, closeModal }: ModalStore = useModalStore()
-const { addToast } = useToastStore()
 
-const path: ComputedRef<string | undefined> = computed<string | undefined>(() => route.name?.toString())
+const { signin, signout } = AuthController
+
+const path: ComputedRef<string | undefined> = computed(() => route.name?.toString())
 const isAuthenticated: ComputedRef<boolean> = computed(() => authStore.isAuthenticated)
-const authenticatedUser: ComputedRef<UserDto | undefined> = computed<UserDto | undefined>(
-  () => authStore.authenticatedUser
-)
-
-const signin = (_event: MouseEvent): void =>
-  openModal({
-    view: markRaw(SignInModal),
-    properties: {
-      close: closeModal
-    }
-  })
-
-const signout = (_event: MouseEvent) => {
-  authStore.signOut().catch((error: AxiosError) => {
-    addToast({ title: error.response?.statusText || 'ERROR', body: error.message })
-  })
-}
+const authenticatedUser: ComputedRef<UserDto | undefined> = computed(() => authStore.authenticatedUser)
 </script>
 
 <template>
@@ -59,13 +34,21 @@ const signout = (_event: MouseEvent) => {
     </template>
   </NavbarComponent>
 
-  <div id="content-wrapper">
+  <div class="content-wrapper d-flex flex-column flex-grow-1 overflow-auto">
     <RouterView v-slot="{ Component }" :key="route.fullPath">
       <component :is="Component" />
     </RouterView>
   </div>
-
-  <ModalComponent />
-  <!-- <OffcanvasComponent /> -->
-  <ToastComponent />
 </template>
+
+<style lang="scss">
+@import '@/app/sass/variables/index';
+
+.th-navbar {
+  z-index: map-get($header-config, z-index);
+
+  .top-nav {
+    height: map-get($header-config, height, desktop);
+  }
+}
+</style>

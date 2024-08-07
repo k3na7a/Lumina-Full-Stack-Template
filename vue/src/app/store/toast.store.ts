@@ -1,6 +1,6 @@
 import { Store, StoreDefinition, defineStore } from 'pinia'
 
-const DEFAULT_TIMEOUT = 5
+const DEFAULT_TIMEOUT = 15
 
 interface Toast {
   id: number

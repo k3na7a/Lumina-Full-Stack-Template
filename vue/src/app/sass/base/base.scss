@@ -1,57 +1,12 @@
 * {
   margin: 0;
   padding: 0;
+
   box-sizing: border-box;
-}
-
-html,
-body {
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-
-  line-height: 1.5;
-  font-weight: 400;
-
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-
-  font-family: $inter;
-  font-size: $base-font-size;
-
-  background-color: $background;
-
-  height: 100%;
-
-  #app {
-    display: flex;
-    height: 100%;
-
-    #content-wrapper {
-      width: 100%;
-      margin-top: map-get($header-config, height, desktop);
-      padding: map-get($content-spacing, desktop);
-    }
-  }
-}
-
-::-webkit-scrollbar {
-  width: 4px;
-  height: 2px;
-}
-
-::-webkit-scrollbar-track {
-  background-color: inherit;
-}
-
-::-webkit-scrollbar-thumb {
-  border-radius: $border-radius;
-  background: $muted;
 }
 
 @import './transitions';
 @import './helpers';
 @import './mixins';
-@import './layout';
+@import './typography';
+@import './theme';

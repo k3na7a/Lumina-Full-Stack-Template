@@ -1,18 +1,19 @@
 import { RouteRecordRaw } from 'vue-router'
 
-import { AuthStore, useAuthStore } from '../store/authentication.store'
+// import { AuthStore, useAuthStore } from '../store/authentication.store'
 
 export enum ROUTE_NAMES {
   HOME = 'home',
   FOLLOWING = 'following',
   BROWSE = 'browse',
-  SETTINGS = 'settings'
+  SETTINGS = 'settings',
+  PROFILE = 'profile'
 }
 
 export const routes: RouteRecordRaw[] = [
   {
     path: '/',
-    redirect: '/home',
+    redirect: { name: ROUTE_NAMES.HOME },
     component: () => import('@/app/layouts/main/main.layout.vue'),
     children: [
       {
@@ -34,13 +35,8 @@ export const routes: RouteRecordRaw[] = [
         component: () => import('@/app/views/home/home.view.vue')
       },
       {
-        path: '/',
-        beforeEnter: (_to, _from, next): void => {
-          const authStore: AuthStore = useAuthStore()
-
-          if (!authStore.$authenticated) next({ name: ROUTE_NAMES.HOME })
-          else next()
-        },
+        path: '/authenticated-routes',
+        component: () => import('@/app/layouts/auth/auth.layout.vue'),
         children: [
           {
             path: '/following',
@@ -54,11 +50,26 @@ export const routes: RouteRecordRaw[] = [
           {
             path: '/settings',
             name: ROUTE_NAMES.SETTINGS,
-            component: () => import('@/app/views/home/home.view.vue'),
-            children: []
+            redirect: { name: ROUTE_NAMES.PROFILE },
+            component: () => import('@/app/layouts/settings/settings.layout.vue'),
+            children: [
+              {
+                path: 'profile',
+                name: ROUTE_NAMES.PROFILE,
+                component: () => import('@/app/views/settings/profile.view.vue'),
+                meta: {
+                  pageTitle: 'Profile',
+                  breadcrumbs: ['Settings']
+                }
+              }
+            ]
           }
         ]
       }
     ]
+  },
+  {
+    path: '/:catchAll(.*)',
+    redirect: '/home'
   }
 ]

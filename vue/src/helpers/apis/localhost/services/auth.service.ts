@@ -41,12 +41,12 @@ class authentication {
     new_password: string
     confirm_password: string
   }): Promise<void> => {
-    await this.$api.post('auth/reset-password', payload, AxiosService.requestConfig({ token: payload.token }))
+    await this.$api.patch('auth/reset-password', payload, AxiosService.requestConfig({ token: payload.token }))
   }
 
   public readonly updateProfile = async (payload: Profile): Promise<JWTDto> => {
     return this.$api
-      .post<JWTDto>('auth/update-profile', payload, AxiosService.requestConfig({ token: this.$token.getItem() }))
+      .patch<JWTDto>('auth/update-profile', payload, AxiosService.requestConfig({ token: this.$token.getItem() }))
       .then((response: AxiosResponse) => new JWTDto(response.data))
   }
 
@@ -56,7 +56,7 @@ class authentication {
     confirm_new_email: string
   }): Promise<JWTDto> => {
     return this.$api
-      .post<JWTDto>('auth/update-email', payload, AxiosService.requestConfig({ token: this.$token.getItem() }))
+      .patch<JWTDto>('auth/update-email', payload, AxiosService.requestConfig({ token: this.$token.getItem() }))
       .then((response: AxiosResponse) => new JWTDto(response.data))
   }
 
@@ -66,12 +66,15 @@ class authentication {
     confirm_new_password: string
   }): Promise<JWTDto> => {
     return this.$api
-      .post<JWTDto>('auth/update-email', payload, AxiosService.requestConfig({ token: this.$token.getItem() }))
+      .patch<JWTDto>('auth/update-email', payload, AxiosService.requestConfig({ token: this.$token.getItem() }))
       .then((response: AxiosResponse) => new JWTDto(response.data))
   }
 
   public readonly deleteAccount = async (payload: { password: string }): Promise<void> => {
-    await this.$api.post('auth/delete-account', payload, AxiosService.requestConfig({ token: this.$token.getItem() }))
+    await this.$api.delete(
+      'auth/delete-account',
+      AxiosService.requestConfig({ token: this.$token.getItem(), data: payload })
+    )
   }
 }
 

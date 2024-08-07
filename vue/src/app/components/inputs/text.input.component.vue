@@ -1,109 +1,45 @@
 <script setup lang="ts">
-import { toRef } from 'vue'
+import { InputTypeHTMLAttribute, toRef } from 'vue'
 import { useField } from 'vee-validate'
 
-const props = defineProps({
-  type: {
-    type: String,
-    default: 'text'
-  },
-  value: {
-    type: String,
-    default: undefined
-  },
-  name: {
-    type: String,
-    required: true
-  },
-  label: {
-    type: String
-  },
-  placeholder: {
-    type: String,
-    default: ''
-  }
-})
+import { HTMLAutoComplete } from '@/library/types/autocomplete'
+
+type PropType = {
+  name: string
+  type: InputTypeHTMLAttribute
+  value?: string
+  autocomplete?: HTMLAutoComplete
+  placeholder?: string
+  label?: string
+}
+
+const props = defineProps<PropType>()
 
 const name = toRef(props, 'name')
 
-const {
-  value: inputValue,
-  errorMessage,
-  handleBlur,
-  handleChange,
-  meta
-} = useField(name, undefined, { initialValue: props.value })
+const { value, errorMessage, handleBlur, handleChange, meta } = useField(name.value, undefined, {
+  initialValue: props.value
+})
 </script>
 
 <template>
   <div
-    class="TextInput"
+    class="text-input w-100"
     :class="{
       'has-error': !!errorMessage,
-      success: meta.valid
+      success: meta.valid && meta.dirty
     }"
   >
-    <label v-if="label" :for="name">{{ $t(label) }}</label>
+    <h6 class="mb-1 d-block fw-semibold" v-if="label" :for="name">{{ $t(label) }}</h6>
     <input
-      :name="name"
-      :id="name"
-      :type="type"
-      :value="inputValue"
-      :placeholder
+      class="w-100 border-radius bg-alt px-2 py-1"
+      :name
+      :type
+      :value
+      :placeholder="props.placeholder"
+      :autocomplete="props.autocomplete || 'off'"
       v-on:input="handleChange"
       v-on:blur="handleBlur"
     />
   </div>
 </template>
-
-<style lang="scss">
-@import '@/app/sass/utils/utils';
-
-.TextInput {
-  width: 100%;
-  font-size: 12px;
-
-  &.has-error input {
-    border-color: $danger;
-  }
-
-  &.has-error input:hover {
-    box-shadow: 0 0 0 1px $danger;
-  }
-
-  &.success input {
-    border-color: $success;
-  }
-
-  &.success input:hover {
-    box-shadow: 0 0 0 1px $success;
-  }
-
-  input:hover {
-    box-shadow: 0 0 0 1px $muted;
-  }
-
-  input:focus {
-    border-color: $primary !important;
-    box-shadow: 0 0 0 1px $primary !important;
-  }
-
-  label {
-    display: block;
-    margin-bottom: 4px;
-    width: 100%;
-    font-size: 13px;
-    font-weight: 700;
-  }
-
-  input {
-    border-radius: 5px;
-    padding: 4px 8px;
-    outline: none;
-    background-color: $backgroundAlt;
-    border: 1px $muted solid;
-    border-radius: $border-radius;
-    width: 100%;
-  }
-}
-</style>

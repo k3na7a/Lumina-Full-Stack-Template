@@ -2,6 +2,7 @@
 
 // Fade Vue Router Transitions
 // <transition name="fade" mode="out-in">
+.fade-move,
 .fade-enter-active,
 .fade-leave-active {
   transition: opacity 0.3s ease-in-out;
@@ -25,34 +26,36 @@
   transform: scale(0.9);
 }
 
-.list-move, /* apply transition to moving elements */
-.list-enter-active,
-.list-leave-active {
-  transition: all 1s ease;
-}
+// .list-move, /* apply transition to moving elements */
+// .list-enter-active,
+// .list-leave-active {
+//   transition: all 1s ease;
+// }
 
-.list-enter-from,
-.list-leave-to {
-  opacity: 0;
-  transform: translateY(30px);
-}
+// .list-enter-from,
+// .list-leave-to {
+//   opacity: 0;
+//   transform: translateY(30px);
+// }
 
 /* ensure leaving items are taken out of layout flow so that moving
    animations can be calculated correctly. */
-.list-leave-active {
-  position: absolute;
-}
+// .list-leave-active {
+//   position: absolute;
+// }
 
 .list-move,
 .list-enter-active,
 .list-leave-active {
   transition: all 1s cubic-bezier(0.075, 0.82, 0.165, 1);
 }
+
 .list-enter-from,
 .list-leave-to {
   opacity: 0;
   transform: translateX(-2rem);
 }
+
 .list-leave-active {
   position: absolute;
 }
@@ -85,4 +88,15 @@
 .slide-up-leave-to {
   opacity: 0;
   transform: translateY(-30px);
+}
+
+.toast-enter-from,
+.toast-leave-to {
+  transform: translateX(100%);
+  opacity: 0;
+}
+
+.toast-enter-active,
+.toast-leave-active {
+  transition: 0.25s ease all;
 }

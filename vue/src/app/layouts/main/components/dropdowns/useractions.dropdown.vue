@@ -1,7 +1,10 @@
 <script setup lang="ts">
 import DropdownComponent from '@/app/components/dropdown/dropdown.component.vue'
 
+import { useRouter } from 'vue-router'
+
 import { UserDto } from '@/library/dto/user.dto'
+import { ROUTE_NAMES } from '@/app/router/routes'
 
 type PropType = {
   authenticatedUser: UserDto | undefined
@@ -9,6 +12,7 @@ type PropType = {
 }
 
 const props = defineProps<PropType>()
+const router = useRouter()
 
 type actions = {
   title: string
@@ -17,34 +21,24 @@ type actions = {
 }[][]
 
 const USER_ACTIONS: actions = [
-  [
-    { title: 'general.dashboard', icon: ['fas', 'chart-column'], callback: () => console.log('settings') },
-    { title: 'general.settings', icon: ['fas', 'gear'], callback: () => console.log('settings') }
-  ],
+  [{ title: 'general.settings', icon: ['fas', 'gear'], callback: () => router.push({ name: ROUTE_NAMES.SETTINGS }) }],
   [{ title: 'actions.log-out', icon: ['fas', 'right-from-bracket'], callback: props.signout }]
 ]
 </script>
 
 <template>
-  <DropdownComponent :autoclose="'inside'">
+  <DropdownComponent dropdown-align="end" :autoclose="'inside'">
     <template v-slot:button>
-      <span>
-        <font-awesome-icon size="lg" :icon="['fas', 'user']" />
-      </span>
+      <font-awesome-icon :icon="['fas', 'user']" />
     </template>
     <template v-slot:menu="{ close }">
-      <div
-        id="user-dropdown"
-        class="dropdown-menu dropdown-menu-dark dropdown-menu-end p-2 border-0"
-        v-on:click="($event: MouseEvent) => $event.stopPropagation()"
-      >
-        <div class="px-2 my-1 d-flex flex-column">
-          <span id="username"> {{ props.authenticatedUser?.getFullName() }} </span>
-          <span id="email"> {{ props.authenticatedUser?.email }} </span>
-        </div>
-        <div class="py-2">
-          <hr class="dropdown-divider mx-1 my-0" />
-        </div>
+      <div class="px-2 my-1">
+        <h5 class="d-block text-light fw-bolder text-nowrap">
+          {{ props.authenticatedUser?.getFullName() }}
+        </h5>
+        <small class="text-muted d-block">{{ props.authenticatedUser?.email }}</small>
+      </div>
+      <div class="pt-1">
         <template v-for="(section, index) of USER_ACTIONS">
           <div>
             <template v-for="action of section">
@@ -57,14 +51,14 @@ const USER_ACTIONS: actions = [
                 }"
               >
                 <span>{{ $t(action.title) }}</span>
-                <span style="width: 12px" class="text-center"><font-awesome-icon :icon="action.icon" /></span>
+                <span style="width: 15px" class="text-center"><font-awesome-icon :icon="action.icon" /></span>
               </button>
             </template>
           </div>
 
           <template v-if="index < USER_ACTIONS.length - 1">
             <div class="py-2">
-              <hr class="dropdown-divider mx-1 my-0" />
+              <hr class="dropdown-divider mx-1 my-0 bg-secondary opacity-50" />
             </div>
           </template>
         </template>
@@ -72,19 +66,3 @@ const USER_ACTIONS: actions = [
     </template>
   </DropdownComponent>
 </template>
-
-<style lang="scss">
-@import '@/app/sass/utils/utils';
-
-#user-dropdown {
-  #username {
-    font-size: 13px;
-    font-weight: 600;
-  }
-
-  #email {
-    font-size: 10px;
-    color: $muted;
-  }
-}
-</style>

@@ -6,6 +6,19 @@ type UpdatePassword = {
 type UpdateEmail = { password: string; new_email: string; confirm_new_email: string }
 type ResetPassword = { token: string; new_password: string; confirm_password: string }
 type ForgotPassword = { email: string }
+type DeleteAccount = { password: string }
+type UpdateProfile = { firstname: string; lastname: string }
+
+export class UpdateProfileDto {
+  public readonly name: Name
+
+  constructor(payload: UpdateProfile) {
+    this.name = {
+      first: payload.firstname,
+      last: payload.lastname
+    }
+  }
+}
 
 export interface IUser {
   readonly $id: string
@@ -46,4 +59,4 @@ export class UserDto {
   }
 }
 
-export type { UpdateEmail, UpdatePassword, ResetPassword, ForgotPassword }
+export type { UpdateEmail, UpdatePassword, ResetPassword, ForgotPassword, DeleteAccount, UpdateProfile }

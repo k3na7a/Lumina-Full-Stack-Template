@@ -20,7 +20,8 @@
     "log-in": "Log In",
     "log-out": "Log Out",
     "sign-up": "Sign Up",
-    "loading": "Loading..."
+    "loading": "Loading...",
+    "close": "Close"
   },
   "authentication": {
     "log-in-title": "Log in to Testhub",

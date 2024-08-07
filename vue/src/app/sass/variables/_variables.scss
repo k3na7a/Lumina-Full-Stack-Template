@@ -1,0 +1,28 @@
+$boxShadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
+
+$header-config: (
+  height: (
+    desktop: 5rem,
+    tablet-and-mobile: 5rem
+  ),
+  z-index: 100
+) !default;
+
+$content-spacing: (
+  desktop: 2rem,
+  tablet-and-mobile: 1rem
+) !default;
+
+$border-radius: 0rem;
+$scroll-width: 0.6rem;
+
+// https://getbootstrap.com/docs/5.3/utilities/spacing/
+$spacer: 2rem;
+$spacers: (
+  0: 0,
+  1: $spacer * 0.25,
+  2: $spacer * 0.5,
+  3: $spacer,
+  4: $spacer * 1.5,
+  5: $spacer * 3
+);

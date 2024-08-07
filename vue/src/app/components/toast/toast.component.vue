@@ -11,48 +11,35 @@ const toasts: ComputedRef<Toast[]> = computed<Toast[]>(() => store.getToasts)
 </script>
 
 <template>
-  <div id="toast" class="toast-container position-fixed bottom-0 end-0 p-3">
-    <TransitionGroup>
+  <div id="toast" class="toast-container d-flex flex-column justify-content-end align-items-end w-100 h-100 p-3">
+    <TransitionGroup name="fade">
       <div
         v-for="(toast, _index) of toasts"
         :id="`${toast.id}`"
         :key="toast.id"
-        class="toast d-block align-items-center rounded-0"
+        class="toast box-shadow d-block align-items-center rounded-0 border border-secondary bg-alt"
         role="alert"
       >
-        <div class="d-flex">
-          <div class="toast-body flex-grow-1">
-            <span class="text-light">
-              <strong class="text-primary"> {{ `${capitalize(toast.title)}!` }} </strong>
-              {{ `${capitalize(toast.body)}.` }}
-            </span>
+        <div class="d-flex flex-align-stretch">
+          <div class="toast-body d-flex flex-column p-2 pe-0 flex-grow-1">
+            <h5 class="text-light display-font fw-bolder mb-1 lh-small">
+              {{ capitalize(toast.title) }}
+            </h5>
+            <p class="text-muted">
+              {{ capitalize(toast.body) }}
+            </p>
           </div>
-
-          <button
-            type="button"
-            class="btn btn-link link-light link-opacity-75-hover p-0 px-2"
-            v-on:click="(_$event: MouseEvent) => store.removeToast(toast.id)"
-          >
-            <font-awesome-icon :icon="['fas', 'close']" />
-          </button>
+          <div class="d-flex align-items-center">
+            <button
+              type="button"
+              class="btn btn-link link-light link-opacity-75-hover p-0 px-3"
+              v-on:click="(_$event: MouseEvent) => store.removeToast(toast.id)"
+            >
+              <font-awesome-icon size="lg" :icon="['fas', 'close']" />
+            </button>
+          </div>
         </div>
       </div>
     </TransitionGroup>
   </div>
 </template>
-
-<style lang="scss">
-@import '@/app/sass/utils/utils';
-
-#toast {
-  & .toast-container {
-    backface-visibility: hidden;
-  }
-
-  & .toast {
-    box-shadow: $boxShadow;
-    background-color: $backgroundAlt;
-    border: 1px $primary solid;
-  }
-}
-</style>
