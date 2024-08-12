@@ -3,15 +3,14 @@ import { RouteLocationNormalizedLoaded, useRoute } from 'vue-router'
 import { computed, ComputedRef, onMounted } from 'vue'
 
 import { useAuthStore, AuthStore } from '@/app/store/authentication.store'
-
-import { AuthController } from '@/app/controllers/auth.controller'
+import { MainLayoutController } from '@/app/layouts/main/controllers/main-layout.controller'
 
 import UnauthorizedComponent from './components/unauthorized.component.vue'
 
 const route: RouteLocationNormalizedLoaded = useRoute()
 const authStore: AuthStore = useAuthStore()
 
-const { signin } = AuthController
+const { signin } = MainLayoutController
 
 const isAuthenticated: ComputedRef<boolean> = computed(() => authStore.isAuthenticated)
 

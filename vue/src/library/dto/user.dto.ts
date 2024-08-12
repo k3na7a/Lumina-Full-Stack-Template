@@ -1,13 +1,29 @@
 type UpdatePassword = {
-  old_password: string
-  new_password: string
-  confirm_new_password: string
+  current_password: string
+  password: string
+  confirm_password: string
 }
-type UpdateEmail = { password: string; new_email: string; confirm_new_email: string }
+type UpdateEmail = { password: string; email: string; confirm_email: string }
 type ResetPassword = { token: string; new_password: string; confirm_password: string }
 type ForgotPassword = { email: string }
 type DeleteAccount = { password: string }
 type UpdateProfile = { firstname: string; lastname: string }
+type Register = { firstname: string; lastname: string; email: string; password: string }
+
+export class RegisterDto {
+  public readonly email: string
+  public readonly password: string
+  public readonly profile: UpdateProfileDto
+
+  constructor(payload: Register) {
+    this.email = payload.email
+    this.password = payload.password
+    this.profile = new UpdateProfileDto({
+      firstname: payload.firstname,
+      lastname: payload.lastname
+    })
+  }
+}
 
 export class UpdateProfileDto {
   public readonly name: Name
@@ -20,8 +36,43 @@ export class UpdateProfileDto {
   }
 }
 
+export class DeleteAccountDto {
+  public readonly password: string
+
+  constructor(payload: DeleteAccount) {
+    this.password = payload.password
+  }
+}
+
+export class UpdatePasswordDto {
+  public readonly old_password: string
+  public readonly new_password: string
+  public readonly confirm_new_password: string
+
+  constructor(payload: UpdatePassword) {
+    this.old_password = payload.current_password
+    this.new_password = payload.password
+    this.confirm_new_password = payload.confirm_password
+  }
+}
+
+export class UpdateEmailDto {
+  public readonly password: string
+  public readonly new_email: string
+  public readonly confirm_new_email: string
+
+  constructor(payload: UpdateEmail) {
+    this.password = payload.password
+    this.new_email = payload.email
+    this.confirm_new_email = payload.confirm_email
+  }
+}
+
 export interface IUser {
   readonly $id: string
+  readonly $createdAt: Date
+  readonly $updatedAt: Date
+
   readonly email: string
   readonly role: Role
   readonly profile: Profile
@@ -43,6 +94,9 @@ export enum Role {
 
 export class UserDto {
   public readonly $id: string
+  public readonly $createdAt: Date
+  public readonly $updatedAt: Date
+
   public readonly email: string
   public readonly role: Role
   public readonly profile: Profile
@@ -53,6 +107,9 @@ export class UserDto {
 
   constructor(user: IUser) {
     this.$id = user.$id
+    this.$createdAt = user.$createdAt
+    this.$updatedAt = user.$updatedAt
+
     this.email = user.email
     this.role = user.role
     this.profile = user.profile

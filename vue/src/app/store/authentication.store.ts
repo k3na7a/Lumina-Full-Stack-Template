@@ -1,7 +1,15 @@
-import { LocalhostAPI as API, TOKEN_ID } from '@/helpers/apis/localhost/localhost.api'
-import { useLocalStorageUtil } from '@/helpers/utils/local-storage.util'
+import { LocalhostAPI as API, TOKEN_ID } from '@/library/apis/localhost/localhost.api'
+import { useLocalStorageUtil } from '@/library/helpers/local-storage.util'
 import { credentials, JWTDto } from '@/library/dto/JWT.dto'
-import { DeleteAccount, Profile, ResetPassword, UpdateEmail, UpdatePassword, UserDto } from '@/library/dto/user.dto'
+import {
+  DeleteAccountDto,
+  Profile,
+  RegisterDto,
+  ResetPassword,
+  UpdateEmailDto,
+  UpdatePasswordDto,
+  UserDto
+} from '@/library/dto/user.dto'
 import { Store, StoreDefinition, defineStore } from 'pinia'
 
 interface IAuthState {
@@ -16,15 +24,15 @@ interface AuthActions {
   authenticate(props: JWTDto): Promise<void>
   init(): Promise<void>
   purge(): Promise<void>
-  register(props: credentials): Promise<void>
+  register(props: RegisterDto): Promise<void>
   signIn(props: credentials): Promise<void>
   signOut(): Promise<void>
   forgotPassword(props: { email: string }): Promise<void>
   resetPassword(props: ResetPassword): Promise<void>
   updateProfile(props: Profile): Promise<void>
-  updateEmail(props: UpdateEmail): Promise<void>
-  updatePassword(props: UpdatePassword): Promise<void>
-  deleteAccount(props: DeleteAccount): Promise<void>
+  updateEmail(props: UpdateEmailDto): Promise<void>
+  updatePassword(props: UpdatePasswordDto): Promise<void>
+  deleteAccount(props: DeleteAccountDto): Promise<void>
 }
 
 type AuthStore = Store<'authentication', IAuthState, AuthGetters, AuthActions>
@@ -64,7 +72,7 @@ const useAuthStore: StoreDef = defineStore({
       this.authenticate(dto)
     },
 
-    async register(props: credentials): Promise<void> {
+    async register(props: RegisterDto): Promise<void> {
       const dto: JWTDto = await API.authentication.register(props)
       this.authenticate(dto)
     },
@@ -92,17 +100,17 @@ const useAuthStore: StoreDef = defineStore({
       this.authenticate(dto)
     },
 
-    async updateEmail(props: UpdateEmail): Promise<void> {
+    async updateEmail(props: UpdateEmailDto): Promise<void> {
       const dto: JWTDto = await API.authentication.updateEmail(props)
       this.authenticate(dto)
     },
 
-    async updatePassword(props: UpdatePassword): Promise<void> {
+    async updatePassword(props: UpdatePasswordDto): Promise<void> {
       const dto: JWTDto = await API.authentication.updatePassword(props)
       this.authenticate(dto)
     },
 
-    async deleteAccount(props: DeleteAccount): Promise<void> {
+    async deleteAccount(props: DeleteAccountDto): Promise<void> {
       await API.authentication.deleteAccount(props)
       this.purge()
     }

@@ -46,6 +46,14 @@ export class AuthController {
     return this.authService.register(dto);
   }
 
+  @Post('/verify-token')
+  @ApiBearerAuth('access-token')
+  @UseGuards(RefreshTokenGuard)
+  @ApiOkResponse({ type: JWTDto })
+  async verifyToken(@Request() { user }: RefreshTokenRequest): Promise<JWTDto> {
+    return this.authService.verifyToken(user.userEntity);
+  }
+
   @Post('/sign-in')
   @ApiBody({ type: SignInDto })
   @ApiOkResponse({ type: JWTDto })
@@ -59,14 +67,6 @@ export class AuthController {
   @UseGuards(RefreshTokenGuard)
   async signOut(@Request() { user }: RefreshTokenRequest): Promise<void> {
     await this.authService.signOut(user.userEntity);
-  }
-
-  @Post('/verify-token')
-  @ApiBearerAuth('access-token')
-  @UseGuards(RefreshTokenGuard)
-  @ApiOkResponse({ type: JWTDto })
-  async verifyToken(@Request() { user }: RefreshTokenRequest): Promise<JWTDto> {
-    return this.authService.verifyToken(user.userEntity);
   }
 
   @Post('/forgot-password')

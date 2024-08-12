@@ -19,7 +19,7 @@ const closeDropdown = (): void => {
 
 <template>
   <div class="dropdown d-flex align-items-center" ref="dropdownRef">
-    <button class="btn btn-dark btn-icon border-0 px-0" type="button" data-bs-toggle="dropdown">
+    <button class="btn btn-dark btn-icon px-0" type="button" data-bs-toggle="dropdown">
       <slot name="button"></slot>
     </button>
     <div

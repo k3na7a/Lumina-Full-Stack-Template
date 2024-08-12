@@ -22,7 +22,7 @@ import DropdownComponent from '@/app/components/dropdown/dropdown.component.vue'
                 close()
               }"
           >
-            <span>{{ locale.display }}</span>
+            <span class="text-truncate pe-2">{{ locale.display }}</span>
             <img :src="locale.flag" style="height: 15px" class="rounded-circle" />
           </button>
         </template>

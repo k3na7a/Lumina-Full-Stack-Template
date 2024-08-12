@@ -9,14 +9,12 @@ import ActionComponent from '@/app/layouts/main/components/navbar/actions.compon
 import { AuthStore, useAuthStore } from '@/app/store/authentication.store'
 import { UserDto } from '@/library/dto/user.dto'
 
-import { AuthController } from '@/app/controllers/auth.controller'
-
-import { MORE_NAVIGATION } from '@/library/config/more.navigation.config'
+import { MainLayoutController } from './controllers/main-layout.controller'
 
 const route: RouteLocationNormalizedLoaded = useRoute()
 const authStore: AuthStore = useAuthStore()
 
-const { signin, signout } = AuthController
+const { signin, register, signout } = MainLayoutController
 
 const path: ComputedRef<string | undefined> = computed(() => route.name?.toString())
 const isAuthenticated: ComputedRef<boolean> = computed(() => authStore.isAuthenticated)
@@ -26,11 +24,11 @@ const authenticatedUser: ComputedRef<UserDto | undefined> = computed(() => authS
 <template>
   <NavbarComponent>
     <template v-slot:left>
-      <NavigationComponent :path :is-authenticated :navigation_list="MORE_NAVIGATION" />
+      <NavigationComponent :path :is-authenticated />
     </template>
 
     <template v-slot:right>
-      <ActionComponent :signin :signout :is-authenticated :authenticated-user />
+      <ActionComponent :signin :register :signout :is-authenticated :authenticated-user />
     </template>
   </NavbarComponent>
 
@@ -42,7 +40,7 @@ const authenticatedUser: ComputedRef<UserDto | undefined> = computed(() => authS
 </template>
 
 <style lang="scss">
-@import '@/app/sass/variables/index';
+@import '@/library/sass/variables/index';
 
 .th-navbar {
   z-index: map-get($header-config, z-index);

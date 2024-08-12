@@ -37,7 +37,7 @@ onUnmounted(() => offCanvasRef.value?.removeEventListener('hidden.bs.offcanvas',
 </template>
 
 <style lang="scss">
-@import '@/app/sass/variables/index';
+@import '@/library/sass/variables/index';
 
 #offcanvas {
   & .offcanvas-header,

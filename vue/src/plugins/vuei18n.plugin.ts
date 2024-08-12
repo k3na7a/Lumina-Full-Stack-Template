@@ -1,7 +1,7 @@
 import { App } from 'vue'
 import { I18nOptions, createI18n } from 'vue-i18n'
 
-import { ILocalStorageUtil, useLocalStorageUtil } from '@/helpers/utils/local-storage.util'
+import { ILocalStorageUtil, useLocalStorageUtil } from '@/library/helpers/local-storage.util'
 
 import en from '@/library/locales/en/en.json'
 import es from '@/library/locales/es/es.json'

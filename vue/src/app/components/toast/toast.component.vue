@@ -2,7 +2,7 @@
 import { ComputedRef, computed } from 'vue'
 import { Toast, ToastStore, useToastStore } from '@/app/store/toast.store'
 
-import { useStringUtil } from '@/helpers/utils/string.util'
+import { useStringUtil } from '@/library/helpers/string.util'
 
 const store: ToastStore = useToastStore()
 const { capitalize } = useStringUtil()
@@ -11,13 +11,13 @@ const toasts: ComputedRef<Toast[]> = computed<Toast[]>(() => store.getToasts)
 </script>
 
 <template>
-  <div id="toast" class="toast-container d-flex flex-column justify-content-end align-items-end w-100 h-100 p-3">
-    <TransitionGroup name="fade">
+  <div class="toast-container d-flex flex-column justify-content-end align-items-end w-100 h-100 p-3">
+    <TransitionGroup name="fade" mode="out-in">
       <div
         v-for="(toast, _index) of toasts"
         :id="`${toast.id}`"
         :key="toast.id"
-        class="toast box-shadow d-block align-items-center rounded-0 border border-secondary bg-alt"
+        class="toast box-shadow d-block align-items-center rounded-0 bg-alt"
         role="alert"
       >
         <div class="d-flex flex-align-stretch">

@@ -4,26 +4,17 @@ import DropdownComponent from '@/app/components/dropdown/dropdown.component.vue'
 import { useRouter } from 'vue-router'
 
 import { UserDto } from '@/library/dto/user.dto'
-import { ROUTE_NAMES } from '@/app/router/routes'
+import { user_actions } from '../../config/user-action.config'
 
 type PropType = {
   authenticatedUser: UserDto | undefined
-  signout: (event: MouseEvent) => void
+  signout: () => void
 }
 
 const props = defineProps<PropType>()
 const router = useRouter()
 
-type actions = {
-  title: string
-  icon: string[]
-  callback: (event: MouseEvent) => void
-}[][]
-
-const USER_ACTIONS: actions = [
-  [{ title: 'general.settings', icon: ['fas', 'gear'], callback: () => router.push({ name: ROUTE_NAMES.SETTINGS }) }],
-  [{ title: 'actions.log-out', icon: ['fas', 'right-from-bracket'], callback: props.signout }]
-]
+const USER_ACTIONS = user_actions(router, props.signout)
 </script>
 
 <template>
@@ -33,25 +24,26 @@ const USER_ACTIONS: actions = [
     </template>
     <template v-slot:menu="{ close }">
       <div class="px-2 my-1">
-        <h5 class="d-block text-light fw-bolder text-nowrap">
+        <h5 class="d-block text-light fw-bolder text-nowrap text-truncate">
           {{ props.authenticatedUser?.getFullName() }}
         </h5>
-        <small class="text-muted d-block">{{ props.authenticatedUser?.email }}</small>
+        <small class="text-muted d-block text-truncate">{{ props.authenticatedUser?.email }}</small>
       </div>
       <div class="pt-1">
         <template v-for="(section, index) of USER_ACTIONS">
           <div>
-            <template v-for="action of section">
+            <template v-for="action of section.children">
               <button
                 class="dropdown-item d-flex justify-content-between align-items-center px-2"
                 type="button"
+                :disabled="action.disabled"
                 v-on:click="($event: MouseEvent) => {
                     action.callback($event)
                     close()
                 }"
               >
-                <span>{{ $t(action.title) }}</span>
-                <span style="width: 15px" class="text-center"><font-awesome-icon :icon="action.icon" /></span>
+                <span class="text-truncate pe-2">{{ $t(action.title) }}</span>
+                <span style="width: 1.5rem" class="text-center"><font-awesome-icon :icon="action.icon" /></span>
               </button>
             </template>
           </div>

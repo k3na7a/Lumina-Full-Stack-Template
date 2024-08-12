@@ -27,7 +27,7 @@ const onSubmit = (_event: MouseEvent): void => {
     </div>
     <div class="d-grid gap-2 pt-3">
       <button v-on:click="close" class="btn btn-secondary px-0" type="button">
-        {{ $t('actions.close') }}
+        {{ $t('actions.cancel') }}
       </button>
       <button v-on:click="onSubmit" :disabled="state.loading" class="btn btn-primary px-0" type="button">
         {{ state.loading ? $t('actions.loading') : $t(props.action) }}

@@ -7,8 +7,9 @@ import UserActionsDropdown from '../dropdowns/useractions.dropdown.vue'
 type PropType = {
   isAuthenticated: boolean
   authenticatedUser: UserDto | undefined
-  signin: (event: MouseEvent) => void
-  signout: (event: MouseEvent) => void
+  signin: () => void
+  register: () => void
+  signout: () => void
 }
 
 const props = defineProps<PropType>()
@@ -29,7 +30,7 @@ const props = defineProps<PropType>()
     </nav>
 
     <nav v-if="!props.isAuthenticated" class="align-content-center flex-grow-1 px-1">
-      <button class="btn btn-primary px-0 border-0" type="button">
+      <button class="btn btn-primary px-0 border-0" type="button" v-on:click="register">
         <div class="container px-2 fw-bold">
           {{ $t('actions.sign-up') }}
         </div>
@@ -41,7 +42,7 @@ const props = defineProps<PropType>()
         <div class="vr bg-secondary"></div>
       </div>
       <nav class="align-content-center flex-grow-1 ps-1">
-        <UserActionsDropdown :authenticated-user :signout="props.signout" />
+        <UserActionsDropdown :signout :authenticated-user />
       </nav>
     </template>
   </div>

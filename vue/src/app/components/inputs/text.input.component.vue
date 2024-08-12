@@ -2,7 +2,7 @@
 import { InputTypeHTMLAttribute, toRef } from 'vue'
 import { useField } from 'vee-validate'
 
-import { HTMLAutoComplete } from '@/library/types/autocomplete'
+import { HTMLAutoComplete } from '@/library/types/HTMLautocomplete'
 
 type PropType = {
   name: string

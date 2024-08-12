@@ -21,16 +21,14 @@ export const routes: RouteRecordRaw[] = [
         name: ROUTE_NAMES.HOME,
         component: () => import('@/app/views/home/home.view.vue'),
         meta: {
-          pageTitle: 'Home',
-          breadcrumbs: ['Home']
+          pageTitle: 'Home'
         }
       },
       {
         path: '/browse',
         name: ROUTE_NAMES.BROWSE,
         meta: {
-          pageTitle: 'Browse',
-          breadcrumbs: ['Browse']
+          pageTitle: 'Browse'
         },
         component: () => import('@/app/views/home/home.view.vue')
       },
@@ -42,8 +40,7 @@ export const routes: RouteRecordRaw[] = [
             path: '/following',
             name: ROUTE_NAMES.FOLLOWING,
             meta: {
-              pageTitle: 'Following',
-              breadcrumbs: ['Following']
+              pageTitle: 'Following'
             },
             component: () => import('@/app/views/home/home.view.vue')
           },
@@ -51,15 +48,14 @@ export const routes: RouteRecordRaw[] = [
             path: '/settings',
             name: ROUTE_NAMES.SETTINGS,
             redirect: { name: ROUTE_NAMES.PROFILE },
-            component: () => import('@/app/layouts/settings/settings.layout.vue'),
+            component: () => import('@/app/views/settings/layouts/settings.layout.vue'),
             children: [
               {
                 path: 'profile',
                 name: ROUTE_NAMES.PROFILE,
-                component: () => import('@/app/views/settings/profile.view.vue'),
+                component: () => import('@/app/views/settings/profile/profile.view.vue'),
                 meta: {
-                  pageTitle: 'Profile',
-                  breadcrumbs: ['Settings']
+                  pageTitle: 'Profile'
                 }
               }
             ]
