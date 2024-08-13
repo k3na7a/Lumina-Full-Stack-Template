@@ -7,6 +7,9 @@ import { credentials } from '@/library/dto/JWT.dto'
 import { useFormUtil } from '@/helpers/vee-validate.util'
 
 import TextInput from '@/components/inputs/text.input.component.vue'
+import PasswordValidationList from '@/components/lists/password-validation-list.component.vue'
+import ModalTitleComponent from './base/modal-title.component.vue'
+
 import { PasswordValidation } from '@/library/regex/validation.regex'
 
 type LocalState = { loading: boolean }
@@ -35,20 +38,10 @@ const onSubmit = validateUtil.getSubmitFn(validationSchema, async (values: crede
 
 <template>
   <Form v-on:submit="onSubmit" :validation-schema v-slot="{ meta }">
-    <div class="d-flex justify-content-center pb-3">
-      <div class="d-flex align-items-center">
-        <div class="flex-shrink-0">
-          <img id="logo" src="/media/logo.svg" style="width: 30px" />
-        </div>
-        <div class="flex-grow-1 px-2">
-          <h4 class="text-light fw-bold display-font">
-            {{ $t('authentication.register.title') }}
-          </h4>
-        </div>
-      </div>
-    </div>
+    <ModalTitleComponent title="authentication.register.title" />
+
     <div class="d-flex flex-column">
-      <h6 class="mb-1 fw-semibold">{{ $t('general.name') }}</h6>
+      <h6 class="mb-1 fw-semibold">{{ $t('forms.name') }}</h6>
       <div class="row gy-3 align-items-start flex-grow-1">
         <div class="col-12 col-sm-6">
           <TextInput class="mb-1" autocomplete="given-name" name="firstname" type="text" />
@@ -60,38 +53,38 @@ const onSubmit = validateUtil.getSubmitFn(validationSchema, async (values: crede
         </div>
       </div>
     </div>
+    
     <div class="d-flex flex-column mt-3">
-      <TextInput autocomplete="email" class="pb-3" name="email" type="email" label="general.email" />
-      <TextInput autocomplete="new-password" class="pb-1" name="password" type="password" label="general.password" />
-      <div>
-        <small>{{ $t('authentication.password-validation.label') }}</small>
-        <ul class="mb-0" style="list-style-type: circle">
-          <li>
-            <small>{{ $t('authentication.password-validation.contains.1') }}</small>
-          </li>
-          <li>
-            <small>{{ $t('authentication.password-validation.contains.2') }}</small>
-          </li>
-          <li>
-            <small>{{ $t('authentication.password-validation.contains.3') }}</small>
-          </li>
-          <li>
-            <small>{{ $t('authentication.password-validation.contains.4') }}</small>
-          </li>
-        </ul>
+      <div class="row gy-3">
+        <div class="col-12">
+          <TextInput autocomplete="email" name="email" type="email" label="forms.email" />
+        </div>
+        <div class="col-12">
+          <TextInput autocomplete="new-password" class="pb-1" name="password" type="password" label="forms.password" />
+          <PasswordValidationList />
+        </div>
       </div>
     </div>
-    <div class="d-flex flex-column mt-3">
-      <p class="text-muted">
-        By clicking Sign Up, you are agreeing to Testhub’s
-        <RouterLink target="_blank" :to="{ name: 'home' }" class="btn btn-link fw-normal">
-          Terms of Service
+
+    <div class="d-flex flex-column mt-3 text-muted">
+      <i18n-t keypath="legal.term" tag="p" scope="global">
+        <RouterLink
+          target="_blank"
+          :to="{ name: 'home' }"
+          class="link-underline link-underline-opacity-0 link-underline-opacity-100-hover"
+        >
+          {{ $t('legal.terms-of-service') }}
         </RouterLink>
-        and are acknowledging our
-        <RouterLink target="_blank" :to="{ name: 'home' }" class="btn btn-link fw-normal"> Privacy Notice </RouterLink>
-        applies.
-      </p>
+        <RouterLink
+          target="_blank"
+          :to="{ name: 'home' }"
+          class="link-underline link-underline-opacity-0 link-underline-opacity-100-hover"
+        >
+          {{ $t('legal.privacy-notice') }}
+        </RouterLink>
+      </i18n-t>
     </div>
+
     <div class="d-grid mt-3">
       <button :disabled="!meta.valid || state.loading" class="btn btn-primary px-0" type="submit">
         <div v-if="!state.loading" class="containter">{{ $t('actions.sign-up') }}</div>

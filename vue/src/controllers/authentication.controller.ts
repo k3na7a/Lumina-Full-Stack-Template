@@ -81,8 +81,8 @@ export class AuthController {
               addToast({ title: error.response?.statusText || 'ERROR', body: error.message })
             )
         },
-        title: 'Log out of Testhub',
-        body: 'Are you sure you want to log out of Testhub?',
+        title: 'authentication.log-out.modal-title',
+        body: 'authentication.log-out.modal-body',
         action: 'actions.log-out'
       }
     })
@@ -105,9 +105,9 @@ export class AuthController {
               addToast({ title: error.response?.statusText || 'ERROR', body: error.message })
             )
         },
-        title: 'Disable your Testhub account',
-        body: 'Are you sure you want to permanently disable your Testhub account?',
-        action: 'Disable Account'
+        title: 'authentication.disable-account.modal-title',
+        body: 'authentication.disable-account.modal-body',
+        action: 'actions.disable-account'
       }
     })
   }

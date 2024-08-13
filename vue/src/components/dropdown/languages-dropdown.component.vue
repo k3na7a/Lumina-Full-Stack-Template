@@ -10,7 +10,7 @@ import DropdownComponent from '@/components/dropdown/base/dropdown.component.vue
       <font-awesome-icon :icon="['fas', 'language']" />
     </template>
     <template v-slot:menu="{ close }">
-      <h5 class="p-0 my-1 px-2 text-muted fw-bolder text-nowrap">{{ $t('general.language') }}</h5>
+      <h5 class="p-0 my-1 px-2 text-muted fw-bolder text-nowrap">{{ $t('navigation.language') }}</h5>
       <div class="pt-1">
         <template v-for="locale of Object.values(LOCALES)">
           <button

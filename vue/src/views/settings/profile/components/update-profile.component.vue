@@ -35,7 +35,7 @@ const onSubmit = validateUtil.getSubmitFn(validationSchema, async (values: Updat
   <Form v-on:submit="onSubmit" :validation-schema v-slot="{ meta }" :key="JSON.stringify(user?.$updatedAt)">
     <div class="section d-flex flex-column flex-sm-row p-3">
       <div class="row-header pe-3 mb-2 mb-sm-0">
-        <h6 class="fw-bold">Name</h6>
+        <h6 class="fw-bold">{{ $t('forms.name') }}</h6>
       </div>
 
       <div class="d-flex flex-column flex-grow-1">
@@ -48,7 +48,7 @@ const onSubmit = validateUtil.getSubmitFn(validationSchema, async (values: Updat
               name="firstname"
               type="text"
             />
-            <small class="text-muted">Given Name</small>
+            <small>{{ $t('forms.given-name') }}</small>
           </div>
           <div class="col-12 col-md-6">
             <TextInput
@@ -58,14 +58,14 @@ const onSubmit = validateUtil.getSubmitFn(validationSchema, async (values: Updat
               name="lastname"
               type="text"
             />
-            <small class="text-muted">Family Name</small>
+            <small>{{ $t('forms.family-name') }}</small>
           </div>
         </div>
       </div>
     </div>
     <div class="section bg-alt d-flex flex-row p-3 justify-content-end">
       <button :disabled="!meta.valid || state.loading || !meta.dirty" class="btn btn-primary px-2" type="submit">
-        {{ $t('general.save-changes') }}
+        {{ $t('actions.save-changes') }}
       </button>
     </div>
   </Form>

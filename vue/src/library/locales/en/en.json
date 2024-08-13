@@ -3,6 +3,9 @@
     "home": "Home",
     "following": "Following",
     "browse": "Browse",
+    "help&legal": "Help & Legal",
+    "language": "Language",
+    "general": "General",
     "subnavigation": {
       "about": "About",
       "blog": "Blog",
@@ -16,10 +19,22 @@
       "terms": "Terms"
     }
   },
+  "legal": {
+    "terms-of-service": "Terms of Service",
+    "privacy-notice": "Privacy Notice",
+    "term": "By clicking Sign Up, you are agreeing to Testhub’s {0} and are acknowledging our {1} applies."
+  },
   "forms": {
     "name": "Name",
     "given-name": "Given Name",
-    "family-name": "Family Name"
+    "family-name": "Family Name",
+    "email": "Email",
+    "new-email": "New Email Address",
+    "confirm-new-email": "Confirm New Email Address",
+    "password": "Password",
+    "current-password": "Current Password",
+    "new-password": "New Password",
+    "confirm-new-password": "Confirm New Password"
   },
   "actions": {
     "log-in": "Log In",
@@ -27,14 +42,26 @@
     "sign-up": "Sign Up",
     "loading": "Loading...",
     "close": "Close",
-    "cancel": "Cancel"
+    "cancel": "Cancel",
+    "save-changes": "Save Changes",
+    "disable-account": "Disable Account"
   },
   "authentication": {
-    "log-in-title": "Log in to Testhub",
-    "trouble": "Trouble logging in?",
     "password-security": "For security, please enter your password to continue.",
+    "log-in": {
+      "title": "Log in to Testhub",
+      "trouble": "Trouble logging in?"
+    },
     "register": {
       "title": "Join Testhub today"
+    },
+    "log-out": {
+      "modal-title": "Log out of Testhub",
+      "modal-body": "Are you sure you want to log out of Testhub?"
+    },
+    "disable-account": {
+      "modal-title": "Disable your Testhub account",
+      "modal-body": "Are you sure you want to permanently disable your Testhub account?"
     },
     "password-validation": {
       "label": "Passwords must be 8 to 16 characters long and contain the following:",
@@ -49,18 +76,27 @@
   "settings": {
     "label": "Settings",
     "profile": {
-      "label": "Profile"
+      "label": "Profile",
+      "profile-settings": {
+        "header": "Profile Settings",
+        "sub-header": "Change identifying details for your account"
+      },
+      "disable-account": {
+        "header": "Disabling Your Testhub Account",
+        "sub-header": "Completely deactivate your account",
+        "form-header": "Disable Your Testhub Account"
+      },
+      "security": {
+        "header": "Security",
+        "sub-header": "Keep your account safe and sound",
+        "email": {
+          "linked": "This email is linked to your account."
+        },
+        "password": {
+          "change-password": "Change Password.",
+          "improve-security": "{0} Improve your security with a strong password."
+        }
+      }
     }
-  },
-  "general": {
-    "save-changes": "Save Changes",
-    "profile": "Profile",
-    "email": "Email",
-    "password": "Password",
-    "general": "General",
-    "help&legal": "Help & Legal",
-    "dashboard": "Dashboard",
-    "language": "Language",
-    "legal": "© {year} John Desjardins {'|'} All Rights Reserved"
   }
 }

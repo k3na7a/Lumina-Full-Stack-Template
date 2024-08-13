@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import { reactive } from 'vue'
 
+import ModalTitleComponent from './base/modal-title.component.vue'
+
 type PropType = {
   close: () => void
   callback: () => Promise<void>
@@ -20,18 +22,10 @@ const onSubmit = (_event: MouseEvent): void => {
 </script>
 
 <template>
-  <div id="general-modal">
-    <div class="d-flex justify-content-center">
-      <div class="d-flex align-items-center">
-        <div class="flex-shrink-0 me-2">
-          <img id="logo" src="/media/logo.svg" style="width: 30px" />
-        </div>
-        <div class="flex-grow-1">
-          <h4 class="text-light fw-bold display-font">{{ $t(props.title) }}</h4>
-        </div>
-      </div>
-    </div>
-    <div class="d-flex flex-column mt-3">
+  <div>
+    <ModalTitleComponent :title="props.title" />
+
+    <div class="d-flex flex-column">
       <h6 class="text-muted fw-normal">{{ $t(props.body) }}</h6>
     </div>
     <div class="d-grid gap-2 pt-3">

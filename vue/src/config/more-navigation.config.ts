@@ -5,7 +5,7 @@ export type more_navigation = Array<{
 
 export const MORE_NAVIGATION: more_navigation = [
   {
-    title: 'general.general',
+    title: 'navigation.general',
     children: [
       { title: 'navigation.subnavigation.about', redirect: 'About' },
       { title: 'navigation.subnavigation.blog', redirect: 'About' },
@@ -15,7 +15,7 @@ export const MORE_NAVIGATION: more_navigation = [
     ]
   },
   {
-    title: 'general.help&legal',
+    title: 'navigation.help&legal',
     children: [
       { title: 'navigation.subnavigation.community', redirect: 'About' },
       { title: 'navigation.subnavigation.cookies', redirect: 'About' },

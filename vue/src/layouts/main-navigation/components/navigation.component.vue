@@ -50,6 +50,8 @@ const props = defineProps<PropType>()
 
 .th-navbar {
   nav {
+    margin-top: 2px;
+
     a {
       font-family: $noto-sans;
       font-weight: 600;

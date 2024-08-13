@@ -4,6 +4,7 @@ import { Form } from 'vee-validate'
 import * as Yup from 'yup'
 
 import TextInput from '@/components/inputs/text.input.component.vue'
+import PasswordValidationList from '@/components/lists/password-validation-list.component.vue'
 
 import { PasswordValidation } from '@/library/regex/validation.regex'
 import { useFormUtil } from '@/helpers/vee-validate.util'
@@ -43,15 +44,16 @@ const onSubmit = validateUtil.getSubmitFn(validationSchema, async (values: Updat
   <Form v-on:submit="onSubmit" :validation-schema v-slot="{ meta }" :key="JSON.stringify(user?.$updatedAt)">
     <div class="d-flex flex-column flex-sm-row p-3">
       <div class="row-header pe-3 mb-2 mb-sm-0">
-        <h6 class="fw-bold">Password</h6>
+        <h6 class="fw-bold">{{ $t('forms.password') }}</h6>
       </div>
 
       <template v-if="!state.open">
-        <div class="d-flex flex-grow-1">
-          <p class="fw-normal text-muted">
-            <button v-on:click="toggle" class="btn btn-link fw-normal">Change password.</button>
-            Improve your security with a strong password.
-          </p>
+        <div class="d-flex flex-grow-1 text-muted">
+          <i18n-t keypath="settings.profile.security.password.improve-security" tag="p" scope="global">
+            <button v-on:click="toggle" class="btn btn-link fw-normal">
+              {{ $t('settings.profile.security.password.change-password') }}
+            </button>
+          </i18n-t>
         </div>
       </template>
 
@@ -60,17 +62,18 @@ const onSubmit = validateUtil.getSubmitFn(validationSchema, async (values: Updat
           <div class="row align-items-start flex-grow-1 mb-2">
             <div class="col-12 col-md-6">
               <TextInput class="mb-1" autocomplete="current-password" name="current_password" type="password" />
-              <small class="text-muted">Current Password</small>
+              <small>{{ $t('forms.current-password') }}</small>
             </div>
           </div>
           <div class="row gy-2 align-items-start flex-grow-1 mb-2">
             <div class="col-12 col-md-6">
               <TextInput class="mb-1" autocomplete="new-password" name="password" type="password" />
-              <small class="text-muted">New Password</small>
+              <small>{{ $t('forms.new-password') }}</small>
+              <PasswordValidationList />
             </div>
             <div class="col-12 col-md-6">
               <TextInput class="mb-1" autocomplete="new-password" name="confirm_password" type="password" />
-              <small class="text-muted">Confirm New Password</small>
+              <small>{{ $t('forms.confirm-new-password') }}</small>
             </div>
           </div>
 
@@ -83,7 +86,7 @@ const onSubmit = validateUtil.getSubmitFn(validationSchema, async (values: Updat
               class="btn btn-primary px-2 ms-2"
               type="submit"
             >
-              {{ $t('general.save-changes') }}
+              {{ $t('actions.save-changes') }}
             </button>
           </div>
         </div>

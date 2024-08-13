@@ -7,6 +7,7 @@ import { credentials } from '@/library/dto/JWT.dto'
 import { useFormUtil } from '@/helpers/vee-validate.util'
 
 import TextInput from '@/components/inputs/text.input.component.vue'
+import ModalTitleComponent from './base/modal-title.component.vue'
 
 type LocalState = { loading: boolean }
 type PropType = {
@@ -32,28 +33,13 @@ const onSubmit = validateUtil.getSubmitFn(validationSchema, async (values: crede
 
 <template>
   <Form v-on:submit="onSubmit" :validation-schema v-slot="{ meta }">
-    <div class="d-flex justify-content-center pb-3">
-      <div class="d-flex align-items-center">
-        <div class="flex-shrink-0">
-          <img id="logo" src="/media/logo.svg" style="width: 30px" />
-        </div>
-        <div class="flex-grow-1 px-2">
-          <h4 class="text-light fw-bold display-font">{{ $t('authentication.log-in-title') }}</h4>
-        </div>
-      </div>
-    </div>
+    <ModalTitleComponent title="authentication.log-in.title" />
     <div class="d-flex flex-column">
-      <TextInput autocomplete="email" class="pb-3" name="email" type="email" label="general.email" />
-      <TextInput
-        autocomplete="current-password"
-        class="pb-2"
-        name="password"
-        type="password"
-        label="general.password"
-      />
+      <TextInput autocomplete="email" class="pb-3" name="email" type="email" label="forms.email" />
+      <TextInput autocomplete="current-password" class="pb-2" name="password" type="password" label="forms.password" />
       <div>
         <RouterLink target="_blank" :to="{ name: 'home' }" class="btn btn-link fw-normal">
-          {{ $t('authentication.trouble') }}
+          {{ $t('authentication.log-in.trouble') }}
         </RouterLink>
       </div>
     </div>
