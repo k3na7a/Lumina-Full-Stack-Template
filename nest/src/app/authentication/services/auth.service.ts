@@ -187,6 +187,10 @@ export class AuthService {
   ): Promise<void> {
     await this.validateUser(user.email, password);
 
+    const profile = await this.userProfileService.findOneById(user.profile.$id);
+    if (!profile) throw new NotFoundException();
+
     await this.userService.remove(user.$id);
+    await this.userProfileService.remove(profile);
   }
 }

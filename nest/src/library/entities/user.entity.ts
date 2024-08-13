@@ -27,11 +27,11 @@ export class UserEntity extends BaseEntity {
   public readonly refreshToken!: string | null;
 
   @ApiProperty({ type: () => ProfileEntity })
-  @JoinColumn()
-  @OneToOne(() => ProfileEntity, {
-    cascade: true,
+  @OneToOne(() => ProfileEntity, (profile: ProfileEntity) => profile.user, {
+    cascade: ['insert', 'update'],
     eager: true,
   })
+  @JoinColumn()
   public readonly profile!: ProfileEntity;
 
   public getFullName(): string {

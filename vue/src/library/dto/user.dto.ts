@@ -116,4 +116,4 @@ export class UserDto {
   }
 }
 
-export type { UpdateEmail, UpdatePassword, ResetPassword, ForgotPassword, DeleteAccount, UpdateProfile }
+export type { UpdateEmail, UpdatePassword, ResetPassword, ForgotPassword, DeleteAccount, UpdateProfile, Register }

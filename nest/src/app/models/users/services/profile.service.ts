@@ -24,4 +24,8 @@ export class UserProfileService {
     if (!profile) throw new NotFoundException();
     return this.userProfileRepository.save({ ...profile, ...dto });
   }
+
+  public remove(profile: ProfileEntity): Promise<ProfileEntity> {
+    return this.userProfileRepository.remove(profile);
+  }
 }
