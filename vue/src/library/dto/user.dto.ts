@@ -4,11 +4,31 @@ type UpdatePassword = {
   confirm_password: string
 }
 type UpdateEmail = { password: string; email: string; confirm_email: string }
-type ResetPassword = { token: string; new_password: string; confirm_password: string }
+type ResetPassword = { new_password: string; confirm_password: string }
 type ForgotPassword = { email: string }
 type DeleteAccount = { password: string }
 type UpdateProfile = { firstname: string; lastname: string }
 type Register = { firstname: string; lastname: string; email: string; password: string }
+
+export class ResetPasswordDto {
+  public readonly token: string
+  public readonly new_password: string
+  public readonly confirm_password: string
+
+  constructor({ new_password, confirm_password }: ResetPassword, token: string) {
+    this.token = token
+    this.new_password = new_password
+    this.confirm_password = confirm_password
+  }
+}
+
+export class ForgotPasswordDto {
+  public readonly email: string
+
+  constructor(payload: ForgotPassword) {
+    this.email = payload.email
+  }
+}
 
 export class RegisterDto {
   public readonly email: string

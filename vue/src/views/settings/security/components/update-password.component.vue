@@ -4,7 +4,7 @@ import { Form } from 'vee-validate'
 import * as Yup from 'yup'
 
 import TextInput from '@/components/inputs/text.input.component.vue'
-import PasswordValidationList from '@/components/lists/password-validation-list.component.vue'
+import PasswordValidationList from '@/components/labels/password-validation-list.component.vue'
 
 import { PasswordValidation } from '@/library/regex/validation.regex'
 import { useFormUtil } from '@/helpers/vee-validate.util'
@@ -49,10 +49,14 @@ const onSubmit = validateUtil.getSubmitFn(validationSchema, async (values: Updat
 
       <template v-if="!state.open">
         <div class="d-flex flex-grow-1 text-muted">
-          <i18n-t keypath="settings.profile.security.password.improve-security" tag="p" scope="global">
-            <button v-on:click="toggle" class="btn btn-link fw-normal">
-              {{ $t('settings.profile.security.password.change-password') }}
-            </button>
+          <i18n-t keypath="settings.security-privacy.security.password.improve-security" tag="p" scope="global">
+            <a
+              href="javascript:void(0)"
+              v-on:click="toggle"
+              class="link-underline link-underline-opacity-0 link-underline-opacity-100-hover"
+            >
+              {{ $t('settings.security-privacy.security.password.change-password') }}
+            </a>
           </i18n-t>
         </div>
       </template>
@@ -94,3 +98,12 @@ const onSubmit = validateUtil.getSubmitFn(validationSchema, async (values: Updat
     </div>
   </Form>
 </template>
+
+<style lang="scss">
+@import '@/sass/variables/index';
+
+.btn-i18n {
+  background-color: transparent;
+  border: none;
+}
+</style>

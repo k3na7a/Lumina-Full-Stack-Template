@@ -111,18 +111,21 @@ export class AuthService {
     const payload: Payload = { email: user.email, sub: user.$id };
     const tokens: JWTInterface = await this.getTokens(payload);
 
-    const data: ForgotPasswordOptions = {
-      name: user.email,
-      email: user.email,
-      redirect: `${process.env.BASE_URL}/reset-password?token=${tokens.access_token}`,
-    };
+    const hmac = createHmac('sha256', process.env.CRYPTO_SECRET || '');
+    const hash = hmac.update(tokens.access_token).digest('hex');
+
+    await this.userService.update(user.$id, { resetToken: hash });
 
     await SendGridPlugin.sendMail({
       to: [user.email],
       subject: ForgotPasswordEmailSubject,
       html: HandlebarsPlugin.compile<ForgotPasswordOptions>({
         template: ForgotPasswordEmailBody,
-        data,
+        data: {
+          name: user.email,
+          email: user.email,
+          redirect: `${process.env.BASE_URL}/guest/password-reset?${new URLSearchParams({ reset_token: tokens.access_token })}`,
+        },
       }),
     });
   }
@@ -130,13 +133,20 @@ export class AuthService {
   public async resetPassword(
     user: UserEntity,
     password: string,
+    accessToken: string,
   ): Promise<void> {
+    const hmac = createHmac('sha256', process.env.CRYPTO_SECRET || '');
+    const hashval = hmac.update(accessToken).digest('hex');
+
+    if (hashval !== user.resetToken) throw new UnauthorizedException();
+
     const salt: string = await bcrypt.genSalt();
     const hash: string = await bcrypt.hash(password, salt);
 
     await this.userService.update(user.$id, {
       password: hash,
       refreshToken: null,
+      resetToken: null,
     });
   }
 

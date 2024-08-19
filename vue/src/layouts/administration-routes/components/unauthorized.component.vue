@@ -1,4 +1,4 @@
-<script setup lang="ts"></script>
+<script setup lang="ts" />
 
 <template>
   <div class="d-flex flex-grow-1 justify-content-center align-items-center p-3">
@@ -16,7 +16,9 @@
         </svg>
       </div>
       <div class="flex-grow-1">
-        <h4 class="fw-normal text-muted">{{ $t('authentication.not-viewable') }}</h4>
+        <h4 class="fw-normal text-muted">
+          {{ $t('authentication.not-authorized') }}
+        </h4>
       </div>
     </div>
   </div>

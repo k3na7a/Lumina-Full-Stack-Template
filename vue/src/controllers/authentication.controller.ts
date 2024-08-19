@@ -14,8 +14,12 @@ import { credentials } from '@/library/dto/JWT.dto'
 import {
   DeleteAccount,
   DeleteAccountDto,
+  ForgotPassword,
+  ForgotPasswordDto,
   Register,
   RegisterDto,
+  ResetPassword,
+  ResetPasswordDto,
   UpdateEmail,
   UpdateEmailDto,
   UpdatePassword,
@@ -137,5 +141,23 @@ export class AuthController {
     await updateProfile(new UpdateProfileDto(props)).catch((error: AxiosError) =>
       addToast({ title: error.response?.statusText || 'ERROR', body: error.message })
     )
+  }
+
+  public static forgotPassword = async (props: ForgotPassword, callback?: () => void): Promise<void> => {
+    const { forgotPassword }: AuthStore = useAuthStore()
+    const { addToast }: ToastStore = useToastStore()
+
+    await forgotPassword(new ForgotPasswordDto(props))
+      .then(callback)
+      .catch((error: AxiosError) => addToast({ title: error.response?.statusText || 'ERROR', body: error.message }))
+  }
+
+  public static resetPassword = async (props: ResetPassword, token: string, callback?: () => void): Promise<void> => {
+    const { resetPassword }: AuthStore = useAuthStore()
+    const { addToast }: ToastStore = useToastStore()
+
+    await resetPassword(new ResetPasswordDto(props, token))
+      .then(callback)
+      .catch((error: AxiosError) => addToast({ title: error.response?.statusText || 'ERROR', body: error.message }))
   }
 }

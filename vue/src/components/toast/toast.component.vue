@@ -17,7 +17,7 @@ const toasts: ComputedRef<Toast[]> = computed<Toast[]>(() => store.getToasts)
         v-for="(toast, _index) of toasts"
         :id="`${toast.id}`"
         :key="toast.id"
-        class="toast box-shadow d-block align-items-center rounded-0 border border-secondary bg-alt"
+        class="toast box-shadow d-block align-items-center rounded-0 bg-alt"
         role="alert"
       >
         <div class="d-flex flex-align-stretch">

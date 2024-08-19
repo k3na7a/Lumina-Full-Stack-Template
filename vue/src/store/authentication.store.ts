@@ -3,9 +3,11 @@ import { useLocalStorageUtil } from '@/helpers/local-storage.util'
 import { credentials, JWTDto } from '@/library/dto/JWT.dto'
 import {
   DeleteAccountDto,
+  ForgotPasswordDto,
   Profile,
   RegisterDto,
   ResetPassword,
+  ResetPasswordDto,
   UpdateEmailDto,
   UpdatePasswordDto,
   UserDto
@@ -87,11 +89,11 @@ const useAuthStore: StoreDef = defineStore({
       this.purge()
     },
 
-    async forgotPassword(props: { email: string }): Promise<void> {
+    async forgotPassword(props: ForgotPasswordDto): Promise<void> {
       await API.authentication.forgotPassword(props)
     },
 
-    async resetPassword(props: { token: string; new_password: string; confirm_password: string }): Promise<void> {
+    async resetPassword(props: ResetPasswordDto): Promise<void> {
       await API.authentication.resetPassword(props)
     },
 

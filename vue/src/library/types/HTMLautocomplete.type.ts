@@ -20,7 +20,7 @@ export type HTMLAutoComplete =
   | 'honoric-suffix' // Expects the suffix, like "5", "Jr." etc.
   | 'nickname' // Expects the nickname
   | 'organization-title' // Expects the job title
-  | 'username' // Expects the username
+  | 'username' // Expects the username+
   | 'new-password' // Expects a new password
   | 'current-password' // Expects the current password
   | 'bday' // Expects the full birthday date

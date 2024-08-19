@@ -83,7 +83,11 @@ export class AuthController {
     @Request() { user }: AccessTokenRequest,
     @Body() { confirm_password }: ResetPasswordDto,
   ): Promise<void> {
-    await this.authService.resetPassword(user.userEntity, confirm_password);
+    await this.authService.resetPassword(
+      user.userEntity,
+      confirm_password,
+      user.accessToken,
+    );
   }
 
   @Patch('/update-profile')

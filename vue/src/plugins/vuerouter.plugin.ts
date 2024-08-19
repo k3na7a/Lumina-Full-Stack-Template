@@ -1,5 +1,5 @@
 import { App } from 'vue'
-import { RouteRecordRaw, Router, RouterOptions, createRouter, createWebHistory } from 'vue-router'
+import { RouteLocationNormalized, RouteRecordRaw, Router, RouterOptions, createRouter, createWebHistory } from 'vue-router'
 
 declare module 'vue-router' {
   interface RouteMeta {
@@ -21,8 +21,8 @@ class VueRouterService {
       this.$router.addRoute(route as RouteRecordRaw)
     }
 
-    this.$router.beforeResolve((to) => {
-      document.title = `${to.meta.pageTitle} | ${process.env.TITLE}`
+    this.$router.beforeResolve((to: RouteLocationNormalized) => {
+      document.title = `${to.meta.pageTitle} - ${process.env.TITLE}`
 
       window.scrollTo({
         top: 0,

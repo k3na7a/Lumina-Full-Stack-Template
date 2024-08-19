@@ -1,7 +1,8 @@
 html,
 body {
   color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
+  // color: rgba(255, 255, 255, 0.87);
+  color: $light;
 
   background-color: $background;
 
@@ -83,6 +84,21 @@ body {
       &:disabled {
         color: $muted;
       }
+    }
+  }
+}
+
+.inner-link-btn {
+  border: none;
+  background-color: transparent;
+
+  &.btn-link {
+    text-decoration: none;
+    transition: none;
+    height: max-content;
+
+    &:hover {
+      text-decoration: underline;
     }
   }
 }

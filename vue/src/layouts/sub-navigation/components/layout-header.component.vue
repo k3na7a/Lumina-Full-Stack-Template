@@ -7,8 +7,8 @@ const props = defineProps<PropType>()
 
 <template>
   <header class="settings-header p-3 pb-0">
-    <h2 class="mb-1 fw-bold display-font">{{ $t(props.title) }}</h2>
-    <ul class="nav nav-underline">
+    <h2 class="mb-1 fw-bold display-font text-truncate">{{ $t(props.title) }}</h2>
+    <ul class="d-flex nav nav-underline">
       <li v-for="route of props.routes" class="nav-item">
         <RouterLink :to="{ name: route.name }" class="nav-link fw-400 text-light" activeClass="active">
           {{ $t(route.label) }}

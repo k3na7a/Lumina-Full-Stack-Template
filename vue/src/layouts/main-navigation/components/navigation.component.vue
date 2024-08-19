@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import NavigationDropdown from '../../../components/dropdown/navigation-dropdown.component.vue'
+import NavigationDropdown from '@/components/dropdown/navigation-dropdown.component.vue'
 
 type PropType = {
   path: string | undefined

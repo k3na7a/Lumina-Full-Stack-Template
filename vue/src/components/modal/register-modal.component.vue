@@ -5,9 +5,10 @@ import * as Yup from 'yup'
 
 import { credentials } from '@/library/dto/JWT.dto'
 import { useFormUtil } from '@/helpers/vee-validate.util'
+import { ROUTE_NAMES } from '@/router/routes'
 
 import TextInput from '@/components/inputs/text.input.component.vue'
-import PasswordValidationList from '@/components/lists/password-validation-list.component.vue'
+import PasswordValidationList from '@/components/labels/password-validation-list.component.vue'
 import ModalTitleComponent from './base/modal-title.component.vue'
 
 import { PasswordValidation } from '@/library/regex/validation.regex'
@@ -38,7 +39,7 @@ const onSubmit = validateUtil.getSubmitFn(validationSchema, async (values: crede
 
 <template>
   <Form v-on:submit="onSubmit" :validation-schema v-slot="{ meta }">
-    <ModalTitleComponent title="authentication.register.title" />
+    <ModalTitleComponent title="authentication.register.modal-title" />
 
     <div class="d-flex flex-column">
       <h6 class="mb-1 fw-semibold">{{ $t('forms.name') }}</h6>
@@ -53,7 +54,7 @@ const onSubmit = validateUtil.getSubmitFn(validationSchema, async (values: crede
         </div>
       </div>
     </div>
-    
+
     <div class="d-flex flex-column mt-3">
       <div class="row gy-3">
         <div class="col-12">
@@ -70,14 +71,14 @@ const onSubmit = validateUtil.getSubmitFn(validationSchema, async (values: crede
       <i18n-t keypath="legal.term" tag="p" scope="global">
         <RouterLink
           target="_blank"
-          :to="{ name: 'home' }"
+          :to="{ name: ROUTE_NAMES.HOME }"
           class="link-underline link-underline-opacity-0 link-underline-opacity-100-hover"
         >
           {{ $t('legal.terms-of-service') }}
         </RouterLink>
         <RouterLink
           target="_blank"
-          :to="{ name: 'home' }"
+          :to="{ name: ROUTE_NAMES.HOME }"
           class="link-underline link-underline-opacity-0 link-underline-opacity-100-hover"
         >
           {{ $t('legal.privacy-notice') }}
@@ -86,7 +87,7 @@ const onSubmit = validateUtil.getSubmitFn(validationSchema, async (values: crede
     </div>
 
     <div class="d-grid mt-3">
-      <button :disabled="!meta.valid || state.loading" class="btn btn-primary px-0" type="submit">
+      <button :disabled="!meta.valid || state.loading || !meta.dirty" class="btn btn-primary px-0" type="submit">
         <div v-if="!state.loading" class="containter">{{ $t('actions.sign-up') }}</div>
         <div v-else class="containter">
           {{ $t('actions.loading') }}

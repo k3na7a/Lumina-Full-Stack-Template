@@ -5,5 +5,9 @@ export const settings_navigation: sub_navigation = [
   {
     name: ROUTE_NAMES.PROFILE,
     label: 'settings.profile.label'
+  },
+  {
+    name: ROUTE_NAMES.SECURITY,
+    label: 'settings.security-privacy.label'
   }
 ]

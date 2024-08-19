@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { UserDto } from '@/library/dto/user.dto'
 
-import LanguagesDropdown from '../../../components/dropdown/languages-dropdown.component.vue'
-import UserActionsDropdown from '../../../components/dropdown/user-actions-dropdown.component.vue'
+import LanguagesDropdown from '@/components/dropdown/languages-dropdown.component.vue'
+import UserActionsDropdown from '@/components/dropdown/user-actions-dropdown.component.vue'
 
 type PropType = {
   isAuthenticated: boolean

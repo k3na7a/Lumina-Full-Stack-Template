@@ -20,6 +20,11 @@ export const user_actions = (router: Router, signout: Function): actions => {
           title: 'settings.label',
           icon: ['fas', 'gear'],
           callback: () => router.push({ name: ROUTE_NAMES.SETTINGS })
+        },
+        {
+          title: 'administration.label',
+          icon: ['fas', 'lock'],
+          callback: () => router.push({ name: ROUTE_NAMES.ADMINISTRATION })
         }
       ]
     },

@@ -3,7 +3,7 @@ import { AxiosInstance, AxiosResponse } from 'axios'
 import { ILocalStorageUtil } from '@/helpers/local-storage.util'
 import { AxiosService } from '@/plugins/axios.plugin'
 import { JWTDto } from '@/library/dto/JWT.dto'
-import { Profile, RegisterDto, UpdateEmailDto, UpdatePasswordDto } from '@/library/dto/user.dto'
+import { Profile, RegisterDto, ResetPasswordDto, UpdateEmailDto, UpdatePasswordDto } from '@/library/dto/user.dto'
 
 class authentication {
   private readonly $api: AxiosInstance
@@ -36,11 +36,7 @@ class authentication {
     await this.$api.post('auth/forgot-password', { email: payload.email })
   }
 
-  public readonly resetPassword = async (payload: {
-    token: string
-    new_password: string
-    confirm_password: string
-  }): Promise<void> => {
+  public readonly resetPassword = async (payload: ResetPasswordDto): Promise<void> => {
     await this.$api.patch('auth/reset-password', payload, AxiosService.requestConfig({ token: payload.token }))
   }
 

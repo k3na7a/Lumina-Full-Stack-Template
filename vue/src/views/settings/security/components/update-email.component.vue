@@ -46,7 +46,7 @@ const onSubmit = validateUtil.getSubmitFn(validationSchema, async (values: Updat
         <div class="d-flex flex-grow-1">
           <div class="d-flex flex-column flex-grow-1 pe-2 overflow-hidden">
             <h4 style="max-width: 240px" class="fw-semibold mb-1 text-truncate">{{ user?.email }}</h4>
-            <p class="fw-normal text-muted">{{ $t('settings.profile.security.email.linked') }}</p>
+            <p class="fw-normal text-muted">{{ $t('settings.security-privacy.contact.email-linked') }}</p>
           </div>
           <div class="flex-shrink-1">
             <button class="btn btn-dark btn-icon-sm border-0 px-0" type="button" v-on:click="toggle">

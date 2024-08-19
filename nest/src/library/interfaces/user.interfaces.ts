@@ -5,6 +5,7 @@ export interface UpdateUserInterface {
   password?: string;
   role?: Role;
   refreshToken?: string | null;
+  resetToken?: string | null;
 }
 
 export interface CreateUserInterface {

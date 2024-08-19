@@ -26,6 +26,10 @@ export class UserEntity extends BaseEntity {
   @Exclude()
   public readonly refreshToken!: string | null;
 
+  @Column({ type: 'text', nullable: true, default: null })
+  @Exclude()
+  public readonly resetToken!: string | null;
+
   @ApiProperty({ type: () => ProfileEntity })
   @OneToOne(() => ProfileEntity, (profile: ProfileEntity) => profile.user, {
     cascade: ['insert', 'update'],

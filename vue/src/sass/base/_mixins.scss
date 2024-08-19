@@ -1,5 +1,12 @@
-@include media-breakpoint-up(lg) {
-}
+// @include media-breakpoint-up(md) {
+// }
 
-@include media-breakpoint-down(lg) {
+@include media-breakpoint-up(md) {
+  .sub-navigation-layout {
+    overflow: hidden;
+  }
+
+  .sub-navigation-content {
+    overflow: auto;
+  }
 }

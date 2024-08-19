@@ -45,7 +45,7 @@ const onSubmit = validateUtil.getSubmitFn(validationSchema, (values: FormValues)
         <small>{{ $t('authentication.password-security') }}</small>
       </div>
       <div class="d-grid mt-3">
-        <button :disabled="!meta.valid || state.loading" class="btn btn-primary px-0" type="submit">
+        <button :disabled="!meta.valid || state.loading || !meta.dirty" class="btn btn-primary px-0" type="submit">
           <div v-if="!state.loading" class="containter">{{ $t(props.action) }}</div>
           <div v-else class="containter">{{ $t('actions.loading') }}</div>
         </button>

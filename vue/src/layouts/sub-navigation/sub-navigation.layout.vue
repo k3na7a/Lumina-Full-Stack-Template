@@ -8,10 +8,12 @@ const props = defineProps<PropType>()
 </script>
 
 <template>
-  <main class="d-flex flex-column flex-grow-1 h-100 overflow-hidden">
+  <main class="sub-navigation-layout d-flex flex-column flex-grow-1 h-100">
     <HeaderComponent :title="props.title" :routes="props.routes" />
-    <div class="d-flex flex-column flex-grow-1 overflow-auto mh-100 px-3">
-      <slot name="content"></slot>
+    <div class="sub-navigation-content d-flex flex-column flex-grow-1 mh-100 px-3">
+      <div class="pt-2 pb-3 flex-grow-1">
+        <slot name="content"></slot>
+      </div>
     </div>
   </main>
 </template>
