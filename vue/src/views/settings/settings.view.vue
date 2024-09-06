@@ -9,7 +9,7 @@ const route: RouteLocationNormalizedLoaded = useRoute()
 </script>
 
 <template>
-  <SubNavigationLayout title="settings.label" :routes="settings_navigation">
+  <SubNavigationLayout title="administration.settings.label" :routes="settings_navigation">
     <template v-slot:content>
       <RouterView v-slot="{ Component }" :key="route.fullPath">
         <component :is="Component" />

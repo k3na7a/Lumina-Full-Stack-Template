@@ -33,8 +33,8 @@ import { updatePasswordDto } from 'src/library/dto/updatePassword.dto';
 import { updateEmailDto } from 'src/library/dto/updateEmail.dto';
 import { deleteAccountDto } from 'src/library/dto/deleteAccount.dto';
 
-@ApiTags('Authentication Controller (Self Management)')
-@Controller('auth')
+@ApiTags('Authentication (Self Management)')
+@Controller()
 @UseInterceptors(ClassSerializerInterceptor)
 export class AuthController {
   constructor(private readonly authService: AuthService) {}

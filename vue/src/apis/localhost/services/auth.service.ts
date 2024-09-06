@@ -1,9 +1,15 @@
 import { AxiosInstance, AxiosResponse } from 'axios'
 
-import { ILocalStorageUtil } from '@/helpers/local-storage.util'
+import { ILocalStorageUtil } from '@/library/helpers/local-storage.util'
 import { AxiosService } from '@/plugins/axios.plugin'
 import { JWTDto } from '@/library/dto/JWT.dto'
-import { Profile, RegisterDto, ResetPasswordDto, UpdateEmailDto, UpdatePasswordDto } from '@/library/dto/user.dto'
+import {
+  RegisterDto,
+  ResetPasswordDto,
+  UpdateEmailDto,
+  UpdatePasswordDto,
+  UpdateProfileDto
+} from '@/library/dto/user.dto'
 
 class authentication {
   private readonly $api: AxiosInstance
@@ -40,7 +46,7 @@ class authentication {
     await this.$api.patch('auth/reset-password', payload, AxiosService.requestConfig({ token: payload.token }))
   }
 
-  public readonly updateProfile = async (payload: Profile): Promise<JWTDto> => {
+  public readonly updateProfile = async (payload: UpdateProfileDto): Promise<JWTDto> => {
     return this.$api
       .patch<JWTDto>('auth/update-profile', payload, AxiosService.requestConfig({ token: this.$token.getItem() }))
       .then((response: AxiosResponse) => new JWTDto(response.data))

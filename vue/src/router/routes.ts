@@ -2,11 +2,15 @@ import { NavigationGuardNext, RouteLocationNormalized, RouteRecordRaw } from 'vu
 
 export enum ROUTE_NAMES {
   HOME = 'home',
-  FOLLOWING = 'following',
+  APPLICATIONS = 'applications',
+  GAMES = 'games',
+  GAMES_LIST = 'games-list',
+  GAMES_SINGLE = 'games-single',
   BROWSE = 'browse',
   ADMINISTRATION = 'administration',
-  ADMIN_DASHBOARD = 'administration-dashboard',
   ADMIN_USERS = 'user-administration',
+  ADMIN_USER_LIST = 'user-list-administration',
+  ADMIN_USER_SINGLE = 'user-single-administration',
   SETTINGS = 'settings',
   SECURITY = 'security',
   PROFILE = 'profile',
@@ -27,21 +31,33 @@ export const routes: RouteRecordRaw[] = [
         meta: { pageTitle: 'Home' }
       },
       {
-        path: '/browse',
-        name: ROUTE_NAMES.BROWSE,
-        meta: { pageTitle: 'Browse' },
+        path: '/games',
+        name: ROUTE_NAMES.GAMES,
+        redirect: { name: ROUTE_NAMES.GAMES_LIST },
+        meta: { pageTitle: 'Games' },
+        component: () => import('@/views/games/games.view.vue'),
+        children: [
+          {
+            path: '',
+            name: ROUTE_NAMES.GAMES_LIST,
+            component: () => import('@/views/home/home.view.vue')
+          },
+          {
+            path: ':id',
+            name: ROUTE_NAMES.GAMES_SINGLE,
+            component: () => import('@/views/home/home.view.vue')
+          }
+        ]
+      },
+      {
+        path: '/applications',
+        name: ROUTE_NAMES.APPLICATIONS,
         component: () => import('@/views/home/home.view.vue')
       },
       {
         path: '/authenticated-routes',
         component: () => import('@/layouts/authenticated-routes/auth.layout.vue'),
         children: [
-          {
-            path: '/following',
-            name: ROUTE_NAMES.FOLLOWING,
-            meta: { pageTitle: 'Following' },
-            component: () => import('@/views/home/home.view.vue')
-          },
           {
             path: '/settings',
             name: ROUTE_NAMES.SETTINGS,
@@ -71,27 +87,24 @@ export const routes: RouteRecordRaw[] = [
           {
             path: '/administration',
             name: ROUTE_NAMES.ADMINISTRATION,
-            redirect: { name: ROUTE_NAMES.ADMIN_DASHBOARD },
+            redirect: { name: ROUTE_NAMES.ADMIN_USERS },
             meta: { pageTitle: 'Administration' },
             component: () => import('@/views/administration/administration.view.vue'),
             children: [
               {
-                path: 'dashboard',
-                name: ROUTE_NAMES.ADMIN_DASHBOARD,
-                component: () => import('@/views/home/home.view.vue')
-              },
-              {
                 path: 'users',
-                redirect: { name: ROUTE_NAMES.ADMIN_USERS },
+                name: ROUTE_NAMES.ADMIN_USERS,
+                redirect: { name: ROUTE_NAMES.ADMIN_USER_LIST },
                 children: [
                   {
                     path: '',
-                    name: ROUTE_NAMES.ADMIN_USERS,
-                    component: () => import('@/views/home/home.view.vue')
+                    name: ROUTE_NAMES.ADMIN_USER_LIST,
+                    component: () => import('@/views/administration/users/user-list.view.vue')
                   },
                   {
                     path: ':id',
-                    component: () => import('@/views/settings/profile/profile.view.vue')
+                    name: ROUTE_NAMES.ADMIN_USER_SINGLE,
+                    component: () => import('@/views/administration/users/user-single.view.vue')
                   }
                 ]
               }
@@ -102,18 +115,18 @@ export const routes: RouteRecordRaw[] = [
     ]
   },
   {
-    path: '/guest',
+    path: '/guest-routes',
     component: () => import('@/layouts/guest-routes/guest.layout.vue'),
     redirect: { name: ROUTE_NAMES.HOME },
     children: [
       {
-        path: 'account-recovery',
+        path: '/account-recovery',
         name: ROUTE_NAMES.ACCOUNT_RECOVERY,
         meta: { pageTitle: 'Account Recovery' },
         component: () => import('@/views/guest/account-recovery.view.vue')
       },
       {
-        path: 'password-reset',
+        path: '/password-reset',
         name: ROUTE_NAMES.PASSWORD_RESET,
         meta: { pageTitle: 'Password Reset' },
         component: () => import('@/views/guest/password-reset.view.vue'),

@@ -29,15 +29,15 @@ class PaginationMeta {
   }
 }
 
-class Pagination<T> {
+class PaginationDto<T> {
   @ApiProperty({ isArray: true })
   @IsArray()
-  readonly results: T[];
+  readonly data: T[];
   @ApiProperty({ type: () => PaginationMeta })
   readonly meta: PaginationMeta;
 
-  constructor(results: T[], meta: PaginationMeta) {
-    this.results = results;
+  constructor(payload: T[], meta: PaginationMeta) {
+    this.data = payload;
     this.meta = meta;
   }
 }
@@ -82,7 +82,7 @@ interface PaginationMetaParameters {
 
 export {
   PaginationOptions,
-  Pagination,
+  PaginationDto,
   PaginationMeta,
   PaginationMetaParameters,
 };

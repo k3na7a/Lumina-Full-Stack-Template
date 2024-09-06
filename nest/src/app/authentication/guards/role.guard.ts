@@ -30,7 +30,7 @@ class RolesGuard implements CanActivate {
 
     const request = context.switchToHttp().getRequest();
     const user = await this.userService.findOneById(request.user.sub);
-    
+
     if (!user) throw new UnauthorizedException();
 
     return validate(requiredRoles, user.role);

@@ -1,0 +1,14 @@
+{
+  "name": "Name",
+  "given-name": "Given Name",
+  "family-name": "Family Name",
+  "email": "Email",
+  "phone": "Phone Number",
+  "new-email": "New Email Address",
+  "confirm-new-email": "Confirm New Email Address",
+  "password": "Password",
+  "current-password": "Current Password",
+  "new-password": "New Password",
+  "confirm-new-password": "Confirm New Password",
+  "two-factor": "Two-Factor Authentication"
+}

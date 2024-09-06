@@ -31,14 +31,12 @@ class RefreshTokenStrategy extends PassportStrategy(Strategy, 'jwt-refresh') {
     const refreshToken = req.get('Authorization')?.replace('Bearer', '').trim();
 
     const user = await this.usersService.findOneByEmail(payload.email);
-    if (!user || !user.refreshToken || !refreshToken)
-      throw new UnauthorizedException();
+    if (!user.refreshToken || !refreshToken) throw new UnauthorizedException();
 
     const hmac = createHmac('sha256', process.env.CRYPTO_SECRET || '');
     const hash = hmac.update(refreshToken).digest('hex');
 
     if (hash !== user.refreshToken) throw new UnauthorizedException();
-
     return { ...payload, userEntity: user, refreshToken };
   }
 }

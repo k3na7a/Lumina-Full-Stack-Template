@@ -4,8 +4,8 @@ import { Form } from 'vee-validate'
 import * as Yup from 'yup'
 import { Router, useRouter } from 'vue-router'
 
-import { useFormUtil } from '@/helpers/vee-validate.util'
-import { AuthController } from '@/controllers/authentication.controller'
+import { useFormUtil } from '@/library/helpers/vee-validate.util'
+import { AuthService } from '@/services/authentication.service'
 import { ForgotPassword } from '@/library/dto/user.dto'
 import TextInput from '@/components/inputs/text.input.component.vue'
 import { ROUTE_NAMES } from '@/router/routes'
@@ -18,7 +18,7 @@ enum PAGES {
 type LocalState = { loading: boolean; page: PAGES; email: string | undefined }
 const state = reactive<LocalState>({ loading: false, page: PAGES.FORM, email: undefined })
 
-const { forgotPassword } = AuthController
+const { forgotPassword } = AuthService
 
 const router: Router = useRouter()
 

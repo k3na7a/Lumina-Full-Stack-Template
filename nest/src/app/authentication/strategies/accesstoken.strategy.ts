@@ -28,8 +28,6 @@ class AccessTokenStrategy extends PassportStrategy(Strategy, 'jwt') {
     if (!accessToken) throw new UnauthorizedException();
 
     const user = await this.usersService.findOneById(payload.sub);
-    if (!user) throw new UnauthorizedException();
-
     return { ...payload, accessToken, userEntity: user };
   }
 }

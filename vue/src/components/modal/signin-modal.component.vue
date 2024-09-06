@@ -5,7 +5,7 @@ import * as Yup from 'yup'
 
 import { ROUTE_NAMES } from '@/router/routes'
 import { credentials } from '@/library/dto/JWT.dto'
-import { useFormUtil } from '@/helpers/vee-validate.util'
+import { useFormUtil } from '@/library/helpers/vee-validate.util'
 
 import TextInput from '@/components/inputs/text.input.component.vue'
 import ModalTitleComponent from './base/modal-title.component.vue'

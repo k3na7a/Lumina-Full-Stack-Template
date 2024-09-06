@@ -5,7 +5,7 @@ import * as Yup from 'yup'
 
 import TextInput from '@/components/inputs/text.input.component.vue'
 
-import { useFormUtil } from '@/helpers/vee-validate.util'
+import { useFormUtil } from '@/library/helpers/vee-validate.util'
 import { UpdateProfile, UserDto } from '@/library/dto/user.dto'
 
 type PropType = {

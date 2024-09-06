@@ -3,7 +3,7 @@ import { reactive } from 'vue'
 import { Form } from 'vee-validate'
 import * as Yup from 'yup'
 
-import { useFormUtil } from '@/helpers/vee-validate.util'
+import { useFormUtil } from '@/library/helpers/vee-validate.util'
 
 import TextInput from '@/components/inputs/text.input.component.vue'
 import ModalTitleComponent from './base/modal-title.component.vue'

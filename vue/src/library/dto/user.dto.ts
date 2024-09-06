@@ -99,6 +99,10 @@ export interface IUser {
 }
 
 export interface Profile {
+  readonly $id: string
+  readonly $createdAt: Date
+  readonly $updatedAt: Date
+
   readonly name: Name
 }
 

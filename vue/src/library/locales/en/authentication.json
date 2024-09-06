@@ -1,0 +1,43 @@
+{
+  "not-viewable": "You must be logged in to view this page",
+  "not-authorized": "You are not authorized to view this content",
+  "password-security": "For security, please enter your password to continue.",
+  "log-in": {
+    "modal-title": "Log in to Testhub",
+    "trouble": "Trouble logging in?"
+  },
+  "register": {
+    "modal-title": "Join Testhub today"
+  },
+  "log-out": {
+    "modal-title": "Log out of Testhub",
+    "modal-body": "Are you sure you want to log out of Testhub?"
+  },
+  "disable-account": {
+    "modal-title": "Disable your Testhub account",
+    "modal-body": "Are you sure you want to permanently disable your Testhub account?"
+  },
+  "account-recovery": {
+    "title": "Getting back into your Testhub account",
+    "subtitle": "Tell us some information about your account.",
+    "label": "Enter the email associated with your account to change your password.",
+    "confirm-title": "Check your email",
+    "confirm-body-sent-link": "Please go to your {0} email and click the password reset link we've sent for your Testhub account.",
+    "confirm-body-check-spam": "It could take a few minutes to appear, and be sure to check any spam and promotional folders—just in case!"
+  },
+  "password-reset": {
+    "title": "Set New Password",
+    "subtitle": "Set a new password for your account. Resetting your password will also invalidate any existing log in sessions.",
+    "confirm-title": "Password Reset",
+    "confirm-body": "Your password has been reset successfully! You can now use your new password to log in to your account."
+  },
+  "password-validation": {
+    "label": "Passwords must be 8 to 16 characters long and contain the following:",
+    "contains": {
+      "1": "At least one digit from 1 to 9 (including 0)",
+      "2": "At least one lowercase letter",
+      "3": "At least one uppercase letter",
+      "4": "At least one special character"
+    }
+  }
+}

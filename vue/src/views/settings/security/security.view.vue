@@ -7,19 +7,19 @@ import UpdatePasswordComponent from './components/update-password.component.vue'
 import { AuthStore, useAuthStore } from '@/store/authentication.store'
 import { UserDto } from '@/library/dto/user.dto'
 
-import { AuthController } from '@/controllers/authentication.controller'
+import { AuthService } from '@/services/authentication.service'
+
+const { updateEmail, updatePassword } = AuthService
 
 const authStore: AuthStore = useAuthStore()
 const authenticatedUser: ComputedRef<UserDto | undefined> = computed(() => authStore.authenticatedUser)
-
-const { updateEmail, updatePassword } = AuthController
 </script>
 
 <template>
-  <div class="security-settings-view">
+  <div class="content-view">
     <div class="d-flex flex-column mb-3">
-      <h4 class="text-light fw-semibold mb-1">{{ $t('settings.security-privacy.contact.header') }}</h4>
-      <p class="text-muted fw-normal mb-2">{{ $t('settings.security-privacy.contact.sub-header') }}</p>
+      <h4 class="text-light fw-semibold mb-1">{{ $t('administration.settings.security-privacy.contact.header') }}</h4>
+      <p class="text-muted fw-normal mb-2">{{ $t('administration.settings.security-privacy.contact.sub-header') }}</p>
 
       <div class="card d-flex flex-column mb">
         <div class="section">
@@ -35,8 +35,8 @@ const { updateEmail, updatePassword } = AuthController
       </div>
     </div>
     <div class="d-flex flex-column">
-      <h4 class="text-light fw-semibold mb-1">{{ $t('settings.security-privacy.security.header') }}</h4>
-      <p class="text-muted fw-normal mb-2">{{ $t('settings.security-privacy.security.sub-header') }}</p>
+      <h4 class="text-light fw-semibold mb-1">{{ $t('administration.settings.security-privacy.security.header') }}</h4>
+      <p class="text-muted fw-normal mb-2">{{ $t('administration.settings.security-privacy.security.sub-header') }}</p>
 
       <div class="card d-flex flex-column">
         <div class="section">
@@ -53,16 +53,3 @@ const { updateEmail, updatePassword } = AuthController
     </div>
   </div>
 </template>
-
-<style lang="scss">
-@import '@/sass/variables/index';
-
-.security-settings-view {
-  max-width: 900px;
-
-  .row-header {
-    width: 18rem;
-    min-width: 18rem;
-  }
-}
-</style>

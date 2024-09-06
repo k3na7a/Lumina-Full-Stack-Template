@@ -1,5 +1,8 @@
-// @include media-breakpoint-up(md) {
-// }
+@include media-breakpoint-down(md) {
+  h2 {
+    font-size: $font-size-3 !important;
+  }
+}
 
 @include media-breakpoint-up(md) {
   .sub-navigation-layout {

@@ -1,0 +1,23 @@
+{
+  "home": "Home",
+  "following": "Following",
+  "applications": "Applications",
+  "browse": "Browse",
+  "games": "Games",
+  "challenges": "Challenges",
+  "help&legal": "Help & Legal",
+  "language": "Language",
+  "general": "General",
+  "subnavigation": {
+    "about": "About",
+    "blog": "Blog",
+    "developers": "Developers",
+    "jobs": "Jobs",
+    "partners": "Partners",
+    "community": "Community Guidelines",
+    "cookies": "Cookie Policy",
+    "help": "Help",
+    "privacy": "Privacy Policy",
+    "terms": "Terms"
+  }
+}

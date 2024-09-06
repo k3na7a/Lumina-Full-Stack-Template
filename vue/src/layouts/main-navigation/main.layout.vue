@@ -3,18 +3,17 @@ import { RouteLocationNormalizedLoaded, useRoute } from 'vue-router'
 import { computed, ComputedRef } from 'vue'
 
 import NavbarComponent from '@/components/navbar/navbar.component.vue'
-import NavigationComponent from './components/navigation.component.vue'
-import ActionComponent from './components/actions.component.vue'
-
 import { AuthStore, useAuthStore } from '@/store/authentication.store'
 import { UserDto } from '@/library/dto/user.dto'
 
-import { AuthController } from '@/controllers/authentication.controller'
+import NavigationComponent from './components/navigation.component.vue'
+import ActionComponent from './components/actions.component.vue'
+import { AuthService } from '@/services/authentication.service'
 
 const route: RouteLocationNormalizedLoaded = useRoute()
 const authStore: AuthStore = useAuthStore()
 
-const { signin, register, signout } = AuthController
+const { signin, register, signout } = AuthService
 
 const path: ComputedRef<string | undefined> = computed(() => route.name?.toString())
 const isAuthenticated: ComputedRef<boolean> = computed(() => authStore.isAuthenticated)
@@ -24,7 +23,7 @@ const authenticatedUser: ComputedRef<UserDto | undefined> = computed(() => authS
 <template>
   <NavbarComponent>
     <template v-slot:left>
-      <NavigationComponent :path :is-authenticated />
+      <NavigationComponent :route :path :is-authenticated />
     </template>
 
     <template v-slot:right>

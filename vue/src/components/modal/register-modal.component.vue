@@ -4,7 +4,7 @@ import { Form } from 'vee-validate'
 import * as Yup from 'yup'
 
 import { credentials } from '@/library/dto/JWT.dto'
-import { useFormUtil } from '@/helpers/vee-validate.util'
+import { useFormUtil } from '@/library/helpers/vee-validate.util'
 import { ROUTE_NAMES } from '@/router/routes'
 
 import TextInput from '@/components/inputs/text.input.component.vue'

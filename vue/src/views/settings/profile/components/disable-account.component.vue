@@ -10,7 +10,7 @@ const props = defineProps<PropType>()
   <div class="d-flex flex-column flex-sm-row p-3">
     <div class="row-header pe-3 mb-2 mb-sm-0">
       <h6 class="fw-bold">
-        {{ $t('settings.profile.disable-account.form-header') }}
+        {{ $t('administration.settings.profile.disable-account.form-header') }}
       </h6>
     </div>
     <div class="d-flex align-items-center justify-content-sm-end flex-grow-1">

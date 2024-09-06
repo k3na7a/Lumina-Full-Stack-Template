@@ -7,7 +7,7 @@ import TextInput from '@/components/inputs/text.input.component.vue'
 import PasswordValidationList from '@/components/labels/password-validation-list.component.vue'
 
 import { PasswordValidation } from '@/library/regex/validation.regex'
-import { useFormUtil } from '@/helpers/vee-validate.util'
+import { useFormUtil } from '@/library/helpers/vee-validate.util'
 import { UserDto, UpdatePassword } from '@/library/dto/user.dto'
 
 type PropType = {
@@ -49,13 +49,13 @@ const onSubmit = validateUtil.getSubmitFn(validationSchema, async (values: Updat
 
       <template v-if="!state.open">
         <div class="d-flex flex-grow-1 text-muted">
-          <i18n-t keypath="settings.security-privacy.security.password.improve-security" tag="p" scope="global">
+          <i18n-t keypath="administration.settings.security-privacy.security.password.improve-security" tag="p" scope="global">
             <a
               href="javascript:void(0)"
               v-on:click="toggle"
               class="link-underline link-underline-opacity-0 link-underline-opacity-100-hover"
             >
-              {{ $t('settings.security-privacy.security.password.change-password') }}
+              {{ $t('administration.settings.security-privacy.security.password.change-password') }}
             </a>
           </i18n-t>
         </div>

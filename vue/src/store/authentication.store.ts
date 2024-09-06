@@ -1,5 +1,5 @@
 import { LocalhostAPI as API, TOKEN_ID } from '@/apis/localhost/localhost.api'
-import { useLocalStorageUtil } from '@/helpers/local-storage.util'
+import { useLocalStorageUtil } from '@/library/helpers/local-storage.util'
 import { credentials, JWTDto } from '@/library/dto/JWT.dto'
 import {
   DeleteAccountDto,
@@ -10,6 +10,7 @@ import {
   ResetPasswordDto,
   UpdateEmailDto,
   UpdatePasswordDto,
+  UpdateProfileDto,
   UserDto
 } from '@/library/dto/user.dto'
 import { Store, StoreDefinition, defineStore } from 'pinia'
@@ -31,7 +32,7 @@ interface AuthActions {
   signOut(): Promise<void>
   forgotPassword(props: { email: string }): Promise<void>
   resetPassword(props: ResetPassword): Promise<void>
-  updateProfile(props: Profile): Promise<void>
+  updateProfile(props: UpdateProfileDto): Promise<void>
   updateEmail(props: UpdateEmailDto): Promise<void>
   updatePassword(props: UpdatePasswordDto): Promise<void>
   deleteAccount(props: DeleteAccountDto): Promise<void>
@@ -97,7 +98,7 @@ const useAuthStore: StoreDef = defineStore({
       await API.authentication.resetPassword(props)
     },
 
-    async updateProfile(props: Profile): Promise<void> {
+    async updateProfile(props: UpdateProfileDto): Promise<void> {
       const dto: JWTDto = await API.authentication.updateProfile(props)
       this.authenticate(dto)
     },

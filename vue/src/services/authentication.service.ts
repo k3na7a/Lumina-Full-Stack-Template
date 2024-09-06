@@ -4,11 +4,12 @@ import { AxiosError } from 'axios'
 import SignInModal from '../components/modal/signin-modal.component.vue'
 import RegisterModal from '../components/modal/register-modal.component.vue'
 import ConfirmationModal from '@/components/modal/confirm-modal.component.vue'
-import PasswordModal from '@/components/modal/password-modal.component.vue'
 
 import { ModalStore, useModalStore } from '@/store/modal.store'
 import { AuthStore, useAuthStore } from '@/store/authentication.store'
 import { ToastStore, useToastStore } from '@/store/toast.store'
+
+import PasswordModal from '@/components/modal/password-modal.component.vue'
 
 import { credentials } from '@/library/dto/JWT.dto'
 import {
@@ -28,7 +29,7 @@ import {
   UpdateProfileDto
 } from '@/library/dto/user.dto'
 
-export class AuthController {
+export class AuthService {
   public static signin = (): void => {
     const { openModal, closeModal }: ModalStore = useModalStore()
     const { signIn }: AuthStore = useAuthStore()
@@ -92,28 +93,22 @@ export class AuthController {
     })
   }
 
-  public static disableAccount = (_event?: MouseEvent): void => {
-    const { openModal, closeModal }: ModalStore = useModalStore()
-    const { deleteAccount }: AuthStore = useAuthStore()
+  public static forgotPassword = async (props: ForgotPassword, callback?: () => void): Promise<void> => {
+    const { forgotPassword }: AuthStore = useAuthStore()
     const { addToast }: ToastStore = useToastStore()
 
-    openModal({
-      view: markRaw(PasswordModal),
-      size: 'md',
-      properties: {
-        close: closeModal,
-        callback: async (props: DeleteAccount): Promise<void> => {
-          await deleteAccount(new DeleteAccountDto(props))
-            .then(closeModal)
-            .catch((error: AxiosError) =>
-              addToast({ title: error.response?.statusText || 'ERROR', body: error.message })
-            )
-        },
-        title: 'authentication.disable-account.modal-title',
-        body: 'authentication.disable-account.modal-body',
-        action: 'actions.disable-account'
-      }
-    })
+    await forgotPassword(new ForgotPasswordDto(props))
+      .then(callback)
+      .catch((error: AxiosError) => addToast({ title: error.response?.statusText || 'ERROR', body: error.message }))
+  }
+
+  public static resetPassword = async (props: ResetPassword, token: string, callback?: () => void): Promise<void> => {
+    const { resetPassword }: AuthStore = useAuthStore()
+    const { addToast }: ToastStore = useToastStore()
+
+    await resetPassword(new ResetPasswordDto(props, token))
+      .then(callback)
+      .catch((error: AxiosError) => addToast({ title: error.response?.statusText || 'ERROR', body: error.message }))
   }
 
   public static updateEmail = async (props: UpdateEmail): Promise<void> => {
@@ -143,21 +138,27 @@ export class AuthController {
     )
   }
 
-  public static forgotPassword = async (props: ForgotPassword, callback?: () => void): Promise<void> => {
-    const { forgotPassword }: AuthStore = useAuthStore()
+  public static disableAccount = (_event?: MouseEvent): void => {
+    const { openModal, closeModal }: ModalStore = useModalStore()
+    const { deleteAccount }: AuthStore = useAuthStore()
     const { addToast }: ToastStore = useToastStore()
 
-    await forgotPassword(new ForgotPasswordDto(props))
-      .then(callback)
-      .catch((error: AxiosError) => addToast({ title: error.response?.statusText || 'ERROR', body: error.message }))
-  }
-
-  public static resetPassword = async (props: ResetPassword, token: string, callback?: () => void): Promise<void> => {
-    const { resetPassword }: AuthStore = useAuthStore()
-    const { addToast }: ToastStore = useToastStore()
-
-    await resetPassword(new ResetPasswordDto(props, token))
-      .then(callback)
-      .catch((error: AxiosError) => addToast({ title: error.response?.statusText || 'ERROR', body: error.message }))
+    openModal({
+      view: markRaw(PasswordModal),
+      size: 'md',
+      properties: {
+        close: closeModal,
+        callback: async (props: DeleteAccount): Promise<void> => {
+          await deleteAccount(new DeleteAccountDto(props))
+            .then(closeModal)
+            .catch((error: AxiosError) =>
+              addToast({ title: error.response?.statusText || 'ERROR', body: error.message })
+            )
+        },
+        title: 'authentication.disable-account.modal-title',
+        body: 'authentication.disable-account.modal-body',
+        action: 'actions.disable-account'
+      }
+    })
   }
 }

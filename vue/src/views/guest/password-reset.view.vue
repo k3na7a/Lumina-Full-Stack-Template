@@ -7,9 +7,9 @@ import { LocationQuery, RouteLocationNormalizedLoaded, Router, useRoute, useRout
 
 import { ROUTE_NAMES } from '@/router/routes'
 import { ResetPassword } from '@/library/dto/user.dto'
-import { AuthController } from '@/controllers/authentication.controller'
+import { AuthService } from '@/services/authentication.service'
 import { PasswordValidation } from '@/library/regex/validation.regex'
-import { useFormUtil } from '@/helpers/vee-validate.util'
+import { useFormUtil } from '@/library/helpers/vee-validate.util'
 
 import TextInput from '@/components/inputs/text.input.component.vue'
 import PasswordValidationList from '@/components/labels/password-validation-list.component.vue'
@@ -22,7 +22,7 @@ enum PAGES {
 type LocalState = { loading: boolean; page: PAGES }
 const state = reactive<LocalState>({ loading: false, page: PAGES.FORM })
 
-const { resetPassword } = AuthController
+const { resetPassword } = AuthService
 
 const route: RouteLocationNormalizedLoaded = useRoute()
 const router: Router = useRouter()

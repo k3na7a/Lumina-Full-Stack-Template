@@ -4,10 +4,10 @@ import { ROUTE_NAMES } from '@/router/routes'
 export const settings_navigation: sub_navigation = [
   {
     name: ROUTE_NAMES.PROFILE,
-    label: 'settings.profile.label'
+    label: 'administration.settings.profile.label'
   },
   {
     name: ROUTE_NAMES.SECURITY,
-    label: 'settings.security-privacy.label'
+    label: 'administration.settings.security-privacy.label'
   }
 ]

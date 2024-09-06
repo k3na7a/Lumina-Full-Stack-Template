@@ -18,6 +18,15 @@ body {
   height: 100vh;
 }
 
+.content-view {
+  max-width: 900px;
+}
+
+.row-header {
+  width: 18rem;
+  min-width: 18rem;
+}
+
 .bg-alt {
   background-color: $backgroundAlt;
 }
@@ -163,6 +172,19 @@ body {
 
   // pointer-events: none;
   backdrop-filter: blur(15px);
+}
+
+.tooltip {
+  border: 0.1rem $light solid;
+  font-size: $font-size-7;
+
+  .tooltip-inner {
+    background-color: $background;
+  }
+
+  .tooltip-arrow {
+    display: none !important;
+  }
 }
 
 .text-input {

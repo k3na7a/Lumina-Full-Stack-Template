@@ -1,0 +1,39 @@
+{
+  "label": "Administration",
+  "users": {
+    "label": "Users",
+    "title": "Manage Your Users",
+    "count": "{count} users found | {count} user found | {count} users found"
+  },
+  "settings": {
+    "label": "Settings",
+    "profile": {
+      "label": "Profile",
+      "profile-settings": {
+        "header": "Profile Settings",
+        "sub-header": "Change identifying details for your account"
+      },
+      "disable-account": {
+        "header": "Disabling Your Testhub Account",
+        "sub-header": "Completely deactivate your account",
+        "form-header": "Disable Your Testhub Account"
+      }
+    },
+    "security-privacy": {
+      "label": "Security & Privacy",
+      "contact": {
+        "header": "Contact",
+        "sub-header": "Where we send important messages about your account",
+        "email-linked": "This email is linked to your account."
+      },
+      "security": {
+        "header": "Security",
+        "sub-header": "Keep your account safe and sound",
+        "password": {
+          "change-password": "Change Password.",
+          "improve-security": "{0} Improve your security with a strong password."
+        }
+      }
+    }
+  }
+}

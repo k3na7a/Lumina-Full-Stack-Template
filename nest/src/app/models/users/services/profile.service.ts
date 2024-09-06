@@ -9,11 +9,15 @@ import { ProfileEntity } from 'src/library/entities/profile.entity';
 export class UserProfileService {
   constructor(
     @InjectRepository(ProfileEntity)
-    private userProfileRepository: Repository<ProfileEntity>,
+    private profileRepository: Repository<ProfileEntity>,
   ) {}
 
-  public async findOneById(id: string): Promise<ProfileEntity | null> {
-    return this.userProfileRepository.findOne({ where: { $id: id } });
+  public async findOneById(id: string): Promise<ProfileEntity> {
+    const profile = await this.profileRepository.findOne({
+      where: { $id: id },
+    });
+    if (!profile) throw new NotFoundException();
+    return profile;
   }
 
   public async update(
@@ -21,11 +25,10 @@ export class UserProfileService {
     dto: CreateUserProfile,
   ): Promise<ProfileEntity> {
     const profile = await this.findOneById(id);
-    if (!profile) throw new NotFoundException();
-    return this.userProfileRepository.save({ ...profile, ...dto });
+    return this.profileRepository.save({ ...profile, ...dto });
   }
 
   public remove(profile: ProfileEntity): Promise<ProfileEntity> {
-    return this.userProfileRepository.remove(profile);
+    return this.profileRepository.remove(profile);
   }
 }

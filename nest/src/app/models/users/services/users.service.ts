@@ -8,6 +8,11 @@ import {
   CreateUserInterface,
   UpdateUserInterface,
 } from 'src/library/interfaces/user.interfaces';
+import {
+  PaginationDto,
+  PaginationMeta,
+  PaginationOptions,
+} from 'src/library/dto/pagination.dto';
 
 @Injectable()
 export class UserService {
@@ -25,12 +30,29 @@ export class UserService {
     return this.userRepository.save(user);
   }
 
-  public async findOneByEmail(email: string): Promise<UserEntity | null> {
-    return this.userRepository.findOne({ where: { email } });
+  public async paginate(
+    pageOptions: PaginationOptions,
+  ): Promise<PaginationDto<UserEntity>> {
+    const [users, itemCount] = await this.userRepository.findAndCount({
+      order: { $createdAt: pageOptions.order },
+      take: pageOptions.take,
+      skip: pageOptions.skip,
+    });
+
+    const meta = new PaginationMeta({ pageOptions, itemCount });
+    return new PaginationDto(users, meta);
   }
 
-  public async findOneById(id: string): Promise<UserEntity | null> {
-    return this.userRepository.findOne({ where: { $id: id } });
+  public async findOneByEmail(email: string): Promise<UserEntity> {
+    const user = await this.userRepository.findOne({ where: { email } });
+    if (!user) throw new NotFoundException();
+    return user;
+  }
+
+  public async findOneById(id: string): Promise<UserEntity> {
+    const user = await this.userRepository.findOne({ where: { $id: id } });
+    if (!user) throw new NotFoundException();
+    return user;
   }
 
   public async update(
@@ -38,13 +60,11 @@ export class UserService {
     dto: UpdateUserInterface,
   ): Promise<UserEntity> {
     const user = await this.findOneById(id);
-    if (!user) throw new NotFoundException();
     return this.userRepository.save({ ...user, ...dto });
   }
 
   public async remove(id: string): Promise<UserEntity> {
     const user = await this.findOneById(id);
-    if (!user) throw new NotFoundException();
     return this.userRepository.remove(user);
   }
 }

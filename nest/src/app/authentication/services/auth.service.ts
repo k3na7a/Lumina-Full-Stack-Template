@@ -1,8 +1,4 @@
-import {
-  Injectable,
-  NotFoundException,
-  UnauthorizedException,
-} from '@nestjs/common';
+import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import * as bcrypt from 'bcrypt';
 import { createHmac } from 'node:crypto';
@@ -66,8 +62,6 @@ export class AuthService {
     password: string,
   ): Promise<UserEntity> {
     const user = await this.userService.findOneByEmail(email);
-    if (!user) throw new UnauthorizedException();
-
     const isMatch = user ? await bcrypt.compare(password, user.password) : null;
 
     if (isMatch) return user;
@@ -76,7 +70,6 @@ export class AuthService {
 
   public async register(dto: RegisterDto): Promise<JWTDto> {
     const user: UserEntity = await this.userService.create(dto);
-
     return this.verifyToken(user);
   }
 
@@ -106,7 +99,6 @@ export class AuthService {
 
   public async forgotPassword(email: string): Promise<void> {
     const user = await this.userService.findOneByEmail(email);
-    if (!user) throw new NotFoundException();
 
     const payload: Payload = { email: user.email, sub: user.$id };
     const tokens: JWTInterface = await this.getTokens(payload);
@@ -170,8 +162,6 @@ export class AuthService {
     await this.userProfileService.update(user.profile.$id, profile);
 
     const new_user = await this.userService.findOneById(user.$id);
-    if (!new_user) throw new NotFoundException();
-
     return this.verifyToken(new_user);
   }
 
@@ -198,7 +188,6 @@ export class AuthService {
     await this.validateUser(user.email, password);
 
     const profile = await this.userProfileService.findOneById(user.profile.$id);
-    if (!profile) throw new NotFoundException();
 
     await this.userService.remove(user.$id);
     await this.userProfileService.remove(profile);

@@ -17,7 +17,7 @@ export const user_actions = (router: Router, signout: Function): actions => {
       key: 'redirects',
       children: [
         {
-          title: 'settings.label',
+          title: 'administration.settings.label',
           icon: ['fas', 'gear'],
           callback: () => router.push({ name: ROUTE_NAMES.SETTINGS })
         },

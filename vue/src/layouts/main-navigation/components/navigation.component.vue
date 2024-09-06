@@ -1,8 +1,11 @@
 <script setup lang="ts">
 import NavigationDropdown from '@/components/dropdown/navigation-dropdown.component.vue'
+import { MAIN_NAVIGATION } from '@/config/main-navigation.config'
+import { RouteLocationNormalizedLoaded } from 'vue-router'
 
 type PropType = {
   path: string | undefined
+  route: RouteLocationNormalizedLoaded
   isAuthenticated: boolean
 }
 
@@ -20,23 +23,19 @@ const props = defineProps<PropType>()
     </nav>
   </div>
 
-  <div v-if="props.isAuthenticated" class="container px-2 d-flex flex-column">
-    <nav class="align-content-center flex-grow-1">
-      <RouterLink :to="{ name: 'following' }" class="text-decoration-none" activeClass="text-primary">
-        {{ $t('navigation.following') }}
-      </RouterLink>
-    </nav>
-    <div class="highlight" :class="{ active: props.path == 'following' }"></div>
-  </div>
-
-  <div class="container px-2 d-flex flex-column">
-    <nav class="align-content-center flex-grow-1">
-      <RouterLink :to="{ name: 'browse' }" class="text-decoration-none" activeClass="text-primary">
-        {{ $t('navigation.browse') }}
-      </RouterLink>
-    </nav>
-    <div class="highlight" :class="{ active: props.path == 'browse' }"></div>
-  </div>
+  <template v-for="nav in MAIN_NAVIGATION">
+    <div v-if="!nav.auth || props.isAuthenticated" class="m-nav container px-2 d-flex flex-column">
+      <nav class="align-content-center flex-grow-1">
+        <RouterLink :to="{ name: nav.name }" class="text-decoration-none" activeClass="text-primary">
+          <span class="d-none d-md-block">{{ $t(nav.label) }}</span>
+          <span v-tooltip="{ text: $t(nav.label), position: 'bottom' }" class="d-block d-md-none">
+            <font-awesome-icon :icon="nav.icon" />
+          </span>
+        </RouterLink>
+      </nav>
+      <div class="highlight" :class="{ active: route.path.startsWith(`/${nav.name}`) }"></div>
+    </div>
+  </template>
 
   <div class="container px-1 d-flex flex-column">
     <nav class="align-content-center flex-grow-1">
@@ -49,9 +48,13 @@ const props = defineProps<PropType>()
 @import '@/sass/variables/index';
 
 .th-navbar {
-  nav {
-    margin-top: 2px;
+  .m-nav {
+    nav {
+      margin-top: 0.2rem;
+    }
+  }
 
+  nav {
     a {
       font-family: $noto-sans;
       font-weight: 600;
@@ -76,7 +79,7 @@ const props = defineProps<PropType>()
   }
 
   div.highlight {
-    height: 2px;
+    height: 0.2rem;
 
     &.active {
       background-color: $primary;
