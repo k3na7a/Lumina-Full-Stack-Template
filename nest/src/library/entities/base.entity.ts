@@ -8,13 +8,13 @@ import {
 export abstract class BaseEntity {
   @ApiProperty()
   @PrimaryGeneratedColumn('uuid')
-  public $id: string;
+  public id: string;
 
   @ApiProperty()
   @CreateDateColumn()
-  public $createdAt: Date;
+  public createdAt: Date;
 
   @ApiProperty()
   @UpdateDateColumn()
-  public $updatedAt: Date;
+  public updatedAt: Date;
 }

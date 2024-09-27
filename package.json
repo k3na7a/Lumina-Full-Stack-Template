@@ -2,7 +2,10 @@
   "name": "example-full-stack-application",
   "version": "1.0.0",
   "description": "Full-Stack Web Application",
-  "scripts": {},
+  "scripts": {
+    "web": "cd vue && npm run dev",
+    "server:dev": "cd nest && npm run start:dev "
+  },
   "author": "John Desjardins",
   "license": "ISC"
 }

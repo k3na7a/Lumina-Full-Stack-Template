@@ -6,3 +6,5 @@ const deepEqual = (x: any, y: any): boolean => {
     ? ok(x).length === ok(y).length && ok(x).every((key) => deepEqual(x[key], y[key]))
     : x === y
 }
+
+export { deepEqual }

@@ -1,0 +1,19 @@
+.hover-cursor-pointer:hover {
+  cursor: pointer;
+}
+
+.hover-underline:hover {
+  text-decoration: underline;
+}
+
+.pointer-events-none {
+  pointer-events: none;
+}
+
+.box-shadow {
+  box-shadow: $boxShadow;
+}
+
+.border-radius {
+  border-radius: $border-radius;
+}

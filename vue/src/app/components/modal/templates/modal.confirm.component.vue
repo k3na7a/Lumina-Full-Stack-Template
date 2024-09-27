@@ -1,0 +1,40 @@
+<script setup lang="ts">
+import { ref } from 'vue'
+
+import ModalTitleComponent from '../base/modal-title.component.vue'
+import { Form } from 'vee-validate'
+
+const props = defineProps<{
+  close: () => void
+  callback: () => Promise<void>
+  title: string
+  body: string
+  action: string
+}>()
+
+const loading = ref<boolean>(false)
+
+const onSubmit = (): void => {
+  loading.value = true
+  props.callback().finally(() => {
+    loading.value = false
+  })
+}
+</script>
+
+<template>
+  <Form v-on:submit="onSubmit">
+    <ModalTitleComponent :title="title" />
+    <div class="d-flex flex-column">
+      <h6 class="text-muted fw-normal">{{ $t(body) }}</h6>
+    </div>
+    <div class="d-grid gap-2 pt-3">
+      <button v-on:click="close" class="btn btn-secondary px-0" type="button">
+        {{ $t('actions.cancel') }}
+      </button>
+      <button v-on:click="onSubmit" :disabled="loading" class="btn btn-primary px-0" type="submit">
+        {{ loading ? $t('actions.loading') : $t(action) }}
+      </button>
+    </div>
+  </Form>
+</template>

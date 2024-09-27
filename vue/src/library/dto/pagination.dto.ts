@@ -1,6 +1,12 @@
-export enum Order {
+enum Order {
   ASC = 'ASC',
   DESC = 'DESC'
+}
+
+type SortOptions = {
+  sort: string
+  order: Order
+  label: string
 }
 
 class PaginationMeta {
@@ -32,16 +38,17 @@ class PaginationDto<T> {
 }
 
 class PaginationOptions {
-  readonly order: Order = Order.ASC
-  readonly page: number = 1
-  readonly take: number = 10
+  order: Order = Order.ASC
+  page: number = 1
+  take: number = 10
+  sort?: string
+  search?: string
 }
 
 interface PaginationMetaParameters {
   readonly pageOptions: PaginationOptions
   readonly itemCount: number
-  readonly totalCount: number
 }
 
-export { PaginationOptions, PaginationDto, PaginationMeta }
-export type { PaginationMetaParameters }
+export { PaginationOptions, PaginationDto, PaginationMeta, Order }
+export type { PaginationMetaParameters, SortOptions }

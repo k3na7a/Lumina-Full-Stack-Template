@@ -3,11 +3,20 @@
   "log-out": "Log Out",
   "sign-up": "Sign Up",
   "loading": "Loading...",
+  "search": { "placeholder": "search...", "label": "Search" },
   "close": "Close",
+  "clear": "Clear",
   "cancel": "Cancel",
   "done": "Done",
+  "read": "Read",
+  "update": "Update",
+  "delete": "Delete",
   "start-over": "Start Over",
   "save-changes": "Save Changes",
   "disable-account": "Disable Account",
-  "continue": "Continue"
+  "confirm-new-password": "Confirm New Password",
+  "confirm-new-email": "Confirm New Email Address",
+  "continue": "Continue",
+  "sort-by": "Sort by:",
+  "update-avatar": "Update Profile Picture"
 }

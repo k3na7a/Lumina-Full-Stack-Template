@@ -1,3 +1,5 @@
+import getAvatar from '@/library/helpers/ui-avatars.util'
+
 type UpdatePassword = {
   current_password: string
   password: string
@@ -5,12 +7,12 @@ type UpdatePassword = {
 }
 type UpdateEmail = { password: string; email: string; confirm_email: string }
 type ResetPassword = { new_password: string; confirm_password: string }
-type ForgotPassword = { email: string }
+type ForgotPassword = { email: string; redirect: string }
 type DeleteAccount = { password: string }
 type UpdateProfile = { firstname: string; lastname: string }
 type Register = { firstname: string; lastname: string; email: string; password: string }
 
-export class ResetPasswordDto {
+class ResetPasswordDto {
   public readonly token: string
   public readonly new_password: string
   public readonly confirm_password: string
@@ -22,15 +24,17 @@ export class ResetPasswordDto {
   }
 }
 
-export class ForgotPasswordDto {
+class ForgotPasswordDto {
   public readonly email: string
+  public readonly redirect: string
 
   constructor(payload: ForgotPassword) {
     this.email = payload.email
+    this.redirect = payload.redirect
   }
 }
 
-export class RegisterDto {
+class RegisterDto {
   public readonly email: string
   public readonly password: string
   public readonly profile: UpdateProfileDto
@@ -45,7 +49,7 @@ export class RegisterDto {
   }
 }
 
-export class UpdateProfileDto {
+class UpdateProfileDto {
   public readonly name: Name
 
   constructor(payload: UpdateProfile) {
@@ -56,7 +60,7 @@ export class UpdateProfileDto {
   }
 }
 
-export class DeleteAccountDto {
+class DeleteAccountDto {
   public readonly password: string
 
   constructor(payload: DeleteAccount) {
@@ -64,7 +68,7 @@ export class DeleteAccountDto {
   }
 }
 
-export class UpdatePasswordDto {
+class UpdatePasswordDto {
   public readonly old_password: string
   public readonly new_password: string
   public readonly confirm_new_password: string
@@ -76,7 +80,7 @@ export class UpdatePasswordDto {
   }
 }
 
-export class UpdateEmailDto {
+class UpdateEmailDto {
   public readonly password: string
   public readonly new_email: string
   public readonly confirm_new_email: string
@@ -88,38 +92,54 @@ export class UpdateEmailDto {
   }
 }
 
-export interface IUser {
-  readonly $id: string
-  readonly $createdAt: Date
-  readonly $updatedAt: Date
+interface iUser {
+  readonly id: string
+  readonly createdAt: Date
+  readonly updatedAt: Date
 
   readonly email: string
   readonly role: Role
-  readonly profile: Profile
+  readonly profile: iProfile
 }
 
-export interface Profile {
-  readonly $id: string
-  readonly $createdAt: Date
-  readonly $updatedAt: Date
+interface iProfile {
+  readonly id: string
+  readonly createdAt: Date
+  readonly updatedAt: Date
 
+  readonly avatar: Avatar | null
   readonly name: Name
 }
 
-export interface Name {
+interface Avatar {
+  readonly filename: string
+  readonly uri: string
+}
+
+interface Name {
   readonly first: string
   readonly last: string
 }
 
-export enum Role {
+enum Role {
   USER = 'user',
   ADMIN = 'administrator'
 }
 
-export class UserDto {
-  public readonly $id: string
-  public readonly $createdAt: Date
-  public readonly $updatedAt: Date
+class Profile {
+  public readonly avatar: string
+  public readonly name: Name
+
+  constructor({ name, avatar }: iProfile) {
+    this.name = name
+    this.avatar = avatar?.uri || getAvatar(name.first, name.last)
+  }
+}
+
+class UserDto {
+  public readonly id: string
+  public readonly createdAt: Date
+  public readonly updatedAt: Date
 
   public readonly email: string
   public readonly role: Role
@@ -129,15 +149,39 @@ export class UserDto {
     return [this.profile.name.first, this.profile.name.last].join(' ')
   }
 
-  constructor(user: IUser) {
-    this.$id = user.$id
-    this.$createdAt = user.$createdAt
-    this.$updatedAt = user.$updatedAt
+  constructor(user: iUser) {
+    this.id = user.id
+    this.createdAt = user.createdAt
+    this.updatedAt = user.updatedAt
 
     this.email = user.email
     this.role = user.role
-    this.profile = user.profile
+    this.profile = new Profile(user.profile)
   }
 }
 
-export type { UpdateEmail, UpdatePassword, ResetPassword, ForgotPassword, DeleteAccount, UpdateProfile, Register }
+export {
+  UserDto,
+  Profile,
+  Role,
+  ResetPasswordDto,
+  UpdateEmailDto,
+  UpdatePasswordDto,
+  DeleteAccountDto,
+  UpdateProfileDto,
+  RegisterDto,
+  ForgotPasswordDto
+}
+export type {
+  UpdateEmail,
+  UpdatePassword,
+  ResetPassword,
+  ForgotPassword,
+  DeleteAccount,
+  UpdateProfile,
+  Register,
+  Name,
+  Avatar,
+  iProfile,
+  iUser
+}

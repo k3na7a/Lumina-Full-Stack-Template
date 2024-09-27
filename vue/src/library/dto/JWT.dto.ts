@@ -1,4 +1,4 @@
-import { IUser, UserDto } from './user.dto'
+import { iUser, UserDto } from './user.dto'
 
 type credentials = { email: string; password: string }
 
@@ -6,10 +6,10 @@ interface IJWT {
   token: string
   iat: number
   exp: number
-  user: IUser
+  user: iUser
 }
 
-export class JWTDto {
+class JWTDto {
   public readonly token: string
   public readonly iat: number
   public readonly exp: number
@@ -23,4 +23,5 @@ export class JWTDto {
   }
 }
 
+export { JWTDto }
 export type { credentials }

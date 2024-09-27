@@ -1,7 +1,15 @@
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 
 import { Type } from 'class-transformer';
-import { IsArray, IsEnum, IsInt, IsOptional, Max, Min } from 'class-validator';
+import {
+  IsArray,
+  IsEnum,
+  IsInt,
+  IsOptional,
+  IsString,
+  Max,
+  Min,
+} from 'class-validator';
 
 import { Order } from '../enums/order.enum';
 
@@ -43,6 +51,11 @@ class PaginationDto<T> {
 }
 
 class PaginationOptions {
+  @ApiPropertyOptional()
+  @IsString()
+  @IsOptional()
+  readonly search: string = '';
+
   @ApiPropertyOptional({ enum: Order, default: Order.ASC })
   @IsEnum(Order)
   @IsOptional()

@@ -4,7 +4,7 @@ import * as bcrypt from 'bcrypt';
 import { createHmac } from 'node:crypto';
 
 import { RegisterDto } from 'src/library/dto/register.dto';
-import { UserService } from '../../models/users/services/users.service';
+import { UserService } from '../../modules/users/services/users.service';
 import { Payload } from '../../../library/interfaces/payload.interface';
 import { JWTInterface, JWTDto, DecodedJWT } from 'src/library/dto/jwt.dto';
 import { SendGridPlugin } from 'src/plugins/sendgrid.plugin';
@@ -17,15 +17,18 @@ import {
 import { HandlebarsPlugin } from 'src/plugins/handlebars.plugin';
 import { updatePasswordDto } from 'src/library/dto/updatePassword.dto';
 import { deleteAccountDto } from 'src/library/dto/deleteAccount.dto';
-import { UserEntity } from 'src/library/entities/user.entity';
-import { CreateUserProfile } from 'src/library/interfaces/user.interfaces';
-import { UserProfileService } from 'src/app/models/users/services/profile.service';
+import { UserEntity } from 'src/library/entities/user/user.entity';
+import { UpdateUserProfile } from 'src/library/interfaces/user.interfaces';
+import { ProfileService } from 'src/app/modules/users/services/profile.service';
+import { ForgotPasswordDto } from 'src/library/dto/forgotPassword.dto';
+import { AvatarService } from 'src/app/modules/users/services/avatar.service';
 
 @Injectable()
 export class AuthService {
   constructor(
     private readonly userService: UserService,
-    private readonly userProfileService: UserProfileService,
+    private readonly profileService: ProfileService,
+    private readonly avatarService: AvatarService,
     private readonly jwtService: JwtService,
   ) {}
 
@@ -78,16 +81,16 @@ export class AuthService {
   }
 
   public async signOut(user: UserEntity): Promise<void> {
-    await this.userService.update(user.$id, { refreshToken: null });
+    await this.userService.update(user.id, { refreshToken: null });
   }
 
   public async verifyToken(user: UserEntity): Promise<JWTDto> {
-    const payload: Payload = { email: user.email, sub: user.$id };
+    const payload: Payload = { email: user.email, sub: user.id };
     const tokens: JWTInterface = await this.getTokens(payload);
 
     const decoded = this.decodeToken(tokens.refresh_token);
 
-    await this.refreshTokens(user.$id, tokens.refresh_token);
+    await this.refreshTokens(user.id, tokens.refresh_token);
 
     return new JWTDto({
       token: tokens.refresh_token,
@@ -97,16 +100,16 @@ export class AuthService {
     });
   }
 
-  public async forgotPassword(email: string): Promise<void> {
-    const user = await this.userService.findOneByEmail(email);
+  public async forgotPassword(dto: ForgotPasswordDto): Promise<void> {
+    const user = await this.userService.findOneByEmail(dto.email);
 
-    const payload: Payload = { email: user.email, sub: user.$id };
+    const payload: Payload = { email: user.email, sub: user.id };
     const tokens: JWTInterface = await this.getTokens(payload);
 
     const hmac = createHmac('sha256', process.env.CRYPTO_SECRET || '');
     const hash = hmac.update(tokens.access_token).digest('hex');
 
-    await this.userService.update(user.$id, { resetToken: hash });
+    await this.userService.update(user.id, { resetToken: hash });
 
     await SendGridPlugin.sendMail({
       to: [user.email],
@@ -116,7 +119,7 @@ export class AuthService {
         data: {
           name: user.email,
           email: user.email,
-          redirect: `${process.env.BASE_URL}/guest/password-reset?${new URLSearchParams({ reset_token: tokens.access_token })}`,
+          redirect: `${dto.redirect}/guest/password-reset?${new URLSearchParams({ reset_token: tokens.access_token })}`,
         },
       }),
     });
@@ -135,11 +138,29 @@ export class AuthService {
     const salt: string = await bcrypt.genSalt();
     const hash: string = await bcrypt.hash(password, salt);
 
-    await this.userService.update(user.$id, {
+    await this.userService.update(user.id, {
       password: hash,
       refreshToken: null,
       resetToken: null,
     });
+  }
+
+  public async updateAvatar(
+    { profile, id }: UserEntity,
+    file: Express.Multer.File,
+  ) {
+    if (profile.avatar) {
+      await this.avatarService.update(profile.avatar.id, file);
+
+      const new_user = await this.userService.findOneById(id);
+      return this.verifyToken(new_user);
+    } else {
+      const avatar = await this.avatarService.create(file);
+      await this.profileService.update(profile.id, { avatar });
+
+      const new_user = await this.userService.findOneById(id);
+      return this.verifyToken(new_user);
+    }
   }
 
   public async updateEmail(
@@ -148,7 +169,7 @@ export class AuthService {
   ): Promise<JWTDto> {
     await this.validateUser(user.email, password);
 
-    const new_user = await this.userService.update(user.$id, {
+    const new_user = await this.userService.update(user.id, {
       email: new_email,
     });
 
@@ -157,11 +178,11 @@ export class AuthService {
 
   public async updateProfile(
     user: UserEntity,
-    profile: CreateUserProfile,
+    profile: UpdateUserProfile,
   ): Promise<JWTDto> {
-    await this.userProfileService.update(user.profile.$id, profile);
+    await this.profileService.update(user.profile.id, profile);
 
-    const new_user = await this.userService.findOneById(user.$id);
+    const new_user = await this.userService.findOneById(user.id);
     return this.verifyToken(new_user);
   }
 
@@ -174,7 +195,7 @@ export class AuthService {
     const salt: string = await bcrypt.genSalt();
     const hash: string = await bcrypt.hash(new_password, salt);
 
-    const new_user = await this.userService.update(user.$id, {
+    const new_user = await this.userService.update(user.id, {
       password: hash,
     });
 
@@ -186,10 +207,6 @@ export class AuthService {
     { password }: deleteAccountDto,
   ): Promise<void> {
     await this.validateUser(user.email, password);
-
-    const profile = await this.userProfileService.findOneById(user.profile.$id);
-
-    await this.userService.remove(user.$id);
-    await this.userProfileService.remove(profile);
+    await this.userService.remove(user.id);
   }
 }

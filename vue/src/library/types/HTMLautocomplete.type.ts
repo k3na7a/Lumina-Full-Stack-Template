@@ -1,4 +1,4 @@
-export type HTMLAutoComplete =
+type HTMLAutoComplete =
   | 'on' // Default. Autocomplete is on (enabled)
   | 'off' // Autocomplete is off (disabled)
   | 'address-line1' // Expects the first line of the street address
@@ -54,3 +54,5 @@ export type HTMLAutoComplete =
   | 'tel-local-suffix' // Expects the local suffix of the phone number
   | 'tel-extension' // Expects the extension code of the phone number
   | 'impp' // Expects the url of an instant messaging protocol endpoint
+
+export type { HTMLAutoComplete }

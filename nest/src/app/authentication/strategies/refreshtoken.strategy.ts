@@ -4,9 +4,9 @@ import { Injectable, UnauthorizedException } from '@nestjs/common';
 
 import { Request } from 'express';
 
-import { UserService } from 'src/app/models/users/services/users.service';
+import { UserService } from 'src/app/modules/users/services/users.service';
 import { createHmac } from 'node:crypto';
-import { UserEntity } from 'src/library/entities/user.entity';
+import { UserEntity } from 'src/library/entities/user/user.entity';
 import { Payload } from 'src/library/interfaces/payload.interface';
 
 @Injectable()

@@ -7,9 +7,11 @@ import { fas } from '@fortawesome/free-solid-svg-icons'
 import { far } from '@fortawesome/free-regular-svg-icons'
 import { fab } from '@fortawesome/free-brands-svg-icons'
 
-export class FontAwesomeService {
+class FontAwesomeService {
   public static init(app: App<Element>): void {
     library.add(fas, far, fab)
     app.component('font-awesome-icon', FontAwesomeIcon)
   }
 }
+
+export { FontAwesomeService }

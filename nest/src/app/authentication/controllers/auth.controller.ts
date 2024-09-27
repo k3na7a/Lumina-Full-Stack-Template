@@ -3,10 +3,14 @@ import {
   ClassSerializerInterceptor,
   Controller,
   Delete,
+  FileTypeValidator,
+  MaxFileSizeValidator,
+  ParseFilePipe,
   Patch,
   Post,
   Put,
   Request,
+  UploadedFile,
   UseGuards,
   UseInterceptors,
 } from '@nestjs/common';
@@ -18,11 +22,13 @@ import {
 } from '@nestjs/swagger';
 
 import { AuthService } from '../services/auth.service';
+
+import { storage } from 'src/library/config/storage.config';
 import { RegisterDto, RegisterProfileDto } from 'src/library/dto/register.dto';
 import { JWTDto } from 'src/library/dto/jwt.dto';
 import { SignInDto } from 'src/library/dto/signIn.dto';
 import { LocalAuthGuard } from '../guards/localAuth.guard';
-import { UserEntity } from 'src/library/entities/user.entity';
+import { UserEntity } from 'src/library/entities/user/user.entity';
 import { RefreshTokenGuard } from '../guards/refreshtoken.guard';
 import { RefreshTokenRequest } from 'src/library/interfaces/refreshToken.interface';
 import { ForgotPasswordDto } from 'src/library/dto/forgotPassword.dto';
@@ -32,6 +38,8 @@ import { ResetPasswordDto } from 'src/library/dto/resetPassword.dto';
 import { updatePasswordDto } from 'src/library/dto/updatePassword.dto';
 import { updateEmailDto } from 'src/library/dto/updateEmail.dto';
 import { deleteAccountDto } from 'src/library/dto/deleteAccount.dto';
+import { FileInterceptor } from '@nestjs/platform-express';
+import { megabyte } from 'src/library/constants/size.constants';
 
 @ApiTags('Authentication (Self Management)')
 @Controller()
@@ -72,7 +80,7 @@ export class AuthController {
   @Post('/forgot-password')
   @ApiBody({ type: ForgotPasswordDto })
   async forgotPassword(@Body() dto: ForgotPasswordDto): Promise<void> {
-    await this.authService.forgotPassword(dto.email);
+    await this.authService.forgotPassword(dto);
   }
 
   @Patch('/reset-password')
@@ -124,6 +132,30 @@ export class AuthController {
     @Body() dto: updatePasswordDto,
   ): Promise<JWTDto> {
     return this.authService.updatePassword(user.userEntity, dto);
+  }
+
+  @Post('/update-avatar')
+  @ApiBearerAuth('access-token')
+  @UseGuards(RefreshTokenGuard)
+  @ApiOkResponse({ type: JWTDto })
+  @UseInterceptors(FileInterceptor('avatar', { storage }))
+  async updateProfilePicture(
+    @Request() { user }: RefreshTokenRequest,
+    @UploadedFile(
+      new ParseFilePipe({
+        validators: [
+          new MaxFileSizeValidator({
+            maxSize: 10 * megabyte,
+          }),
+          new FileTypeValidator({
+            fileType: '.(png|jpeg|jpg|gif)',
+          }),
+        ],
+      }),
+    )
+    file: Express.Multer.File,
+  ): Promise<JWTDto> {
+    return this.authService.updateAvatar(user.userEntity, file);
   }
 
   @Delete('/delete-account')

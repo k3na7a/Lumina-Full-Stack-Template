@@ -2,8 +2,12 @@
   "label": "Administration",
   "users": {
     "label": "Users",
-    "title": "Manage Your Users",
-    "count": "{count} users found | {count} user found | {count} users found"
+    "title": "Create and modify your users",
+    "subtitle": "Users are the individuals who have registered an account",
+    "caption": "Showing {showing} of {count} users | Showing {showing} of {count} user | Showing {showing} of {count} users"
+  },
+  "games": {
+    "label": "Game Library"
   },
   "settings": {
     "label": "Settings",
@@ -12,6 +16,10 @@
       "profile-settings": {
         "header": "Profile Settings",
         "sub-header": "Change identifying details for your account"
+      },
+      "avatar": {
+        "label": "Profile Picture",
+        "modal-title": "Update your Testhub profile picture"
       },
       "disable-account": {
         "header": "Disabling Your Testhub Account",

@@ -9,16 +9,14 @@ import {
 } from '@nestjs/common';
 import { ApiBearerAuth, ApiOkResponse, ApiTags } from '@nestjs/swagger';
 
-import { UserService } from 'src/app/models/users/services/users.service';
-import {
-  PaginationDto,
-  PaginationOptions,
-} from 'src/library/dto/pagination.dto';
-import { UserEntity } from 'src/library/entities/user.entity';
+import { UserService } from 'src/app/modules/users/services/users.service';
+import { PaginationDto } from 'src/library/dto/pagination.dto';
+import { UserEntity } from 'src/library/entities/user/user.entity';
 import { Roles } from 'src/app/authentication/decorators/roles.decorator';
 import { Role } from 'src/library/enums/role.enum';
 import { RefreshTokenGuard } from 'src/app/authentication/guards/refreshtoken.guard';
 import { RolesGuard } from 'src/app/authentication/guards/role.guard';
+import { UserPaginationOptions } from 'src/library/dto/user.dto';
 
 @ApiTags('Users (Administration)')
 @Controller('users')
@@ -32,9 +30,15 @@ export class UserAdminController {
   @Get('paginated')
   @ApiOkResponse({ type: PaginationDto<UserEntity> })
   async findAndPaginate(
-    @Query() params: PaginationOptions,
+    @Query() params: UserPaginationOptions,
   ): Promise<PaginationDto<UserEntity>> {
     return this.userService.paginate(params);
+  }
+
+  @Get('count')
+  @ApiOkResponse({ type: Number })
+  async getCount(): Promise<number> {
+    return this.userService.getUserCount();
   }
 
   @Get(':id')

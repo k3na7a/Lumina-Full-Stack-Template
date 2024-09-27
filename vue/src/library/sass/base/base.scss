@@ -1,0 +1,18 @@
+* {
+  margin: 0;
+  padding: 0;
+
+  box-sizing: border-box;
+}
+
+html {
+  // https://www.aleksandrhovhannisyan.com/blog/62-5-percent-font-size-trick/#why-625percent-font-size-works
+  font-size: 0.625rem;
+}
+
+@import './transitions';
+@import './helpers';
+@import './mixins';
+@import './typography';
+@import './theme';
+@import './loaders';

@@ -1,13 +1,12 @@
 import { App } from 'vue'
-import { RouteLocationNormalized, RouteRecordRaw, Router, RouterOptions, createRouter, createWebHistory } from 'vue-router'
-
-declare module 'vue-router' {
-  interface RouteMeta {
-    isAdmin?: boolean
-    pageTitle?: string
-    breadcrumbs?: string[]
-  }
-}
+import {
+  RouteLocationNormalized,
+  RouteRecordRaw,
+  Router,
+  RouterOptions,
+  createRouter,
+  createWebHistory
+} from 'vue-router'
 
 class VueRouterService {
   private static $router: Router = createRouter({

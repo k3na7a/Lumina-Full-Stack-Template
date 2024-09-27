@@ -1,0 +1,433 @@
+html,
+body {
+  color-scheme: light dark;
+  color: $light;
+
+  background-color: $background;
+  scrollbar-color: $scrollbar-color transparent;
+}
+
+main {
+  min-width: 36rem;
+}
+
+#app {
+  height: 100vh;
+  overflow: hidden;
+
+  display: flex;
+  flex-direction: column;
+}
+
+.content-view-settings {
+  max-width: 90rem;
+}
+
+.content-view-administration {
+  max-width: 90rem;
+}
+
+.bg-alt {
+  background-color: $backgroundAlt;
+}
+
+.bg-alt2 {
+  background-color: $backgroundLight;
+}
+
+.text-light-alt {
+  color: $lightAlt;
+}
+
+.text-grey {
+  color: grey;
+}
+
+.toast-container {
+  backface-visibility: hidden;
+}
+
+.content-wrapper {
+  margin-top: map-get($header-config, height, desktop);
+}
+
+.card {
+  box-shadow: $boxShadow;
+  border: 0.1rem solid $secondary;
+  border-radius: $border-radius;
+
+  background-color: $backgroundLight;
+  color: $light;
+
+  .section:not(:last-child) {
+    border-bottom: 0.1rem $secondary solid;
+  }
+}
+
+.dropdown {
+  .dropdown-menu {
+    width: max-content;
+    min-width: 20rem;
+    max-width: 20rem;
+
+    max-height: 40rem;
+    overflow-y: auto;
+
+    box-shadow: $boxShadow;
+    border-radius: $border-radius;
+    background-color: $backgroundAlt;
+
+    scrollbar-color: $scrollbar-color $backgroundAlt;
+
+    button.dropdown-item {
+      font-size: $font-size-7 !important;
+      font-weight: 400 !important;
+      border-radius: $border-radius;
+      color: $light;
+
+      &.dropdown-item:hover,
+      &.dropdown-item:focus {
+        background-color: rgba(255, 255, 255, 0.05);
+      }
+
+      &.dropdown-item.active {
+        background-color: rgba(255, 255, 255, 0.15);
+      }
+
+      &:not(:last-child) {
+        margin-bottom: 0.4rem;
+      }
+
+      &:disabled {
+        color: $muted;
+      }
+    }
+  }
+}
+
+.inner-link-btn {
+  border: none;
+  background-color: transparent;
+
+  &.btn-link {
+    text-decoration: none;
+    transition: none;
+    height: max-content;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}
+
+.btn {
+  border: none;
+  border-radius: $border-radius;
+
+  height: 3rem;
+  line-height: $line-height-base;
+
+  white-space: nowrap;
+
+  padding: 0;
+
+  font-weight: 700;
+  font-size: $font-size-7;
+
+  transition: all 0.15s ease-in-out;
+
+  &.btn-icon {
+    width: 3rem;
+  }
+
+  &.btn-icon-sm {
+    width: 2.5rem;
+    height: 2.5rem;
+  }
+
+  &:disabled {
+    opacity: $disabled-opacity;
+  }
+
+  &.btn-link {
+    text-decoration: none;
+    transition: none !important;
+    height: max-content;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+
+  &.btn-dark {
+    background-color: transparent !important;
+
+    &:hover {
+      background-color: rgba(255, 255, 255, 0.075) !important;
+    }
+
+    &:active {
+      background-color: rgba(255, 255, 255, 0.125) !important;
+    }
+  }
+}
+
+.modal {
+  .modal-close button {
+    width: 3rem;
+    height: 3rem;
+  }
+
+  backdrop-filter: blur(1.5rem);
+}
+
+.tooltip {
+  border: 0.1rem $light solid;
+  font-size: $font-size-7;
+
+  .tooltip-inner {
+    background-color: $background;
+  }
+
+  .tooltip-arrow {
+    display: none !important;
+  }
+}
+
+.text-input {
+  &.has-error input {
+    border-color: $danger;
+  }
+
+  &.has-error input:hover {
+    box-shadow: 0 0 0 0.1rem $danger;
+  }
+
+  &.success input {
+    border-color: $success;
+  }
+
+  &.success input:hover {
+    box-shadow: 0 0 0 0.1rem $success;
+  }
+
+  input:hover {
+    box-shadow: 0 0 0 0.1rem $muted;
+  }
+
+  input:focus {
+    border-color: $primary !important;
+    box-shadow: 0 0 0 0.1rem $primary !important;
+  }
+
+  input {
+    outline: none;
+    border: 0.1rem $muted solid;
+    height: 3rem;
+
+    transition: all 0.15s ease-in-out;
+  }
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+
+  border-bottom: 0.1rem $primary solid;
+  border-top: 0.1rem $secondary solid;
+
+  &.disabled {
+    tbody {
+      pointer-events: none;
+      opacity: $disabled-opacity;
+    }
+  }
+
+  thead {
+    background-color: rgba(0, 0, 0, 0.12);
+    border-bottom: 0.1rem $primary solid;
+  }
+
+  tbody {
+    color: $lightAlt;
+    transition: opacity 0.15s ease-in-out;
+
+    tr {
+      border-bottom: 0.1rem $secondary solid;
+
+      &:nth-of-type(even) {
+        background-color: rgba(255, 255, 255, 0.04);
+      }
+    }
+  }
+
+  .cell {
+    min-height: 5rem;
+    padding: 1rem;
+    display: flex;
+    align-items: center;
+
+    .badge {
+      font-size: $font-size-8 !important;
+    }
+  }
+
+  td {
+    min-width: fit-content !important;
+  }
+
+  td:last-child,
+  th:last-child {
+    .cell {
+      justify-content: end;
+    }
+  }
+}
+
+.select {
+  .select-btn {
+    outline: none;
+    border: 0.1rem $muted solid;
+    height: 3rem;
+
+    transition: all 0.15s ease-in-out;
+
+    &:disabled {
+      opacity: $disabled-opacity;
+      color: $muted !important;
+    }
+  }
+
+  .dropdown-menu {
+    border: 0.1rem $muted solid;
+
+    button {
+      margin-bottom: 0px !important;
+      outline: none;
+    }
+  }
+
+  &:hover {
+    .select-btn {
+      box-shadow: 0 0 0 0.1rem $muted;
+    }
+  }
+
+  &.has-error {
+    .select-btn {
+      border-color: $danger !important;
+    }
+
+    &:hover {
+      .select-btn {
+        box-shadow: 0 0 0 0.1rem $danger;
+      }
+    }
+  }
+
+  &:focus-within {
+    .select-btn {
+      border-color: $primary !important;
+      box-shadow: 0 0 0 0.1rem $primary !important;
+    }
+  }
+
+  &.disabled {
+    pointer-events: none;
+  }
+}
+
+.avatar-icon {
+  width: 3rem;
+  height: 3rem;
+  object-fit: cover;
+  border: 0.1rem $secondary dashed;
+}
+
+.search-input.input-group {
+  background-color: $backgroundAlt;
+  border: 0.1rem $muted solid;
+  height: 3rem;
+  transition: all 0.15s ease-in-out;
+
+  &:has(.disabled) {
+    pointer-events: none;
+    opacity: $disabled-opacity;
+  }
+
+  button {
+    outline: none;
+
+    &:focus {
+      color: $primary !important;
+    }
+  }
+
+  :disabled {
+    color: $muted !important;
+    opacity: 0.7;
+  }
+
+  &:hover {
+    box-shadow: 0 0 0 0.1rem $muted;
+  }
+
+  &:focus-within {
+    border-color: $primary !important;
+    box-shadow: 0 0 0 0.1rem $primary !important;
+  }
+
+  & > * {
+    border: none;
+    background-color: transparent;
+  }
+
+  input {
+    outline: none;
+    min-width: none !important;
+  }
+}
+
+.file-input {
+  .file-input-display {
+    // border: 0.1rem $secondary solid;
+    background-color: rgba(255, 255, 255, 0.035);
+  }
+
+  .file-input-component {
+    border: 0.1rem $muted dashed;
+    width: 100%;
+    background-color: rgba(255, 255, 255, 0.035);
+    transition: all 0.15s ease-in-out;
+
+    &:hover,
+    &:has(input:focus),
+    &:has(input:active) {
+      border-color: $lightAlt;
+    }
+
+    input {
+      left: 0;
+      right: 0;
+      top: 0;
+      bottom: 0;
+      cursor: pointer;
+    }
+  }
+}
+
+.th-navbar {
+  z-index: map-get($header-config, z-index);
+
+  .top-nav {
+    height: map-get($header-config, height, desktop);
+  }
+
+  nav.nav-logo {
+    width: map-get($header-config, height, desktop);
+
+    img.logo {
+      width: 3rem;
+    }
+  }
+}

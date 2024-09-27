@@ -1,23 +1,23 @@
 import { createApp } from 'vue'
 import { AxiosError } from 'axios'
 
-import '@/sass/style.scss'
+import '@/library/sass/style.scss'
 
-import App from '@/views/app.view.vue'
+import App from '@/app/views/app.view.vue'
 
 import { FontAwesomeService as FontAwesome } from '@/plugins/fontawesome.plugin'
 import { PiniaService as Pinia } from '@/plugins/pinia.plugin'
 import { I18nService as I18n } from '@/plugins/vuei18n.plugin'
 import { VueRouterService as Router } from '@/plugins/vuerouter.plugin'
 
-import { useAuthStore } from '@/store/authentication.store'
+import { useAuthStore } from '@/app/store/authentication.store'
 
-import { routes } from '@/router/routes'
-import { registerDirectives } from '@/directives'
+import { routes } from '@/app/router/routes'
+import { registerDirectives } from '@/app/directives'
 
 async function bootstrap(): Promise<void> {
   const app = createApp(App)
-  const debug: boolean = true
+  const debug: boolean = false
 
   Pinia.init(app)
   Router.init(app, routes, debug)

@@ -1,4 +1,5 @@
 import { Role } from 'src/library/enums/role.enum';
+import { AvatarEntity } from '../entities/user/avatar.entity';
 
 export interface UpdateUserInterface {
   email?: string;
@@ -12,6 +13,11 @@ export interface CreateUserInterface {
   email: string;
   password: string;
   profile: CreateUserProfile;
+}
+
+export interface UpdateUserProfile {
+  avatar?: AvatarEntity | null;
+  name?: CreateUserName;
 }
 
 export interface CreateUserProfile {

@@ -6,7 +6,7 @@ import {
 } from '@nestjs/common';
 import { Reflector } from '@nestjs/core';
 
-import { UserService } from 'src/app/models/users/services/users.service';
+import { UserService } from 'src/app/modules/users/services/users.service';
 import { Role } from 'src/library/enums/role.enum';
 
 const validate = (requiredRoles: Role[], role: Role) => {
