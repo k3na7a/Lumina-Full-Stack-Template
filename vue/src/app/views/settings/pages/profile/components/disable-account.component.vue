@@ -3,8 +3,8 @@ const props = defineProps<{ callback: () => void }>()
 </script>
 
 <template>
-  <div class="d-flex flex-column flex-sm-row p-3">
-    <div class="row-header mb-2 mb-sm-0">
+  <div class="d-flex flex-column flex-sm-row gap-3 p-3">
+    <div class="row-header">
       <h6 class="fw-bold">
         {{ $t('administration.settings.profile.disable-account.form-header') }}
       </h6>

@@ -73,6 +73,7 @@ function deepEqual(x: any, y: any): boolean {
           :disabled="deepEqual(value, option)"
           v-on:click="value = option"
           type="button"
+          :key="JSON.stringify(option)"
         >
           <span class="text-truncate pe-2">
             <slot name="option" :option="option"></slot>
@@ -82,3 +83,60 @@ function deepEqual(x: any, y: any): boolean {
     </div>
   </div>
 </template>
+
+<style lang="scss">
+@import '@/library/sass/variables/index';
+
+.select {
+  .select-btn {
+    outline: none;
+    border: 0.1rem $muted solid;
+    height: 3rem;
+
+    transition: all 0.15s ease-in-out;
+
+    &:disabled {
+      opacity: $disabled-opacity;
+      color: $muted !important;
+    }
+  }
+
+  .dropdown-menu {
+    border: 0.1rem $muted solid;
+
+    button {
+      margin-bottom: 0px !important;
+      outline: none;
+    }
+  }
+
+  &:hover {
+    .select-btn {
+      box-shadow: 0 0 0 0.1rem $muted;
+    }
+  }
+
+  &.has-error {
+    .select-btn {
+      border-color: $danger !important;
+    }
+
+    &:hover {
+      .select-btn {
+        box-shadow: 0 0 0 0.1rem $danger;
+      }
+    }
+  }
+
+  &:focus-within {
+    .select-btn {
+      border-color: $primary !important;
+      box-shadow: 0 0 0 0.1rem $primary !important;
+    }
+  }
+
+  &.disabled {
+    pointer-events: none;
+  }
+}
+</style>

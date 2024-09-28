@@ -5,12 +5,12 @@ const props = defineProps<{ title: string; routes: sub_navigation }>()
 </script>
 
 <template>
-  <header class="settings-header p-3 pb-0">
-    <h2 class="mb-1 fw-bold display-font text-truncate">
+  <header class="settings-header d-flex flex-column gap-1 p-3 pb-0">
+    <h2 class="fw-bold display-font text-truncate">
       {{ $t(props.title) }}
     </h2>
     <ul class="d-flex nav nav-underline">
-      <li v-for="route of props.routes" class="nav-item">
+      <li v-for="route of props.routes" class="nav-item" :key="route.name">
         <RouterLink :to="{ name: route.name }" class="nav-link fw-semibold text-light" activeClass="active">
           {{ $t(route.label) }}
         </RouterLink>

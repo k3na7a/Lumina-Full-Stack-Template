@@ -8,8 +8,8 @@ import PasswordValidationList from '@/app/components/labels/password-validation-
 import { useFormUtil } from '@/library/helpers/forms.util'
 import { UserDto, UpdatePassword } from '@/library/dto/user.dto'
 import { AuthStore, useAuthStore } from '@/app/store/authentication.store'
-import { SettingsService } from '../services/settings.service'
-import { updatePassword as validationSchema } from '../schema/validation.schema'
+import { SettingsService } from '../../../services/settings.service'
+import { updatePassword as validationSchema } from '../../../schema/validation.schema'
 
 const { getSubmitFn } = useFormUtil()
 const { updatePassword } = SettingsService
@@ -27,8 +27,8 @@ const onSubmit = getSubmitFn(validationSchema, async (values: UpdatePassword) =>
 
 <template>
   <Form v-on:submit="onSubmit" :validation-schema v-slot="{ meta }" :key="JSON.stringify(user?.updatedAt)">
-    <div class="d-flex flex-column flex-sm-row p-3">
-      <div class="row-header pe-3 mb-2 mb-sm-0">
+    <div class="d-flex flex-column flex-sm-row gap-3 p-3">
+      <div class="row-header">
         <h6 class="fw-bold">{{ $t('forms.password') }}</h6>
       </div>
 
@@ -51,34 +51,32 @@ const onSubmit = getSubmitFn(validationSchema, async (values: UpdatePassword) =>
       </template>
 
       <template v-else>
-        <div class="d-flex flex-column flex-grow-1">
-          <div class="row align-items-start flex-grow-1 mb-2">
-            <div class="col-12 col-md-6">
-              <TextInput class="mb-1" autocomplete="current-password" name="current_password" type="password" />
+        <div class="d-flex flex-column flex-grow-1 gap-2">
+          <div class="row align-items-start flex-grow-1">
+            <div class="col-12 col-md-6 d-flex flex-column gap-1">
+              <TextInput autocomplete="current-password" name="current_password" type="password" />
               <small>{{ $t('forms.current-password') }}</small>
             </div>
           </div>
-          <div class="row gy-2 align-items-start flex-grow-1 mb-2">
-            <div class="col-12 col-md-6">
-              <TextInput class="mb-1" autocomplete="new-password" name="password" type="password" />
-              <small>{{ $t('forms.new-password') }}</small>
-              <PasswordValidationList />
+          <div class="row gy-2 align-items-start flex-grow-1">
+            <div class="col-12 col-md-6 d-flex flex-column gap-1">
+              <TextInput autocomplete="new-password" name="password" type="password" />
+              <div class="d-flex flex-column">
+                <small>{{ $t('forms.new-password') }}</small>
+                <PasswordValidationList />
+              </div>
             </div>
-            <div class="col-12 col-md-6">
-              <TextInput class="mb-1" autocomplete="new-password" name="confirm_password" type="password" />
+            <div class="col-12 col-md-6 d-flex flex-column gap-1">
+              <TextInput autocomplete="new-password" name="confirm_password" type="password" />
               <small>{{ $t('actions.confirm-new-password') }}</small>
             </div>
           </div>
 
-          <div class="d-flex flex-row justify-content-end">
+          <div class="d-flex flex-row justify-content-end gap-2">
             <button class="btn btn-secondary px-2" type="button" v-on:click="state.open = !state.open">
               {{ $t('actions.cancel') }}
             </button>
-            <button
-              :disabled="!meta.valid || state.loading || !meta.dirty"
-              class="btn btn-primary px-2 ms-2"
-              type="submit"
-            >
+            <button :disabled="!meta.valid || state.loading || !meta.dirty" class="btn btn-primary px-2" type="submit">
               {{ $t('actions.save-changes') }}
             </button>
           </div>

@@ -1,13 +1,13 @@
 <script setup lang="ts">
-// import { defaultOptions } from '../schema/games-list.config'
+import { defaultOptions } from '../../../schema/games-list.config'
 
-// import TablePaginatedComponent from '@/app/components/table/paginated.component.vue'
-import InputDateComponent from '@/app/components/inputs/input.date.component.vue'
-import InputMultiSelectComponent from '@/app/components/inputs/input.multi-select.component.vue'
+import TablePaginatedComponent from '@/app/components/table/paginated.component.vue'
+// import InputDateComponent from '@/app/components/inputs/input.date.component.vue'
+// import InputMultiSelectComponent from '@/app/components/inputs/input.multi-select.component.vue'
 </script>
 
 <template>
-  <!-- <TablePaginatedComponent
+  <TablePaginatedComponent
     v-model:options="defaultOptions"
     :columns="[
       { name: 'user', label: 'forms.name' },
@@ -24,15 +24,16 @@ import InputMultiSelectComponent from '@/app/components/inputs/input.multi-selec
         <font-awesome-icon size="lg" :icon="['fas', 'ellipsis-vertical']" />
       </button>
     </template>
-  </TablePaginatedComponent> -->
+  </TablePaginatedComponent>
 
-  <InputMultiSelectComponent
+  <!-- <InputMultiSelectComponent
+    style="max-width: 50rem"
     :filter-key="'label'"
     name="test2"
     :options="[
       { id: '1', label: 'Playstation 5' },
-      { id: '1', label: 'XBOX Series S' },
-      { id: '1', label: 'Nintendo Switch' }
+      { id: '2', label: 'XBOX Series S' },
+      { id: '3', label: 'Nintendo Switch' }
     ]"
   >
     <template v-slot:option="{ option }">
@@ -40,5 +41,5 @@ import InputMultiSelectComponent from '@/app/components/inputs/input.multi-selec
     </template>
   </InputMultiSelectComponent>
 
-  <InputDateComponent class="mt-3" name="date" style="width: 20rem" />
+  <InputDateComponent class="mt-3" name="date" style="max-width: 20rem" /> -->
 </template>

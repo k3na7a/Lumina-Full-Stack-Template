@@ -24,17 +24,19 @@ const onSubmit = (): void => {
 
 <template>
   <Form v-on:submit="onSubmit">
-    <ModalTitleComponent :title="title" />
-    <div class="d-flex flex-column">
-      <h6 class="text-muted fw-normal">{{ $t(body) }}</h6>
-    </div>
-    <div class="d-grid gap-2 pt-3">
-      <button v-on:click="close" class="btn btn-secondary px-0" type="button">
-        {{ $t('actions.cancel') }}
-      </button>
-      <button v-on:click="onSubmit" :disabled="loading" class="btn btn-primary px-0" type="submit">
-        {{ loading ? $t('actions.loading') : $t(action) }}
-      </button>
+    <div class="d-flex flex-column gap-3">
+      <ModalTitleComponent :title="title" />
+      <div class="d-flex flex-column">
+        <h6 class="text-light-alt fw-normal">{{ $t(body) }}</h6>
+      </div>
+      <div class="d-grid gap-2">
+        <button v-on:click="close" class="btn btn-secondary px-0" type="button">
+          {{ $t('actions.cancel') }}
+        </button>
+        <button v-on:click="onSubmit" :disabled="loading" class="btn btn-primary px-0" type="submit">
+          {{ loading ? $t('actions.loading') : $t(action) }}
+        </button>
+      </div>
     </div>
   </Form>
 </template>

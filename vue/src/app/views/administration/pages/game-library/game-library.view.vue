@@ -1,32 +1,41 @@
 <script setup lang="ts">
-import { RouteLocationNormalizedLoaded, useRoute } from 'vue-router'
+import { RouteLocationNormalizedLoaded, Router, useRoute, useRouter } from 'vue-router'
 
 import SelectInputComponent from '@/app/components/inputs/input.select.component.vue'
+
 import { ROUTE_NAMES } from '@/app/router/routes.enum'
+import { games_library_navigation } from '../../schema/navigation.config'
 
 const route: RouteLocationNormalizedLoaded = useRoute()
+const router: Router = useRouter()
 
-const routes = [
-  { label: 'Games', route_name: ROUTE_NAMES.ADMIN_GAMES_LIST },
-  { label: 'Platforms', route_name: ROUTE_NAMES.ADMIN_GAMES_PLATFORMS_LIST }
-]
+const options = games_library_navigation
+const default_route = options.find((r) => r.name == route.name)
 
-const default_route = routes.find((r) => r.route_name == route.name)
+function updateRoute(value: { label: string; name: ROUTE_NAMES } | undefined): void {
+  router.push({ name: value?.name })
+}
 </script>
 
 <template>
-  <div class="content-view-administration">
-    <div class="mb-2">
+  <div class="content-view-administration d-flex flex-column gap-2">
+    <div class="d-flex flex-column">
       <h4 class="text-light fw-semibold">
         {{ $t('Manage your game library') }}
       </h4>
-      <p class="text-muted fw-normal mb-2">
+      <p class="text-muted fw-normal">
         {{ $t('Game library is a collection of your video game resources') }}
       </p>
     </div>
     <div class="card d-flex flex-column">
       <div class="section p-3 bg-alt">
-        <SelectInputComponent name="navigation" style="width: 15rem" :default="default_route" :options="routes">
+        <SelectInputComponent
+          name="navigation"
+          @update="updateRoute"
+          style="width: 15rem"
+          :default="default_route"
+          :options
+        >
           <template v-slot:option="{ option }">
             {{ option.label }}
           </template>

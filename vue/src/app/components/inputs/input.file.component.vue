@@ -3,8 +3,6 @@ import { kilobyte } from '@/library/constants/size.constants'
 import { useField } from 'vee-validate'
 import { onMounted, ref, toRef, watch } from 'vue'
 
-import BadgeComponent from '@/app/components/badge/badge.component.vue'
-
 const props = defineProps<{ name: string }>()
 
 const name = toRef(props, 'name')
@@ -53,9 +51,13 @@ function removeFile(_event: MouseEvent) {
       </div>
     </div>
     <div class="mt-3" v-if="value">
-      <div class="file-input-display d-flex align-items-stretch p-2 gap-2 flex-no-wrap">
-        <div class="d-flex align-items-center">
-          <BadgeComponent theme="secondary">{{ value.type }}</BadgeComponent>
+      <div class="file-input-display d-flex align-items-stretch p-2 gap-2 flex-no-wrap border border-dark box-shadow">
+        <div class="border border-primary d-flex align-items-center">
+          <div class="px-2 d-flex align-items-center text-nowrap">
+            <small class="fw-bold text-truncate text-primary">
+              {{ value.type }}
+            </small>
+          </div>
         </div>
         <div class="d-flex align-items-center flex-grow-1 overflow-hidden text-light-alt">
           <p class="text-truncate" style="direction: rtl">{{ value.name }}</p>
@@ -76,3 +78,35 @@ function removeFile(_event: MouseEvent) {
     </div>
   </div>
 </template>
+
+<style lang="scss">
+@import '@/library/sass/variables/index';
+
+.file-input {
+  .file-input-display {
+    // border: 0.1rem $secondary solid;
+    background-color: rgba(255, 255, 255, 0.035);
+  }
+
+  .file-input-component {
+    border: 0.1rem $muted dashed;
+    width: 100%;
+    background-color: rgba(255, 255, 255, 0.035);
+    transition: all 0.15s ease-in-out;
+
+    &:hover,
+    &:has(input:focus),
+    &:has(input:active) {
+      border-color: $lightAlt;
+    }
+
+    input {
+      left: 0;
+      right: 0;
+      top: 0;
+      bottom: 0;
+      cursor: pointer;
+    }
+  }
+}
+</style>

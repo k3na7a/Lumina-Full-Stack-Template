@@ -21,8 +21,8 @@ const toasts: ComputedRef<Toast[]> = computed<Toast[]>(() => store.getToasts)
         role="alert"
       >
         <div class="d-flex flex-align-stretch">
-          <div class="toast-body d-flex flex-column p-2 pe-0 flex-grow-1">
-            <h5 class="text-light display-font fw-bolder mb-1">
+          <div class="toast-body d-flex flex-column p-2 pe-0 flex-grow-1 gap-1">
+            <h5 class="text-light display-font fw-bolder">
               {{ capitalize(toast.title) }}
             </h5>
             <p class="text-muted">

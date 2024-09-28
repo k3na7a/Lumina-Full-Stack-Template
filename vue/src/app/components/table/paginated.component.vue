@@ -43,86 +43,152 @@ function onPageUpdate(page: number): void {
 </script>
 
 <template>
-  <div class="d-flex justify-content-between mb-3" style="column-gap: 1rem">
-    <div class="d-flex flex-column flex-grow-1 gap-2">
-      <SearchInputComponent style="max-width: 30rem" @update="onFilterSubmit" />
-      <div class="d-flex flex-column" style="width: 15rem" v-if="props.sortOptions">
-        <p class="mb-1 fw-semibold text-light-alt">{{ $t('actions.sort-by') }}</p>
+  <div class="d-flex flex-column gap-3">
+    <div class="d-flex justify-content-between" style="column-gap: 1rem">
+      <div class="d-flex flex-column flex-grow-1 gap-2">
+        <SearchInputComponent style="max-width: 30rem" @update="onFilterSubmit" />
+        <div class="d-flex flex-column gap-1" style="max-width: 15rem" v-if="props.sortOptions">
+          <p class="fw-semibold text-light-alt">{{ $t('actions.sort-by') }}</p>
+          <SelectInputComponent
+            name="sort"
+            @update="onSortUpdate"
+            :default="props.sortOptions.find((e) => e.order == props.options.order && e.sort == props.options.sort)"
+            :options="props.sortOptions"
+          >
+            <template v-slot:option="{ option }">
+              {{ $t(option?.label) }}
+            </template>
+          </SelectInputComponent>
+        </div>
+      </div>
+
+      <div class="flex-shrink-1">
+        <slot></slot>
+      </div>
+    </div>
+    <div class="table-responsive" style="overflow-x: auto">
+      <table class="m-0" :class="{ disabled: props.loading }">
+        <thead>
+          <tr>
+            <th scope="col" v-for="column in props.columns" :key="`${column.name}`">
+              <div class="cell">
+                <span class="fw-bold">
+                  {{ $t(column.label) }}
+                </span>
+              </div>
+            </th>
+          </tr>
+        </thead>
+        <template v-if="rows.length">
+          <tbody>
+            <tr v-for="(row, idx) in props.rows" :key="`row:${idx}`">
+              <td v-for="column in props.columns" :key="`${column.name}:${idx}`">
+                <div class="cell">
+                  <slot :name="column.name" :row="row"></slot>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </template>
+        <template v-else>
+          <tbody>
+            <tr>
+              <td :colspan="columns.length">
+                <div class="cell justify-content-start">
+                  <p class="text-light fw-semibold">{{ $t('forms.no-results') }}</p>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </template>
+        <caption v-if="caption" class="text-end text-light-alt fw-semibold px-2">
+          <small>{{ caption }}</small>
+        </caption>
+      </table>
+    </div>
+    <div
+      class="d-flex flex-column-reverse flex-sm-row justify-content-between align-items-center"
+      style="column-gap: 1rem; row-gap: 2rem"
+    >
+      <div class="d-flex w-100">
         <SelectInputComponent
-          name="sort"
-          @update="onSortUpdate"
-          :default="props.sortOptions.find((e) => e.order == props.options.order && e.sort == props.options.sort)"
-          :options="props.sortOptions"
+          name="take"
+          style="width: 7.5rem"
+          @update="onTakeUpdate"
+          :default="options.take"
+          :options="[25, 50, 100]"
         >
           <template v-slot:option="{ option }">
-            {{ $t(option?.label) }}
+            {{ option }}
           </template>
         </SelectInputComponent>
       </div>
-    </div>
 
-    <div class="flex-shrink-1">
-      <slot></slot>
+      <PaginationInputComponent
+        @update="onPageUpdate"
+        :page="options.page"
+        :total="pages || options.page"
+        :offset="2"
+      />
     </div>
-  </div>
-  <div class="table-responsive" style="overflow-x: auto">
-    <table class="m-0" :class="{ disabled: props.loading }">
-      <thead>
-        <tr>
-          <th scope="col" v-for="(column, idx) in props.columns" :key="`${column}-${idx}`">
-            <div class="cell">
-              <span class="fw-bold">
-                {{ $t(column.label) }}
-              </span>
-            </div>
-          </th>
-        </tr>
-      </thead>
-      <template v-if="rows.length">
-        <tbody>
-          <tr v-for="(row, idx) in props.rows" :key="`${row}-${idx}`">
-            <td v-for="column in props.columns" :key="`${column}-${idx}`">
-              <div class="cell">
-                <slot :name="column.name" :row="row"></slot>
-              </div>
-            </td>
-          </tr>
-        </tbody>
-      </template>
-      <template v-else>
-        <tbody>
-          <tr>
-            <td :colspan="columns.length">
-              <div class="cell justify-content-start">
-                <p class="text-light fw-semibold">{{ $t('forms.no-results') }}</p>
-              </div>
-            </td>
-          </tr>
-        </tbody>
-      </template>
-      <caption v-if="caption" class="text-end text-light-alt fw-semibold px-2">
-        <small>{{ caption }}</small>
-      </caption>
-    </table>
-  </div>
-  <div
-    class="d-flex flex-column-reverse flex-sm-row mt-3 justify-content-between align-items-center"
-    style="column-gap: 1rem; row-gap: 2rem"
-  >
-    <div class="d-flex w-100">
-      <SelectInputComponent
-        name="take"
-        style="width: 8rem"
-        @update="onTakeUpdate"
-        :default="options.take"
-        :options="[25, 50, 100]"
-      >
-        <template v-slot:option="{ option }">
-          {{ option }}
-        </template>
-      </SelectInputComponent>
-    </div>
-
-    <PaginationInputComponent @update="onPageUpdate" :page="options.page" :total="pages || options.page" :offset="2" />
   </div>
 </template>
+
+<style lang="scss">
+@import '@/library/sass/variables/index';
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+
+  border-bottom: 0.1rem $primary solid;
+  border-top: 0.1rem $secondary solid;
+
+  &.disabled {
+    tbody {
+      pointer-events: none;
+      opacity: $disabled-opacity;
+    }
+  }
+
+  thead {
+    background-color: rgba(0, 0, 0, 0.12);
+    border-bottom: 0.1rem $primary solid;
+  }
+
+  tbody {
+    color: $lightAlt;
+    transition: opacity 0.15s ease-in-out;
+
+    tr {
+      border-bottom: 0.1rem $secondary solid;
+
+      &:nth-of-type(even) {
+        background-color: rgba(255, 255, 255, 0.04);
+      }
+    }
+  }
+
+  .cell {
+    min-height: 5rem;
+    padding: 1rem;
+    display: flex;
+    align-items: center;
+
+    .badge {
+      font-size: $font-size-8 !important;
+    }
+  }
+
+  td {
+    min-width: fit-content !important;
+  }
+
+  td:last-child,
+  th:last-child {
+    .cell {
+      justify-content: end;
+    }
+  }
+}
+</style>

@@ -27,15 +27,17 @@ const onSubmit = getSubmitFn(validationSchema, (values: FormValues) => {
 
 <template>
   <Form v-on:submit="onSubmit" :validation-schema v-slot="{ meta }">
-    <ModalTitleComponent :title="props.title" />
-    <div class="d-flex flex-column">
-      <FileInputComponent name="image" />
-    </div>
-    <div class="d-grid mt-3">
-      <button :disabled="!meta.valid || loading || !meta.dirty" class="btn btn-primary px-0" type="submit">
-        <div v-if="!loading" class="containter">{{ $t(props.action) }}</div>
-        <div v-else class="containter">{{ $t('actions.loading') }}</div>
-      </button>
+    <div class="d-flex flex-column gap-3">
+      <ModalTitleComponent :title="props.title" />
+      <div class="d-flex flex-column">
+        <FileInputComponent name="image" />
+      </div>
+      <div class="d-grid">
+        <button :disabled="!meta.valid || loading || !meta.dirty" class="btn btn-primary px-0" type="submit">
+          <div v-if="!loading" class="containter">{{ $t(props.action) }}</div>
+          <div v-else class="containter">{{ $t('actions.loading') }}</div>
+        </button>
+      </div>
     </div>
   </Form>
 </template>

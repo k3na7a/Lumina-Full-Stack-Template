@@ -14,9 +14,6 @@ const props = defineProps<{ theme: 'primary' | 'secondary' }>()
 @import '@/library/sass/variables/index';
 
 .badge-custom {
-  height: 2.5rem;
-  border-radius: 0.25rem;
-
   &.primary {
     background-color: color-mix(in srgb, $primary 50%, transparent);
     color: $light;

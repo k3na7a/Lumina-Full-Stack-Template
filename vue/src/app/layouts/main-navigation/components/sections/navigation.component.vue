@@ -12,34 +12,37 @@ const isAuthenticated: ComputedRef<boolean> = computed(() => authStore.isAuthent
 </script>
 
 <template>
-  <div class="d-flex justify-content-center">
-    <nav class="nav-logo d-flex justify-content-center">
-      <div class="align-content-center">
-        <RouterLink :to="{ name: 'home' }">
-          <img class="logo border-radius" src="/vue.svg" />
-        </RouterLink>
-      </div>
-    </nav>
-  </div>
-
-  <template v-for="nav in MAIN_NAVIGATION">
-    <div v-if="!nav.auth || isAuthenticated" class="m-nav px-2 d-flex flex-column">
-      <nav class="align-content-center flex-grow-1">
-        <RouterLink :to="{ name: nav.name }" class="text-decoration-none" activeClass="text-primary">
-          <span class="d-none d-md-block">{{ $t(nav.label) }}</span>
-          <span v-tooltip="{ text: $t(nav.label), position: 'bottom', trigger: 'hover' }" class="d-block d-md-none">
-            <font-awesome-icon :icon="nav.icon" />
-          </span>
-        </RouterLink>
+  <div class="d-flex gap-2">
+    <div class="d-flex justify-content-center">
+      <nav class="nav-logo d-flex justify-content-center">
+        <div class="align-content-center">
+          <RouterLink :to="{ name: 'home' }">
+            <img class="logo border-radius" src="/vue.svg" />
+          </RouterLink>
+        </div>
       </nav>
-      <div class="highlight" :class="{ active: route.path.startsWith(`/${nav.name}`) }"></div>
     </div>
-  </template>
 
-  <div class="px-1 d-flex flex-column">
-    <nav class="align-content-center flex-grow-1">
-      <NavigationDropdown />
-    </nav>
+    <div class="d-flex gap-3">
+      <template v-for="nav in MAIN_NAVIGATION" :key="nav.name">
+        <div v-if="!nav.auth || isAuthenticated" class="m-nav d-flex flex-column">
+          <nav class="align-content-center flex-grow-1">
+            <RouterLink :to="{ name: nav.name }" class="text-decoration-none" activeClass="text-primary">
+              <span class="d-none d-md-block">{{ $t(nav.label) }}</span>
+              <span v-tooltip="{ text: $t(nav.label), position: 'bottom', trigger: 'hover' }" class="d-block d-md-none">
+                <font-awesome-icon :icon="nav.icon" />
+              </span>
+            </RouterLink>
+          </nav>
+          <div class="highlight" :class="{ active: route.path.startsWith(`/${nav.name}`) }"></div>
+        </div>
+      </template>
+      <div class="d-flex flex-column">
+        <nav class="align-content-center flex-grow-1">
+          <NavigationDropdown />
+        </nav>
+      </div>
+    </div>
   </div>
 </template>
 

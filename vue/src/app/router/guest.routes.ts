@@ -10,13 +10,13 @@ const guest_routes: RouteRecordRaw = {
       path: '/account-recovery',
       name: ROUTE_NAMES.ACCOUNT_RECOVERY,
       meta: { pageTitle: 'Account Recovery' },
-      component: () => import('@/app/views/guest/pages/account-recovery.view.vue')
+      component: () => import('@/app/views/guest/pages/account-recovery/account-recovery.view.vue')
     },
     {
       path: '/password-reset',
       name: ROUTE_NAMES.PASSWORD_RESET,
       meta: { pageTitle: 'Password Reset' },
-      component: () => import('@/app/views/guest/pages/password-reset.view.vue'),
+      component: () => import('@/app/views/guest/pages/account-recovery/password-reset.view.vue'),
       beforeEnter: (to: RouteLocationNormalized, _from: RouteLocationNormalized, next: NavigationGuardNext) => {
         if (!to.query.hasOwnProperty('reset_token')) next({ name: ROUTE_NAMES.HOME })
         else next()

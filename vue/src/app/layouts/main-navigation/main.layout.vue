@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { RouteLocationNormalizedLoaded, useRoute } from 'vue-router'
 import { computed, ComputedRef } from 'vue'
 
 import NavbarComponent from '@/app/components/navbar/navbar.component.vue'
@@ -10,7 +9,6 @@ import NavigationComponent from './components/sections/navigation.component.vue'
 import ActionComponent from './components/sections/actions.component.vue'
 import { MainLayoutService } from '@/app/layouts/main-navigation/services/main-layout.service'
 
-const route: RouteLocationNormalizedLoaded = useRoute()
 const authStore: AuthStore = useAuthStore()
 
 const { signin, register, signout } = MainLayoutService
@@ -22,7 +20,7 @@ const authenticatedUser: ComputedRef<UserDto | undefined> = computed(() => authS
 <template>
   <NavbarComponent>
     <template v-slot:left>
-      <NavigationComponent :route :is-authenticated />
+      <NavigationComponent />
     </template>
 
     <template v-slot:right>

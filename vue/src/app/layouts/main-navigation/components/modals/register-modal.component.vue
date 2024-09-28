@@ -1,3 +1,4 @@
+*-//*
 <script setup lang="ts">
 import { ref } from 'vue'
 import { Form } from 'vee-validate'
@@ -13,7 +14,6 @@ import ModalTitleComponent from '@/app/components/modal/base/modal-title.compone
 import { registration as validationSchema } from '../../schema/validation.schema'
 
 const props = defineProps<{
-  close: () => void
   callback: (values: credentials) => Promise<void>
 }>()
 
@@ -30,59 +30,61 @@ const onSubmit = getSubmitFn(validationSchema, async (values: credentials) => {
 
 <template>
   <Form v-on:submit="onSubmit" :validation-schema v-slot="{ meta }">
-    <ModalTitleComponent title="authentication.register.modal-title" />
-    <div class="d-flex flex-column">
-      <h6 class="mb-1 fw-semibold">{{ $t('forms.name') }}</h6>
-      <div class="row gy-3 align-items-start flex-grow-1">
-        <div class="col-12 col-sm-6">
-          <TextInput class="mb-1" autocomplete="given-name" name="firstname" type="text" />
-          <small>{{ $t('forms.given-name') }}</small>
-        </div>
-        <div class="col-12 col-sm-6">
-          <TextInput class="mb-1" autocomplete="family-name" name="lastname" type="text" />
-          <small>{{ $t('forms.family-name') }}</small>
-        </div>
-      </div>
-    </div>
-
-    <div class="d-flex flex-column mt-3">
-      <div class="row gy-3">
-        <div class="col-12">
-          <TextInput autocomplete="email" name="email" type="email" label="forms.email" />
-        </div>
-        <div class="col-12">
-          <TextInput autocomplete="new-password" class="pb-1" name="password" type="password" label="forms.password" />
-          <PasswordValidationList />
+    <div class="d-flex flex-column gap-3">
+      <ModalTitleComponent title="authentication.register.modal-title" />
+      <div class="d-flex flex-column gap-1">
+        <h6 class="fw-semibold">{{ $t('forms.name') }}</h6>
+        <div class="row gy-3 align-items-start flex-grow-1">
+          <div class="col-12 col-sm-6 d-flex flex-column gap-1">
+            <TextInput autocomplete="given-name" name="firstname" type="text" />
+            <small>{{ $t('forms.given-name') }}</small>
+          </div>
+          <div class="col-12 col-sm-6 d-flex flex-column gap-1">
+            <TextInput autocomplete="family-name" name="lastname" type="text" />
+            <small>{{ $t('forms.family-name') }}</small>
+          </div>
         </div>
       </div>
-    </div>
 
-    <div class="d-flex flex-column mt-3 text-muted">
-      <i18n-t keypath="legal.term" tag="p" scope="global">
-        <RouterLink
-          target="_blank"
-          :to="{ name: ROUTE_NAMES.HOME }"
-          class="link-underline link-underline-opacity-0 link-underline-opacity-100-hover"
-        >
-          {{ $t('legal.terms-of-service') }}
-        </RouterLink>
-        <RouterLink
-          target="_blank"
-          :to="{ name: ROUTE_NAMES.HOME }"
-          class="link-underline link-underline-opacity-0 link-underline-opacity-100-hover"
-        >
-          {{ $t('legal.privacy-notice') }}
-        </RouterLink>
-      </i18n-t>
-    </div>
-
-    <div class="d-grid mt-3">
-      <button :disabled="!meta.valid || loading || !meta.dirty" class="btn btn-primary px-0" type="submit">
-        <div v-if="!loading" class="containter">{{ $t('actions.sign-up') }}</div>
-        <div v-else class="containter">
-          {{ $t('actions.loading') }}
+      <div class="d-flex flex-column">
+        <div class="row gy-3">
+          <div class="col-12">
+            <TextInput autocomplete="email" name="email" type="email" label="forms.email" />
+          </div>
+          <div class="col-12 d-flex flex-column gap-1">
+            <TextInput autocomplete="new-password" name="password" type="password" label="forms.password" />
+            <PasswordValidationList />
+          </div>
         </div>
-      </button>
+      </div>
+
+      <div class="d-flex flex-column text-muted">
+        <i18n-t keypath="legal.term" tag="p" scope="global">
+          <RouterLink
+            target="_blank"
+            :to="{ name: ROUTE_NAMES.HOME }"
+            class="link-underline link-underline-opacity-0 link-underline-opacity-100-hover"
+          >
+            {{ $t('legal.terms-of-service') }}
+          </RouterLink>
+          <RouterLink
+            target="_blank"
+            :to="{ name: ROUTE_NAMES.HOME }"
+            class="link-underline link-underline-opacity-0 link-underline-opacity-100-hover"
+          >
+            {{ $t('legal.privacy-notice') }}
+          </RouterLink>
+        </i18n-t>
+      </div>
+
+      <div class="d-grid">
+        <button :disabled="!meta.valid || loading || !meta.dirty" class="btn btn-primary px-0" type="submit">
+          <div v-if="!loading" class="containter">{{ $t('actions.sign-up') }}</div>
+          <div v-else class="containter">
+            {{ $t('actions.loading') }}
+          </div>
+        </button>
+      </div>
     </div>
   </Form>
 </template>

@@ -10,25 +10,26 @@ import { MORE_NAVIGATION } from '@/app/layouts/main-navigation/schema/more-navig
       <font-awesome-icon :icon="['fas', 'ellipsis-vertical']" />
     </template>
     <template v-slot:menu="{ close }">
-      <template v-for="(nav, index) of MORE_NAVIGATION">
-        <h5 class="p-0 my-1 px-2 text-muted fw-bolder text-nowrap">{{ $t(nav.title) }}</h5>
-        <div class="pt-1">
-          <template v-for="navigation_item of nav.children">
-            <button
-              class="dropdown-item d-flex justify-content-between align-items-center px-2"
-              type="button"
-              v-on:click="close"
-            >
-              <span class="text-truncate">{{ $t(navigation_item.title) }}</span>
-            </button>
-          </template>
-        </div>
-        <template v-if="index < MORE_NAVIGATION.length - 1">
-          <div class="py-2">
-            <hr class="dropdown-divider mx-1 my-0 bg-secondary opacity-50" />
+      <div class="d-flex flex-column gap-2">
+        <template v-for="(nav, index) of MORE_NAVIGATION">
+          <hr v-if="index" class="dropdown-divider mx-1 my-0 bg-secondary opacity-50" />
+
+          <div class="d-flex flex-column gap-1">
+            <h5 class="p-0 py-1 px-2 text-muted fw-bolder text-nowrap">{{ $t(nav.title) }}</h5>
+            <div class="d-flex flex-column gap-1">
+              <template v-for="navigation_item of nav.children" :key="navigation_item.title">
+                <button
+                  class="dropdown-item d-flex justify-content-between align-items-center px-2 m-0"
+                  type="button"
+                  v-on:click="close"
+                >
+                  <span class="text-truncate">{{ $t(navigation_item.title) }}</span>
+                </button>
+              </template>
+            </div>
           </div>
         </template>
-      </template>
+      </div>
     </template>
   </DropdownComponent>
 </template>

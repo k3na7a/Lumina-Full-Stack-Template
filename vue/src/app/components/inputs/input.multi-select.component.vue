@@ -3,6 +3,9 @@ import { onMounted, Ref, ref, toRef, watch } from 'vue'
 import * as bootstrap from 'bootstrap'
 import { useField } from 'vee-validate'
 
+import { deepEqual } from '@/library/helpers/object.util'
+
+const emit = defineEmits<{ update: [value: T[] | undefined] }>()
 const props = defineProps<{
   name: string
   filterKey: string
@@ -10,23 +13,51 @@ const props = defineProps<{
   options: Array<T>
 }>()
 
+const name = toRef(props, 'name')
+
 const options = ref<T[]>(props.options) as Ref<T[]>
 const filter = ref<string>('')
 
 const dropdownRef = ref<InstanceType<typeof HTMLElement>>()
-const closeDropdown = (): void => {
+const inputRef = ref<InstanceType<typeof HTMLElement>>()
+
+const { value, errorMessage, meta } = useField<T[] | undefined>(name.value, undefined, { initialValue: [] })
+
+function closeDropdown(): void {
   const dropdown = bootstrap.Dropdown.getOrCreateInstance(dropdownRef.value || '')
   dropdown.hide()
 }
-const openDropdown = (): void => {
+
+function openDropdown(): void {
   const dropdown = bootstrap.Dropdown.getOrCreateInstance(dropdownRef.value || '')
   dropdown.show()
 }
 
-const name = toRef(props, 'name')
-const { value, errorMessage, meta } = useField<T[] | undefined>(name.value, undefined, { initialValue: [] })
+function giveFocus(event: Event): void {
+  event.preventDefault()
+  const input = inputRef.value as HTMLInputElement
+  input.focus()
+}
 
-const emit = defineEmits<{ update: [value: T[] | undefined] }>()
+function render(option: any): boolean {
+  const key = option[props.filterKey] as string
+  return key.toLowerCase().includes(filter.value.toLowerCase())
+}
+
+function removeValue(event: MouseEvent): void {
+  event.preventDefault()
+  closeDropdown()
+
+  const target = event.target as HTMLElement
+  target.focus()
+
+  if (value.value) value.value = value.value.filter((_, idx) => idx != parseInt(target.id))
+}
+
+function getFilterQuery(option: any): void {
+  return option[props.filterKey]
+}
+
 watch(value, (newVal: T[] | undefined) => {
   emit('update', newVal)
 })
@@ -34,56 +65,59 @@ watch(value, (newVal: T[] | undefined) => {
 onMounted(() => {
   emit('update', value.value)
 })
-
-function render(option: any) {
-  const key = option[props.filterKey] as string
-  return key.toLowerCase().includes(filter.value.toLowerCase())
-}
-
-function deepEqual(x: any, y: any): boolean {
-  const ok = Object.keys,
-    tx = typeof x,
-    ty = typeof y
-  return x && y && tx === 'object' && tx === ty
-    ? ok(x).length === ok(y).length && ok(x).every((key) => deepEqual(x[key], y[key]))
-    : x === y
-}
 </script>
 
 <template>
   <div class="custom-input">
     <div class="dropdown select border-0" :class="{ 'has-error': !!errorMessage && meta.touched }" ref="dropdownRef">
       <div class="multi-select d-flex align-items-stretch bg-alt">
-        <div v-if="value?.length" class="d-flex flex-shrink-1 align-items-center flex-wrap p-1 gap-1 overflow-hidden">
-          <div v-for="selection of value" class="px-1 d-flex align-items-stretch gap-1 overflow-hidden">
-            <button class="btn btn-link text-decoration-underline fw-normal text-truncate">
+        <div
+          @pointerdown="(e) => e.preventDefault()"
+          v-if="value?.length"
+          :style="{ display: 'inline-flex' }"
+          class="flex-shrink-1 align-items-center flex-wrap p-1 gap-1 overflow-hidden"
+        >
+          <div
+            v-for="(selection, idx) of value"
+            class="px-1 d-flex align-items-stretch gap-1 overflow-hidden"
+            :key="`${idx}:${JSON.stringify(selection)}`"
+          >
+            <button
+              :id="`${idx}`"
+              v-tooltip="{ text: getFilterQuery(selection), position: 'bottom', trigger: 'hover' }"
+              @click="removeValue"
+              class="option-button btn btn-link text-decoration-underline fw-normal text-truncate"
+            >
               <slot name="option" :option="selection"></slot>
             </button>
           </div>
         </div>
-        <div class="d-flex flex-grow-1 align-items-center">
-          <input
-            v-model="filter"
-            type="text"
-            class="w-100 mb-0 p-1 px-2 text-truncate"
-            :placeholder="$t('actions.search.placeholder')"
-            autocomplete="off"
-            @focus="openDropdown"
-            @focusout="closeDropdown"
-          />
-        </div>
-        <div class="d-flex flex-shrink-1 align-items-center px-2">
+
+        <input
+          ref="inputRef"
+          v-model="filter"
+          type="text"
+          class="d-flex flex-grow-1 mb-0 p-1 px-2 text-truncate"
+          :placeholder="$t('actions.search.placeholder')"
+          autocomplete="off"
+          bs-data-toggle="dropdown"
+          @click="giveFocus"
+          @focus="openDropdown"
+          @focusout="closeDropdown"
+        />
+
+        <div class="d-flex flex-shrink-1 align-items-center px-2" @pointerdown="giveFocus">
           <font-awesome-icon size="sm" :icon="['fas', 'list-check']" />
         </div>
       </div>
+
       <div
         class="dropdown-menu mt-0 w-100 text-light p-0"
         style="min-width: 100%"
-        v-on:click="($event: MouseEvent) => $event.stopPropagation()"
         @pointerdown="(e) => e.preventDefault()"
       >
         <template v-if="options.filter((value) => render(value)).length">
-          <template v-for="option of options.filter((value) => render(value))">
+          <template v-for="option of options.filter((value) => render(value))" :key="JSON.stringify(option)">
             <button
               class="dropdown-item d-flex justify-content-between align-items-center px-2"
               :class="{ active: value?.some((e) => deepEqual(e, option)) }"
@@ -113,11 +147,15 @@ function deepEqual(x: any, y: any): boolean {
   border: 0.1rem $muted solid;
   transition: all 0.15s ease-in-out;
 
+  .option-button {
+    max-width: 12.5rem;
+  }
+
   input {
     background-color: transparent;
     outline: none;
     border: none;
-    min-width: 15rem;
+    min-width: 10rem;
   }
 
   &:hover {

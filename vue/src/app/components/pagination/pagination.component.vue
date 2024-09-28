@@ -34,7 +34,7 @@ const emit = defineEmits<{ update: [value: number] }>()
     </li>
 
     <li
-      v-for="item of [...Array(total)]
+      v-for="(item, idx) of [...Array(total)]
         .map((_, index) => index + 1)
         .filter(
           (index) =>
@@ -42,6 +42,7 @@ const emit = defineEmits<{ update: [value: number] }>()
             index <= page + offset - (page - offset - 1 < 0 ? page - offset - 1 : 0)
         )"
       class="page-item"
+      :key="idx"
     >
       <button
         type="button"

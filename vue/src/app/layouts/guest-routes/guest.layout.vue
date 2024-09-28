@@ -22,7 +22,7 @@ const route: RouteLocationNormalizedLoaded = useRoute()
     </template>
     <template v-slot:right>
       <div class="d-flex me-2">
-        <nav class="align-content-center flex-grow-1 px-1">
+        <nav class="align-content-center flex-grow-1">
           <LanguagesDropdown />
         </nav>
       </div>

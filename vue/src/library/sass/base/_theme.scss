@@ -19,6 +19,26 @@ main {
   flex-direction: column;
 }
 
+.hover-cursor-pointer:hover {
+  cursor: pointer;
+}
+
+.hover-underline:hover {
+  text-decoration: underline;
+}
+
+.pointer-events-none {
+  pointer-events: none;
+}
+
+.box-shadow {
+  box-shadow: $boxShadow;
+}
+
+.border-radius {
+  border-radius: $border-radius;
+}
+
 .content-view-settings {
   max-width: 90rem;
 }
@@ -64,58 +84,37 @@ main {
   }
 }
 
-.dropdown {
-  .dropdown-menu {
-    width: max-content;
-    min-width: 20rem;
-    max-width: 20rem;
+.dropdown-menu {
+  width: max-content;
+  min-width: 20rem;
+  max-width: 20rem;
 
-    max-height: 40rem;
-    overflow-y: auto;
+  max-height: 40rem;
+  overflow-y: auto;
 
-    box-shadow: $boxShadow;
+  box-shadow: $boxShadow;
+  border-radius: $border-radius;
+  background-color: $backgroundAlt;
+
+  scrollbar-color: $scrollbar-color $backgroundAlt;
+
+  button.dropdown-item {
+    font-size: $font-size-7 !important;
+    font-weight: 400 !important;
     border-radius: $border-radius;
-    background-color: $backgroundAlt;
+    color: $light;
 
-    scrollbar-color: $scrollbar-color $backgroundAlt;
-
-    button.dropdown-item {
-      font-size: $font-size-7 !important;
-      font-weight: 400 !important;
-      border-radius: $border-radius;
-      color: $light;
-
-      &.dropdown-item:hover,
-      &.dropdown-item:focus {
-        background-color: rgba(255, 255, 255, 0.05);
-      }
-
-      &.dropdown-item.active {
-        background-color: rgba(255, 255, 255, 0.15);
-      }
-
-      &:not(:last-child) {
-        margin-bottom: 0.4rem;
-      }
-
-      &:disabled {
-        color: $muted;
-      }
+    &.dropdown-item:hover,
+    &.dropdown-item:focus {
+      background-color: rgba(255, 255, 255, 0.05);
     }
-  }
-}
 
-.inner-link-btn {
-  border: none;
-  background-color: transparent;
+    &.dropdown-item.active {
+      background-color: rgba(255, 255, 255, 0.15);
+    }
 
-  &.btn-link {
-    text-decoration: none;
-    transition: none;
-    height: max-content;
-
-    &:hover {
-      text-decoration: underline;
+    &:disabled {
+      color: $muted;
     }
   }
 }
@@ -172,15 +171,6 @@ main {
   }
 }
 
-.modal {
-  .modal-close button {
-    width: 3rem;
-    height: 3rem;
-  }
-
-  backdrop-filter: blur(1.5rem);
-}
-
 .tooltip {
   border: 0.1rem $light solid;
   font-size: $font-size-7;
@@ -194,226 +184,11 @@ main {
   }
 }
 
-.text-input {
-  &.has-error input {
-    border-color: $danger;
-  }
-
-  &.has-error input:hover {
-    box-shadow: 0 0 0 0.1rem $danger;
-  }
-
-  &.success input {
-    border-color: $success;
-  }
-
-  &.success input:hover {
-    box-shadow: 0 0 0 0.1rem $success;
-  }
-
-  input:hover {
-    box-shadow: 0 0 0 0.1rem $muted;
-  }
-
-  input:focus {
-    border-color: $primary !important;
-    box-shadow: 0 0 0 0.1rem $primary !important;
-  }
-
-  input {
-    outline: none;
-    border: 0.1rem $muted solid;
-    height: 3rem;
-
-    transition: all 0.15s ease-in-out;
-  }
-}
-
-table {
-  width: 100%;
-  border-collapse: collapse;
-
-  border-bottom: 0.1rem $primary solid;
-  border-top: 0.1rem $secondary solid;
-
-  &.disabled {
-    tbody {
-      pointer-events: none;
-      opacity: $disabled-opacity;
-    }
-  }
-
-  thead {
-    background-color: rgba(0, 0, 0, 0.12);
-    border-bottom: 0.1rem $primary solid;
-  }
-
-  tbody {
-    color: $lightAlt;
-    transition: opacity 0.15s ease-in-out;
-
-    tr {
-      border-bottom: 0.1rem $secondary solid;
-
-      &:nth-of-type(even) {
-        background-color: rgba(255, 255, 255, 0.04);
-      }
-    }
-  }
-
-  .cell {
-    min-height: 5rem;
-    padding: 1rem;
-    display: flex;
-    align-items: center;
-
-    .badge {
-      font-size: $font-size-8 !important;
-    }
-  }
-
-  td {
-    min-width: fit-content !important;
-  }
-
-  td:last-child,
-  th:last-child {
-    .cell {
-      justify-content: end;
-    }
-  }
-}
-
-.select {
-  .select-btn {
-    outline: none;
-    border: 0.1rem $muted solid;
-    height: 3rem;
-
-    transition: all 0.15s ease-in-out;
-
-    &:disabled {
-      opacity: $disabled-opacity;
-      color: $muted !important;
-    }
-  }
-
-  .dropdown-menu {
-    border: 0.1rem $muted solid;
-
-    button {
-      margin-bottom: 0px !important;
-      outline: none;
-    }
-  }
-
-  &:hover {
-    .select-btn {
-      box-shadow: 0 0 0 0.1rem $muted;
-    }
-  }
-
-  &.has-error {
-    .select-btn {
-      border-color: $danger !important;
-    }
-
-    &:hover {
-      .select-btn {
-        box-shadow: 0 0 0 0.1rem $danger;
-      }
-    }
-  }
-
-  &:focus-within {
-    .select-btn {
-      border-color: $primary !important;
-      box-shadow: 0 0 0 0.1rem $primary !important;
-    }
-  }
-
-  &.disabled {
-    pointer-events: none;
-  }
-}
-
 .avatar-icon {
   width: 3rem;
   height: 3rem;
   object-fit: cover;
   border: 0.1rem $secondary dashed;
-}
-
-.search-input.input-group {
-  background-color: $backgroundAlt;
-  border: 0.1rem $muted solid;
-  height: 3rem;
-  transition: all 0.15s ease-in-out;
-
-  &:has(.disabled) {
-    pointer-events: none;
-    opacity: $disabled-opacity;
-  }
-
-  button {
-    outline: none;
-
-    &:focus {
-      color: $primary !important;
-    }
-  }
-
-  :disabled {
-    color: $muted !important;
-    opacity: 0.7;
-  }
-
-  &:hover {
-    box-shadow: 0 0 0 0.1rem $muted;
-  }
-
-  &:focus-within {
-    border-color: $primary !important;
-    box-shadow: 0 0 0 0.1rem $primary !important;
-  }
-
-  & > * {
-    border: none;
-    background-color: transparent;
-  }
-
-  input {
-    outline: none;
-    min-width: none !important;
-  }
-}
-
-.file-input {
-  .file-input-display {
-    // border: 0.1rem $secondary solid;
-    background-color: rgba(255, 255, 255, 0.035);
-  }
-
-  .file-input-component {
-    border: 0.1rem $muted dashed;
-    width: 100%;
-    background-color: rgba(255, 255, 255, 0.035);
-    transition: all 0.15s ease-in-out;
-
-    &:hover,
-    &:has(input:focus),
-    &:has(input:active) {
-      border-color: $lightAlt;
-    }
-
-    input {
-      left: 0;
-      right: 0;
-      top: 0;
-      bottom: 0;
-      cursor: pointer;
-    }
-  }
 }
 
 .th-navbar {

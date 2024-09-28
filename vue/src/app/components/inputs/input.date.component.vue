@@ -122,12 +122,16 @@ onUnmounted(() => {
         </div>
         <div class="calendar d-flex flex-column" :key="`${month}/${year}`">
           <div class="d-flex border-bottom border-secondary">
-            <div v-for="(_, idx) of Array(7)" class="col p-1">
+            <div v-for="(_, idx) of Array(7)" class="col p-1" :key="`header:${days[idx]}`">
               <small class="text-grey fw-semibold">{{ days[idx].substring(0, 3).toUpperCase() }}</small>
             </div>
           </div>
-          <div v-for="(_, idx) of Array(6)" class="d-flex">
-            <div v-for="day of getMonthDetails(year, month).slice(idx * 7, (idx + 1) * 7)" class="col">
+          <div v-for="(_, idx) of Array(6)" class="d-flex" :key="`row:${idx}`">
+            <div
+              v-for="(day, i) of getMonthDetails(year, month).slice(idx * 7, (idx + 1) * 7)"
+              class="col"
+              :key="`row:${idx}:col:${i}`"
+            >
               <button
                 :id="day.timestamp.toString()"
                 @click="set"

@@ -12,7 +12,7 @@ import { useFormUtil } from '@/library/helpers/forms.util'
 
 import TextInput from '@/app/components/inputs/input.text.component.vue'
 import PasswordValidationList from '@/app/components/labels/password-validation-list.component.vue'
-import { GuestService } from '../services/guest.service'
+import { GuestService } from '../../services/guest.service'
 
 enum PAGES {
   FORM,
@@ -55,31 +55,27 @@ const onSubmit = getSubmitFn(validationSchema, async (values: ResetPassword): Pr
 
 <template>
   <div class="d-flex flex-grow-1 justify-content-center p-3">
-    <div style="max-width: 50rem" class="d-flex flex-column">
-      <template v-if="state.page == PAGES.FORM">
-        <h3 class="display-font fw-bold mb-1">{{ $t('authentication.password-reset.title') }}</h3>
-        <h5 class="fw-normal text-muted">
-          {{ $t('authentication.password-reset.subtitle') }}
-        </h5>
-        <Form v-on:submit="onSubmit" :validationSchema v-slot="{ meta }">
-          <div class="mt-3">
-            <TextInput
-              class="pb-1"
-              autocomplete="new-password"
-              name="new_password"
-              type="password"
-              label="forms.new-password"
-            />
+    <template v-if="state.page == PAGES.FORM">
+      <div style="max-width: 50rem" class="d-flex flex-column gap-3">
+        <div class="d-flex flex-column gap-1">
+          <h3 class="display-font fw-bold">{{ $t('authentication.password-reset.title') }}</h3>
+          <h5 class="fw-normal text-muted">
+            {{ $t('authentication.password-reset.subtitle') }}
+          </h5>
+        </div>
+        <Form v-on:submit="onSubmit" :validationSchema v-slot="{ meta }" class="d-flex flex-column gap-3">
+          <div class="d-flex flex-column gap-1">
+            <TextInput autocomplete="new-password" name="new_password" type="password" label="forms.new-password" />
             <PasswordValidationList />
-            <TextInput
-              class="mt-3 pb-1"
-              autocomplete="new-password"
-              name="confirm_password"
-              type="password"
-              label="actions.confirm-new-password"
-            />
           </div>
-          <div class="d-grid mt-3">
+          <TextInput
+            autocomplete="new-password"
+            name="confirm_password"
+            type="password"
+            label="actions.confirm-new-password"
+          />
+
+          <div class="d-grid">
             <button :disabled="!meta.valid || state.loading || !meta.dirty" class="btn btn-primary px-0" type="submit">
               <div v-if="!state.loading" class="containter">{{ $t('actions.continue') }}</div>
               <div v-else class="containter">
@@ -88,18 +84,20 @@ const onSubmit = getSubmitFn(validationSchema, async (values: ResetPassword): Pr
             </button>
           </div>
         </Form>
-      </template>
-      <template v-else-if="state.page == PAGES.CONFIRMATION">
-        <h3 class="display-font fw-bold mb-1">{{ $t('authentication.password-reset.confirm-title') }}</h3>
+      </div>
+    </template>
+    <template v-else-if="state.page == PAGES.CONFIRMATION">
+      <div style="max-width: 50rem" class="d-flex flex-column gap-3">
+        <h3 class="display-font fw-bold">{{ $t('authentication.password-reset.confirm-title') }}</h3>
         <h5 class="fw-normal text-muted">
           {{ $t('authentication.password-reset.confirm-body') }}
         </h5>
-        <div class="d-flex flex-row justify-content-end mt-3">
+        <div class="d-flex flex-row justify-content-end">
           <button class="btn btn-primary px-2" type="button" v-on:click="done">
             {{ $t('actions.done') }}
           </button>
         </div>
-      </template>
-    </div>
+      </div>
+    </template>
   </div>
 </template>

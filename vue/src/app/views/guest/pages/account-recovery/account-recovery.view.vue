@@ -8,7 +8,7 @@ import { useFormUtil } from '@/library/helpers/forms.util'
 import { ForgotPassword } from '@/library/dto/user.dto'
 import TextInput from '@/app/components/inputs/input.text.component.vue'
 import { ROUTE_NAMES } from '@/app/router/routes.enum'
-import { GuestService } from '../services/guest.service'
+import { GuestService } from '../../services/guest.service'
 
 enum PAGES {
   FORM,
@@ -49,31 +49,35 @@ const onSubmit = getSubmitFn(validationSchema, async (values: { email: string })
 
 <template>
   <div class="d-flex flex-grow-1 justify-content-center p-3">
-    <div style="max-width: 50rem" class="d-flex flex-column">
-      <template v-if="state.page == PAGES.FORM">
-        <h3 class="display-font fw-bold mb-1">{{ $t('authentication.account-recovery.title') }}</h3>
-        <h5 class="fw-normal text-muted">{{ $t('authentication.account-recovery.subtitle') }}</h5>
-        <Form v-on:submit="onSubmit" :validation-schema v-slot="{ meta }">
-          <div class="mt-3">
-            <TextInput class="mb-1" autocomplete="email" name="email" type="email" label="forms.email" />
+    <template v-if="state.page == PAGES.FORM">
+      <div style="max-width: 50rem" class="d-flex flex-column gap-3">
+        <div class="d-flex flex-column gap-1">
+          <h3 class="display-font fw-bold">{{ $t('authentication.account-recovery.title') }}</h3>
+          <h5 class="fw-normal text-muted">{{ $t('authentication.account-recovery.subtitle') }}</h5>
+        </div>
+        <Form v-on:submit="onSubmit" :validation-schema v-slot="{ meta }" class="d-flex flex-column gap-3">
+          <div class="d-flex flex-column gap-1">
+            <TextInput autocomplete="email" name="email" type="email" label="forms.email" />
             <small>{{ $t('authentication.account-recovery.label') }}</small>
           </div>
-          <div class="d-grid mt-3">
+          <div class="d-grid">
             <button :disabled="!meta.valid || state.loading || !meta.dirty" class="btn btn-primary px-0" type="submit">
               <div v-if="!state.loading" class="containter">{{ $t('actions.continue') }}</div>
               <div v-else class="containter">{{ $t('actions.loading') }}</div>
             </button>
           </div>
         </Form>
-      </template>
+      </div>
+    </template>
 
-      <template v-else-if="state.page == PAGES.CONFIRMATION">
-        <h3 class="display-font fw-bold mb-1">{{ $t('authentication.account-recovery.confirm-title') }}</h3>
-        <h5 class="fw-normal text-muted mb-2">
+    <template v-else-if="state.page == PAGES.CONFIRMATION">
+      <div style="max-width: 50rem" class="d-flex flex-column gap-3">
+        <h3 class="display-font fw-bold">{{ $t('authentication.account-recovery.confirm-title') }}</h3>
+        <h5 class="fw-normal text-muted">
           <i18n-t
             keypath="authentication.account-recovery.confirm-body-sent-link"
             tag="h5"
-            class="fw-normal text-muted mb-2"
+            class="fw-normal text-muted"
             scope="global"
           >
             <span class="text-light fw-bold">{{ state.email }}</span>
@@ -82,15 +86,15 @@ const onSubmit = getSubmitFn(validationSchema, async (values: { email: string })
         <h5 class="fw-normal text-muted">
           {{ $t('authentication.account-recovery.confirm-body-check-spam') }}
         </h5>
-        <div class="d-flex flex-row justify-content-end mt-3">
-          <button class="btn btn-secondary px-2 me-2" type="button" v-on:click="startOver">
+        <div class="d-flex flex-row gap-2 justify-content-end">
+          <button class="btn btn-secondary px-2" type="button" v-on:click="startOver">
             {{ $t('actions.start-over') }}
           </button>
           <button class="btn btn-primary px-2" type="button" v-on:click="done">
             {{ $t('actions.done') }}
           </button>
         </div>
-      </template>
-    </div>
+      </div>
+    </template>
   </div>
 </template>

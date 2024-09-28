@@ -21,7 +21,6 @@ class MainLayoutService {
     openModal({
       view: markRaw(SignInModal),
       properties: {
-        close: closeModal,
         callback: async (values: credentials): Promise<void> => {
           signIn(values)
             .then(closeModal)
@@ -41,7 +40,6 @@ class MainLayoutService {
     openModal({
       view: markRaw(RegisterModal),
       properties: {
-        close: closeModal,
         callback: async (values: Register): Promise<void> => {
           register(new RegisterDto(values))
             .then(closeModal)

@@ -6,19 +6,18 @@ import { PaginationDto, PaginationMeta, PaginationOptions } from '@/library/dto/
 import { UserDto } from '@/library/dto/user.dto'
 
 import TablePaginatedComponent from '@/app/components/table/paginated.component.vue'
-import BadgeComponent from '@/app/components/badge/badge.component.vue'
 
-import { defaultOptions, tableColumns, sort, badges } from '../schema/user-list.config'
-import { UserService } from '../services/user.service'
+import { defaultOptions, tableColumns, sort, badges } from '../../../schema/user-list.config'
+import { UserService } from '../../../services/user.service'
 import { useI18n } from 'vue-i18n'
 
 const { t } = useI18n()
 
-const { getUsersPaginated } = UserService
+const { getUsersPaginated, updateUser, deleteUser } = UserService
 
 const loading = ref<boolean>(true)
 const options = reactive<PaginationOptions>(defaultOptions)
-const response = reactive<{ data: Array<UserDto>; meta: PaginationMeta | undefined }>({
+const response = reactive<{ data: Array<UserDto>; meta: PaginationMeta }>({
   data: [],
   meta: new PaginationMeta({ pageOptions: defaultOptions, itemCount: 0 })
 })
@@ -48,27 +47,17 @@ watch(options, async (newVal: PaginationOptions): Promise<void> => {
     :rows="response.data"
     :pages="response.meta?.pageCount"
     :sort-options="sort"
-    :caption="
-      t(
-        'administration.users.caption',
-        {
-          showing: response.data.length
-        },
-        response.meta?.itemCount || 0
-      )
-    "
+    :caption="t('administration.users.caption', { showing: response.data.length }, response.meta.itemCount)"
   >
     <template v-slot>
       <button class="btn btn-dark btn-icon" disabled type="button">
         <font-awesome-icon size="lg" :icon="['fas', 'ellipsis-vertical']" />
       </button>
     </template>
-
     <template v-slot:user="{ row }">
-      <div class="d-flex align-items-center">
-        <div class="me-2">
-          <img class="avatar-icon rounded-circle" :src="row.profile.avatar" />
-        </div>
+      <div class="d-flex align-items-center gap-2">
+        <img class="avatar-icon rounded-circle" :src="row.profile.avatar" />
+
         <div class="d-flex flex-column flex-grow-1">
           <p class="text-light fw-semibold">
             {{ row.getFullName() }}
@@ -79,20 +68,42 @@ watch(options, async (newVal: PaginationOptions): Promise<void> => {
     </template>
 
     <template v-slot:created="{ row }">
-      {{ moment(row.createdAt).format('lll') }}
+      {{ moment(row.createdAt).fromNow() }}
     </template>
 
     <template v-slot:role="{ row }">
-      <BadgeComponent :theme="badges[row.role].theme">
-        {{ $t(badges[row.role].label).toUpperCase() }}
-      </BadgeComponent>
+      <div
+        class="border d-flex align-items-center"
+        :class="{ 'border-primary text-primary': badges[row.role].theme == 'primary' }"
+      >
+        <div class="px-2 d-flex align-items-center text-nowrap">
+          <small class="fw-bold text-truncate">
+            {{ $t(badges[row.role].label).toUpperCase() }}
+          </small>
+        </div>
+      </div>
     </template>
 
-    <template v-slot:actions>
-      <div class="row gx-1 flex-nowrap">
-        <button class="btn btn-dark btn-icon-sm border-0 px-0 text-light" type="button">
-          <div class="d-flex align-items-center justify-content-center">
-            <font-awesome-icon :icon="['fas', 'ellipsis']" />
+    <template v-slot:actions="{ row }">
+      <div class="d-flex gap-1 flex-nowrap">
+        <button
+          v-tooltip="{ text: $t('actions.update'), position: 'bottom', trigger: 'hover' }"
+          class="btn btn-dark btn-icon-sm px-0"
+          type="button"
+          @click="(_: MouseEvent) => updateUser(row)"
+        >
+          <div class="d-flex flex-column align-items-center text-warning">
+            <font-awesome-icon size="sm" :icon="['fas', 'pencil']" />
+          </div>
+        </button>
+        <button
+          v-tooltip="{ text: $t('actions.delete'), position: 'bottom', trigger: 'hover' }"
+          class="btn btn-dark btn-icon-sm px-0"
+          type="button"
+          @click="(_: MouseEvent) => deleteUser(row)"
+        >
+          <div class="d-flex flex-column align-items-center text-danger">
+            <font-awesome-icon size="sm" :icon="['fas', 'trash-can']" />
           </div>
         </button>
       </div>

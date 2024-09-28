@@ -56,3 +56,16 @@ watch(isOpen, async (value: boolean, _prev: boolean): Promise<void> => {
     </div>
   </div>
 </template>
+
+<style lang="scss">
+@import '@/library/sass/variables/index';
+
+.modal {
+  .modal-close button {
+    width: 3rem;
+    height: 3rem;
+  }
+
+  backdrop-filter: blur(1.5rem);
+}
+</style>

@@ -2,8 +2,8 @@
 
 <template>
   <div class="d-flex flex-grow-1 justify-content-center align-items-center p-3">
-    <div style="max-width: 40rem" class="d-flex flex-row align-items-center">
-      <div class="flex-shrink-0 me-3">
+    <div style="max-width: 40rem" class="d-flex flex-row align-items-center gap-3">
+      <div class="flex-shrink-0">
         <svg width="9.6rem" viewBox="0 0 30 30">
           <path
             fill="#B5B5BF"
