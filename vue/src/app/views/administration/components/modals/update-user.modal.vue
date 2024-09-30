@@ -7,9 +7,10 @@ import { credentials } from '@/library/dto/JWT.dto'
 import { Role, UserDto } from '@/library/dto/user.dto'
 import { useFormUtil } from '@/library/helpers/forms.util'
 
-import TextInput from '@/app/components/inputs/input.text.component.vue'
+import TextInput from '@/app/components/inputs/text.input.vue'
 import ModalTitleComponent from '@/app/components/modal/base/modal-title.component.vue'
-import InputSelectComponent from '@/app/components/inputs/input.select.component.vue'
+import InputSelectComponent from '@/app/components/inputs/select.input.vue'
+import InputFileComponent from '@/app/components/inputs/file.input.vue'
 
 const props = defineProps<{
   user: UserDto
@@ -22,7 +23,8 @@ const validationSchema = Yup.object().shape({
   email: Yup.string().email().required(),
   firstname: Yup.string().required(),
   lastname: Yup.string().required(),
-  role: Yup.mixed<Role>().oneOf(Object.values(Role))
+  role: Yup.mixed<Role>().oneOf(Object.values(Role)),
+  avatar: Yup.mixed<File>().notRequired()
 })
 
 const validateUtil = useFormUtil()
@@ -35,26 +37,9 @@ const onSubmit = validateUtil.getSubmitFn(validationSchema, async (values: any) 
 </script>
 
 <template>
-  <Form v-on:submit="onSubmit" :validation-schema v-slot="{ meta }">
+  <Form @submit="onSubmit" :validation-schema v-slot="{ meta }">
     <div class="d-flex flex-column gap-3">
       <ModalTitleComponent :title="`Update ${user.getFullName()}`" />
-      <div class="d-flex flex-column">
-        <TextInput
-          :label="$t('forms.email')"
-          :value="props.user.email"
-          autocomplete="email"
-          name="email"
-          type="email"
-        />
-      </div>
-      <div class="d-flex flex-column gap-1">
-        <h6 class="d-block fw-semibold">{{ $t('forms.role') }}</h6>
-        <InputSelectComponent name="role" :default="user.role" :options="Object.values(Role)">
-          <template v-slot:option="{ option }">
-            {{ option }}
-          </template>
-        </InputSelectComponent>
-      </div>
       <div class="d-flex flex-column gap-1">
         <h6 class="fw-semibold">{{ $t('forms.name') }}</h6>
         <div class="row gy-3 align-items-start flex-grow-1">
@@ -67,6 +52,27 @@ const onSubmit = validateUtil.getSubmitFn(validationSchema, async (values: any) 
             <small class="text-light-alt">{{ $t('forms.family-name') }}</small>
           </div>
         </div>
+      </div>
+      <div class="d-flex flex-column">
+        <TextInput
+          :label="$t('forms.email')"
+          :value="props.user.email"
+          autocomplete="email"
+          name="email"
+          type="email"
+        />
+      </div>
+      <div class="d-flex flex-column gap-1">
+        <h6 class="d-block fw-semibold">{{ $t('forms.role') }}</h6>
+        <InputSelectComponent name="role" :default="user.role" :options="Object.values(Role)">
+          <template #option="{ option }">
+            {{ option }}
+          </template>
+        </InputSelectComponent>
+      </div>
+      <div class="d-flex flex-column gap-1">
+        <h6 class="d-block fw-semibold">{{ $t('forms.profile-picture') }}</h6>
+        <InputFileComponent name="avatar" />
       </div>
       <div class="d-grid">
         <button

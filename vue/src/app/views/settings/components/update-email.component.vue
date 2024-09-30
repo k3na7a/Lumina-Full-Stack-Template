@@ -2,12 +2,12 @@
 import { computed, ComputedRef, reactive } from 'vue'
 import { Form } from 'vee-validate'
 
-import TextInput from '@/app/components/inputs/input.text.component.vue'
+import TextInput from '@/app/components/inputs/text.input.vue'
 
 import { useFormUtil } from '@/library/helpers/forms.util'
 import { UpdateEmail, UserDto } from '@/library/dto/user.dto'
-import { updateEmail as validationSchema } from '../../../schema/validation.schema'
-import { SettingsService } from '../../../services/settings.service'
+import { updateEmail as validationSchema } from '../schema/validation.schema'
+import { SettingsService } from '../services/settings.service'
 import { AuthStore, useAuthStore } from '@/app/store/authentication.store'
 
 const { updateEmail } = SettingsService
@@ -25,7 +25,7 @@ const onSubmit = getSubmitFn(validationSchema, async (values: UpdateEmail): Prom
 </script>
 
 <template>
-  <Form v-on:submit="onSubmit" :validation-schema v-slot="{ meta }" :key="JSON.stringify(user?.updatedAt)">
+  <Form @submit="onSubmit" :validation-schema v-slot="{ meta }" :key="JSON.stringify(user?.updatedAt)">
     <div class="d-flex flex-column flex-sm-row gap-3 p-3">
       <div class="row-header">
         <h6 class="fw-bold">{{ $t('forms.email') }}</h6>
@@ -40,7 +40,7 @@ const onSubmit = getSubmitFn(validationSchema, async (values: UpdateEmail): Prom
             </p>
           </div>
           <div class="flex-shrink-1">
-            <button class="btn btn-dark btn-icon-sm px-0" type="button" v-on:click="state.open = !state.open">
+            <button class="btn btn-dark btn-icon-sm px-0" type="button" @click="state.open = !state.open">
               <font-awesome-icon size="sm" :icon="['fas', 'pen']" />
             </button>
           </div>
@@ -68,7 +68,7 @@ const onSubmit = getSubmitFn(validationSchema, async (values: UpdateEmail): Prom
           </div>
 
           <div class="d-flex flex-row justify-content-end gap-2">
-            <button class="btn btn-secondary px-2" type="button" v-on:click="state.open = !state.open">
+            <button class="btn btn-secondary px-2" type="button" @click="state.open = !state.open">
               {{ $t('actions.cancel') }}
             </button>
             <button :disabled="!meta.valid || state.loading || !meta.dirty" class="btn btn-primary px-2" type="submit">

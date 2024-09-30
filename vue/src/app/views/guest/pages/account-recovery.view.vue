@@ -6,9 +6,9 @@ import { Router, useRouter } from 'vue-router'
 
 import { useFormUtil } from '@/library/helpers/forms.util'
 import { ForgotPassword } from '@/library/dto/user.dto'
-import TextInput from '@/app/components/inputs/input.text.component.vue'
+import TextInput from '@/app/components/inputs/text.input.vue'
 import { ROUTE_NAMES } from '@/app/router/routes.enum'
-import { GuestService } from '../../services/guest.service'
+import { GuestService } from '../services/guest.service'
 
 enum PAGES {
   FORM,
@@ -55,7 +55,7 @@ const onSubmit = getSubmitFn(validationSchema, async (values: { email: string })
           <h3 class="display-font fw-bold">{{ $t('authentication.account-recovery.title') }}</h3>
           <h5 class="fw-normal text-muted">{{ $t('authentication.account-recovery.subtitle') }}</h5>
         </div>
-        <Form v-on:submit="onSubmit" :validation-schema v-slot="{ meta }" class="d-flex flex-column gap-3">
+        <Form @submit="onSubmit" :validation-schema v-slot="{ meta }" class="d-flex flex-column gap-3">
           <div class="d-flex flex-column gap-1">
             <TextInput autocomplete="email" name="email" type="email" label="forms.email" />
             <small>{{ $t('authentication.account-recovery.label') }}</small>
@@ -87,10 +87,10 @@ const onSubmit = getSubmitFn(validationSchema, async (values: { email: string })
           {{ $t('authentication.account-recovery.confirm-body-check-spam') }}
         </h5>
         <div class="d-flex flex-row gap-2 justify-content-end">
-          <button class="btn btn-secondary px-2" type="button" v-on:click="startOver">
+          <button class="btn btn-secondary px-2" type="button" @click="startOver">
             {{ $t('actions.start-over') }}
           </button>
-          <button class="btn btn-primary px-2" type="button" v-on:click="done">
+          <button class="btn btn-primary px-2" type="button" @click="done">
             {{ $t('actions.done') }}
           </button>
         </div>

@@ -17,10 +17,10 @@ const USER_ACTIONS = user_actions(router, props.signout)
 
 <template>
   <DropdownComponent v-if="props.authenticatedUser" dropdown-align="end">
-    <template v-slot:button>
+    <template #button>
       <font-awesome-icon :icon="['fas', 'user']" />
     </template>
-    <template v-slot:menu="{ close }">
+    <template #menu="{ close }">
       <div class="d-flex flex-column gap-1">
         <div class="px-2 py-1">
           <div class="d-flex align-items-center gap-2">
@@ -41,7 +41,7 @@ const USER_ACTIONS = user_actions(router, props.signout)
                   class="dropdown-item d-flex justify-content-between align-items-center px-2 m-0"
                   type="button"
                   :disabled="action.disabled"
-                  v-on:click="(event: MouseEvent) => {
+                  @click="(event: MouseEvent) => {
                     action.callback(event)
                     close()
                 }"

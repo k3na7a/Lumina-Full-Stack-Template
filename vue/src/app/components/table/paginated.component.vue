@@ -1,6 +1,6 @@
 <script setup lang="ts" generic="T">
-import SearchInputComponent from '@/app/components/inputs/input.search.component.vue'
-import SelectInputComponent from '@/app/components/inputs/input.select.component.vue'
+import SearchInputComponent from '@/app/components/inputs/search.input.vue'
+import SelectInputComponent from '@/app/components/inputs/select.input.vue'
 import PaginationInputComponent from '@/app/components/pagination/pagination.component.vue'
 import { PaginationOptions, SortOptions } from '@/library/dto/pagination.dto'
 import { reactive, watch } from 'vue'
@@ -55,7 +55,7 @@ function onPageUpdate(page: number): void {
             :default="props.sortOptions.find((e) => e.order == props.options.order && e.sort == props.options.sort)"
             :options="props.sortOptions"
           >
-            <template v-slot:option="{ option }">
+            <template #option="{ option }">
               {{ $t(option?.label) }}
             </template>
           </SelectInputComponent>
@@ -118,7 +118,7 @@ function onPageUpdate(page: number): void {
           :default="options.take"
           :options="[25, 50, 100]"
         >
-          <template v-slot:option="{ option }">
+          <template #option="{ option }">
             {{ option }}
           </template>
         </SelectInputComponent>

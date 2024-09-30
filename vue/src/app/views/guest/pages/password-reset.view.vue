@@ -10,9 +10,9 @@ import { ResetPassword } from '@/library/dto/user.dto'
 import { PasswordValidation } from '@/library/regex/validation.regex'
 import { useFormUtil } from '@/library/helpers/forms.util'
 
-import TextInput from '@/app/components/inputs/input.text.component.vue'
+import TextInput from '@/app/components/inputs/text.input.vue'
 import PasswordValidationList from '@/app/components/labels/password-validation-list.component.vue'
-import { GuestService } from '../../services/guest.service'
+import { GuestService } from '../services/guest.service'
 
 enum PAGES {
   FORM,
@@ -63,7 +63,7 @@ const onSubmit = getSubmitFn(validationSchema, async (values: ResetPassword): Pr
             {{ $t('authentication.password-reset.subtitle') }}
           </h5>
         </div>
-        <Form v-on:submit="onSubmit" :validationSchema v-slot="{ meta }" class="d-flex flex-column gap-3">
+        <Form @submit="onSubmit" :validationSchema v-slot="{ meta }" class="d-flex flex-column gap-3">
           <div class="d-flex flex-column gap-1">
             <TextInput autocomplete="new-password" name="new_password" type="password" label="forms.new-password" />
             <PasswordValidationList />
@@ -93,7 +93,7 @@ const onSubmit = getSubmitFn(validationSchema, async (values: ResetPassword): Pr
           {{ $t('authentication.password-reset.confirm-body') }}
         </h5>
         <div class="d-flex flex-row justify-content-end">
-          <button class="btn btn-primary px-2" type="button" v-on:click="done">
+          <button class="btn btn-primary px-2" type="button" @click="done">
             {{ $t('actions.done') }}
           </button>
         </div>

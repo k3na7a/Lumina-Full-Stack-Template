@@ -9,7 +9,7 @@ const route: RouteLocationNormalizedLoaded = useRoute()
 
 <template>
   <NavbarComponent>
-    <template v-slot:left>
+    <template #left>
       <div class="d-flex justify-content-center">
         <nav class="nav-logo d-flex justify-content-center">
           <div class="align-content-center">
@@ -20,7 +20,7 @@ const route: RouteLocationNormalizedLoaded = useRoute()
         </nav>
       </div>
     </template>
-    <template v-slot:right>
+    <template #right>
       <div class="d-flex me-2">
         <nav class="align-content-center flex-grow-1">
           <LanguagesDropdown />

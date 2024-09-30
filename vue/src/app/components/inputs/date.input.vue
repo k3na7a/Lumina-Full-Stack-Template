@@ -98,7 +98,7 @@ onUnmounted(() => {
         </div>
       </button>
       <div
-        v-on:click="($event: MouseEvent) => $event.stopPropagation()"
+        @click="($event: MouseEvent) => $event.stopPropagation()"
         class="dropdown-menu mt-0 p-0 text-center text-light-alt p-2"
       >
         <div class="d-flex justify-content-between align-items-center my-1">
@@ -120,45 +120,47 @@ onUnmounted(() => {
             </button>
           </div>
         </div>
-        <div class="calendar d-flex flex-column" :key="`${month}/${year}`">
-          <div class="d-flex border-bottom border-secondary">
-            <div v-for="(_, idx) of Array(7)" class="col p-1" :key="`header:${days[idx]}`">
-              <small class="text-grey fw-semibold">{{ days[idx].substring(0, 3).toUpperCase() }}</small>
+        <div class="d-flex flex-column gap-2">
+          <div class="calendar d-flex flex-column" :key="`${month}/${year}`">
+            <div class="d-flex border-bottom border-secondary">
+              <div v-for="(_, idx) of Array(7)" class="col p-1" :key="`header:${days[idx]}`">
+                <small class="text-grey fw-semibold">{{ days[idx].substring(0, 3).toUpperCase() }}</small>
+              </div>
+            </div>
+            <div v-for="(_, idx) of Array(6)" class="d-flex" :key="`row:${idx}`">
+              <div
+                v-for="(day, i) of getMonthDetails(year, month).slice(idx * 7, (idx + 1) * 7)"
+                class="col"
+                :key="`row:${idx}:col:${i}`"
+              >
+                <button
+                  :id="day.timestamp.toString()"
+                  @click="set"
+                  :disabled="value?.getTime() == day.timestamp"
+                  style="width: 4rem; height: 4rem"
+                  class="text-light-alt dropdown-item p-0 d-flex justify-content-center align-items-center"
+                  :class="{
+                    'd-none': day.month,
+                    'text-decoration-underline link-offset-2': todayTimestamp.toDate().getTime() == day.timestamp,
+                    active: value?.getTime() == day.timestamp
+                  }"
+                >
+                  {{ day.date }}
+                </button>
+              </div>
             </div>
           </div>
-          <div v-for="(_, idx) of Array(6)" class="d-flex" :key="`row:${idx}`">
-            <div
-              v-for="(day, i) of getMonthDetails(year, month).slice(idx * 7, (idx + 1) * 7)"
-              class="col"
-              :key="`row:${idx}:col:${i}`"
-            >
-              <button
-                :id="day.timestamp.toString()"
-                @click="set"
-                :disabled="value?.getTime() == day.timestamp"
-                style="width: 4rem; height: 4rem"
-                class="text-light-alt dropdown-item p-0 d-flex justify-content-center align-items-center"
-                :class="{
-                  'd-none': day.month,
-                  'text-decoration-underline link-offset-2': todayTimestamp.toDate().getTime() == day.timestamp,
-                  active: value?.getTime() == day.timestamp
-                }"
-              >
-                {{ day.date }}
+          <div class="d-flex justify-content-between gap-2">
+            <div class="col">
+              <button class="btn btn-link fw-normal" type="button" @click="clear">
+                {{ $t('actions.clear') }}
               </button>
             </div>
-          </div>
-        </div>
-        <div class="d-flex justify-content-between mt-2 gap-2">
-          <div class="col">
-            <button class="btn btn-link text-decoration-underline fw-normal" type="button" @click="clear">
-              {{ $t('actions.clear') }}
-            </button>
-          </div>
-          <div class="col">
-            <button class="btn btn-link text-decoration-underline fw-normal" type="button" @click="setToday">
-              {{ $t('forms.today') }}
-            </button>
+            <div class="col">
+              <button class="btn btn-link fw-normal" type="button" @click="setToday">
+                {{ $t('forms.today') }}
+              </button>
+            </div>
           </div>
         </div>
       </div>

@@ -20,6 +20,7 @@ const toasts: ComputedRef<Toast[]> = computed<Toast[]>(() => store.getToasts)
         class="toast box-shadow d-block align-items-center rounded-0 bg-alt"
         role="alert"
       >
+        <div>TEST</div>
         <div class="d-flex flex-align-stretch">
           <div class="toast-body d-flex flex-column p-2 pe-0 flex-grow-1 gap-1">
             <h5 class="text-light display-font fw-bolder">
@@ -33,7 +34,7 @@ const toasts: ComputedRef<Toast[]> = computed<Toast[]>(() => store.getToasts)
             <button
               type="button"
               class="btn btn-link link-light link-opacity-75-hover p-0 px-3"
-              v-on:click="(_$event: MouseEvent) => store.removeToast(toast.id)"
+              @click="(_$event: MouseEvent) => store.removeToast(toast.id)"
             >
               <font-awesome-icon size="lg" :icon="['fas', 'close']" />
             </button>

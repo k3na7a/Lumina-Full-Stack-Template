@@ -10,7 +10,7 @@ const emit = defineEmits<{ update: [value: number] }>()
         v-tooltip="{ text: $t('forms.first'), position: 'bottom', trigger: 'hover' }"
         type="button"
         class="btn btn-secondary btn-icon"
-        v-on:click="(_event: MouseEvent) => emit('update', 1)"
+        @click="(_event: MouseEvent) => emit('update', 1)"
         :disabled="page == 1 || disabled"
       >
         <div class="d-flex align-items-center justify-content-center">
@@ -24,7 +24,7 @@ const emit = defineEmits<{ update: [value: number] }>()
         v-tooltip="{ text: $t('forms.previous'), position: 'bottom', trigger: 'hover' }"
         type="button"
         class="btn btn-secondary btn-icon"
-        v-on:click="(_event: MouseEvent) => emit('update', props.page - 1)"
+        @click="(_event: MouseEvent) => emit('update', props.page - 1)"
         :disabled="page == 1 || disabled"
       >
         <div class="d-flex align-items-center justify-content-center">
@@ -49,7 +49,7 @@ const emit = defineEmits<{ update: [value: number] }>()
         class="btn btn-secondary btn-icon"
         :class="{ active: item == page }"
         :disabled="item == page || disabled"
-        v-on:click="(_event: MouseEvent) => emit('update', item)"
+        @click="(_event: MouseEvent) => emit('update', item)"
       >
         <div class="d-flex align-items-center justify-content-center">
           {{ item }}
@@ -63,7 +63,7 @@ const emit = defineEmits<{ update: [value: number] }>()
         :disabled="page == total || disabled"
         type="button"
         class="btn btn-secondary btn-icon"
-        v-on:click="(_event: MouseEvent) => emit('update', page + 1)"
+        @click="(_event: MouseEvent) => emit('update', page + 1)"
       >
         <div class="d-flex align-items-center justify-content-center">
           <font-awesome-icon :icon="['fas', 'angle-right']" />
@@ -77,7 +77,7 @@ const emit = defineEmits<{ update: [value: number] }>()
         type="button"
         :disabled="page == total || disabled"
         class="btn btn-secondary btn-icon"
-        v-on:click="(_event: MouseEvent) => emit('update', total)"
+        @click="(_event: MouseEvent) => emit('update', total)"
       >
         <div class="d-flex align-items-center justify-content-center">
           <font-awesome-icon :icon="['fas', 'angles-right']" />

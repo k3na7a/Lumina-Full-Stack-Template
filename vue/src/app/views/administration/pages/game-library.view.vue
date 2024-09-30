@@ -1,10 +1,10 @@
 <script setup lang="ts">
 import { RouteLocationNormalizedLoaded, Router, useRoute, useRouter } from 'vue-router'
 
-import SelectInputComponent from '@/app/components/inputs/input.select.component.vue'
+import SelectInputComponent from '@/app/components/inputs/select.input.vue'
 
 import { ROUTE_NAMES } from '@/app/router/routes.enum'
-import { games_library_navigation } from '../../schema/navigation.config'
+import { games_library_navigation } from '../schema/navigation.config'
 
 const route: RouteLocationNormalizedLoaded = useRoute()
 const router: Router = useRouter()
@@ -36,7 +36,7 @@ function updateRoute(value: { label: string; name: ROUTE_NAMES } | undefined): v
           :default="default_route"
           :options
         >
-          <template v-slot:option="{ option }">
+          <template #option="{ option }">
             {{ option.label }}
           </template>
         </SelectInputComponent>

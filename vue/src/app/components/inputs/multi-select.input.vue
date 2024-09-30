@@ -2,8 +2,11 @@
 import { onMounted, Ref, ref, toRef, watch } from 'vue'
 import * as bootstrap from 'bootstrap'
 import { useField } from 'vee-validate'
+import { useI18n } from 'vue-i18n'
 
 import { deepEqual } from '@/library/helpers/object.util'
+
+const { t } = useI18n()
 
 const emit = defineEmits<{ update: [value: T[] | undefined] }>()
 const props = defineProps<{
@@ -54,10 +57,6 @@ function removeValue(event: MouseEvent): void {
   if (value.value) value.value = value.value.filter((_, idx) => idx != parseInt(target.id))
 }
 
-function getFilterQuery(option: any): void {
-  return option[props.filterKey]
-}
-
 watch(value, (newVal: T[] | undefined) => {
   emit('update', newVal)
 })
@@ -68,31 +67,18 @@ onMounted(() => {
 </script>
 
 <template>
-  <div class="custom-input">
-    <div class="dropdown select border-0" :class="{ 'has-error': !!errorMessage && meta.touched }" ref="dropdownRef">
+  <div class="custom-input d-flex flex-column gap-1">
+    <div class="dropdown select" :class="{ 'has-error': !!errorMessage && meta.touched }" ref="dropdownRef">
       <div class="multi-select d-flex align-items-stretch bg-alt">
         <div
-          @pointerdown="(e) => e.preventDefault()"
+          @pointerdown="giveFocus"
           v-if="value?.length"
-          :style="{ display: 'inline-flex' }"
-          class="flex-shrink-1 align-items-center flex-wrap p-1 gap-1 overflow-hidden"
+          class="display flex-shrink-1 align-items-center p-1 px-2 hover-cursor-pointer"
         >
-          <div
-            v-for="(selection, idx) of value"
-            class="px-1 d-flex align-items-stretch gap-1 overflow-hidden"
-            :key="`${idx}:${JSON.stringify(selection)}`"
-          >
-            <button
-              :id="`${idx}`"
-              v-tooltip="{ text: getFilterQuery(selection), position: 'bottom', trigger: 'hover' }"
-              @click="removeValue"
-              class="option-button btn btn-link text-decoration-underline fw-normal text-truncate"
-            >
-              <slot name="option" :option="selection"></slot>
-            </button>
-          </div>
+          <p class="text-light-alt text-nowrap text-truncate">
+            {{ t('forms.items-selected', value.length) }}
+          </p>
         </div>
-
         <input
           ref="inputRef"
           v-model="filter"
@@ -106,7 +92,7 @@ onMounted(() => {
           @focusout="closeDropdown"
         />
 
-        <div class="d-flex flex-shrink-1 align-items-center px-2" @pointerdown="giveFocus">
+        <div class="d-flex flex-shrink-1 align-items-center px-2 hover-cursor-pointer" @pointerdown="giveFocus">
           <font-awesome-icon size="sm" :icon="['fas', 'list-check']" />
         </div>
       </div>
@@ -122,7 +108,7 @@ onMounted(() => {
               class="dropdown-item d-flex justify-content-between align-items-center px-2"
               :class="{ active: value?.some((e) => deepEqual(e, option)) }"
               :disabled="value?.some((e) => deepEqual(e, option))"
-              v-on:click="value?.push(option)"
+              @click="value?.push(option)"
               type="button"
             >
               <span class="text-truncate pe-2">
@@ -138,6 +124,17 @@ onMounted(() => {
         </template>
       </div>
     </div>
+    <div class="d-flex flex-wrap gap-1">
+      <div
+        v-for="(selection, idx) of value"
+        class="px-1 d-flex align-items-stretch gap-1"
+        :key="`${idx}:${JSON.stringify(selection)}`"
+      >
+        <button :id="`${idx}`" @click="removeValue" class="option-button btn btn-link fw-normal">
+          <slot name="option" :option="selection"></slot>
+        </button>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -147,8 +144,8 @@ onMounted(() => {
   border: 0.1rem $muted solid;
   transition: all 0.15s ease-in-out;
 
-  .option-button {
-    max-width: 12.5rem;
+  .display {
+    max-width: 15rem;
   }
 
   input {

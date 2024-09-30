@@ -46,8 +46,8 @@ onMounted(() => {
     <button
       :disabled="!value || disabled"
       class="text-light px-2"
-      v-on:pointerdown.prevent
-      v-on:click="value = undefined"
+      @pointerdown.prevent
+      @click="value = undefined"
     >
       <div class="d-flex align-items-center">
         <font-awesome-icon :icon="['fas', 'xmark']" />

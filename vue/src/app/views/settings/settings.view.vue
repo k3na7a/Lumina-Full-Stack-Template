@@ -10,7 +10,7 @@ const route: RouteLocationNormalizedLoaded = useRoute()
 
 <template>
   <SubNavigationLayout title="administration.settings.label" :routes="settings_navigation">
-    <template v-slot:content>
+    <template #content>
       <Suspense>
         <RouterView v-slot="{ Component }" :key="route.fullPath">
           <component :is="Component" />

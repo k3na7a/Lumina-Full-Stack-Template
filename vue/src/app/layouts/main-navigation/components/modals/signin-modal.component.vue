@@ -6,7 +6,7 @@ import { ROUTE_NAMES } from '@/app/router/routes.enum'
 import { credentials } from '@/library/dto/JWT.dto'
 import { useFormUtil } from '@/library/helpers/forms.util'
 
-import TextInput from '@/app/components/inputs/input.text.component.vue'
+import TextInput from '@/app/components/inputs/text.input.vue'
 import ModalTitleComponent from '@/app/components/modal/base/modal-title.component.vue'
 
 import { signIn as validationSchema } from '../../schema/validation.schema'
@@ -27,7 +27,7 @@ const onSubmit = validateUtil.getSubmitFn(validationSchema, async (values: crede
 </script>
 
 <template>
-  <Form v-on:submit="onSubmit" :validation-schema v-slot="{ meta }">
+  <Form @submit="onSubmit" :validation-schema v-slot="{ meta }">
     <div class="d-flex flex-column gap-3">
       <ModalTitleComponent title="authentication.log-in.modal-title" />
       <div class="d-flex flex-column gap-3">

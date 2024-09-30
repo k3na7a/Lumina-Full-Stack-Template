@@ -8,8 +8,8 @@ import { UserDto } from '@/library/dto/user.dto'
 import { ModalStore, useModalStore } from '@/app/store/modal.store'
 import { markRaw } from 'vue'
 
-import ModalEditUserComponent from '../pages/users/components/update.modal.vue'
-import ModalConfirmComponent from '@/app/components/modal/templates/modal.confirm.component.vue'
+import ModalEditUserComponent from '../components/modals/update-user.modal.vue'
+import ModalConfirmComponent from '@/app/components/modal/templates/confirm.modal.vue'
 
 class UserService {
   public static async getUsersPaginated(params: PaginationOptions): Promise<PaginationDto<UserDto>> {

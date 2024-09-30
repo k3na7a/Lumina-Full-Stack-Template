@@ -3,7 +3,7 @@ import { AxiosError } from 'axios'
 
 import SignInModal from '@/app/layouts/main-navigation/components/modals/signin-modal.component.vue'
 import RegisterModal from '@/app/layouts/main-navigation/components/modals/register-modal.component.vue'
-import ConfirmationModal from '@/app/components/modal/templates/modal.confirm.component.vue'
+import ConfirmationModal from '@/app/components/modal/templates/confirm.modal.vue'
 
 import { ModalStore, useModalStore } from '@/app/store/modal.store'
 import { AuthStore, useAuthStore } from '@/app/store/authentication.store'

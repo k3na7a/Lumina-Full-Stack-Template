@@ -62,7 +62,7 @@ function deepEqual(x: any, y: any): boolean {
         </div>
       </button>
       <div
-        v-on:click="($event: MouseEvent) => $event.stopPropagation()"
+        @click="($event: MouseEvent) => $event.stopPropagation()"
         class="dropdown-menu mt-0 w-100 text-light p-0"
         style="min-width: 100%"
       >
@@ -71,7 +71,7 @@ function deepEqual(x: any, y: any): boolean {
           class="dropdown-item d-flex justify-content-between align-items-center px-2"
           :class="{ active: deepEqual(value, option) }"
           :disabled="deepEqual(value, option)"
-          v-on:click="value = option"
+          @click="value = option"
           type="button"
           :key="JSON.stringify(option)"
         >

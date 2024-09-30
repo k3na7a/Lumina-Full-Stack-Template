@@ -7,7 +7,7 @@ import { credentials } from '@/library/dto/JWT.dto'
 import { useFormUtil } from '@/library/helpers/forms.util'
 import { ROUTE_NAMES } from '@/app/router/routes.enum'
 
-import TextInput from '@/app/components/inputs/input.text.component.vue'
+import TextInput from '@/app/components/inputs/text.input.vue'
 import PasswordValidationList from '@/app/components/labels/password-validation-list.component.vue'
 import ModalTitleComponent from '@/app/components/modal/base/modal-title.component.vue'
 
@@ -29,7 +29,7 @@ const onSubmit = getSubmitFn(validationSchema, async (values: credentials) => {
 </script>
 
 <template>
-  <Form v-on:submit="onSubmit" :validation-schema v-slot="{ meta }">
+  <Form @submit="onSubmit" :validation-schema v-slot="{ meta }">
     <div class="d-flex flex-column gap-3">
       <ModalTitleComponent title="authentication.register.modal-title" />
       <div class="d-flex flex-column gap-1">

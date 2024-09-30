@@ -12,10 +12,10 @@ const { saveItem }: ILocalStorageUtil = useLocalStorageUtil(TOKEN)
 
 <template>
   <DropdownComponent dropdown-align="end">
-    <template v-slot:button>
+    <template #button>
       <font-awesome-icon :icon="['fas', 'language']" />
     </template>
-    <template v-slot:menu="{ close }">
+    <template #menu="{ close }">
       <div class="d-flex flex-column gap-1">
         <h5 class="p-0 px-2 py-1 text-muted fw-bolder text-nowrap">{{ $t('navigation.language') }}</h5>
         <div class="d-flex flex-column gap-1">
@@ -24,7 +24,7 @@ const { saveItem }: ILocalStorageUtil = useLocalStorageUtil(TOKEN)
               :class="{ active: _locale.key == $i18n.locale }"
               class="dropdown-item d-flex justify-content-between align-items-center px-2 m-0"
               type="button"
-              v-on:click="(_$event: MouseEvent) => {
+              @click="(_$event: MouseEvent) => {
                 locale = _locale.key
                 saveItem(_locale.key)
                 close()

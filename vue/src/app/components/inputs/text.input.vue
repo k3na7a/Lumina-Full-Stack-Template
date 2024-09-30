@@ -38,8 +38,8 @@ onMounted(() => {
       :value
       :placeholder="props.placeholder"
       :autocomplete="props.autocomplete || 'off'"
-      v-on:input="handleChange"
-      v-on:blur="handleBlur"
+      @input="handleChange"
+      @blur="handleBlur"
     />
   </div>
 </template>

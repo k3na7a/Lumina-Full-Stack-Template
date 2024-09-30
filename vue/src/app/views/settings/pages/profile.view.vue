@@ -1,13 +1,13 @@
 <script setup lang="ts">
 import { computed, ComputedRef } from 'vue'
 
-import UpdateProfileComponent from './components/update-profile.component.vue'
-import DisableAccountComponent from './components/disable-account.component.vue'
-import ProfilePictureComponent from './components/profile-picture.component.vue'
+import UpdateProfileComponent from '../components/update-profile.component.vue'
+import DisableAccountComponent from '../components/disable-account.component.vue'
+import ProfilePictureComponent from '../components/profile-picture.component.vue'
 
 import { AuthStore, useAuthStore } from '@/app/store/authentication.store'
 import { UserDto } from '@/library/dto/user.dto'
-import { SettingsService } from '../../services/settings.service'
+import { SettingsService } from '../services/settings.service'
 
 const authStore: AuthStore = useAuthStore()
 const { updateProfile, disableAccount, updateAvatar } = SettingsService

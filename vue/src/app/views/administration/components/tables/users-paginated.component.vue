@@ -7,8 +7,8 @@ import { UserDto } from '@/library/dto/user.dto'
 
 import TablePaginatedComponent from '@/app/components/table/paginated.component.vue'
 
-import { defaultOptions, tableColumns, sort, badges } from '../../../schema/user-list.config'
-import { UserService } from '../../../services/user.service'
+import { defaultOptions, tableColumns, sort, badges } from '../../schema/user-list.config'
+import { UserService } from '../../services/user.service'
 import { useI18n } from 'vue-i18n'
 
 const { t } = useI18n()
@@ -54,7 +54,7 @@ watch(options, async (newVal: PaginationOptions): Promise<void> => {
         <font-awesome-icon size="lg" :icon="['fas', 'ellipsis-vertical']" />
       </button>
     </template>
-    <template v-slot:user="{ row }">
+    <template #user="{ row }">
       <div class="d-flex align-items-center gap-2">
         <img class="avatar-icon rounded-circle" :src="row.profile.avatar" />
 
@@ -67,15 +67,12 @@ watch(options, async (newVal: PaginationOptions): Promise<void> => {
       </div>
     </template>
 
-    <template v-slot:created="{ row }">
+    <template #created="{ row }">
       {{ moment(row.createdAt).fromNow() }}
     </template>
 
-    <template v-slot:role="{ row }">
-      <div
-        class="border d-flex align-items-center"
-        :class="{ 'border-primary text-primary': badges[row.role].theme == 'primary' }"
-      >
+    <template #role="{ row }">
+      <div class="border d-flex align-items-center" :class="{ 'border-info text-info': badges[row.role].theme }">
         <div class="px-2 d-flex align-items-center text-nowrap">
           <small class="fw-bold text-truncate">
             {{ $t(badges[row.role].label).toUpperCase() }}
@@ -84,7 +81,7 @@ watch(options, async (newVal: PaginationOptions): Promise<void> => {
       </div>
     </template>
 
-    <template v-slot:actions="{ row }">
+    <template #actions="{ row }">
       <div class="d-flex gap-1 flex-nowrap">
         <button
           v-tooltip="{ text: $t('actions.update'), position: 'bottom', trigger: 'hover' }"

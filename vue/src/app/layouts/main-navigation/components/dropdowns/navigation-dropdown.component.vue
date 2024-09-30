@@ -6,10 +6,10 @@ import { MORE_NAVIGATION } from '@/app/layouts/main-navigation/schema/more-navig
 
 <template>
   <DropdownComponent>
-    <template v-slot:button>
+    <template #button>
       <font-awesome-icon :icon="['fas', 'ellipsis-vertical']" />
     </template>
-    <template v-slot:menu="{ close }">
+    <template #menu="{ close }">
       <div class="d-flex flex-column gap-2">
         <template v-for="(nav, index) of MORE_NAVIGATION">
           <hr v-if="index" class="dropdown-divider mx-1 my-0 bg-secondary opacity-50" />
@@ -21,7 +21,7 @@ import { MORE_NAVIGATION } from '@/app/layouts/main-navigation/schema/more-navig
                 <button
                   class="dropdown-item d-flex justify-content-between align-items-center px-2 m-0"
                   type="button"
-                  v-on:click="close"
+                  @click="close"
                 >
                   <span class="text-truncate">{{ $t(navigation_item.title) }}</span>
                 </button>

@@ -2,11 +2,11 @@
 import { reactive, toRef } from 'vue'
 import { Form } from 'vee-validate'
 
-import TextInput from '@/app/components/inputs/input.text.component.vue'
+import TextInput from '@/app/components/inputs/text.input.vue'
 
 import { useFormUtil } from '@/library/helpers/forms.util'
 import { UpdateProfile, UserDto } from '@/library/dto/user.dto'
-import { updateProfile as validationSchema } from '../../../schema/validation.schema.ts'
+import { updateProfile as validationSchema } from '../schema/validation.schema.ts'
 
 const validateUtil = useFormUtil()
 const props = defineProps<{
@@ -24,7 +24,7 @@ const onSubmit = validateUtil.getSubmitFn(validationSchema, async (values: Updat
 </script>
 
 <template>
-  <Form v-on:submit="onSubmit" :validation-schema v-slot="{ meta }" :key="JSON.stringify(user?.updatedAt)">
+  <Form @submit="onSubmit" :validation-schema v-slot="{ meta }" :key="JSON.stringify(user?.updatedAt)">
     <div class="section d-flex flex-column gap-3 flex-sm-row p-3">
       <div class="row-header">
         <h6 class="fw-bold">{{ $t('forms.name') }}</h6>

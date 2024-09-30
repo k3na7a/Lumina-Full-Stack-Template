@@ -53,12 +53,12 @@ const routes: RouteRecordRaw[] = [
               {
                 path: 'profile',
                 name: ROUTE_NAMES.PROFILE,
-                component: () => import('@/app/views/settings/pages/profile/profile.view.vue')
+                component: () => import('@/app/views/settings/pages/profile.view.vue')
               },
               {
                 path: 'security',
                 name: ROUTE_NAMES.SECURITY,
-                component: () => import('@/app/views/settings/pages/security/security.view.vue')
+                component: () => import('@/app/views/settings/pages/security.view.vue')
               }
             ]
           }
@@ -84,7 +84,7 @@ const routes: RouteRecordRaw[] = [
                   {
                     path: '',
                     name: ROUTE_NAMES.ADMIN_USER_LIST,
-                    component: () => import('@/app/views/administration/pages/users/users.view.vue')
+                    component: () => import('@/app/views/administration/pages/users.view.vue')
                   }
                 ]
               },
@@ -92,19 +92,17 @@ const routes: RouteRecordRaw[] = [
                 path: 'games',
                 name: ROUTE_NAMES.ADMIN_GAMES,
                 redirect: { name: ROUTE_NAMES.ADMIN_GAMES_LIST },
-                component: () => import('@/app/views/administration/pages/game-library/game-library.view.vue'),
+                component: () => import('@/app/views/administration/pages/game-library.view.vue'),
                 children: [
                   {
                     path: '',
                     name: ROUTE_NAMES.ADMIN_GAMES_LIST,
-                    component: () =>
-                      import('@/app/views/administration/pages/game-library/components/games.components.vue')
+                    component: () => import('@/app/views/administration/components/tables/games-paginated.components.vue')
                   },
                   {
                     path: 'platforms',
                     name: ROUTE_NAMES.ADMIN_GAMES_PLATFORMS_LIST,
-                    component: () =>
-                      import('@/app/views/administration/pages/game-library/components/games.components.vue')
+                    component: () => import('@/app/views/home/home.view.vue')
                   }
                 ]
               }

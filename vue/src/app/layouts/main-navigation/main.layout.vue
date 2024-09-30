@@ -19,11 +19,11 @@ const authenticatedUser: ComputedRef<UserDto | undefined> = computed(() => authS
 
 <template>
   <NavbarComponent>
-    <template v-slot:left>
+    <template #left>
       <NavigationComponent />
     </template>
 
-    <template v-slot:right>
+    <template #right>
       <ActionComponent :signin :register :signout :is-authenticated :authenticated-user />
     </template>
   </NavbarComponent>

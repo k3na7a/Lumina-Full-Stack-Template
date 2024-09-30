@@ -33,7 +33,7 @@ const route: RouteLocationNormalizedLoaded = useRoute()
       }
     ]"
   >
-    <template v-slot:content>
+    <template #content>
       <Suspense>
         <RouterView v-slot="{ Component }" :key="route.fullPath">
           <component :is="Component" />

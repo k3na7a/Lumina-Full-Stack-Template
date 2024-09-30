@@ -21,7 +21,7 @@ function closeDropdown(): void {
     <div
       :class="{ 'dropdown-menu-end': props.dropdownAlign == 'end' }"
       class="dropdown-menu dropdown-menu-dark p-2"
-      v-on:click="($event: MouseEvent) => $event.stopPropagation()"
+      @click="($event: MouseEvent) => $event.stopPropagation()"
     >
       <slot name="menu" :close="closeDropdown"></slot>
     </div>
