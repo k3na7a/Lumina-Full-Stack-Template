@@ -1,20 +1,8 @@
 <script setup lang="ts">
-import { computed, ComputedRef } from 'vue'
-
 import NavbarComponent from '@/app/components/navbar/navbar.component.vue'
-import { AuthStore, useAuthStore } from '@/app/store/authentication.store'
-import { UserDto } from '@/library/dto/user.dto'
 
-import NavigationComponent from './components/sections/navigation.component.vue'
-import ActionComponent from './components/sections/actions.component.vue'
-import { MainLayoutService } from '@/app/layouts/main-navigation/services/main-layout.service'
-
-const authStore: AuthStore = useAuthStore()
-
-const { signin, register, signout } = MainLayoutService
-
-const isAuthenticated: ComputedRef<boolean> = computed(() => authStore.isAuthenticated)
-const authenticatedUser: ComputedRef<UserDto | undefined> = computed(() => authStore.authenticatedUser)
+import NavigationComponent from './components/navigation.component.vue'
+import ActionComponent from './components/actions.component.vue'
 </script>
 
 <template>
@@ -24,7 +12,7 @@ const authenticatedUser: ComputedRef<UserDto | undefined> = computed(() => authS
     </template>
 
     <template #right>
-      <ActionComponent :signin :register :signout :is-authenticated :authenticated-user />
+      <ActionComponent />
     </template>
   </NavbarComponent>
 

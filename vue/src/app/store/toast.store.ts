@@ -1,12 +1,14 @@
 import { Store, StoreDefinition, defineStore } from 'pinia'
 
 const DEFAULT_TIMEOUT = 15
+type theme = 'primary' | 'secondary' | 'success' | 'warning' | 'danger' | 'info' | 'light'
 
 interface Toast {
   id: number
   title: string
   body: string
   expire: NodeJS.Timeout
+  theme: theme
 }
 
 interface ToastState {
@@ -21,6 +23,7 @@ interface NewToast {
 
 interface ToastOptions {
   timeout?: number
+  theme?: theme
 }
 
 interface ToastGetters {
@@ -51,7 +54,8 @@ const useToastStore: StoreDef = defineStore({
         id,
         title,
         body,
-        expire: setTimeout(this.removeToast, (options?.timeout || DEFAULT_TIMEOUT) * 1000, id)
+        expire: setTimeout(this.removeToast, (options?.timeout || DEFAULT_TIMEOUT) * 1000, id),
+        theme: options?.theme || 'primary'
       })
     },
     removeToast(id: number): void {
@@ -62,4 +66,4 @@ const useToastStore: StoreDef = defineStore({
 })
 
 export { useToastStore }
-export type { Toast, ToastStore }
+export type { Toast, ToastStore, theme }

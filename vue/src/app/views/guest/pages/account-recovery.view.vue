@@ -4,10 +4,10 @@ import { Form } from 'vee-validate'
 import * as Yup from 'yup'
 import { Router, useRouter } from 'vue-router'
 
-import { useFormUtil } from '@/library/helpers/forms.util'
-import { ForgotPassword } from '@/library/dto/user.dto'
+import { useFormUtil } from '@/utilities/forms.util'
+import { ForgotPassword } from '@/apis/localhost/dto/user.dto'
 import TextInput from '@/app/components/inputs/text.input.vue'
-import { ROUTE_NAMES } from '@/app/router/routes.enum'
+import { ROUTE_NAMES } from '@/app/router/routes'
 import { GuestService } from '../services/guest.service'
 
 enum PAGES {

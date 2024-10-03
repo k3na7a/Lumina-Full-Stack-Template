@@ -5,11 +5,11 @@ import { Form } from 'vee-validate'
 import TextInput from '@/app/components/inputs/text.input.vue'
 import PasswordValidationList from '@/app/components/labels/password-validation-list.component.vue'
 
-import { useFormUtil } from '@/library/helpers/forms.util'
-import { UserDto, UpdatePassword } from '@/library/dto/user.dto'
+import { useFormUtil } from '@/utilities/forms.util'
+import { UserDto, UpdatePassword } from '@/apis/localhost/dto/user.dto'
 import { AuthStore, useAuthStore } from '@/app/store/authentication.store'
 import { SettingsService } from '../services/settings.service'
-import { updatePassword as validationSchema } from '../schema/validation.schema'
+import { updatePassword as validationSchema } from '../config/schema/validation.schema'
 
 const { getSubmitFn } = useFormUtil()
 const { updatePassword } = SettingsService

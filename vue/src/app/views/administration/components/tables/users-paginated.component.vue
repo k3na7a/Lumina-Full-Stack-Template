@@ -2,12 +2,12 @@
 import { reactive, ref, watch } from 'vue'
 import moment from 'moment'
 
-import { PaginationDto, PaginationMeta, PaginationOptions } from '@/library/dto/pagination.dto'
-import { UserDto } from '@/library/dto/user.dto'
+import { PaginationDto, PaginationMeta, PaginationOptions } from '@/apis/localhost/dto/pagination.dto'
+import { UserDto } from '@/apis/localhost/dto/user.dto'
 
 import TablePaginatedComponent from '@/app/components/table/paginated.component.vue'
 
-import { defaultOptions, tableColumns, sort, badges } from '../../schema/user-list.config'
+import { defaultOptions, tableColumns, sort, badges } from '../../config/user-list.config'
 import { UserService } from '../../services/user.service'
 import { useI18n } from 'vue-i18n'
 
@@ -87,7 +87,7 @@ watch(options, async (newVal: PaginationOptions): Promise<void> => {
           v-tooltip="{ text: $t('actions.update'), position: 'bottom', trigger: 'hover' }"
           class="btn btn-dark btn-icon-sm px-0"
           type="button"
-          @click="(_: MouseEvent) => updateUser(row)"
+          @click="(_: MouseEvent) => updateUser(row, (_: UserDto) => { getPaginatedData(options) })"
         >
           <div class="d-flex flex-column align-items-center text-warning">
             <font-awesome-icon size="sm" :icon="['fas', 'pencil']" />

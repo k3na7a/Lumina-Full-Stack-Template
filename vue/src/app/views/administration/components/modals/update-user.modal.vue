@@ -1,34 +1,26 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import { Form } from 'vee-validate'
-import * as Yup from 'yup'
 
-import { credentials } from '@/library/dto/JWT.dto'
-import { Role, UserDto } from '@/library/dto/user.dto'
-import { useFormUtil } from '@/library/helpers/forms.util'
+import { Role, UpdateUser, UserDto } from '@/apis/localhost/dto/user.dto'
+import { useFormUtil } from '@/utilities/forms.util'
+import { updateUser as validationSchema } from '../../config/schema/validation.schema'
 
 import TextInput from '@/app/components/inputs/text.input.vue'
 import ModalTitleComponent from '@/app/components/modal/base/modal-title.component.vue'
 import InputSelectComponent from '@/app/components/inputs/select.input.vue'
 import InputFileComponent from '@/app/components/inputs/file.input.vue'
+import CheckboxInput from '@/app/components/inputs/checkbox.input.vue'
 
 const props = defineProps<{
   user: UserDto
-  callback: (values: credentials) => Promise<void>
+  callback: (values: any) => Promise<void>
 }>()
 
 const loading = ref<boolean>(false)
 
-const validationSchema = Yup.object().shape({
-  email: Yup.string().email().required(),
-  firstname: Yup.string().required(),
-  lastname: Yup.string().required(),
-  role: Yup.mixed<Role>().oneOf(Object.values(Role)),
-  avatar: Yup.mixed<File>().notRequired()
-})
-
 const validateUtil = useFormUtil()
-const onSubmit = validateUtil.getSubmitFn(validationSchema, async (values: any) => {
+const onSubmit = validateUtil.getSubmitFn(validationSchema, async (values: UpdateUser) => {
   loading.value = true
   props.callback(values).finally(() => {
     loading.value = false
@@ -64,7 +56,7 @@ const onSubmit = validateUtil.getSubmitFn(validationSchema, async (values: any) 
       </div>
       <div class="d-flex flex-column gap-1">
         <h6 class="d-block fw-semibold">{{ $t('forms.role') }}</h6>
-        <InputSelectComponent name="role" :default="user.role" :options="Object.values(Role)">
+        <InputSelectComponent name="role" :value="user.role" :options="Object.values(Role)">
           <template #option="{ option }">
             {{ option }}
           </template>
@@ -74,6 +66,8 @@ const onSubmit = validateUtil.getSubmitFn(validationSchema, async (values: any) 
         <h6 class="d-block fw-semibold">{{ $t('forms.profile-picture') }}</h6>
         <InputFileComponent name="avatar" />
       </div>
+      <CheckboxInput name="remove-avatar" :value="false" label="Remove profile picture" />
+
       <div class="d-grid">
         <button
           target="_blank"

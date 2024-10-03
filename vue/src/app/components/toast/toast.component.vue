@@ -2,7 +2,7 @@
 import { ComputedRef, computed } from 'vue'
 import { Toast, ToastStore, useToastStore } from '@/app/store/toast.store'
 
-import { useStringUtil } from '@/library/helpers/string.util'
+import { useStringUtil } from '@/utilities/string.util'
 
 const store: ToastStore = useToastStore()
 const { capitalize } = useStringUtil()
@@ -20,7 +20,17 @@ const toasts: ComputedRef<Toast[]> = computed<Toast[]>(() => store.getToasts)
         class="toast box-shadow d-block align-items-center rounded-0 bg-alt"
         role="alert"
       >
-        <div>TEST</div>
+        <div
+          style="height: 0.2rem"
+          :class="{
+            'text-bg-primary': toast.theme == 'primary',
+            'text-bg-secondary': toast.theme == 'secondary',
+            'text-bg-success': toast.theme == 'success',
+            'text-bg-warning': toast.theme == 'warning',
+            'text-bg-danger': toast.theme == 'danger',
+            'text-bg-info': toast.theme == 'info'
+          }"
+        ></div>
         <div class="d-flex flex-align-stretch">
           <div class="toast-body d-flex flex-column p-2 pe-0 flex-grow-1 gap-1">
             <h5 class="text-light display-font fw-bolder">

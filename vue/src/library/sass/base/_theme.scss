@@ -5,6 +5,19 @@ body {
 
   background-color: $background;
   scrollbar-color: $scrollbar-color transparent;
+
+  ::selection {
+    color: $light !important;
+    background-color: color-mix(in srgb, $primary 50%, transparent) !important;
+  }
+}
+
+.display-font {
+  font-family: $noto-sans;
+}
+
+.text-muted {
+  color: $muted !important;
 }
 
 main {
@@ -106,11 +119,11 @@ main {
 
     &.dropdown-item:hover,
     &.dropdown-item:focus {
-      background-color: rgba(255, 255, 255, 0.05);
+      background-color: $bg-hover;
     }
 
     &.dropdown-item.active {
-      background-color: rgba(255, 255, 255, 0.15);
+      background-color: $bg-active;
     }
 
     &:disabled {

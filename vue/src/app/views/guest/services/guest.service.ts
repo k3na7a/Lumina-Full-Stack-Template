@@ -3,7 +3,7 @@ import { AxiosError } from 'axios'
 import { AuthStore, useAuthStore } from '@/app/store/authentication.store'
 import { ToastStore, useToastStore } from '@/app/store/toast.store'
 
-import { ForgotPassword, ForgotPasswordDto, ResetPassword, ResetPasswordDto } from '@/library/dto/user.dto'
+import { ForgotPassword, ForgotPasswordDto, ResetPassword, ResetPasswordDto } from '@/apis/localhost/dto/user.dto'
 
 class GuestService {
   public static forgotPassword = async (props: ForgotPassword, callback?: () => void): Promise<void> => {
@@ -12,7 +12,9 @@ class GuestService {
 
     await forgotPassword(new ForgotPasswordDto(props))
       .then(callback)
-      .catch((error: AxiosError) => addToast({ title: error.response?.statusText || 'ERROR', body: error.message }))
+      .catch((error: AxiosError) =>
+        addToast({ title: error.response?.statusText || 'ERROR', body: error.message, options: { theme: 'danger' } })
+      )
   }
 
   public static resetPassword = async (props: ResetPassword, token: string, callback?: () => void): Promise<void> => {
@@ -21,7 +23,9 @@ class GuestService {
 
     await resetPassword(new ResetPasswordDto(props, token))
       .then(callback)
-      .catch((error: AxiosError) => addToast({ title: error.response?.statusText || 'ERROR', body: error.message }))
+      .catch((error: AxiosError) =>
+        addToast({ title: error.response?.statusText || 'ERROR', body: error.message, options: { theme: 'danger' } })
+      )
   }
 }
 

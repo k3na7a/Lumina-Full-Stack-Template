@@ -1,25 +1,25 @@
 <script setup lang="ts">
-import { reactive, toRef } from 'vue'
+import { computed, ComputedRef, ref } from 'vue'
 import { Form } from 'vee-validate'
 
 import TextInput from '@/app/components/inputs/text.input.vue'
 
-import { useFormUtil } from '@/library/helpers/forms.util'
-import { UpdateProfile, UserDto } from '@/library/dto/user.dto'
-import { updateProfile as validationSchema } from '../schema/validation.schema.ts'
+import { useFormUtil } from '@/utilities/forms.util.ts'
+import { UpdateProfile, UserDto } from '@/apis/localhost/dto/user.dto.ts'
+import { updateProfile as validationSchema } from '../config/schema/validation.schema.ts'
+import { SettingsService } from '../services/settings.service.ts'
+import { AuthStore, useAuthStore } from '@/app/store/authentication.store.ts'
 
 const validateUtil = useFormUtil()
-const props = defineProps<{
-  authenticatedUser: UserDto | undefined
-  callback: (props: UpdateProfile) => Promise<void>
-}>()
+const authStore: AuthStore = useAuthStore()
+const { updateProfile } = SettingsService
 
-const user = toRef(props, 'authenticatedUser')
-const state = reactive<{ loading: boolean }>({ loading: false })
+const user: ComputedRef<UserDto | undefined> = computed(() => authStore.authenticatedUser)
+const loading = ref<boolean>(false)
 
 const onSubmit = validateUtil.getSubmitFn(validationSchema, async (values: UpdateProfile) => {
-  state.loading = true
-  props.callback(values).finally(() => (state.loading = false))
+  loading.value = true
+  updateProfile(values).finally(() => (loading.value = false))
 })
 </script>
 
@@ -44,7 +44,7 @@ const onSubmit = validateUtil.getSubmitFn(validationSchema, async (values: Updat
       </div>
     </div>
     <div class="section bg-alt d-flex flex-row p-3 justify-content-end">
-      <button :disabled="!meta.valid || state.loading || !meta.dirty" class="btn btn-primary px-2" type="submit">
+      <button :disabled="!meta.valid || loading || !meta.dirty" class="btn btn-primary px-2" type="submit">
         {{ $t('actions.save-changes') }}
       </button>
     </div>

@@ -1,3 +1,5 @@
-export const byte = 1;
-export const kilobyte = 1000 * byte;
-export const megabyte = 1000 * kilobyte;
+const byte = 1;
+const kilobyte = 1000 * byte;
+const megabyte = 1000 * kilobyte;
+
+export { byte, kilobyte, megabyte }

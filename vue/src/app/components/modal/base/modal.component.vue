@@ -19,18 +19,18 @@ const options = computed<ModalOptions>(() => store.options as ModalOptions)
 const modalRef: Ref<HTMLElement | undefined> = ref<InstanceType<typeof HTMLElement>>()
 const purge: () => void = store.purgeModal
 const stopPropagation = (event: MouseEvent) => event.stopImmediatePropagation()
+
 const close = (evt: KeyboardEvent): void => {
   if (evt.key === 'Escape') store.closeModal()
 }
 
 onMounted(() => {
   modalRef.value?.addEventListener('hidden.bs.modal', purge)
-  modalRef.value?.addEventListener('mousedown', stopPropagation)
   document.addEventListener('keydown', close)
 })
+
 onUnmounted(() => {
   modalRef.value?.removeEventListener('hidden.bs.modal', purge)
-  modalRef.value?.removeEventListener('mousedown', stopPropagation)
   document.removeEventListener('keydown', close)
 })
 
@@ -43,7 +43,14 @@ watch(isOpen, async (value: boolean, _prev: boolean): Promise<void> => {
 </script>
 
 <template>
-  <div ref="modalRef" class="modal fade" id="modal" data-bs-backdrop="static" role="dialog">
+  <div
+    ref="modalRef"
+    class="modal fade"
+    id="modal"
+    data-bs-backdrop="static"
+    role="dialog"
+    @click.self="stopPropagation"
+  >
     <div class="modal-dialog modal-dialog-centered" :class="`modal-${options.size}`">
       <div class="modal-content p-3 position-relative border-radius bg-alt box-shadow">
         <component :is="options.view" v-model="localstate.model" v-bind="options.properties" />

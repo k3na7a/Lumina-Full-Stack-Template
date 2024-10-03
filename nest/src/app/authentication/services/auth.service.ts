@@ -1,4 +1,8 @@
-import { Injectable, UnauthorizedException } from '@nestjs/common';
+import {
+  Injectable,
+  NotFoundException,
+  UnauthorizedException,
+} from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import * as bcrypt from 'bcrypt';
 import { createHmac } from 'node:crypto';
@@ -13,7 +17,7 @@ import {
   subject as ForgotPasswordEmailSubject,
   template as ForgotPasswordEmailBody,
   options as ForgotPasswordOptions,
-} from 'src/library/templates/forgotPassword.template';
+} from 'src/templates/forgot-password.template';
 import { HandlebarsPlugin } from 'src/plugins/handlebars.plugin';
 import { updatePasswordDto } from 'src/library/dto/updatePassword.dto';
 import { deleteAccountDto } from 'src/library/dto/deleteAccount.dto';
@@ -148,19 +152,25 @@ export class AuthService {
   public async updateAvatar(
     { profile, id }: UserEntity,
     file: Express.Multer.File,
-  ) {
-    if (profile.avatar) {
+  ): Promise<JWTDto> {
+    if (profile.avatar)
       await this.avatarService.update(profile.avatar.id, file);
-
-      const new_user = await this.userService.findOneById(id);
-      return this.verifyToken(new_user);
-    } else {
+    else {
       const avatar = await this.avatarService.create(file);
       await this.profileService.update(profile.id, { avatar });
-
-      const new_user = await this.userService.findOneById(id);
-      return this.verifyToken(new_user);
     }
+
+    const new_user = await this.userService.findOneById(id);
+    return this.verifyToken(new_user);
+  }
+
+  public async removeAvatar({ profile, id }: UserEntity) {
+    if (!profile.avatar) throw new NotFoundException();
+
+    await this.avatarService.remove(profile.avatar.id);
+
+    const new_user = await this.userService.findOneById(id);
+    return this.verifyToken(new_user);
   }
 
   public async updateEmail(

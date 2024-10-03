@@ -1,10 +1,23 @@
+:root {
+  --primary: #42b883;
+  --secondary: rgba(83, 83, 95, 0.38);
+  --success: #bdd9ba;
+  --danger: #cf6679;
+  --warning: #ffd9ab;
+  --info: #a3d2ff;
+  --light: #f7f7f8;
+}
+
 $primary: #42b883;
 $secondary: rgba(83, 83, 95, 0.38);
 
-$success: #b1fb83;
+$success: #bdd9ba;
 $danger: #cf6679;
 $warning: #ffd9ab;
 $info: #a3d2ff;
+
+$bg-hover: rgba(255, 255, 255, 0.05);
+$bg-active: rgba(255, 255, 255, 0.15);
 
 $scrollbar-color: hsla(0, 0%, 100%, 0.35);
 

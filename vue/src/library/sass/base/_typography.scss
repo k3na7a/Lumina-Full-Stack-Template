@@ -14,14 +14,6 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-.display-font {
-  font-family: $noto-sans;
-}
-
-.text-muted {
-  color: $muted !important;
-}
-
 h1,
 h2,
 h3,
@@ -72,5 +64,4 @@ p {
 small {
   font-size: $font-size-8;
   line-height: $line-height-base;
-  // line-height: $line-height-lg;
 }

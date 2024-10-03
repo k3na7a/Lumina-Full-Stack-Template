@@ -2,7 +2,7 @@
 import SearchInputComponent from '@/app/components/inputs/search.input.vue'
 import SelectInputComponent from '@/app/components/inputs/select.input.vue'
 import PaginationInputComponent from '@/app/components/pagination/pagination.component.vue'
-import { PaginationOptions, SortOptions } from '@/library/dto/pagination.dto'
+import { PaginationOptions, SortOptions } from '@/apis/localhost/dto/pagination.dto'
 import { reactive, watch } from 'vue'
 
 const props = defineProps<{
@@ -52,7 +52,7 @@ function onPageUpdate(page: number): void {
           <SelectInputComponent
             name="sort"
             @update="onSortUpdate"
-            :default="props.sortOptions.find((e) => e.order == props.options.order && e.sort == props.options.sort)"
+            :value="props.sortOptions.find((e) => e.order == props.options.order && e.sort == props.options.sort)"
             :options="props.sortOptions"
           >
             <template #option="{ option }">
@@ -115,7 +115,7 @@ function onPageUpdate(page: number): void {
           name="take"
           style="width: 7.5rem"
           @update="onTakeUpdate"
-          :default="options.take"
+          :value="options.take"
           :options="[25, 50, 100]"
         >
           <template #option="{ option }">

@@ -5,7 +5,7 @@ import { useField } from 'vee-validate'
 
 const props = defineProps<{
   name: string
-  default?: T
+  value?: T
   options: Array<T>
   disabled?: boolean
 }>()
@@ -18,8 +18,13 @@ const closeDropdown = (): void => {
   dropdown.hide()
 }
 
+function toggleDropdown(): void {
+  const dropdown = bootstrap.Dropdown.getOrCreateInstance(dropdownRef.value || '')
+  dropdown.toggle()
+}
+
 const name = toRef(props, 'name')
-const { value, errorMessage, meta } = useField<T | undefined>(name.value, undefined, { initialValue: props.default })
+const { value, errorMessage, meta } = useField<T | undefined>(name.value, undefined, { initialValue: props.value })
 
 const emit = defineEmits<{ update: [value: T | undefined] }>()
 watch(value, (newVal: T | undefined) => {
@@ -42,15 +47,16 @@ function deepEqual(x: any, y: any): boolean {
 </script>
 
 <template>
-  <div class="custom-input">
+  <div class="custom-input" v-click-outside="closeDropdown">
     <div
       class="dropdown select border-0"
       :class="{ 'has-error': !!errorMessage && meta.touched, disabled: props.disabled }"
       ref="dropdownRef"
     >
       <button
+        type="button"
         class="select-btn bg-alt text-light w-100 d-flex align-items-stretch"
-        data-bs-toggle="dropdown"
+        @click="toggleDropdown"
         :disabled="props.disabled"
       >
         <div class="d-flex flex-grow-1 text-start px-2 align-items-center overflow-hidden">

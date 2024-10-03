@@ -1,5 +1,7 @@
 <script setup lang="ts">
-const props = defineProps<{ callback: () => void }>()
+import { SettingsService } from '../services/settings.service'
+
+const { disableAccount } = SettingsService
 </script>
 
 <template>
@@ -10,7 +12,7 @@ const props = defineProps<{ callback: () => void }>()
       </h6>
     </div>
     <div class="d-flex align-items-center justify-content-sm-end flex-grow-1">
-      <button class="btn btn-link fw-normal" type="button" @click="props.callback">
+      <button class="btn btn-link fw-normal" type="button" @click="disableAccount">
         {{ $t('actions.disable-account') }}
       </button>
     </div>

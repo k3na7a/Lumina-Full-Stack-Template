@@ -1,6 +1,6 @@
-import { LocalhostAPI as API, TOKEN_ID } from '@/library/apis/localhost/localhost.api'
-import { useLocalStorageUtil } from '@/library/helpers/local-storage.util'
-import { credentials, JWTDto } from '@/library/dto/JWT.dto'
+import { LocalhostAPI as API, TOKEN_ID } from '@/apis/localhost/localhost.api'
+import { useLocalStorageUtil } from '@/utilities/local-storage.util'
+import { credentials, JWTDto } from '@/apis/localhost/dto/JWT.dto'
 import {
   DeleteAccountDto,
   ForgotPasswordDto,
@@ -11,7 +11,7 @@ import {
   UpdatePasswordDto,
   UpdateProfileDto,
   UserDto
-} from '@/library/dto/user.dto'
+} from '@/apis/localhost/dto/user.dto'
 import { Store, StoreDefinition, defineStore } from 'pinia'
 
 interface IAuthState {
@@ -34,6 +34,7 @@ interface AuthActions {
   updateProfile(props: UpdateProfileDto): Promise<void>
   updateEmail(props: UpdateEmailDto): Promise<void>
   updateAvatar(props: File): Promise<void>
+  removeAvatar(): Promise<void>
   updatePassword(props: UpdatePasswordDto): Promise<void>
   deleteAccount(props: DeleteAccountDto): Promise<void>
 }
@@ -110,6 +111,11 @@ const useAuthStore: StoreDef = defineStore({
 
     async updateAvatar(props: File): Promise<void> {
       const dto: JWTDto = await API.authentication.updateAvatar(props)
+      this.authenticate(dto)
+    },
+
+    async removeAvatar(): Promise<void> {
+      const dto: JWTDto = await API.authentication.removeAvatar()
       this.authenticate(dto)
     },
 

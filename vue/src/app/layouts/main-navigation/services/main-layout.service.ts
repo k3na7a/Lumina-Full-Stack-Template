@@ -1,16 +1,16 @@
 import { markRaw } from 'vue'
 import { AxiosError } from 'axios'
 
-import SignInModal from '@/app/layouts/main-navigation/components/modals/signin-modal.component.vue'
-import RegisterModal from '@/app/layouts/main-navigation/components/modals/register-modal.component.vue'
-import ConfirmationModal from '@/app/components/modal/templates/confirm.modal.vue'
+import SignInModal from '@/app/components/modal/signin-modal.component.vue'
+import RegisterModal from '@/app/components/modal/register-modal.component.vue'
+import ConfirmationModal from '@/app/components/modal/confirm.modal.vue'
 
 import { ModalStore, useModalStore } from '@/app/store/modal.store'
 import { AuthStore, useAuthStore } from '@/app/store/authentication.store'
 import { ToastStore, useToastStore } from '@/app/store/toast.store'
 
-import { credentials } from '@/library/dto/JWT.dto'
-import { Register, RegisterDto } from '@/library/dto/user.dto'
+import { credentials } from '@/apis/localhost/dto/JWT.dto'
+import { Register, RegisterDto } from '@/apis/localhost/dto/user.dto'
 
 class MainLayoutService {
   public static signin = (): void => {
@@ -25,7 +25,11 @@ class MainLayoutService {
           signIn(values)
             .then(closeModal)
             .catch((error: AxiosError) =>
-              addToast({ title: error.response?.statusText || 'ERROR', body: error.message })
+              addToast({
+                title: error.response?.statusText || 'ERROR',
+                body: error.message,
+                options: { theme: 'danger' }
+              })
             )
         }
       }
@@ -44,7 +48,11 @@ class MainLayoutService {
           register(new RegisterDto(values))
             .then(closeModal)
             .catch((error: AxiosError) =>
-              addToast({ title: error.response?.statusText || 'ERROR', body: error.message })
+              addToast({
+                title: error.response?.statusText || 'ERROR',
+                body: error.message,
+                options: { theme: 'danger' }
+              })
             )
         }
       }
@@ -64,7 +72,11 @@ class MainLayoutService {
           await signOut()
             .then(closeModal)
             .catch((error: AxiosError) =>
-              addToast({ title: error.response?.statusText || 'ERROR', body: error.message })
+              addToast({
+                title: error.response?.statusText || 'ERROR',
+                body: error.message,
+                options: { theme: 'danger' }
+              })
             )
         },
         title: 'authentication.log-out.modal-title',

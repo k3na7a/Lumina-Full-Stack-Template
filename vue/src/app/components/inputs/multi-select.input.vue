@@ -4,7 +4,7 @@ import * as bootstrap from 'bootstrap'
 import { useField } from 'vee-validate'
 import { useI18n } from 'vue-i18n'
 
-import { deepEqual } from '@/library/helpers/object.util'
+import { deepEqual } from '@/utilities/object.util'
 
 const { t } = useI18n()
 
@@ -42,6 +42,11 @@ function giveFocus(event: Event): void {
   input.focus()
 }
 
+function clear(): void {
+  value.value = []
+  closeDropdown()
+}
+
 function render(option: any): boolean {
   const key = option[props.filterKey] as string
   return key.toLowerCase().includes(filter.value.toLowerCase())
@@ -67,15 +72,11 @@ onMounted(() => {
 </script>
 
 <template>
-  <div class="custom-input d-flex flex-column gap-1">
+  <div class="custom-input d-flex flex-column gap-1" v-click-outside="closeDropdown">
     <div class="dropdown select" :class="{ 'has-error': !!errorMessage && meta.touched }" ref="dropdownRef">
       <div class="multi-select d-flex align-items-stretch bg-alt">
-        <div
-          @pointerdown="giveFocus"
-          v-if="value?.length"
-          class="display flex-shrink-1 align-items-center p-1 px-2 hover-cursor-pointer"
-        >
-          <p class="text-light-alt text-nowrap text-truncate">
+        <div v-if="value?.length" class="display flex-shrink-1 align-items-center p-1 px-2">
+          <p class="text-light-alt text-nowrap text-truncate hover-cursor-pointer hover-underline" @click="clear">
             {{ t('forms.items-selected', value.length) }}
           </p>
         </div>
@@ -86,10 +87,8 @@ onMounted(() => {
           class="d-flex flex-grow-1 mb-0 p-1 px-2 text-truncate"
           :placeholder="$t('actions.search.placeholder')"
           autocomplete="off"
-          bs-data-toggle="dropdown"
           @click="giveFocus"
           @focus="openDropdown"
-          @focusout="closeDropdown"
         />
 
         <div class="d-flex flex-shrink-1 align-items-center px-2 hover-cursor-pointer" @pointerdown="giveFocus">
@@ -124,7 +123,7 @@ onMounted(() => {
         </template>
       </div>
     </div>
-    <div class="d-flex flex-wrap gap-1">
+    <div class="d-flex flex-wrap gap-1" v-if="value?.length">
       <div
         v-for="(selection, idx) of value"
         class="px-1 d-flex align-items-stretch gap-1"
@@ -164,5 +163,4 @@ onMounted(() => {
     box-shadow: 0 0 0 0.1rem $primary !important;
   }
 }
-/* background-color: color-mix(in srgb, $primary 50%, transparent); */
 </style>

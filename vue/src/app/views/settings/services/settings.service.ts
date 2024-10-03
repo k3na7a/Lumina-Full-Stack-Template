@@ -1,8 +1,8 @@
 import { markRaw } from 'vue'
 import { AxiosError } from 'axios'
 
-import PasswordModal from '@/app/components/modal/templates/password.modal.vue'
-import UploadImageModalComponent from '@/app/components/modal/templates/image-upload.modal.vue'
+import PasswordModal from '@/app/components/modal/password.modal.vue'
+import UploadImageModalComponent from '@/app/components/modal/image-upload.modal.vue'
 
 import { ModalStore, useModalStore } from '@/app/store/modal.store'
 import { AuthStore, useAuthStore } from '@/app/store/authentication.store'
@@ -17,8 +17,8 @@ import {
   UpdatePasswordDto,
   UpdateProfile,
   UpdateProfileDto
-} from '@/library/dto/user.dto'
-import ConfirmModal from '@/app/components/modal/templates/confirm.modal.vue'
+} from '@/apis/localhost/dto/user.dto'
+import ConfirmModal from '@/app/components/modal/confirm.modal.vue'
 
 class SettingsService {
   public static updateAvatar = (): void => {
@@ -33,7 +33,11 @@ class SettingsService {
           await updateAvatar(image)
             .then(closeModal)
             .catch((error: AxiosError) =>
-              addToast({ title: error.response?.statusText || 'ERROR', body: error.message })
+              addToast({
+                title: error.response?.statusText || 'ERROR',
+                body: error.message,
+                options: { theme: 'danger' }
+              })
             )
         },
         title: 'administration.settings.profile.avatar.modal-title',
@@ -43,17 +47,24 @@ class SettingsService {
   }
 
   public static removeAvatar = (): void => {
+    const { removeAvatar }: AuthStore = useAuthStore()
     const { openModal, closeModal }: ModalStore = useModalStore()
     const { addToast }: ToastStore = useToastStore()
-
-    console.log('HELLO')
 
     openModal({
       view: markRaw(ConfirmModal),
       properties: {
         close: closeModal,
         callback: async (): Promise<void> => {
-          addToast({ title: 'TEST', body: 'MESSAGE' })
+          await removeAvatar()
+            .then(closeModal)
+            .catch((error: AxiosError) =>
+              addToast({
+                title: error.response?.statusText || 'ERROR',
+                body: error.message,
+                options: { theme: 'danger' }
+              })
+            )
         },
         title: 'Remove your profile picture',
         body: 'Are you sure you want to remove your profile picture?',
@@ -67,7 +78,7 @@ class SettingsService {
     const { addToast }: ToastStore = useToastStore()
 
     await updateEmail(new UpdateEmailDto(props)).catch((error: AxiosError) =>
-      addToast({ title: error.response?.statusText || 'ERROR', body: error.message })
+      addToast({ title: error.response?.statusText || 'ERROR', body: error.message, options: { theme: 'danger' } })
     )
   }
 
@@ -76,7 +87,7 @@ class SettingsService {
     const { addToast }: ToastStore = useToastStore()
 
     await updatePassword(new UpdatePasswordDto(props)).catch((error: AxiosError) =>
-      addToast({ title: error.response?.statusText || 'ERROR', body: error.message })
+      addToast({ title: error.response?.statusText || 'ERROR', body: error.message, options: { theme: 'danger' } })
     )
   }
 
@@ -85,7 +96,7 @@ class SettingsService {
     const { addToast }: ToastStore = useToastStore()
 
     await updateProfile(new UpdateProfileDto(props)).catch((error: AxiosError) =>
-      addToast({ title: error.response?.statusText || 'ERROR', body: error.message })
+      addToast({ title: error.response?.statusText || 'ERROR', body: error.message, options: { theme: 'danger' } })
     )
   }
 
@@ -103,7 +114,11 @@ class SettingsService {
           await deleteAccount(new DeleteAccountDto(props))
             .then(closeModal)
             .catch((error: AxiosError) =>
-              addToast({ title: error.response?.statusText || 'ERROR', body: error.message })
+              addToast({
+                title: error.response?.statusText || 'ERROR',
+                body: error.message,
+                options: { theme: 'danger' }
+              })
             )
         },
         title: 'authentication.disable-account.modal-title',

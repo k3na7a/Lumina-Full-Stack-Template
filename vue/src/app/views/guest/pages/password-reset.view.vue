@@ -5,10 +5,10 @@ import { Form } from 'vee-validate'
 import * as Yup from 'yup'
 import { LocationQuery, RouteLocationNormalizedLoaded, Router, useRoute, useRouter } from 'vue-router'
 
-import { ROUTE_NAMES } from '@/app/router/routes.enum'
-import { ResetPassword } from '@/library/dto/user.dto'
-import { PasswordValidation } from '@/library/regex/validation.regex'
-import { useFormUtil } from '@/library/helpers/forms.util'
+import { ROUTE_NAMES } from '@/app/router/routes'
+import { ResetPassword } from '@/apis/localhost/dto/user.dto'
+import { PasswordValidation } from '@/library/data/regex/validation.regex'
+import { useFormUtil } from '@/utilities/forms.util'
 
 import TextInput from '@/app/components/inputs/text.input.vue'
 import PasswordValidationList from '@/app/components/labels/password-validation-list.component.vue'
@@ -19,11 +19,9 @@ enum PAGES {
   CONFIRMATION
 }
 
-type LocalState = { loading: boolean; page: PAGES }
-const state = reactive<LocalState>({ loading: false, page: PAGES.FORM })
+const state = reactive<{ loading: boolean; page: PAGES }>({ loading: false, page: PAGES.FORM })
 
 const { resetPassword } = GuestService
-
 const route: RouteLocationNormalizedLoaded = useRoute()
 const router: Router = useRouter()
 

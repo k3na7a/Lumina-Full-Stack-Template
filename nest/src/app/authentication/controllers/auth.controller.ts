@@ -139,7 +139,7 @@ export class AuthController {
   @UseGuards(RefreshTokenGuard)
   @ApiOkResponse({ type: JWTDto })
   @UseInterceptors(FileInterceptor('avatar', { storage }))
-  async updateProfilePicture(
+  async updateAvatar(
     @Request() { user }: RefreshTokenRequest,
     @UploadedFile(
       new ParseFilePipe({
@@ -156,6 +156,16 @@ export class AuthController {
     file: Express.Multer.File,
   ): Promise<JWTDto> {
     return this.authService.updateAvatar(user.userEntity, file);
+  }
+
+  @Delete('/remove-avatar')
+  @ApiBearerAuth('access-token')
+  @UseGuards(RefreshTokenGuard)
+  @ApiOkResponse({ type: JWTDto })
+  async removeAvatar(
+    @Request() { user }: RefreshTokenRequest,
+  ): Promise<JWTDto> {
+    return this.authService.removeAvatar(user.userEntity);
   }
 
   @Delete('/delete-account')

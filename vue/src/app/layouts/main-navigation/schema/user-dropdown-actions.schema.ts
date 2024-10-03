@@ -1,4 +1,4 @@
-import { ROUTE_NAMES } from '@/app/router/routes.enum'
+import { ROUTE_NAMES } from '@/app/router/routes'
 import { Router } from 'vue-router'
 
 type actions = Array<{

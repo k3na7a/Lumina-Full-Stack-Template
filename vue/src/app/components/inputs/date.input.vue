@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { onMounted, onUnmounted, ref, toRef, watch } from 'vue'
-import { getMonthDetails, months, days } from '@/library/helpers/date.util'
+import { getMonthDetails, months, days } from '@/utilities/date.util'
 
 import * as bootstrap from 'bootstrap'
 import moment from 'moment'
@@ -29,6 +29,11 @@ const dropdownRef = ref<InstanceType<typeof HTMLElement>>()
 function closeDropdown(): void {
   const dropdown = bootstrap.Dropdown.getOrCreateInstance(dropdownRef.value || '')
   dropdown.hide()
+}
+
+function toggleDropdown(): void {
+  const dropdown = bootstrap.Dropdown.getOrCreateInstance(dropdownRef.value || '')
+  dropdown.toggle()
 }
 
 function reset(): void {
@@ -86,9 +91,9 @@ onUnmounted(() => {
 </script>
 
 <template>
-  <div class="custom-input">
+  <div class="custom-input" v-click-outside="closeDropdown">
     <div class="dropdown date-picker border-0" ref="dropdownRef">
-      <button class="date-picker-btn bg-alt text-light w-100 d-flex align-items-stretch" data-bs-toggle="dropdown">
+      <button class="date-picker-btn bg-alt text-light w-100 d-flex align-items-stretch" @click="toggleDropdown">
         <div class="d-flex flex-grow-1 d-flex text-start px-2 align-items-center overflow-hidden">
           <span v-if="value">{{ moment(value).format('MMMM Do YYYY') }}</span>
           <span v-else style="color: grey">select a date...</span>

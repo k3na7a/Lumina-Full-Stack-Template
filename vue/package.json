@@ -9,6 +9,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@ckeditor/ckeditor5-vue": "^7.2.0",
     "@fortawesome/fontawesome-svg-core": "^6.5.1",
     "@fortawesome/free-brands-svg-icons": "^6.5.1",
     "@fortawesome/free-regular-svg-icons": "^6.5.1",
@@ -18,6 +19,7 @@
     "@vueuse/core": "^11.1.0",
     "axios": "^1.6.8",
     "bootstrap": "^5.3.3",
+    "ckeditor5": "^43.1.1",
     "dotenv": "^16.4.5",
     "moment": "^2.30.1",
     "pinia": "^2.1.7",

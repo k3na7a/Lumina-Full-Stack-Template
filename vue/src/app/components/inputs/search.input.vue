@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { onMounted, ref, watch } from 'vue'
 import { useDebounceFn } from '@vueuse/core'
-import { second } from '@/library/constants/time.constants'
+import { second } from '@/library/data/constants/time.constants'
 
 const props = defineProps<{ disabled?: boolean; value?: string }>()
 const value = ref<string | undefined>(props.value)

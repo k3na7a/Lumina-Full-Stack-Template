@@ -2,7 +2,7 @@
 import { InputTypeHTMLAttribute, onMounted, toRef, watch } from 'vue'
 import { useField } from 'vee-validate'
 
-import { HTMLAutoComplete } from '@/library/types/HTMLautocomplete.type'
+import { HTMLAutoComplete } from '@/library/data/types/HTMLautocomplete.type'
 
 const props = defineProps<{
   name: string
