@@ -3,13 +3,13 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import * as bcrypt from 'bcrypt';
 
-import { UserEntity } from 'src/library/entities/user/user.entity';
 import {
   CreateUserInterface,
   UpdateUserInterface,
-} from 'src/library/interfaces/user.interfaces';
+} from 'src/app/modules/users/interfaces/user.interfaces';
 import { PaginationDto, PaginationMeta } from 'src/library/dto/pagination.dto';
-import { UserPaginationOptions } from 'src/library/dto/user.dto';
+import { UserEntity } from '../entities/user.entity';
+import { UserPaginationOptions } from '../dto/user.dto';
 
 @Injectable()
 export class UserService {

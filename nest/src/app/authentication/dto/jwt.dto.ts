@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { UserEntity } from '../entities/user/user.entity';
+import { UserEntity } from 'src/app/modules/users/entities/user.entity';
 
 export interface JWTInterface {
   refresh_token: string;

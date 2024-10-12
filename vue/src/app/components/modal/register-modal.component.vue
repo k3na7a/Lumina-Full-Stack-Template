@@ -31,7 +31,7 @@ const onSubmit = getSubmitFn(validationSchema, async (values: credentials) => {
 <template>
   <Form @submit="onSubmit" :validation-schema v-slot="{ meta }">
     <div class="d-flex flex-column gap-3">
-      <ModalTitleComponent title="authentication.register.modal-title" />
+      <ModalTitleComponent :title="$t('authentication.register.modal-title')" />
       <div class="d-flex flex-column gap-1">
         <h6 class="fw-semibold">{{ $t('forms.name') }}</h6>
         <div class="row gy-3 align-items-start flex-grow-1">

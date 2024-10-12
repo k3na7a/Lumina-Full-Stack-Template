@@ -72,17 +72,25 @@ watch(options, async (newVal: PaginationOptions): Promise<void> => {
     </template>
 
     <template #role="{ row }">
-      <div class="border d-flex align-items-center" :class="{ 'border-info text-info': badges[row.role].theme }">
-        <div class="px-2 d-flex align-items-center text-nowrap">
-          <small class="fw-bold text-truncate">
-            {{ $t(badges[row.role].label).toUpperCase() }}
-          </small>
-        </div>
+      <div class="d-flex align-items-center">
+        <small class="fw-semibold text-truncate">
+          {{ $t(badges[row.role].label).toUpperCase() }}
+        </small>
       </div>
     </template>
 
     <template #actions="{ row }">
       <div class="d-flex gap-1 flex-nowrap">
+        <button
+          disabled
+          v-tooltip="{ text: $t('actions.read'), position: 'bottom', trigger: 'hover' }"
+          class="btn btn-dark btn-icon-sm px-0"
+          type="button"
+        >
+          <div class="d-flex flex-column align-items-center text-info">
+            <font-awesome-icon size="sm" :icon="['fas', 'book-open']" />
+          </div>
+        </button>
         <button
           v-tooltip="{ text: $t('actions.update'), position: 'bottom', trigger: 'hover' }"
           class="btn btn-dark btn-icon-sm px-0"

@@ -7,10 +7,14 @@ import { JwtService } from '@nestjs/jwt';
 import * as bcrypt from 'bcrypt';
 import { createHmac } from 'node:crypto';
 
-import { RegisterDto } from 'src/library/dto/register.dto';
+import { RegisterDto } from 'src/app/authentication/dto/register.dto';
 import { UserService } from '../../modules/users/services/users.service';
-import { Payload } from '../../../library/interfaces/payload.interface';
-import { JWTInterface, JWTDto, DecodedJWT } from 'src/library/dto/jwt.dto';
+import { Payload } from '../interfaces/payload.interface';
+import {
+  JWTInterface,
+  JWTDto,
+  DecodedJWT,
+} from 'src/app/authentication/dto/jwt.dto';
 import { SendGridPlugin } from 'src/plugins/sendgrid.plugin';
 
 import {
@@ -19,13 +23,13 @@ import {
   options as ForgotPasswordOptions,
 } from 'src/templates/forgot-password.template';
 import { HandlebarsPlugin } from 'src/plugins/handlebars.plugin';
-import { updatePasswordDto } from 'src/library/dto/updatePassword.dto';
-import { deleteAccountDto } from 'src/library/dto/deleteAccount.dto';
-import { UserEntity } from 'src/library/entities/user/user.entity';
-import { UpdateUserProfile } from 'src/library/interfaces/user.interfaces';
+import { updatePasswordDto } from 'src/app/authentication/dto/updatePassword.dto';
+import { deleteAccountDto } from 'src/app/authentication/dto/deleteAccount.dto';
+import { UpdateUserProfile } from 'src/app/modules/users/interfaces/user.interfaces';
 import { ProfileService } from 'src/app/modules/users/services/profile.service';
-import { ForgotPasswordDto } from 'src/library/dto/forgotPassword.dto';
+import { ForgotPasswordDto } from 'src/app/authentication/dto/forgotPassword.dto';
 import { AvatarService } from 'src/app/modules/users/services/avatar.service';
+import { UserEntity } from 'src/app/modules/users/entities/user.entity';
 
 @Injectable()
 export class AuthService {

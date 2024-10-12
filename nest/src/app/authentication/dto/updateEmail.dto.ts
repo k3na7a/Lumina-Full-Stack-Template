@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { Match } from '../../app/authentication/decorators/match.decorator';
+import { Match } from '../decorators/match.decorator';
 import { IsEmail, IsString } from 'class-validator';
 
 export class updateEmailDto {

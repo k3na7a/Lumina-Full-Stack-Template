@@ -31,7 +31,7 @@ const onSubmit = getSubmitFn(validationSchema, (values: FormValues) => {
 <template>
   <Form @submit="onSubmit" :validation-schema v-slot="{ meta }">
     <div class="d-flex flex-column gap-3">
-      <ModalTitleComponent :title="props.title" />
+      <ModalTitleComponent :title="$t(props.title)" />
       <div class="d-flex flex-column">
         <h6 class="fw-normal text-light-alt">{{ $t(props.body) }}</h6>
       </div>

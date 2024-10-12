@@ -25,7 +25,7 @@ const onSubmit = (): void => {
 <template>
   <Form @submit="onSubmit">
     <div class="d-flex flex-column gap-3">
-      <ModalTitleComponent :title="title" />
+      <ModalTitleComponent :title="$t(title)" />
       <div class="d-flex flex-column">
         <h6 class="text-light-alt fw-normal">{{ $t(body) }}</h6>
       </div>

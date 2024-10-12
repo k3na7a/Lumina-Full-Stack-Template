@@ -32,6 +32,7 @@ const onSubmit = validateUtil.getSubmitFn(validationSchema, async (values: Updat
   <Form @submit="onSubmit" :validation-schema v-slot="{ meta }">
     <div class="d-flex flex-column gap-3">
       <ModalTitleComponent :title="`Update ${user.getFullName()}`" />
+
       <div class="d-flex flex-column gap-1">
         <h6 class="fw-semibold">{{ $t('forms.name') }}</h6>
         <div class="row gy-3 align-items-start flex-grow-1">
@@ -45,6 +46,7 @@ const onSubmit = validateUtil.getSubmitFn(validationSchema, async (values: Updat
           </div>
         </div>
       </div>
+
       <div class="d-flex flex-column">
         <TextInput
           :label="$t('forms.email')"
@@ -54,6 +56,7 @@ const onSubmit = validateUtil.getSubmitFn(validationSchema, async (values: Updat
           type="email"
         />
       </div>
+
       <div class="d-flex flex-column gap-1">
         <h6 class="d-block fw-semibold">{{ $t('forms.role') }}</h6>
         <InputSelectComponent name="role" :value="user.role" :options="Object.values(Role)">
@@ -62,20 +65,16 @@ const onSubmit = validateUtil.getSubmitFn(validationSchema, async (values: Updat
           </template>
         </InputSelectComponent>
       </div>
+
       <div class="d-flex flex-column gap-1">
         <h6 class="d-block fw-semibold">{{ $t('forms.profile-picture') }}</h6>
         <InputFileComponent name="avatar" />
       </div>
+
       <CheckboxInput name="remove-avatar" :value="false" label="Remove profile picture" />
 
       <div class="d-grid">
-        <button
-          target="_blank"
-          :to="{ name: 'home' }"
-          :disabled="!meta.valid || !meta.dirty"
-          class="btn btn-primary px-0"
-          type="submit"
-        >
+        <button :disabled="!meta.valid || !meta.dirty" class="btn btn-primary px-0" type="submit">
           <div v-if="true" class="containter">{{ $t('Update User') }}</div>
           <div v-else class="containter">{{ $t('actions.loading') }}</div>
         </button>

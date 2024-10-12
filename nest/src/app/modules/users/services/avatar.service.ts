@@ -5,9 +5,9 @@ import {
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { link, PathLike, unlink } from 'fs';
-import { AvatarEntity } from 'src/library/entities/user/avatar.entity';
 import { STORAGE } from 'src/library/enums/files.enum';
 import { Repository } from 'typeorm';
+import { AvatarEntity } from '../entities/avatar.entity';
 
 @Injectable()
 export class AvatarService {

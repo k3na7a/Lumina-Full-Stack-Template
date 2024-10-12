@@ -22,16 +22,19 @@ import {
 } from '@nestjs/swagger';
 
 import { PaginationDto } from 'src/library/dto/pagination.dto';
-import { UserEntity } from 'src/library/entities/user/user.entity';
 import { Roles } from 'src/app/authentication/decorators/roles.decorator';
 import { Role } from 'src/library/enums/role.enum';
 import { RefreshTokenGuard } from 'src/app/authentication/guards/refreshtoken.guard';
 import { RolesGuard } from 'src/app/authentication/guards/role.guard';
-import { UpdateUserDto, UserPaginationOptions } from 'src/library/dto/user.dto';
 import { FileInterceptor } from '@nestjs/platform-express/multer';
-import { storage } from 'src/library/config/storage.config';
+import { storage } from 'src/config/storage.config';
 import { megabyte } from 'src/library/constants/size.constants';
 import { UserAdminService } from '../services/user.service';
+import {
+  UserPaginationOptions,
+  UpdateUserDto,
+} from 'src/app/modules/users/dto/user.dto';
+import { UserEntity } from 'src/app/modules/users/entities/user.entity';
 
 @ApiTags('Users (Administration)')
 @Controller('users')
@@ -39,7 +42,7 @@ import { UserAdminService } from '../services/user.service';
 @UseGuards(RefreshTokenGuard, RolesGuard)
 @ApiBearerAuth('access-token')
 @UseInterceptors(ClassSerializerInterceptor)
-export class UserAdminController {
+class UserAdminController {
   constructor(private readonly userAdminService: UserAdminService) {}
 
   @Get('paginated')
@@ -93,3 +96,5 @@ export class UserAdminController {
     return this.userAdminService.deleteUser(id);
   }
 }
+
+export { UserAdminController };

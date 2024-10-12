@@ -1,6 +1,5 @@
 <script setup lang="ts">
-type PropType = { title: string }
-const props = defineProps<PropType>()
+const props = defineProps<{ title: string }>()
 </script>
 
 <template>
@@ -10,7 +9,7 @@ const props = defineProps<PropType>()
 
       <div style="overflow: hidden">
         <h4 class="text-light fw-bold display-font text-truncate">
-          {{ $t(props.title) }}
+          {{ props.title }}
         </h4>
       </div>
     </div>

@@ -22,20 +22,12 @@ onMounted(() => {
 <template>
   <div class="th-custom d-flex">
     <label :for="name" class="align-items-center">
-      <input
-        ref="inputRef"
-        :id="name"
-        :name
-        class="opacity-0"
-        type="checkbox"
-        v-model="value"
-        @keyup.enter.prevent="value = !value"
-      />
+      <input ref="inputRef" :id="name" :name class="opacity-0" type="checkbox" v-model="value" />
       <div class="d-flex align-items-center gap-2">
         <div class="d-flex justify-content-center align-items-center th-checkbox" :class="{ active: value }">
           <font-awesome-icon v-if="value" size="sm" class="text-light" :icon="['fas', 'check']" />
         </div>
-        <small v-if="props.label" class="text-light-alt">{{ $t(props.label) }}</small>
+        <p v-if="props.label" class="text-light-alt">{{ $t(props.label) }}</p>
       </div>
     </label>
   </div>

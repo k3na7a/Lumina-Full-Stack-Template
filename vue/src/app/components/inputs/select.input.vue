@@ -3,6 +3,8 @@ import { onMounted, Ref, ref, toRef, watch } from 'vue'
 import * as bootstrap from 'bootstrap'
 import { useField } from 'vee-validate'
 
+import { deepEqual } from '@/utilities/object.util'
+
 const props = defineProps<{
   name: string
   value?: T
@@ -35,57 +37,47 @@ watch(value, (newVal: T | undefined) => {
 onMounted(() => {
   emit('update', value.value)
 })
-
-function deepEqual(x: any, y: any): boolean {
-  const ok = Object.keys,
-    tx = typeof x,
-    ty = typeof y
-  return x && y && tx === 'object' && tx === ty
-    ? ok(x).length === ok(y).length && ok(x).every((key) => deepEqual(x[key], y[key]))
-    : x === y
-}
 </script>
 
 <template>
-  <div class="custom-input" v-click-outside="closeDropdown">
+  <div
+    class="dropdown select border-0"
+    :class="{ 'has-error': !!errorMessage && meta.touched, disabled: props.disabled }"
+    ref="dropdownRef"
+    v-click-outside="closeDropdown"
+  >
+    <button
+      type="button"
+      class="select-btn bg-alt text-light w-100 d-flex align-items-stretch"
+      @click="toggleDropdown"
+      :disabled="props.disabled"
+    >
+      <div class="d-flex flex-grow-1 text-start px-2 align-items-center overflow-hidden">
+        <span v-if="value" class="text-truncate"><slot name="option" :option="value"></slot></span>
+        <span v-else class="text-grey text-truncate">select an option...</span>
+      </div>
+      <div class="d-flex align-items-center px-2">
+        <font-awesome-icon :icon="['fas', 'angle-down']" />
+      </div>
+    </button>
     <div
-      class="dropdown select border-0"
-      :class="{ 'has-error': !!errorMessage && meta.touched, disabled: props.disabled }"
-      ref="dropdownRef"
+      @click="($event: MouseEvent) => $event.stopPropagation()"
+      class="dropdown-menu mt-0 w-100 text-light p-0"
+      style="min-width: 100%"
     >
       <button
+        v-for="option of options"
+        class="dropdown-item d-flex justify-content-between align-items-center px-2"
+        :class="{ active: deepEqual(value, option) }"
+        :disabled="deepEqual(value, option)"
+        @click="value = option"
         type="button"
-        class="select-btn bg-alt text-light w-100 d-flex align-items-stretch"
-        @click="toggleDropdown"
-        :disabled="props.disabled"
+        :key="JSON.stringify(option)"
       >
-        <div class="d-flex flex-grow-1 text-start px-2 align-items-center overflow-hidden">
-          <span v-if="value" class="text-truncate"><slot name="option" :option="value"></slot></span>
-          <span v-else class="text-grey text-truncate">select an option...</span>
-        </div>
-        <div class="d-flex align-items-center px-2">
-          <font-awesome-icon :icon="['fas', 'angle-down']" />
-        </div>
+        <span class="text-truncate pe-2">
+          <slot name="option" :option="option"></slot>
+        </span>
       </button>
-      <div
-        @click="($event: MouseEvent) => $event.stopPropagation()"
-        class="dropdown-menu mt-0 w-100 text-light p-0"
-        style="min-width: 100%"
-      >
-        <button
-          v-for="option of options"
-          class="dropdown-item d-flex justify-content-between align-items-center px-2"
-          :class="{ active: deepEqual(value, option) }"
-          :disabled="deepEqual(value, option)"
-          @click="value = option"
-          type="button"
-          :key="JSON.stringify(option)"
-        >
-          <span class="text-truncate pe-2">
-            <slot name="option" :option="option"></slot>
-          </span>
-        </button>
-      </div>
     </div>
   </div>
 </template>

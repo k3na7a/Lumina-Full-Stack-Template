@@ -29,7 +29,7 @@ const onSubmit = validateUtil.getSubmitFn(validationSchema, async (values: crede
 <template>
   <Form @submit="onSubmit" :validation-schema v-slot="{ meta }">
     <div class="d-flex flex-column gap-3">
-      <ModalTitleComponent title="authentication.log-in.modal-title" />
+      <ModalTitleComponent :title="$t('authentication.log-in.modal-title')" />
       <div class="d-flex flex-column gap-3">
         <TextInput autocomplete="email" name="email" type="email" label="forms.email" />
         <div class="d-flex flex-column gap-1">

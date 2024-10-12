@@ -3,8 +3,11 @@ import { UserService } from '../../modules/users/services/users.service';
 import { ProfileService } from 'src/app/modules/users/services/profile.service';
 import { AvatarService } from 'src/app/modules/users/services/avatar.service';
 import { PaginationDto } from 'src/library/dto/pagination.dto';
-import { UserEntity } from 'src/library/entities/user/user.entity';
-import { UpdateUserDto, UserPaginationOptions } from 'src/library/dto/user.dto';
+import {
+  UserPaginationOptions,
+  UpdateUserDto,
+} from 'src/app/modules/users/dto/user.dto';
+import { UserEntity } from 'src/app/modules/users/entities/user.entity';
 
 @Injectable()
 class UserAdminService {

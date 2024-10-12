@@ -23,23 +23,26 @@ import {
 
 import { AuthService } from '../services/auth.service';
 
-import { storage } from 'src/library/config/storage.config';
-import { RegisterDto, RegisterProfileDto } from 'src/library/dto/register.dto';
-import { JWTDto } from 'src/library/dto/jwt.dto';
-import { SignInDto } from 'src/library/dto/signIn.dto';
+import { storage } from 'src/config/storage.config';
+import {
+  RegisterDto,
+  RegisterProfileDto,
+} from 'src/app/authentication/dto/register.dto';
+import { JWTDto } from 'src/app/authentication/dto/jwt.dto';
+import { SignInDto } from 'src/app/authentication/dto/signIn.dto';
 import { LocalAuthGuard } from '../guards/localAuth.guard';
-import { UserEntity } from 'src/library/entities/user/user.entity';
 import { RefreshTokenGuard } from '../guards/refreshtoken.guard';
-import { RefreshTokenRequest } from 'src/library/interfaces/refreshToken.interface';
-import { ForgotPasswordDto } from 'src/library/dto/forgotPassword.dto';
+import { RefreshTokenRequest } from 'src/app/authentication/interfaces/refreshToken.interface';
+import { ForgotPasswordDto } from 'src/app/authentication/dto/forgotPassword.dto';
 import { AccessTokenGuard } from '../guards/accesstoken.guard';
-import { AccessTokenRequest } from 'src/library/interfaces/accessToken.interface';
-import { ResetPasswordDto } from 'src/library/dto/resetPassword.dto';
-import { updatePasswordDto } from 'src/library/dto/updatePassword.dto';
-import { updateEmailDto } from 'src/library/dto/updateEmail.dto';
-import { deleteAccountDto } from 'src/library/dto/deleteAccount.dto';
+import { AccessTokenRequest } from 'src/app/authentication/interfaces/accessToken.interface';
+import { ResetPasswordDto } from 'src/app/authentication/dto/resetPassword.dto';
+import { updatePasswordDto } from 'src/app/authentication/dto/updatePassword.dto';
+import { updateEmailDto } from 'src/app/authentication/dto/updateEmail.dto';
+import { deleteAccountDto } from 'src/app/authentication/dto/deleteAccount.dto';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { megabyte } from 'src/library/constants/size.constants';
+import { UserEntity } from 'src/app/modules/users/entities/user.entity';
 
 @ApiTags('Authentication (Self Management)')
 @Controller()

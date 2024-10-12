@@ -7,7 +7,7 @@ import { UserService } from 'src/app/modules/users/services/users.service';
 import {
   AccessTokenValidationPayload,
   Payload,
-} from 'src/library/interfaces/payload.interface';
+} from 'src/app/authentication/interfaces/payload.interface';
 
 @Injectable()
 class AccessTokenStrategy extends PassportStrategy(Strategy, 'jwt') {

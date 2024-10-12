@@ -103,12 +103,12 @@ const routes: RouteRecordRaw[] = [
                     path: '',
                     name: ROUTE_NAMES.ADMIN_GAMES_LIST,
                     component: () =>
-                      import('@/app/views/administration/components/tables/games-paginated.components.vue')
+                      import('@/app/views/administration/components/tables/games.component.vue')
                   },
                   {
                     path: 'platforms',
                     name: ROUTE_NAMES.ADMIN_GAMES_PLATFORMS_LIST,
-                    component: () => import('@/app/views/home/home.view.vue')
+                    component: () => import('@/app/views/administration/components/tables/platforms.component.vue')
                   }
                 ]
               }

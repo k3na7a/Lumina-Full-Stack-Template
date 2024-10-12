@@ -1,7 +1,7 @@
 import { IsBoolean, IsEnum, IsOptional, IsString } from 'class-validator';
-import { PaginationOptions } from './pagination.dto';
+import { PaginationOptions } from '../../../../library/dto/pagination.dto';
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
-import { Role } from '../enums/role.enum';
+import { Role } from '../../../../library/enums/role.enum';
 import { Transform } from 'class-transformer';
 
 enum SORT_OPTIONS {

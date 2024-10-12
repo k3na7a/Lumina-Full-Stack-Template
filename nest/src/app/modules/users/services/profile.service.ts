@@ -2,8 +2,8 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 
-import { UpdateUserProfile } from 'src/library/interfaces/user.interfaces';
-import { ProfileEntity } from 'src/library/entities/user/profile.entity';
+import { UpdateUserProfile } from 'src/app/modules/users/interfaces/user.interfaces';
+import { ProfileEntity } from '../entities/profile.entity';
 
 @Injectable()
 export class ProfileService {

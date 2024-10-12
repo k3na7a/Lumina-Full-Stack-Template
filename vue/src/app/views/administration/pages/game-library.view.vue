@@ -28,18 +28,17 @@ function updateRoute(value: { label: string; name: ROUTE_NAMES } | undefined): v
       </p>
     </div>
     <div class="card d-flex flex-column">
-      <div class="section p-3 bg-alt">
-        <SelectInputComponent
-          name="navigation"
-          @update="updateRoute"
-          style="width: 15rem"
-          :value="default_route"
-          :options
-        >
-          <template #option="{ option }">
-            {{ option.label }}
-          </template>
-        </SelectInputComponent>
+      <div class="section p-3 bg-alt d-flex flex-column flex-sm-row gap-2 align-items-stretch align-items-sm-center">
+        <div class="row-header">
+          <p class="fw-semibold text-light-alt">{{ $t('Category:') }}</p>
+        </div>
+        <div class="d-flex flex-column flex-grow-1">
+          <SelectInputComponent name="navigation" @update="updateRoute" :value="default_route" :options>
+            <template #option="{ option }">
+              {{ option.label }}
+            </template>
+          </SelectInputComponent>
+        </div>
       </div>
       <div class="section p-3">
         <Suspense>

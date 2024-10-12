@@ -1,10 +1,13 @@
 import { ApiProperty } from '@nestjs/swagger';
+import { Match } from '../decorators/match.decorator';
 import { IsString, Matches } from 'class-validator';
-
-import { Match } from '../../app/authentication/decorators/match.decorator';
 import { PasswordValidation } from 'src/library/regex/validation.regex';
 
-class ResetPasswordDto {
+export class updatePasswordDto {
+  @ApiProperty()
+  @IsString()
+  public readonly old_password!: string;
+
   @ApiProperty()
   @IsString()
   @Matches(PasswordValidation.regex, {
@@ -13,8 +16,6 @@ class ResetPasswordDto {
   public readonly new_password!: string;
 
   @ApiProperty()
-  @Match(ResetPasswordDto, (s: ResetPasswordDto) => s.new_password)
-  public readonly confirm_password!: string;
+  @Match(updatePasswordDto, (s: updatePasswordDto) => s.new_password)
+  public readonly confirm_new_password!: string;
 }
-
-export { ResetPasswordDto };

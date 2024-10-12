@@ -72,8 +72,13 @@ onMounted(() => {
 </script>
 
 <template>
-  <div class="custom-input d-flex flex-column gap-1" v-click-outside="closeDropdown">
-    <div class="dropdown select" :class="{ 'has-error': !!errorMessage && meta.touched }" ref="dropdownRef">
+  <div class="d-flex flex-column gap-1">
+    <div
+      class="dropdown select"
+      :class="{ 'has-error': !!errorMessage && meta.touched }"
+      ref="dropdownRef"
+      v-click-outside="closeDropdown"
+    >
       <div class="multi-select d-flex align-items-stretch bg-alt">
         <div v-if="value?.length" class="display flex-shrink-1 align-items-center p-1 px-2">
           <p class="text-light-alt text-nowrap text-truncate hover-cursor-pointer hover-underline" @click="clear">
@@ -87,7 +92,6 @@ onMounted(() => {
           class="d-flex flex-grow-1 mb-0 p-1 px-2 text-truncate"
           :placeholder="$t('actions.search.placeholder')"
           autocomplete="off"
-          @click="giveFocus"
           @focus="openDropdown"
         />
 

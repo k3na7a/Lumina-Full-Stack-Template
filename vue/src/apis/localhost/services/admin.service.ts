@@ -45,8 +45,6 @@ class users {
       if (Object(payload)[key]) formData.append(key, Object(payload)[key])
     })
 
-    console.log(payload)
-
     return this.$api
       .patch<UserDto>(
         `admin/users/${id}`,

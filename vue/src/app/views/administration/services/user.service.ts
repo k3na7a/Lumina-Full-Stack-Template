@@ -29,7 +29,6 @@ class UserService {
       properties: {
         user,
         callback: async (values: UpdateUser): Promise<void> => {
-          console.log(values)
           LocalhostAPI.administration.users
             .updateUser(user.id, new UpdateUserDto(values))
             .then((value: UserDto) => {
@@ -71,8 +70,8 @@ class UserService {
               })
             })
         },
-        title: `Delete user ${user.getFullName()}`,
-        body: `Are you sure you want to delete Testhub user ${user.getFullName()}?`,
+        title: `Delete ${user.getFullName()}`,
+        body: `Are you sure you want to delete user ${user.getFullName()}?`,
         action: 'Delete User'
       }
     })
