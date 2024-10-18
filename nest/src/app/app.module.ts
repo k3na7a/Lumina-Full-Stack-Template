@@ -10,7 +10,6 @@ import { UserModule } from './modules/users/users.module';
 import { AccessTokenStrategy } from './authentication/strategies/accesstoken.strategy';
 import { LocalStrategy } from './authentication/strategies/localauth.strategy';
 import { RefreshTokenStrategy } from './authentication/strategies/refreshtoken.strategy';
-import { RouterModule } from '@nestjs/core';
 import { AdminModule } from './administration/admin.module';
 
 @Module({
@@ -28,19 +27,7 @@ import { AdminModule } from './administration/admin.module';
 
     AuthModule,
     AdminModule,
-
     UserModule,
-
-    RouterModule.register([
-      {
-        path: 'auth',
-        module: AuthModule,
-      },
-      {
-        path: 'admin',
-        module: AdminModule,
-      },
-    ]),
   ],
   providers: [AccessTokenStrategy, LocalStrategy, RefreshTokenStrategy],
 })

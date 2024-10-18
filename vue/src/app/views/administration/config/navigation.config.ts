@@ -12,9 +12,4 @@ const administration_navigation: sub_navigation = [
   }
 ]
 
-const games_library_navigation: sub_navigation = [
-  { label: 'Games', name: ROUTE_NAMES.ADMIN_GAMES_LIST },
-  { label: 'Platforms', name: ROUTE_NAMES.ADMIN_GAMES_PLATFORMS_LIST }
-]
-
-export { administration_navigation, games_library_navigation }
+export { administration_navigation }

@@ -25,7 +25,7 @@ const onSubmit = getSubmitFn(validationSchema, async (values: UpdateEmail): Prom
 </script>
 
 <template>
-  <Form @submit="onSubmit" :validation-schema v-slot="{ meta }" :key="JSON.stringify(user?.updatedAt)">
+  <Form @submit="onSubmit" :validation-schema="validationSchema" v-slot="{ meta }" :key="JSON.stringify(user?.updatedAt)">
     <div class="d-flex flex-column flex-sm-row gap-3 p-3">
       <div class="row-header">
         <h6 class="fw-bold">{{ $t('forms.email') }}</h6>

@@ -44,8 +44,8 @@ import { FileInterceptor } from '@nestjs/platform-express';
 import { megabyte } from 'src/library/constants/size.constants';
 import { UserEntity } from 'src/app/modules/users/entities/user.entity';
 
-@ApiTags('Authentication (Self Management)')
-@Controller()
+@ApiTags('Authentication / Self Management')
+@Controller('auth')
 @UseInterceptors(ClassSerializerInterceptor)
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
@@ -137,7 +137,7 @@ export class AuthController {
     return this.authService.updatePassword(user.userEntity, dto);
   }
 
-  @Post('/update-avatar')
+  @Patch('/update-avatar')
   @ApiBearerAuth('access-token')
   @UseGuards(RefreshTokenGuard)
   @ApiOkResponse({ type: JWTDto })

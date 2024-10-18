@@ -6,6 +6,7 @@ import { HTMLAutoComplete } from '@/library/data/types/HTMLautocomplete.type'
 
 const props = defineProps<{
   name: string
+  disabled?: boolean
   type: InputTypeHTMLAttribute
   value?: string
   autocomplete?: HTMLAutoComplete
@@ -33,6 +34,7 @@ onMounted(() => {
     <h6 class="d-block fw-semibold" v-if="label" :for="name">{{ $t(label) }}</h6>
     <input
       class="w-100 border-radius bg-alt px-2 py-1"
+      :disabled="props.disabled"
       :name
       :type
       :value
@@ -79,6 +81,12 @@ onMounted(() => {
     height: 3rem;
 
     transition: all 0.15s ease-in-out;
+  }
+
+  input:disabled {
+    pointer-events: none;
+    border-color: grey;
+    opacity: 75%;
   }
 }
 </style>

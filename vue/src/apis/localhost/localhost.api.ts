@@ -2,8 +2,8 @@ import axios, { AxiosInstance } from 'axios'
 
 import { ILocalStorageUtil, useLocalStorageUtil } from '@/utilities/local-storage.util'
 
-import { authentication } from './services/auth.service'
-import { administration } from './services/admin.service'
+import { authentication } from './services/auth/auth.service'
+import { administration } from './services/admin/admin.service'
 
 const TOKEN_ID = 'example-nest-api-token'
 const instance: AxiosInstance = axios.create({

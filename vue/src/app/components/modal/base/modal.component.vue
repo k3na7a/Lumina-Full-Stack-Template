@@ -51,9 +51,16 @@ watch(isOpen, async (value: boolean, _prev: boolean): Promise<void> => {
     role="dialog"
     @click.self="stopPropagation"
   >
-    <div class="modal-dialog modal-dialog-centered" :class="`modal-${options.size}`">
+    <div
+      class="modal-dialog modal-dialog-centered"
+      :class="`modal-${options.size}`"
+      :key="JSON.stringify(options.view)"
+    >
       <div class="modal-content p-3 position-relative border-radius bg-alt box-shadow">
-        <component :is="options.view" v-model="localstate.model" v-bind="options.properties" />
+        <Suspense v-if="options.view">
+          <component :is="options.view" v-model="localstate.model" v-bind="options.properties" />
+          <template #fallback>{{ $t('actions.loading') }}</template>
+        </Suspense>
         <div class="modal-close position-absolute top-0 end-0">
           <button type="button" class="btn btn-icon-sm btn-dark p-0 me-2 mt-2" @click="store.closeModal">
             <font-awesome-icon size="lg" :icon="['fas', 'close']" />

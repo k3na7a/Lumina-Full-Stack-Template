@@ -25,7 +25,7 @@ const onSubmit = getSubmitFn(validationSchema, (values: FormValues) => {
 </script>
 
 <template>
-  <Form @submit="onSubmit" :validation-schema v-slot="{ meta }">
+  <Form @submit="onSubmit" :validation-schema="validationSchema" v-slot="{ meta }">
     <div class="d-flex flex-column gap-3">
       <ModalTitleComponent :title="$t(props.title)" />
       <div class="d-flex flex-column">

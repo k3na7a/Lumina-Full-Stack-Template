@@ -6,7 +6,7 @@ import * as bootstrap from 'bootstrap'
 import moment from 'moment'
 import { useField } from 'vee-validate'
 
-const props = defineProps<{ name: string }>()
+const props = defineProps<{ name: string; value?: Date }>()
 const todayTimestamp = moment().startOf('day')
 
 const date = new Date()
@@ -14,7 +14,9 @@ const year = ref<number>(date.getFullYear())
 const month = ref<number>(date.getMonth())
 
 const name = toRef(props, 'name')
-const { value } = useField<Date | undefined>(name.value, undefined, { initialValue: undefined })
+const { value, errorMessage } = useField<Date | undefined>(name.value, undefined, {
+  initialValue: undefined
+})
 
 const emit = defineEmits<{ update: [value: Date | undefined] }>()
 watch(value, (newVal: Date | undefined) => {
@@ -93,7 +95,12 @@ onUnmounted(() => {
 <template>
   <div class="custom-input" v-click-outside="closeDropdown">
     <div class="dropdown date-picker border-0" ref="dropdownRef">
-      <button class="date-picker-btn bg-alt text-light w-100 d-flex align-items-stretch" @click="toggleDropdown">
+      <button
+        class="date-picker-btn bg-alt text-light w-100 d-flex align-items-stretch"
+        :class="{ 'has-error': !!errorMessage }"
+        @click="toggleDropdown"
+        type="button"
+      >
         <div class="d-flex flex-grow-1 d-flex text-start px-2 align-items-center overflow-hidden">
           <span v-if="value">{{ moment(value).format('MMMM Do YYYY') }}</span>
           <span v-else style="color: grey">select a date...</span>
@@ -108,19 +115,19 @@ onUnmounted(() => {
       >
         <div class="d-flex justify-content-between align-items-center my-1">
           <div class="d-flex gap-1">
-            <button class="text-light btn btn-icon btn-dark border-0" @click="() => updateYear(-1)">
+            <button class="text-light btn btn-icon btn-dark border-0" @click="() => updateYear(-1)" type="button">
               <font-awesome-icon :icon="['fas', 'angles-left']" />
             </button>
-            <button class="text-light btn btn-icon btn-dark border-0" @click="() => updateMonth(-1)">
+            <button class="text-light btn btn-icon btn-dark border-0" @click="() => updateMonth(-1)" type="button">
               <font-awesome-icon :icon="['fas', 'angle-left']" />
             </button>
           </div>
           <h6>{{ getMonthStr(month) }} {{ year }}</h6>
           <div class="d-flex gap-1">
-            <button class="text-light btn btn-icon btn-dark border-0" @click="() => updateMonth(1)">
+            <button class="text-light btn btn-icon btn-dark border-0" @click="() => updateMonth(1)" type="button">
               <font-awesome-icon :icon="['fas', 'angle-right']" />
             </button>
-            <button class="text-light btn btn-icon btn-dark border-0" @click="() => updateYear(1)">
+            <button class="text-light btn btn-icon btn-dark border-0" @click="() => updateYear(1)" type="button">
               <font-awesome-icon :icon="['fas', 'angles-right']" />
             </button>
           </div>
@@ -140,6 +147,7 @@ onUnmounted(() => {
               >
                 <button
                   :id="day.timestamp.toString()"
+                  type="button"
                   @click="set"
                   :disabled="value?.getTime() == day.timestamp"
                   style="width: 4rem; height: 4rem"
@@ -187,14 +195,26 @@ onUnmounted(() => {
   &:hover {
     .date-picker-btn {
       box-shadow: 0 0 0 0.1rem $muted;
+
+      &.has-error {
+        box-shadow: 0 0 0 0.1rem $danger !important;
+      }
     }
   }
 
   &:focus-within {
     .date-picker-btn {
-      border-color: $primary !important;
-      box-shadow: 0 0 0 0.1rem $primary !important;
+      border-color: $primary;
+      box-shadow: 0 0 0 0.1rem $primary;
+
+      &.has-error {
+        box-shadow: 0 0 0 0.1rem $danger !important;
+      }
     }
+  }
+
+  .has-error {
+    border-color: $danger !important;
   }
 
   .dropdown-menu {

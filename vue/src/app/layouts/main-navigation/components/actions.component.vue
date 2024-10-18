@@ -42,7 +42,7 @@ const user: ComputedRef<UserDto | undefined> = computed(() => authStore.authenti
       <nav class="align-content-center flex-grow-1">
         <button class="btn btn-dark btn-icon" type="button">
           <font-awesome-icon :icon="['fas', 'bell']" />
-          <small class="custom-badge px-1 rounded-pill">99+</small>
+          <small class="custom-badge px-1 rounded-pill">3 </small>
         </button>
       </nav>
       <nav class="align-content-center flex-grow-1">
@@ -65,6 +65,7 @@ const user: ComputedRef<UserDto | undefined> = computed(() => authStore.authenti
     left: calc(100% - 1.25rem);
     background-color: $danger;
     pointer-events: none;
+    border: 2px solid rgba(0, 0, 0, 0.8);
   }
 }
 </style>

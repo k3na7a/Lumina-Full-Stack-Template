@@ -7,7 +7,19 @@
     "caption": "Showing {showing} of {count} users | Showing {showing} of {count} user | Showing {showing} of {count} users"
   },
   "games": {
-    "label": "Game Library"
+    "label": "Game Library",
+    "games": {
+      "label": "Games",
+      "caption": "Showing {showing} of {count} games | Showing {showing} of {count} game | Showing {showing} of {count} games"
+    },
+    "platforms": {
+      "label": "Platforms",
+      "caption": "Showing {showing} of {count} platforms | Showing {showing} of {count} platform | Showing {showing} of {count} platforms"
+    },
+    "genres": {
+      "label": "Genres",
+      "caption": "Showing {showing} of {count} genres | Showing {showing} of {count} genre | Showing {showing} of {count} genres"
+    }
   },
   "settings": {
     "label": "Settings",

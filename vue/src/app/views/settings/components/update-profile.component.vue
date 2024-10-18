@@ -24,7 +24,12 @@ const onSubmit = validateUtil.getSubmitFn(validationSchema, async (values: Updat
 </script>
 
 <template>
-  <Form @submit="onSubmit" :validation-schema v-slot="{ meta }" :key="JSON.stringify(user?.updatedAt)">
+  <Form
+    @submit="onSubmit"
+    :validation-schema="validationSchema"
+    v-slot="{ meta }"
+    :key="JSON.stringify(user?.updatedAt)"
+  >
     <div class="section d-flex flex-column gap-3 flex-sm-row p-3">
       <div class="row-header">
         <h6 class="fw-bold">{{ $t('forms.name') }}</h6>

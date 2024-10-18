@@ -15,6 +15,7 @@ enum ROUTE_NAMES {
   ADMIN_GAMES = 'game-library-administration',
   ADMIN_GAMES_LIST = 'game-library-list-administration',
   ADMIN_GAMES_PLATFORMS_LIST = 'game-platform-list-administration',
+  ADMIN_GAMES_GENRES_LIST = 'game-genre-list-administration',
 
   SETTINGS = 'settings',
   SECURITY = 'security',

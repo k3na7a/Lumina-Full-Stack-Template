@@ -89,7 +89,7 @@ const routes: RouteRecordRaw[] = [
                   {
                     path: '',
                     name: ROUTE_NAMES.ADMIN_USER_LIST,
-                    component: () => import('@/app/views/administration/pages/users.view.vue')
+                    component: () => import('@/app/views/administration/user/users.view.vue')
                   }
                 ]
               },
@@ -97,18 +97,22 @@ const routes: RouteRecordRaw[] = [
                 path: 'games',
                 name: ROUTE_NAMES.ADMIN_GAMES,
                 redirect: { name: ROUTE_NAMES.ADMIN_GAMES_LIST },
-                component: () => import('@/app/views/administration/pages/game-library.view.vue'),
+                component: () => import('@/app/views/administration/game-library/game-library.view.vue'),
                 children: [
                   {
                     path: '',
                     name: ROUTE_NAMES.ADMIN_GAMES_LIST,
-                    component: () =>
-                      import('@/app/views/administration/components/tables/games.component.vue')
+                    component: () => import('@/app/views/administration/game-library/pages/games.view.vue')
                   },
                   {
                     path: 'platforms',
                     name: ROUTE_NAMES.ADMIN_GAMES_PLATFORMS_LIST,
-                    component: () => import('@/app/views/administration/components/tables/platforms.component.vue')
+                    component: () => import('@/app/views/administration/game-library/pages/platforms.view.vue')
+                  },
+                  {
+                    path: 'genres',
+                    name: ROUTE_NAMES.ADMIN_GAMES_GENRES_LIST,
+                    component: () => import('@/app/views/administration/game-library/pages/genres.view.vue')
                   }
                 ]
               }

@@ -55,7 +55,12 @@ const onSubmit = getSubmitFn(validationSchema, async (values: { email: string })
           <h3 class="display-font fw-bold">{{ $t('authentication.account-recovery.title') }}</h3>
           <h5 class="fw-normal text-muted">{{ $t('authentication.account-recovery.subtitle') }}</h5>
         </div>
-        <Form @submit="onSubmit" :validation-schema v-slot="{ meta }" class="d-flex flex-column gap-3">
+        <Form
+          @submit="onSubmit"
+          :validation-schema="validationSchema"
+          v-slot="{ meta }"
+          class="d-flex flex-column gap-3"
+        >
           <div class="d-flex flex-column gap-1">
             <TextInput autocomplete="email" name="email" type="email" label="forms.email" />
             <small>{{ $t('authentication.account-recovery.label') }}</small>

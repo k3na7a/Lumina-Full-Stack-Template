@@ -1,13 +1,26 @@
 import { Module } from '@nestjs/common';
 
-import { UserModule } from 'src/app/modules';
-import { UserAdminController as UserController } from './controllers/user.controller';
-import { UserAdminService as UserService } from './services/user.service';
+import { UserAdminModule } from './users/user.module';
+import { RouterModule } from '@nestjs/core';
+import { GamesAdminModule } from './games/games.module';
 
 @Module({
-  imports: [UserModule],
-  controllers: [UserController],
-  providers: [UserService],
-  exports: [],
+  imports: [
+    UserAdminModule,
+    GamesAdminModule,
+
+    RouterModule.register([
+      {
+        path: 'admin',
+        children: [
+          UserAdminModule,
+          {
+            path: 'game-library',
+            children: [GamesAdminModule],
+          },
+        ],
+      },
+    ]),
+  ],
 })
 export class AdminModule {}
