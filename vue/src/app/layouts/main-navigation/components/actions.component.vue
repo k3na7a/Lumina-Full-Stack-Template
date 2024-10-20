@@ -1,12 +1,12 @@
 <script setup lang="ts">
 import { computed, ComputedRef } from 'vue'
 
-import LanguagesDropdown from '@/app/components/dropdown/languages-dropdown.component.vue'
-import UserActionsDropdown from '@/app/components/dropdown/user-actions-dropdown.component.vue'
+import LanguagesDropdown from '@/app/layouts/main-navigation/components/dropdowns/languages-dropdown.component.vue'
+import UserActionsDropdown from '@/app/layouts/main-navigation/components/dropdowns/user-actions-dropdown.component.vue'
 
 import { MainLayoutService } from '../services/main-layout.service'
 import { AuthStore, useAuthStore } from '@/app/store/authentication.store'
-import { UserDto } from '@/library/apis/localhost/dto/user.dto'
+import { UserDto } from '@/library/data/dto/user/user.dto'
 
 const authStore: AuthStore = useAuthStore()
 const { signin, register, signout } = MainLayoutService

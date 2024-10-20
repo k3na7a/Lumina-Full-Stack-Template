@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import NavbarComponent from '@/app/components/navbar/navbar.component.vue'
+import NavbarComponent from '@/library/components/navbar/navbar.component.vue'
 
 import NavigationComponent from './components/navigation.component.vue'
 import ActionComponent from './components/actions.component.vue'

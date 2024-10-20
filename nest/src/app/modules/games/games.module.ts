@@ -13,6 +13,12 @@ import { CoverService } from './services/cover.service';
 import { SeriesEntity } from './entities/series.entity';
 import { SeriesService } from './services/series.service';
 import { S3Service } from 'src/app/services/s3.service';
+import { DeveloperEntity } from './entities/developer.entity';
+import { PublisherEntity } from './entities/publisher.entity';
+import { GametypeEntity } from './entities/gametype.entity';
+import { DeveloperService } from './services/developer.service';
+import { PublisherService } from './services/publisher.service';
+import { GametypeService } from './services/gametype.service';
 
 @Module({
   imports: [
@@ -22,15 +28,22 @@ import { S3Service } from 'src/app/services/s3.service';
       GenreEntity,
       CoverEntity,
       SeriesEntity,
+      DeveloperEntity,
+      PublisherEntity,
+      GametypeEntity,
     ]),
   ],
   providers: [
+    S3Service,
+
     GameService,
     PlatformService,
     GenreService,
     CoverService,
     SeriesService,
-    S3Service,
+    DeveloperService,
+    PublisherService,
+    GametypeService,
   ],
   exports: [
     GameService,
@@ -38,6 +51,9 @@ import { S3Service } from 'src/app/services/s3.service';
     GenreService,
     CoverService,
     SeriesService,
+    DeveloperService,
+    PublisherService,
+    GametypeService,
   ],
 })
 export class GamesModule {}

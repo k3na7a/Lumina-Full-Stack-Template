@@ -9,16 +9,25 @@ import { GameEntity } from 'src/app/modules/games/entities/game.entity';
 import { GenreEntity } from 'src/app/modules/games/entities/genre.entity';
 import { CoverEntity } from 'src/app/modules/games/entities/cover.entity';
 import { SeriesEntity } from 'src/app/modules/games/entities/series.entity';
+import { DeveloperEntity } from 'src/app/modules/games/entities/developer.entity';
+import { PublisherEntity } from 'src/app/modules/games/entities/publisher.entity';
+import { GametypeEntity } from 'src/app/modules/games/entities/gametype.entity';
 
 const entities = [
+  // # users
   UserEntity,
   ProfileEntity,
   AvatarEntity,
+
+  // # video game library
   GameEntity,
   PlatformEntity,
   GenreEntity,
   CoverEntity,
   SeriesEntity,
+  DeveloperEntity,
+  PublisherEntity,
+  GametypeEntity,
 ];
 
 const config: TypeOrmModuleOptions = {

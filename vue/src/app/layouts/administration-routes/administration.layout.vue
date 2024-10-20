@@ -5,7 +5,7 @@ import { computed, ComputedRef } from 'vue'
 import { useAuthStore, AuthStore } from '@/app/store/authentication.store'
 
 import UnauthorizedComponent from './components/unauthorized.component.vue'
-import { Role } from '@/library/apis/localhost/dto/user.dto'
+import { Role } from '@/library/data/dto/user/user.dto'
 
 const route: RouteLocationNormalizedLoaded = useRoute()
 const authStore: AuthStore = useAuthStore()

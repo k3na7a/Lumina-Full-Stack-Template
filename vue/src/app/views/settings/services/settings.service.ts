@@ -1,12 +1,12 @@
 import { markRaw } from 'vue'
 import { AxiosError } from 'axios'
 
-import PasswordModal from '@/app/components/modal/password.modal.vue'
-import UploadImageModalComponent from '@/app/components/modal/image-upload.modal.vue'
+import PasswordModal from '@/library/components/modal/templates/password.modal.vue'
+import UploadImageModalComponent from '@/library/components/modal/templates/image-upload.modal.vue'
 
-import { ModalStore, useModalStore } from '@/app/store/modal.store'
+import { ModalStore, useModalStore } from '@/library/components/modal/store/modal.store'
 import { AuthStore, useAuthStore } from '@/app/store/authentication.store'
-import { ToastStore, useToastStore } from '@/app/store/toast.store'
+import { ToastStore, useToastStore } from '@/library/components/toast/store/toast.store'
 
 import {
   DeleteAccount,
@@ -17,8 +17,8 @@ import {
   UpdatePasswordDto,
   UpdateProfile,
   UpdateProfileDto
-} from '@/library/apis/localhost/dto/user.dto'
-import ConfirmModal from '@/app/components/modal/confirm.modal.vue'
+} from '@/library/data/dto/user/user.dto'
+import ConfirmModal from '@/library/components/modal/templates/confirm.modal.vue'
 
 class SettingsService {
   public static updateAvatar = (): void => {

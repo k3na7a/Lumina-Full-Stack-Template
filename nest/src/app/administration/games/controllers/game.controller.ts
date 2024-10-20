@@ -21,7 +21,7 @@ import {
   ApiTags,
 } from '@nestjs/swagger';
 import { megabyte } from 'src/library/constants/size.constants';
-import { storage } from 'src/config/storage.config';
+import { storage } from 'src/library/config/storage.config';
 import { Roles } from 'src/app/authentication/decorators/roles.decorator';
 import { RefreshTokenGuard } from 'src/app/authentication/guards/refreshtoken.guard';
 import { RolesGuard } from 'src/app/authentication/guards/role.guard';

@@ -6,6 +6,9 @@ import { PlatformEntity } from './platform.entity';
 import { GenreEntity } from './genre.entity';
 import { CoverEntity } from './cover.entity';
 import { SeriesEntity } from './series.entity';
+import { DeveloperEntity } from './developer.entity';
+import { PublisherEntity } from './publisher.entity';
+import { GametypeEntity } from './gametype.entity';
 
 @Entity()
 class GameEntity extends BaseEntity {
@@ -60,6 +63,42 @@ class GameEntity extends BaseEntity {
     inverseJoinColumn: { name: 'series_id', referencedColumnName: 'id' },
   })
   public readonly series?: Array<SeriesEntity>;
+
+  @ApiProperty({ type: [DeveloperEntity] })
+  @ManyToMany(() => DeveloperEntity, { eager: true })
+  @JoinTable({
+    name: 'game_developers',
+    joinColumn: {
+      name: 'game_id',
+      referencedColumnName: 'id',
+    },
+    inverseJoinColumn: { name: 'developer_id', referencedColumnName: 'id' },
+  })
+  public readonly developers?: Array<DeveloperEntity>;
+
+  @ApiProperty({ type: [PublisherEntity] })
+  @ManyToMany(() => PublisherEntity, { eager: true })
+  @JoinTable({
+    name: 'game_publishers',
+    joinColumn: {
+      name: 'game_id',
+      referencedColumnName: 'id',
+    },
+    inverseJoinColumn: { name: 'publisher_id', referencedColumnName: 'id' },
+  })
+  public readonly publishers?: Array<PublisherEntity>;
+
+  @ApiProperty({ type: [GametypeEntity] })
+  @ManyToMany(() => GametypeEntity, { eager: true })
+  @JoinTable({
+    name: 'game_gametypes',
+    joinColumn: {
+      name: 'game_id',
+      referencedColumnName: 'id',
+    },
+    inverseJoinColumn: { name: 'gametype_id', referencedColumnName: 'id' },
+  })
+  public readonly gametypes?: Array<GametypeEntity>;
 
   @ApiProperty()
   @Column({ unique: true })

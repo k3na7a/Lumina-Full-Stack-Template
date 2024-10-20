@@ -37,6 +37,18 @@ class GameDto {
   @IsOptional()
   public readonly series_ids?: Array<string>;
 
+  @ApiProperty({ type: String, isArray: true })
+  @IsOptional()
+  public readonly developer_ids?: Array<string>;
+
+  @ApiProperty({ type: String, isArray: true })
+  @IsOptional()
+  public readonly publisher_ids?: Array<string>;
+
+  @ApiProperty({ type: String, isArray: true })
+  @IsOptional()
+  public readonly gametype_ids?: Array<string>;
+
   @ApiProperty()
   @IsString()
   public readonly slug!: string;

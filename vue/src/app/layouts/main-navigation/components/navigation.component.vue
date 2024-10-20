@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import NavigationDropdown from '@/app/components/dropdown/navigation-dropdown.component.vue'
+import NavigationDropdown from '@/app/layouts/main-navigation/components/dropdowns/navigation-dropdown.component.vue'
 import { MAIN_NAVIGATION } from '@/app/layouts/main-navigation/schema/main-navigation.schema'
 import { AuthStore, useAuthStore } from '@/app/store/authentication.store'
 import { computed, ComputedRef } from 'vue'

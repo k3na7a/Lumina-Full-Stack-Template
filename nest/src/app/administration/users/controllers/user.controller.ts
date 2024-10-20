@@ -27,7 +27,7 @@ import { Role } from 'src/library/enums/role.enum';
 import { RefreshTokenGuard } from 'src/app/authentication/guards/refreshtoken.guard';
 import { RolesGuard } from 'src/app/authentication/guards/role.guard';
 import { FileInterceptor } from '@nestjs/platform-express/multer';
-import { storage } from 'src/config/storage.config';
+import { storage } from 'src/library/config/storage.config';
 import { megabyte } from 'src/library/constants/size.constants';
 import {
   UserPaginationOptions,

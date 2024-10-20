@@ -1,9 +1,9 @@
 import { AxiosError } from 'axios'
 
 import { AuthStore, useAuthStore } from '@/app/store/authentication.store'
-import { ToastStore, useToastStore } from '@/app/store/toast.store'
+import { ToastStore, useToastStore } from '@/library/components/toast/store/toast.store'
 
-import { ForgotPassword, ForgotPasswordDto, ResetPassword, ResetPasswordDto } from '@/library/apis/localhost/dto/user.dto'
+import { ForgotPassword, ForgotPasswordDto, ResetPassword, ResetPasswordDto } from '@/library/data/dto/user/user.dto'
 
 class GuestService {
   public static forgotPassword = async (props: ForgotPassword, callback?: () => void): Promise<void> => {

@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { RouteLocationNormalizedLoaded, useRoute } from 'vue-router'
 
-import NavbarComponent from '@/app/components/navbar/navbar.component.vue'
-import LanguagesDropdown from '@/app/components/dropdown/languages-dropdown.component.vue'
+import NavbarComponent from '@/library/components/navbar/navbar.component.vue'
+import LanguagesDropdown from '@/app/layouts/main-navigation/components/dropdowns/languages-dropdown.component.vue'
 
 const route: RouteLocationNormalizedLoaded = useRoute()
 </script>

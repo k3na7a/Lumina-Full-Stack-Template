@@ -8,6 +8,9 @@ import { PlatformService } from './platform.service';
 import { GenreService } from './genre.service';
 import { CoverService } from './cover.service';
 import { SeriesService } from './series.service';
+import { DeveloperService } from './developer.service';
+import { PublisherService } from './publisher.service';
+import { GametypeService } from './gametype.service';
 
 @Injectable()
 class GameService {
@@ -18,6 +21,9 @@ class GameService {
     private readonly genreService: GenreService,
     private readonly coverService: CoverService,
     private readonly seriesService: SeriesService,
+    private readonly developerService: DeveloperService,
+    private readonly publisherService: PublisherService,
+    private readonly gametypeService: GametypeService,
   ) {}
 
   public async create(
@@ -30,6 +36,13 @@ class GameService {
     const platforms = await this.platformService.findManyById(dto.platform_ids);
     const genres = await this.genreService.findManyById(dto.genre_ids);
     const series = await this.seriesService.findManyById(dto.series_ids);
+    const developers = await this.developerService.findManyById(
+      dto.developer_ids,
+    );
+    const publishers = await this.publisherService.findManyById(
+      dto.publisher_ids,
+    );
+    const gametypes = await this.gametypeService.findManyById(dto.gametype_ids);
 
     const game = this.repository.create({
       ...dto,
@@ -37,6 +50,9 @@ class GameService {
       genres,
       cover,
       series,
+      developers,
+      publishers,
+      gametypes,
     });
 
     return this.repository.save(game);
@@ -52,6 +68,9 @@ class GameService {
       .leftJoinAndSelect('game.genres', 'genre')
       .leftJoinAndSelect('game.cover', 'cover')
       .leftJoinAndSelect('game.series', 'series')
+      .leftJoinAndSelect('game.developers', 'developer')
+      .leftJoinAndSelect('game.publishers', 'publisher')
+      .leftJoinAndSelect('game.gametypes', 'gametype')
       .where('game.name like :query', { query: `%${search}%` })
       .orderBy({ [sort]: order })
       .limit(take)

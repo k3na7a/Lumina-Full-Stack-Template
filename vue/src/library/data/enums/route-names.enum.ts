@@ -17,6 +17,9 @@ enum ROUTE_NAMES {
   ADMIN_GAMES_PLATFORMS_LIST = 'game-platform-list-administration',
   ADMIN_GAMES_GENRES_LIST = 'game-genre-list-administration',
   ADMIN_GAMES_SERIES_LIST = 'game-series-list-administration',
+  ADMIN_GAMES_DEVELOPERS_LIST = 'game-developers-list-administration',
+  ADMIN_GAMES_PUBLISHERS_LIST = 'game-publishers-list-administration',
+  ADMIN_GAMES_GAMETYPES_LIST = 'game-gametypes-list-administration',
 
   SETTINGS = 'settings',
   SECURITY = 'security',

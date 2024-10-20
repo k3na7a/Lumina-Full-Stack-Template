@@ -23,6 +23,18 @@
     "series": {
       "label": "Series",
       "caption": "Showing {showing} of {count} series | Showing {showing} of {count} series | Showing {showing} of {count} series"
+    },
+    "developers": {
+      "label": "Developers",
+      "caption": "Showing {showing} of {count} developers | Showing {showing} of {count} developer | Showing {showing} of {count} developers"
+    },
+    "publishers": {
+      "label": "Publishers",
+      "caption": "Showing {showing} of {count} publishers | Showing {showing} of {count} publisher | Showing {showing} of {count} publishers"
+    },
+    "gametypes": {
+      "label": "Gametypes",
+      "caption": "Showing {showing} of {count} gametypes | Showing {showing} of {count} gametype | Showing {showing} of {count} gametypes"
     }
   },
   "settings": {

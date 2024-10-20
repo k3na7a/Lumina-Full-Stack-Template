@@ -4,9 +4,9 @@ import { Form } from 'vee-validate'
 import * as Yup from 'yup'
 import { Router, useRouter } from 'vue-router'
 
-import { useFormUtil } from '@/library/utilities/forms.util'
-import { ForgotPassword } from '@/library/apis/localhost/dto/user.dto'
-import TextInput from '@/app/components/inputs/text.input.vue'
+import { useFormUtil } from '@/library/utilities/helpers/forms.util'
+import { ForgotPassword } from '@/library/data/dto/user/user.dto'
+import TextInput from '@/library/components/inputs/text.input.vue'
 import { ROUTE_NAMES } from '@/app/router/routes'
 import { GuestService } from '../services/guest.service'
 

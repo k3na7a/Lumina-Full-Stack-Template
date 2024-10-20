@@ -2,11 +2,11 @@
 import { computed, ComputedRef, reactive } from 'vue'
 import { Form } from 'vee-validate'
 
-import TextInput from '@/app/components/inputs/text.input.vue'
-import PasswordValidationList from '@/app/components/labels/password-validation-list.component.vue'
+import TextInput from '@/library/components/inputs/text.input.vue'
+import PasswordValidationList from '@/library/components/labels/password-validation-list.component.vue'
 
-import { useFormUtil } from '@/library/utilities/forms.util'
-import { UserDto, UpdatePassword } from '@/library/apis/localhost/dto/user.dto'
+import { useFormUtil } from '@/library/utilities/helpers/forms.util'
+import { UserDto, UpdatePassword } from '@/library/data/dto/user/user.dto'
 import { AuthStore, useAuthStore } from '@/app/store/authentication.store'
 import { SettingsService } from '../services/settings.service'
 import { updatePassword as validationSchema } from '../config/schema/validation.schema'

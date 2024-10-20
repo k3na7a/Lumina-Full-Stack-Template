@@ -23,7 +23,7 @@ import {
 
 import { AuthService } from '../services/auth.service';
 
-import { storage } from 'src/config/storage.config';
+import { storage } from 'src/library/config/storage.config';
 import {
   RegisterDto,
   RegisterProfileDto,
