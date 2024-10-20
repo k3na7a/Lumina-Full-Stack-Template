@@ -1,6 +1,6 @@
-import { GameDto, CreateGameDto, igame } from '@/apis/localhost/dto/game-library.dto'
-import { PaginationOptions, PaginationDto, PaginationMeta } from '@/apis/localhost/dto/pagination.dto'
-import { LocalhostAPI } from '@/apis/localhost/localhost.api'
+import { GameDto, CreateGameDto, igame } from '@/library/apis/localhost/dto/game-library.dto'
+import { PaginationOptions, PaginationDto, PaginationMeta } from '@/library/apis/localhost/dto/pagination.dto'
+import { LocalhostAPI } from '@/library/apis/localhost/localhost.api'
 import { ModalStore, useModalStore } from '@/app/store/modal.store'
 import { ToastStore, useToastStore } from '@/app/store/toast.store'
 
@@ -19,7 +19,7 @@ class GameService {
       view: markRaw(GameModal),
       properties: {
         callback: async (values: igame) => {
-          LocalhostAPI.administration.game_library.games
+          await LocalhostAPI.administration.game_library.games
             .create(new CreateGameDto(values))
             .then((value: GameDto) => {
               if (success) success(value)
@@ -54,7 +54,7 @@ class GameService {
       properties: {
         close: closeModal,
         callback: async (): Promise<void> => {
-          LocalhostAPI.administration.game_library.games
+          await LocalhostAPI.administration.game_library.games
             .remove(game.id)
             .then((value: GameDto) => {
               if (success) success(value)

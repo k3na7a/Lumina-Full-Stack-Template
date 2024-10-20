@@ -9,7 +9,6 @@ import { Exclude } from 'class-transformer';
 
 type uriProps = {
   url: string | undefined;
-  dir: string;
   filename: string;
 };
 
@@ -32,11 +31,10 @@ export class CoverEntity extends BaseEntity {
   updateUri() {
     const compile = HandlebarsPlugin.compile;
     this.uri = compile<uriProps>({
-      template: '{{ url }}/{{ dir }}/{{ filename }}',
+      template: '{{ url }}/{{ filename }}',
       data: {
-        url: process.env.BASE_URL,
-        dir: STORAGE.COVERS,
-        filename: this.filename,
+        url: process.env.AWS_S3_URL,
+        filename: STORAGE.COVERS + this.filename,
       },
     });
   }

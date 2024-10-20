@@ -2,13 +2,13 @@
 import { ref } from 'vue'
 import { Form } from 'vee-validate'
 
-import { useFormUtil } from '@/utilities/forms.util'
+import { useFormUtil } from '@/library/utilities/forms.util'
 import { genre as validationSchema } from '../schema/validation.schema'
 
 import TextInput from '@/app/components/inputs/text.input.vue'
 import ModalTitleComponent from '@/app/components/modal/base/modal-title.component.vue'
 
-import { GenreDto, igenre } from '@/apis/localhost/dto/game-library.dto'
+import { GenreDto, igenre } from '@/library/apis/localhost/dto/game-library.dto'
 
 const props = defineProps<{
   genre?: GenreDto
@@ -22,7 +22,7 @@ const loading = ref<boolean>(false)
 const validateUtil = useFormUtil()
 const onSubmit = validateUtil.getSubmitFn(validationSchema, async (values: igenre) => {
   loading.value = true
-  props.callback(values).finally(() => {
+  await props.callback(values).then(() => {
     loading.value = false
   })
 })
@@ -34,7 +34,7 @@ const onSubmit = validateUtil.getSubmitFn(validationSchema, async (values: igenr
       <ModalTitleComponent :title="$t(title)" />
 
       <div class="d-flex flex-column gap-1">
-        <TextInput name="name" label="Genre" type="text" />
+        <TextInput name="name" label="forms.name" type="text" />
       </div>
 
       <div class="d-flex flex-column gap-1" :key="values.name">
@@ -55,7 +55,7 @@ const onSubmit = validateUtil.getSubmitFn(validationSchema, async (values: igenr
       </div>
 
       <div class="d-grid">
-        <button :disabled="!meta.valid" class="btn btn-primary px-0" type="submit">
+        <button :disabled="!meta.valid || loading" class="btn btn-primary px-0" type="submit">
           <div v-if="true" class="containter">{{ $t(action) }}</div>
           <div v-else class="containter">{{ $t('actions.loading') }}</div>
         </button>

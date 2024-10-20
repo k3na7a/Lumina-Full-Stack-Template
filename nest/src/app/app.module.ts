@@ -3,6 +3,9 @@ import { ConfigModule } from '@nestjs/config';
 import { ServeStaticModule } from '@nestjs/serve-static';
 import { join } from 'path';
 
+import { config } from 'dotenv';
+config();
+
 import { TypeOrmPlugin } from 'src/plugins/typeorm.plugin';
 
 import { AuthModule } from './authentication/auth.module';
@@ -14,11 +17,12 @@ import { AdminModule } from './administration/admin.module';
 
 @Module({
   imports: [
-    TypeOrmPlugin.forRoot,
     ConfigModule.forRoot({
       isGlobal: true,
       envFilePath: '.env',
     }),
+
+    TypeOrmPlugin.forRoot,
 
     ServeStaticModule.forRoot({
       rootPath: join(__dirname, '../..', 'public'),

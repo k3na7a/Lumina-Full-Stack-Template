@@ -8,13 +8,14 @@ import { AvatarService } from './services/avatar.service';
 import { AvatarEntity } from './entities/avatar.entity';
 import { ProfileEntity } from './entities/profile.entity';
 import { UserEntity } from './entities/user.entity';
+import { S3Service } from 'src/app/services/s3.service';
 
 @Module({
   imports: [
     TypeOrmPlugin.forFeature([UserEntity, ProfileEntity, AvatarEntity]),
   ],
   controllers: [],
-  providers: [UserService, ProfileService, AvatarService],
+  providers: [UserService, ProfileService, AvatarService, S3Service],
   exports: [UserService, ProfileService, AvatarService],
 })
 export class UserModule {}

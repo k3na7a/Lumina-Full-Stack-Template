@@ -1,4 +1,4 @@
-import { Order, PaginationOptions, SortOptions } from '@/apis/localhost/dto/pagination.dto'
+import { Order, PaginationOptions, SortOptions } from '@/library/apis/localhost/dto/pagination.dto'
 
 const sort: Array<SortOptions> = [
   { sort: 'game.createdAt', order: Order.ASC, label: 'forms.oldest' },
@@ -15,9 +15,7 @@ const defaultOptions: PaginationOptions = {
 }
 
 const header = [
-  { name: 'cover', label: 'Cover Art' },
-  { name: 'name', label: 'forms.name' },
-  { name: 'released', label: 'forms.release-date' },
+  { name: 'name', label: 'Game' },
   { name: 'platforms', label: 'Platforms' },
   { name: 'genres', label: 'Genres' },
   { name: 'created', label: 'forms.created' },

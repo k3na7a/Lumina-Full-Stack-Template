@@ -1,4 +1,4 @@
-import { Order, PaginationOptions, SortOptions } from '@/apis/localhost/dto/pagination.dto'
+import { Order, PaginationOptions, SortOptions } from '@/library/apis/localhost/dto/pagination.dto'
 
 const sort: Array<SortOptions> = [
   { sort: 'platform.createdAt', order: Order.ASC, label: 'forms.oldest' },

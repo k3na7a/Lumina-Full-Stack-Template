@@ -45,7 +45,11 @@ function updateRoute(value: { label: string; name: ROUTE_NAMES } | undefined): v
           <RouterView v-slot="{ Component }" :key="route.fullPath">
             <component :is="Component" />
           </RouterView>
-          <template #fallback>{{ $t('actions.loading') }}</template>
+          <template #fallback>
+            <div class="d-flex justify-content-center">
+              <span class="loader"></span>
+            </div>
+          </template>
         </Suspense>
       </div>
     </div>

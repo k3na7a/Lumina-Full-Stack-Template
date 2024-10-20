@@ -2,7 +2,7 @@
 import { reactive, ref, watch } from 'vue'
 import moment from 'moment'
 
-import { PaginationDto, PaginationMeta, PaginationOptions } from '@/apis/localhost/dto/pagination.dto'
+import { PaginationDto, PaginationMeta, PaginationOptions } from '@/library/apis/localhost/dto/pagination.dto'
 
 import TablePaginatedComponent from '@/app/components/table/paginated.component.vue'
 
@@ -10,7 +10,7 @@ import { defaultOptions, sort, header } from '../config/platforms.config'
 import { useI18n } from 'vue-i18n'
 
 import { GameLibraryService } from '../service/game-library.service'
-import { PlatformDto } from '@/apis/localhost/dto/game-library.dto'
+import { PlatformDto } from '@/library/apis/localhost/dto/game-library.dto'
 
 const { create, getPaginated, remove, update } = GameLibraryService.platforms
 

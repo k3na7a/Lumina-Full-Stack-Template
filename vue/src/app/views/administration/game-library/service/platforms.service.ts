@@ -1,9 +1,9 @@
 import { AxiosError } from 'axios'
 import { markRaw } from 'vue'
 
-import { PlatformDto, iplatform, CreatePlatformDto } from '@/apis/localhost/dto/game-library.dto'
-import { PaginationOptions, PaginationDto, PaginationMeta } from '@/apis/localhost/dto/pagination.dto'
-import { LocalhostAPI } from '@/apis/localhost/localhost.api'
+import { PlatformDto, iplatform, CreatePlatformDto } from '@/library/apis/localhost/dto/game-library.dto'
+import { PaginationOptions, PaginationDto, PaginationMeta } from '@/library/apis/localhost/dto/pagination.dto'
+import { LocalhostAPI } from '@/library/apis/localhost/localhost.api'
 import { ModalStore, useModalStore } from '@/app/store/modal.store'
 import { ToastStore, useToastStore } from '@/app/store/toast.store'
 
@@ -19,7 +19,7 @@ class PlatformService {
       view: markRaw(PlatformModal),
       properties: {
         callback: async (values: iplatform) => {
-          LocalhostAPI.administration.game_library.platforms
+          await LocalhostAPI.administration.game_library.platforms
             .create(new CreatePlatformDto(values))
             .then((value: PlatformDto) => {
               if (success) success(value)
@@ -62,7 +62,7 @@ class PlatformService {
       properties: {
         platform,
         callback: async (values: any) => {
-          LocalhostAPI.administration.game_library.platforms
+          await LocalhostAPI.administration.game_library.platforms
             .update(platform.id, new CreatePlatformDto(values))
             .then((value: PlatformDto) => {
               if (success) success(value)
@@ -89,7 +89,7 @@ class PlatformService {
       properties: {
         close: closeModal,
         callback: async (): Promise<void> => {
-          LocalhostAPI.administration.game_library.platforms
+          await LocalhostAPI.administration.game_library.platforms
             .remove(platform.id)
             .then((value: PlatformDto) => {
               if (success) success(value)

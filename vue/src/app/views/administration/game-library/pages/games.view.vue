@@ -5,9 +5,9 @@ import moment from 'moment'
 import TablePaginatedComponent from '@/app/components/table/paginated.component.vue'
 import { defaultOptions, sort, header } from '../config/games.config'
 
-import { PaginationDto, PaginationMeta, PaginationOptions } from '@/apis/localhost/dto/pagination.dto'
+import { PaginationDto, PaginationMeta, PaginationOptions } from '@/library/apis/localhost/dto/pagination.dto'
 import { GameLibraryService } from '../service/game-library.service'
-import { GameDto } from '@/apis/localhost/dto/game-library.dto'
+import { GameDto, SeriesDto } from '@/library/apis/localhost/dto/game-library.dto'
 import { useI18n } from 'vue-i18n'
 
 const { getPaginated, create, remove } = GameLibraryService.games
@@ -45,6 +45,7 @@ watch(options, async (newVal: PaginationOptions): Promise<void> => {
       :sort-options="sort"
       :rows="response.data"
       :pages="response.meta?.pageCount"
+      :loading
       :caption="t('administration.games.games.caption', { showing: response.data.length }, response.meta.itemCount)"
     >
       <template v-slot>
@@ -58,13 +59,19 @@ watch(options, async (newVal: PaginationOptions): Promise<void> => {
         </button>
       </template>
 
-      <template #cover="{ row }">
-        <img v-if="row.cover" class="cover-icon" :src="row.cover" />
-        <small class="fw-semibold" v-else>N/A</small>
-      </template>
-
       <template #name="{ row }">
-        <span class="fw-semibold">{{ row.name }}</span>
+        <div class="d-flex flex-row align-items-center gap-1">
+          <div v-if="row.cover">
+            <img class="cover-icon" :src="row.cover" />
+          </div>
+          <div class="d-flex flex-column">
+            <span class="fw-semibold">{{ row.name }}</span>
+            <small class="text-primary fw-semibold">
+              {{ row.series.map((series: SeriesDto) => series.name).join(', ') }}
+            </small>
+            <small class="text-muted">{{ moment(row.release_date).format('L') }}</small>
+          </div>
+        </div>
       </template>
 
       <template #platforms="{ row }">
@@ -78,13 +85,9 @@ watch(options, async (newVal: PaginationOptions): Promise<void> => {
       <template #genres="{ row }">
         <div class="d-flex flex-column m-0 gap-1">
           <template v-for="genre of row.genres">
-            <span>{{ genre.name }}</span>
+            <small class="fw-semibold">{{ genre.name }}</small>
           </template>
         </div>
-      </template>
-
-      <template #released="{ row }">
-        {{ moment(row.release_date).format('L') }}
       </template>
 
       <template #created="{ row }">

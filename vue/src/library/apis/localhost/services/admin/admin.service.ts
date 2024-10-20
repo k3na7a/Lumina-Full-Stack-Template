@@ -1,7 +1,7 @@
 import { AxiosInstance } from 'axios'
 
 import { users } from './users/users.admin.service'
-import { ILocalStorageUtil } from '@/utilities/local-storage.util'
+import { ILocalStorageUtil } from '@/library/utilities/local-storage.util'
 import { game_library } from './game-library/games.admin.service'
 
 class administration {

@@ -1,4 +1,4 @@
 export enum STORAGE {
-  AVATARS = 'media/avatars',
-  COVERS = 'media/covers',
+  AVATARS = 'images/avatars/',
+  COVERS = 'images/covers/',
 }

@@ -1,8 +1,8 @@
 import { AxiosError } from 'axios'
 
-import { CreateGenreDto, GenreDto } from '@/apis/localhost/dto/game-library.dto'
-import { PaginationOptions, PaginationDto, PaginationMeta } from '@/apis/localhost/dto/pagination.dto'
-import { LocalhostAPI } from '@/apis/localhost/localhost.api'
+import { CreateGenreDto, GenreDto } from '@/library/apis/localhost/dto/game-library.dto'
+import { PaginationOptions, PaginationDto, PaginationMeta } from '@/library/apis/localhost/dto/pagination.dto'
+import { LocalhostAPI } from '@/library/apis/localhost/localhost.api'
 import { ToastStore, useToastStore } from '@/app/store/toast.store'
 import { ModalStore, useModalStore } from '@/app/store/modal.store'
 import { markRaw } from 'vue'
@@ -21,7 +21,7 @@ class GenreService {
         title: 'Create new Genre',
         action: 'Create Genre',
         callback: async (values: any) => {
-          LocalhostAPI.administration.game_library.genres
+          await LocalhostAPI.administration.game_library.genres
             .create(new CreateGenreDto(values))
             .then((value: GenreDto) => {
               if (success) success(value)
@@ -48,7 +48,7 @@ class GenreService {
       properties: {
         genre,
         callback: async (values: any) => {
-          LocalhostAPI.administration.game_library.genres
+          await LocalhostAPI.administration.game_library.genres
             .update(genre.id, new CreateGenreDto(values))
             .then((value: GenreDto) => {
               if (success) success(value)
@@ -91,7 +91,7 @@ class GenreService {
       properties: {
         close: closeModal,
         callback: async (): Promise<void> => {
-          LocalhostAPI.administration.game_library.genres
+          await LocalhostAPI.administration.game_library.genres
             .remove(genre.id)
             .then((value: GenreDto) => {
               if (success) success(value)

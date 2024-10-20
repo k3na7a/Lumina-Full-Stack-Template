@@ -2,7 +2,7 @@
 import { ref } from 'vue'
 import { Form } from 'vee-validate'
 
-import { useFormUtil } from '@/utilities/forms.util'
+import { useFormUtil } from '@/library/utilities/forms.util'
 
 import TextInput from '@/app/components/inputs/text.input.vue'
 import ModalTitleComponent from './base/modal-title.component.vue'

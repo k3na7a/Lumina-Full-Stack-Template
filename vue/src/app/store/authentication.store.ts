@@ -1,6 +1,6 @@
-import { LocalhostAPI as API, TOKEN_ID } from '@/apis/localhost/localhost.api'
-import { useLocalStorageUtil } from '@/utilities/local-storage.util'
-import { credentials, JWTDto } from '@/apis/localhost/dto/JWT.dto'
+import { LocalhostAPI as API, TOKEN_ID } from '@/library/apis/localhost/localhost.api'
+import { useLocalStorageUtil } from '@/library/utilities/local-storage.util'
+import { credentials, JWTDto } from '@/library/apis/localhost/dto/JWT.dto'
 import {
   DeleteAccountDto,
   ForgotPasswordDto,
@@ -11,7 +11,7 @@ import {
   UpdatePasswordDto,
   UpdateProfileDto,
   UserDto
-} from '@/apis/localhost/dto/user.dto'
+} from '@/library/apis/localhost/dto/user.dto'
 import { Store, StoreDefinition, defineStore } from 'pinia'
 
 interface IAuthState {

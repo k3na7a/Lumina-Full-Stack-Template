@@ -1,4 +1,4 @@
-import { Role } from '@/apis/localhost/dto/user.dto'
+import { Role } from '@/library/apis/localhost/dto/user.dto'
 import * as Yup from 'yup'
 
 const updateUser = Yup.object().shape({

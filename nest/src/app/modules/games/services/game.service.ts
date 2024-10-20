@@ -7,6 +7,7 @@ import { GameDto, GamePaginationOptions } from '../dto/game.dto';
 import { PlatformService } from './platform.service';
 import { GenreService } from './genre.service';
 import { CoverService } from './cover.service';
+import { SeriesService } from './series.service';
 
 @Injectable()
 class GameService {
@@ -16,6 +17,7 @@ class GameService {
     private readonly platformService: PlatformService,
     private readonly genreService: GenreService,
     private readonly coverService: CoverService,
+    private readonly seriesService: SeriesService,
   ) {}
 
   public async create(
@@ -27,11 +29,14 @@ class GameService {
 
     const platforms = await this.platformService.findManyById(dto.platform_ids);
     const genres = await this.genreService.findManyById(dto.genre_ids);
+    const series = await this.seriesService.findManyById(dto.series_ids);
+
     const game = this.repository.create({
       ...dto,
-      platforms: platforms,
-      genres: genres,
+      platforms,
+      genres,
       cover,
+      series,
     });
 
     return this.repository.save(game);
@@ -46,6 +51,7 @@ class GameService {
       .leftJoinAndSelect('game.platforms', 'platform')
       .leftJoinAndSelect('game.genres', 'genre')
       .leftJoinAndSelect('game.cover', 'cover')
+      .leftJoinAndSelect('game.series', 'series')
       .where('game.name like :query', { query: `%${search}%` })
       .orderBy({ [sort]: order })
       .limit(take)

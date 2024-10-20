@@ -1,5 +1,5 @@
-import { Order, PaginationOptions, SortOptions } from '@/apis/localhost/dto/pagination.dto'
-import { Role } from '@/apis/localhost/dto/user.dto'
+import { Order, PaginationOptions, SortOptions } from '@/library/apis/localhost/dto/pagination.dto'
+import { Role } from '@/library/apis/localhost/dto/user.dto'
 
 const defaultOptions: PaginationOptions = {
   take: 25,

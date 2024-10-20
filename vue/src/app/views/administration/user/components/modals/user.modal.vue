@@ -2,8 +2,8 @@
 import { ref } from 'vue'
 import { Form } from 'vee-validate'
 
-import { Role, UpdateUser, UserDto } from '@/apis/localhost/dto/user.dto'
-import { useFormUtil } from '@/utilities/forms.util'
+import { Role, UpdateUser, UserDto } from '@/library/apis/localhost/dto/user.dto'
+import { useFormUtil } from '@/library/utilities/forms.util'
 import { updateUser as validationSchema } from '../../schema/validation.schema'
 
 import TextInput from '@/app/components/inputs/text.input.vue'
@@ -22,7 +22,7 @@ const loading = ref<boolean>(false)
 const validateUtil = useFormUtil()
 const onSubmit = validateUtil.getSubmitFn(validationSchema, async (values: UpdateUser) => {
   loading.value = true
-  props.callback(values).finally(() => {
+  await props.callback(values).finally(() => {
     loading.value = false
   })
 })

@@ -4,8 +4,8 @@ import { Form } from 'vee-validate'
 
 import TextInput from '@/app/components/inputs/text.input.vue'
 
-import { useFormUtil } from '@/utilities/forms.util'
-import { UpdateEmail, UserDto } from '@/apis/localhost/dto/user.dto'
+import { useFormUtil } from '@/library/utilities/forms.util'
+import { UpdateEmail, UserDto } from '@/library/apis/localhost/dto/user.dto'
 import { updateEmail as validationSchema } from '../config/schema/validation.schema'
 import { SettingsService } from '../services/settings.service'
 import { AuthStore, useAuthStore } from '@/app/store/authentication.store'

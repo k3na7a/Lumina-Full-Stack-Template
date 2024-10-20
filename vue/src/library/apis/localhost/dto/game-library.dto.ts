@@ -17,6 +17,7 @@ type igame = {
   genres?: Array<GenreDto>
   release_date: Date
   slug: string
+  series?: Array<SeriesDto>
 }
 
 type igenre = {
@@ -40,6 +41,7 @@ class CreateGameDto {
   public readonly slug: string
   public readonly platform_ids?: Array<string>
   public readonly genre_ids?: Array<string>
+  public readonly series_ids?: Array<string>
   public readonly cover?: File
 
   constructor(params: igame) {
@@ -48,7 +50,8 @@ class CreateGameDto {
     this.slug = params.slug
     this.cover = params.cover || undefined
     this.platform_ids = params.platforms?.map((platform: PlatformDto) => platform.id)
-    this.genre_ids = params.genres?.map((platform: GenreDto) => platform.id)
+    this.genre_ids = params.genres?.map((genre: GenreDto) => genre.id)
+    this.series_ids = params.series?.map((series: SeriesDto) => series.id)
   }
 }
 
@@ -67,6 +70,7 @@ type game = {
   platforms: Array<PlatformDto>
   genres: Array<GenreDto>
   cover: Cover | null
+  series: Array<SeriesDto>
 }
 
 class GameDto extends BaseDto {
@@ -76,6 +80,7 @@ class GameDto extends BaseDto {
   public readonly platforms: Array<PlatformDto>
   public readonly genres: Array<GenreDto>
   public readonly cover?: string
+  public readonly series: Array<SeriesDto>
 
   constructor(params: game) {
     super(params)
@@ -88,12 +93,29 @@ class GameDto extends BaseDto {
       .sort(function (a: PlatformDto, b: PlatformDto) {
         return new Date(a.release_date).getTime() - new Date(b.release_date).getTime()
       })
+    this.series = params.series
+      .map((genre) => new GenreDto(genre))
+      .sort(function (a: GenreDto, b: GenreDto) {
+        return a.name.localeCompare(b.name)
+      })
+
     this.genres = params.genres
       .map((genre) => new GenreDto(genre))
       .sort(function (a: GenreDto, b: GenreDto) {
         return a.name.localeCompare(b.name)
       })
     this.cover = params.cover?.uri
+  }
+}
+
+class SeriesDto extends BaseDto {
+  public readonly name: string
+  public readonly slug: string
+
+  constructor(params: SeriesDto) {
+    super(params)
+    this.name = params.name
+    this.slug = params.slug
   }
 }
 
@@ -144,5 +166,20 @@ class CreatePlatformDto {
   }
 }
 
-export { PlatformDto, CreatePlatformDto, GameDto, CreateGameDto, GenreDto, CreateGenreDto }
-export type { iplatform, igame, igenre, game }
+type iseries = {
+  name: string
+  slug: string
+}
+
+class CreateSeriesDto {
+  public readonly name: string
+  public readonly slug: string
+
+  constructor(params: iseries) {
+    this.name = params.name
+    this.slug = params.slug
+  }
+}
+
+export { PlatformDto, CreatePlatformDto, GameDto, CreateGameDto, GenreDto, CreateGenreDto, SeriesDto, CreateSeriesDto }
+export type { iplatform, igame, igenre, game, iseries }

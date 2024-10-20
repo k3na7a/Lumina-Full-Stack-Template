@@ -3,7 +3,7 @@ import DropdownComponent from '@/app/components/dropdown/base/dropdown.component
 
 import { useRouter } from 'vue-router'
 
-import { UserDto } from '@/apis/localhost/dto/user.dto'
+import { UserDto } from '@/library/apis/localhost/dto/user.dto'
 import { user_actions } from '@/app/layouts/main-navigation/schema/user-dropdown-actions.schema'
 
 const props = defineProps<{

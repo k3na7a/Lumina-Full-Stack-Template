@@ -2,9 +2,9 @@ import { AxiosError } from 'axios'
 
 import { ToastStore, useToastStore } from '@/app/store/toast.store'
 
-import { LocalhostAPI } from '@/apis/localhost/localhost.api'
-import { PaginationDto, PaginationMeta, PaginationOptions } from '@/apis/localhost/dto/pagination.dto'
-import { UpdateUser, UpdateUserDto, UserDto } from '@/apis/localhost/dto/user.dto'
+import { LocalhostAPI } from '@/library/apis/localhost/localhost.api'
+import { PaginationDto, PaginationMeta, PaginationOptions } from '@/library/apis/localhost/dto/pagination.dto'
+import { UpdateUser, UpdateUserDto, UserDto } from '@/library/apis/localhost/dto/user.dto'
 import { ModalStore, useModalStore } from '@/app/store/modal.store'
 import { markRaw } from 'vue'
 

@@ -2,7 +2,7 @@
 import { ref } from 'vue'
 import { Form } from 'vee-validate'
 
-import { useFormUtil } from '@/utilities/forms.util'
+import { useFormUtil } from '@/library/utilities/forms.util'
 import { imageUpload as validationSchema, imageUploadValues as FormValues } from './schema/validation.schema'
 
 import ModalTitleComponent from './base/modal-title.component.vue'

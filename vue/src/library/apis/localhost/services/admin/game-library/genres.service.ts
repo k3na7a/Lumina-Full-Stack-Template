@@ -1,7 +1,7 @@
-import { CreateGenreDto, GenreDto } from '@/apis/localhost/dto/game-library.dto'
-import { PaginationOptions, PaginationDto } from '@/apis/localhost/dto/pagination.dto'
-import { AxiosService } from '@/utilities/axios.util'
-import { ILocalStorageUtil } from '@/utilities/local-storage.util'
+import { CreateGenreDto, GenreDto } from '@/library/apis/localhost/dto/game-library.dto'
+import { PaginationOptions, PaginationDto } from '@/library/apis/localhost/dto/pagination.dto'
+import { AxiosService } from '@/library/utilities/axios.util'
+import { ILocalStorageUtil } from '@/library/utilities/local-storage.util'
 import { AxiosInstance, AxiosResponse } from 'axios'
 
 class genres {

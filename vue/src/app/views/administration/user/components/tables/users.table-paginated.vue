@@ -2,8 +2,8 @@
 import { reactive, ref, watch } from 'vue'
 import moment from 'moment'
 
-import { PaginationDto, PaginationMeta, PaginationOptions } from '@/apis/localhost/dto/pagination.dto'
-import { UserDto } from '@/apis/localhost/dto/user.dto'
+import { PaginationDto, PaginationMeta, PaginationOptions } from '@/library/apis/localhost/dto/pagination.dto'
+import { UserDto } from '@/library/apis/localhost/dto/user.dto'
 
 import TablePaginatedComponent from '@/app/components/table/paginated.component.vue'
 

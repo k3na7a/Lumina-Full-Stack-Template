@@ -21,7 +21,7 @@ import {
   subject as ForgotPasswordEmailSubject,
   template as ForgotPasswordEmailBody,
   options as ForgotPasswordOptions,
-} from 'src/templates/forgot-password.template';
+} from 'src/library/templates/forgot-password.template';
 import { HandlebarsPlugin } from 'src/plugins/handlebars.plugin';
 import { updatePasswordDto } from 'src/app/authentication/dto/updatePassword.dto';
 import { deleteAccountDto } from 'src/app/authentication/dto/deleteAccount.dto';

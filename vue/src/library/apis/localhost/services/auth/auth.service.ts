@@ -1,15 +1,15 @@
 import { AxiosInstance, AxiosResponse } from 'axios'
 
-import { ILocalStorageUtil } from '@/utilities/local-storage.util'
-import { AxiosService } from '@/utilities/axios.util'
-import { JWTDto } from '@/apis/localhost/dto/JWT.dto'
+import { ILocalStorageUtil } from '@/library/utilities/local-storage.util'
+import { AxiosService } from '@/library/utilities/axios.util'
+import { JWTDto } from '@/library/apis/localhost/dto/JWT.dto'
 import {
   RegisterDto,
   ResetPasswordDto,
   UpdateEmailDto,
   UpdatePasswordDto,
   UpdateProfileDto
-} from '@/apis/localhost/dto/user.dto'
+} from '@/library/apis/localhost/dto/user.dto'
 
 class authentication {
   private readonly $api: AxiosInstance

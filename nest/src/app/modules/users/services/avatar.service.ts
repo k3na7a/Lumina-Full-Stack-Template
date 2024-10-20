@@ -1,42 +1,26 @@
-import {
-  Injectable,
-  InternalServerErrorException,
-  NotFoundException,
-} from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { link, PathLike, unlink } from 'fs';
-import { STORAGE } from 'src/library/enums/files.enum';
 import { Repository } from 'typeorm';
 import { AvatarEntity } from '../entities/avatar.entity';
+import { S3Service } from 'src/app/services/s3.service';
+import { unlink } from 'node:fs/promises';
+import { STORAGE } from 'src/library/enums/files.enum';
 
 @Injectable()
 export class AvatarService {
   constructor(
     @InjectRepository(AvatarEntity)
     private repository: Repository<AvatarEntity>,
+    private readonly s3service: S3Service,
   ) {}
 
-  private unlinkFile(existingPath: PathLike): void {
-    unlink(existingPath, (err: Error | null) => {
-      if (err) console.log(err.message);
-    });
-  }
-
-  private linkFile(existingPath: PathLike, newPath: PathLike): void {
-    link(existingPath, newPath, (err: Error | null) => {
-      if (err) throw new InternalServerErrorException(err.message);
-      this.unlinkFile(existingPath);
-    });
-  }
-
   public async create(file: Express.Multer.File): Promise<AvatarEntity> {
-    const { filename } = file;
+    const { filename, path } = file;
     const avatar = this.repository.create({ filename });
 
-    const existingPath = `./upload/${filename}`;
-    const newPath = `./public/${STORAGE.AVATARS}/${filename}`;
+    await this.s3service.uploadFile(file, STORAGE.AVATARS);
 
-    this.linkFile(existingPath, newPath);
+    unlink(path);
 
     return this.repository.save(avatar);
   }
@@ -53,15 +37,12 @@ export class AvatarService {
     file: Express.Multer.File,
   ): Promise<AvatarEntity> {
     const avatar = await this.findOneById(id);
-    const { filename } = file;
+    const { filename, path } = file;
 
-    const existingPath = `./upload/${filename}`;
+    await this.s3service.uploadFile(file, STORAGE.AVATARS);
+    await this.s3service.deleteFile(avatar.filename, STORAGE.AVATARS);
 
-    const newPath = `./public/${STORAGE.AVATARS}/${filename}`;
-    const prevPath = `./public/${STORAGE.AVATARS}/${avatar.filename}`;
-
-    this.linkFile(existingPath, newPath);
-    this.unlinkFile(prevPath);
+    unlink(path);
 
     return this.repository.save({ ...avatar, filename });
   }
@@ -69,8 +50,7 @@ export class AvatarService {
   public async remove(id: string): Promise<AvatarEntity> {
     const avatar = await this.findOneById(id);
 
-    const path = `./public/${STORAGE.AVATARS}/${avatar.filename}`;
-    this.unlinkFile(path);
+    await this.s3service.deleteFile(avatar.filename, STORAGE.AVATARS);
 
     return this.repository.remove(avatar);
   }

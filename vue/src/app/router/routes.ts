@@ -113,6 +113,11 @@ const routes: RouteRecordRaw[] = [
                     path: 'genres',
                     name: ROUTE_NAMES.ADMIN_GAMES_GENRES_LIST,
                     component: () => import('@/app/views/administration/game-library/pages/genres.view.vue')
+                  },
+                  {
+                    path: 'series',
+                    name: ROUTE_NAMES.ADMIN_GAMES_SERIES_LIST,
+                    component: () => import('@/app/views/administration/game-library/pages/series.view.vue')
                   }
                 ]
               }

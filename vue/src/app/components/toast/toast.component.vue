@@ -2,7 +2,7 @@
 import { ComputedRef, computed } from 'vue'
 import { Toast, ToastStore, useToastStore } from '@/app/store/toast.store'
 
-import { useStringUtil } from '@/utilities/string.util'
+import { useStringUtil } from '@/library/utilities/string.util'
 
 const store: ToastStore = useToastStore()
 const { capitalize } = useStringUtil()

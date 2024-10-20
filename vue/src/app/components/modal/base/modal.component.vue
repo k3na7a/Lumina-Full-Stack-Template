@@ -59,7 +59,11 @@ watch(isOpen, async (value: boolean, _prev: boolean): Promise<void> => {
       <div class="modal-content p-3 position-relative border-radius bg-alt box-shadow">
         <Suspense v-if="options.view">
           <component :is="options.view" v-model="localstate.model" v-bind="options.properties" />
-          <template #fallback>{{ $t('actions.loading') }}</template>
+          <template #fallback>
+            <div class="d-flex justify-content-center">
+              <span class="loader"></span>
+            </div>
+          </template>
         </Suspense>
         <div class="modal-close position-absolute top-0 end-0">
           <button type="button" class="btn btn-icon-sm btn-dark p-0 me-2 mt-2" @click="store.closeModal">

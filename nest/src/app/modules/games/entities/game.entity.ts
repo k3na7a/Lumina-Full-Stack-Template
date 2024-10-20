@@ -5,6 +5,7 @@ import { Column, Entity, JoinTable, ManyToMany, OneToOne } from 'typeorm';
 import { PlatformEntity } from './platform.entity';
 import { GenreEntity } from './genre.entity';
 import { CoverEntity } from './cover.entity';
+import { SeriesEntity } from './series.entity';
 
 @Entity()
 class GameEntity extends BaseEntity {
@@ -47,6 +48,18 @@ class GameEntity extends BaseEntity {
     inverseJoinColumn: { name: 'genre_id', referencedColumnName: 'id' },
   })
   public readonly genres?: Array<GenreEntity>;
+
+  @ApiProperty({ type: [SeriesEntity] })
+  @ManyToMany(() => SeriesEntity, { eager: true })
+  @JoinTable({
+    name: 'game_series',
+    joinColumn: {
+      name: 'game_id',
+      referencedColumnName: 'id',
+    },
+    inverseJoinColumn: { name: 'series_id', referencedColumnName: 'id' },
+  })
+  public readonly series?: Array<SeriesEntity>;
 
   @ApiProperty()
   @Column({ unique: true })

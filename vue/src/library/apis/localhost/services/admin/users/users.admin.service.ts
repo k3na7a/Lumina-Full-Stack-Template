@@ -1,9 +1,9 @@
 import { AxiosInstance, AxiosResponse } from 'axios'
 
-import { ILocalStorageUtil } from '@/utilities/local-storage.util'
-import { PaginationDto, PaginationOptions } from '@/apis/localhost/dto/pagination.dto'
-import { AxiosService } from '@/utilities/axios.util'
-import { iUser, UpdateUserDto, UserDto } from '@/apis/localhost/dto/user.dto'
+import { ILocalStorageUtil } from '@/library/utilities/local-storage.util'
+import { PaginationDto, PaginationOptions } from '@/library/apis/localhost/dto/pagination.dto'
+import { AxiosService } from '@/library/utilities/axios.util'
+import { iUser, UpdateUserDto, UserDto } from '@/library/apis/localhost/dto/user.dto'
 
 class users {
   private readonly $api: AxiosInstance

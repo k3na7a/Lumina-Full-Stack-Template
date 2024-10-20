@@ -4,12 +4,11 @@ import { AfterLoad, Column, Entity, JoinColumn, OneToOne } from 'typeorm';
 import { BaseEntity } from 'src/library/entities/base.entity';
 import { ProfileEntity } from './profile.entity';
 import { HandlebarsPlugin } from 'src/plugins/handlebars.plugin';
-import { STORAGE } from 'src/library/enums/files.enum';
 import { Exclude } from 'class-transformer';
+import { STORAGE } from 'src/library/enums/files.enum';
 
 type uriProps = {
   url: string | undefined;
-  dir: string;
   filename: string;
 };
 
@@ -32,11 +31,10 @@ export class AvatarEntity extends BaseEntity {
   updateUri() {
     const compile = HandlebarsPlugin.compile;
     this.uri = compile<uriProps>({
-      template: '{{ url }}/{{ dir }}/{{ filename }}',
+      template: '{{ url }}/{{ filename }}',
       data: {
-        url: process.env.BASE_URL,
-        dir: STORAGE.AVATARS,
-        filename: this.filename,
+        url: process.env.AWS_S3_URL,
+        filename: STORAGE.AVATARS + this.filename,
       },
     });
   }

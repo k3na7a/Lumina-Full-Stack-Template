@@ -5,13 +5,13 @@ import {
   PaginationMeta,
   PaginationOptions,
   SortOptions
-} from '@/apis/localhost/dto/pagination.dto'
+} from '@/library/apis/localhost/dto/pagination.dto'
 import moment from 'moment'
 
 import TablePaginated from '@/app/components/table/paginated.component.vue'
 import { reactive, ref, watch } from 'vue'
 import { GameLibraryService } from '../service/game-library.service'
-import { GenreDto } from '@/apis/localhost/dto/game-library.dto'
+import { GenreDto } from '@/library/apis/localhost/dto/game-library.dto'
 import { useI18n } from 'vue-i18n'
 
 const defaultOptions: PaginationOptions = {
@@ -65,6 +65,7 @@ watch(options, async (newVal: PaginationOptions): Promise<void> => {
       { name: 'created', label: 'forms.created' },
       { name: 'actions', label: 'forms.actions' }
     ]"
+    :loading
     :sort-options="sort"
     :rows="response.data"
     :pages="response.meta?.pageCount"

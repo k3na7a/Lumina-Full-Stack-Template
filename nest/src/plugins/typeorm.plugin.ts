@@ -8,24 +8,29 @@ import { PlatformEntity } from 'src/app/modules/games/entities/platform.entity';
 import { GameEntity } from 'src/app/modules/games/entities/game.entity';
 import { GenreEntity } from 'src/app/modules/games/entities/genre.entity';
 import { CoverEntity } from 'src/app/modules/games/entities/cover.entity';
+import { SeriesEntity } from 'src/app/modules/games/entities/series.entity';
+
+const entities = [
+  UserEntity,
+  ProfileEntity,
+  AvatarEntity,
+  GameEntity,
+  PlatformEntity,
+  GenreEntity,
+  CoverEntity,
+  SeriesEntity,
+];
 
 const config: TypeOrmModuleOptions = {
   type: 'mysql',
-  host: 'localhost',
-  port: 3306,
-  username: 'root',
-  password: 'password',
-  database: 'demo_nest_api',
-  entities: [
-    UserEntity,
-    ProfileEntity,
-    AvatarEntity,
-    GameEntity,
-    PlatformEntity,
-    GenreEntity,
-    CoverEntity,
-  ],
+  host: process.env.DB_HOST,
+  port: Number(process.env.DB_PORT),
+  username: process.env.DB_USERNAME,
+  password: process.env.DB_PASSWORD,
+  database: process.env.DB_DATABASE,
+  entities,
   synchronize: true,
+  timezone: 'Z',
 };
 
 export class TypeOrmPlugin {

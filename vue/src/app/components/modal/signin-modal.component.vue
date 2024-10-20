@@ -3,8 +3,8 @@ import { ref } from 'vue'
 import { Form } from 'vee-validate'
 
 import { ROUTE_NAMES } from '@/app/router/routes'
-import { credentials } from '@/apis/localhost/dto/JWT.dto'
-import { useFormUtil } from '@/utilities/forms.util'
+import { credentials } from '@/library/apis/localhost/dto/JWT.dto'
+import { useFormUtil } from '@/library/utilities/forms.util'
 
 import TextInput from '@/app/components/inputs/text.input.vue'
 import ModalTitleComponent from '@/app/components/modal/base/modal-title.component.vue'

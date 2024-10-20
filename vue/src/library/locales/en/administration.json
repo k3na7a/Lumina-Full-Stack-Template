@@ -19,6 +19,10 @@
     "genres": {
       "label": "Genres",
       "caption": "Showing {showing} of {count} genres | Showing {showing} of {count} genre | Showing {showing} of {count} genres"
+    },
+    "series": {
+      "label": "Series",
+      "caption": "Showing {showing} of {count} series | Showing {showing} of {count} series | Showing {showing} of {count} series"
     }
   },
   "settings": {
