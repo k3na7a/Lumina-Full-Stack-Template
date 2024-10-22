@@ -1,6 +1,12 @@
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
-import { Type } from 'class-transformer';
-import { IsDate, IsEnum, IsOptional, IsString } from 'class-validator';
+import { Transform, Type } from 'class-transformer';
+import {
+  IsBoolean,
+  IsDate,
+  IsEnum,
+  IsOptional,
+  IsString,
+} from 'class-validator';
 import { PaginationOptions } from 'src/library/dto/pagination.dto';
 
 enum SORT_OPTIONS {
@@ -13,6 +19,14 @@ class GamePaginationOptions extends PaginationOptions {
   @IsEnum(SORT_OPTIONS)
   @IsOptional()
   public readonly sort: SORT_OPTIONS = SORT_OPTIONS.CREATED;
+
+  @ApiPropertyOptional()
+  @IsBoolean()
+  @Transform(({ value }) =>
+    value === 'true' ? true : value === 'false' ? false : value,
+  )
+  @IsOptional()
+  public readonly expanded?: boolean = false;
 }
 
 class GameDto {

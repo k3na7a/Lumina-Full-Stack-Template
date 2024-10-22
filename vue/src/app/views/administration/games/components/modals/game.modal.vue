@@ -92,7 +92,16 @@ await getFormData()
   <Form
     @submit="onSubmit"
     :validation-schema="validationSchema"
-    :initial-values="{ ...game, cover: undefined }"
+    :initial-values="{
+      ...game,
+      children: game?.children || [],
+      platforms: game?.platforms || [],
+      genres: game?.genres || [],
+      series: game?.series || [],
+      developers: game?.developers || [],
+      publishers: game?.publishers || [],
+      cover: undefined
+    }"
     v-slot="{ meta, values }"
   >
     <div class="d-flex flex-column gap-3">

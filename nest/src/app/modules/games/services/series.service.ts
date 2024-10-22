@@ -30,7 +30,7 @@ class SeriesService {
       .where('series.name like :query', { query: `%${search}%` })
       .orderBy({ [sort]: order })
       .take(take)
-      .offset(skip)
+      .skip(skip)
       .getManyAndCount();
 
     const meta = new PaginationMeta({ pageOptions, itemCount });

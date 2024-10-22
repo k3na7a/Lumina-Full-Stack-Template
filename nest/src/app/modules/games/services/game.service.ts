@@ -70,7 +70,7 @@ class GameService {
   ): Promise<GameEntity> {
     const game = await this.findOneById(id);
     let cover = game.cover;
-    
+
     if (file && cover)
       cover = await this.coverService.update(cover.id as string, file);
     else if (file) cover = await this.coverService.create(file);
@@ -107,22 +107,26 @@ class GameService {
   public async paginate(
     pageOptions: GamePaginationOptions,
   ): Promise<PaginationDto<GameEntity>> {
-    const { sort, search, order, take, skip } = pageOptions;
-    const [games, itemCount] = await this.repository
+    const { sort, search, order, take, skip, expanded } = pageOptions;
+    const query = this.repository
       .createQueryBuilder('game')
+      .leftJoinAndSelect('game.cover', 'cover')
       .orderBy({ [sort]: order })
       .take(take)
-      .offset(skip)
-      .leftJoinAndSelect('game.platforms', 'platform')
-      .leftJoinAndSelect('game.genres', 'genre')
-      .leftJoinAndSelect('game.cover', 'cover')
-      .leftJoinAndSelect('game.series', 'series')
-      .leftJoinAndSelect('game.developers', 'developer')
-      .leftJoinAndSelect('game.publishers', 'publisher')
-      .leftJoinAndSelect('game.gametype', 'gametype')
-      .leftJoinAndSelect('game.children', 'children')
-      .where('game.name like :query', { query: `%${search}%` })
-      .getManyAndCount();
+      .skip(skip)
+      .where('game.name like :query', { query: `%${search}%` });
+
+    if (expanded)
+      query
+        .leftJoinAndSelect('game.platforms', 'platform')
+        .leftJoinAndSelect('game.genres', 'genre')
+        .leftJoinAndSelect('game.series', 'series')
+        .leftJoinAndSelect('game.developers', 'developer')
+        .leftJoinAndSelect('game.publishers', 'publisher')
+        .leftJoinAndSelect('game.gametype', 'gametype')
+        .leftJoinAndSelect('game.children', 'children');
+
+    const [games, itemCount] = await query.getManyAndCount();
 
     const meta = new PaginationMeta({ pageOptions, itemCount });
     return new PaginationDto(games, meta);

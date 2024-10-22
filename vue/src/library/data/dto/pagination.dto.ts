@@ -43,6 +43,7 @@ class PaginationOptions {
   take: number = 10
   sort?: string
   search?: string
+  expanded?: boolean
 }
 
 interface PaginationMetaParameters {

@@ -24,17 +24,20 @@ watch(options, (newVal: PaginationOptions) => {
 
 function onFilterSubmit(value: string | undefined): void {
   options.search = value
+  options.page = 1
 }
 
 function onTakeUpdate(take: number | undefined): void {
-  if (take) options.take = take
+  if (!take) return
+  options.take = take
+  options.page = 1
 }
 
 function onSortUpdate(sort: SortOptions | undefined): void {
-  if (sort) {
-    options.order = sort.order
-    options.sort = sort.sort
-  }
+  if (!sort) return
+  options.order = sort.order
+  options.sort = sort.sort
+  options.page = 1
 }
 
 function onPageUpdate(page: number): void {
@@ -47,26 +50,33 @@ function onPageUpdate(page: number): void {
     <div class="d-flex justify-content-between" style="column-gap: 1rem">
       <div class="d-flex flex-column flex-grow-1 gap-2">
         <SearchInputComponent style="max-width: 30rem" @update="onFilterSubmit" />
-        <div class="d-flex flex-column gap-1" style="max-width: 15rem" v-if="props.sortOptions">
-          <p class="fw-semibold text-light-alt">{{ $t('actions.sort-by') }}</p>
-          <SelectInputComponent
-            name="sort"
-            @update="onSortUpdate"
-            :value="props.sortOptions.find((e) => e.order == props.options.order && e.sort == props.options.sort)"
-            :options="props.sortOptions"
-          >
-            <template #option="{ option }">
-              {{ $t(option?.label) }}
-            </template>
-          </SelectInputComponent>
-        </div>
       </div>
 
       <div class="flex-shrink-1">
         <slot></slot>
       </div>
     </div>
-    <div class="table-responsive" style="overflow-x: auto">
+
+    <div class="d-flex flex-column flex-sm-row gap-3">
+      <div class="d-flex flex-column gap-1" :style="{ minWidth: '20rem' }" v-if="props.sortOptions">
+        <p class="fw-semibold text-light-alt">{{ $t('actions.sort-by') }}</p>
+        <SelectInputComponent
+          name="sort"
+          @update="onSortUpdate"
+          :value="props.sortOptions.find((e) => e.order == props.options.order && e.sort == props.options.sort)"
+          :options="props.sortOptions"
+        >
+          <template #option="{ option }">
+            {{ $t(option?.label) }}
+          </template>
+        </SelectInputComponent>
+      </div>
+      <div class="d-flex flex-column gap-1" v-if="props.sortOptions">
+        <p class="fw-semibold text-light-alt">{{ $t('actions.filter-by') }}</p>
+      </div>
+    </div>
+
+    <div class="table-responsive text-nowrap" style="overflow-x: auto">
       <table class="m-0" :class="{ disabled: props.loading }">
         <thead>
           <tr>

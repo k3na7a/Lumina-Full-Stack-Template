@@ -66,8 +66,8 @@ watch(options, async (newVal: PaginationOptions): Promise<void> => {
           <div v-if="row.cover">
             <img class="cover-icon" :src="row.cover" />
           </div>
-          <div class="d-flex flex-column">
-            <span class="fw-semibold">{{ row.name }}</span>
+          <div class="d-flex flex-column overflow-hidden" style="max-width: 25rem">
+            <span class="fw-semibold text-truncate">{{ row.name }}</span>
             <small class="text-primary fw-semibold">
               {{ row.series.map((series: SeriesDto) => series.name).join(', ') }}
             </small>

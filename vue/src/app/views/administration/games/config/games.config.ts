@@ -11,7 +11,8 @@ const defaultOptions: PaginationOptions = {
   order: Order.ASC,
   page: 1,
   sort: 'game.release_date',
-  search: undefined
+  search: undefined,
+  expanded: true
 }
 
 const header = [

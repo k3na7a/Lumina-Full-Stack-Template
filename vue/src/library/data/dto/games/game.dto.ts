@@ -81,7 +81,7 @@ class GameDto extends BaseDto {
   public readonly series: Array<SeriesDto>
   public readonly developers: Array<DeveloperDto>
   public readonly publishers: Array<PublisherDto>
-  public readonly gametype: GametypeDto
+  public readonly gametype?: GametypeDto
   public readonly children: Array<GameDto>
 
   constructor(params: game) {
@@ -91,7 +91,7 @@ class GameDto extends BaseDto {
     this.slug = params.slug
 
     this.release_date = new Date(params.release_date)
-    this.gametype = new GametypeDto(params.gametype)
+    this.gametype = params.gametype ? new GametypeDto(params.gametype) : undefined
 
     this.cover = params.cover?.uri
 
