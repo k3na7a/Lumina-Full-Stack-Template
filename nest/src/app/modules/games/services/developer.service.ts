@@ -41,7 +41,7 @@ class DeveloperService {
       .createQueryBuilder('developer')
       .where('developer.name like :query', { query: `%${search}%` })
       .orderBy({ [sort]: order })
-      .limit(take)
+      .take(take)
       .offset(skip)
       .getManyAndCount();
 

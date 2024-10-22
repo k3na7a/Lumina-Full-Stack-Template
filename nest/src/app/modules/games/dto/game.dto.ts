@@ -47,7 +47,11 @@ class GameDto {
 
   @ApiProperty({ type: String, isArray: true })
   @IsOptional()
-  public readonly gametype_ids?: Array<string>;
+  public readonly related_ids?: Array<string>;
+
+  @ApiProperty()
+  @IsString()
+  public readonly gametype_id: string;
 
   @ApiProperty()
   @IsString()

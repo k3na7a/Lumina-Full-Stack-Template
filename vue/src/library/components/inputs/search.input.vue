@@ -5,6 +5,7 @@ import { second } from '@/library/data/constants/time.constants'
 
 const props = defineProps<{ disabled?: boolean; value?: string }>()
 const value = ref<string | undefined>(props.value)
+const emit = defineEmits<{ update: [value: string | undefined]; submit: [value: string | undefined] }>()
 
 const debouncedFn = useDebounceFn((val: string | undefined) => {
   emit('update', val || undefined)
@@ -17,10 +18,7 @@ function giveFocus(event: PointerEvent): void {
   input.focus()
 }
 
-const emit = defineEmits<{ update: [value: string | undefined]; submit: [value: string | undefined] }>()
-watch(value, (val: string | undefined) => {
-  debouncedFn(val)
-})
+watch(value, debouncedFn)
 
 onMounted(() => {
   emit('update', value.value)
@@ -43,12 +41,7 @@ onMounted(() => {
       :disabled="props.disabled"
       autocomplete="off"
     />
-    <button
-      :disabled="!value || disabled"
-      class="text-light px-2"
-      @pointerdown.prevent
-      @click="value = undefined"
-    >
+    <button :disabled="!value || disabled" class="text-light px-2" @pointerdown.prevent @click="value = undefined">
       <div class="d-flex align-items-center">
         <font-awesome-icon :icon="['fas', 'xmark']" />
       </div>

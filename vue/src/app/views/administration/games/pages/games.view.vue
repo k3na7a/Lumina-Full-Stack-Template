@@ -11,7 +11,7 @@ import { useI18n } from 'vue-i18n'
 import { GameDto } from '@/library/data/dto/games/game.dto'
 import { SeriesDto } from '@/library/data/dto/games/series.dto'
 
-const { getPaginated, create, remove } = GameLibraryService.games
+const { getPaginated, create, remove, update } = GameLibraryService.games
 const { t } = useI18n()
 
 const loading = ref<boolean>(true)
@@ -93,7 +93,7 @@ watch(options, async (newVal: PaginationOptions): Promise<void> => {
       </template>
 
       <template #created="{ row }">
-        <small class="fw-semibold">{{ moment(row.createdAt).fromNow() }}</small>
+        <small class="text-muted">{{ moment(row.createdAt).format('L') }}</small>
       </template>
 
       <template #actions="{ row }">
@@ -102,7 +102,7 @@ watch(options, async (newVal: PaginationOptions): Promise<void> => {
             v-tooltip="{ text: $t('actions.update'), position: 'bottom', trigger: 'hover' }"
             class="btn btn-dark btn-icon-sm px-0"
             type="button"
-            disabled
+            @click="() => update(row, (_: GameDto) => { getPaginatedData(options) })"
           >
             <div class="d-flex flex-column align-items-center text-warning">
               <font-awesome-icon size="sm" :icon="['fas', 'pencil']" />

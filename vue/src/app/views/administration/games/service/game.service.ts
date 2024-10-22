@@ -6,7 +6,7 @@ import { ToastStore, useToastStore } from '@/library/components/toast/store/toas
 import { AxiosError } from 'axios'
 import { markRaw } from 'vue'
 
-import GameModal from '../components/game.modal.vue'
+import GameModal from '../components/modals/game.modal.vue'
 import ConfirmModal from '@/library/components/modal/templates/confirm.modal.vue'
 import { igame, CreateGameDto, GameDto } from '@/library/data/dto/games/game.dto'
 
@@ -18,9 +18,40 @@ class GameService {
     openModal({
       view: markRaw(GameModal),
       properties: {
+        title: 'Create New Game',
+        action: 'Create Game',
         callback: async (values: igame) => {
           await LocalhostAPI.administration.game_library.games
             .create(new CreateGameDto(values))
+            .then((value: GameDto) => {
+              if (success) success(value)
+              closeModal()
+            })
+            .catch((error: AxiosError) => {
+              addToast({
+                title: error.response?.statusText || 'ERROR',
+                body: error.message,
+                options: { theme: 'danger' }
+              })
+            })
+        }
+      }
+    })
+  }
+
+  public static update(game: GameDto, success?: (value: GameDto) => void): void {
+    const { openModal, closeModal }: ModalStore = useModalStore()
+    const { addToast }: ToastStore = useToastStore()
+
+    openModal({
+      view: markRaw(GameModal),
+      properties: {
+        title: `Update ${game.name}`,
+        action: 'Update Game',
+        game,
+        callback: async (values: any) => {
+          await LocalhostAPI.administration.game_library.games
+            .update(game.id, new CreateGameDto(values))
             .then((value: GameDto) => {
               if (success) success(value)
               closeModal()

@@ -3,7 +3,7 @@ import { ref } from 'vue'
 import { Form } from 'vee-validate'
 
 import { useFormUtil } from '@/library/utilities/helpers/forms.util'
-import { platform as validationSchema } from '../schema/validation.schema'
+import { platform as validationSchema } from '../../schema/validation.schema'
 
 import TextInput from '@/library/components/inputs/text.input.vue'
 import ModalTitleComponent from '@/library/components/modal/base/modal-title.component.vue'

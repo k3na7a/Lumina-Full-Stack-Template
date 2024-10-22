@@ -1,11 +1,5 @@
 <script setup lang="ts">
-import {
-  Order,
-  PaginationDto,
-  PaginationMeta,
-  PaginationOptions,
-  SortOptions
-} from '@/library/data/dto/pagination.dto'
+import { Order, PaginationDto, PaginationMeta, PaginationOptions, SortOptions } from '@/library/data/dto/pagination.dto'
 import moment from 'moment'
 
 import TablePaginated from '@/library/components/table/paginated.component.vue'
@@ -59,6 +53,7 @@ watch(options, async (newVal: PaginationOptions): Promise<void> => {
 
 <template>
   <TablePaginated
+    :key="JSON.stringify(response.data)"
     v-model:options="options"
     :columns="[
       { name: 'name', label: 'forms.name' },
@@ -87,7 +82,7 @@ watch(options, async (newVal: PaginationOptions): Promise<void> => {
     </template>
 
     <template #created="{ row }">
-      <small class="fw-semibold">{{ moment(row.createdAt).fromNow() }}</small>
+      <small class="text-muted">{{ moment(row.createdAt).startOf('second').format('L') }}</small>
     </template>
 
     <template #actions="{ row }">

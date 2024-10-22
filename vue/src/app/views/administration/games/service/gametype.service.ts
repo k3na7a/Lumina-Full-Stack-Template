@@ -7,7 +7,7 @@ import { ToastStore, useToastStore } from '@/library/components/toast/store/toas
 import { CreateGametypeDto, GametypeDto } from '@/library/data/dto/games/gametype.dto'
 import { ModalStore, useModalStore } from '@/library/components/modal/store/modal.store'
 
-import GametypeModal from '../components/gametype.modal.vue'
+import GametypeModal from '../components/modals/gametype.modal.vue'
 import ConfirmModal from '@/library/components/modal/templates/confirm.modal.vue'
 
 class GametypeService {

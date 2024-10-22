@@ -8,6 +8,7 @@ import {
   MaxFileSizeValidator,
   Param,
   ParseFilePipe,
+  Patch,
   Put,
   Query,
   UploadedFile,
@@ -76,6 +77,31 @@ class GameController {
   ): Promise<PaginationDto<GameEntity>> {
     const games = await this.gameService.paginate(params);
     return games;
+  }
+
+  @Patch(':id')
+  @ApiBody({ type: GameDto })
+  @ApiOkResponse({ type: GameEntity })
+  @UseInterceptors(FileInterceptor('cover', { storage }))
+  async update(
+    @Param('id') id: string,
+    @Body() dto: GameDto,
+    @UploadedFile(
+      new ParseFilePipe({
+        fileIsRequired: false,
+        validators: [
+          new MaxFileSizeValidator({
+            maxSize: 10 * megabyte,
+          }),
+          new FileTypeValidator({
+            fileType: '.(png|jpeg|jpg|gif)',
+          }),
+        ],
+      }),
+    )
+    file?: Express.Multer.File,
+  ): Promise<GameEntity> {
+    return this.gameService.update(id, dto, file);
   }
 
   @Delete(':id')

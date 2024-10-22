@@ -3,6 +3,7 @@
   "log-out": "Log Out",
   "sign-up": "Sign Up",
   "loading": "Loading...",
+  "searching": "searching...",
   "search": { "placeholder": "search...", "label": "Search" },
   "close": "Close",
   "clear": "Clear",

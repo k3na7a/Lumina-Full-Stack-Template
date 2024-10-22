@@ -17,7 +17,8 @@ type igame = {
   series?: Array<SeriesDto>
   developers?: Array<DeveloperDto>
   publishers?: Array<PublisherDto>
-  gametypes?: Array<GametypeDto>
+  gametype: GametypeDto
+  children?: Array<GameDto>
 }
 
 type Cover = {
@@ -38,7 +39,8 @@ type game = {
   series: Array<SeriesDto>
   developers: Array<DeveloperDto>
   publishers: Array<PublisherDto>
-  gametypes: Array<GametypeDto>
+  gametype: GametypeDto
+  children: Array<GameDto>
 }
 
 class CreateGameDto {
@@ -50,8 +52,9 @@ class CreateGameDto {
   public readonly series_ids?: Array<string>
   public readonly developer_ids?: Array<string>
   public readonly publisher_ids?: Array<string>
-  public readonly gametype_ids?: Array<string>
+  public readonly gametype_id: string
   public readonly cover?: File
+  public readonly related_ids?: Array<string>
 
   constructor(params: igame) {
     this.name = params.name
@@ -61,9 +64,10 @@ class CreateGameDto {
     this.platform_ids = params.platforms?.map((platform: PlatformDto) => platform.id)
     this.genre_ids = params.genres?.map((genre: GenreDto) => genre.id)
     this.series_ids = params.series?.map((series: SeriesDto) => series.id)
-    this.developer_ids = params.developers?.map((series: DeveloperDto) => series.id)
-    this.publisher_ids = params.publishers?.map((series: PublisherDto) => series.id)
-    this.gametype_ids = params.gametypes?.map((series: GametypeDto) => series.id)
+    this.developer_ids = params.developers?.map((developer: DeveloperDto) => developer.id)
+    this.publisher_ids = params.publishers?.map((publisher: PublisherDto) => publisher.id)
+    this.gametype_id = params.gametype.id
+    this.related_ids = params.children?.map((game: GameDto) => game.id)
   }
 }
 
@@ -77,50 +81,51 @@ class GameDto extends BaseDto {
   public readonly series: Array<SeriesDto>
   public readonly developers: Array<DeveloperDto>
   public readonly publishers: Array<PublisherDto>
-  public readonly gametypes: Array<GametypeDto>
+  public readonly gametype: GametypeDto
+  public readonly children: Array<GameDto>
 
   constructor(params: game) {
     super(params)
 
     this.name = params.name
-    this.release_date = new Date(params.release_date)
     this.slug = params.slug
+
+    this.release_date = new Date(params.release_date)
+    this.gametype = new GametypeDto(params.gametype)
+
+    this.cover = params.cover?.uri
+
     this.platforms = params.platforms
-      .map((platform) => new PlatformDto(platform))
+      ?.map((platform) => new PlatformDto(platform))
       .sort(function (a: PlatformDto, b: PlatformDto) {
         return new Date(a.release_date).getTime() - new Date(b.release_date).getTime()
       })
     this.series = params.series
-      .map((series) => new SeriesDto(series))
+      ?.map((series) => new SeriesDto(series))
       .sort(function (a: SeriesDto, b: SeriesDto) {
         return a.name.localeCompare(b.name)
       })
 
     this.genres = params.genres
-      .map((genre) => new GenreDto(genre))
+      ?.map((genre) => new GenreDto(genre))
       .sort(function (a: GenreDto, b: GenreDto) {
         return a.name.localeCompare(b.name)
       })
 
     this.developers = params.developers
-      .map((developer) => new DeveloperDto(developer))
+      ?.map((developer) => new DeveloperDto(developer))
       .sort(function (a: DeveloperDto, b: DeveloperDto) {
         return a.name.localeCompare(b.name)
       })
 
     this.publishers = params.publishers
-      .map((publisher) => new PublisherDto(publisher))
+      ?.map((publisher) => new PublisherDto(publisher))
       .sort(function (a: PublisherDto, b: PublisherDto) {
         return a.name.localeCompare(b.name)
       })
-
-    this.gametypes = params.gametypes
-      .map((gametype) => new GametypeDto(gametype))
-      .sort(function (a: GametypeDto, b: GametypeDto) {
-        return a.name.localeCompare(b.name)
-      })
-
-    this.cover = params.cover?.uri
+    this.children = params.children?.sort(function (a: GameDto, b: GameDto) {
+      return new Date(a.release_date).getTime() - new Date(b.release_date).getTime()
+    })
   }
 }
 

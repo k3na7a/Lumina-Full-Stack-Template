@@ -6,7 +6,7 @@ import { ToastStore, useToastStore } from '@/library/components/toast/store/toas
 import { ModalStore, useModalStore } from '@/library/components/modal/store/modal.store'
 import { markRaw } from 'vue'
 
-import GenreModal from '../components/genre.modal.vue'
+import GenreModal from '../components/modals/genre.modal.vue'
 import ConfirmModal from '@/library/components/modal/templates/confirm.modal.vue'
 import { GenreDto, CreateGenreDto } from '@/library/data/dto/games/genre.dto'
 
@@ -47,6 +47,8 @@ class GenreService {
       view: markRaw(GenreModal),
       properties: {
         genre,
+        title: `Update ${genre.name}`,
+        action: 'Update Genre',
         callback: async (values: any) => {
           await LocalhostAPI.administration.game_library.genres
             .update(genre.id, new CreateGenreDto(values))

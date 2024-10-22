@@ -41,7 +41,7 @@ class PublisherService {
       .createQueryBuilder('publisher')
       .where('publisher.name like :query', { query: `%${search}%` })
       .orderBy({ [sort]: order })
-      .limit(take)
+      .take(take)
       .offset(skip)
       .getManyAndCount();
 

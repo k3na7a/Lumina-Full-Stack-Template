@@ -1,4 +1,5 @@
 import { DeveloperDto } from '@/library/data/dto/games/developer.dto'
+import { GameDto } from '@/library/data/dto/games/game.dto'
 import { GametypeDto } from '@/library/data/dto/games/gametype.dto'
 import { GenreDto } from '@/library/data/dto/games/genre.dto'
 import { PlatformDto } from '@/library/data/dto/games/platform.dto'
@@ -25,14 +26,15 @@ const series = Yup.object().shape({
 
 const game = Yup.object().shape({
   name: Yup.string().required(),
-  cover: Yup.mixed<File>().notRequired(),
+  cover: Yup.mixed<File>().optional(),
   platforms: Yup.array<PlatformDto>().optional(),
   genres: Yup.array<GenreDto>().optional(),
   release_date: Yup.date().required(),
   series: Yup.array<SeriesDto>().optional(),
+  children: Yup.array<GameDto>().optional(),
   developers: Yup.array<DeveloperDto>().optional(),
   publishers: Yup.array<PublisherDto>().optional(),
-  gametypes: Yup.array<GametypeDto>().optional(),
+  gametype: Yup.mixed<GametypeDto>().required(),
   slug: Yup.string().required()
 })
 

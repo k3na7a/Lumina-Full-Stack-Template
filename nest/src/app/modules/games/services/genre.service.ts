@@ -39,7 +39,7 @@ class GenreService {
       .createQueryBuilder('genre')
       .where('genre.name like :query', { query: `%${search}%` })
       .orderBy({ [sort]: order })
-      .limit(take)
+      .take(take)
       .offset(skip)
       .getManyAndCount();
 

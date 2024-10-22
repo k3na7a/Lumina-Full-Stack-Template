@@ -3,24 +3,29 @@ import { ref } from 'vue'
 import { Form } from 'vee-validate'
 
 import { useFormUtil } from '@/library/utilities/helpers/forms.util'
-import { game as validationSchema } from '../schema/validation.schema'
+import { game as validationSchema } from '../../schema/validation.schema'
 
 import TextInput from '@/library/components/inputs/text.input.vue'
 import ModalTitleComponent from '@/library/components/modal/base/modal-title.component.vue'
 import MultiSelectInput from '@/library/components/inputs/multi-select.input.vue'
 import FileInput from '@/library/components/inputs/file.input.vue'
+import SearchGameInput from '../inputs/search-game.input.vue'
 
-import { GameLibraryService } from '../service/game-library.service'
+import { GameLibraryService } from '../../service/game-library.service'
 import DateInput from '@/library/components/inputs/date.input.vue'
-import { igame } from '@/library/data/dto/games/game.dto'
+import { GameDto, igame } from '@/library/data/dto/games/game.dto'
 import { GenreDto } from '@/library/data/dto/games/genre.dto'
 import { PlatformDto } from '@/library/data/dto/games/platform.dto'
 import { SeriesDto } from '@/library/data/dto/games/series.dto'
 import { DeveloperDto } from '@/library/data/dto/games/developer.dto'
 import { PublisherDto } from '@/library/data/dto/games/publisher.dto'
 import { GametypeDto } from '@/library/data/dto/games/gametype.dto'
+import SelectInput from '@/library/components/inputs/select.input.vue'
 
 const props = defineProps<{
+  game?: GameDto
+  action: string
+  title: string
   callback: (values: any) => Promise<void>
 }>()
 
@@ -84,9 +89,14 @@ await getFormData()
 </script>
 
 <template>
-  <Form @submit="onSubmit" :validation-schema="validationSchema" v-slot="{ meta, values }">
+  <Form
+    @submit="onSubmit"
+    :validation-schema="validationSchema"
+    :initial-values="{ ...game, cover: undefined }"
+    v-slot="{ meta, values }"
+  >
     <div class="d-flex flex-column gap-3">
-      <ModalTitleComponent :title="$t('Create new game')" />
+      <ModalTitleComponent :title="$t(title)" />
 
       <div class="d-flex flex-column gap-1">
         <TextInput name="name" label="Name" type="text" />
@@ -100,6 +110,20 @@ await getFormData()
       <div class="d-flex flex-column gap-1">
         <h6 class="fw-semibold">{{ $t('Release Date') }}</h6>
         <DateInput name="release_date" />
+      </div>
+
+      <div class="d-flex flex-column gap-1">
+        <h6 class="d-block fw-semibold">{{ $t('Gametype') }}</h6>
+        <SelectInput name="gametype" :options="gametypes">
+          <template #option="{ option }">
+            {{ option.name }}
+          </template>
+        </SelectInput>
+      </div>
+
+      <div class="d-flex flex-column gap-1">
+        <h6 class="fw-semibold">{{ $t('Related Games') }}</h6>
+        <SearchGameInput name="children" />
       </div>
 
       <div class="d-flex flex-column gap-1">
@@ -147,15 +171,6 @@ await getFormData()
         </MultiSelectInput>
       </div>
 
-      <div class="d-flex flex-column gap-1">
-        <h6 class="fw-semibold">{{ $t('Gametypes') }}</h6>
-        <MultiSelectInput filter-key="name" name="gametypes" :options="gametypes">
-          <template #option="{ option }">
-            {{ option.name }}
-          </template>
-        </MultiSelectInput>
-      </div>
-
       <div class="d-flex flex-column gap-1" :key="values.name">
         <TextInput
           disabled
@@ -175,7 +190,7 @@ await getFormData()
 
       <div class="d-grid">
         <button :disabled="!meta.valid || loading" class="btn btn-primary px-0" type="submit">
-          <div v-if="true" class="containter">{{ $t('Create Game') }}</div>
+          <div v-if="true" class="containter">{{ $t(props.action) }}</div>
           <div v-else class="containter">{{ $t('actions.loading') }}</div>
         </button>
       </div>

@@ -29,6 +29,22 @@ class games {
       .then((response: AxiosResponse) => new GameDto(response.data))
   }
 
+  public readonly update = async (id: string, params: CreateGameDto): Promise<GameDto> => {
+    const formData = new FormData()
+
+    Object.keys(params).forEach((key: string) => {
+      if (Object(params)[key]) formData.append(key, Object(params)[key])
+    })
+
+    return this.$api
+      .patch<GameDto>(
+        `admin/game-library/games/${id}`,
+        params,
+        AxiosService.requestConfig({ token: this.$token.getItem(), content: 'multipart/form-data' })
+      )
+      .then((response: AxiosResponse) => new GameDto(response.data))
+  }
+
   public readonly getPaginated = async (params: PaginationOptions): Promise<PaginationDto<GameDto>> => {
     return this.$api
       .get<PaginationDto<GameDto>>(
@@ -46,7 +62,7 @@ class games {
   public readonly remove = async (id: string): Promise<GameDto> => {
     return this.$api
       .delete<GameDto>(`admin/game-library/games/${id}`, AxiosService.requestConfig({ token: this.$token.getItem() }))
-      .then((response: AxiosResponse) => new GameDto(response.data))
+      .then((response: AxiosResponse) => response.data)
   }
 }
 

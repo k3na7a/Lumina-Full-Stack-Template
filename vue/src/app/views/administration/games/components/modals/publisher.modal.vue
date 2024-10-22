@@ -3,14 +3,14 @@ import { ref } from 'vue'
 import { Form } from 'vee-validate'
 
 import { useFormUtil } from '@/library/utilities/helpers/forms.util'
-import { genre as validationSchema } from '../schema/validation.schema'
+import { genre as validationSchema } from '../../schema/validation.schema'
 
 import TextInput from '@/library/components/inputs/text.input.vue'
 import ModalTitleComponent from '@/library/components/modal/base/modal-title.component.vue'
-import { GametypeDto, igametype } from '@/library/data/dto/games/gametype.dto'
+import { ipublisher, PublisherDto } from '@/library/data/dto/games/publisher.dto'
 
 const props = defineProps<{
-  gametype?: GametypeDto
+  publisher?: PublisherDto
   title: string
   action: string
   callback: (values: any) => Promise<void>
@@ -19,7 +19,7 @@ const props = defineProps<{
 const loading = ref<boolean>(false)
 
 const validateUtil = useFormUtil()
-const onSubmit = validateUtil.getSubmitFn(validationSchema, async (values: igametype) => {
+const onSubmit = validateUtil.getSubmitFn(validationSchema, async (values: ipublisher) => {
   loading.value = true
   await props.callback(values).then(() => {
     loading.value = false
@@ -28,7 +28,7 @@ const onSubmit = validateUtil.getSubmitFn(validationSchema, async (values: igame
 </script>
 
 <template>
-  <Form @submit="onSubmit" :validation-schema="validationSchema" :initial-values="gametype" v-slot="{ meta, values }">
+  <Form @submit="onSubmit" :validation-schema="validationSchema" :initial-values="publisher" v-slot="{ meta, values }">
     <div class="d-flex flex-column gap-3">
       <ModalTitleComponent :title="$t(title)" />
 

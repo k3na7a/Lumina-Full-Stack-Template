@@ -14,6 +14,7 @@ const props = defineProps<{
   filterKey: string
   default?: T
   options: Array<T>
+  value?: Array<T>
 }>()
 
 const name = toRef(props, 'name')
@@ -24,7 +25,7 @@ const filter = ref<string>('')
 const dropdownRef = ref<InstanceType<typeof HTMLElement>>()
 const inputRef = ref<InstanceType<typeof HTMLElement>>()
 
-const { value, errorMessage, meta } = useField<T[] | undefined>(name.value, undefined, { initialValue: [] })
+const { value, errorMessage, meta } = useField<T[] | undefined>(name.value, undefined, { initialValue: props.value })
 
 function closeDropdown(): void {
   const dropdown = bootstrap.Dropdown.getOrCreateInstance(dropdownRef.value || '')

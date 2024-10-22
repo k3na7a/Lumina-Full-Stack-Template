@@ -1,7 +1,14 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { BaseEntity } from 'src/library/entities/base.entity';
 
-import { Column, Entity, JoinTable, ManyToMany, OneToOne } from 'typeorm';
+import {
+  Column,
+  Entity,
+  JoinTable,
+  ManyToMany,
+  ManyToOne,
+  OneToOne,
+} from 'typeorm';
 import { PlatformEntity } from './platform.entity';
 import { GenreEntity } from './genre.entity';
 import { CoverEntity } from './cover.entity';
@@ -29,7 +36,7 @@ class GameEntity extends BaseEntity {
   public readonly cover!: CoverEntity | null;
 
   @ApiProperty({ type: [PlatformEntity] })
-  @ManyToMany(() => PlatformEntity, { eager: true })
+  @ManyToMany(() => PlatformEntity)
   @JoinTable({
     name: 'game_platforms',
     joinColumn: {
@@ -41,7 +48,7 @@ class GameEntity extends BaseEntity {
   public readonly platforms?: Array<PlatformEntity>;
 
   @ApiProperty({ type: [GenreEntity] })
-  @ManyToMany(() => GenreEntity, { eager: true })
+  @ManyToMany(() => GenreEntity)
   @JoinTable({
     name: 'game_genres',
     joinColumn: {
@@ -53,7 +60,7 @@ class GameEntity extends BaseEntity {
   public readonly genres?: Array<GenreEntity>;
 
   @ApiProperty({ type: [SeriesEntity] })
-  @ManyToMany(() => SeriesEntity, { eager: true })
+  @ManyToMany(() => SeriesEntity)
   @JoinTable({
     name: 'game_series',
     joinColumn: {
@@ -65,7 +72,7 @@ class GameEntity extends BaseEntity {
   public readonly series?: Array<SeriesEntity>;
 
   @ApiProperty({ type: [DeveloperEntity] })
-  @ManyToMany(() => DeveloperEntity, { eager: true })
+  @ManyToMany(() => DeveloperEntity)
   @JoinTable({
     name: 'game_developers',
     joinColumn: {
@@ -77,7 +84,7 @@ class GameEntity extends BaseEntity {
   public readonly developers?: Array<DeveloperEntity>;
 
   @ApiProperty({ type: [PublisherEntity] })
-  @ManyToMany(() => PublisherEntity, { eager: true })
+  @ManyToMany(() => PublisherEntity)
   @JoinTable({
     name: 'game_publishers',
     joinColumn: {
@@ -88,17 +95,29 @@ class GameEntity extends BaseEntity {
   })
   public readonly publishers?: Array<PublisherEntity>;
 
-  @ApiProperty({ type: [GametypeEntity] })
-  @ManyToMany(() => GametypeEntity, { eager: true })
+  @ApiProperty({ type: [GameEntity] })
+  @ManyToMany(() => GameEntity)
   @JoinTable({
-    name: 'game_gametypes',
+    name: 'game_children',
+    joinColumn: {
+      name: 'game_id',
+      referencedColumnName: 'id',
+    },
+    inverseJoinColumn: { name: 'child_id', referencedColumnName: 'id' },
+  })
+  public readonly children?: Array<GameEntity>;
+
+  @ApiProperty({ type: [GametypeEntity] })
+  @ManyToOne(() => GametypeEntity)
+  @JoinTable({
+    name: 'game_gametype',
     joinColumn: {
       name: 'game_id',
       referencedColumnName: 'id',
     },
     inverseJoinColumn: { name: 'gametype_id', referencedColumnName: 'id' },
   })
-  public readonly gametypes?: Array<GametypeEntity>;
+  public readonly gametype!: GametypeEntity;
 
   @ApiProperty()
   @Column({ unique: true })

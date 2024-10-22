@@ -3,15 +3,14 @@ import { ref } from 'vue'
 import { Form } from 'vee-validate'
 
 import { useFormUtil } from '@/library/utilities/helpers/forms.util'
-import { series as validationSchema } from '../schema/validation.schema'
+import { genre as validationSchema } from '../../schema/validation.schema'
 
 import TextInput from '@/library/components/inputs/text.input.vue'
 import ModalTitleComponent from '@/library/components/modal/base/modal-title.component.vue'
-
-import { SeriesDto, iseries } from '@/library/data/dto/games/series.dto'
+import { GametypeDto, igametype } from '@/library/data/dto/games/gametype.dto'
 
 const props = defineProps<{
-  series?: SeriesDto
+  gametype?: GametypeDto
   title: string
   action: string
   callback: (values: any) => Promise<void>
@@ -20,16 +19,16 @@ const props = defineProps<{
 const loading = ref<boolean>(false)
 
 const validateUtil = useFormUtil()
-const onSubmit = validateUtil.getSubmitFn(validationSchema, async (values: iseries) => {
+const onSubmit = validateUtil.getSubmitFn(validationSchema, async (values: igametype) => {
   loading.value = true
-  await props.callback(values).finally(() => {
+  await props.callback(values).then(() => {
     loading.value = false
   })
 })
 </script>
 
 <template>
-  <Form @submit="onSubmit" :validation-schema="validationSchema" :initial-values="series" v-slot="{ meta, values }">
+  <Form @submit="onSubmit" :validation-schema="validationSchema" :initial-values="gametype" v-slot="{ meta, values }">
     <div class="d-flex flex-column gap-3">
       <ModalTitleComponent :title="$t(title)" />
 
@@ -55,7 +54,7 @@ const onSubmit = validateUtil.getSubmitFn(validationSchema, async (values: iseri
       </div>
 
       <div class="d-grid">
-        <button :disabled="loading || !meta.valid" class="btn btn-primary px-0" type="submit">
+        <button :disabled="!meta.valid || loading" class="btn btn-primary px-0" type="submit">
           <div v-if="true" class="containter">{{ $t(action) }}</div>
           <div v-else class="containter">{{ $t('actions.loading') }}</div>
         </button>

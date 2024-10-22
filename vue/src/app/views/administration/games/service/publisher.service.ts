@@ -7,7 +7,7 @@ import { ToastStore, useToastStore } from '@/library/components/toast/store/toas
 import { CreatePublisherDto, PublisherDto } from '@/library/data/dto/games/publisher.dto'
 import { ModalStore, useModalStore } from '@/library/components/modal/store/modal.store'
 
-import PublisherModal from '../components/publisher.modal.vue'
+import PublisherModal from '../components/modals/publisher.modal.vue'
 import ConfirmModal from '@/library/components/modal/templates/confirm.modal.vue'
 
 class PublisherService {

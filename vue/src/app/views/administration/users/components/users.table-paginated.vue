@@ -68,7 +68,7 @@ watch(options, async (newVal: PaginationOptions): Promise<void> => {
     </template>
 
     <template #created="{ row }">
-      <small class="fw-semibold">{{ moment(row.createdAt).fromNow() }}</small>
+      <small class="fw-semibold">{{ moment(row.createdAt).format('L') }}</small>
     </template>
 
     <template #role="{ row }">

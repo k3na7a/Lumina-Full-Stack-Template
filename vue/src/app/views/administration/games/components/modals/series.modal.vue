@@ -3,14 +3,15 @@ import { ref } from 'vue'
 import { Form } from 'vee-validate'
 
 import { useFormUtil } from '@/library/utilities/helpers/forms.util'
-import { genre as validationSchema } from '../schema/validation.schema'
+import { series as validationSchema } from '../../schema/validation.schema'
 
 import TextInput from '@/library/components/inputs/text.input.vue'
 import ModalTitleComponent from '@/library/components/modal/base/modal-title.component.vue'
-import { DeveloperDto, ideveloper } from '@/library/data/dto/games/developer.dto'
+
+import { SeriesDto, iseries } from '@/library/data/dto/games/series.dto'
 
 const props = defineProps<{
-  developer?: DeveloperDto
+  series?: SeriesDto
   title: string
   action: string
   callback: (values: any) => Promise<void>
@@ -19,16 +20,16 @@ const props = defineProps<{
 const loading = ref<boolean>(false)
 
 const validateUtil = useFormUtil()
-const onSubmit = validateUtil.getSubmitFn(validationSchema, async (values: ideveloper) => {
+const onSubmit = validateUtil.getSubmitFn(validationSchema, async (values: iseries) => {
   loading.value = true
-  await props.callback(values).then(() => {
+  await props.callback(values).finally(() => {
     loading.value = false
   })
 })
 </script>
 
 <template>
-  <Form @submit="onSubmit" :validation-schema="validationSchema" :initial-values="developer" v-slot="{ meta, values }">
+  <Form @submit="onSubmit" :validation-schema="validationSchema" :initial-values="series" v-slot="{ meta, values }">
     <div class="d-flex flex-column gap-3">
       <ModalTitleComponent :title="$t(title)" />
 
@@ -54,7 +55,7 @@ const onSubmit = validateUtil.getSubmitFn(validationSchema, async (values: ideve
       </div>
 
       <div class="d-grid">
-        <button :disabled="!meta.valid || loading" class="btn btn-primary px-0" type="submit">
+        <button :disabled="loading || !meta.valid" class="btn btn-primary px-0" type="submit">
           <div v-if="true" class="containter">{{ $t(action) }}</div>
           <div v-else class="containter">{{ $t('actions.loading') }}</div>
         </button>

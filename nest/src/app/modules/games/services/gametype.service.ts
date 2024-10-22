@@ -41,7 +41,7 @@ class GametypeService {
       .createQueryBuilder('gametype')
       .where('gametype.name like :query', { query: `%${search}%` })
       .orderBy({ [sort]: order })
-      .limit(take)
+      .take(take)
       .offset(skip)
       .getManyAndCount();
 

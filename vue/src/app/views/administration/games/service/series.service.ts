@@ -7,7 +7,7 @@ import { ModalStore, useModalStore } from '@/library/components/modal/store/moda
 import { markRaw } from 'vue'
 
 import ConfirmModal from '@/library/components/modal/templates/confirm.modal.vue'
-import SeriesModal from '../components/series.modal.vue'
+import SeriesModal from '../components/modals/series.modal.vue'
 import { SeriesDto, CreateSeriesDto } from '@/library/data/dto/games/series.dto'
 
 class SeriesService {

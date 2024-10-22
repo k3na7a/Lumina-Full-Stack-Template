@@ -70,11 +70,11 @@ watch(options, async (newVal: PaginationOptions): Promise<void> => {
     </template>
 
     <template #released="{ row }">
-      {{ moment(row.release_date).format('LL') }}
+      {{ moment(row.release_date).format('L') }}
     </template>
 
     <template #created="{ row }">
-      <small class="fw-semibold">{{ moment(row.createdAt).fromNow() }}</small>
+      <small class="text-muted">{{ moment(row.createdAt).startOf('second').format('L') }}</small>
     </template>
 
     <template #actions="{ row }">

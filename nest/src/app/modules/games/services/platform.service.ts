@@ -29,7 +29,7 @@ class PlatformService {
       .createQueryBuilder('platform')
       .where('platform.name like :query', { query: `%${search}%` })
       .orderBy({ [sort]: order })
-      .limit(take)
+      .take(take)
       .offset(skip)
       .getManyAndCount();
 

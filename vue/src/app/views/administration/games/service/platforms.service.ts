@@ -6,7 +6,7 @@ import { LocalhostAPI } from '@/library/utilities/apis/localhost/localhost.api'
 import { ModalStore, useModalStore } from '@/library/components/modal/store/modal.store'
 import { ToastStore, useToastStore } from '@/library/components/toast/store/toast.store'
 
-import PlatformModal from '../components/platform.modal.vue'
+import PlatformModal from '../components/modals/platform.modal.vue'
 import ConfirmModal from '@/library/components/modal/templates/confirm.modal.vue'
 import { PlatformDto, iplatform, CreatePlatformDto } from '@/library/data/dto/games/platform.dto'
 

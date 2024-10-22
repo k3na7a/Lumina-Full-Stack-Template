@@ -1,6 +1,6 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { In, Repository } from 'typeorm';
 import { GameEntity } from '../entities/game.entity';
 import { PaginationDto, PaginationMeta } from 'src/library/dto/pagination.dto';
 import { GameDto, GamePaginationOptions } from '../dto/game.dto';
@@ -36,13 +36,17 @@ class GameService {
     const platforms = await this.platformService.findManyById(dto.platform_ids);
     const genres = await this.genreService.findManyById(dto.genre_ids);
     const series = await this.seriesService.findManyById(dto.series_ids);
+
     const developers = await this.developerService.findManyById(
       dto.developer_ids,
     );
+
     const publishers = await this.publisherService.findManyById(
       dto.publisher_ids,
     );
-    const gametypes = await this.gametypeService.findManyById(dto.gametype_ids);
+
+    const children = await this.findManyById(dto.related_ids);
+    const gametype = await this.gametypeService.findOneById(dto.gametype_id);
 
     const game = this.repository.create({
       ...dto,
@@ -52,10 +56,52 @@ class GameService {
       series,
       developers,
       publishers,
-      gametypes,
+      gametype,
+      children,
     });
 
     return this.repository.save(game);
+  }
+
+  public async update(
+    id: string,
+    dto: GameDto,
+    file?: Express.Multer.File,
+  ): Promise<GameEntity> {
+    const game = await this.findOneById(id);
+    let cover = game.cover;
+    
+    if (file && cover)
+      cover = await this.coverService.update(cover.id as string, file);
+    else if (file) cover = await this.coverService.create(file);
+
+    const platforms = await this.platformService.findManyById(dto.platform_ids);
+    const genres = await this.genreService.findManyById(dto.genre_ids);
+    const series = await this.seriesService.findManyById(dto.series_ids);
+
+    const developers = await this.developerService.findManyById(
+      dto.developer_ids,
+    );
+
+    const publishers = await this.publisherService.findManyById(
+      dto.publisher_ids,
+    );
+
+    const children = await this.findManyById(dto.related_ids);
+    const gametype = await this.gametypeService.findOneById(dto.gametype_id);
+
+    return this.repository.save({
+      ...game,
+      ...dto,
+      platforms,
+      genres,
+      cover,
+      series,
+      developers,
+      publishers,
+      gametype,
+      children,
+    });
   }
 
   public async paginate(
@@ -64,17 +110,18 @@ class GameService {
     const { sort, search, order, take, skip } = pageOptions;
     const [games, itemCount] = await this.repository
       .createQueryBuilder('game')
+      .orderBy({ [sort]: order })
+      .take(take)
+      .offset(skip)
       .leftJoinAndSelect('game.platforms', 'platform')
       .leftJoinAndSelect('game.genres', 'genre')
       .leftJoinAndSelect('game.cover', 'cover')
       .leftJoinAndSelect('game.series', 'series')
       .leftJoinAndSelect('game.developers', 'developer')
       .leftJoinAndSelect('game.publishers', 'publisher')
-      .leftJoinAndSelect('game.gametypes', 'gametype')
+      .leftJoinAndSelect('game.gametype', 'gametype')
+      .leftJoinAndSelect('game.children', 'children')
       .where('game.name like :query', { query: `%${search}%` })
-      .orderBy({ [sort]: order })
-      .limit(take)
-      .offset(skip)
       .getManyAndCount();
 
     const meta = new PaginationMeta({ pageOptions, itemCount });
@@ -85,6 +132,10 @@ class GameService {
     const game = await this.repository.findOne({ where: { id } });
     if (!game) throw new NotFoundException();
     return game;
+  }
+
+  public async findManyById(ids?: Array<string>): Promise<Array<GameEntity>> {
+    return this.repository.find({ where: { id: In(ids || []) } });
   }
 
   public async remove(id: string): Promise<GameEntity> {

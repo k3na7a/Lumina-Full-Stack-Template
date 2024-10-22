@@ -7,7 +7,7 @@ import { ToastStore, useToastStore } from '@/library/components/toast/store/toas
 import { CreateDeveloperDto, DeveloperDto } from '@/library/data/dto/games/developer.dto'
 import { ModalStore, useModalStore } from '@/library/components/modal/store/modal.store'
 
-import DeveloperModal from '../components/developer.modal.vue'
+import DeveloperModal from '../components/modals/developer.modal.vue'
 import ConfirmModal from '@/library/components/modal/templates/confirm.modal.vue'
 
 class DeveloperService {
