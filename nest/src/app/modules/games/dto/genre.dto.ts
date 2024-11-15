@@ -8,10 +8,10 @@ enum SORT_OPTIONS {
 }
 
 class GenrePaginationOptions extends PaginationOptions {
-  @ApiPropertyOptional({ enum: SORT_OPTIONS, default: SORT_OPTIONS.CREATED })
+  @ApiPropertyOptional({ enum: SORT_OPTIONS, default: SORT_OPTIONS.NAME })
   @IsEnum(SORT_OPTIONS)
   @IsOptional()
-  public readonly sort: SORT_OPTIONS = SORT_OPTIONS.CREATED;
+  public readonly sort: SORT_OPTIONS = SORT_OPTIONS.NAME;
 }
 
 class GenreDto {

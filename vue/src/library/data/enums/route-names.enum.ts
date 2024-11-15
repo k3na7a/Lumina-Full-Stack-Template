@@ -12,7 +12,12 @@ enum ROUTE_NAMES {
   ADMIN_USERS = 'user-administration',
   ADMIN_USER_LIST = 'user-list-administration',
 
+  ADMIN_PLAYTHROUGHS = 'playthrough-administration',
+  ADMIN_PLAYTHROUGHS_LIST = 'playthrough-list-administration',
+
   ADMIN_GAMES = 'game-library-administration',
+  ADMIN_GAMES_NAVIGATION = 'game-library-navigation',
+
   ADMIN_GAMES_LIST = 'game-library-list-administration',
   ADMIN_GAMES_PLATFORMS_LIST = 'game-platform-list-administration',
   ADMIN_GAMES_GENRES_LIST = 'game-genre-list-administration',
@@ -20,6 +25,9 @@ enum ROUTE_NAMES {
   ADMIN_GAMES_DEVELOPERS_LIST = 'game-developers-list-administration',
   ADMIN_GAMES_PUBLISHERS_LIST = 'game-publishers-list-administration',
   ADMIN_GAMES_GAMETYPES_LIST = 'game-gametypes-list-administration',
+  ADMIN_GAMES_PLAYTHROUGHS_LIST = 'game-playthroughs-list-administration',
+
+  ADMIN_GAMES_SINGLE = 'game-library-single-administration',
 
   SETTINGS = 'settings',
   SECURITY = 'security',

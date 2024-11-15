@@ -7,4 +7,11 @@ const deepEqual = (x: any, y: any): boolean => {
     : x === y
 }
 
-export { deepEqual }
+const checkIds = (x: any, y: any): boolean => {
+  const ctx = typeof x
+  const ty = typeof y
+
+  return ctx === ty && x['id'] == y['id']
+}
+
+export { deepEqual, checkIds }

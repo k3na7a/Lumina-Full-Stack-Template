@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import DropdownComponent from '@/library/components/dropdown/dropdown.component.vue'
+import DropdownComponent from '@/app/components/dropdown/dropdown.component.vue'
 
 import { MORE_NAVIGATION } from '@/app/layouts/main-navigation/schema/more-navigation.schema'
 </script>

@@ -1,4 +1,5 @@
 import { BaseDto } from '../base.dto'
+import { PaginationOptions } from '../pagination.dto'
 import { DeveloperDto } from './developer.dto'
 import { GametypeDto } from './gametype.dto'
 import { GenreDto } from './genre.dto'
@@ -40,7 +41,8 @@ type game = {
   developers: Array<DeveloperDto>
   publishers: Array<PublisherDto>
   gametype: GametypeDto
-  children: Array<GameDto>
+  children: Array<game>
+  playthroughs: Array<any>
 }
 
 class CreateGameDto {
@@ -69,6 +71,15 @@ class CreateGameDto {
     this.gametype_id = params.gametype.id
     this.related_ids = params.children?.map((game: GameDto) => game.id)
   }
+}
+
+class GamePagineationOptions extends PaginationOptions {
+  public platforms?: Array<string> = []
+  public genres?: Array<string> = []
+  public series?: Array<string> = []
+  public developers?: Array<string> = []
+  public publishers?: Array<string> = []
+  public gametypes?: Array<string> = []
 }
 
 class GameDto extends BaseDto {
@@ -123,11 +134,14 @@ class GameDto extends BaseDto {
       .sort(function (a: PublisherDto, b: PublisherDto) {
         return a.name.localeCompare(b.name)
       })
-    this.children = params.children?.sort(function (a: GameDto, b: GameDto) {
-      return new Date(a.release_date).getTime() - new Date(b.release_date).getTime()
-    })
+
+    this.children = params.children
+      ?.map((child) => new GameDto(child))
+      .sort(function (a: GameDto, b: GameDto) {
+        return new Date(a.release_date).getTime() - new Date(b.release_date).getTime()
+      })
   }
 }
 
-export { GameDto, CreateGameDto }
+export { GameDto, CreateGameDto, GamePagineationOptions }
 export type { game, igame }

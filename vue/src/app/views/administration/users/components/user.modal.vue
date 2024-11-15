@@ -4,13 +4,23 @@ import { Form } from 'vee-validate'
 
 import { Role, UpdateUser, UserDto } from '@/library/data/dto/user/user.dto'
 import { useFormUtil } from '@/library/utilities/helpers/forms.util'
-import { updateUser as validationSchema } from '../schema/validation.schema'
 
-import TextInput from '@/library/components/inputs/text.input.vue'
-import ModalTitleComponent from '@/library/components/modal/base/modal-title.component.vue'
-import InputSelectComponent from '@/library/components/inputs/select.input.vue'
-import InputFileComponent from '@/library/components/inputs/file.input.vue'
-import CheckboxInput from '@/library/components/inputs/checkbox.input.vue'
+import TextInput from '@/app/components/inputs/text.input.vue'
+import ModalTitleComponent from '@/app/components/modal/base/modal-title.component.vue'
+import InputSelectComponent from '@/app/components/inputs/select.input.vue'
+import InputFileComponent from '@/app/components/inputs/file.input.vue'
+import CheckboxInput from '@/app/components/inputs/checkbox.input.vue'
+
+import * as Yup from 'yup'
+
+const validationSchema = Yup.object().shape({
+  email: Yup.string().email().required(),
+  firstname: Yup.string().required(),
+  lastname: Yup.string().required(),
+  role: Yup.mixed<Role>().oneOf(Object.values(Role)).required(),
+  avatar: Yup.mixed<File>().notRequired(),
+  'remove-avatar': Yup.boolean().required()
+})
 
 const props = defineProps<{
   user: UserDto
@@ -48,13 +58,7 @@ const onSubmit = validateUtil.getSubmitFn(validationSchema, async (values: Updat
       </div>
 
       <div class="d-flex flex-column">
-        <TextInput
-          :label="$t('forms.email')"
-          :value="props.user.email"
-          autocomplete="email"
-          name="email"
-          type="email"
-        />
+        <TextInput label="forms.email" :value="props.user.email" autocomplete="email" name="email" type="email" />
       </div>
 
       <div class="d-flex flex-column gap-1">
@@ -71,11 +75,15 @@ const onSubmit = validateUtil.getSubmitFn(validationSchema, async (values: Updat
         <InputFileComponent name="avatar" />
       </div>
 
-      <CheckboxInput name="remove-avatar" :value="false" label="Remove profile picture" />
+      <CheckboxInput
+        name="remove-avatar"
+        :value="false"
+        label="administration.users.update-modal.remove-profile-picture"
+      />
 
       <div class="d-grid">
         <button :disabled="!meta.valid || !meta.dirty" class="btn btn-primary px-0" type="submit">
-          <div v-if="true" class="containter">{{ $t('Update User') }}</div>
+          <div v-if="true" class="containter">{{ $t('administration.users.update-modal.action') }}</div>
           <div v-else class="containter">{{ $t('actions.loading') }}</div>
         </button>
       </div>

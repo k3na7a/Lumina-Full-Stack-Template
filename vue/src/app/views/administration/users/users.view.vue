@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import UserAdministrationTable from './components/users.table-paginated.vue'
+import UserAdministrationTable from './pages/users.view.vue'
 </script>
 
 <template>

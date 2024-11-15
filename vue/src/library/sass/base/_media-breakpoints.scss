@@ -15,7 +15,8 @@
 }
 
 @include media-breakpoint-up(sm) {
-  .row-header {
+  .row-header,
+  .row-header > * {
     width: 16rem;
   }
 }

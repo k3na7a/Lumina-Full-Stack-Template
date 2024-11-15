@@ -2,7 +2,7 @@
 import { computed, ComputedRef, ref } from 'vue'
 import { Form } from 'vee-validate'
 
-import TextInput from '@/library/components/inputs/text.input.vue'
+import TextInput from '@/app/components/inputs/text.input.vue'
 
 import { useFormUtil } from '@/library/utilities/helpers/forms.util.ts'
 import { UpdateProfile, UserDto } from '@/library/data/dto/user/user.dto.ts'

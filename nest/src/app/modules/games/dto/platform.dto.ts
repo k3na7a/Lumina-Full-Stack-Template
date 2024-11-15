@@ -9,10 +9,10 @@ enum SORT_OPTIONS {
 }
 
 class PlatformPaginationOptions extends PaginationOptions {
-  @ApiPropertyOptional({ enum: SORT_OPTIONS, default: SORT_OPTIONS.CREATED })
+  @ApiPropertyOptional({ enum: SORT_OPTIONS, default: SORT_OPTIONS.RELEASE })
   @IsEnum(SORT_OPTIONS)
   @IsOptional()
-  public readonly sort: SORT_OPTIONS = SORT_OPTIONS.CREATED;
+  public readonly sort: SORT_OPTIONS = SORT_OPTIONS.RELEASE;
 }
 
 class PlatformDto {

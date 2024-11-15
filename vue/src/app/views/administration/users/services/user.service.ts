@@ -1,15 +1,15 @@
 import { AxiosError } from 'axios'
 
-import { ToastStore, useToastStore } from '@/library/components/toast/store/toast.store'
+import { ToastStore, useToastStore } from '@/app/components/toast/store/toast.store'
 
-import { LocalhostAPI } from '@/library/utilities/apis/localhost/localhost.api'
+import { LocalhostAPI } from '@/library/apis/localhost/localhost.api'
 import { PaginationDto, PaginationMeta, PaginationOptions } from '@/library/data/dto/pagination.dto'
 import { UpdateUser, UpdateUserDto, UserDto } from '@/library/data/dto/user/user.dto'
-import { ModalStore, useModalStore } from '@/library/components/modal/store/modal.store'
+import { ModalStore, useModalStore } from '@/app/components/modal/store/modal.store'
 import { markRaw } from 'vue'
 
 import UserModal from '../components/user.modal.vue'
-import ConfirmModal from '@/library/components/modal/templates/confirm.modal.vue'
+import ConfirmModal from '@/app/components/modal/templates/confirm.modal.vue'
 
 class UserService {
   public static async getUsersPaginated(params: PaginationOptions): Promise<PaginationDto<UserDto>> {
@@ -70,9 +70,10 @@ class UserService {
               })
             })
         },
-        title: `Delete ${user.getFullName()}`,
-        body: `Are you sure you want to delete user ${user.getFullName()}?`,
-        action: 'Delete User'
+        item: user.getFullName(),
+        title: 'administration.users.delete-modal.title',
+        body: 'administration.users.delete-modal.body',
+        action: 'administration.users.delete-modal.action'
       }
     })
   }

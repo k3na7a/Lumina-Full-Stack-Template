@@ -1,9 +1,21 @@
 <script setup lang="ts">
 import { RouteLocationNormalizedLoaded, useRoute } from 'vue-router'
 
-import { administration_navigation } from '@/app/views/administration/config/navigation.config'
-
 import SubNavigationLayout from '@/app/layouts/sub-navigation/sub-navigation.layout.vue'
+
+import { sub_navigation } from '@/library/data/types/sub-navigation.type'
+import { ROUTE_NAMES } from '@/app/router/routes'
+
+const administration_navigation: sub_navigation = [
+  {
+    name: ROUTE_NAMES.ADMIN_USERS,
+    label: 'administration.users.label'
+  },
+  {
+    name: ROUTE_NAMES.ADMIN_GAMES,
+    label: 'administration.game-library.label'
+  }
+]
 
 const route: RouteLocationNormalizedLoaded = useRoute()
 </script>

@@ -1,5 +1,13 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { AfterLoad, Column, Entity, JoinColumn, OneToOne } from 'typeorm';
+import {
+  AfterInsert,
+  AfterLoad,
+  AfterUpdate,
+  Column,
+  Entity,
+  JoinColumn,
+  OneToOne,
+} from 'typeorm';
 
 import { BaseEntity } from 'src/library/entities/base.entity';
 import { GameEntity } from './game.entity';
@@ -28,6 +36,8 @@ export class CoverEntity extends BaseEntity {
   public readonly game!: GameEntity;
 
   @AfterLoad()
+  @AfterInsert()
+  @AfterUpdate()
   updateUri() {
     const compile = HandlebarsPlugin.compile;
     this.uri = compile<uriProps>({

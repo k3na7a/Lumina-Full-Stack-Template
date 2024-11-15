@@ -75,20 +75,39 @@ class GameController {
   async paginate(
     @Query() params: GamePaginationOptions,
   ): Promise<PaginationDto<GameEntity>> {
-    const games = await this.gameService.paginate(params);
-    return games;
+    return this.gameService.paginate(params);
+  }
+
+  @Get(':slug')
+  @ApiOkResponse({ type: PaginationDto<GameEntity> })
+  async findOne(@Param('slug') slug: string): Promise<GameEntity> {
+    return this.gameService.getSingle(slug);
   }
 
   @Patch(':id')
   @ApiBody({ type: GameDto })
   @ApiOkResponse({ type: GameEntity })
-  @UseInterceptors(FileInterceptor('cover', { storage }))
   async update(
     @Param('id') id: string,
     @Body() dto: GameDto,
+  ): Promise<GameEntity> {
+    return this.gameService.update(id, dto);
+  }
+
+  @Delete(':id')
+  @ApiOkResponse({ type: GameEntity })
+  async delete(@Param('id') id: string): Promise<GameEntity> {
+    return this.gameService.remove(id);
+  }
+
+  @Patch(':id/cover')
+  @ApiBody({ type: GameDto })
+  @ApiOkResponse({ type: GameEntity })
+  @UseInterceptors(FileInterceptor('cover', { storage }))
+  async updateCover(
+    @Param('id') id: string,
     @UploadedFile(
       new ParseFilePipe({
-        fileIsRequired: false,
         validators: [
           new MaxFileSizeValidator({
             maxSize: 10 * megabyte,
@@ -99,15 +118,9 @@ class GameController {
         ],
       }),
     )
-    file?: Express.Multer.File,
+    file: Express.Multer.File,
   ): Promise<GameEntity> {
-    return this.gameService.update(id, dto, file);
-  }
-
-  @Delete(':id')
-  @ApiOkResponse({ type: GameEntity })
-  async delete(@Param('id') id: string): Promise<GameEntity> {
-    return this.gameService.remove(id);
+    return this.gameService.updateCover(id, file);
   }
 }
 

@@ -44,7 +44,8 @@ export class CoverService {
 
     unlink(path);
 
-    return this.repository.save({ ...avatar, filename });
+    const item = this.repository.create({ ...avatar, filename });
+    return this.repository.save(item);
   }
 
   public async remove(id: string): Promise<CoverEntity> {

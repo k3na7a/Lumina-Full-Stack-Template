@@ -1,6 +1,7 @@
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 import { Transform, Type } from 'class-transformer';
 import {
+  IsArray,
   IsBoolean,
   IsDate,
   IsEnum,
@@ -12,6 +13,7 @@ import { PaginationOptions } from 'src/library/dto/pagination.dto';
 enum SORT_OPTIONS {
   CREATED = 'game.createdAt',
   RELEASE = 'game.release_date',
+  NAME = 'game.name',
 }
 
 class GamePaginationOptions extends PaginationOptions {
@@ -27,6 +29,36 @@ class GamePaginationOptions extends PaginationOptions {
   )
   @IsOptional()
   public readonly expanded?: boolean = false;
+
+  @ApiPropertyOptional({ type: String, isArray: true })
+  @IsArray()
+  @IsOptional()
+  public readonly platforms: Array<string> = [];
+
+  @ApiPropertyOptional({ type: String, isArray: true })
+  @IsArray()
+  @IsOptional()
+  public readonly genres: Array<string> = [];
+
+  @ApiPropertyOptional({ type: String, isArray: true })
+  @IsArray()
+  @IsOptional()
+  public readonly series: Array<string> = [];
+
+  @ApiPropertyOptional({ type: String, isArray: true })
+  @IsArray()
+  @IsOptional()
+  public readonly developers: Array<string> = [];
+
+  @ApiPropertyOptional({ type: String, isArray: true })
+  @IsArray()
+  @IsOptional()
+  public readonly publishers: Array<string> = [];
+
+  @ApiPropertyOptional({ type: String, isArray: true })
+  @IsArray()
+  @IsOptional()
+  public readonly gametypes: Array<string> = [];
 }
 
 class GameDto {

@@ -1,4 +1,4 @@
-import { LocalhostAPI as API, TOKEN_ID } from '@/library/utilities/apis/localhost/localhost.api'
+import { LocalhostAPI as API, TOKEN_ID } from '@/library/apis/localhost/localhost.api'
 import { useLocalStorageUtil } from '@/library/utilities/helpers/local-storage.util'
 import {
   DeleteAccountDto,

@@ -2,8 +2,8 @@
 import { computed, ComputedRef, reactive } from 'vue'
 import { Form } from 'vee-validate'
 
-import TextInput from '@/library/components/inputs/text.input.vue'
-import PasswordValidationList from '@/library/components/labels/password-validation-list.component.vue'
+import TextInput from '@/app/components/inputs/text.input.vue'
+import PasswordValidationList from '@/app/components/labels/password-validation-list.component.vue'
 
 import { useFormUtil } from '@/library/utilities/helpers/forms.util'
 import { UserDto, UpdatePassword } from '@/library/data/dto/user/user.dto'

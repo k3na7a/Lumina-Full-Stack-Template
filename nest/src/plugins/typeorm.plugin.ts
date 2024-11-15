@@ -38,7 +38,7 @@ const config: TypeOrmModuleOptions = {
   password: process.env.DB_PASSWORD,
   database: process.env.DB_DATABASE,
   entities,
-  synchronize: true,
+  // synchronize: true,2
   timezone: 'Z',
 };
 

@@ -97,42 +97,59 @@ const routes: RouteRecordRaw[] = [
                 path: 'games',
                 name: ROUTE_NAMES.ADMIN_GAMES,
                 redirect: { name: ROUTE_NAMES.ADMIN_GAMES_LIST },
-                component: () => import('@/app/views/administration/games/game-library.view.vue'),
                 children: [
                   {
                     path: '',
-                    name: ROUTE_NAMES.ADMIN_GAMES_LIST,
-                    component: () => import('@/app/views/administration/games/pages/games.view.vue')
+                    name: ROUTE_NAMES.ADMIN_GAMES_NAVIGATION,
+                    component: () => import('@/app/views/administration/game-library/game-library.view.vue'),
+                    children: [
+                      {
+                        path: '',
+                        name: ROUTE_NAMES.ADMIN_GAMES_LIST,
+                        component: () => import('@/app/views/administration/game-library/pages/games.view.vue')
+                      },
+                      {
+                        path: 'platforms',
+                        name: ROUTE_NAMES.ADMIN_GAMES_PLATFORMS_LIST,
+                        component: () => import('@/app/views/administration/game-library/pages/platforms.view.vue')
+                      },
+                      {
+                        path: 'genres',
+                        name: ROUTE_NAMES.ADMIN_GAMES_GENRES_LIST,
+                        component: () => import('@/app/views/administration/game-library/pages/genres.view.vue')
+                      },
+                      {
+                        path: 'series',
+                        name: ROUTE_NAMES.ADMIN_GAMES_SERIES_LIST,
+                        component: () => import('@/app/views/administration/game-library/pages/series.view.vue')
+                      },
+                      {
+                        path: 'developers',
+                        name: ROUTE_NAMES.ADMIN_GAMES_DEVELOPERS_LIST,
+                        component: () => import('@/app/views/administration/game-library/pages/developers.view.vue')
+                      },
+                      {
+                        path: 'publishers',
+                        name: ROUTE_NAMES.ADMIN_GAMES_PUBLISHERS_LIST,
+                        component: () => import('@/app/views/administration/game-library/pages/publishers.view.vue')
+                      },
+                      {
+                        path: 'gametypes',
+                        name: ROUTE_NAMES.ADMIN_GAMES_GAMETYPES_LIST,
+                        component: () => import('@/app/views/administration/game-library/pages/gametypes.view.vue')
+                      }
+                    ]
                   },
                   {
-                    path: 'platforms',
-                    name: ROUTE_NAMES.ADMIN_GAMES_PLATFORMS_LIST,
-                    component: () => import('@/app/views/administration/games/pages/platforms.view.vue')
-                  },
-                  {
-                    path: 'genres',
-                    name: ROUTE_NAMES.ADMIN_GAMES_GENRES_LIST,
-                    component: () => import('@/app/views/administration/games/pages/genres.view.vue')
-                  },
-                  {
-                    path: 'series',
-                    name: ROUTE_NAMES.ADMIN_GAMES_SERIES_LIST,
-                    component: () => import('@/app/views/administration/games/pages/series.view.vue')
-                  },
-                  {
-                    path: 'developers',
-                    name: ROUTE_NAMES.ADMIN_GAMES_DEVELOPERS_LIST,
-                    component: () => import('@/app/views/administration/games/pages/developers.view.vue')
-                  },
-                  {
-                    path: 'publishers',
-                    name: ROUTE_NAMES.ADMIN_GAMES_PUBLISHERS_LIST,
-                    component: () => import('@/app/views/administration/games/pages/publishers.view.vue')
-                  },
-                  {
-                    path: 'gametypes',
-                    name: ROUTE_NAMES.ADMIN_GAMES_GAMETYPES_LIST,
-                    component: () => import('@/app/views/administration/games/pages/gametypes.view.vue')
+                    path: 'single',
+                    redirect: { name: ROUTE_NAMES.ADMIN_GAMES },
+                    children: [
+                      {
+                        path: ':slug',
+                        name: ROUTE_NAMES.ADMIN_GAMES_SINGLE,
+                        component: () => import('@/app/views/administration/game-library/pages/games-single.view.vue')
+                      }
+                    ]
                   }
                 ]
               }

@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import { RouteLocationNormalizedLoaded, useRoute } from 'vue-router'
 
-import OffcanvasComponent from '@/library/components/offcanvas/offcanvas.component.vue'
-import ToastComponent from '@/library/components/toast/toast.component.vue'
-import ModalComponent from '@/library/components/modal/base/modal.component.vue'
+import OffcanvasComponent from '@/app/components/offcanvas/offcanvas.component.vue'
+import ToastComponent from '@/app/components/toast/toast.component.vue'
+import ModalComponent from '@/app/components/modal/base/modal.component.vue'
 
 const route: RouteLocationNormalizedLoaded = useRoute()
 </script>

@@ -1,12 +1,12 @@
 import { markRaw } from 'vue'
 import { AxiosError } from 'axios'
 
-import PasswordModal from '@/library/components/modal/templates/password.modal.vue'
-import UploadImageModalComponent from '@/library/components/modal/templates/image-upload.modal.vue'
+import PasswordModal from '@/app/components/modal/templates/password.modal.vue'
+import UploadImageModalComponent from '@/app/components/modal/templates/image-upload.modal.vue'
 
-import { ModalStore, useModalStore } from '@/library/components/modal/store/modal.store'
+import { ModalStore, useModalStore } from '@/app/components/modal/store/modal.store'
 import { AuthStore, useAuthStore } from '@/app/store/authentication.store'
-import { ToastStore, useToastStore } from '@/library/components/toast/store/toast.store'
+import { ToastStore, useToastStore } from '@/app/components/toast/store/toast.store'
 
 import {
   DeleteAccount,
@@ -18,7 +18,7 @@ import {
   UpdateProfile,
   UpdateProfileDto
 } from '@/library/data/dto/user/user.dto'
-import ConfirmModal from '@/library/components/modal/templates/confirm.modal.vue'
+import ConfirmModal from '@/app/components/modal/templates/confirm.modal.vue'
 
 class SettingsService {
   public static updateAvatar = (): void => {
@@ -66,9 +66,9 @@ class SettingsService {
               })
             )
         },
-        title: 'Remove your profile picture',
-        body: 'Are you sure you want to remove your profile picture?',
-        action: 'Remove Profile Picture'
+        title: 'administration.settings.profile.remove-avatar.title',
+        body: 'administration.settings.profile.remove-avatar.body',
+        action: 'administration.settings.profile.remove-avatar.action'
       }
     })
   }

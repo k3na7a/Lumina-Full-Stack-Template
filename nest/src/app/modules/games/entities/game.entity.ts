@@ -108,7 +108,7 @@ class GameEntity extends BaseEntity {
   public readonly children?: Array<GameEntity>;
 
   @ApiProperty({ type: [GametypeEntity] })
-  @ManyToOne(() => GametypeEntity)
+  @ManyToOne(() => GametypeEntity, { eager: true })
   @JoinTable({
     name: 'game_gametype',
     joinColumn: {
