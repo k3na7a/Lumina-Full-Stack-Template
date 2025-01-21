@@ -1,34 +1,43 @@
 <script setup lang="ts">
-import { RouteLocationNormalizedLoaded, useRoute } from 'vue-router'
-
-import SubNavigationLayout from '@/app/layouts/sub-navigation/sub-navigation.layout.vue'
-
-import { sub_navigation } from '@/library/data/types/sub-navigation.type'
 import { ROUTE_NAMES } from '@/app/router/routes'
+import { RouteLocationNormalizedLoaded, Router, useRoute, useRouter } from 'vue-router'
 
-const administration_navigation: sub_navigation = [
+import AdminLayout from './layouts/admin.layout.vue'
+
+const route: RouteLocationNormalizedLoaded = useRoute()
+const router: Router = useRouter()
+
+const routes = [
   {
-    name: ROUTE_NAMES.ADMIN_USERS,
-    label: 'administration.users.label'
+    name: ROUTE_NAMES.ADMIN_USER_LIST,
+    label: 'administration.users.label',
+    icon: ['fas', 'user'],
+    callback: (_: MouseEvent) => {
+      router.push({ name: ROUTE_NAMES.ADMIN_USER_LIST })
+    }
   },
   {
     name: ROUTE_NAMES.ADMIN_GAMES,
-    label: 'administration.game-library.label'
+    label: 'administration.game-library.label',
+    icon: ['fas', 'gamepad'],
+    callback: (_: MouseEvent) => {
+      router.push({ name: ROUTE_NAMES.ADMIN_GAMES })
+    }
   }
 ]
-
-const route: RouteLocationNormalizedLoaded = useRoute()
 </script>
 
 <template>
-  <SubNavigationLayout title="administration.label" :routes="administration_navigation">
+  <AdminLayout :routes>
     <template #content>
       <Suspense>
-        <RouterView v-slot="{ Component }" :key="route.fullPath">
+        <RouterView v-slot="{ Component }" :key="route.path">
           <component :is="Component" />
         </RouterView>
-        <template #fallback>{{ $t('actions.loading') }}</template>
+        <template #fallback>
+          <div class="d-flex flex-column h-100 p-3">{{ $t('actions.loading') }}</div>
+        </template>
       </Suspense>
     </template>
-  </SubNavigationLayout>
+  </AdminLayout>
 </template>

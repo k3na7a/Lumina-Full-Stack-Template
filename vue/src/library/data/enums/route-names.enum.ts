@@ -28,6 +28,7 @@ enum ROUTE_NAMES {
   ADMIN_GAMES_PLAYTHROUGHS_LIST = 'game-playthroughs-list-administration',
 
   ADMIN_GAMES_SINGLE = 'game-library-single-administration',
+  ADMIN_GAMES_SINGLE_INFO = 'game-library-single-information-administration',
 
   SETTINGS = 'settings',
   SECURITY = 'security',

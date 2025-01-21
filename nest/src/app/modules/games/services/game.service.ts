@@ -161,7 +161,7 @@ class GameService {
 
     const query = this.repository
       .createQueryBuilder('game')
-      .orderBy({ [sort]: order })
+      .orderBy({ [sort]: order, 'game.name': order })
       .take(take)
       .skip(skip)
       .where('game.name like :query', { query: `%${search}%` })

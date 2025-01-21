@@ -1,12 +1,12 @@
 <script setup lang="ts">
 import { computed, ComputedRef, reactive } from 'vue'
 import { Form } from 'vee-validate'
+import * as Yup from 'yup'
 
 import TextInput from '@/app/components/inputs/text.input.vue'
 
 import { useFormUtil } from '@/library/utilities/helpers/forms.util'
 import { UpdateEmail, UserDto } from '@/library/data/dto/user/user.dto'
-import { updateEmail as validationSchema } from '../config/schema/validation.schema'
 import { SettingsService } from '../services/settings.service'
 import { AuthStore, useAuthStore } from '@/app/store/authentication.store'
 
@@ -18,6 +18,14 @@ const authStore: AuthStore = useAuthStore()
 const state = reactive<{ loading: boolean; open: boolean }>({ loading: false, open: false })
 const user: ComputedRef<UserDto | undefined> = computed(() => authStore.authenticatedUser)
 
+const validationSchema = Yup.object().shape({
+  password: Yup.string().required(),
+  email: Yup.string().email().required(),
+  confirm_email: Yup.string()
+    .required()
+    .oneOf([Yup.ref('email')])
+})
+
 const onSubmit = getSubmitFn(validationSchema, async (values: UpdateEmail): Promise<void> => {
   state.loading = true
   updateEmail(values).finally(() => (state.loading = false))
@@ -25,7 +33,12 @@ const onSubmit = getSubmitFn(validationSchema, async (values: UpdateEmail): Prom
 </script>
 
 <template>
-  <Form @submit="onSubmit" :validation-schema="validationSchema" v-slot="{ meta }" :key="JSON.stringify(user?.updatedAt)">
+  <Form
+    @submit="onSubmit"
+    :validation-schema="validationSchema"
+    v-slot="{ meta }"
+    :key="JSON.stringify(user?.updatedAt)"
+  >
     <div class="d-flex flex-column flex-sm-row gap-3 p-3">
       <div class="row-header">
         <h6 class="fw-bold">{{ $t('forms.email') }}</h6>

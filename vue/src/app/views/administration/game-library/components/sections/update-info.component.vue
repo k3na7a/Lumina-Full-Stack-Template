@@ -10,7 +10,7 @@ import DateInput from '@/app/components/inputs/date.input.vue'
 
 import { GameDto, igame } from '@/library/data/dto/games/game.dto'
 import { GametypeDto } from '@/library/data/dto/games/gametype.dto'
-import { GameLibraryService } from '../../service/game-library.service'
+
 import { DeveloperDto } from '@/library/data/dto/games/developer.dto'
 import { GenreDto } from '@/library/data/dto/games/genre.dto'
 import { PlatformDto } from '@/library/data/dto/games/platform.dto'
@@ -19,6 +19,7 @@ import { SeriesDto } from '@/library/data/dto/games/series.dto'
 import { useFormUtil } from '@/library/utilities/helpers/forms.util'
 import { useRouter } from 'vue-router'
 import { ROUTE_NAMES } from '@/app/router/routes'
+import { GameLibraryService } from '../../service/game-library.service'
 
 const gametypes = ref<Array<GametypeDto>>([])
 

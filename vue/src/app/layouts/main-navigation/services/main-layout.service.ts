@@ -22,7 +22,7 @@ class MainLayoutService {
       view: markRaw(SignInModal),
       properties: {
         callback: async (values: credentials): Promise<void> => {
-          signIn(values)
+          await signIn(values)
             .then(closeModal)
             .catch((error: AxiosError) =>
               addToast({
@@ -45,7 +45,7 @@ class MainLayoutService {
       view: markRaw(RegisterModal),
       properties: {
         callback: async (values: Register): Promise<void> => {
-          register(new RegisterDto(values))
+          await register(new RegisterDto(values))
             .then(closeModal)
             .catch((error: AxiosError) =>
               addToast({

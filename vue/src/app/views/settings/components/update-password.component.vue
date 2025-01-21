@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { computed, ComputedRef, reactive } from 'vue'
 import { Form } from 'vee-validate'
+import * as Yup from 'yup'
 
 import TextInput from '@/app/components/inputs/text.input.vue'
 import PasswordValidationList from '@/app/components/labels/password-validation-list.component.vue'
@@ -9,7 +10,7 @@ import { useFormUtil } from '@/library/utilities/helpers/forms.util'
 import { UserDto, UpdatePassword } from '@/library/data/dto/user/user.dto'
 import { AuthStore, useAuthStore } from '@/app/store/authentication.store'
 import { SettingsService } from '../services/settings.service'
-import { updatePassword as validationSchema } from '../config/schema/validation.schema'
+import { PasswordValidation } from '@/library/data/regex/validation.regex'
 
 const { getSubmitFn } = useFormUtil()
 const { updatePassword } = SettingsService
@@ -18,6 +19,14 @@ const authStore: AuthStore = useAuthStore()
 
 const user: ComputedRef<UserDto | undefined> = computed(() => authStore.authenticatedUser)
 const state = reactive<{ loading: boolean; open: boolean }>({ loading: false, open: false })
+
+const validationSchema = Yup.object().shape({
+  current_password: Yup.string().required(),
+  password: Yup.string().required().matches(PasswordValidation.regex),
+  confirm_password: Yup.string()
+    .required()
+    .oneOf([Yup.ref('password')])
+})
 
 const onSubmit = getSubmitFn(validationSchema, async (values: UpdatePassword) => {
   state.loading = true

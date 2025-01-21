@@ -4,7 +4,7 @@ const emit = defineEmits<{ update: [value: number] }>()
 </script>
 
 <template>
-  <ul class="pagination m-0 flex-nowrap user-select-none">
+  <ul class="pagination m-0 flex-wrap user-select-none">
     <li class="page-item">
       <button
         v-tooltip="{ text: $t('forms.first'), position: 'bottom', trigger: 'hover' }"

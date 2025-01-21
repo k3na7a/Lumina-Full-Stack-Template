@@ -8,7 +8,8 @@ const tooltip: {
     const options = binding.value
     const tooltip = new Tooltip(el, {
       placement: options.position,
-      title: options.text,
+      ...(options.text && { title: options.text }),
+      ...(options.html && { html: options.html }),
       ...(options.trigger && { trigger: options.trigger }),
       ...(options.delay && { delay: options.delay }),
       ...(options.offset && { offset: options.offset })

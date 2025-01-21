@@ -74,7 +74,7 @@ function onPageUpdate(page: number): void {
       <slot name="filters"></slot>
     </div>
 
-    <div class="table-responsive text-nowrap" style="overflow-x: auto">
+    <div class="table-responsive text-nowrap container-overflow" style="overflow-x: auto">
       <table class="m-0" :class="{ disabled: props.loading }">
         <thead>
           <tr>
@@ -97,7 +97,6 @@ function onPageUpdate(page: number): void {
                   </div>
                 </td>
               </tr>
-   
             </template>
           </tbody>
         </template>
@@ -121,19 +120,17 @@ function onPageUpdate(page: number): void {
       class="d-flex flex-column-reverse flex-sm-row justify-content-between align-items-center"
       style="column-gap: 1rem; row-gap: 2rem"
     >
-      <div class="d-flex w-100">
-        <SelectInputComponent
-          name="take"
-          style="width: 7.5rem"
-          @update="onTakeUpdate"
-          :value="options.take"
-          :options="[25, 50, 100]"
-        >
-          <template #option="{ option }">
-            {{ option }}
-          </template>
-        </SelectInputComponent>
-      </div>
+      <SelectInputComponent
+        name="take"
+        style="width: 7.5rem"
+        @update="onTakeUpdate"
+        :value="options.take"
+        :options="[25, 50, 100]"
+      >
+        <template #option="{ option }">
+          {{ option }}
+        </template>
+      </SelectInputComponent>
 
       <PaginationInputComponent
         @update="onPageUpdate"

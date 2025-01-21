@@ -42,13 +42,7 @@ const onSubmit = validateUtil.getSubmitFn(validationSchema, async (values: crede
         </div>
       </div>
       <div class="d-grid">
-        <button
-          target="_blank"
-          :to="{ name: 'home' }"
-          :disabled="!meta.valid || loading || !meta.dirty"
-          class="btn btn-primary px-0"
-          type="submit"
-        >
+        <button :disabled="!meta.valid || loading || !meta.dirty" class="btn btn-primary px-0" type="submit">
           <div v-if="!loading" class="containter">{{ $t('actions.log-in') }}</div>
           <div v-else class="containter">{{ $t('actions.loading') }}</div>
         </button>

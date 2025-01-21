@@ -9,27 +9,16 @@ const route: RouteLocationNormalizedLoaded = useRoute()
 
 <template>
   <SubNavigationLayout
-    title="Game Library"
+    title="administration.settings.title"
+    subtitle="administration.settings.subtitle"
     :routes="[
       {
-        name: ROUTE_NAMES.GAMES,
-        label: 'Games'
+        name: ROUTE_NAMES.PROFILE,
+        label: 'administration.settings.profile.label'
       },
       {
-        name: ROUTE_NAMES.HOME,
-        label: 'Series'
-      },
-      {
-        name: ROUTE_NAMES.HOME,
-        label: 'Platforms'
-      },
-      {
-        name: ROUTE_NAMES.HOME,
-        label: 'Genres'
-      },
-      {
-        name: ROUTE_NAMES.HOME,
-        label: 'Complete'
+        name: ROUTE_NAMES.SECURITY,
+        label: 'administration.settings.security-privacy.label'
       }
     ]"
   >

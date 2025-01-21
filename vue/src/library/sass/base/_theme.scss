@@ -4,12 +4,16 @@ body {
   color: $light;
 
   background-color: $background;
-  scrollbar-color: $scrollbar-color transparent;
+  scrollbar-color: $scrollbar-color $background;
 
   ::selection {
     color: $light !important;
     background-color: color-mix(in srgb, $primary 50%, transparent) !important;
   }
+}
+
+.card {
+  scrollbar-color: $scrollbar-color $backgroundLight;
 }
 
 .display-font {
@@ -60,6 +64,10 @@ main {
   max-width: 90rem;
 }
 
+.sub-navigation-layout {
+  min-width: 35rem;
+}
+
 .bg-alt {
   background-color: $backgroundAlt;
 }
@@ -82,6 +90,14 @@ main {
 
 .content-wrapper {
   margin-top: map-get($header-config, height, desktop);
+}
+
+.admin-drawer {
+  border-right: 0.1rem solid $secondary;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  z-index: 1;
 }
 
 .card {
@@ -248,5 +264,26 @@ main {
 @keyframes rotate {
   100% {
     transform: rotate(360deg);
+  }
+}
+
+.container-overflow {
+  /* overflow */
+  overflow-x: auto;
+
+  /* shadow */
+  animation: scroll-shadow-inset linear;
+  animation-timeline: scroll(self inline);
+}
+
+@keyframes scroll-shadow-inset {
+  /* start with inset shadow on right */
+  from {
+    box-shadow: inset -15px -10px 15px 0px rgb(0 0 0 / 0.5);
+  }
+
+  /* end with inset shadow on left */
+  to {
+    box-shadow: inset 15px -10px 15px 0px rgb(0 0 0 / 0.5);
   }
 }

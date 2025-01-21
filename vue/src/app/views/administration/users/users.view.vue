@@ -1,17 +1,24 @@
 <script setup lang="ts">
-import UserAdministrationTable from './pages/users.view.vue'
+import SubNavigationLayout from '@/app/layouts/sub-navigation/sub-navigation.layout.vue'
+import { ROUTE_NAMES } from '@/app/router/routes'
+import { sub_navigation } from '@/library/data/types/sub-navigation.type'
+
+import { RouteLocationNormalizedLoaded, useRoute } from 'vue-router'
+
+const options: sub_navigation = [{ label: 'administration.users.label', name: ROUTE_NAMES.ADMIN_USER_LIST }]
+
+const route: RouteLocationNormalizedLoaded = useRoute()
 </script>
 
 <template>
-  <div class="content-view-administration d-flex flex-column gap-2">
-    <div class="d-flex flex-column">
-      <h4 class="text-light fw-semibold">{{ $t('administration.users.title') }}</h4>
-      <p class="text-muted fw-normal">{{ $t('administration.users.subtitle') }}</p>
-    </div>
-    <div class="card d-flex flex-column">
-      <div class="section p-3">
-        <UserAdministrationTable />
-      </div>
-    </div>
-  </div>
+  <SubNavigationLayout title="administration.users.header" :routes="options">
+    <template #content>
+      <Suspense>
+        <RouterView v-slot="{ Component }" :key="route.path">
+          <component :is="Component" />
+        </RouterView>
+        <template #fallback>{{ $t('actions.loading') }}</template>
+      </Suspense>
+    </template>
+  </SubNavigationLayout>
 </template>

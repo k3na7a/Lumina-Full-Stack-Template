@@ -38,9 +38,21 @@ const config: TypeOrmModuleOptions = {
   password: process.env.DB_PASSWORD,
   database: process.env.DB_DATABASE,
   entities,
-  // synchronize: true,2
+  synchronize: true,
   timezone: 'Z',
 };
+
+// const config: TypeOrmModuleOptions = {
+//   type: 'mysql',
+//   host: 'localhost',
+//   port: 3306,
+//   username: 'root',
+//   password: 'password',
+//   database: 'demo_nest_api',
+//   entities,
+//   synchronize: true,
+//   timezone: 'Z',
+// };
 
 export class TypeOrmPlugin {
   public static forRoot = TypeOrmModule.forRoot(config);
