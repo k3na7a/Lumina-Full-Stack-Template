@@ -1,1 +1,1 @@
-# Full-Stack Game Collection Application
+# Full-Stack Multi-Purpose Demo Application
