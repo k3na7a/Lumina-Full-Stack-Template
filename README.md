@@ -1,1 +1,1 @@
-# Example Full-Stack Application
+# Full-Stack Game Collection Application
