@@ -18,18 +18,19 @@ import { GametypeDto } from '@/library/data/dto/games/gametype.dto'
 import { PublisherDto } from '@/library/data/dto/games/publisher.dto'
 import { DeveloperDto } from '@/library/data/dto/games/developer.dto'
 
-const { getPaginated, create } = GameLibraryService.games
+const { getPaginated, create, remove } = GameLibraryService.games
 const { t } = useI18n()
 
 import { ROUTE_NAMES } from '@/app/router/routes'
 import ContentLayout from '../../../layouts/content.layout.vue'
+import { Router, useRouter } from 'vue-router'
 
 const loading = ref<boolean>(true)
 const options = reactive<GamePagineationOptions>({
   take: 25,
   order: Order.ASC,
   page: 1,
-  sort: 'game.release_date',
+  sort: 'game.name',
   search: undefined,
   expanded: true,
   platforms: [],
@@ -39,6 +40,8 @@ const options = reactive<GamePagineationOptions>({
   publishers: [],
   gametypes: []
 })
+
+const router: Router = useRouter()
 
 const response = reactive<{ data: Array<any>; meta: PaginationMeta }>({
   data: [],
@@ -124,7 +127,7 @@ const filters: {
 const columns = [
   { name: 'name', label: 'forms.game' },
   { name: 'platforms', label: 'administration.game-library.platforms.label' },
-  { name: 'status', label: 'forms.status' }
+  { name: 'actions', label: 'forms.actions' }
 ]
 
 const sortOptions = [
@@ -207,17 +210,13 @@ watch(
         </template>
 
         <template #name="{ row }">
-          <div class="d-flex flex-row gap-1 game-cell align-items-center" style="max-width: 30rem">
+          <div class="d-flex flex-row gap-1 game-cell align-items-center" style="max-width: 30rem" :key="row.id">
             <div v-if="row.cover">
               <img class="cover-icon" :src="row.cover" />
+              <!-- <font-awesome-icon class="custom-badge" :icon="['fas', 'award']" /> -->
             </div>
             <div class="d-flex flex-column overflow-hidden">
-              <RouterLink
-                :to="{ name: ROUTE_NAMES.ADMIN_GAMES_SINGLE, params: { slug: row.slug } }"
-                class="link-light link-opacity-75-hover text-truncate fw-semibold link-underline link-underline-opacity-0 link-underline-opacity-75-hover"
-              >
-                {{ row.name }}
-              </RouterLink>
+              <span class="fw-semibold text-truncate">{{ row.name }}</span>
               <small class="text-muted"> {{ moment(row.release_date).format('LL') }}</small>
               <div class="d-flex column-gap-1 flex-wrap align-items-center">
                 <template v-for="(series, index) in row.series">
@@ -236,7 +235,7 @@ watch(
         </template>
 
         <template #platforms="{ row }">
-          <div class="d-flex flex-column m-0 gap-1" style="max-width: 20rem">
+          <div class="d-flex flex-column m-0 gap-1" style="max-width: 20rem" :key="row.platforms">
             <template v-for="platform of row.platforms.slice(0, 2)">
               <button
                 class="btn btn-link fw-semibold d-flex justify-content-start w-100"
@@ -259,8 +258,29 @@ watch(
           </div>
         </template>
 
-        <template #status>
-          <div class="d-flex flex-column m-0 gap-1" style="max-width: 20rem"></div>
+        <template #actions="{ row }">
+          <div class="d-flex gap-1 flex-nowrap">
+            <button
+              v-tooltip="{ text: $t('actions.update'), position: 'bottom', trigger: 'hover' }"
+              class="btn btn-dark btn-icon-sm px-0"
+              type="button"
+              @click="(_: MouseEvent) => router.push({ name: ROUTE_NAMES.ADMIN_GAMES_SINGLE, params: { slug: row.slug } })"
+            >
+              <div class="d-flex flex-column align-items-center text-warning">
+                <font-awesome-icon size="sm" :icon="['fas', 'pencil']" />
+              </div>
+            </button>
+            <button
+              v-tooltip="{ text: $t('actions.delete'), position: 'bottom', trigger: 'hover' }"
+              class="btn btn-dark btn-icon-sm px-0"
+              type="button"
+              @click="(_: MouseEvent) => remove(row, (_: GameDto) => { getPaginatedData(options) })"
+            >
+              <div class="d-flex flex-column align-items-center text-danger">
+                <font-awesome-icon size="sm" :icon="['fas', 'trash-can']" />
+              </div>
+            </button>
+          </div>
         </template>
       </TablePaginatedComponent>
     </template>
@@ -270,10 +290,33 @@ watch(
 <style lang="scss" scoped>
 @import '@/library/sass/variables/index';
 
+div:has(.custom-badge) {
+  position: relative;
+
+  .custom-badge {
+    z-index: 50;
+    position: absolute;
+    top: -0.5rem;
+    left: -0.5rem;
+    pointer-events: none;
+    color: #d4af37;
+    font-size: 2.5rem;
+    filter: drop-shadow(0px 0px 0.3rem rgba(212, 175, 55, 0.9));
+  }
+}
+
 .cover-icon {
   height: 5rem;
+  // height: 6.5rem;
   object-fit: cover;
   border: 0.1rem $secondary dashed;
+}
+
+.special-link {
+  color: $lightAlt;
+  &:hover {
+    opacity: 80%;
+  }
 }
 
 .btn-link {

@@ -84,6 +84,7 @@ watch(isOpen, async (value: boolean, _prev: boolean): Promise<void> => {
     height: 3rem;
   }
 
-  backdrop-filter: blur(1.5rem);
+  // backdrop-filter: blur(1rem);
+  background-color: rgba(0, 0, 0, 0.85);
 }
 </style>

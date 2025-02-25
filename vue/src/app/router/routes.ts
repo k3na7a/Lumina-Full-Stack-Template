@@ -69,13 +69,13 @@ const routes: RouteRecordRaw[] = [
             component: () => import('@/app/views/administration/administration.view.vue'),
             children: [
               {
-                path: 'users',
+                path: 'user-management',
                 name: ROUTE_NAMES.ADMIN_USERS,
                 redirect: { name: ROUTE_NAMES.ADMIN_USER_LIST },
                 component: () => import('@/app/views/administration/users/users.view.vue'),
                 children: [
                   {
-                    path: 'user-list',
+                    path: 'users',
                     name: ROUTE_NAMES.ADMIN_USER_LIST,
                     component: () => import('@/app/views/administration/users/pages/users.view.vue')
                   }
