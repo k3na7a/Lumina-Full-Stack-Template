@@ -4,30 +4,12 @@ import { EntityClassOrSchema } from '@nestjs/typeorm/dist/interfaces/entity-clas
 import { AvatarEntity } from 'src/app/modules/users/entities/avatar.entity';
 import { ProfileEntity } from 'src/app/modules/users/entities/profile.entity';
 import { UserEntity } from 'src/app/modules/users/entities/user.entity';
-import { PlatformEntity } from 'src/app/modules/games/entities/platform.entity';
-import { GameEntity } from 'src/app/modules/games/entities/game.entity';
-import { GenreEntity } from 'src/app/modules/games/entities/genre.entity';
-import { CoverEntity } from 'src/app/modules/games/entities/cover.entity';
-import { SeriesEntity } from 'src/app/modules/games/entities/series.entity';
-import { DeveloperEntity } from 'src/app/modules/games/entities/developer.entity';
-import { PublisherEntity } from 'src/app/modules/games/entities/publisher.entity';
-import { GametypeEntity } from 'src/app/modules/games/entities/gametype.entity';
 
 const entities = [
   // # users
   UserEntity,
   ProfileEntity,
   AvatarEntity,
-
-  // # video game library
-  GameEntity,
-  PlatformEntity,
-  GenreEntity,
-  CoverEntity,
-  SeriesEntity,
-  DeveloperEntity,
-  PublisherEntity,
-  GametypeEntity,
 ];
 
 const config: TypeOrmModuleOptions = {

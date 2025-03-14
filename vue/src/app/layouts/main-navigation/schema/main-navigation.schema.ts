@@ -1,4 +1,4 @@
-import { ROUTE_NAMES } from '@/app/router/routes'
+import { ROUTE_NAMES } from '@/library/router/routes'
 
 type nav = {
   label: string
@@ -8,11 +8,6 @@ type nav = {
 }
 
 const MAIN_NAVIGATION: Array<nav> = [
-  {
-    label: 'navigation.games',
-    name: ROUTE_NAMES.GAMES,
-    icon: ['fas', 'gamepad']
-  },
   {
     label: 'navigation.applications',
     name: ROUTE_NAMES.APPLICATIONS,

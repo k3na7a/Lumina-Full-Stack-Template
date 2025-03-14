@@ -5,7 +5,7 @@ import moment from 'moment'
 import { Order, PaginationDto, PaginationMeta, PaginationOptions, SortOptions } from '@/library/data/dto/pagination.dto'
 import { Role, UserDto } from '@/library/data/dto/user/user.dto.ts'
 
-import ContentLayout from '../../layouts/content.layout.vue'
+import ContentLayout from '../../../../layouts/administration-layout/content.layout.vue'
 import TablePaginatedComponent from '@/app/components/table/paginated.component.vue'
 
 import { UserService } from '../services/user.service.ts'

@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ComputedRef, computed } from 'vue'
-import { Toast, ToastStore, useToastStore } from '@/app/components/toast/store/toast.store'
+import { Toast, ToastStore, useToastStore } from '@/library/store/toast.store'
 
 import { useStringUtil } from '@/library/utilities/helpers/string.util'
 

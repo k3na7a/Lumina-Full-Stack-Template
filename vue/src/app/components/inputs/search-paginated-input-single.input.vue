@@ -15,7 +15,7 @@ const props = defineProps<{
 }>()
 
 const name = toRef(props, 'name')
-const gameSearchRef = ref<InstanceType<typeof HTMLElement>>()
+const SearchRef = ref<InstanceType<typeof HTMLElement>>()
 
 const defaultOptions = {
   take: 25,
@@ -66,12 +66,12 @@ async function getData(): Promise<void> {
 }
 
 function closeDropdown(): void {
-  const dropdown = bootstrap.Dropdown.getOrCreateInstance(gameSearchRef.value || '')
+  const dropdown = bootstrap.Dropdown.getOrCreateInstance(SearchRef.value || '')
   dropdown.hide()
 }
 
 function openDropdown(): void {
-  const dropdown = bootstrap.Dropdown.getOrCreateInstance(gameSearchRef.value || '')
+  const dropdown = bootstrap.Dropdown.getOrCreateInstance(SearchRef.value || '')
   dropdown.show()
 }
 
@@ -102,7 +102,7 @@ onMounted(() => {
 
 <template>
   <div class="d-flex flex-column gap-1 w-100">
-    <div class="dropdown gameSearch" ref="gameSearchRef" v-click-outside="closeDropdown">
+    <div class="dropdown search" ref="SearchRef" v-click-outside="closeDropdown">
       <div class="search-input input-group flex-nowrap bg-alt d-flex align-items-stretch">
         <div v-if="value" class="display flex-shrink-1 align-items-center p-1 px-2 pe-0">
           <p
@@ -158,10 +158,10 @@ onMounted(() => {
   </div>
 </template>
 
-<style lang="scss">
+<style lang="scss" scoped>
 @import '@/library/sass/variables/index';
 
-.gameSearch {
+.search {
   .dropdown-menu {
     border: 0.1rem solid $muted;
   }

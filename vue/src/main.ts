@@ -9,7 +9,7 @@ import { PiniaService as Pinia } from '@/plugins/pinia.plugin'
 import { I18nService as I18n } from '@/plugins/vuei18n.plugin'
 import { VueRouterService as Router } from '@/plugins/vuerouter.plugin'
 
-import { routes } from '@/app/router/routes'
+import { routes } from '@/library/router/routes'
 import { Ckeditor5Service } from './plugins/ckeditor5.plugin'
 import { CustomDirectiveService } from './plugins/custom-directives.plugin'
 

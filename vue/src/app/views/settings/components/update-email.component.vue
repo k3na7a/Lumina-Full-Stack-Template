@@ -8,7 +8,7 @@ import TextInput from '@/app/components/inputs/text.input.vue'
 import { useFormUtil } from '@/library/utilities/helpers/forms.util'
 import { UpdateEmail, UserDto } from '@/library/data/dto/user/user.dto'
 import { SettingsService } from '../services/settings.service'
-import { AuthStore, useAuthStore } from '@/app/store/authentication.store'
+import { AuthStore, useAuthStore } from '@/library/store/authentication.store'
 
 const { updateEmail } = SettingsService
 const { getSubmitFn } = useFormUtil()

@@ -19,40 +19,10 @@
   "confirm-new-email": "Confirm New Email Address",
   "continue": "Continue",
   "calculate": "Calculate",
-
   "sort-by": "Sort by:",
   "filter-by": "Filter by:",
-
   "update-avatar": "Update Profile Picture",
-  "update-cover": "Update Cover Art",
-
   "create": "Create",
   "update": "Update",
-  "delete": "Delete",
-
-  "delete-game": "Delete Game",
-
-  "create-developer": "Create Developer",
-  "update-developer": "Update Developer",
-  "delete-developer": "Delete Developer",
-
-  "create-platform": "Create Platform",
-  "update-platform": "Update Platform",
-  "delete-platform": "Delete Platform",
-
-  "create-genre": "Create Genre",
-  "update-genre": "Update Genre",
-  "delete-genre": "Delete Genre",
-
-  "create-series": "Create Series",
-  "update-series": "Update Series",
-  "delete-series": "Delete Series",
-
-  "create-publisher": "Create Publisher",
-  "update-publisher": "Update Publisher",
-  "delete-publisher": "Delete Publisher",
-
-  "create-gametype": "Create Gametype",
-  "update-gametype": "Update Gametype",
-  "delete-gametype": "Delete Gametype"
+  "delete": "Delete"
 }

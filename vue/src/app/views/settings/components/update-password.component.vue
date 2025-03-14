@@ -8,7 +8,7 @@ import PasswordValidationList from '@/app/components/labels/password-validation-
 
 import { useFormUtil } from '@/library/utilities/helpers/forms.util'
 import { UserDto, UpdatePassword } from '@/library/data/dto/user/user.dto'
-import { AuthStore, useAuthStore } from '@/app/store/authentication.store'
+import { AuthStore, useAuthStore } from '@/library/store/authentication.store'
 import { SettingsService } from '../services/settings.service'
 import { PasswordValidation } from '@/library/data/regex/validation.regex'
 

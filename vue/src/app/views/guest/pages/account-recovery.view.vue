@@ -7,7 +7,7 @@ import { Router, useRouter } from 'vue-router'
 import { useFormUtil } from '@/library/utilities/helpers/forms.util'
 import { ForgotPassword } from '@/library/data/dto/user/user.dto'
 import TextInput from '@/app/components/inputs/text.input.vue'
-import { ROUTE_NAMES } from '@/app/router/routes'
+import { ROUTE_NAMES } from '@/library/router/routes'
 import { GuestService } from '../services/guest.service'
 
 enum PAGES {

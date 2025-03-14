@@ -8,7 +8,7 @@ import TextInput from '@/app/components/inputs/text.input.vue'
 import { useFormUtil } from '@/library/utilities/helpers/forms.util.ts'
 import { UpdateProfile, UserDto } from '@/library/data/dto/user/user.dto.ts'
 import { SettingsService } from '../services/settings.service.ts'
-import { AuthStore, useAuthStore } from '@/app/store/authentication.store.ts'
+import { AuthStore, useAuthStore } from '@/library/store/authentication.store.ts'
 
 const validateUtil = useFormUtil()
 const authStore: AuthStore = useAuthStore()

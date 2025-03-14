@@ -5,7 +5,7 @@ import LanguagesDropdown from '@/app/layouts/main-navigation/components/dropdown
 import UserActionsDropdown from '@/app/layouts/main-navigation/components/dropdowns/user-actions-dropdown.component.vue'
 
 import { MainLayoutService } from '../services/main-layout.service'
-import { AuthStore, useAuthStore } from '@/app/store/authentication.store'
+import { AuthStore, useAuthStore } from '@/library/store/authentication.store'
 import { UserDto } from '@/library/data/dto/user/user.dto'
 
 const authStore: AuthStore = useAuthStore()
@@ -39,12 +39,12 @@ const user: ComputedRef<UserDto | undefined> = computed(() => authStore.authenti
     </template>
 
     <template v-else="isAuthenticated">
-      <nav class="align-content-center flex-grow-1">
+      <!-- <nav class="align-content-center flex-grow-1">
         <button class="btn btn-dark btn-icon" type="button">
           <font-awesome-icon :icon="['fas', 'bell']" />
           <small class="custom-badge px-1 rounded-pill">99+</small>
         </button>
-      </nav>
+      </nav> -->
       <nav class="align-content-center flex-grow-1">
         <UserActionsDropdown :signout="signout" :authenticated-user="user" />
       </nav>

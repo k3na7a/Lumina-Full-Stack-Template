@@ -5,7 +5,7 @@ import { Form } from 'vee-validate'
 import * as Yup from 'yup'
 import { LocationQuery, RouteLocationNormalizedLoaded, Router, useRoute, useRouter } from 'vue-router'
 
-import { ROUTE_NAMES } from '@/app/router/routes'
+import { ROUTE_NAMES } from '@/library/router/routes'
 import { ResetPassword } from '@/library/data/dto/user/user.dto'
 import { PasswordValidation } from '@/library/data/regex/validation.regex'
 import { useFormUtil } from '@/library/utilities/helpers/forms.util'

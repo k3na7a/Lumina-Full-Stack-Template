@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import SubNavigationLayout from '@/app/layouts/sub-navigation/sub-navigation.layout.vue'
-import { ROUTE_NAMES } from '@/app/router/routes'
+import { ROUTE_NAMES } from '@/library/router/routes'
 import { sub_navigation } from '@/library/data/types/sub-navigation.type'
 
 import { RouteLocationNormalizedLoaded, useRoute } from 'vue-router'

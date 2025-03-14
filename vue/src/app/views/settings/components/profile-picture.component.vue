@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { AuthStore, useAuthStore } from '@/app/store/authentication.store'
+import { AuthStore, useAuthStore } from '@/library/store/authentication.store'
 import { UserDto } from '@/library/data/dto/user/user.dto'
 import { computed, ComputedRef } from 'vue'
 import { SettingsService } from '../services/settings.service'

@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import { ROUTE_NAMES } from '@/app/router/routes'
+import { ROUTE_NAMES } from '@/library/router/routes'
 import { RouteLocationNormalizedLoaded, Router, useRoute, useRouter } from 'vue-router'
 
-import AdminLayout from './layouts/admin.layout.vue'
+import AdminLayout from '../../layouts/administration-layout/admin.layout.vue'
 
 const route: RouteLocationNormalizedLoaded = useRoute()
 const router: Router = useRouter()
@@ -14,14 +14,6 @@ const routes = [
     icon: ['fas', 'user'],
     callback: (_: MouseEvent) => {
       router.push({ name: ROUTE_NAMES.ADMIN_USER_LIST })
-    }
-  },
-  {
-    name: ROUTE_NAMES.ADMIN_GAMES,
-    label: 'administration.game-library.label',
-    icon: ['fas', 'gamepad'],
-    callback: (_: MouseEvent) => {
-      router.push({ name: ROUTE_NAMES.ADMIN_GAMES })
     }
   }
 ]
