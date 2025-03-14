@@ -1,1 +1,1 @@
-# Example Full-Stack Application
+# Full-Stack Multi-Purpose Demo Application
