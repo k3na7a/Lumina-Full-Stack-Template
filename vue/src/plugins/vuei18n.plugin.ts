@@ -3,7 +3,7 @@ import { createI18n } from 'vue-i18n'
 
 import { useLocalStorageUtil } from '@/library/utilities/helpers/local-storage.util'
 
-import en from '@/library/locales/en/en.ts'
+import en from '@/library/data/locales/en/en'
 import es from '@/library/locales/es/es.json'
 import fr from '@/library/locales/fr/fr.json'
 

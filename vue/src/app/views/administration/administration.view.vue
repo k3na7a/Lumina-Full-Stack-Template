@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ROUTE_NAMES } from '@/library/router/routes'
+import { ROUTE_NAMES } from '@/app/router/routes'
 import { RouteLocationNormalizedLoaded, Router, useRoute, useRouter } from 'vue-router'
 
 import AdminLayout from '../../layouts/administration-layout/admin.layout.vue'

@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import NavigationDropdown from '@/app/layouts/main-navigation/components/dropdowns/navigation-dropdown.component.vue'
 import { MAIN_NAVIGATION } from '@/app/layouts/main-navigation/schema/main-navigation.schema'
-import { AuthStore, useAuthStore } from '@/library/store/authentication.store'
+import { AuthStore, useAuthStore } from '@/app/store/authentication.store'
 import { computed, ComputedRef } from 'vue'
 import { RouteLocationNormalizedLoaded, useRoute } from 'vue-router'
 

@@ -5,7 +5,7 @@ import LanguagesDropdown from '@/app/layouts/main-navigation/components/dropdown
 import UserActionsDropdown from '@/app/layouts/main-navigation/components/dropdowns/user-actions-dropdown.component.vue'
 
 import { MainLayoutService } from '../services/main-layout.service'
-import { AuthStore, useAuthStore } from '@/library/store/authentication.store'
+import { AuthStore, useAuthStore } from '@/app/store/authentication.store'
 import { UserDto } from '@/library/data/dto/user/user.dto'
 
 const authStore: AuthStore = useAuthStore()

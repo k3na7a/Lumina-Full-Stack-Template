@@ -2,7 +2,7 @@
 import { ref } from 'vue'
 import { Form } from 'vee-validate'
 
-import { ROUTE_NAMES } from '@/library/router/routes'
+import { ROUTE_NAMES } from '@/app/router/routes'
 import { useFormUtil } from '@/library/utilities/helpers/forms.util'
 
 import TextInput from '@/app/components/inputs/text.input.vue'
