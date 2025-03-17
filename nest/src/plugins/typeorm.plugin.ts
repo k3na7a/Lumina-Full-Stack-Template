@@ -1,9 +1,9 @@
 import { TypeOrmModule, TypeOrmModuleOptions } from '@nestjs/typeorm';
 import { EntityClassOrSchema } from '@nestjs/typeorm/dist/interfaces/entity-class-or-schema.type';
 
-import { AvatarEntity } from 'src/app/modules/users/entities/avatar.entity';
-import { ProfileEntity } from 'src/app/modules/users/entities/profile.entity';
-import { UserEntity } from 'src/app/modules/users/entities/user.entity';
+import { AvatarEntity } from 'src/app/users/entities/avatar.entity';
+import { ProfileEntity } from 'src/app/users/entities/profile.entity';
+import { UserEntity } from 'src/app/users/entities/user.entity';
 
 const entities = [
   // # users

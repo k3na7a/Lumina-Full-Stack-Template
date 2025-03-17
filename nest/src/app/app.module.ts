@@ -8,12 +8,12 @@ config();
 
 import { TypeOrmPlugin } from 'src/plugins/typeorm.plugin';
 
-import { AuthModule } from './modules/authentication/auth.module';
-import { UserModule } from './modules/users/users.module';
-import { AccessTokenStrategy } from './modules/authentication/strategies/accesstoken.strategy';
-import { LocalStrategy } from './modules/authentication/strategies/localauth.strategy';
-import { RefreshTokenStrategy } from './modules/authentication/strategies/refreshtoken.strategy';
-import { AdminModule } from './modules/administration/admin.module';
+import { AuthModule } from './authentication/auth.module';
+import { UserModule } from './users/users.module';
+import { AccessTokenStrategy } from './authentication/strategies/accesstoken.strategy';
+import { LocalStrategy } from './authentication/strategies/localauth.strategy';
+import { RefreshTokenStrategy } from './authentication/strategies/refreshtoken.strategy';
+import { AdminModule } from './administration/admin.module';
 
 @Module({
   imports: [
