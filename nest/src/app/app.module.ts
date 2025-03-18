@@ -13,7 +13,6 @@ import { UserModule } from './users/users.module';
 import { AccessTokenStrategy } from './authentication/strategies/accesstoken.strategy';
 import { LocalStrategy } from './authentication/strategies/localauth.strategy';
 import { RefreshTokenStrategy } from './authentication/strategies/refreshtoken.strategy';
-import { AdminModule } from './administration/admin.module';
 
 @Module({
   imports: [
@@ -30,7 +29,6 @@ import { AdminModule } from './administration/admin.module';
     }),
 
     AuthModule,
-    AdminModule,
     UserModule,
   ],
   providers: [AccessTokenStrategy, LocalStrategy, RefreshTokenStrategy],

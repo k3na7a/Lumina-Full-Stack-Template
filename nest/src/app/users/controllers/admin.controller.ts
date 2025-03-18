@@ -36,8 +36,8 @@ import {
 import { UserEntity } from 'src/app/users/entities/user.entity';
 import { UserService } from 'src/app/users/services/users.service';
 
-@ApiTags('Administration / Users')
-@Controller('users')
+@ApiTags('User Administration')
+@Controller('admin/users')
 @Roles([Role.ADMIN])
 @UseGuards(RefreshTokenGuard, RolesGuard)
 @ApiBearerAuth('access-token')

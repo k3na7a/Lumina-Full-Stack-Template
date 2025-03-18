@@ -1,8 +1,8 @@
 import { IsBoolean, IsEnum, IsOptional, IsString } from 'class-validator';
-import { PaginationOptions } from '../../../../library/dto/pagination.dto';
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
-import { Role } from '../../../../library/enums/role.enum';
 import { Transform } from 'class-transformer';
+import { Role } from 'src/library/data/enums/role.enum';
+import { PaginationOptions } from 'src/library/data/dto/pagination.dto';
 
 enum SORT_OPTIONS {
   CREATED = 'user.createdAt',
