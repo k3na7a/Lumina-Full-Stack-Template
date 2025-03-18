@@ -125,7 +125,7 @@ export class AuthService {
       html: HandlebarsPlugin.compile<ForgotPasswordOptions>({
         template: ForgotPasswordEmailBody,
         data: {
-          name: user.email,
+          name: user.getFullName(),
           email: user.email,
           redirect: `${dto.redirect}/guest/password-reset?${new URLSearchParams({ reset_token: tokens.access_token })}`,
         },

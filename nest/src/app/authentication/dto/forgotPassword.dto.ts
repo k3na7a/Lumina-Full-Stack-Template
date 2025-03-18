@@ -7,6 +7,6 @@ export class ForgotPasswordDto {
   public readonly email!: string;
 
   @ApiProperty()
-  @IsUrl()
+  @IsUrl({ require_tld: false }) // https://github.com/validatorjs/validator.js/issues/1609#issuecomment-780685689
   public readonly redirect!: string;
 }

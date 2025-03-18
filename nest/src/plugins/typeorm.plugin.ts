@@ -5,12 +5,7 @@ import { AvatarEntity } from 'src/app/users/entities/avatar.entity';
 import { ProfileEntity } from 'src/app/users/entities/profile.entity';
 import { UserEntity } from 'src/app/users/entities/user.entity';
 
-const entities = [
-  // # users
-  UserEntity,
-  ProfileEntity,
-  AvatarEntity,
-];
+const entities = [UserEntity, ProfileEntity, AvatarEntity];
 
 const config: TypeOrmModuleOptions = {
   type: 'mysql',
