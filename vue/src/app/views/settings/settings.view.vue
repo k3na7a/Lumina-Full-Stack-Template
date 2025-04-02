@@ -9,16 +9,16 @@ const route: RouteLocationNormalizedLoaded = useRoute()
 
 <template>
   <SubNavigationLayout
-    title="administration.settings.title"
-    subtitle="administration.settings.subtitle"
+    title="settings.title"
+    subtitle="settings.subtitle"
     :routes="[
       {
         name: ROUTE_NAMES.PROFILE,
-        label: 'administration.settings.profile.label'
+        label: 'settings.profile.label'
       },
       {
         name: ROUTE_NAMES.SECURITY,
-        label: 'administration.settings.security-privacy.label'
+        label: 'settings.security-privacy.label'
       }
     ]"
   >

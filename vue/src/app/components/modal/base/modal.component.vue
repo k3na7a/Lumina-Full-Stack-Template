@@ -2,7 +2,7 @@
 import { computed, reactive, Ref, ref, watch } from 'vue'
 import * as bootstrap from 'bootstrap'
 
-import { ModalOptions, ModalStore, useModalStore } from '@/app/store/modal.store'
+import { ModalOptions, ModalStore, useModalStore } from '@/app/components/modal/store/modal.store'
 import { onMounted } from 'vue'
 import { onUnmounted } from 'vue'
 

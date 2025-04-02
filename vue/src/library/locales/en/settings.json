@@ -1,21 +1,4 @@
 {
-  "label": "Administration",
-  "users": {
-    "header": "User Management",
-    "label": "Users",
-    "delete-modal": {
-      "title": "Delete { item }",
-      "body": "Are you sure you want to delete user { item }?",
-      "action": "Delete User"
-    },
-    "update-modal": {
-      "remove-profile-picture": "Remove profile picture",
-      "action": "Update User"
-    },
-    "title": "Create and modify your users",
-    "subtitle": "Users are the individuals who have registered an account",
-    "caption": "Showing {showing} of {count} users | Showing {showing} of {count} user | Showing {showing} of {count} users"
-  },
   "settings": {
     "label": "Settings",
     "title": "Account Settings",

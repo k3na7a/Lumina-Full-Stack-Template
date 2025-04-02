@@ -49,7 +49,7 @@ const onSubmit = getSubmitFn(validationSchema, async (values: UpdatePassword) =>
       <template v-if="!state.open">
         <div class="d-flex flex-grow-1 text-light-alt">
           <i18n-t
-            keypath="administration.settings.security-privacy.security.password.improve-security"
+            keypath="settings.security-privacy.security.password.improve-security"
             tag="p"
             scope="global"
           >
@@ -58,7 +58,7 @@ const onSubmit = getSubmitFn(validationSchema, async (values: UpdatePassword) =>
               @click="state.open = !state.open"
               class="link-underline link-underline-opacity-0 link-underline-opacity-100-hover"
             >
-              {{ $t('administration.settings.security-privacy.security.password.change-password') }}
+              {{ $t('settings.security-privacy.security.password.change-password') }}
             </a>
           </i18n-t>
         </div>

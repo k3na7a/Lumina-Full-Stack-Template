@@ -8,7 +8,7 @@ import ProfilePictureComponent from '../components/profile-picture.component.vue
   <div class="content-view-settings d-flex flex-column gap-3">
     <div class="d-flex flex-column gap-2">
       <h4 class="text-light fw-semibold">
-        {{ $t('administration.settings.profile.avatar.label') }}
+        {{ $t('settings.profile.avatar.label') }}
       </h4>
       <div class="card d-flex flex-column">
         <ProfilePictureComponent />
@@ -18,9 +18,9 @@ import ProfilePictureComponent from '../components/profile-picture.component.vue
     <div class="d-flex flex-column gap-2">
       <div class="d-flex flex-column">
         <h4 class="text-light fw-semibold">
-          {{ $t('administration.settings.profile.profile-settings.header') }}
+          {{ $t('settings.profile.profile-settings.header') }}
         </h4>
-        <p class="text-muted fw-normal">{{ $t('administration.settings.profile.profile-settings.sub-header') }}</p>
+        <p class="text-muted fw-normal">{{ $t('settings.profile.profile-settings.sub-header') }}</p>
       </div>
       <div class="card d-flex flex-column">
         <UpdateProfileComponent />
@@ -30,10 +30,10 @@ import ProfilePictureComponent from '../components/profile-picture.component.vue
     <div class="d-flex flex-column gap-2">
       <div class="d-flex flex-column">
         <h4 class="text-light fw-semibold">
-          {{ $t('administration.settings.profile.disable-account.header') }}
+          {{ $t('settings.profile.disable-account.header') }}
         </h4>
         <p class="text-muted fw-normal">
-          {{ $t('administration.settings.profile.disable-account.sub-header') }}
+          {{ $t('settings.profile.disable-account.sub-header') }}
         </p>
       </div>
       <div class="card d-flex flex-column">

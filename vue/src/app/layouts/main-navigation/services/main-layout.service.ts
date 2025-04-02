@@ -5,9 +5,9 @@ import SignInModal from '@/app/components/modal/templates/signin-modal.component
 import RegisterModal from '@/app/components/modal/templates/register-modal.component.vue'
 import ConfirmationModal from '@/app/components/modal/templates/confirm.modal.vue'
 
-import { ModalStore, useModalStore } from '@/app/store/modal.store'
+import { ModalStore, useModalStore } from '@/app/components/modal/store/modal.store'
 import { AuthStore, useAuthStore } from '@/app/store/authentication.store'
-import { ToastStore, useToastStore } from '@/app/store/toast.store'
+import { ToastStore, useToastStore } from '@/app/components/toast/store/toast.store'
 
 import { Register, RegisterDto } from '@/library/data/dto/user/user.dto'
 import { credentials } from '@/library/data/dto/authentication/JWT.dto'

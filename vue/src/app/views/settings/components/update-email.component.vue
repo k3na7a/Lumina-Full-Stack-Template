@@ -49,7 +49,7 @@ const onSubmit = getSubmitFn(validationSchema, async (values: UpdateEmail): Prom
           <div class="d-flex flex-column flex-grow-1 gap-1 overflow-hidden">
             <h4 style="max-width: 240px" class="fw-semibold text-truncate">{{ user?.email }}</h4>
             <p class="fw-normal text-light-alt">
-              {{ $t('administration.settings.security-privacy.contact.email-linked') }}
+              {{ $t('settings.security-privacy.contact.email-linked') }}
             </p>
           </div>
           <div class="flex-shrink-1">

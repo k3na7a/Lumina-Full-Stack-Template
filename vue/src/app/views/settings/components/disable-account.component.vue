@@ -8,7 +8,7 @@ const { disableAccount } = SettingsService
   <div class="d-flex flex-column flex-sm-row gap-3 p-3">
     <div class="row-header">
       <h6 class="fw-bold">
-        {{ $t('administration.settings.profile.disable-account.form-header') }}
+        {{ $t('settings.profile.disable-account.form-header') }}
       </h6>
     </div>
     <div class="d-flex align-items-center justify-content-sm-end flex-grow-1">

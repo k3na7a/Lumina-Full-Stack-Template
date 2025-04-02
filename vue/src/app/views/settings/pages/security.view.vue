@@ -7,8 +7,8 @@ import UpdatePasswordComponent from '../components/update-password.component.vue
   <div class="content-view-settings d-flex flex-column gap-3">
     <div class="d-flex flex-column gap-2">
       <div class="d-flex flex-column">
-        <h4 class="text-light fw-semibold">{{ $t('administration.settings.security-privacy.contact.header') }}</h4>
-        <p class="text-muted">{{ $t('administration.settings.security-privacy.contact.sub-header') }}</p>
+        <h4 class="text-light fw-semibold">{{ $t('settings.security-privacy.contact.header') }}</h4>
+        <p class="text-muted">{{ $t('settings.security-privacy.contact.sub-header') }}</p>
       </div>
       <div class="card d-flex flex-column mb">
         <div class="section">
@@ -25,9 +25,9 @@ import UpdatePasswordComponent from '../components/update-password.component.vue
     </div>
     <div class="d-flex flex-column gap-2">
       <div class="d-flex flex-column">
-        <h4 class="text-light fw-semibold">{{ $t('administration.settings.security-privacy.security.header') }}</h4>
+        <h4 class="text-light fw-semibold">{{ $t('settings.security-privacy.security.header') }}</h4>
         <p class="text-muted">
-          {{ $t('administration.settings.security-privacy.security.sub-header') }}
+          {{ $t('settings.security-privacy.security.sub-header') }}
         </p>
       </div>
       <div class="card d-flex flex-column">

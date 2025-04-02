@@ -4,9 +4,9 @@ import { AxiosError } from 'axios'
 import PasswordModal from '@/app/components/modal/templates/password.modal.vue'
 import UploadImageModalComponent from '@/app/components/modal/templates/image-upload.modal.vue'
 
-import { ModalStore, useModalStore } from '@/app/store/modal.store'
+import { ModalStore, useModalStore } from '@/app/components/modal/store/modal.store'
 import { AuthStore, useAuthStore } from '@/app/store/authentication.store'
-import { ToastStore, useToastStore } from '@/app/store/toast.store'
+import { ToastStore, useToastStore } from '@/app/components/toast/store/toast.store'
 
 import {
   DeleteAccount,
@@ -40,7 +40,7 @@ class SettingsService {
               })
             )
         },
-        title: 'administration.settings.profile.avatar.modal-title',
+        title: 'settings.profile.avatar.modal-title',
         action: 'actions.update-avatar'
       }
     })
@@ -66,9 +66,9 @@ class SettingsService {
               })
             )
         },
-        title: 'administration.settings.profile.remove-avatar.title',
-        body: 'administration.settings.profile.remove-avatar.body',
-        action: 'administration.settings.profile.remove-avatar.action'
+        title: 'settings.profile.remove-avatar.title',
+        body: 'settings.profile.remove-avatar.body',
+        action: 'settings.profile.remove-avatar.action'
       }
     })
   }
