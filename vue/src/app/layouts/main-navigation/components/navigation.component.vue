@@ -1,12 +1,27 @@
 <script setup lang="ts">
 import NavigationDropdown from '@/app/layouts/main-navigation/components/dropdowns/navigation-dropdown.component.vue'
-import { MAIN_NAVIGATION } from '@/app/layouts/main-navigation/schema/main-navigation.schema'
+import { ROUTE_NAMES } from '@/app/router/routes'
 import { AuthStore, useAuthStore } from '@/app/store/authentication.store'
 import { computed, ComputedRef } from 'vue'
 import { RouteLocationNormalizedLoaded, useRoute } from 'vue-router'
 
 const route: RouteLocationNormalizedLoaded = useRoute()
 const authStore: AuthStore = useAuthStore()
+
+type nav = {
+  label: string
+  name: ROUTE_NAMES
+  icon: [string, string]
+  auth?: boolean
+}
+
+const MAIN_NAVIGATION: Array<nav> = [
+  {
+    label: 'navigation.applications',
+    name: ROUTE_NAMES.APPLICATIONS,
+    icon: ['fas', 'code-pull-request']
+  }
+]
 
 const isAuthenticated: ComputedRef<boolean> = computed(() => authStore.isAuthenticated)
 </script>

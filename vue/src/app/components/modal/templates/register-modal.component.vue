@@ -3,7 +3,7 @@
 import { ref } from 'vue'
 import { Form } from 'vee-validate'
 
-import { useFormUtil } from '@/library/utilities/helpers/forms.util'
+import { useFormUtil } from '@/library/helpers/forms.util'
 import { ROUTE_NAMES } from '@/app/router/routes'
 
 import TextInput from '@/app/components/inputs/text.input.vue'

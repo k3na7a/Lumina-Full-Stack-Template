@@ -7,11 +7,14 @@ import {
   CreateUserInterface,
   UpdateUserInterface,
 } from 'src/app/users/interfaces/user.interfaces';
-import { PaginationDto, PaginationMeta } from 'src/library/data/dto/pagination.dto';
+import {
+  PaginationDto,
+  PaginationMeta,
+} from 'src/library/data/dto/pagination.dto';
 import { UserEntity } from '../entities/user.entity';
 import { UpdateUserDto, UserPaginationOptions } from '../dto/user.dto';
 import { ProfileService } from './profile.service';
-import { AvatarService } from './avatar.service';
+import { ImageService } from 'src/app/media/services/image.service';
 
 @Injectable()
 export class UserService {
@@ -19,8 +22,12 @@ export class UserService {
     @InjectRepository(UserEntity)
     private readonly repository: Repository<UserEntity>,
     private readonly profileService: ProfileService,
-    private readonly avatarService: AvatarService,
+    private readonly imageService: ImageService,
   ) {}
+
+  private async removeAvatar(id: string) {
+    await this.imageService.remove(id);
+  }
 
   public async create(dto: CreateUserInterface): Promise<UserEntity> {
     const salt: string = await bcrypt.genSalt();
@@ -80,7 +87,7 @@ export class UserService {
     const { profile } = user;
 
     if (profile.avatar) {
-      await this.avatarService.remove(profile.avatar.id);
+      await this.removeAvatar(profile.avatar.id);
     }
 
     return this.repository.remove(user);
@@ -98,13 +105,9 @@ export class UserService {
 
     const name = { first: firstname, last: lastname };
 
-    if (file && profile.avatar) {
-      await this.avatarService.update(profile.avatar.id, file);
-    } else if (file) {
-      const avatar = await this.avatarService.create(file);
-      await this.profileService.update(profile.id, { avatar });
-    } else if (dto['remove-avatar'] && profile.avatar) {
-      await this.avatarService.remove(profile.avatar.id);
+    if (file) await this.profileService.handleAvatarUpload(profile, file);
+    else if (dto['remove-avatar'] && profile.avatar) {
+      await this.profileService.removeAvatar(profile.avatar.id);
     }
 
     await this.profileService.update(profile.id, { name });

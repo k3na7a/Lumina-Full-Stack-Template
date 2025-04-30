@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { onMounted, onUnmounted, ref, toRef, watch } from 'vue'
-import { getMonthDetails, months, days } from '@/library/utilities/helpers/date.util'
+import { getMonthDetails, months, days } from '@/library/helpers/date.util'
 
 import * as bootstrap from 'bootstrap'
 import moment from 'moment'

@@ -1,11 +1,11 @@
 import { TypeOrmModule, TypeOrmModuleOptions } from '@nestjs/typeorm';
 import { EntityClassOrSchema } from '@nestjs/typeorm/dist/interfaces/entity-class-or-schema.type';
 
-import { AvatarEntity } from 'src/app/users/entities/avatar.entity';
+import { ImageEntity } from 'src/app/media/entities/image.entity';
 import { ProfileEntity } from 'src/app/users/entities/profile.entity';
 import { UserEntity } from 'src/app/users/entities/user.entity';
 
-const entities = [UserEntity, ProfileEntity, AvatarEntity];
+const entities = [UserEntity, ProfileEntity, ImageEntity];
 
 const config: TypeOrmModuleOptions = {
   type: 'mysql',

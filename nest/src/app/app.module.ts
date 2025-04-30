@@ -13,6 +13,9 @@ import { UserModule } from './users/users.module';
 import { AccessTokenStrategy } from './authentication/strategies/accesstoken.strategy';
 import { LocalStrategy } from './authentication/strategies/localauth.strategy';
 import { RefreshTokenStrategy } from './authentication/strategies/refreshtoken.strategy';
+import { AdminModule } from './administration/admin.module';
+import { RouterModule } from '@nestjs/core';
+import { MediaModule } from './media/media.module';
 
 @Module({
   imports: [
@@ -28,8 +31,17 @@ import { RefreshTokenStrategy } from './authentication/strategies/refreshtoken.s
       serveRoot: '/',
     }),
 
+    MediaModule,
     AuthModule,
     UserModule,
+    AdminModule,
+
+    RouterModule.register([
+      {
+        path: 'admin',
+        module: AdminModule,
+      },
+    ]),
   ],
   providers: [AccessTokenStrategy, LocalStrategy, RefreshTokenStrategy],
 })

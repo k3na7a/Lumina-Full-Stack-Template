@@ -4,6 +4,7 @@ import authentication from './authentication.json'
 import forms from './forms.json'
 import legal from './legal.json'
 import navigation from './navigation.json'
+import settings from './settings.json'
 
 const LOCALIZATION = {
   actions,
@@ -11,6 +12,7 @@ const LOCALIZATION = {
   authentication,
   forms,
   legal,
+  settings,
   navigation
 }
 

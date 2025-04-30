@@ -1,5 +1,5 @@
 {
-  "not-viewable": "You must be logged in to view this page",
+  "not-logged-in": "You must be logged in to view this page",
   "not-authorized": "You are not authorized to view this content",
   "password-security": "For security, please enter your password to continue.",
   "log-in": {

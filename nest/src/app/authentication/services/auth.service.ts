@@ -28,7 +28,6 @@ import { deleteAccountDto } from 'src/app/authentication/dto/deleteAccount.dto';
 import { UpdateUserProfile } from 'src/app/users/interfaces/user.interfaces';
 import { ProfileService } from 'src/app/users/services/profile.service';
 import { ForgotPasswordDto } from 'src/app/authentication/dto/forgotPassword.dto';
-import { AvatarService } from 'src/app/users/services/avatar.service';
 import { UserEntity } from 'src/app/users/entities/user.entity';
 
 @Injectable()
@@ -36,7 +35,6 @@ export class AuthService {
   constructor(
     private readonly userService: UserService,
     private readonly profileService: ProfileService,
-    private readonly avatarService: AvatarService,
     private readonly jwtService: JwtService,
   ) {}
 
@@ -157,12 +155,7 @@ export class AuthService {
     { profile, id }: UserEntity,
     file: Express.Multer.File,
   ): Promise<JWTDto> {
-    if (profile.avatar)
-      await this.avatarService.update(profile.avatar.id, file);
-    else {
-      const avatar = await this.avatarService.create(file);
-      await this.profileService.update(profile.id, { avatar });
-    }
+    await this.profileService.handleAvatarUpload(profile, file);
 
     const new_user = await this.userService.findOneById(id);
     return this.verifyToken(new_user);
@@ -171,7 +164,7 @@ export class AuthService {
   public async removeAvatar({ profile, id }: UserEntity) {
     if (!profile.avatar) throw new NotFoundException();
 
-    await this.avatarService.remove(profile.avatar.id);
+    await this.profileService.removeAvatar(profile.id);
 
     const new_user = await this.userService.findOneById(id);
     return this.verifyToken(new_user);

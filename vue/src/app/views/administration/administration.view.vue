@@ -2,7 +2,7 @@
 import { ROUTE_NAMES } from '@/app/router/routes'
 import { RouteLocationNormalizedLoaded, Router, useRoute, useRouter } from 'vue-router'
 
-import AdminLayout from '../../layouts/administration-layout/admin.layout.vue'
+import AdminLayout from '@/app/layouts/sub-navigation/side-nav/side-nav.layout.vue'
 
 const route: RouteLocationNormalizedLoaded = useRoute()
 const router: Router = useRouter()

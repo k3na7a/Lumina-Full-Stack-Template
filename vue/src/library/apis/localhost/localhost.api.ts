@@ -1,9 +1,9 @@
 import axios, { AxiosInstance } from 'axios'
 
-import { ILocalStorageUtil, useLocalStorageUtil } from '@/library/utilities/helpers/local-storage.util'
+import { ILocalStorageUtil, useLocalStorageUtil } from '@/library/helpers/local-storage.util'
 
-import { authentication } from './services/auth/auth.service'
-import { administration } from './services/admin/admin.service'
+import { authentication } from './auth/auth.service'
+import { administration } from './admin/admin.service'
 import { second } from '@/library/data/constants/time.constants'
 
 const TOKEN_ID = 'example-nest-api-token'

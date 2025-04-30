@@ -6,7 +6,7 @@ import { BaseEntity } from 'src/library/data/entities/base.entity';
 import { Role } from 'src/library/data/enums/role.enum';
 import { ProfileEntity } from './profile.entity';
 
-@Entity()
+@Entity('users')
 export class UserEntity extends BaseEntity {
   @ApiProperty()
   @Column({ unique: true })

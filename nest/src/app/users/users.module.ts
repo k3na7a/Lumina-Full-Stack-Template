@@ -4,19 +4,16 @@ import { TypeOrmPlugin } from 'src/plugins/typeorm.plugin';
 
 import { UserService } from './services/users.service';
 import { ProfileService } from './services/profile.service';
-import { AvatarService } from './services/avatar.service';
-import { AvatarEntity } from './entities/avatar.entity';
 import { ProfileEntity } from './entities/profile.entity';
 import { UserEntity } from './entities/user.entity';
-import { S3Service } from 'src/library/services/s3.service';
-import { UserAdminController } from './controllers/admin.controller';
+import { MediaModule } from '../media/media.module';
 
 @Module({
   imports: [
-    TypeOrmPlugin.forFeature([UserEntity, ProfileEntity, AvatarEntity]),
+    TypeOrmPlugin.forFeature([UserEntity, ProfileEntity]),
+    MediaModule
   ],
-  controllers: [UserAdminController],
-  providers: [UserService, ProfileService, AvatarService, S3Service],
-  exports: [UserService, ProfileService, AvatarService],
+  providers: [UserService, ProfileService],
+  exports: [UserService, ProfileService],
 })
 export class UserModule {}

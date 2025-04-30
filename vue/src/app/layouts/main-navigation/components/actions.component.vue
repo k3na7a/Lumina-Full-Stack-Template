@@ -6,7 +6,7 @@ import UserActionsDropdown from '@/app/layouts/main-navigation/components/dropdo
 
 import { MainLayoutService } from '../services/main-layout.service'
 import { AuthStore, useAuthStore } from '@/app/store/authentication.store'
-import { UserDto } from '@/library/data/dto/user/user.dto'
+import { UserDto } from '@/library/data/dto/user.dto'
 
 const authStore: AuthStore = useAuthStore()
 const { signin, register, signout } = MainLayoutService

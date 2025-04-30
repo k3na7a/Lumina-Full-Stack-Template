@@ -1,5 +1,5 @@
 import { LocalhostAPI as API, TOKEN_ID } from '@/library/apis/localhost/localhost.api'
-import { useLocalStorageUtil } from '@/library/utilities/helpers/local-storage.util'
+import { useLocalStorageUtil } from '@/library/helpers/local-storage.util'
 import {
   DeleteAccountDto,
   ForgotPasswordDto,
@@ -10,9 +10,9 @@ import {
   UpdatePasswordDto,
   UpdateProfileDto,
   UserDto
-} from '@/library/data/dto/user/user.dto'
+} from '@/library/data/dto/user.dto'
 import { Store, StoreDefinition, defineStore } from 'pinia'
-import { credentials, JWTDto } from '@/library/data/dto/authentication/JWT.dto'
+import { credentials, JWTDto } from '@/library/data/dto/JWT.dto'
 
 interface IAuthState {
   $authenticated: boolean

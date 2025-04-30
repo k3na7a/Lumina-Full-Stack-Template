@@ -1,8 +1,8 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { BaseEntity } from 'src/library/data/entities/base.entity';
-import { Entity, Column, OneToOne, JoinColumn } from 'typeorm';
+import { Entity, Column, OneToOne, JoinColumn, ManyToOne } from 'typeorm';
 import { UserEntity } from './user.entity';
-import { AvatarEntity } from './avatar.entity';
+import { ImageEntity } from 'src/app/media/entities/image.entity';
 
 class Name {
   @ApiProperty()
@@ -13,15 +13,16 @@ class Name {
   public readonly last!: string;
 }
 
-@Entity()
+@Entity('profiles')
 export class ProfileEntity extends BaseEntity {
-  @ApiProperty({ type: () => AvatarEntity })
-  @OneToOne(() => AvatarEntity, (avatar: AvatarEntity) => avatar.profile, {
+  @ApiProperty({ type: () => ImageEntity })
+  @ManyToOne(() => ImageEntity, {
     cascade: true,
     eager: true,
     nullable: true,
   })
-  public readonly avatar!: AvatarEntity | null;
+  @JoinColumn([{ name: 'image_id', referencedColumnName: 'id' }])
+  public readonly avatar!: ImageEntity | null;
 
   @ApiProperty({ type: Name })
   @Column(() => Name)

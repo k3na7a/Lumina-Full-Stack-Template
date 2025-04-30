@@ -1,5 +1,5 @@
 import { Role } from 'src/library/data/enums/role.enum';
-import { AvatarEntity } from '../entities/avatar.entity';
+import { ImageEntity } from 'src/app/media/entities/image.entity';
 
 export interface UpdateUserInterface {
   email?: string;
@@ -16,7 +16,7 @@ export interface CreateUserInterface {
 }
 
 export interface UpdateUserProfile {
-  avatar?: AvatarEntity | null;
+  avatar?: ImageEntity | null;
   name?: CreateUserName;
 }
 
