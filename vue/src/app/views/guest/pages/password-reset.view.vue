@@ -12,7 +12,7 @@ import { useFormUtil } from '@/library/helpers/forms.util'
 
 import TextInput from '@/app/components/inputs/text.input.vue'
 import PasswordValidationList from '@/app/components/labels/password-validation-list.component.vue'
-import { GuestService } from '../services/guest.service'
+import { GuestService } from '../../../services/guest.service'
 
 enum PAGES {
   FORM,

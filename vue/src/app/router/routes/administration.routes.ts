@@ -15,14 +15,13 @@ const route: RouteRecordRaw = {
       children: [
         {
           path: 'user-management',
-          name: ROUTE_NAMES.ADMIN_USERS,
-          redirect: { name: ROUTE_NAMES.ADMIN_USER_LIST },
-          component: () => import('@/app/views/administration/pages/users.view.vue'),
+          redirect: { name: ROUTE_NAMES.ADMIN_USERS },
+          component: () => import('@/app/views/administration/users/users.view.vue'),
           children: [
             {
               path: 'users',
-              name: ROUTE_NAMES.ADMIN_USER_LIST,
-              component: () => import('@/app/views/administration/components/users-table.component.vue')
+              name: ROUTE_NAMES.ADMIN_USERS,
+              component: () => import('@/app/views/administration/users/pages/users-table.component.vue')
             }
           ]
         }

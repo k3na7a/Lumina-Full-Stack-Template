@@ -2,6 +2,7 @@
 import { ROUTE_NAMES } from '@/app/router/routes'
 
 const props = defineProps<{
+  title: string
   routes: {
     name: ROUTE_NAMES
     label: string
@@ -15,7 +16,7 @@ const props = defineProps<{
   <div style="position: relative" class="d-flex h-100 overflow-hidden">
     <div class="admin-drawer bg-alt box-shadow d-flex flex-column p-2">
       <div class="d-flex flex-column gap-1 flex-grow-1">
-        <h5 class="d-none d-lg-flex px-2 py-1 text-light fw-bold text-nowrap">{{ 'Administration' }}</h5>
+        <h5 class="d-none d-lg-flex px-2 py-1 text-light fw-bold text-nowrap">{{ $t(title) }}</h5>
         <div class="d-flex flex-column gap-1">
           <template v-for="navigation_item of props.routes" :key="navigation_item.label">
             <RouterLink :to="{ name: navigation_item.name }" class="dropdown-item" activeClass="active">

@@ -23,10 +23,13 @@ const routes: RouteRecordRaw[] = [
     children: [home, applications, settings, admin]
   },
   {
-    path: '/:catchAll(.*)',
-    redirect: { name: ROUTE_NAMES.HOME },
-    component: () => import('@/app/layouts/guest-routes/guest.layout.vue'),
+    path: '/',
+    component: () => import('@/app/views/guest/guest.layout.vue'),
     children: [accountrecovery, passwordreset]
+  },
+  {
+    path: '/:catchAll(.*)',
+    redirect: { name: ROUTE_NAMES.HOME }
   }
 ]
 

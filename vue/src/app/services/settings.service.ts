@@ -4,9 +4,9 @@ import { AxiosError } from 'axios'
 import PasswordModal from '@/app/components/modal/templates/password.modal.vue'
 import UploadImageModalComponent from '@/app/components/modal/templates/image-upload.modal.vue'
 
-import { ModalStore, useModalStore } from '@/app/components/modal/store/modal.store'
+import { ModalStore, useModalStore } from '@/app/store/modal.store'
 import { AuthStore, useAuthStore } from '@/app/store/authentication.store'
-import { ToastStore, useToastStore } from '@/app/components/toast/store/toast.store'
+import { ToastStore, useToastStore } from '@/app/store/toast.store'
 
 import {
   DeleteAccount,

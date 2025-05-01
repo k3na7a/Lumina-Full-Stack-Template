@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { SettingsService } from '../services/settings.service'
+import { SettingsService } from '../../../services/settings.service'
 
 const { disableAccount } = SettingsService
 </script>

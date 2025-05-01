@@ -9,7 +9,7 @@ import PasswordValidationList from '@/app/components/labels/password-validation-
 import { useFormUtil } from '@/library/helpers/forms.util'
 import { UserDto, UpdatePassword } from '@/library/data/dto/user.dto'
 import { AuthStore, useAuthStore } from '@/app/store/authentication.store'
-import { SettingsService } from '../services/settings.service'
+import { SettingsService } from '../../../services/settings.service'
 import { PasswordValidation } from '@/library/data/regex/validation.regex'
 
 const { getSubmitFn } = useFormUtil()

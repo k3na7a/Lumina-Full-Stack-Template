@@ -4,7 +4,7 @@ import { computed, ComputedRef } from 'vue'
 import LanguagesDropdown from '@/app/layouts/main-navigation/components/dropdowns/languages-dropdown.component.vue'
 import UserActionsDropdown from '@/app/layouts/main-navigation/components/dropdowns/user-actions-dropdown.component.vue'
 
-import { MainLayoutService } from '../services/main-layout.service'
+import { MainLayoutService } from '../../../services/main-layout.service'
 import { AuthStore, useAuthStore } from '@/app/store/authentication.store'
 import { UserDto } from '@/library/data/dto/user.dto'
 

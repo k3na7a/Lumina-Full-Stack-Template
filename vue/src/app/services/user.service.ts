@@ -1,14 +1,14 @@
 import { AxiosError } from 'axios'
 
-import { ToastStore, useToastStore } from '@/app/components/toast/store/toast.store'
+import { ToastStore, useToastStore } from '@/app/store/toast.store'
 
 import { LocalhostAPI } from '@/library/apis/localhost/localhost.api'
 import { PaginationDto, PaginationMeta, PaginationOptions } from '@/library/data/dto/pagination.dto'
 import { UpdateUser, UpdateUserDto, UserDto } from '@/library/data/dto/user.dto'
-import { ModalStore, useModalStore } from '@/app/components/modal/store/modal.store'
+import { ModalStore, useModalStore } from '@/app/store/modal.store'
 import { markRaw } from 'vue'
 
-import UserModal from '../components/modals/user.modal.vue'
+import UserModal from '@/app/views/administration/users/components/user.modal.vue'
 import ConfirmModal from '@/app/components/modal/templates/confirm.modal.vue'
 
 class UserService {

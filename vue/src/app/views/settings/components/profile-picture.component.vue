@@ -2,7 +2,7 @@
 import { AuthStore, useAuthStore } from '@/app/store/authentication.store'
 import { UserDto } from '@/library/data/dto/user.dto'
 import { computed, ComputedRef } from 'vue'
-import { SettingsService } from '../services/settings.service'
+import { SettingsService } from '../../../services/settings.service'
 
 const authStore: AuthStore = useAuthStore()
 const { updateAvatar, removeAvatar } = SettingsService

@@ -3,7 +3,7 @@ import { RouteLocationNormalizedLoaded, useRoute } from 'vue-router'
 import { computed, ComputedRef, onMounted } from 'vue'
 
 import { useAuthStore, AuthStore } from '@/app/store/authentication.store'
-import { MainLayoutService } from '@/app/layouts/main-navigation/services/main-layout.service'
+import { MainLayoutService } from '@/app/services/main-layout.service'
 
 import UnauthorizedComponent from '@/app/layouts/unauthorized/unauthorized.layout.vue'
 

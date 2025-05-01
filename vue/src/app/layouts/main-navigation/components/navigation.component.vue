@@ -17,6 +17,11 @@ type nav = {
 
 const MAIN_NAVIGATION: Array<nav> = [
   {
+    label: 'navigation.home',
+    name: ROUTE_NAMES.HOME,
+    icon: ['fas', 'home']
+  },
+  {
     label: 'navigation.applications',
     name: ROUTE_NAMES.APPLICATIONS,
     icon: ['fas', 'code-pull-request']

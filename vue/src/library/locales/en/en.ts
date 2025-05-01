@@ -5,6 +5,7 @@ import forms from './forms.json'
 import legal from './legal.json'
 import navigation from './navigation.json'
 import settings from './settings.json'
+import applications from './applications.json'
 
 const LOCALIZATION = {
   actions,
@@ -13,7 +14,8 @@ const LOCALIZATION = {
   forms,
   legal,
   settings,
-  navigation
+  navigation,
+  applications
 }
 
 export default LOCALIZATION

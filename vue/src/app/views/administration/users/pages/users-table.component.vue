@@ -5,10 +5,10 @@ import moment from 'moment'
 import { Order, PaginationDto, PaginationMeta, PaginationOptions, SortOptions } from '@/library/data/dto/pagination.dto'
 import { Role, UserDto } from '@/library/data/dto/user.dto.ts'
 
-import ContentLayout from '@/app/views/administration/layouts/content.layout.vue'
 import TablePaginatedComponent from '@/app/components/table/paginated.component.vue'
+import ContentLayout from '@/app/layouts/content/content.layout.vue'
 
-import { UserService } from '../services/user.service.ts'
+import { UserService } from '@/app/services/user.service.ts'
 import { useI18n } from 'vue-i18n'
 
 const { t } = useI18n()

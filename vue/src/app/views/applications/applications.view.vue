@@ -9,18 +9,18 @@ const router: Router = useRouter()
 
 const routes = [
   {
-    name: ROUTE_NAMES.ADMIN_USERS,
-    label: 'administration.users.label',
-    icon: ['fas', 'user'],
+    name: ROUTE_NAMES.APPS_OPEN_METEO,
+    label: 'Open-Meteo Forecast',
+    icon: ['fas', 'cloud-showers-heavy'],
     callback: (_: MouseEvent) => {
-      router.push({ name: ROUTE_NAMES.ADMIN_USERS })
+      router.push({ name: ROUTE_NAMES.APPS_OPEN_METEO })
     }
   }
 ]
 </script>
 
 <template>
-  <AdminLayout :routes title="administration.label">
+  <AdminLayout :routes title="applications.label">
     <template #content>
       <Suspense>
         <RouterView v-slot="{ Component }" :key="route.path">

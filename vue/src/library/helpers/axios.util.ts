@@ -10,7 +10,12 @@ interface IRequestConfig {
 class AxiosService {
   public static requestConfig = ({ token, params, content, data }: IRequestConfig): AxiosRequestConfig => {
     return {
-      ...(params && { params }),
+      ...(params && {
+        params,
+        paramsSerializer: {
+          indexes: null
+        }
+      }),
       headers: {
         ...(content && { ['Content-Type']: content }),
         ...(token && { ['Authorization']: `Bearer ${token}` })
