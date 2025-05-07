@@ -3,11 +3,11 @@ import { RouteLocationNormalizedLoaded, useRoute } from 'vue-router'
 import { computed, ComputedRef, onMounted } from 'vue'
 
 import { useAuthStore, AuthStore } from '@/app/store/authentication.store'
-import { MainLayoutService } from '@/app/services/main-layout.service'
+import { MainLayoutController } from '@/app/layouts/main-navigation/controllers/main-layout.controller'
 
 import UnauthorizedComponent from '@/app/layouts/unauthorized/unauthorized.layout.vue'
 
-const { signin } = MainLayoutService
+const { signin } = MainLayoutController
 
 const route: RouteLocationNormalizedLoaded = useRoute()
 const authStore: AuthStore = useAuthStore()
@@ -25,7 +25,7 @@ onMounted((): void => {
   </template>
   <template v-else>
     <Suspense>
-      <RouterView v-slot="{ Component }" :key="route.path">
+      <RouterView v-slot="{ Component }" >
         <component :is="Component" />
       </RouterView>
     </Suspense>

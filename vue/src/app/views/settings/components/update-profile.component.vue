@@ -5,14 +5,14 @@ import * as Yup from 'yup'
 
 import TextInput from '@/app/components/inputs/text.input.vue'
 
-import { useFormUtil } from '@/library/helpers/forms.util.ts'
+import { useFormUtil } from '@/library/utils/forms.util.ts'
 import { UpdateProfile, UserDto } from '@/library/data/dto/user.dto.ts'
-import { SettingsService } from '../../../services/settings.service.ts'
+import { SettingsController } from '../controllers/settings.controller.ts'
 import { AuthStore, useAuthStore } from '@/app/store/authentication.store.ts'
 
 const validateUtil = useFormUtil()
 const authStore: AuthStore = useAuthStore()
-const { updateProfile } = SettingsService
+const { updateProfile } = SettingsController
 
 const user: ComputedRef<UserDto | undefined> = computed(() => authStore.authenticatedUser)
 const loading = ref<boolean>(false)

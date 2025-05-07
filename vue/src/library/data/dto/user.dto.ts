@@ -1,4 +1,4 @@
-import getAvatar from '@/library/helpers/ui-avatars.util'
+import getAvatar from '@/library/utils/ui-avatars.util'
 
 type UpdatePassword = {
   current_password: string

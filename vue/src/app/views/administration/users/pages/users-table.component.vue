@@ -8,12 +8,12 @@ import { Role, UserDto } from '@/library/data/dto/user.dto.ts'
 import TablePaginatedComponent from '@/app/components/table/paginated.component.vue'
 import ContentLayout from '@/app/layouts/content/content.layout.vue'
 
-import { UserService } from '@/app/services/user.service.ts'
+import { UserAdminController } from '@/app/views/administration/users/controllers/user-admin.controller'
 import { useI18n } from 'vue-i18n'
 
 const { t } = useI18n()
 
-const { getUsersPaginated, updateUser, deleteUser } = UserService
+const { getUsersPaginated, updateUser, deleteUser } = UserAdminController
 
 const defaultOptions: PaginationOptions = {
   take: 25,

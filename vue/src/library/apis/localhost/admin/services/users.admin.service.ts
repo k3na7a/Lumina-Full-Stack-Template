@@ -1,8 +1,8 @@
 import { AxiosInstance, AxiosResponse } from 'axios'
 
-import { ILocalStorageUtil } from '@/library/helpers/local-storage.util'
+import { ILocalStorageUtil } from '@/library/utils/local-storage.util'
 import { PaginationDto, PaginationOptions } from '@/library/data/dto/pagination.dto'
-import { AxiosService } from '@/library/helpers/axios.util'
+import { AxiosService } from '@/library/utils/axios.util'
 import { iUser, UpdateUserDto, UserDto } from '@/library/data/dto/user.dto'
 
 class users {

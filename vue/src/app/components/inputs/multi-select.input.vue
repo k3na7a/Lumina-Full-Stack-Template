@@ -4,7 +4,7 @@ import * as bootstrap from 'bootstrap'
 import { useField } from 'vee-validate'
 import { useI18n } from 'vue-i18n'
 
-import { deepEqual } from '@/library/helpers/object.util'
+import { deepEqual } from '@/library/utils/object.util'
 
 const { t } = useI18n()
 

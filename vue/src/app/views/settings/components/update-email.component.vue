@@ -5,12 +5,12 @@ import * as Yup from 'yup'
 
 import TextInput from '@/app/components/inputs/text.input.vue'
 
-import { useFormUtil } from '@/library/helpers/forms.util'
+import { useFormUtil } from '@/library/utils/forms.util'
 import { UpdateEmail, UserDto } from '@/library/data/dto/user.dto'
-import { SettingsService } from '../../../services/settings.service'
+import { SettingsController } from '../controllers/settings.controller'
 import { AuthStore, useAuthStore } from '@/app/store/authentication.store'
 
-const { updateEmail } = SettingsService
+const { updateEmail } = SettingsController
 const { getSubmitFn } = useFormUtil()
 
 const authStore: AuthStore = useAuthStore()

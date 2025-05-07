@@ -2,11 +2,17 @@
 import { ref } from 'vue'
 import { Form } from 'vee-validate'
 
-import { useFormUtil } from '@/library/helpers/forms.util'
-import { imageUpload as validationSchema, imageUploadValues as FormValues } from '../schema/validation.schema'
+import * as Yup from 'yup'
+
+import { useFormUtil } from '@/library/utils/forms.util'
 
 import ModalTitleComponent from '@/app/components/modal/base/modal-title.component.vue'
 import FileInputComponent from '@/app/components/inputs/file.input.vue'
+
+type FormValues = { image: File }
+const validationSchema = Yup.object().shape({
+  image: Yup.mixed<File>().required()
+})
 
 type PropType = {
   callback: (values: FormValues) => Promise<void>

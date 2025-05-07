@@ -19,7 +19,7 @@ const isAuthenticated: ComputedRef<boolean> = computed(() => authStore.authentic
   </template>
   <template v-else>
     <Suspense>
-      <RouterView v-slot="{ Component }" :key="route.path">
+      <RouterView v-slot="{ Component }" >
         <component :is="Component" />
       </RouterView>
     </Suspense>

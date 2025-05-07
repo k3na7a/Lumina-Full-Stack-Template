@@ -2,7 +2,7 @@ import { ROUTE_NAMES } from '@/library/data/enums/route-names.enum'
 import { RouteRecordRaw } from 'vue-router'
 
 const route: RouteRecordRaw = {
-  path: '/authenticated-routes',
+  path: '/',
   redirect: { name: ROUTE_NAMES.HOME },
   component: () => import('@/app/router/guards/auth.guard.vue'),
   children: [

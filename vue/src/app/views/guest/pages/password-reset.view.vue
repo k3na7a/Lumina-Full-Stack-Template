@@ -8,11 +8,11 @@ import { LocationQuery, RouteLocationNormalizedLoaded, Router, useRoute, useRout
 import { ROUTE_NAMES } from '@/app/router/routes'
 import { ResetPassword } from '@/library/data/dto/user.dto'
 import { PasswordValidation } from '@/library/data/regex/validation.regex'
-import { useFormUtil } from '@/library/helpers/forms.util'
+import { useFormUtil } from '@/library/utils/forms.util'
 
 import TextInput from '@/app/components/inputs/text.input.vue'
 import PasswordValidationList from '@/app/components/labels/password-validation-list.component.vue'
-import { GuestService } from '../../../services/guest.service'
+import { GuestController } from '../controllers/guest.controller'
 
 enum PAGES {
   FORM,
@@ -21,7 +21,7 @@ enum PAGES {
 
 const state = reactive<{ loading: boolean; page: PAGES }>({ loading: false, page: PAGES.FORM })
 
-const { resetPassword } = GuestService
+const { resetPassword } = GuestController
 const route: RouteLocationNormalizedLoaded = useRoute()
 const router: Router = useRouter()
 

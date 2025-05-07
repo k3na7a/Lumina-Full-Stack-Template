@@ -4,11 +4,11 @@ import { Form } from 'vee-validate'
 import * as Yup from 'yup'
 import { Router, useRouter } from 'vue-router'
 
-import { useFormUtil } from '@/library/helpers/forms.util'
+import { useFormUtil } from '@/library/utils/forms.util'
 import { ForgotPassword } from '@/library/data/dto/user.dto'
 import TextInput from '@/app/components/inputs/text.input.vue'
 import { ROUTE_NAMES } from '@/app/router/routes'
-import { GuestService } from '../../../services/guest.service'
+import { GuestController } from '../controllers/guest.controller'
 
 enum PAGES {
   FORM,
@@ -21,7 +21,7 @@ const state = reactive<{ loading: boolean; page: PAGES; email: string | undefine
   email: undefined
 })
 
-const { forgotPassword } = GuestService
+const { forgotPassword } = GuestController
 const { push }: Router = useRouter()
 const { getSubmitFn } = useFormUtil()
 

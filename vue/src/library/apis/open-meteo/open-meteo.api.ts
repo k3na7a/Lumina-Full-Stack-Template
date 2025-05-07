@@ -1,5 +1,5 @@
 // import { getForecastParams } from '@/library/data/dto/forecast.dto'
-import { AxiosService } from '@/library/helpers/axios.util'
+import { AxiosService } from '@/library/utils/axios.util'
 import axios, { AxiosInstance, AxiosResponse } from 'axios'
 
 const instance: AxiosInstance = axios.create({

@@ -8,6 +8,7 @@ enum ROUTE_NAMES {
 
   APPS_OPEN_METEO = 'apps-open-meteo',
   OPEN_METEO_CURRENT = 'open-meteo-current',
+  OPEN_METEO_HOURLY = 'open-meteo-hourly',
 
   SETTINGS = 'settings',
   SECURITY = 'security',

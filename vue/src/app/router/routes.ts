@@ -2,13 +2,13 @@ import { NavigationGuardNext, RouteLocationNormalized, RouteRecordRaw } from 'vu
 import { useAuthStore } from '../store/authentication.store'
 import { ROUTE_NAMES } from '@/library/data/enums/route-names.enum'
 
-import home from './routes/home.routes'
-import applications from './routes/applications.routes'
-import settings from './routes/settings.routes'
-import admin from './routes/administration.routes'
+import home from '../views/home/routes/home.routes'
+import applications from '../views/applications/routes/applications.routes'
+import settings from '../views/settings/routes/settings.routes'
+import admin from '../views/administration/routes/administration.routes'
 
-import accountrecovery from './routes/account-recovery.routes'
-import passwordreset from './routes/password-reset.routes'
+import accountrecovery from '../views/guest/routes/account-recovery.routes'
+import passwordreset from '../views/guest/routes/password-reset.routes'
 
 const routes: RouteRecordRaw[] = [
   {

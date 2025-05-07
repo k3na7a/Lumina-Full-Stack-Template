@@ -2,12 +2,17 @@
 import { ref } from 'vue'
 import { Form } from 'vee-validate'
 
-import { useFormUtil } from '@/library/helpers/forms.util'
+import { useFormUtil } from '@/library/utils/forms.util'
 
 import TextInput from '@/app/components/inputs/text.input.vue'
 import ModalTitleComponent from '@/app/components/modal/base/modal-title.component.vue'
 
-import { inputPassword as validationSchema, inputPasswordValues as FormValues } from '../schema/validation.schema'
+import * as Yup from 'yup'
+
+type FormValues = { password: string }
+const validationSchema = Yup.object().shape({
+  password: Yup.string().required()
+})
 
 const props = defineProps<{
   close: () => void

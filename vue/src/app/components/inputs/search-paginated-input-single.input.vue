@@ -6,7 +6,7 @@ import { onMounted, reactive, ref, toRef, UnwrapRef, watch } from 'vue'
 import * as bootstrap from 'bootstrap'
 import { Order, PaginationDto, PaginationOptions } from '@/library/data/dto/pagination.dto'
 import { useField } from 'vee-validate'
-import { deepEqual } from '@/library/helpers/object.util'
+import { deepEqual } from '@/library/utils/object.util'
 
 const props = defineProps<{
   name: string

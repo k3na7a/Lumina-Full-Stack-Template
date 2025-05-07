@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { SettingsService } from '../../../services/settings.service'
+import { SettingsController } from '../controllers/settings.controller'
 
-const { disableAccount } = SettingsService
+const { disableAccount } = SettingsController
 </script>
 
 <template>

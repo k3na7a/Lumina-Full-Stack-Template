@@ -3,7 +3,7 @@ import { ref } from 'vue'
 import { Form } from 'vee-validate'
 
 import { Role, UpdateUser, UserDto } from '@/library/data/dto/user.dto'
-import { useFormUtil } from '@/library/helpers/forms.util'
+import { useFormUtil } from '@/library/utils/forms.util'
 
 import TextInput from '@/app/components/inputs/text.input.vue'
 import ModalTitleComponent from '@/app/components/modal/base/modal-title.component.vue'

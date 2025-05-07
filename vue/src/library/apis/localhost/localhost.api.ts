@@ -1,6 +1,6 @@
 import axios, { AxiosInstance } from 'axios'
 
-import { ILocalStorageUtil, useLocalStorageUtil } from '@/library/helpers/local-storage.util'
+import { ILocalStorageUtil, useLocalStorageUtil } from '@/library/utils/local-storage.util'
 
 import { authentication } from './auth/auth.service'
 import { administration } from './admin/admin.service'

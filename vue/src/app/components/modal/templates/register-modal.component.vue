@@ -3,14 +3,23 @@
 import { ref } from 'vue'
 import { Form } from 'vee-validate'
 
-import { useFormUtil } from '@/library/helpers/forms.util'
+import { useFormUtil } from '@/library/utils/forms.util'
 import { ROUTE_NAMES } from '@/app/router/routes'
 
 import TextInput from '@/app/components/inputs/text.input.vue'
 import PasswordValidationList from '@/app/components/labels/password-validation-list.component.vue'
 import ModalTitleComponent from '@/app/components/modal/base/modal-title.component.vue'
 
-import { registrationValues, registration as validationSchema } from '../schema/validation.schema'
+import * as Yup from 'yup'
+import { PasswordValidation } from '@/library/data/regex/validation.regex'
+
+type registrationValues = { firstname: string; lastname: string; email: string; password: string }
+const validationSchema = Yup.object().shape({
+  firstname: Yup.string().required(),
+  lastname: Yup.string().required(),
+  email: Yup.string().email().required(),
+  password: Yup.string().required().matches(PasswordValidation.regex)
+})
 
 const props = defineProps<{
   callback: (values: any) => Promise<void>

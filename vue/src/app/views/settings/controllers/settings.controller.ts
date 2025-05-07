@@ -4,9 +4,9 @@ import { AxiosError } from 'axios'
 import PasswordModal from '@/app/components/modal/templates/password.modal.vue'
 import UploadImageModalComponent from '@/app/components/modal/templates/image-upload.modal.vue'
 
-import { ModalStore, useModalStore } from '@/app/store/modal.store'
+import { ModalStore, useModalStore } from '@/app/components/modal/store/modal.store'
 import { AuthStore, useAuthStore } from '@/app/store/authentication.store'
-import { ToastStore, useToastStore } from '@/app/store/toast.store'
+import { ToastStore, useToastStore } from '@/app/components/toast/store/toast.store'
 
 import {
   DeleteAccount,
@@ -20,7 +20,7 @@ import {
 } from '@/library/data/dto/user.dto'
 import ConfirmModal from '@/app/components/modal/templates/confirm.modal.vue'
 
-class SettingsService {
+class SettingsController {
   public static updateAvatar = (): void => {
     const { openModal, closeModal }: ModalStore = useModalStore()
     const { updateAvatar }: AuthStore = useAuthStore()
@@ -129,4 +129,4 @@ class SettingsService {
   }
 }
 
-export { SettingsService }
+export { SettingsController }

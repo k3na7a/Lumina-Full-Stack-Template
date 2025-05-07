@@ -6,7 +6,7 @@ import { reactive, ref, toRef, UnwrapRef, watch } from 'vue'
 import * as bootstrap from 'bootstrap'
 import { Order, PaginationDto, PaginationOptions } from '@/library/data/dto/pagination.dto'
 import { useField } from 'vee-validate'
-import { checkIds } from '@/library/helpers/object.util'
+import { checkIds } from '@/library/utils/object.util'
 import { useI18n } from 'vue-i18n'
 
 const { t } = useI18n()

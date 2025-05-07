@@ -6,14 +6,14 @@ import * as Yup from 'yup'
 import TextInput from '@/app/components/inputs/text.input.vue'
 import PasswordValidationList from '@/app/components/labels/password-validation-list.component.vue'
 
-import { useFormUtil } from '@/library/helpers/forms.util'
+import { useFormUtil } from '@/library/utils/forms.util'
 import { UserDto, UpdatePassword } from '@/library/data/dto/user.dto'
 import { AuthStore, useAuthStore } from '@/app/store/authentication.store'
-import { SettingsService } from '../../../services/settings.service'
+import { SettingsController } from '../controllers/settings.controller'
 import { PasswordValidation } from '@/library/data/regex/validation.regex'
 
 const { getSubmitFn } = useFormUtil()
-const { updatePassword } = SettingsService
+const { updatePassword } = SettingsController
 
 const authStore: AuthStore = useAuthStore()
 

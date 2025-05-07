@@ -2,10 +2,10 @@
 import { AuthStore, useAuthStore } from '@/app/store/authentication.store'
 import { UserDto } from '@/library/data/dto/user.dto'
 import { computed, ComputedRef } from 'vue'
-import { SettingsService } from '../../../services/settings.service'
+import { SettingsController } from '../controllers/settings.controller'
 
 const authStore: AuthStore = useAuthStore()
-const { updateAvatar, removeAvatar } = SettingsService
+const { updateAvatar, removeAvatar } = SettingsController
 
 const user: ComputedRef<UserDto | undefined> = computed(() => authStore.authenticatedUser)
 </script>

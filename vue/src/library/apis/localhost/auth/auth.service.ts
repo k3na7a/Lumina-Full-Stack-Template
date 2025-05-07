@@ -1,7 +1,7 @@
 import { AxiosInstance, AxiosResponse } from 'axios'
 
-import { ILocalStorageUtil } from '@/library/helpers/local-storage.util'
-import { AxiosService } from '@/library/helpers/axios.util'
+import { ILocalStorageUtil } from '@/library/utils/local-storage.util'
+import { AxiosService } from '@/library/utils/axios.util'
 import {
   RegisterDto,
   ResetPasswordDto,

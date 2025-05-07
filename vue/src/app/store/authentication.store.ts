@@ -1,5 +1,5 @@
 import { LocalhostAPI as API, TOKEN_ID } from '@/library/apis/localhost/localhost.api'
-import { useLocalStorageUtil } from '@/library/helpers/local-storage.util'
+import { useLocalStorageUtil } from '@/library/utils/local-storage.util'
 import {
   DeleteAccountDto,
   ForgotPasswordDto,
@@ -93,10 +93,12 @@ const useAuthStore: StoreDef = defineStore({
 
     async forgotPassword(props: ForgotPasswordDto): Promise<void> {
       await API.authentication.forgotPassword(props)
+      this.purge()
     },
 
     async resetPassword(props: ResetPasswordDto): Promise<void> {
       await API.authentication.resetPassword(props)
+      this.purge()
     },
 
     async updateProfile(props: UpdateProfileDto): Promise<void> {
