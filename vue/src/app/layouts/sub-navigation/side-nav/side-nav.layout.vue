@@ -1,5 +1,8 @@
 <script setup lang="ts">
 import { ROUTE_NAMES } from '@/app/router/routes'
+import { Router, useRouter } from 'vue-router'
+
+const router: Router = useRouter()
 
 const props = defineProps<{
   title: string
@@ -7,7 +10,6 @@ const props = defineProps<{
     name: ROUTE_NAMES
     label: string
     icon: string[]
-    callback: (_: MouseEvent) => void
   }[]
 }>()
 </script>
@@ -21,7 +23,7 @@ const props = defineProps<{
           <template v-for="navigation_item of props.routes" :key="navigation_item.label">
             <RouterLink :to="{ name: navigation_item.name }" class="dropdown-item" activeClass="active">
               <button
-                @click="(event: MouseEvent) => { navigation_item.callback(event) }"
+                @click="(_: MouseEvent) => { router.push({ name: navigation_item.name }) }"
                 class="dropdown-item d-flex align-items-center justify-content-center justify-content-lg-start gap-2 px-lg-2 py-1 m-0 overflow-hidden w-100"
                 type="button"
               >

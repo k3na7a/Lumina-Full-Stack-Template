@@ -1,28 +1,19 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import { Form } from 'vee-validate'
-
 import { ROUTE_NAMES } from '@/app/router/routes'
 import { useFormUtil } from '@/library/utils/forms.util'
-
 import TextInput from '@/app/components/inputs/text.input.vue'
-import ModalTitleComponent from '@/app/components/modal/base/modal-title.component.vue'
-
+import ModalTitleComponent from '@/app/components/modal/modal-title.component.vue'
 import { credentials } from '@/library/data/dto/JWT.dto'
+import { validationSchema } from '../../schema/signin-validation.schema'
 
-import * as Yup from 'yup'
+const validateUtil = useFormUtil()
 
-const validationSchema = Yup.object().shape({
-  email: Yup.string().email().required(),
-  password: Yup.string().required()
-})
-
+const loading = ref<boolean>(false)
 const props = defineProps<{
   callback: (values: credentials) => Promise<void>
 }>()
-
-const loading = ref<boolean>(false)
-const validateUtil = useFormUtil()
 
 const onSubmit = validateUtil.getSubmitFn(validationSchema, async (values: credentials) => {
   loading.value = true

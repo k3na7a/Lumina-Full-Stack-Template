@@ -39,12 +39,12 @@ const user: ComputedRef<UserDto | undefined> = computed(() => authStore.authenti
     </template>
 
     <template v-else="isAuthenticated">
-      <!-- <nav class="align-content-center flex-grow-1">
+      <nav class="align-content-center flex-grow-1">
         <button class="btn btn-dark btn-icon" type="button">
           <font-awesome-icon :icon="['fas', 'bell']" />
-          <small class="custom-badge px-1 rounded-pill">99+</small>
+          <small class="custom-badge px-1 rounded-pill">1</small>
         </button>
-      </nav> -->
+      </nav>
       <nav class="align-content-center flex-grow-1">
         <UserActionsDropdown :signout="signout" :authenticated-user="user" />
       </nav>

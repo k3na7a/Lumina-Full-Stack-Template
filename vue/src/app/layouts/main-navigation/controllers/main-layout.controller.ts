@@ -1,8 +1,8 @@
 import { markRaw } from 'vue'
 import { AxiosError } from 'axios'
 
-import SignInModal from '@/app/components/modal/templates/signin-modal.component.vue'
-import RegisterModal from '@/app/components/modal/templates/register-modal.component.vue'
+import SignInModal from '@/app/layouts/main-navigation/components/modals/signin-modal.component.vue'
+import RegisterModal from '@/app/layouts/main-navigation/components/modals/register-modal.component.vue'
 import ConfirmationModal from '@/app/components/modal/templates/confirm.modal.vue'
 
 import { ModalStore, useModalStore } from '@/app/components/modal/store/modal.store'

@@ -1,27 +1,17 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import { Form } from 'vee-validate'
-
-import * as Yup from 'yup'
-
 import { useFormUtil } from '@/library/utils/forms.util'
-
-import ModalTitleComponent from '@/app/components/modal/base/modal-title.component.vue'
+import ModalTitleComponent from '@/app/components/modal/modal-title.component.vue'
 import FileInputComponent from '@/app/components/inputs/file.input.vue'
+import { FormValues, validationSchema } from '../schema/image-upload-validation.schema'
 
-type FormValues = { image: File }
-const validationSchema = Yup.object().shape({
-  image: Yup.mixed<File>().required()
-})
-
-type PropType = {
+const loading = ref<boolean>(false)
+const props = defineProps<{
   callback: (values: FormValues) => Promise<void>
   title: string
   action: string
-}
-
-const props = defineProps<PropType>()
-const loading = ref<boolean>(false)
+}>()
 
 const { getSubmitFn } = useFormUtil()
 const onSubmit = getSubmitFn(validationSchema, (values: FormValues) => {

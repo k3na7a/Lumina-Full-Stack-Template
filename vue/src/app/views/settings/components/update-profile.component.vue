@@ -1,10 +1,8 @@
 <script setup lang="ts">
 import { computed, ComputedRef, ref } from 'vue'
 import { Form } from 'vee-validate'
-import * as Yup from 'yup'
-
+import { validationSchema } from '../schema/update-profile-validation.schema.ts'
 import TextInput from '@/app/components/inputs/text.input.vue'
-
 import { useFormUtil } from '@/library/utils/forms.util.ts'
 import { UpdateProfile, UserDto } from '@/library/data/dto/user.dto.ts'
 import { SettingsController } from '../controllers/settings.controller.ts'
@@ -12,15 +10,11 @@ import { AuthStore, useAuthStore } from '@/app/store/authentication.store.ts'
 
 const validateUtil = useFormUtil()
 const authStore: AuthStore = useAuthStore()
+
 const { updateProfile } = SettingsController
 
 const user: ComputedRef<UserDto | undefined> = computed(() => authStore.authenticatedUser)
 const loading = ref<boolean>(false)
-
-const validationSchema = Yup.object().shape({
-  firstname: Yup.string().required(),
-  lastname: Yup.string().required()
-})
 
 const onSubmit = validateUtil.getSubmitFn(validationSchema, async (values: UpdateProfile) => {
   loading.value = true

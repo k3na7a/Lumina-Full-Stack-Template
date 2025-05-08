@@ -30,12 +30,10 @@ const route: RouteLocationNormalizedLoaded = useRoute()
   </NavbarComponent>
 
   <div class="content-wrapper d-flex flex-column flex-grow-1 overflow-auto">
-    <main>
-      <Suspense>
-        <RouterView v-slot="{ Component }" :key="route.path">
-          <component :is="Component" />
-        </RouterView>
-      </Suspense>
-    </main>
+    <Suspense>
+      <RouterView v-slot="{ Component }" :key="route.path">
+        <component :is="Component" />
+      </RouterView>
+    </Suspense>
   </div>
 </template>

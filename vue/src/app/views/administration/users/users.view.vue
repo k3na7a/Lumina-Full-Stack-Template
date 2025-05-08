@@ -1,10 +1,8 @@
 <script setup lang="ts">
 import SubNavigationLayout from '@/app/layouts/sub-navigation/top-nav/sub-navigation.layout.vue'
-import { ROUTE_NAMES } from '@/app/router/routes'
-import { sub_navigation } from '@/library/data/types/sub-navigation.type'
 import { RouteLocationNormalizedLoaded, useRoute } from 'vue-router'
+import { options } from './schema/navigation.schema'
 
-const options: sub_navigation = [{ label: 'administration.users.label', name: ROUTE_NAMES.ADMIN_USERS }]
 const route: RouteLocationNormalizedLoaded = useRoute()
 </script>
 

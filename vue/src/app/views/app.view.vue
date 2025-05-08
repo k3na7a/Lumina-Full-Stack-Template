@@ -2,7 +2,7 @@
 import { RouteLocationNormalizedLoaded, useRoute } from 'vue-router'
 
 import ToastComponent from '@/app/components/toast/toast.component.vue'
-import ModalComponent from '@/app/components/modal/base/modal.component.vue'
+import ModalComponent from '@/app/components/modal/modal.component.vue'
 
 const route: RouteLocationNormalizedLoaded = useRoute()
 </script>

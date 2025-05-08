@@ -1,14 +1,12 @@
 <script setup lang="ts">
 import { computed, ComputedRef, reactive } from 'vue'
 import { Form } from 'vee-validate'
-import * as Yup from 'yup'
-
 import TextInput from '@/app/components/inputs/text.input.vue'
-
 import { useFormUtil } from '@/library/utils/forms.util'
 import { UpdateEmail, UserDto } from '@/library/data/dto/user.dto'
 import { SettingsController } from '../controllers/settings.controller'
 import { AuthStore, useAuthStore } from '@/app/store/authentication.store'
+import { validationSchema } from '../schema/update-email-validation.schema'
 
 const { updateEmail } = SettingsController
 const { getSubmitFn } = useFormUtil()
@@ -17,14 +15,6 @@ const authStore: AuthStore = useAuthStore()
 
 const state = reactive<{ loading: boolean; open: boolean }>({ loading: false, open: false })
 const user: ComputedRef<UserDto | undefined> = computed(() => authStore.authenticatedUser)
-
-const validationSchema = Yup.object().shape({
-  password: Yup.string().required(),
-  email: Yup.string().email().required(),
-  confirm_email: Yup.string()
-    .required()
-    .oneOf([Yup.ref('email')])
-})
 
 const onSubmit = getSubmitFn(validationSchema, async (values: UpdateEmail): Promise<void> => {
   state.loading = true

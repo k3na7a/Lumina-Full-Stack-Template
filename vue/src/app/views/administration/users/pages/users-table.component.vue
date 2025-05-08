@@ -1,44 +1,19 @@
 <script setup lang="ts">
 import { reactive, ref, watch } from 'vue'
 import moment from 'moment'
-
-import { Order, PaginationDto, PaginationMeta, PaginationOptions, SortOptions } from '@/library/data/dto/pagination.dto'
-import { Role, UserDto } from '@/library/data/dto/user.dto.ts'
-
+import { PaginationDto, PaginationMeta, PaginationOptions } from '@/library/data/dto/pagination.dto'
+import { UserDto } from '@/library/data/dto/user.dto.ts'
 import TablePaginatedComponent from '@/app/components/table/paginated.component.vue'
 import ContentLayout from '@/app/layouts/content/content.layout.vue'
-
 import { UserAdminController } from '@/app/views/administration/users/controllers/user-admin.controller'
 import { useI18n } from 'vue-i18n'
+import { tableColumns } from '../schema/table-columns.schema'
+import { sort } from '../schema/table-sort.schema'
+import { defaultOptions } from '../schema/table-options.scema'
+import { badges } from '../schema/table-badges.schema'
 
 const { t } = useI18n()
-
 const { getUsersPaginated, updateUser, deleteUser } = UserAdminController
-
-const defaultOptions: PaginationOptions = {
-  take: 25,
-  order: Order.DESC,
-  page: 1,
-  sort: 'user.createdAt',
-  search: undefined
-}
-
-const badges: { [key: string]: { theme: 'primary' | 'secondary'; label: string } } = {
-  [Role.ADMIN]: { theme: 'primary', label: 'forms.admin' },
-  [Role.USER]: { theme: 'secondary', label: 'forms.user' }
-}
-
-const sort: Array<SortOptions> = [
-  { sort: 'user.createdAt', order: Order.DESC, label: 'forms.newest' },
-  { sort: 'user.createdAt', order: Order.ASC, label: 'forms.oldest' }
-]
-
-const tableColumns: Array<{ name: string; label: string }> = [
-  { name: 'user', label: 'forms.user' },
-  { name: 'role', label: 'forms.role' },
-  { name: 'created', label: 'forms.date-registered' },
-  { name: 'actions', label: 'forms.actions' }
-]
 
 const loading = ref<boolean>(true)
 const options = reactive<PaginationOptions>(defaultOptions)

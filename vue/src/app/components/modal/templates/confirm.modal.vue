@@ -2,7 +2,7 @@
 import { ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 
-import ModalTitleComponent from '@/app/components/modal/base/modal-title.component.vue'
+import ModalTitleComponent from '@/app/components/modal/modal-title.component.vue'
 import { Form } from 'vee-validate'
 
 const { t } = useI18n()

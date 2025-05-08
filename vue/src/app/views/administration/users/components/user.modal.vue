@@ -1,35 +1,23 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import { Form } from 'vee-validate'
-
 import { Role, UpdateUser, UserDto } from '@/library/data/dto/user.dto'
 import { useFormUtil } from '@/library/utils/forms.util'
-
 import TextInput from '@/app/components/inputs/text.input.vue'
-import ModalTitleComponent from '@/app/components/modal/base/modal-title.component.vue'
+import ModalTitleComponent from '@/app/components/modal/modal-title.component.vue'
 import InputSelectComponent from '@/app/components/inputs/select.input.vue'
 import InputFileComponent from '@/app/components/inputs/file.input.vue'
 import CheckboxInput from '@/app/components/inputs/checkbox.input.vue'
+import { validationSchema } from '../schema/update-user-validation.schema'
 
-import * as Yup from 'yup'
+const validateUtil = useFormUtil()
 
-const validationSchema = Yup.object().shape({
-  email: Yup.string().email().required(),
-  firstname: Yup.string().required(),
-  lastname: Yup.string().required(),
-  role: Yup.mixed<Role>().oneOf(Object.values(Role)).required(),
-  avatar: Yup.mixed<File>().notRequired(),
-  'remove-avatar': Yup.boolean().required()
-})
-
+const loading = ref<boolean>(false)
 const props = defineProps<{
   user: UserDto
   callback: (values: any) => Promise<void>
 }>()
 
-const loading = ref<boolean>(false)
-
-const validateUtil = useFormUtil()
 const onSubmit = validateUtil.getSubmitFn(validationSchema, async (values: UpdateUser) => {
   loading.value = true
   await props.callback(values).finally(() => {

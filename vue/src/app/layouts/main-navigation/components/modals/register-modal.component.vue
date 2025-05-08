@@ -1,32 +1,19 @@
-*-//*
 <script setup lang="ts">
 import { ref } from 'vue'
 import { Form } from 'vee-validate'
-
 import { useFormUtil } from '@/library/utils/forms.util'
 import { ROUTE_NAMES } from '@/app/router/routes'
-
 import TextInput from '@/app/components/inputs/text.input.vue'
 import PasswordValidationList from '@/app/components/labels/password-validation-list.component.vue'
-import ModalTitleComponent from '@/app/components/modal/base/modal-title.component.vue'
+import ModalTitleComponent from '@/app/components/modal/modal-title.component.vue'
+import { validationSchema, registrationValues } from '../../schema/registration-validation.schema'
 
-import * as Yup from 'yup'
-import { PasswordValidation } from '@/library/data/regex/validation.regex'
+const { getSubmitFn } = useFormUtil()
 
-type registrationValues = { firstname: string; lastname: string; email: string; password: string }
-const validationSchema = Yup.object().shape({
-  firstname: Yup.string().required(),
-  lastname: Yup.string().required(),
-  email: Yup.string().email().required(),
-  password: Yup.string().required().matches(PasswordValidation.regex)
-})
-
+const loading = ref<boolean>(false)
 const props = defineProps<{
   callback: (values: any) => Promise<void>
 }>()
-
-const loading = ref<boolean>(false)
-const { getSubmitFn } = useFormUtil()
 
 const onSubmit = getSubmitFn(validationSchema, async (values: registrationValues) => {
   loading.value = true
