@@ -15,5 +15,13 @@
     "title": "Create and modify your users",
     "subtitle": "Users are the individuals who have registered an account",
     "caption": "Showing {showing} of {count} users | Showing {showing} of {count} user | Showing {showing} of {count} users"
+  },
+  "games-and-software": {
+    "header": "Game & Software Management",
+    "label": "Games & Software",
+    "games": {
+      "title": "Create and modify your games & software",
+      "subtitle": "Video Games!"
+    }
   }
 }

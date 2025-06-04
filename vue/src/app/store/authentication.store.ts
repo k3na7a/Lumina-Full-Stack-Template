@@ -10,9 +10,9 @@ import {
   UpdatePasswordDto,
   UpdateProfileDto,
   UserDto
-} from '@/library/data/dto/user.dto'
+} from '@/library/apis/localhost/dto/user.dto'
 import { Store, StoreDefinition, defineStore } from 'pinia'
-import { credentials, JWTDto } from '@/library/data/dto/JWT.dto'
+import { credentials, JWTDto } from '@/library/apis/localhost/dto/JWT.dto'
 
 interface IAuthState {
   $authenticated: boolean

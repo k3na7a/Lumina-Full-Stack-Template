@@ -1,55 +1,74 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
+import { ProfileEntity } from '../entities/profile.entity';
+import { UpdateUserProfile } from '../interfaces/user.interfaces';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-
-import { UpdateUserProfile } from 'src/app/users/interfaces/user.interfaces';
-import { ProfileEntity } from '../entities/profile.entity';
 import { ImageService } from 'src/app/media/services/image.service';
-import { IMAGE_TYPE } from 'src/app/media/entities/image.entity';
+import { IMAGE_TYPE } from 'src/app/media/constants/image-routes.constants';
+import { ImageEntity } from 'src/app/media/entities/image.entity';
 
 @Injectable()
 export class ProfileService {
   constructor(
     @InjectRepository(ProfileEntity)
-    private repository: Repository<ProfileEntity>,
+    private readonly repository: Repository<ProfileEntity>,
     private readonly imageService: ImageService,
   ) {}
 
-  public async findOneById(id: string): Promise<ProfileEntity> {
-    const profile = await this.repository.findOne({
-      where: { id },
+  private async updateAvatar(
+    { avatar }: ProfileEntity,
+    file: Express.Multer.File,
+  ): Promise<ImageEntity> {
+    if (!avatar) throw new NotFoundException('Avatar not found');
+
+    return this.imageService.update(avatar.id, {
+      file,
+      type: IMAGE_TYPE.AVATARS,
     });
-    if (!profile) throw new NotFoundException();
-    return profile;
   }
 
-  public async update(
-    id: string,
-    dto: UpdateUserProfile,
-  ): Promise<ProfileEntity> {
-    const profile = await this.findOneById(id);
-    return this.repository.save({ ...profile, ...dto });
+  private async createAvatar(
+    profile: ProfileEntity,
+    file: Express.Multer.File,
+  ): Promise<ImageEntity> {
+    return this.imageService.create({
+      file,
+      altText: `Avatar for profile ${profile.id}`,
+      type: IMAGE_TYPE.AVATARS,
+    });
   }
 
   public async handleAvatarUpload(
     profile: ProfileEntity,
     file: Express.Multer.File,
-  ): Promise<void> {
-    if (profile.avatar) {
-      await this.imageService.update(profile.avatar.id, file);
-    } else {
-      const avatar = await this.imageService.create(file, IMAGE_TYPE.AVATARS);
-      await this.update(profile.id, { avatar });
-    }
+  ): Promise<ProfileEntity> {
+    const avatar = profile.avatar
+      ? await this.updateAvatar(profile, file)
+      : await this.createAvatar(profile, file);
+
+    return this.update(profile, { avatar });
   }
 
-  public async removeAvatar(id: string): Promise<ProfileEntity> {
-    const profile = await this.findOneById(id);
-    if (!profile.avatar?.id) return profile;
+  public async removeAvatar(profile: ProfileEntity): Promise<ProfileEntity> {
+    if (!profile.avatar) return profile;
 
-    const update = await this.repository.save({ ...profile, avatar: null });
-    await this.imageService.remove(profile.avatar?.id);
+    const { avatar } = profile;
+    await this.imageService.remove(avatar.id);
 
-    return update;
+    return this.update(profile, { avatar: null });
+  }
+
+  public async update(
+    profile: ProfileEntity,
+    dto: UpdateUserProfile,
+  ): Promise<ProfileEntity> {
+    const updated = await this.repository.preload({
+      id: profile.id,
+      ...dto,
+    });
+
+    if (!updated) throw new NotFoundException('Profile not found');
+
+    return this.repository.save(updated);
   }
 }

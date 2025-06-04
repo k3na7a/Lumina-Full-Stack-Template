@@ -2,6 +2,7 @@ import { ROUTE_NAMES } from '@/library/data/enums/route-names.enum'
 import { RouteRecordRaw } from 'vue-router'
 
 import { route as UserRoutes } from '../users/routes/users.routes'
+import { route as GamesRoutes } from '../games/routes/games.routes'
 
 const route: RouteRecordRaw = {
   path: '/',
@@ -14,7 +15,7 @@ const route: RouteRecordRaw = {
       redirect: { name: ROUTE_NAMES.ADMIN_USERS },
       meta: { pageTitle: 'Administration' },
       component: () => import('@/app/views/administration/administration.view.vue'),
-      children: [UserRoutes]
+      children: [UserRoutes, GamesRoutes]
     }
   ]
 }

@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import DropdownComponent from '@/app/components/dropdown/dropdown.component.vue'
 import { useRouter } from 'vue-router'
-import { UserDto } from '@/library/data/dto/user.dto'
+import { UserDto } from '@/library/apis/localhost/dto/user.dto'
 import { user_actions } from '../../schema/user-actions.schema'
 
 const props = defineProps<{

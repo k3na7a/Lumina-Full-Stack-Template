@@ -14,8 +14,6 @@ import { AccessTokenStrategy } from './authentication/strategies/accesstoken.str
 import { LocalStrategy } from './authentication/strategies/localauth.strategy';
 import { RefreshTokenStrategy } from './authentication/strategies/refreshtoken.strategy';
 import { AdminModule } from './administration/admin.module';
-import { RouterModule } from '@nestjs/core';
-import { MediaModule } from './media/media.module';
 
 @Module({
   imports: [
@@ -31,17 +29,9 @@ import { MediaModule } from './media/media.module';
       serveRoot: '/',
     }),
 
-    MediaModule,
-    AuthModule,
     UserModule,
+    AuthModule,
     AdminModule,
-
-    RouterModule.register([
-      {
-        path: 'admin',
-        module: AdminModule,
-      },
-    ]),
   ],
   providers: [AccessTokenStrategy, LocalStrategy, RefreshTokenStrategy],
 })

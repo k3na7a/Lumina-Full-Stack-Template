@@ -5,7 +5,7 @@ import * as Yup from 'yup'
 import { Router, useRouter } from 'vue-router'
 
 import { useFormUtil } from '@/library/utils/forms.util'
-import { ForgotPassword } from '@/library/data/dto/user.dto'
+import { ForgotPassword } from '@/library/apis/localhost/dto/user.dto'
 import TextInput from '@/app/components/inputs/text.input.vue'
 import { ROUTE_NAMES } from '@/app/router/routes'
 import { GuestController } from '../controllers/guest.controller'

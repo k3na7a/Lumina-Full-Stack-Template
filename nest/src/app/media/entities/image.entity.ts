@@ -5,27 +5,13 @@ import { BaseEntity } from 'src/library/data/entities/base.entity';
 
 import { HandlebarsPlugin } from 'src/plugins/handlebars.plugin';
 import { Exclude } from 'class-transformer';
-import { NotAcceptableException } from '@nestjs/common';
+import { IMAGE_TYPE } from '../constants/image-routes.constants';
 
-export enum IMAGE_TYPE {
-  AVATARS = 'avatars',
-  COVERS = 'covers',
-}
-
-const routes = (type: IMAGE_TYPE): string => {
-  switch (type) {
-    case IMAGE_TYPE.AVATARS:
-      return 'images/avatars';
-    default:
-      throw new NotAcceptableException();
-  }
-};
-
-type uriProps = {
-  url: string | undefined;
-  route: string;
+interface uriProps {
+  type: string;
+  route?: string;
   filename: string;
-};
+}
 
 @Entity('images')
 export class ImageEntity extends BaseEntity {
@@ -33,21 +19,44 @@ export class ImageEntity extends BaseEntity {
   @Column()
   public readonly filename!: string;
 
-  @ApiProperty()
-  @Column()
+  @Exclude()
+  @Column({
+    type: 'enum',
+    enum: IMAGE_TYPE,
+  })
   public readonly type!: IMAGE_TYPE;
 
   @ApiProperty()
-  public uri!: string | null;
+  @Column()
+  public readonly mimetype!: string;
+
+  @ApiProperty()
+  @Column()
+  public readonly size!: number;
+
+  @ApiProperty({ required: false })
+  @Column({ nullable: true })
+  public readonly width?: number;
+
+  @ApiProperty({ required: false })
+  @Column({ nullable: true })
+  public readonly height?: number;
+
+  @ApiProperty({ required: false })
+  @Column({ nullable: true })
+  public readonly altText?: string;
+
+  @ApiProperty()
+  public uri!: string;
 
   @AfterLoad()
-  updateUri() {
+  updateUri(): void {
     const compile = HandlebarsPlugin.compile;
     this.uri = compile<uriProps>({
-      template: '{{ url }}/{{ route }}/{{ filename }}',
+      template: '{{ route }}/{{ type }}/{{ filename }}',
       data: {
-        url: process.env.AWS_S3_URL,
-        route: routes(this.type),
+        type: this.type,
+        route: process.env.AWS_S3_URL,
         filename: this.filename,
       },
     });

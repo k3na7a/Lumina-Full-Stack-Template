@@ -6,7 +6,7 @@ import UserActionsDropdown from '@/app/layouts/main-navigation/components/dropdo
 
 import { MainLayoutController } from '../controllers/main-layout.controller'
 import { AuthStore, useAuthStore } from '@/app/store/authentication.store'
-import { UserDto } from '@/library/data/dto/user.dto'
+import { UserDto } from '@/library/apis/localhost/dto/user.dto'
 
 const authStore: AuthStore = useAuthStore()
 const { signin, register, signout } = MainLayoutController
@@ -39,12 +39,12 @@ const user: ComputedRef<UserDto | undefined> = computed(() => authStore.authenti
     </template>
 
     <template v-else="isAuthenticated">
-      <nav class="align-content-center flex-grow-1">
+      <!-- <nav class="align-content-center flex-grow-1">
         <button class="btn btn-dark btn-icon" type="button">
           <font-awesome-icon :icon="['fas', 'bell']" />
           <small class="custom-badge px-1 rounded-pill">1</small>
         </button>
-      </nav>
+      </nav> -->
       <nav class="align-content-center flex-grow-1">
         <UserActionsDropdown :signout="signout" :authenticated-user="user" />
       </nav>

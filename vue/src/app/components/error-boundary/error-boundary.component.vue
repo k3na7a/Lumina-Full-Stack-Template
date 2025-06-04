@@ -34,6 +34,7 @@ const slotProps = computed(() => {
 // if there's an error show the error slot, otherwise show the default slot
 const slotName = computed(() => (error.value ? 'error' : 'default'))
 </script>
+
 <template>
   <slot :name="slotName" v-bind="slotProps"></slot>
 </template>

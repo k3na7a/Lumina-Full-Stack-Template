@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import { Form } from 'vee-validate'
-import { Role, UpdateUser, UserDto } from '@/library/data/dto/user.dto'
+import { Role, UpdateUser, UserDto } from '@/library/apis/localhost/dto/user.dto'
 import { useFormUtil } from '@/library/utils/forms.util'
 import TextInput from '@/app/components/inputs/text.input.vue'
 import ModalTitleComponent from '@/app/components/modal/modal-title.component.vue'

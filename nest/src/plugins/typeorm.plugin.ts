@@ -4,8 +4,16 @@ import { EntityClassOrSchema } from '@nestjs/typeorm/dist/interfaces/entity-clas
 import { ImageEntity } from 'src/app/media/entities/image.entity';
 import { ProfileEntity } from 'src/app/users/entities/profile.entity';
 import { UserEntity } from 'src/app/users/entities/user.entity';
+import { GameEntity } from 'src/app/games/entities/game.entity';
+import { AssetsEntity } from 'src/app/games/entities/assets.entity';
 
-const entities = [UserEntity, ProfileEntity, ImageEntity];
+const entities = [
+  UserEntity,
+  ProfileEntity,
+  ImageEntity,
+  GameEntity,
+  AssetsEntity,
+];
 
 const config: TypeOrmModuleOptions = {
   type: 'mysql',
@@ -18,18 +26,6 @@ const config: TypeOrmModuleOptions = {
   synchronize: true,
   timezone: 'Z',
 };
-
-// const config: TypeOrmModuleOptions = {
-//   type: 'mysql',
-//   host: 'localhost',
-//   port: 3306,
-//   username: 'root',
-//   password: 'password',
-//   database: 'demo_nest_api',
-//   entities,
-//   synchronize: true,
-//   timezone: 'Z',
-// };
 
 export class TypeOrmPlugin {
   public static forRoot = TypeOrmModule.forRoot(config);

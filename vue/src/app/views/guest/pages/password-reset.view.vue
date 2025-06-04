@@ -6,7 +6,7 @@ import * as Yup from 'yup'
 import { LocationQuery, RouteLocationNormalizedLoaded, Router, useRoute, useRouter } from 'vue-router'
 
 import { ROUTE_NAMES } from '@/app/router/routes'
-import { ResetPassword } from '@/library/data/dto/user.dto'
+import { ResetPassword } from '@/library/apis/localhost/dto/user.dto'
 import { PasswordValidation } from '@/library/data/regex/validation.regex'
 import { useFormUtil } from '@/library/utils/forms.util'
 

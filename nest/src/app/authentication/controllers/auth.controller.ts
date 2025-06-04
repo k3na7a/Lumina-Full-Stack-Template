@@ -31,11 +31,8 @@ import {
 import { JWTDto } from 'src/app/authentication/dto/jwt.dto';
 import { SignInDto } from 'src/app/authentication/dto/signIn.dto';
 import { LocalAuthGuard } from '../guards/localAuth.guard';
-import { RefreshTokenGuard } from '../guards/refreshtoken.guard';
-import { RefreshTokenRequest } from 'src/app/authentication/interfaces/refreshToken.interface';
 import { ForgotPasswordDto } from 'src/app/authentication/dto/forgotPassword.dto';
 import { AccessTokenGuard } from '../guards/accesstoken.guard';
-import { AccessTokenRequest } from 'src/app/authentication/interfaces/accessToken.interface';
 import { ResetPasswordDto } from 'src/app/authentication/dto/resetPassword.dto';
 import { updatePasswordDto } from 'src/app/authentication/dto/updatePassword.dto';
 import { updateEmailDto } from 'src/app/authentication/dto/updateEmail.dto';
@@ -43,6 +40,8 @@ import { deleteAccountDto } from 'src/app/authentication/dto/deleteAccount.dto';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { megabyte } from 'src/library/data/constants/size.constants';
 import { UserEntity } from 'src/app/users/entities/user.entity';
+import { CurrentUser } from '../decorators/current-user.decorator';
+import { Authenticated } from '../decorators/authenticated.decorator';
 
 @ApiTags('Authentication / Self Management')
 @Controller('auth')
@@ -59,25 +58,23 @@ export class AuthController {
 
   @Post('/verify-token')
   @ApiBearerAuth('access-token')
-  @UseGuards(RefreshTokenGuard)
-  @ApiOkResponse({ type: JWTDto })
-  async verifyToken(@Request() { user }: RefreshTokenRequest): Promise<JWTDto> {
-    return this.authService.verifyToken(user.userEntity);
+  @Authenticated()
+  async verifyToken(@CurrentUser() user: UserEntity): Promise<JWTDto> {
+    return this.authService.issueTokens(user);
   }
 
   @Post('/sign-in')
   @ApiBody({ type: SignInDto })
   @ApiOkResponse({ type: JWTDto })
   @UseGuards(LocalAuthGuard)
-  async signIn(@Request() { user }: { user: UserEntity }): Promise<JWTDto> {
+  async signIn(@CurrentUser() user: UserEntity): Promise<JWTDto> {
     return this.authService.signIn(user);
   }
 
   @Post('/sign-out')
-  @ApiBearerAuth('access-token')
-  @UseGuards(RefreshTokenGuard)
-  async signOut(@Request() { user }: RefreshTokenRequest): Promise<void> {
-    await this.authService.signOut(user.userEntity);
+  @Authenticated()
+  async signOut(@CurrentUser() user: UserEntity): Promise<void> {
+    await this.authService.signOut(user);
   }
 
   @Post('/forgot-password')
@@ -91,59 +88,52 @@ export class AuthController {
   @UseGuards(AccessTokenGuard)
   @ApiBody({ type: ResetPasswordDto })
   async resetPassword(
-    @Request() { user }: AccessTokenRequest,
-    @Body() { confirm_password }: ResetPasswordDto,
+    @CurrentUser() user: UserEntity,
+    @Request() { accessToken }: { accessToken: string },
+    @Body('confirm_password') confirm_password: string,
   ): Promise<void> {
-    await this.authService.resetPassword(
-      user.userEntity,
-      confirm_password,
-      user.accessToken,
-    );
+    await this.authService.resetPassword(user, confirm_password, accessToken);
   }
 
   @Patch('/update-profile')
-  @ApiBearerAuth('access-token')
-  @UseGuards(RefreshTokenGuard)
+  @Authenticated()
   @ApiBody({ type: RegisterProfileDto })
   @ApiOkResponse({ type: JWTDto })
   async updateProfile(
-    @Request() { user }: RefreshTokenRequest,
+    @CurrentUser() user: UserEntity,
     @Body() dto: RegisterProfileDto,
   ): Promise<JWTDto> {
-    return this.authService.updateProfile(user.userEntity, dto);
+    return this.authService.updateProfile(user, dto);
   }
 
   @Patch('/update-email')
-  @ApiBearerAuth('access-token')
-  @UseGuards(RefreshTokenGuard)
+  @Authenticated()
   @ApiBody({ type: updateEmailDto })
   @ApiOkResponse({ type: JWTDto })
   async updateEmail(
-    @Request() { user }: RefreshTokenRequest,
+    @CurrentUser() user: UserEntity,
     @Body() dto: updateEmailDto,
   ): Promise<JWTDto> {
-    return this.authService.updateEmail(user.userEntity, dto);
+    return this.authService.updateEmail(user, dto);
   }
 
   @Patch('/update-password')
-  @ApiBearerAuth('access-token')
-  @UseGuards(RefreshTokenGuard)
+  @Authenticated()
   @ApiBody({ type: updatePasswordDto })
   @ApiOkResponse({ type: JWTDto })
   async updatePassword(
-    @Request() { user }: RefreshTokenRequest,
+    @CurrentUser() user: UserEntity,
     @Body() dto: updatePasswordDto,
   ): Promise<JWTDto> {
-    return this.authService.updatePassword(user.userEntity, dto);
+    return this.authService.updatePassword(user, dto);
   }
 
   @Patch('/update-avatar')
-  @ApiBearerAuth('access-token')
-  @UseGuards(RefreshTokenGuard)
+  @Authenticated()
   @ApiOkResponse({ type: JWTDto })
   @UseInterceptors(FileInterceptor('avatar', { storage }))
   async updateAvatar(
-    @Request() { user }: RefreshTokenRequest,
+    @CurrentUser() user: UserEntity,
     @UploadedFile(
       new ParseFilePipe({
         validators: [
@@ -158,27 +148,23 @@ export class AuthController {
     )
     file: Express.Multer.File,
   ): Promise<JWTDto> {
-    return this.authService.updateAvatar(user.userEntity, file);
+    return this.authService.updateAvatar(user, file);
   }
 
   @Delete('/remove-avatar')
-  @ApiBearerAuth('access-token')
-  @UseGuards(RefreshTokenGuard)
+  @Authenticated()
   @ApiOkResponse({ type: JWTDto })
-  async removeAvatar(
-    @Request() { user }: RefreshTokenRequest,
-  ): Promise<JWTDto> {
-    return this.authService.removeAvatar(user.userEntity);
+  async removeAvatar(@CurrentUser() user: UserEntity): Promise<JWTDto> {
+    return this.authService.removeAvatar(user);
   }
 
   @Delete('/delete-account')
-  @ApiBearerAuth('access-token')
-  @UseGuards(RefreshTokenGuard)
+  @Authenticated()
   @ApiBody({ type: deleteAccountDto })
   async deleteAccount(
-    @Request() { user }: RefreshTokenRequest,
+    @CurrentUser() user: UserEntity,
     @Body() dto: deleteAccountDto,
   ): Promise<void> {
-    await this.authService.deleteAccount(user.userEntity, dto);
+    await this.authService.deleteAccount(user, dto);
   }
 }

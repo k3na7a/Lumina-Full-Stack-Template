@@ -2,7 +2,7 @@
 import SearchInputComponent from '@/app/components/inputs/search.input.vue'
 import SelectInputComponent from '@/app/components/inputs/select.input.vue'
 import PaginationInputComponent from '@/app/components/pagination/pagination.component.vue'
-import { PaginationOptions, SortOptions } from '@/library/data/dto/pagination.dto'
+import { PaginationOptions, SortOptions } from '@/library/apis/localhost/dto/pagination.dto'
 import { reactive, watch } from 'vue'
 
 const props = defineProps<{

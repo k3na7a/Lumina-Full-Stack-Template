@@ -8,21 +8,27 @@ class Name {
   @ApiProperty()
   @Column()
   public readonly first!: string;
+
   @ApiProperty()
   @Column()
   public readonly last!: string;
+
+  public getFullName() {
+    return [this.first, this.last].join(' ');
+  }
 }
 
 @Entity('profiles')
 export class ProfileEntity extends BaseEntity {
   @ApiProperty({ type: () => ImageEntity })
   @ManyToOne(() => ImageEntity, {
-    cascade: true,
+    cascade: ['insert', 'update'],
     eager: true,
     nullable: true,
+    onDelete: 'SET NULL',
   })
   @JoinColumn([{ name: 'image_id', referencedColumnName: 'id' }])
-  public readonly avatar!: ImageEntity | null;
+  public readonly avatar?: ImageEntity | null;
 
   @ApiProperty({ type: Name })
   @Column(() => Name)

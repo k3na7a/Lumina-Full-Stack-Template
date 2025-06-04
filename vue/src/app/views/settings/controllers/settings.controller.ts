@@ -17,7 +17,7 @@ import {
   UpdatePasswordDto,
   UpdateProfile,
   UpdateProfileDto
-} from '@/library/data/dto/user.dto'
+} from '@/library/apis/localhost/dto/user.dto'
 import ConfirmModal from '@/app/components/modal/templates/confirm.modal.vue'
 
 class SettingsController {

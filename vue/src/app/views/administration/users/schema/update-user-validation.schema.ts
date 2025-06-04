@@ -1,4 +1,4 @@
-import { Role } from '@/library/data/dto/user.dto'
+import { Role } from '@/library/apis/localhost/dto/user.dto'
 import * as Yup from 'yup'
 
 const validationSchema = Yup.object().shape({

@@ -1,20 +1,21 @@
 <script setup lang="ts">
 import SubNavigationLayout from '@/app/layouts/sub-navigation/top-nav/sub-navigation.layout.vue'
-import { RouteLocationNormalizedLoaded, useRoute } from 'vue-router'
-import { options } from './schema/navigation.schema'
+import ErrorBoundary from '@/app/components/error-boundary/error-boundary.component.vue'
 
-const route: RouteLocationNormalizedLoaded = useRoute()
+import { options } from './schema/navigation.schema'
 </script>
 
 <template>
   <SubNavigationLayout title="administration.users.header" :routes="options">
     <template #content>
-      <Suspense>
-        <RouterView v-slot="{ Component }" :key="route.path">
-          <component :is="Component" />
-        </RouterView>
-        <template #fallback>{{ $t('actions.loading') }}</template>
-      </Suspense>
+      <ErrorBoundary>
+        <Suspense>
+          <RouterView v-slot="{ Component }">
+            <component :is="Component" />
+          </RouterView>
+          <template #fallback>{{ $t('actions.loading') }}</template>
+        </Suspense>
+      </ErrorBoundary>
     </template>
   </SubNavigationLayout>
 </template>

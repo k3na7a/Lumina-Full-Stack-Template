@@ -1,61 +1,93 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import {
+  Injectable,
+  NotAcceptableException,
+  NotFoundException,
+} from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { IMAGE_TYPE, ImageEntity } from '../entities/image.entity';
+import { ImageEntity } from '../entities/image.entity';
 import { S3Service } from 'src/app/media/services/s3.service';
-import { unlink } from 'node:fs/promises';
-import { STORAGE } from 'src/library/data/enums/files.enum';
+import { unlink, readFile } from 'node:fs/promises';
+import { imageSize } from 'image-size';
+import { createImage } from '../interfaces/create-image.interface';
 
 @Injectable()
 export class ImageService {
   constructor(
     @InjectRepository(ImageEntity)
-    private repository: Repository<ImageEntity>,
+    private readonly repository: Repository<ImageEntity>,
     private readonly s3service: S3Service,
   ) {}
 
-  public async create(
-    file: Express.Multer.File,
-    type: IMAGE_TYPE,
-  ): Promise<ImageEntity> {
-    const { filename, path } = file;
-    const image = this.repository.create({ filename, type });
-
-    await this.s3service.uploadFile(file, STORAGE.AVATARS);
-
-    unlink(path);
-
-    return this.repository.save(image);
-  }
-
   public async findOneById(id: string): Promise<ImageEntity> {
     const image = await this.repository.findOne({ where: { id } });
-    if (!image) throw new NotFoundException();
+    if (!image) throw new NotFoundException(`Image with ID ${id} not found`);
 
     return image;
   }
 
-  public async update(
-    id: string,
-    file: Express.Multer.File,
-    type?: IMAGE_TYPE,
-  ): Promise<ImageEntity> {
+  private async getImageMetadata(file: Express.Multer.File) {
+    const buffer = await readFile(file.path);
+    const { width, height } = imageSize(buffer);
+
+    if (!width || !height)
+      throw new NotAcceptableException('Could not determine image dimensions');
+
+    return { buffer, width, height };
+  }
+
+  private async handleFileUpload(file: Express.Multer.File, type: string) {
+    await this.s3service.uploadFile(file, type);
+    await unlink(file.path); // Remove local file after upload
+  }
+
+  public async create({
+    file,
+    altText,
+    type,
+  }: createImage): Promise<ImageEntity> {
+    const { filename, size, mimetype } = file;
+    const { width, height } = await this.getImageMetadata(file);
+
+    const image = this.repository.create({
+      filename,
+      type,
+      mimetype,
+      size,
+      altText,
+      width,
+      height,
+    });
+
+    await this.handleFileUpload(file, type);
+
+    return this.repository.save(image);
+  }
+
+  public async update(id: string, payload: createImage): Promise<ImageEntity> {
     const image = await this.findOneById(id);
-    const { filename, path } = file;
+    const { file, altText, type } = payload;
+    const { filename, size, mimetype } = file;
+    const { width, height } = await this.getImageMetadata(file);
 
-    await this.s3service.uploadFile(file, STORAGE.AVATARS);
-    await this.s3service.deleteFile(image.filename, STORAGE.AVATARS);
+    await this.handleFileUpload(file, type);
+    await this.s3service.deleteFile(image.filename, image.type);
 
-    unlink(path);
-
-    return this.repository.save({ ...image, filename, type });
+    return this.repository.save({
+      ...image,
+      filename,
+      type,
+      altText,
+      size,
+      mimetype,
+      width,
+      height,
+    });
   }
 
   public async remove(id: string): Promise<ImageEntity> {
-    const avatar = await this.findOneById(id);
-
-    await this.s3service.deleteFile(avatar.filename, STORAGE.AVATARS);
-
-    return this.repository.remove(avatar);
+    const image = await this.findOneById(id);
+    await this.s3service.deleteFile(image.filename, image.type);
+    return this.repository.remove(image);
   }
 }

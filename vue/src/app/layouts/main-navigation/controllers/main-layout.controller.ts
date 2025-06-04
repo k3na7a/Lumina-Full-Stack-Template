@@ -9,8 +9,8 @@ import { ModalStore, useModalStore } from '@/app/components/modal/store/modal.st
 import { AuthStore, useAuthStore } from '@/app/store/authentication.store'
 import { ToastStore, useToastStore } from '@/app/components/toast/store/toast.store'
 
-import { Register, RegisterDto } from '@/library/data/dto/user.dto'
-import { credentials } from '@/library/data/dto/JWT.dto'
+import { Register, RegisterDto } from '@/library/apis/localhost/dto/user.dto'
+import { credentials } from '@/library/apis/localhost/dto/JWT.dto'
 
 class MainLayoutController {
   public static signin = (): void => {

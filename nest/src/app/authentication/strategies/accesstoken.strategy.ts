@@ -24,8 +24,11 @@ class AccessTokenStrategy extends PassportStrategy(Strategy, 'jwt') {
     req: Request,
     payload: Payload,
   ): Promise<AccessTokenValidationPayload> {
-    const accessToken = req.get('Authorization')?.replace('Bearer', '').trim();
-    if (!accessToken) throw new UnauthorizedException();
+    const accessToken = req
+      .get('Authorization')
+      ?.replace(/^Bearer\s+/i, '')
+      ?.trim();
+    if (!accessToken) throw new UnauthorizedException('Access token missing');
 
     const user = await this.usersService.findOneById(payload.sub);
     return { ...payload, accessToken, userEntity: user };

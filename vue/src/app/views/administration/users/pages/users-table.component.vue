@@ -1,19 +1,21 @@
 <script setup lang="ts">
 import { reactive, ref, watch } from 'vue'
 import moment from 'moment'
-import { PaginationDto, PaginationMeta, PaginationOptions } from '@/library/data/dto/pagination.dto'
-import { UserDto } from '@/library/data/dto/user.dto.ts'
+import { PaginationDto, PaginationMeta, PaginationOptions } from '@/library/apis/localhost/dto/pagination.dto'
+import { UserDto } from '@/library/apis/localhost/dto/user.dto'
 import TablePaginatedComponent from '@/app/components/table/paginated.component.vue'
-import ContentLayout from '@/app/layouts/content/content.layout.vue'
+import ContentLayout from '@/app/layouts/content/administration-content.layout.vue'
 import { UserAdminController } from '@/app/views/administration/users/controllers/user-admin.controller'
 import { useI18n } from 'vue-i18n'
-import { tableColumns } from '../schema/table-columns.schema'
-import { sort } from '../schema/table-sort.schema'
-import { defaultOptions } from '../schema/table-options.scema'
-import { badges } from '../schema/table-badges.schema'
+import { defaultOptions, tableColumns, sort, badges } from '../schema/users.schema'
+
+import { inject } from 'vue'
+import { UpdateKeyFn, UpdateKeySymbol } from '@/library/data/schema/key.schema'
 
 const { t } = useI18n()
 const { getUsersPaginated, updateUser, deleteUser } = UserAdminController
+
+const updateKey = inject<UpdateKeyFn>(UpdateKeySymbol)
 
 const loading = ref<boolean>(true)
 const options = reactive<PaginationOptions>(defaultOptions)
@@ -52,9 +54,14 @@ watch(options, async (newVal: PaginationOptions): Promise<void> => {
         :caption="t('administration.users.caption', { showing: response.data.length }, response.meta.itemCount)"
       >
         <template v-slot>
-          <button class="btn btn-dark btn-icon" disabled type="button">
-            <font-awesome-icon size="lg" :icon="['fas', 'ellipsis-vertical']" />
-          </button>
+          <div class="d-flex gap-2">
+            <button class="btn btn-dark btn-icon" type="button" @click="updateKey">
+              <font-awesome-icon size="lg" :icon="['fas', 'refresh']" />
+            </button>
+            <button class="btn btn-dark btn-icon" disabled type="button">
+              <font-awesome-icon size="lg" :icon="['fas', 'ellipsis-vertical']" />
+            </button>
+          </div>
         </template>
         <template #user="{ row }">
           <div class="d-flex align-items-center gap-2">

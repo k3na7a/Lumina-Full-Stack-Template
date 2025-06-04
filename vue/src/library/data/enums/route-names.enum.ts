@@ -1,14 +1,11 @@
 enum ROUTE_NAMES {
   HOME = 'home',
-
+  LIBRARY = 'library',
   APPLICATIONS = 'applications',
+
   ADMINISTRATION = 'administration',
-
   ADMIN_USERS = 'admin-users',
-
-  APPS_OPEN_METEO = 'apps-open-meteo',
-  OPEN_METEO_CURRENT = 'open-meteo-current',
-  OPEN_METEO_HOURLY = 'open-meteo-hourly',
+  ADMIN_GAMES = 'admin-games',
 
   SETTINGS = 'settings',
   SECURITY = 'security',

@@ -5,7 +5,7 @@ import { AuthStore, useAuthStore } from '@/app/store/authentication.store'
 import { computed, ComputedRef } from 'vue'
 import { RouteLocationNormalizedLoaded, useRoute } from 'vue-router'
 
-const route: RouteLocationNormalizedLoaded = useRoute()
+const $route: RouteLocationNormalizedLoaded = useRoute()
 const authStore: AuthStore = useAuthStore()
 
 const isAuthenticated: ComputedRef<boolean> = computed(() => authStore.isAuthenticated)
@@ -34,7 +34,7 @@ const isAuthenticated: ComputedRef<boolean> = computed(() => authStore.isAuthent
               </span>
             </RouterLink>
           </nav>
-          <div class="highlight" :class="{ active: route.path.startsWith(`/${nav.name}`) }"></div>
+          <div class="highlight" :class="{ active: $route.path.startsWith(`/${nav.name}`) }"></div>
         </div>
       </template>
       <div class="d-flex flex-column">

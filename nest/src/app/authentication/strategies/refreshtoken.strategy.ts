@@ -28,15 +28,22 @@ class RefreshTokenStrategy extends PassportStrategy(Strategy, 'jwt-refresh') {
     email: string;
     sub: string;
   }> {
-    const refreshToken = req.get('Authorization')?.replace('Bearer', '').trim();
+    const refreshToken = req
+      .get('Authorization')
+      ?.replace(/^Bearer\s+/i, '')
+      ?.trim();
+
+    if (!refreshToken) throw new UnauthorizedException('Refresh token missing');
 
     const user = await this.usersService.findOneByEmail(payload.email);
-    if (!user.refreshToken || !refreshToken) throw new UnauthorizedException();
+    if (!user.refreshToken)
+      throw new UnauthorizedException('No refresh token stored');
 
     const hmac = createHmac('sha256', process.env.CRYPTO_SECRET || '');
     const hash = hmac.update(refreshToken).digest('hex');
 
-    if (hash !== user.refreshToken) throw new UnauthorizedException();
+    if (hash !== user.refreshToken)
+      throw new UnauthorizedException('Invalid refresh token');
     return { ...payload, userEntity: user, refreshToken };
   }
 }

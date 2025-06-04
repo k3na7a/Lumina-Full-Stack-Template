@@ -4,7 +4,7 @@ import { Form } from 'vee-validate'
 import { validationSchema } from '../schema/update-profile-validation.schema.ts'
 import TextInput from '@/app/components/inputs/text.input.vue'
 import { useFormUtil } from '@/library/utils/forms.util.ts'
-import { UpdateProfile, UserDto } from '@/library/data/dto/user.dto.ts'
+import { UpdateProfile, UserDto } from '@/library/apis/localhost/dto/user.dto.ts'
 import { SettingsController } from '../controllers/settings.controller.ts'
 import { AuthStore, useAuthStore } from '@/app/store/authentication.store.ts'
 

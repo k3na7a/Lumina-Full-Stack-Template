@@ -5,7 +5,7 @@ import { ROUTE_NAMES } from '@/app/router/routes'
 import { useFormUtil } from '@/library/utils/forms.util'
 import TextInput from '@/app/components/inputs/text.input.vue'
 import ModalTitleComponent from '@/app/components/modal/modal-title.component.vue'
-import { credentials } from '@/library/data/dto/JWT.dto'
+import { credentials } from '@/library/apis/localhost/dto/JWT.dto'
 import { validationSchema } from '../../schema/signin-validation.schema'
 
 const validateUtil = useFormUtil()

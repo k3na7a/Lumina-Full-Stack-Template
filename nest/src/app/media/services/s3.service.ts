@@ -2,11 +2,9 @@ import { Injectable } from '@nestjs/common';
 import {
   S3Client,
   PutObjectCommand,
-  PutObjectCommandInput,
   PutObjectCommandOutput,
   DeleteObjectCommand,
   DeleteObjectCommandOutput,
-  DeleteObjectCommandInput,
 } from '@aws-sdk/client-s3';
 
 import { readFile } from 'node:fs/promises';
@@ -21,20 +19,27 @@ export class S3Service {
     },
   });
 
+  private get bucket(): string {
+    return String(process.env.AWS_S3_BUCKET);
+  }
+
+  private buildKey(path: string, filename: string): string {
+    return `${path}/${filename}`;
+  }
+
   public async uploadFile(
     file: Express.Multer.File,
     path: string,
   ): Promise<PutObjectCommandOutput> {
-    const { filename, mimetype } = file;
+    const key = this.buildKey(path, file.filename);
 
-    const params: PutObjectCommandInput = {
-      Bucket: process.env.AWS_S3_BUCKET,
-      Key: path + filename,
+    const command = new PutObjectCommand({
+      Bucket: this.bucket,
+      Key: key,
       Body: await readFile(file.path),
-      ContentType: mimetype,
-    };
+      ContentType: file.mimetype,
+    });
 
-    const command = new PutObjectCommand(params);
     return this.s3.send(command);
   }
 
@@ -42,12 +47,13 @@ export class S3Service {
     filename: string,
     path: string,
   ): Promise<DeleteObjectCommandOutput> {
-    const params: DeleteObjectCommandInput = {
-      Bucket: process.env.AWS_S3_BUCKET,
-      Key: path + filename,
-    };
+    const key = this.buildKey(path, filename);
 
-    const command = new DeleteObjectCommand(params);
+    const command = new DeleteObjectCommand({
+      Bucket: this.bucket,
+      Key: key,
+    });
+
     return this.s3.send(command);
   }
 }
