@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import AdminLayout from '@/app/layouts/sub-navigation/side-nav/side-nav.layout.vue'
+import AdminLayout from '@/app/layouts/navigation/side-nav/side-nav.layout.vue'
+import ErrorBoundary from '@/app/components/error-boundary/error-boundary.component.vue'
 
 import { routes } from './schema/navigation.schema'
 </script>
@@ -7,14 +8,23 @@ import { routes } from './schema/navigation.schema'
 <template>
   <AdminLayout :routes="routes" title="administration.label">
     <template #content>
-      <Suspense>
-        <RouterView v-slot="{ Component }">
-          <component :is="Component" />
-        </RouterView>
-        <template #fallback>
-          <div class="d-flex flex-column h-100 p-3">{{ $t('actions.loading') }}</div>
+      <RouterView v-slot="{ Component }">
+        <template v-if="Component">
+          <Suspense>
+            <template #default>
+              <ErrorBoundary>
+                <component :is="Component" />
+                <template #error>
+                  {{ $t('forms.error-general') }}
+                </template>
+              </ErrorBoundary>
+            </template>
+            <template #fallback>
+              {{ $t('actions.loading') }}
+            </template>
+          </Suspense>
         </template>
-      </Suspense>
+      </RouterView>
     </template>
   </AdminLayout>
 </template>

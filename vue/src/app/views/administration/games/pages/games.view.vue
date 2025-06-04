@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import ContentLayout from '@/app/layouts/content/administration-content.layout.vue'
+import ContentLayout from '@/app/views/administration/components/admin-layout.component.vue'
 import TablePaginatedComponent from '@/app/components/table/paginated.component.vue'
 import { PaginationMeta, PaginationOptions } from '@/library/apis/localhost/dto/pagination.dto'
 import { reactive, ref } from 'vue'

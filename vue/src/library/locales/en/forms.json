@@ -31,5 +31,6 @@
   "slug": "URL Slug",
   "tags": "Tags",
   "seo-item": "SEO-friendly text used in the URLs of your content items.",
-  "img-input-warning": "Must be JPEG, PNG, or GIF and cannot exceed 10MB."
+  "img-input-warning": "Must be JPEG, PNG, or GIF and cannot exceed 10MB.",
+  "error-general": "There was an error!"
 }

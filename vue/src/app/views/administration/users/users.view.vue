@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import SubNavigationLayout from '@/app/layouts/sub-navigation/top-nav/sub-navigation.layout.vue'
+import SubNavigationLayout from '@/app/layouts/navigation/top-nav/sub-navigation.layout.vue'
 import ErrorBoundary from '@/app/components/error-boundary/error-boundary.component.vue'
 
 import { options } from './schema/navigation.schema'
@@ -8,14 +8,23 @@ import { options } from './schema/navigation.schema'
 <template>
   <SubNavigationLayout title="administration.users.header" :routes="options">
     <template #content>
-      <ErrorBoundary>
-        <Suspense>
-          <RouterView v-slot="{ Component }">
-            <component :is="Component" />
-          </RouterView>
-          <template #fallback>{{ $t('actions.loading') }}</template>
-        </Suspense>
-      </ErrorBoundary>
+      <RouterView v-slot="{ Component }">
+        <template v-if="Component">
+          <Suspense>
+            <template #default>
+              <ErrorBoundary>
+                <component :is="Component" />
+                <template #error>
+                  {{ $t('forms.error-general') }}
+                </template>
+              </ErrorBoundary>
+            </template>
+            <template #fallback>
+              {{ $t('actions.loading') }}
+            </template>
+          </Suspense>
+        </template>
+      </RouterView>
     </template>
   </SubNavigationLayout>
 </template>

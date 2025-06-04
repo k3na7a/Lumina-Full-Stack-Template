@@ -4,7 +4,7 @@ import { App } from 'vue'
 class PiniaService {
   private static $pinia: Pinia = createPinia()
 
-  public static async init(app: App<Element>): Promise<void> {
+  public static init(app: App<Element>): void {
     app.use(this.$pinia)
   }
 }

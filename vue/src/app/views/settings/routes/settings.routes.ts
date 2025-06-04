@@ -4,7 +4,7 @@ import { RouteRecordRaw } from 'vue-router'
 const route: RouteRecordRaw = {
   path: '/',
   redirect: { name: ROUTE_NAMES.HOME },
-  component: () => import('@/app/router/guards/auth.guard.vue'),
+  component: () => import('@/app/router/guards/is-authenticated.guard.vue'),
   children: [
     {
       path: '/settings',

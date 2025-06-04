@@ -7,7 +7,7 @@ import { route as GamesRoutes } from '../games/routes/games.routes'
 const route: RouteRecordRaw = {
   path: '/',
   redirect: { name: ROUTE_NAMES.ADMINISTRATION },
-  component: () => import('@/app/router/guards/administration.guard.vue'),
+  component: () => import('@/app/router/guards/is-administrator.guard.vue'),
   children: [
     {
       path: '/administration',

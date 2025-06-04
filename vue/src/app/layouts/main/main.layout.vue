@@ -1,38 +1,35 @@
 <script setup lang="ts">
-import { RouteLocationNormalizedLoaded, useRoute } from 'vue-router'
-
 import NavbarComponent from '@/app/components/navbar/navbar.component.vue'
-import LanguagesDropdown from '@/app/layouts/main/components/dropdowns/languages-dropdown.component.vue'
+
+import NavigationComponent from './components/navigation.component.vue'
+import ActionComponent from './components/actions.component.vue'
 
 import ErrorBoundary from '@/app/components/error-boundary/error-boundary.component.vue'
 
-const $route: RouteLocationNormalizedLoaded = useRoute()
+import { useAuthStore } from '@/app/store/authentication.store'
+
+const authStore = useAuthStore()
+
+const bootstrap = async () => {
+  await authStore.verifyToken().catch(() => console.warn('[Auth] Failed to initialize user session.'))
+}
+
+await bootstrap()
 </script>
 
 <template>
   <NavbarComponent>
     <template #left>
-      <div class="d-flex justify-content-center">
-        <nav class="nav-logo d-flex justify-content-center">
-          <div class="align-content-center">
-            <RouterLink :to="{ name: 'home' }">
-              <img class="logo border-radius" src="/vue.svg" />
-            </RouterLink>
-          </div>
-        </nav>
-      </div>
+      <NavigationComponent />
     </template>
+
     <template #right>
-      <div class="d-flex me-2">
-        <nav class="align-content-center flex-grow-1">
-          <LanguagesDropdown />
-        </nav>
-      </div>
+      <ActionComponent />
     </template>
   </NavbarComponent>
 
   <div class="content-wrapper d-flex flex-column flex-grow-1 overflow-auto">
-    <RouterView v-slot="{ Component }" :key="$route.path">
+    <RouterView v-slot="{ Component }">
       <template v-if="Component">
         <Suspense>
           <template #default>

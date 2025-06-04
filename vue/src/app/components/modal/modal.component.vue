@@ -37,14 +37,24 @@ onUnmounted(() => {
 watch(isOpen, async (value: boolean, _prev: boolean): Promise<void> => {
   const myModal: bootstrap.Modal = bootstrap.Modal.getOrCreateInstance('#modal')
 
-  if (value) myModal.show()
-  else myModal.hide()
+  if (!value) {
+    const active = document.activeElement as HTMLElement | null
+    const modalEl = modalRef.value
+
+    if (modalEl && active && modalEl.contains(active)) active.blur()
+    myModal.hide()
+
+    return
+  }
+
+  myModal.show()
 })
 </script>
 
 <template>
   <div
     ref="modalRef"
+    aria-modal="true"
     class="modal fade"
     id="modal"
     data-bs-backdrop="static"
@@ -56,7 +66,7 @@ watch(isOpen, async (value: boolean, _prev: boolean): Promise<void> => {
       :class="`modal-${options.size}`"
       :key="JSON.stringify(options.view)"
     >
-      <div class="modal-content p-3 position-relative border-radius bg-alt box-shadow">
+      <div class="modal-content p-3 position-relative border-radius bg-alt box-shadow" role="document">
         <Suspense v-if="options.view">
           <component :is="options.view" v-model="localstate.model" v-bind="options.properties" />
           <template #fallback>
@@ -84,7 +94,6 @@ watch(isOpen, async (value: boolean, _prev: boolean): Promise<void> => {
     height: 3rem;
   }
 
-  // backdrop-filter: blur(1rem);
   background-color: rgba(0, 0, 0, 0.85);
 }
 </style>

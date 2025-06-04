@@ -24,7 +24,7 @@ interface AuthGetters {
 }
 interface AuthActions {
   authenticate(props: JWTDto): Promise<void>
-  init(): Promise<void>
+  verifyToken(): Promise<void>
   purge(): Promise<void>
   register(props: RegisterDto): Promise<void>
   signIn(props: credentials): Promise<void>
@@ -69,7 +69,7 @@ const useAuthStore: StoreDef = defineStore({
       this.$authenticated = false
     },
 
-    async init(): Promise<void> {
+    async verifyToken(): Promise<void> {
       if (!TOKEN.getItem()) return
 
       const dto: JWTDto = await API.authentication.verifyToken()

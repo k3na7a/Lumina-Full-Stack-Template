@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { computed, ComputedRef } from 'vue'
 
-import LanguagesDropdown from '@/app/layouts/main-navigation/components/dropdowns/languages-dropdown.component.vue'
-import UserActionsDropdown from '@/app/layouts/main-navigation/components/dropdowns/user-actions-dropdown.component.vue'
+import LanguagesDropdown from '@/app/layouts/main/components/dropdowns/languages-dropdown.component.vue'
+import UserActionsDropdown from '@/app/layouts/main/components/dropdowns/user-actions-dropdown.component.vue'
 
 import { MainLayoutController } from '../controllers/main-layout.controller'
 import { AuthStore, useAuthStore } from '@/app/store/authentication.store'
