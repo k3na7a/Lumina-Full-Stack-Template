@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { onMounted, ref, watch } from 'vue'
+import { ref, watch } from 'vue'
 import { useDebounceFn } from '@vueuse/core'
 import { second } from '@/library/data/constants/time.constants'
 
@@ -9,7 +9,7 @@ const emit = defineEmits<{ update: [value: string | undefined]; submit: [value: 
 
 const debouncedFn = useDebounceFn((val: string | undefined) => {
   emit('update', val || undefined)
-}, 0.5 * second)
+}, 0.75 * second)
 
 const inputRef = ref<InstanceType<typeof HTMLElement>>()
 function giveFocus(event: PointerEvent): void {
@@ -19,10 +19,6 @@ function giveFocus(event: PointerEvent): void {
 }
 
 watch(value, debouncedFn)
-
-onMounted(() => {
-  emit('update', value.value)
-})
 </script>
 
 <template>

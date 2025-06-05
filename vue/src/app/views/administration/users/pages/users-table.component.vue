@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { reactive, ref, watch } from 'vue'
+import { computed, reactive, ref, watch } from 'vue'
 import moment from 'moment'
 import { PaginationDto, PaginationMeta, PaginationOptions } from '@/library/apis/localhost/dto/pagination.dto'
 import { UserDto } from '@/library/apis/localhost/dto/user.dto'
@@ -9,19 +9,19 @@ import { UserAdminController } from '@/app/views/administration/users/controller
 import { useI18n } from 'vue-i18n'
 import { defaultOptions, tableColumns, sort, badges } from '../schema/users.schema'
 
-import { inject } from 'vue'
-import { UpdateKeyFn, UpdateKeySymbol } from '@/library/data/schema/key.schema'
+import { useRoute } from 'vue-router'
+import { parseQuery } from '@/library/utils/parse-query.util'
+
+const $route = useRoute()
 
 const { t } = useI18n()
 const { getUsersPaginated, updateUser, deleteUser } = UserAdminController
 
-const updateKey = inject<UpdateKeyFn>(UpdateKeySymbol)
-
 const loading = ref<boolean>(true)
-const options = reactive<PaginationOptions>(defaultOptions)
+const query = computed<PaginationOptions>(() => parseQuery<PaginationOptions>($route.query, defaultOptions))
 const response = reactive<{ data: Array<UserDto>; meta: PaginationMeta }>({
   data: [],
-  meta: new PaginationMeta({ pageOptions: defaultOptions, itemCount: 0 })
+  meta: new PaginationMeta({ pageOptions: query.value, itemCount: 0 })
 })
 
 async function getPaginatedData(payload: PaginationOptions): Promise<void> {
@@ -35,8 +35,8 @@ async function getPaginatedData(payload: PaginationOptions): Promise<void> {
     .finally(() => (loading.value = false))
 }
 
-await getPaginatedData(defaultOptions)
-watch(options, async (newVal: PaginationOptions): Promise<void> => {
+await getPaginatedData(query.value)
+watch(query, async (newVal: PaginationOptions): Promise<void> => {
   await getPaginatedData(newVal)
 })
 </script>
@@ -45,7 +45,7 @@ watch(options, async (newVal: PaginationOptions): Promise<void> => {
   <ContentLayout title="administration.users.title" subtitle="administration.users.subtitle">
     <template #table>
       <TablePaginatedComponent
-        v-model:options="options"
+        v-model:options="query"
         :loading
         :columns="tableColumns"
         :rows="response.data"
@@ -55,9 +55,6 @@ watch(options, async (newVal: PaginationOptions): Promise<void> => {
       >
         <template v-slot>
           <div class="d-flex gap-2">
-            <button class="btn btn-dark btn-icon" type="button" @click="updateKey">
-              <font-awesome-icon size="lg" :icon="['fas', 'refresh']" />
-            </button>
             <button class="btn btn-dark btn-icon" disabled type="button">
               <font-awesome-icon size="lg" :icon="['fas', 'ellipsis-vertical']" />
             </button>
@@ -94,7 +91,7 @@ watch(options, async (newVal: PaginationOptions): Promise<void> => {
               v-tooltip="{ text: $t('actions.update'), position: 'bottom', trigger: 'hover' }"
               class="btn btn-dark btn-icon-sm px-0"
               type="button"
-              @click="(_: MouseEvent) => updateUser(row, (_: UserDto) => { getPaginatedData(options) })"
+              @click="(_: MouseEvent) => updateUser(row, (_: UserDto) => { getPaginatedData(query) })"
             >
               <div class="d-flex flex-column align-items-center text-warning">
                 <font-awesome-icon size="sm" :icon="['fas', 'pencil']" />
@@ -104,7 +101,7 @@ watch(options, async (newVal: PaginationOptions): Promise<void> => {
               v-tooltip="{ text: $t('actions.delete'), position: 'bottom', trigger: 'hover' }"
               class="btn btn-dark btn-icon-sm px-0"
               type="button"
-              @click="(_: MouseEvent) => deleteUser(row, (_: UserDto) => { getPaginatedData(options) })"
+              @click="(_: MouseEvent) => deleteUser(row, (_: UserDto) => { getPaginatedData(query) })"
             >
               <div class="d-flex flex-column align-items-center text-danger">
                 <font-awesome-icon size="sm" :icon="['fas', 'trash-can']" />

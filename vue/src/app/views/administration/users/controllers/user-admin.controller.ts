@@ -36,6 +36,8 @@ class UserAdminController {
               closeModal()
             })
             .catch((error: AxiosError) => {
+              console.warn('[Axios] Failed to GET users (paginated).')
+
               addToast({
                 title: error.response?.statusText || 'ERROR',
                 body: error.message,
@@ -63,6 +65,8 @@ class UserAdminController {
               closeModal()
             })
             .catch((error: AxiosError) => {
+              console.warn('[Axios] Failed to DELETE user.')
+
               addToast({
                 title: error.response?.statusText || 'ERROR',
                 body: error.message,

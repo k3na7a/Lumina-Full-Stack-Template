@@ -1,5 +1,5 @@
 <script setup lang="ts" generic="T">
-import { onMounted, Ref, ref, toRef, watch } from 'vue'
+import { Ref, ref, toRef, watch } from 'vue'
 import * as bootstrap from 'bootstrap'
 import { useField } from 'vee-validate'
 
@@ -32,10 +32,6 @@ const emit = defineEmits<{ update: [value: T | undefined] }>()
 watch(value, (newVal: T | undefined) => {
   emit('update', newVal)
   closeDropdown()
-})
-
-onMounted(() => {
-  emit('update', value.value)
 })
 </script>
 

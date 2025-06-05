@@ -3,7 +3,7 @@ import { computed, ComputedRef } from 'vue'
 import { useAuthStore, AuthStore } from '@/app/store/authentication.store'
 import { Role } from '@/library/apis/localhost/dto/user.dto'
 
-import ErrorBoundary from '@/app/components/error-boundary/error-boundary.component.vue'
+import ErrorBoundary from '@/app/components/error-boundary/error-boundary.v1.component.vue'
 import UnauthorizedComponent from '@/app/router/guards/components/unauthorized.layout.vue'
 
 const authStore: AuthStore = useAuthStore()
@@ -17,19 +17,19 @@ const isAuthenticated: ComputedRef<boolean> = computed(() => authStore.authentic
   <template v-else>
     <RouterView v-slot="{ Component }">
       <template v-if="Component">
-        <Suspense>
-          <template #default>
-            <ErrorBoundary>
+        <ErrorBoundary>
+          <Suspense>
+            <template #default>
               <component :is="Component" />
-              <template #error>
-                {{ $t('forms.error-general') }}
-              </template>
-            </ErrorBoundary>
+            </template>
+            <template #fallback>
+              {{ $t('actions.loading') }}
+            </template>
+          </Suspense>
+          <template #error>
+            {{ $t('forms.error-general') }}
           </template>
-          <template #fallback>
-            {{ $t('actions.loading') }}
-          </template>
-        </Suspense>
+        </ErrorBoundary>
       </template>
     </RouterView>
   </template>

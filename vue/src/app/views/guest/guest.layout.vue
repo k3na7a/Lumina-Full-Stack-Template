@@ -4,7 +4,7 @@ import { RouteLocationNormalizedLoaded, useRoute } from 'vue-router'
 import NavbarComponent from '@/app/components/navbar/navbar.component.vue'
 import LanguagesDropdown from '@/app/layouts/main/components/dropdowns/languages-dropdown.component.vue'
 
-import ErrorBoundary from '@/app/components/error-boundary/error-boundary.component.vue'
+import ErrorBoundary from '@/app/components/error-boundary/error-boundary.v1.component.vue'
 
 const $route: RouteLocationNormalizedLoaded = useRoute()
 </script>
@@ -34,19 +34,19 @@ const $route: RouteLocationNormalizedLoaded = useRoute()
   <div class="content-wrapper d-flex flex-column flex-grow-1 overflow-auto">
     <RouterView v-slot="{ Component }" :key="$route.path">
       <template v-if="Component">
-        <Suspense>
-          <template #default>
-            <ErrorBoundary>
+        <ErrorBoundary>
+          <Suspense>
+            <template #default>
               <component :is="Component" />
-              <template #error>
-                {{ $t('forms.error-general') }}
-              </template>
-            </ErrorBoundary>
+            </template>
+            <template #fallback>
+              {{ $t('actions.loading') }}
+            </template>
+          </Suspense>
+          <template #error>
+            {{ $t('forms.error-general') }}
           </template>
-          <template #fallback>
-            {{ $t('actions.loading') }}
-          </template>
-        </Suspense>
+        </ErrorBoundary>
       </template>
     </RouterView>
   </div>

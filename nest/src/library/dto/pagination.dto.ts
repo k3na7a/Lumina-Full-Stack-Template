@@ -73,15 +73,15 @@ class PaginationOptions {
 
   @ApiPropertyOptional({
     minimum: 1,
-    maximum: 50,
-    default: 10,
+    maximum: 100,
+    default: 25,
   })
   @Type(() => Number)
   @IsInt()
   @Min(1)
   @Max(100)
   @IsOptional()
-  readonly take: number = 10;
+  readonly take: number = 25;
 
   get skip(): number {
     return (this.page - 1) * this.take;

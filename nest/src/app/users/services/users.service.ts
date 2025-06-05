@@ -44,7 +44,7 @@ export class UserService {
         { query: `%${search}%` },
       )
       .orderBy({ [sort]: order })
-      .take(take)
+      .limit(take)
       .offset(skip)
       .getManyAndCount();
 

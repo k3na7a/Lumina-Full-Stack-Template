@@ -3,45 +3,59 @@ import SearchInputComponent from '@/app/components/inputs/search.input.vue'
 import SelectInputComponent from '@/app/components/inputs/select.input.vue'
 import PaginationInputComponent from '@/app/components/pagination/pagination.component.vue'
 import { PaginationOptions, SortOptions } from '@/library/apis/localhost/dto/pagination.dto'
-import { reactive, watch } from 'vue'
+import { RouteLocationNormalizedLoaded, Router, useRoute, useRouter } from 'vue-router'
+
+const $router: Router = useRouter()
+const $route: RouteLocationNormalizedLoaded = useRoute()
 
 const props = defineProps<{
   columns: Array<{ label: string; name: string }>
-  caption?: string
   rows: Array<T>
   pages: number | undefined
   options: PaginationOptions
   loading?: boolean
   sortOptions?: Array<SortOptions>
+  caption?: string
 }>()
 
-const options = reactive<PaginationOptions>(props.options)
-
-const emit = defineEmits(['update:options'])
-watch(options, (newVal: PaginationOptions) => {
-  emit('update:options', newVal)
-})
-
 function onFilterSubmit(value: string | undefined): void {
-  options.search = value
-  options.page = 1
+  $router.replace({
+    query: {
+      ...$route.query,
+      search: value,
+      page: undefined
+    }
+  })
 }
 
 function onTakeUpdate(take: number | undefined): void {
-  if (!take) return
-  options.take = take
-  options.page = 1
+  $router.replace({
+    query: {
+      ...$route.query,
+      take,
+      page: undefined
+    }
+  })
 }
 
 function onSortUpdate(sort: SortOptions | undefined): void {
-  if (!sort) return
-  options.order = sort.order
-  options.sort = sort.sort
-  options.page = 1
+  $router.replace({
+    query: {
+      ...$route.query,
+      sort: sort?.sort,
+      order: sort?.order,
+      page: undefined
+    }
+  })
 }
 
 function onPageUpdate(page: number): void {
-  options.page = page
+  $router.replace({
+    query: {
+      ...$route.query,
+      page
+    }
+  })
 }
 </script>
 
@@ -49,7 +63,7 @@ function onPageUpdate(page: number): void {
   <div class="d-flex flex-column gap-3">
     <div class="d-flex justify-content-between" style="column-gap: 1rem">
       <div class="d-flex flex-column flex-grow-1 gap-2">
-        <SearchInputComponent style="max-width: 30rem" @update="onFilterSubmit" />
+        <SearchInputComponent :value="props.options.search" style="max-width: 30rem" @update="onFilterSubmit" />
       </div>
 
       <div class="flex-shrink-1">
@@ -124,7 +138,7 @@ function onPageUpdate(page: number): void {
         name="take"
         style="width: 7.5rem"
         @update="onTakeUpdate"
-        :value="options.take"
+        :value="props.options.take"
         :options="[25, 50, 100]"
       >
         <template #option="{ option }">
@@ -134,7 +148,7 @@ function onPageUpdate(page: number): void {
 
       <PaginationInputComponent
         @update="onPageUpdate"
-        :page="options.page"
+        :page="props.options.page"
         :total="pages || options.page"
         :offset="2"
       />

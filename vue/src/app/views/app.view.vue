@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import ToastComponent from '@/app/components/toast/toast.component.vue'
 import ModalComponent from '@/app/components/modal/modal.component.vue'
-import ErrorBoundary from '@/app/components/error-boundary/error-boundary.component.vue'
+import ErrorBoundary from '@/app/components/error-boundary/error-boundary.v1.component.vue'
 
 import { provide, ref } from 'vue'
 import { UpdateKeySymbol } from '@/library/data/schema/key.schema'
@@ -15,19 +15,19 @@ provide(UpdateKeySymbol, updateKey)
 <template>
   <RouterView v-slot="{ Component }" :key="renderKey">
     <template v-if="Component">
-      <Suspense>
-        <template #default>
-          <ErrorBoundary>
+      <ErrorBoundary>
+        <Suspense>
+          <template #default>
             <component :is="Component" />
-            <template #error>
-              {{ $t('forms.error-general') }}
-            </template>
-          </ErrorBoundary>
+          </template>
+          <template #fallback>
+            {{ $t('actions.loading') }}
+          </template>
+        </Suspense>
+        <template #error>
+          {{ $t('forms.error-general') }}
         </template>
-        <template #fallback>
-          {{ $t('actions.loading') }}
-        </template>
-      </Suspense>
+      </ErrorBoundary>
     </template>
   </RouterView>
 

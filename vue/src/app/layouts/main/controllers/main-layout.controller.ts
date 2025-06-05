@@ -24,13 +24,14 @@ class MainLayoutController {
         callback: async (values: credentials): Promise<void> => {
           await signIn(values)
             .then(closeModal)
-            .catch((error: AxiosError) =>
+            .catch((error: AxiosError) => {
+              console.warn('[Axios] Failed to POST sign-in')
               addToast({
                 title: error.response?.statusText || 'ERROR',
                 body: error.message,
                 options: { theme: 'danger' }
               })
-            )
+            })
         }
       }
     })
@@ -47,13 +48,14 @@ class MainLayoutController {
         callback: async (values: Register): Promise<void> => {
           await register(new RegisterDto(values))
             .then(closeModal)
-            .catch((error: AxiosError) =>
+            .catch((error: AxiosError) => {
+              console.warn('[Axios] Failed to PUT register')
               addToast({
                 title: error.response?.statusText || 'ERROR',
                 body: error.message,
                 options: { theme: 'danger' }
               })
-            )
+            })
         }
       }
     })
@@ -71,13 +73,14 @@ class MainLayoutController {
         callback: async (): Promise<void> => {
           await signOut()
             .then(closeModal)
-            .catch((error: AxiosError) =>
+            .catch((error: AxiosError) => {
+              console.warn('[Axios] Failed to POST sign-out')
               addToast({
                 title: error.response?.statusText || 'ERROR',
                 body: error.message,
                 options: { theme: 'danger' }
               })
-            )
+            })
         },
         title: 'authentication.log-out.modal-title',
         body: 'authentication.log-out.modal-body',
