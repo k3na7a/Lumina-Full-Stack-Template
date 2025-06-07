@@ -1,8 +1,8 @@
 import { ROUTE_NAMES } from '@/library/data/enums/route-names.enum'
 import { RouteRecordRaw } from 'vue-router'
 
-import { route as UserRoutes } from './users.routes'
-import { route as GamesRoutes } from './games.routes'
+import { route as UserRoutes } from '../../../views/administration/users/routes/users.routes'
+import { route as GamesRoutes } from '../../../views/administration/games/routes/games.routes'
 
 const route: RouteRecordRaw = {
   path: '/',
