@@ -1,6 +1,7 @@
 import { Injectable, UnauthorizedException } from '@nestjs/common';
-import { JwtService } from '@nestjs/jwt';
 import * as bcrypt from 'bcrypt';
+import { JwtService } from '@nestjs/jwt';
+import { timingSafeEqual } from 'node:crypto';
 
 import { RegisterDto } from 'src/app/authentication/dto/register.dto';
 import { UserService } from 'src/app/users/services/users.service';
@@ -13,15 +14,15 @@ import {
   template as ForgotPasswordEmailBody,
   options as ForgotPasswordOptions,
 } from 'src/library/templates/forgot-password.template';
+
 import { HandlebarsPlugin } from 'src/plugins/handlebars.plugin';
-import { updatePasswordDto } from 'src/app/authentication/dto/updatePassword.dto';
-import { deleteAccountDto } from 'src/app/authentication/dto/deleteAccount.dto';
-import { UpdateUserProfile } from 'src/app/users/interfaces/user.interfaces';
 import { ForgotPasswordDto } from 'src/app/authentication/dto/forgotPassword.dto';
 import { UserEntity } from 'src/app/users/entities/user.entity';
-import { TokenManager } from 'src/library/utilities/token.utility';
 import { ProfileService } from 'src/app/users/services/profile.service';
-import { timingSafeEqual } from 'node:crypto';
+import { UpdateUserProfile } from 'src/app/users/interfaces/user.interfaces';
+import { TokenManager } from 'src/library/utilities/token.utility';
+import { updatePasswordDto } from '../dto/updatePassword.dto';
+import { deleteAccountDto } from '../dto/deleteAccount.dto';
 
 @Injectable()
 export class AuthService {
@@ -35,7 +36,18 @@ export class AuthService {
     this.tokenManager = new TokenManager(jwtService);
   }
 
-  private async getTokens(payload: Payload): Promise<JWTInterface> {
+  public async validateUser(
+    email: string,
+    password: string,
+  ): Promise<UserEntity> {
+    const user = await this.userService.findOneByEmail(email);
+    const isMatch = user ? await bcrypt.compare(password, user.password) : null;
+
+    if (isMatch) return user;
+    throw new UnauthorizedException('Invalid credentials');
+  }
+
+  public async getTokens(payload: Payload): Promise<JWTInterface> {
     const [access_token, refresh_token] = await Promise.all([
       this.jwtService.signAsync(payload, {
         secret: process.env.JWT_SECRET_KEY,
@@ -66,20 +78,18 @@ export class AuthService {
     });
   }
 
-  private async updateRefreshToken(userId: string, refreshToken: string) {
-    const hashed = this.tokenManager.createHash(refreshToken);
-    await this.userService.update(userId, { refreshToken: hashed });
+  public createHash(refreshToken: string): string {
+    return this.tokenManager.createHash(refreshToken);
   }
 
-  public async validateUser(
-    email: string,
-    password: string,
-  ): Promise<UserEntity> {
-    const user = await this.userService.findOneByEmail(email);
-    const isMatch = user ? await bcrypt.compare(password, user.password) : null;
+  public async hashPassword(password: string): Promise<string> {
+    const salt = await bcrypt.genSalt();
+    return bcrypt.hash(password, salt);
+  }
 
-    if (isMatch) return user;
-    throw new UnauthorizedException('Invalid credentials');
+  public async updateRefreshToken(userId: string, refreshToken: string) {
+    const hashed = this.createHash(refreshToken);
+    await this.userService.update(userId, { refreshToken: hashed });
   }
 
   public async register(dto: RegisterDto): Promise<JWTDto> {
@@ -91,28 +101,22 @@ export class AuthService {
     return this.issueTokens(user);
   }
 
-  public async signOut(user: UserEntity): Promise<void> {
-    await this.userService.update(user.id, { refreshToken: null });
-  }
-
   private async sendForgotPasswordEmail(
     user: UserEntity,
     resetToken: string,
     redirectUrl: string,
-  ) {
-    const emailHtml = HandlebarsPlugin.compile<ForgotPasswordOptions>({
-      template: ForgotPasswordEmailBody,
-      data: {
-        name: user.getFullName(),
-        email: user.email,
-        redirect: `${redirectUrl}/guest/password-reset?${new URLSearchParams({ reset_token: resetToken })}`,
-      },
-    });
-
-    await SendGridPlugin.sendMail({
+  ): Promise<void> {
+    return SendGridPlugin.sendMail({
       to: [user.email],
       subject: ForgotPasswordEmailSubject,
-      html: emailHtml,
+      html: HandlebarsPlugin.compile<ForgotPasswordOptions>({
+        template: ForgotPasswordEmailBody,
+        data: {
+          name: user.getFullName(),
+          email: user.email,
+          redirect: `${redirectUrl}/guest/password-reset?${new URLSearchParams({ reset_token: resetToken })}`,
+        },
+      }),
     });
   }
 
@@ -122,15 +126,10 @@ export class AuthService {
     const payload: Payload = { email: user.email, sub: user.id };
     const tokens: JWTInterface = await this.getTokens(payload);
 
-    const hashedResetToken = this.tokenManager.createHash(tokens.access_token);
+    const hashedResetToken = this.createHash(tokens.access_token);
     await this.userService.update(user.id, { resetToken: hashedResetToken });
 
     await this.sendForgotPasswordEmail(user, tokens.access_token, dto.redirect);
-  }
-
-  private async hashPassword(password: string): Promise<string> {
-    const salt = await bcrypt.genSalt();
-    return bcrypt.hash(password, salt);
   }
 
   public async resetPassword(
@@ -138,7 +137,7 @@ export class AuthService {
     password: string,
     accessToken: string,
   ): Promise<void> {
-    const hashedToken = this.tokenManager.createHash(accessToken);
+    const hashedToken = this.createHash(accessToken);
 
     if (!user.resetToken)
       throw new UnauthorizedException('Reset token not set for user');
@@ -161,21 +160,8 @@ export class AuthService {
     });
   }
 
-  public async updateAvatar(
-    user: UserEntity,
-    file: Express.Multer.File,
-  ): Promise<JWTDto> {
-    await this.profileService.handleAvatarUpload(user.profile, file);
-
-    const updatedUser = await this.userService.findOneById(user.id);
-    return this.issueTokens(updatedUser);
-  }
-
-  public async removeAvatar(user: UserEntity) {
-    await this.profileService.removeAvatar(user.profile);
-
-    const updatedUser = await this.userService.findOneById(user.id);
-    return this.issueTokens(updatedUser);
+  public async signOut(user: UserEntity): Promise<void> {
+    await this.userService.update(user.id, { refreshToken: null });
   }
 
   public async updateEmail(
@@ -188,16 +174,6 @@ export class AuthService {
       email: new_email,
     });
 
-    return this.issueTokens(updatedUser);
-  }
-
-  public async updateProfile(
-    user: UserEntity,
-    profile: UpdateUserProfile,
-  ): Promise<JWTDto> {
-    await this.profileService.update(user.profile, profile);
-
-    const updatedUser = await this.userService.findOneById(user.id);
     return this.issueTokens(updatedUser);
   }
 
@@ -221,5 +197,32 @@ export class AuthService {
   ): Promise<void> {
     await this.validateUser(user.email, password);
     await this.userService.remove(user.id);
+  }
+
+  public async updateProfile(
+    user: UserEntity,
+    profile: UpdateUserProfile,
+  ): Promise<JWTDto> {
+    await this.profileService.update(user.profile, profile);
+
+    const updatedUser = await this.userService.findOneById(user.id);
+    return this.issueTokens(updatedUser);
+  }
+
+  public async updateAvatar(
+    user: UserEntity,
+    file: Express.Multer.File,
+  ): Promise<JWTDto> {
+    await this.profileService.handleAvatarUpload(user.profile, file);
+
+    const updatedUser = await this.userService.findOneById(user.id);
+    return this.issueTokens(updatedUser);
+  }
+
+  public async removeAvatar(user: UserEntity) {
+    await this.profileService.removeAvatar(user.profile);
+
+    const updatedUser = await this.userService.findOneById(user.id);
+    return this.issueTokens(updatedUser);
   }
 }

@@ -23,7 +23,7 @@ import {
 import { PaginationDto } from 'src/library/dto/pagination.dto';
 import { GamesAdminService } from '../services/games.service';
 
-@ApiTags('Administration / Games')
+@ApiTags('Administration / Games & Software')
 @Controller('games')
 @UseInterceptors(ClassSerializerInterceptor)
 class GameAdminController {

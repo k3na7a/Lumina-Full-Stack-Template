@@ -27,7 +27,7 @@ import { UserEntity } from 'src/app/users/entities/user.entity';
 import { Administrator } from '../../decorators/administrator.decorator';
 import { UserAdminService } from '../services/users.service';
 
-@ApiTags('Administration / Users')
+@ApiTags('Administration / User Management')
 @Controller('users')
 @Administrator()
 @UseInterceptors(ClassSerializerInterceptor)

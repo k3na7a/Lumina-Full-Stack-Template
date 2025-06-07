@@ -2,12 +2,12 @@
 import { computed, ComputedRef } from 'vue'
 
 import { useAuthStore, AuthStore } from '@/app/store/authentication.store'
-import { MainLayoutController } from '@/app/views/main/controllers/main-layout.controller'
+import { MainController } from '@/app/layouts/main/controllers/layout.controller'
 
 import ErrorBoundary from '@/app/components/error-boundary/error-boundary.v1.component.vue'
 import UnauthorizedComponent from '@/app/components/unauthorized.layout.vue'
 
-const { signin } = MainLayoutController
+const { signin } = MainController
 
 const authStore: AuthStore = useAuthStore()
 const isAuthenticated: ComputedRef<boolean> = computed(() => authStore.isAuthenticated)
