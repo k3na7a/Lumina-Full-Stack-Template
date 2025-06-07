@@ -1,11 +1,11 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { ProfileEntity } from '../entities/profile.entity';
-import { UpdateUserProfile } from '../interfaces/user.interfaces';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { ImageService } from 'src/app/media/services/image.service';
 import { IMAGE_TYPE } from 'src/app/media/constants/image-routes.constants';
 import { ImageEntity } from 'src/app/media/entities/image.entity';
+import { UpdateUserProfile } from '../interfaces/user.interfaces';
 
 @Injectable()
 export class ProfileService {

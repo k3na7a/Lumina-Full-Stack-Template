@@ -1,6 +1,6 @@
 import { AxiosInstance } from 'axios'
 
-import { users } from './services/users.admin.service'
+import { users } from './services/users.service'
 import { ILocalStorageUtil } from '@/library/utils/local-storage.util'
 
 class administration {

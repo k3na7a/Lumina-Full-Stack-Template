@@ -1,5 +1,5 @@
 <script setup lang="ts" generic="T">
-import { Ref, ref, toRef, watch } from 'vue'
+import { ref, toRef, watch } from 'vue'
 import * as bootstrap from 'bootstrap'
 import { useField } from 'vee-validate'
 
@@ -12,9 +12,17 @@ const props = defineProps<{
   disabled?: boolean
 }>()
 
-const options = ref<T[]>(props.options) as Ref<T[]>
+const emit = defineEmits<{ update: [value: T | undefined] }>()
+
+const name = toRef(props, 'name')
+const options = toRef(props, 'options')
+
+const { value, errorMessage, meta } = useField<T | undefined>(name.value, undefined, { initialValue: props.value })
 
 const dropdownRef = ref<InstanceType<typeof HTMLElement>>()
+
+const stopClick = (e: MouseEvent): void => e.stopPropagation()
+
 const closeDropdown = (): void => {
   const dropdown = bootstrap.Dropdown.getOrCreateInstance(dropdownRef.value || '')
   dropdown.hide()
@@ -25,10 +33,15 @@ function toggleDropdown(): void {
   dropdown.toggle()
 }
 
-const name = toRef(props, 'name')
-const { value, errorMessage, meta } = useField<T | undefined>(name.value, undefined, { initialValue: props.value })
+watch(
+  () => props.value,
+  (val: T | undefined) => {
+    if (!deepEqual(val, value.value)) {
+      value.value = val
+    }
+  }
+)
 
-const emit = defineEmits<{ update: [value: T | undefined] }>()
 watch(value, (newVal: T | undefined) => {
   emit('update', newVal)
   closeDropdown()
@@ -56,25 +69,21 @@ watch(value, (newVal: T | undefined) => {
         <font-awesome-icon :icon="['fas', 'angle-down']" />
       </div>
     </button>
-    <div
-      @click="($event: MouseEvent) => $event.stopPropagation()"
-      class="dropdown-menu mt-0 w-100 text-light p-0"
-      style="min-width: 100%"
-    >
-      <button
-        v-for="option of options"
-        class="dropdown-item d-flex justify-content-between align-items-center px-2"
-        :class="{ active: deepEqual(value, option) }"
-        :disabled="deepEqual(value, option)"
-        @click="value = option"
-        type="button"
-        :key="JSON.stringify(option)"
-      >
-        <span class="text-truncate pe-2">
-          <slot name="option" :option="option"></slot>
-        </span>
-      </button>
-    </div>
+    <ul @click="stopClick" class="dropdown-menu mt-0 w-100 text-light p-0" style="min-width: 100%">
+      <li v-for="(option, index) of options" :key="`option-${index}`">
+        <button
+          class="dropdown-item d-flex justify-content-between align-items-center px-2"
+          :class="{ active: deepEqual(value, option) }"
+          :disabled="deepEqual(value, option)"
+          @click="value = option"
+          type="button"
+        >
+          <span class="text-truncate pe-2">
+            <slot name="option" :option="option"></slot>
+          </span>
+        </button>
+      </li>
+    </ul>
   </div>
 </template>
 

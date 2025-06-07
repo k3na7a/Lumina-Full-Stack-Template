@@ -1,7 +1,9 @@
 <script setup lang="ts">
 import { ref, watch } from 'vue'
 import { useDebounceFn } from '@vueuse/core'
+
 import { second } from '@/library/data/constants/time.constants'
+import { deepEqual } from '@/library/utils/object.util'
 
 const props = defineProps<{ disabled?: boolean; value?: string }>()
 const value = ref<string | undefined>(props.value)
@@ -17,6 +19,15 @@ function giveFocus(event: PointerEvent): void {
   const input = inputRef.value as HTMLInputElement
   input.focus()
 }
+
+watch(
+  () => props.value,
+  (val) => {
+    if (!deepEqual(val, value.value)) {
+      value.value = val
+    }
+  }
+)
 
 watch(value, debouncedFn)
 </script>

@@ -1,17 +1,18 @@
 <script setup lang="ts">
-import ContentLayout from '@/app/views/administration/components/admin-layout.component.vue'
-import TablePaginatedComponent from '@/app/components/table/paginated.component.vue'
 import { PaginationMeta, PaginationOptions } from '@/library/apis/localhost/dto/pagination.dto'
 import { reactive, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
+
 import { defaultOptions, sort, tableColumns } from '../schema/games.schema'
+import ContentLayout from '@/app/layouts/admin/components/admin-layout.component.vue'
+import TablePaginatedComponent from '@/app/components/table/paginated.component.vue'
 
 const { t } = useI18n()
 
 const loading = ref<boolean>(false)
 const options = reactive<PaginationOptions>(defaultOptions)
 const response = reactive<{ data: Array<{}>; meta: PaginationMeta }>({
-  data: [{}],
+  data: [],
   meta: new PaginationMeta({ pageOptions: defaultOptions, itemCount: 0 })
 })
 </script>

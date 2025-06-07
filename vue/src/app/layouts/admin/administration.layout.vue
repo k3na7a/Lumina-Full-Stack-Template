@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import AdminLayout from '@/app/layouts/navigation/side-nav/side-nav.layout.vue'
+import AdminLayout from '@/app/components/side-nav/side-nav.layout.vue'
 import ErrorBoundary from '@/app/components/error-boundary/error-boundary.v1.component.vue'
 
 import { routes } from './schema/navigation.schema'

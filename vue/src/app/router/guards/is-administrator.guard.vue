@@ -4,7 +4,7 @@ import { useAuthStore, AuthStore } from '@/app/store/authentication.store'
 import { Role } from '@/library/apis/localhost/dto/user.dto'
 
 import ErrorBoundary from '@/app/components/error-boundary/error-boundary.v1.component.vue'
-import UnauthorizedComponent from '@/app/router/guards/components/unauthorized.layout.vue'
+import UnauthorizedComponent from '@/app/components/unauthorized.layout.vue'
 
 const authStore: AuthStore = useAuthStore()
 const isAuthenticated: ComputedRef<boolean> = computed(() => authStore.authenticatedUser?.role === Role.ADMIN)

@@ -22,7 +22,10 @@ class users {
   }
 
   public readonly getUsersPaginated = async (params: PaginationOptions): Promise<PaginationDto<UserDto>> => {
-    const response: AxiosResponse = await this.$api.get('admin/user-management/users', { ...this.authConfig, params })
+    const response: AxiosResponse = await this.$api.get('administration/user-management/users', {
+      ...this.authConfig,
+      params
+    })
 
     const users: UserDto[] = response.data['data'].map((user: iUser) => new UserDto(user))
     return new PaginationDto(users, response.data['meta'])
@@ -36,7 +39,7 @@ class users {
     })
 
     const response: AxiosResponse<iUser, any> = await this.$api.patch<iUser>(
-      `admin/user-management/users/${id}`,
+      `administration/user-management/users/${id}`,
       formData,
       this.requestConfigWith({ content: 'multipart/form-data' })
     )
@@ -46,7 +49,7 @@ class users {
 
   public readonly deleteUser = async (id: string): Promise<UserDto> => {
     const response: AxiosResponse<iUser, any> = await this.$api.delete<iUser>(
-      `admin/user-management/users/${id}`,
+      `administration/user-management/users/${id}`,
       this.authConfig
     )
 

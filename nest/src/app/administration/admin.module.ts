@@ -11,7 +11,7 @@ import { RouterModule } from '@nestjs/core';
 
     RouterModule.register([
       {
-        path: 'admin',
+        path: 'administration',
         children: [
           {
             path: 'user-management',

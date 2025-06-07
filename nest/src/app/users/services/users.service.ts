@@ -3,10 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import * as bcrypt from 'bcrypt';
 
-import {
-  CreateUserInterface,
-  UpdateUserInterface,
-} from 'src/app/users/interfaces/user.interfaces';
+import { CreateUserInterface } from 'src/app/users/interfaces/user.interfaces';
 import {
   PaginationDto,
   PaginationMeta,
@@ -67,7 +64,7 @@ export class UserService {
 
   public async update(
     id: string,
-    dto: UpdateUserInterface,
+    dto: Partial<UserEntity>,
   ): Promise<UserEntity> {
     const updated = await this.repository.preload({ id, ...dto });
     if (!updated) throw new NotFoundException(`User with ID ${id} not found`);

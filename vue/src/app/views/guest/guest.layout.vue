@@ -3,7 +3,6 @@ import { RouteLocationNormalizedLoaded, useRoute } from 'vue-router'
 
 import NavbarComponent from '@/app/components/navbar/navbar.component.vue'
 import LanguagesDropdown from '@/app/layouts/main/components/dropdowns/languages-dropdown.component.vue'
-
 import ErrorBoundary from '@/app/components/error-boundary/error-boundary.v1.component.vue'
 
 const $route: RouteLocationNormalizedLoaded = useRoute()

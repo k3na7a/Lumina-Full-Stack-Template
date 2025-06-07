@@ -12,7 +12,7 @@ import { ToastStore, useToastStore } from '@/app/components/toast/store/toast.st
 import { Register, RegisterDto } from '@/library/apis/localhost/dto/user.dto'
 import { credentials } from '@/library/apis/localhost/dto/JWT.dto'
 
-class MainLayoutController {
+class MainController {
   public static signin = (): void => {
     const { openModal, closeModal }: ModalStore = useModalStore()
     const { signIn }: AuthStore = useAuthStore()
@@ -90,4 +90,4 @@ class MainLayoutController {
   }
 }
 
-export { MainLayoutController }
+export { MainController }

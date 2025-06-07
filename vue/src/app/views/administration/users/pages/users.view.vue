@@ -1,16 +1,17 @@
 <script setup lang="ts">
 import { computed, reactive, ref, watch } from 'vue'
+import { LocationQuery, useRoute } from 'vue-router'
+import { useI18n } from 'vue-i18n'
 import moment from 'moment'
+
 import { PaginationDto, PaginationMeta, PaginationOptions } from '@/library/apis/localhost/dto/pagination.dto'
 import { UserDto } from '@/library/apis/localhost/dto/user.dto'
-import TablePaginatedComponent from '@/app/components/table/paginated.component.vue'
-import ContentLayout from '@/app/views/administration/components/admin-layout.component.vue'
 import { UserAdminController } from '@/app/views/administration/users/controllers/user-admin.controller'
-import { useI18n } from 'vue-i18n'
 import { defaultOptions, tableColumns, sort, badges } from '../schema/users.schema'
-
-import { useRoute } from 'vue-router'
 import { parseQuery } from '@/library/utils/parse-query.util'
+
+import TablePaginatedComponent from '@/app/components/table/paginated.component.vue'
+import ContentLayout from '@/app/layouts/admin/components/admin-layout.component.vue'
 
 const $route = useRoute()
 
@@ -18,10 +19,11 @@ const { t } = useI18n()
 const { getUsersPaginated, updateUser, deleteUser } = UserAdminController
 
 const loading = ref<boolean>(true)
-const query = computed<PaginationOptions>(() => parseQuery<PaginationOptions>($route.query, defaultOptions))
+const options = computed<PaginationOptions>(() => parseQuery<PaginationOptions>($route.query, defaultOptions))
+
 const response = reactive<{ data: Array<UserDto>; meta: PaginationMeta }>({
   data: [],
-  meta: new PaginationMeta({ pageOptions: query.value, itemCount: 0 })
+  meta: new PaginationMeta({ pageOptions: options.value, itemCount: 0 })
 })
 
 async function getPaginatedData(payload: PaginationOptions): Promise<void> {
@@ -35,17 +37,22 @@ async function getPaginatedData(payload: PaginationOptions): Promise<void> {
     .finally(() => (loading.value = false))
 }
 
-await getPaginatedData(query.value)
-watch(query, async (newVal: PaginationOptions): Promise<void> => {
-  await getPaginatedData(newVal)
-})
+await getPaginatedData(options.value)
+
+watch(
+  () => $route.query,
+  async (newQuery: LocationQuery): Promise<void> => {
+    const parsed = parseQuery<PaginationOptions>(newQuery, defaultOptions)
+    await getPaginatedData(parsed)
+  }
+)
 </script>
 
 <template>
   <ContentLayout title="administration.users.title" subtitle="administration.users.subtitle">
     <template #table>
       <TablePaginatedComponent
-        v-model:options="query"
+        v-model:options="options"
         :loading
         :columns="tableColumns"
         :rows="response.data"
@@ -91,7 +98,7 @@ watch(query, async (newVal: PaginationOptions): Promise<void> => {
               v-tooltip="{ text: $t('actions.update'), position: 'bottom', trigger: 'hover' }"
               class="btn btn-dark btn-icon-sm px-0"
               type="button"
-              @click="(_: MouseEvent) => updateUser(row, (_: UserDto) => { getPaginatedData(query) })"
+              @click="(_: MouseEvent) => updateUser(row, (_: UserDto) => { getPaginatedData(options) })"
             >
               <div class="d-flex flex-column align-items-center text-warning">
                 <font-awesome-icon size="sm" :icon="['fas', 'pencil']" />
@@ -101,7 +108,7 @@ watch(query, async (newVal: PaginationOptions): Promise<void> => {
               v-tooltip="{ text: $t('actions.delete'), position: 'bottom', trigger: 'hover' }"
               class="btn btn-dark btn-icon-sm px-0"
               type="button"
-              @click="(_: MouseEvent) => deleteUser(row, (_: UserDto) => { getPaginatedData(query) })"
+              @click="(_: MouseEvent) => deleteUser(row, (_: UserDto) => { getPaginatedData(options) })"
             >
               <div class="d-flex flex-column align-items-center text-danger">
                 <font-awesome-icon size="sm" :icon="['fas', 'trash-can']" />

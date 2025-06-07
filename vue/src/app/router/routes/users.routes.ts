@@ -9,7 +9,7 @@ const route: RouteRecordRaw = {
     {
       path: 'users',
       name: ROUTE_NAMES.ADMIN_USERS,
-      component: () => import('@/app/views/administration/users/pages/users-table.component.vue')
+      component: () => import('@/app/views/administration/users/pages/users.view.vue')
     }
   ]
 }

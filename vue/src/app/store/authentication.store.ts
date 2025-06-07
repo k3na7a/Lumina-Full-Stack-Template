@@ -69,13 +69,6 @@ const useAuthStore: StoreDef = defineStore({
       this.$authenticated = false
     },
 
-    async verifyToken(): Promise<void> {
-      if (!TOKEN.getItem()) return
-
-      const dto: JWTDto = await API.authentication.verifyToken()
-      this.authenticate(dto)
-    },
-
     async register(props: RegisterDto): Promise<void> {
       const dto: JWTDto = await API.authentication.register(props)
       this.authenticate(dto)
@@ -84,11 +77,6 @@ const useAuthStore: StoreDef = defineStore({
     async signIn(props: credentials): Promise<void> {
       const dto: JWTDto = await API.authentication.signIn(props)
       this.authenticate(dto)
-    },
-
-    async signOut(): Promise<void> {
-      await API.authentication.signOut()
-      this.purge()
     },
 
     async forgotPassword(props: ForgotPasswordDto): Promise<void> {
@@ -101,34 +89,46 @@ const useAuthStore: StoreDef = defineStore({
       this.purge()
     },
 
-    async updateProfile(props: UpdateProfileDto): Promise<void> {
-      const dto: JWTDto = await API.authentication.updateProfile(props)
+    async verifyToken(): Promise<void> {
+      if (!TOKEN.getItem()) return
+
+      const dto: JWTDto = await API.authentication.account.verifyToken()
       this.authenticate(dto)
+    },
+
+    async signOut(): Promise<void> {
+      await API.authentication.account.signOut()
+      this.purge()
     },
 
     async updateEmail(props: UpdateEmailDto): Promise<void> {
-      const dto: JWTDto = await API.authentication.updateEmail(props)
-      this.authenticate(dto)
-    },
-
-    async updateAvatar(props: File): Promise<void> {
-      const dto: JWTDto = await API.authentication.updateAvatar(props)
-      this.authenticate(dto)
-    },
-
-    async removeAvatar(): Promise<void> {
-      const dto: JWTDto = await API.authentication.removeAvatar()
+      const dto: JWTDto = await API.authentication.account.updateEmail(props)
       this.authenticate(dto)
     },
 
     async updatePassword(props: UpdatePasswordDto): Promise<void> {
-      const dto: JWTDto = await API.authentication.updatePassword(props)
+      const dto: JWTDto = await API.authentication.account.updatePassword(props)
       this.authenticate(dto)
     },
 
     async deleteAccount(props: DeleteAccountDto): Promise<void> {
-      await API.authentication.deleteAccount(props)
+      await API.authentication.account.deleteAccount(props)
       this.purge()
+    },
+
+    async updateProfile(props: UpdateProfileDto): Promise<void> {
+      const dto: JWTDto = await API.authentication.account.profile.updateProfile(props)
+      this.authenticate(dto)
+    },
+
+    async updateAvatar(props: File): Promise<void> {
+      const dto: JWTDto = await API.authentication.account.profile.updateAvatar(props)
+      this.authenticate(dto)
+    },
+
+    async removeAvatar(): Promise<void> {
+      const dto: JWTDto = await API.authentication.account.profile.removeAvatar()
+      this.authenticate(dto)
     }
   }
 })

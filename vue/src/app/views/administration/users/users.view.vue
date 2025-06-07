@@ -1,10 +1,10 @@
 <script setup lang="ts">
 import { RouteLocationNormalizedLoaded, useRoute } from 'vue-router'
 
-import SubNavigationLayout from '@/app/layouts/navigation/top-nav/sub-navigation.layout.vue'
-import ErrorBoundary from '@/app/components/error-boundary/error-boundary.v1.component.vue'
-
 import { options } from './schema/navigation.schema'
+
+import SubNavigationLayout from '@/app/components/top-nav/sub-navigation.layout.vue'
+import ErrorBoundary from '@/app/components/error-boundary/error-boundary.v1.component.vue'
 
 const $route: RouteLocationNormalizedLoaded = useRoute()
 </script>

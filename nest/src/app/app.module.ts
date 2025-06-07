@@ -7,13 +7,13 @@ import { config } from 'dotenv';
 config();
 
 import { TypeOrmPlugin } from 'src/plugins/typeorm.plugin';
-
 import { AuthModule } from './authentication/auth.module';
 import { UserModule } from './users/users.module';
 import { AccessTokenStrategy } from './authentication/strategies/accesstoken.strategy';
 import { LocalStrategy } from './authentication/strategies/localauth.strategy';
 import { RefreshTokenStrategy } from './authentication/strategies/refreshtoken.strategy';
 import { AdminModule } from './administration/admin.module';
+import { RouterModule } from '@nestjs/core';
 
 @Module({
   imports: [
@@ -29,9 +29,16 @@ import { AdminModule } from './administration/admin.module';
       serveRoot: '/',
     }),
 
-    UserModule,
     AuthModule,
+    UserModule,
     AdminModule,
+
+    RouterModule.register([
+      {
+        path: 'authentication',
+        children: [AuthModule],
+      },
+    ]),
   ],
   providers: [AccessTokenStrategy, LocalStrategy, RefreshTokenStrategy],
 })

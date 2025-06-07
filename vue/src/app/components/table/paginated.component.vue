@@ -3,7 +3,7 @@ import SearchInputComponent from '@/app/components/inputs/search.input.vue'
 import SelectInputComponent from '@/app/components/inputs/select.input.vue'
 import PaginationInputComponent from '@/app/components/pagination/pagination.component.vue'
 import { PaginationOptions, SortOptions } from '@/library/apis/localhost/dto/pagination.dto'
-import { RouteLocationNormalizedLoaded, Router, useRoute, useRouter } from 'vue-router'
+import { LocationQueryRaw, RouteLocationNormalizedLoaded, Router, useRoute, useRouter } from 'vue-router'
 
 const $router: Router = useRouter()
 const $route: RouteLocationNormalizedLoaded = useRoute()
@@ -18,44 +18,16 @@ const props = defineProps<{
   caption?: string
 }>()
 
-function onFilterSubmit(value: string | undefined): void {
-  $router.replace({
-    query: {
-      ...$route.query,
-      search: value,
-      page: undefined
-    }
-  })
+function updateQuery(params: LocationQueryRaw): void {
+  const next = { ...$route.query, ...params }
+
+  if (JSON.stringify($route.query) !== JSON.stringify(next)) {
+    $router.replace({ query: next })
+  }
 }
 
-function onTakeUpdate(take: number | undefined): void {
-  $router.replace({
-    query: {
-      ...$route.query,
-      take,
-      page: undefined
-    }
-  })
-}
-
-function onSortUpdate(sort: SortOptions | undefined): void {
-  $router.replace({
-    query: {
-      ...$route.query,
-      sort: sort?.sort,
-      order: sort?.order,
-      page: undefined
-    }
-  })
-}
-
-function onPageUpdate(page: number): void {
-  $router.replace({
-    query: {
-      ...$route.query,
-      page
-    }
-  })
+function resetPageAndUpdateQuery(params: LocationQueryRaw) {
+  updateQuery({ ...params, page: undefined })
 }
 </script>
 
@@ -63,7 +35,11 @@ function onPageUpdate(page: number): void {
   <div class="d-flex flex-column gap-3">
     <div class="d-flex justify-content-between" style="column-gap: 1rem">
       <div class="d-flex flex-column flex-grow-1 gap-2">
-        <SearchInputComponent :value="props.options.search" style="max-width: 30rem" @update="onFilterSubmit" />
+        <SearchInputComponent
+          :value="props.options.search"
+          style="max-width: 30rem"
+          @update="(value: string | undefined) => resetPageAndUpdateQuery({ search: value })"
+        />
       </div>
 
       <div class="flex-shrink-1">
@@ -76,7 +52,12 @@ function onPageUpdate(page: number): void {
         <p class="fw-semibold text-light-alt">{{ $t('actions.sort-by') }}</p>
         <SelectInputComponent
           name="sort"
-          @update="onSortUpdate"
+          @update="
+            (sort: SortOptions | undefined) => {
+              if (!sort) return
+              resetPageAndUpdateQuery({ sort: sort.sort, order: sort.order })
+            }
+          "
           :value="props.sortOptions.find((e) => e.order == props.options.order && e.sort == props.options.sort)"
           :options="props.sortOptions"
         >
@@ -94,9 +75,9 @@ function onPageUpdate(page: number): void {
           <tr>
             <th scope="col" v-for="column in props.columns" :key="`${column.name}`">
               <div class="cell">
-                <span class="fw-bold">
+                <p class="fw-semibold">
                   {{ $t(column.label) }}
-                </span>
+                </p>
               </div>
             </th>
           </tr>
@@ -137,7 +118,12 @@ function onPageUpdate(page: number): void {
       <SelectInputComponent
         name="take"
         style="width: 7.5rem"
-        @update="onTakeUpdate"
+        @update="
+          (take: number | undefined) => {
+            if (!take) return
+            resetPageAndUpdateQuery({ take })
+          }
+        "
         :value="props.options.take"
         :options="[25, 50, 100]"
       >
@@ -147,7 +133,7 @@ function onPageUpdate(page: number): void {
       </SelectInputComponent>
 
       <PaginationInputComponent
-        @update="onPageUpdate"
+        @update="(page: number) => updateQuery({ page })"
         :page="props.options.page"
         :total="pages || options.page"
         :offset="2"
@@ -156,7 +142,7 @@ function onPageUpdate(page: number): void {
   </div>
 </template>
 
-<style lang="scss">
+<style lang="scss" scoped>
 @import '@/library/sass/variables/index';
 
 table {
@@ -206,8 +192,8 @@ table {
     min-width: fit-content !important;
   }
 
-  td:last-child,
-  th:last-child {
+  td:not(:first-child),
+  th:not(:first-child) {
     .cell {
       justify-content: end;
     }
