@@ -27,7 +27,7 @@ class Profile {
     const formData = new FormData()
     formData.append('avatar', payload)
 
-    const response = await this.$api.patch<IJWT>(
+    const response = await this.$api.post<IJWT>(
       'authentication/account/profile/avatar',
       formData,
       this.requestConfigWith({ content: 'multipart/form-data' })

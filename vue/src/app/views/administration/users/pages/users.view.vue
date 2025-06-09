@@ -50,7 +50,7 @@ watch(
 </script>
 
 <template>
-  <ContentLayout title="administration.users.title" subtitle="administration.users.subtitle">
+  <ContentLayout title="administration.users.user-table.title" subtitle="administration.users.user-table.subtitle">
     <template #table>
       <TablePaginatedComponent
         v-model:options="options"
@@ -59,7 +59,9 @@ watch(
         :rows="response.data"
         :pages="response.meta?.pageCount"
         :sort-options="sort"
-        :caption="t('administration.users.caption', { showing: response.data.length }, response.meta.itemCount)"
+        :caption="
+          t('administration.users.user-table.caption', { showing: response.data.length }, response.meta.itemCount)
+        "
       >
         <template v-slot>
           <div class="d-flex gap-2">

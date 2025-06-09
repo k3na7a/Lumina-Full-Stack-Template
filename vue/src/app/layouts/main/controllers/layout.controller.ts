@@ -23,7 +23,14 @@ class MainController {
       properties: {
         callback: async (values: credentials): Promise<void> => {
           await signIn(values)
-            .then(closeModal)
+            .then(() => {
+              addToast({
+                title: 'Signed In Successfully',
+                body: 'Login successful. Glad to see you again!',
+                options: { theme: 'success' }
+              })
+              closeModal()
+            })
             .catch((error: AxiosError) => {
               console.warn('[Axios] Failed to POST sign-in')
               addToast({
@@ -47,7 +54,14 @@ class MainController {
       properties: {
         callback: async (values: Register): Promise<void> => {
           await register(new RegisterDto(values))
-            .then(closeModal)
+            .then(() => {
+              addToast({
+                title: 'Registration Complete',
+                body: 'Welcome aboard! Your account is ready to use.',
+                options: { theme: 'success' }
+              })
+              closeModal()
+            })
             .catch((error: AxiosError) => {
               console.warn('[Axios] Failed to PUT register')
               addToast({
@@ -72,7 +86,14 @@ class MainController {
         close: closeModal,
         callback: async (): Promise<void> => {
           await signOut()
-            .then(closeModal)
+            .then(() => {
+              addToast({
+                title: 'Signed Out Successfully',
+                body: "You've logged out. See you next time!",
+                options: { theme: 'success' }
+              })
+              closeModal()
+            })
             .catch((error: AxiosError) => {
               console.warn('[Axios] Failed to POST sign-out')
               addToast({

@@ -10,7 +10,7 @@ const $route: RouteLocationNormalizedLoaded = useRoute()
 </script>
 
 <template>
-  <SubNavigationLayout title="administration.users.header" :routes="options">
+  <SubNavigationLayout title="administration.users.header" subtitle="administration.users.subtitle" :routes="options">
     <template #content>
       <RouterView v-slot="{ Component }" :key="$route.path">
         <template v-if="Component">

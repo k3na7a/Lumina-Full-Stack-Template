@@ -1,20 +1,23 @@
 {
   "label": "Administration",
   "users": {
-    "header": "User Management",
     "label": "Users",
+    "header": "User Management",
+    "subtitle": "Manage all registered users and their account settings.",
     "delete-modal": {
-      "title": "Delete { item }",
-      "body": "Are you sure you want to delete user { item }?",
-      "action": "Delete User"
+      "title": "Delete User Account",
+      "body": "This action will permanently delete the user account and all associated data. Are you sure you want to proceed?",
+      "action": "Delete User Account"
     },
     "update-modal": {
       "remove-profile-picture": "Remove profile picture",
       "action": "Update User"
     },
-    "title": "Manage Platform Users",
-    "subtitle": "View, search, and manage user accounts across the platform",
-    "caption": "Showing {showing} of {count} users | Showing {showing} of {count} user | Showing {showing} of {count} users"
+    "user-table": {
+      "title": "Manage Platform Users",
+      "subtitle": "View, search, and manage user accounts across the platform",
+      "caption": "Showing {showing} of {count} users | Showing {showing} of {count} user | Showing {showing} of {count} users"
+    }
   },
   "user": {
     "account-details": {
@@ -27,7 +30,11 @@
     },
     "avatar": {
       "title": "Update Profile Picture",
-      "subtitle": "Upload a new image or delete the existing profile photo"
+      "subtitle": "Upload a new image or delete the existing profile photo",
+      "remove-avatar": {
+        "title": "Remove Profile Picture",
+        "body": "This will permanently remove the user's current profile image. Are you sure you want to continue?"
+      }
     }
   },
   "games-and-software": {

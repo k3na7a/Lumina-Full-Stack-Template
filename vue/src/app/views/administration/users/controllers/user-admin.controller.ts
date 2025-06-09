@@ -83,7 +83,6 @@ class UserAdminController {
               })
             })
         },
-        item: user.getFullName(),
         title: 'administration.users.delete-modal.title',
         body: 'administration.users.delete-modal.body',
         action: 'administration.users.delete-modal.action'
@@ -119,7 +118,7 @@ class UserAdminController {
               })
             })
         },
-        title: 'settings.profile.avatar.modal-title',
+        title: 'administration.user.avatar.title',
         action: 'actions.update-avatar'
       }
     })
@@ -154,9 +153,9 @@ class UserAdminController {
               })
             })
         },
-        title: 'settings.profile.remove-avatar.title',
-        body: 'settings.profile.remove-avatar.body',
-        action: 'settings.profile.remove-avatar.action'
+        title: 'administration.user.avatar.remove-avatar.title',
+        body: 'administration.user.avatar.remove-avatar.body',
+        action: 'actions.remove-avatar'
       }
     })
   }

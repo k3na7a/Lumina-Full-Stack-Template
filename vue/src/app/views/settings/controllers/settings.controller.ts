@@ -31,7 +31,14 @@ class SettingsController {
       properties: {
         callback: async ({ image }: { image: File }): Promise<void> => {
           await updateAvatar(image)
-            .then(closeModal)
+            .then(() => {
+              addToast({
+                title: 'Changes Saved',
+                body: 'The profile picture has been updated successfully',
+                options: { theme: 'success' }
+              })
+              closeModal()
+            })
             .catch((error: AxiosError) => {
               console.warn('[Axios] Failed to PATCH profile.avatar')
               addToast({
@@ -58,7 +65,14 @@ class SettingsController {
         close: closeModal,
         callback: async (): Promise<void> => {
           await removeAvatar()
-            .then(closeModal)
+            .then(() => {
+              addToast({
+                title: 'Changes Saved',
+                body: 'The profile picture has been removed successfully',
+                options: { theme: 'success' }
+              })
+              closeModal()
+            })
             .catch((error: AxiosError) => {
               console.warn('[Axios] Failed to DELETE profile.avatar')
               addToast({
@@ -79,30 +93,54 @@ class SettingsController {
     const { updateEmail }: AuthStore = useAuthStore()
     const { addToast }: ToastStore = useToastStore()
 
-    await updateEmail(new UpdateEmailDto(props)).catch((error: AxiosError) => {
-      console.warn('[Axios] Failed to PATCH user.email')
-      addToast({ title: error.response?.statusText || 'ERROR', body: error.message, options: { theme: 'danger' } })
-    })
+    await updateEmail(new UpdateEmailDto(props))
+      .then(() => {
+        addToast({
+          title: 'Changes Saved',
+          body: 'The email has been updated successfully',
+          options: { theme: 'success' }
+        })
+      })
+      .catch((error: AxiosError) => {
+        console.warn('[Axios] Failed to PATCH user.email')
+        addToast({ title: error.response?.statusText || 'ERROR', body: error.message, options: { theme: 'danger' } })
+      })
   }
 
   public static updatePassword = async (props: UpdatePassword): Promise<void> => {
     const { updatePassword }: AuthStore = useAuthStore()
     const { addToast }: ToastStore = useToastStore()
 
-    await updatePassword(new UpdatePasswordDto(props)).catch((error: AxiosError) => {
-      console.warn('[Axios] Failed to PATCH user.password')
-      addToast({ title: error.response?.statusText || 'ERROR', body: error.message, options: { theme: 'danger' } })
-    })
+    await updatePassword(new UpdatePasswordDto(props))
+      .then(() => {
+        addToast({
+          title: 'Changes Saved',
+          body: 'The password has been updated successfully',
+          options: { theme: 'success' }
+        })
+      })
+      .catch((error: AxiosError) => {
+        console.warn('[Axios] Failed to PATCH user.password')
+        addToast({ title: error.response?.statusText || 'ERROR', body: error.message, options: { theme: 'danger' } })
+      })
   }
 
   public static updateProfile = async (props: UpdateProfile): Promise<void> => {
     const { updateProfile }: AuthStore = useAuthStore()
     const { addToast }: ToastStore = useToastStore()
 
-    await updateProfile(new UpdateProfileDto(props)).catch((error: AxiosError) => {
-      console.warn('[Axios] Failed to PATCH user.profile')
-      addToast({ title: error.response?.statusText || 'ERROR', body: error.message, options: { theme: 'danger' } })
-    })
+    await updateProfile(new UpdateProfileDto(props))
+      .then(() => {
+        addToast({
+          title: 'Changes Saved',
+          body: 'The user profile has been updated successfully',
+          options: { theme: 'success' }
+        })
+      })
+      .catch((error: AxiosError) => {
+        console.warn('[Axios] Failed to PATCH user.profile')
+        addToast({ title: error.response?.statusText || 'ERROR', body: error.message, options: { theme: 'danger' } })
+      })
   }
 
   public static disableAccount = (): void => {
@@ -117,7 +155,14 @@ class SettingsController {
         close: closeModal,
         callback: async (props: DeleteAccount): Promise<void> => {
           await deleteAccount(new DeleteAccountDto(props))
-            .then(closeModal)
+            .then(() => {
+              addToast({
+                title: 'Changes Saved',
+                body: 'The user account has beend deleted successfully',
+                options: { theme: 'success' }
+              })
+              closeModal()
+            })
             .catch((error: AxiosError) => {
               console.warn('[Axios] Failed to DELETE user')
               addToast({
