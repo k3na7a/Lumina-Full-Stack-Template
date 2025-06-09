@@ -12,9 +12,23 @@
       "remove-profile-picture": "Remove profile picture",
       "action": "Update User"
     },
-    "title": "Create and modify your users",
-    "subtitle": "Users are the individuals who have registered an account",
+    "title": "Manage Platform Users",
+    "subtitle": "View, search, and manage user accounts across the platform",
     "caption": "Showing {showing} of {count} users | Showing {showing} of {count} user | Showing {showing} of {count} users"
+  },
+  "user": {
+    "account-details": {
+      "title": "Manage User Account",
+      "subtitle": "Update profile data, login details, and system permissions"
+    },
+    "delete-account": {
+      "title": "Delete User Account",
+      "subtitle": "Permanently remove this user and all associated data from the system"
+    },
+    "avatar": {
+      "title": "Update Profile Picture",
+      "subtitle": "Upload a new image or delete the existing profile photo"
+    }
   },
   "games-and-software": {
     "header": "Game & Software Management",

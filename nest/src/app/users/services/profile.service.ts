@@ -33,7 +33,7 @@ export class ProfileService {
   ): Promise<ImageEntity> {
     return this.imageService.create({
       file,
-      altText: `Avatar for profile ${profile.id}`,
+      altText: `Avatar for profile ID ${profile.id}`,
       type: IMAGE_TYPE.AVATARS,
     });
   }
@@ -50,7 +50,7 @@ export class ProfileService {
   }
 
   public async removeAvatar(profile: ProfileEntity): Promise<ProfileEntity> {
-    if (!profile.avatar) return profile;
+    if (!profile.avatar) throw new NotFoundException('Avatar not found');
 
     const { avatar } = profile;
     await this.imageService.remove(avatar.id);

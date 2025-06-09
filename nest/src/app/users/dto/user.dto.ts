@@ -1,6 +1,5 @@
-import { IsBoolean, IsEnum, IsOptional, IsString } from 'class-validator';
+import { IsEnum, IsOptional, IsString } from 'class-validator';
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
-import { Transform } from 'class-transformer';
 import { Role } from 'src/library/data/enums/role.enum';
 import { PaginationOptions } from 'src/library/data/dto/pagination.dto';
 
@@ -29,13 +28,6 @@ class UpdateUserDto {
   @ApiProperty()
   @IsEnum(Role)
   public readonly role: Role;
-  @ApiPropertyOptional()
-  @Transform(({ value }) =>
-    value === 'true' ? true : value === 'false' ? false : value,
-  )
-  @IsBoolean()
-  @IsOptional()
-  public readonly 'remove-avatar'?: boolean;
 }
 
 export { UserPaginationOptions, UpdateUserDto };

@@ -1,8 +1,11 @@
 <script setup lang="ts">
-import { InputTypeHTMLAttribute, onMounted, toRef, watch } from 'vue'
+import { InputTypeHTMLAttribute, ref, toRef, watch } from 'vue'
 import { useField } from 'vee-validate'
 
 import { HTMLAutoComplete } from '@/library/data/types/HTMLautocomplete.type'
+import { deepEqual } from '@/library/utils/object.util'
+
+const emit = defineEmits<{ update: [value: string | undefined] }>()
 
 const props = defineProps<{
   name: string
@@ -15,17 +18,29 @@ const props = defineProps<{
 }>()
 
 const name = toRef(props, 'name')
-const { value, errorMessage, handleBlur, handleChange } = useField(name.value, undefined, {
+const isSyncing = ref<boolean>(false)
+
+const { value, errorMessage, handleBlur, handleChange } = useField<string | undefined>(name.value, undefined, {
   initialValue: props.value
 })
 
-const emit = defineEmits<{ update: [value: string | undefined] }>()
-watch(value, (newVal: string | undefined) => {
-  emit('update', newVal)
-})
+watch(
+  () => props.value,
+  (val: string | undefined) => {
+    if (!deepEqual(val, value.value)) {
+      isSyncing.value = true
+      value.value = val
+    }
+  }
+)
 
-onMounted(() => {
-  emit('update', value.value)
+watch(value, (newVal: string | undefined) => {
+  if (isSyncing.value) {
+    isSyncing.value = false
+    return
+  }
+
+  emit('update', newVal)
 })
 </script>
 

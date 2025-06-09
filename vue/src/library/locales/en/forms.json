@@ -6,6 +6,7 @@
   "full-name": "Full Name",
   "role": "Role",
   "user": "User",
+  "account": "Account",
   "status": "Status",
   "admin": "Administrator",
   "email": "Email",

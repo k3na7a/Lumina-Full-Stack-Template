@@ -32,7 +32,7 @@ const toasts: ComputedRef<Toast[]> = computed<Toast[]>(() => store.getToasts)
               <font-awesome-icon :icon="['fas', 'close']" />
             </button>
           </div>
-          <div class="toast-body d-flex flex-column p-2 pe-0 flex-grow-1 gap-1">
+          <div class="toast-body d-flex flex-column p-2 flex-grow-1 gap-1">
             <p class="text-muted">
               {{ capitalize(toast.body) }}
             </p>

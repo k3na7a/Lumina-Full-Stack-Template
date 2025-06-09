@@ -34,11 +34,8 @@ const response = reactive<{ data: Array<{}>; meta: PaginationMeta }>({
       >
         <template v-slot>
           <div class="d-flex gap-2">
-            <button class="btn btn-dark btn-icon" type="button">
-              <font-awesome-icon size="lg" :icon="['fas', 'filter']" />
-            </button>
-            <button class="btn btn-dark btn-icon" type="button">
-              <font-awesome-icon size="lg" :icon="['fas', 'plus']" />
+            <button class="btn btn-dark btn-icon" disabled type="button">
+              <font-awesome-icon size="lg" :icon="['fas', 'ellipsis-vertical']" />
             </button>
           </div>
         </template>

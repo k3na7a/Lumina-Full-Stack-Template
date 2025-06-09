@@ -21,33 +21,41 @@ export class UserAdminService {
     return this.userService.paginate(params);
   }
 
+  public async findOneById(id: string): Promise<UserEntity> {
+    return this.userService.findOneById(id);
+  }
+
   public async remove(id: string): Promise<UserEntity> {
     return this.userService.remove(id);
   }
 
-  public async update(
-    id: string,
-    dto: UpdateUserDto,
-    file?: Express.Multer.File,
-  ): Promise<UserEntity> {
+  public async update(id: string, dto: UpdateUserDto): Promise<UserEntity> {
     const user = await this.userService.findOneById(id);
-    const {
-      email,
-      role,
-      firstname,
-      lastname,
-      ['remove-avatar']: removeAvatar,
-    } = dto;
-    const name = { first: firstname, last: lastname };
 
-    if (file) {
-      await this.profileService.handleAvatarUpload(user.profile, file);
-    } else if (removeAvatar) {
-      await this.profileService.removeAvatar(user.profile);
-    }
+    const { email, role, firstname, lastname } = dto;
+    const name = { first: firstname, last: lastname };
 
     await this.profileService.update(user.profile, { name });
     await this.userService.update(user.id, { email, role });
+
+    return this.userService.findOneById(user.id);
+  }
+
+  public async handleUploadAvatar(
+    id: string,
+    file: Express.Multer.File,
+  ): Promise<UserEntity> {
+    const user = await this.userService.findOneById(id);
+
+    await this.profileService.handleAvatarUpload(user.profile, file);
+
+    return this.userService.findOneById(user.id);
+  }
+
+  public async handleRemoveAvatar(id: string): Promise<UserEntity> {
+    const user = await this.userService.findOneById(id);
+
+    await this.profileService.removeAvatar(user.profile);
 
     return this.userService.findOneById(user.id);
   }

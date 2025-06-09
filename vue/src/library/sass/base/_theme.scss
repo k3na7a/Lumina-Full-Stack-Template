@@ -16,6 +16,13 @@ body {
   scrollbar-color: $scrollbar-color $backgroundLight;
 }
 
+.light-link {
+  color: $lightAlt;
+  &:hover {
+    opacity: 80%;
+  }
+}
+
 .display-font {
   font-family: $noto-sans;
 }

@@ -1,40 +1,29 @@
 import getAvatar from '@/library/utils/ui-avatars.util'
 
-type UpdatePassword = {
-  current_password: string
-  password: string
-  confirm_password: string
-}
+type UpdatePassword = { current_password: string; password: string; confirm_password: string }
 type UpdateEmail = { password: string; email: string; confirm_email: string }
 type ResetPassword = { new_password: string; confirm_password: string }
 type ForgotPassword = { email: string; redirect: string }
 type DeleteAccount = { password: string }
 type UpdateProfile = { firstname: string; lastname: string }
 type Register = { firstname: string; lastname: string; email: string; password: string }
-type UpdateUser = {
-  email: string
-  firstname: string
-  lastname: string
-  role?: Role
-  avatar?: File | null
-  'remove-avatar': boolean
-}
+type UpdateUser = { email: string; firstname: string; lastname: string; role?: Role }
 
 class UpdateUserDto {
   public readonly firstname: string
   public readonly lastname: string
   public readonly email: string
   public readonly role: Role
-  public readonly avatar?: File
-  public readonly 'remove-avatar': boolean
+  // public readonly avatar?: File
+  // public readonly 'remove-avatar': boolean
 
   constructor(payload: UpdateUser) {
     this.firstname = payload.firstname
     this.lastname = payload.lastname
     this.email = payload.email
     this.role = payload.role || Role.USER
-    this.avatar = payload.avatar || undefined
-    this['remove-avatar'] = payload['remove-avatar']
+    // this.avatar = payload.avatar || undefined
+    // this['remove-avatar'] = payload['remove-avatar']
   }
 }
 

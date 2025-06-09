@@ -8,8 +8,19 @@ const route: RouteRecordRaw = {
   children: [
     {
       path: 'users',
-      name: ROUTE_NAMES.ADMIN_USERS,
-      component: () => import('@/app/views/administration/users/pages/users.view.vue')
+      redirect: { name: ROUTE_NAMES.ADMIN_USERS },
+      children: [
+        {
+          path: '',
+          name: ROUTE_NAMES.ADMIN_USERS,
+          component: () => import('@/app/views/administration/users/pages/users.view.vue')
+        },
+        {
+          path: ':id',
+          name: ROUTE_NAMES.ADMIN_USERS_SINGLE,
+          component: () => import('@/app/views/administration/users/pages/user-single.view.vue')
+        }
+      ]
     }
   ]
 }

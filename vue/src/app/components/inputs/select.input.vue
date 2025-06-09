@@ -19,6 +19,7 @@ const options = toRef(props, 'options')
 
 const { value, errorMessage, meta } = useField<T | undefined>(name.value, undefined, { initialValue: props.value })
 
+const isSyncing = ref<boolean>(false)
 const dropdownRef = ref<InstanceType<typeof HTMLElement>>()
 
 const stopClick = (e: MouseEvent): void => e.stopPropagation()
@@ -37,12 +38,18 @@ watch(
   () => props.value,
   (val: T | undefined) => {
     if (!deepEqual(val, value.value)) {
+      isSyncing.value = true
       value.value = val
     }
   }
 )
 
 watch(value, (newVal: T | undefined) => {
+  if (isSyncing.value) {
+    isSyncing.value = false
+    return
+  }
+
   emit('update', newVal)
   closeDropdown()
 })

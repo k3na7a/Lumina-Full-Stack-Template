@@ -7,45 +7,50 @@ import { PaginationDto, PaginationMeta, PaginationOptions } from '@/library/apis
 import { UpdateUser, UpdateUserDto, UserDto } from '@/library/apis/localhost/dto/user.dto'
 import { ModalStore, useModalStore } from '@/app/components/modal/store/modal.store'
 
-import UserModal from '@/app/views/administration/users/components/user.modal.vue'
+import UploadImageModal from '@/app/components/modal/templates/image-upload.modal.vue'
 import ConfirmModal from '@/app/components/modal/templates/confirm.modal.vue'
 
 class UserAdminController {
   public static async getUsersPaginated(params: PaginationOptions): Promise<PaginationDto<UserDto>> {
     const { addToast }: ToastStore = useToastStore()
     return LocalhostAPI.administration.users.getUsersPaginated(params).catch((error: AxiosError) => {
+      console.warn(`[Axios] Failed to GET users (paginated): ${error.message}`)
       addToast({ title: error.response?.statusText || 'ERROR', body: error.message, options: { theme: 'danger' } })
       return { data: [], meta: new PaginationMeta({ pageOptions: params, itemCount: 0 }) }
     })
   }
 
-  public static async updateUser(user: UserDto, success?: (value: UserDto) => void): Promise<void> {
-    const { openModal, closeModal }: ModalStore = useModalStore()
-    const { addToast }: ToastStore = useToastStore()
-
-    openModal({
-      view: markRaw(UserModal),
-      properties: {
-        user,
-        callback: async (values: UpdateUser): Promise<void> => {
-          await LocalhostAPI.administration.users
-            .updateUser(user.id, new UpdateUserDto(values))
-            .then((value: UserDto) => {
-              if (success) success(value)
-              closeModal()
-            })
-            .catch((error: AxiosError) => {
-              console.warn('[Axios] Failed to GET users (paginated).')
-
-              addToast({
-                title: error.response?.statusText || 'ERROR',
-                body: error.message,
-                options: { theme: 'danger' }
-              })
-            })
-        }
-      }
+  public static async getUserById(id: string): Promise<UserDto> {
+    return LocalhostAPI.administration.users.getUserById(id).catch((error: AxiosError) => {
+      console.warn(`[Axios] Failed to GET user ID ${id}: ${error.message}`)
+      throw new Error(`Unable to fetch user with ID ${id}: ${error.message}`)
     })
+  }
+
+  public static async updateUser(
+    user: UserDto,
+    payload: UpdateUser,
+    success?: (value: UserDto) => void
+  ): Promise<UserDto> {
+    const { addToast }: ToastStore = useToastStore()
+    const { id } = user
+
+    return LocalhostAPI.administration.users
+      .updateUser(id, new UpdateUserDto(payload))
+      .then((response: UserDto) => {
+        if (success) success(response)
+        addToast({
+          title: 'Changes Saved',
+          body: 'The user profile has been updated successfully',
+          options: { theme: 'success' }
+        })
+        return response
+      })
+      .catch((error: AxiosError) => {
+        console.warn(`[Axios] Failed to UPDATE user ID ${id}: ${error.message}`)
+        addToast({ title: error.response?.statusText || 'ERROR', body: error.message, options: { theme: 'danger' } })
+        return user
+      })
   }
 
   public static async deleteUser(user: UserDto, success?: (value: UserDto) => void): Promise<void> {
@@ -61,6 +66,11 @@ class UserAdminController {
             .deleteUser(user.id)
             .then((value: UserDto) => {
               if (success) success(value)
+              addToast({
+                title: 'Changes Saved',
+                body: 'The user has been removed successfully',
+                options: { theme: 'success' }
+              })
               closeModal()
             })
             .catch((error: AxiosError) => {
@@ -77,6 +87,76 @@ class UserAdminController {
         title: 'administration.users.delete-modal.title',
         body: 'administration.users.delete-modal.body',
         action: 'administration.users.delete-modal.action'
+      }
+    })
+  }
+
+  public static updateAvatar = (user: UserDto, success?: (value: UserDto) => void): void => {
+    const { openModal, closeModal }: ModalStore = useModalStore()
+    const { addToast }: ToastStore = useToastStore()
+
+    openModal({
+      view: markRaw(UploadImageModal),
+      properties: {
+        callback: async ({ image }: { image: File }): Promise<void> => {
+          await LocalhostAPI.administration.users.profile
+            .updateAvatar(user.id, image)
+            .then((value: UserDto) => {
+              if (success) success(value)
+              addToast({
+                title: 'Changes Saved',
+                body: 'The profile picture has been updated successfully',
+                options: { theme: 'success' }
+              })
+              closeModal()
+            })
+            .catch((error: AxiosError) => {
+              console.warn('[Axios] Failed to PATCH profile.avatar')
+              addToast({
+                title: error.response?.statusText || 'ERROR',
+                body: error.message,
+                options: { theme: 'danger' }
+              })
+            })
+        },
+        title: 'settings.profile.avatar.modal-title',
+        action: 'actions.update-avatar'
+      }
+    })
+  }
+
+  public static removeAvatar = (user: UserDto, success?: (value: UserDto) => void): void => {
+    const { openModal, closeModal }: ModalStore = useModalStore()
+    const { addToast }: ToastStore = useToastStore()
+
+    openModal({
+      view: markRaw(ConfirmModal),
+      properties: {
+        close: closeModal,
+        callback: async (): Promise<void> => {
+          await LocalhostAPI.administration.users.profile
+            .removeAvatar(user.id)
+            .then((value: UserDto) => {
+              if (success) success(value)
+              addToast({
+                title: 'Changes Saved',
+                body: 'The profile picture has been removed successfully',
+                options: { theme: 'success' }
+              })
+              closeModal()
+            })
+            .catch((error: AxiosError) => {
+              console.warn('[Axios] Failed to DELETE profile.avatar')
+              addToast({
+                title: error.response?.statusText || 'ERROR',
+                body: error.message,
+                options: { theme: 'danger' }
+              })
+            })
+        },
+        title: 'settings.profile.remove-avatar.title',
+        body: 'settings.profile.remove-avatar.body',
+        action: 'settings.profile.remove-avatar.action'
       }
     })
   }

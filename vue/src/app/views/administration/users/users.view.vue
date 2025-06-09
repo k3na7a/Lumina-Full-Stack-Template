@@ -5,7 +5,7 @@ import { options } from './schema/navigation.schema'
 
 import SubNavigationLayout from '@/app/components/top-nav/sub-navigation.layout.vue'
 import ErrorBoundary from '@/app/components/error-boundary/error-boundary.v1.component.vue'
-
+import Alert from '@/app/components/alerts/alert.component.vue'
 const $route: RouteLocationNormalizedLoaded = useRoute()
 </script>
 
@@ -23,8 +23,8 @@ const $route: RouteLocationNormalizedLoaded = useRoute()
                 {{ $t('actions.loading') }}
               </template>
             </Suspense>
-            <template #error>
-              {{ $t('forms.error-general') }}
+            <template #error="{ error, clearError }">
+              <Alert :error="error?.message" :callback="clearError" />
             </template>
           </ErrorBoundary>
         </template>

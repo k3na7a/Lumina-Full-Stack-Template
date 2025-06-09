@@ -1,18 +1,17 @@
 import { Order, SortOptions, PaginationOptions } from '@/library/apis/localhost/dto/pagination.dto'
 import { Role } from '@/library/apis/localhost/dto/user.dto'
 
-type Badges = { [key: string]: { theme: 'primary' | 'secondary'; label: string } }
+type Badges = { [key: string]: { theme: 'primary' | 'secondary' | 'warning' | 'danger' | 'info'; label: string } }
 const badges: Badges = {
   [Role.ADMIN]: { theme: 'primary', label: 'forms.admin' },
-  [Role.USER]: { theme: 'secondary', label: 'forms.user' }
+  [Role.USER]: { theme: 'info', label: 'forms.user' }
 }
 
 type columns = Array<{ name: string; label: string }>
 const tableColumns: columns = [
   { name: 'user', label: 'forms.user' },
   { name: 'role', label: 'forms.role' },
-  { name: 'created', label: 'forms.date-registered' },
-  { name: 'actions', label: 'forms.actions' }
+  { name: 'created', label: 'forms.date-registered' }
 ]
 
 const defaultOptions: PaginationOptions = {

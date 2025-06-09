@@ -5,15 +5,11 @@ import { PaginationDto, PaginationOptions } from '@/library/apis/localhost/dto/p
 import { AxiosService } from '@/library/utils/axios.util'
 import { iUser, UpdateUserDto, UserDto } from '@/library/apis/localhost/dto/user.dto'
 
-class users {
+class profile {
   private readonly $api: AxiosInstance
   private readonly $token: ILocalStorageUtil
 
-  private get authConfig() {
-    return AxiosService.requestConfig({ token: this.$token.getItem() })
-  }
-
-  private readonly requestConfigWith = (options: Partial<{ content: string; data: object }>) =>
+  private readonly requestConfigWith = (options: Partial<{ content: string; data: object; params: object }>) =>
     AxiosService.requestConfig({ token: this.$token.getItem(), ...options })
 
   constructor(api: AxiosInstance, token: ILocalStorageUtil) {
@@ -21,25 +17,12 @@ class users {
     this.$token = token
   }
 
-  public readonly getUsersPaginated = async (params: PaginationOptions): Promise<PaginationDto<UserDto>> => {
-    const response: AxiosResponse = await this.$api.get('administration/user-management/users', {
-      ...this.authConfig,
-      params
-    })
-
-    const users: UserDto[] = response.data['data'].map((user: iUser) => new UserDto(user))
-    return new PaginationDto(users, response.data['meta'])
-  }
-
-  public readonly updateUser = async (id: string, payload: UpdateUserDto): Promise<UserDto> => {
+  public readonly updateAvatar = async (id: string, payload: File): Promise<UserDto> => {
     const formData = new FormData()
+    formData.append('avatar', payload)
 
-    Object.keys(payload).forEach((key: string) => {
-      if (Object(payload)[key]) formData.append(key, Object(payload)[key])
-    })
-
-    const response: AxiosResponse<iUser, any> = await this.$api.patch<iUser>(
-      `administration/user-management/users/${id}`,
+    const response = await this.$api.post<iUser>(
+      `administration/user-management/users/${id}/profile/avatar`,
       formData,
       this.requestConfigWith({ content: 'multipart/form-data' })
     )
@@ -47,10 +30,80 @@ class users {
     return new UserDto(response.data)
   }
 
+  public readonly removeAvatar = async (id: string): Promise<UserDto> => {
+    const response = await this.$api.delete<iUser>(
+      `administration/user-management/users/${id}/profile/avatar`,
+      this.requestConfigWith({})
+    )
+
+    return new UserDto(response.data)
+  }
+}
+
+class users {
+  private readonly $api: AxiosInstance
+  private readonly $token: ILocalStorageUtil
+
+  public readonly profile: profile
+
+  private readonly requestConfigWith = (options: Partial<{ content: string; data: object; params: object }>) =>
+    AxiosService.requestConfig({ token: this.$token.getItem(), ...options })
+
+  constructor(api: AxiosInstance, token: ILocalStorageUtil) {
+    this.$api = api
+    this.$token = token
+    this.profile = new profile(api, token)
+  }
+
+  public readonly getUsersPaginated = async (params: PaginationOptions): Promise<PaginationDto<UserDto>> => {
+    const response: AxiosResponse = await this.$api.get(
+      'administration/user-management/users',
+      this.requestConfigWith({ params })
+    )
+
+    const users: UserDto[] = response.data['data'].map((user: iUser) => new UserDto(user))
+    return new PaginationDto(users, response.data['meta'])
+  }
+
+  public readonly getUserById = async (id: string): Promise<UserDto> => {
+    const response: AxiosResponse = await this.$api.get(
+      `administration/user-management/users/${id}`,
+      this.requestConfigWith({})
+    )
+
+    return new UserDto(response.data)
+  }
+
+  public readonly updateUser = async (id: string, payload: UpdateUserDto): Promise<UserDto> => {
+    const response: AxiosResponse<iUser, any> = await this.$api.patch<iUser>(
+      `administration/user-management/users/${id}`,
+      payload,
+      this.requestConfigWith({})
+    )
+
+    return new UserDto(response.data)
+  }
+
+  // public readonly updateUser = async (id: string, payload: UpdateUserDto): Promise<UserDto> => {
+  //   const formData = new FormData()
+
+  //   Object.keys(payload).forEach((key: string) => {
+  //     if (Object(payload)[key]) formData.append(key, Object(payload)[key])
+  //   })
+
+  //   const response: AxiosResponse<iUser, any> = await this.$api.patch<iUser>(
+  //     `administration/user-management/users/${id}`,
+  //     formData,
+  //     this.requestConfigWith({ content: 'multipart/form-data' })
+  //   )
+
+  //   return new UserDto(response.data)
+  // }
+
   public readonly deleteUser = async (id: string): Promise<UserDto> => {
     const response: AxiosResponse<iUser, any> = await this.$api.delete<iUser>(
       `administration/user-management/users/${id}`,
-      this.authConfig
+      this.requestConfigWith({})
     )
 
     return new UserDto(response.data)
