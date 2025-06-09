@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ComputedRef, computed } from 'vue'
-import { Toast, ToastStore, useToastStore } from '@/app/components/toast/store/toast.store'
+import { Toast, ToastStore, useToastStore } from '@/app/store/toast.store'
 
 import { useStringUtil } from '@/library/utils/string.util'
 
@@ -57,7 +57,6 @@ $toast-themes: (
 @each $name, $color in $toast-themes {
   .toast-#{$name} {
     border: 1px solid #{$color};
-    box-shadow: 0 0 8px rgba($color, 0.4);
   }
 }
 </style>

@@ -5,9 +5,9 @@ import SignInModal from '@/app/layouts/main/components/modals/signin-modal.compo
 import RegisterModal from '@/app/layouts/main/components/modals/register-modal.component.vue'
 import ConfirmationModal from '@/app/components/modal/templates/confirm.modal.vue'
 
-import { ModalStore, useModalStore } from '@/app/components/modal/store/modal.store'
+import { ModalStore, useModalStore } from '@/app/store/modal.store'
 import { AuthStore, useAuthStore } from '@/app/store/authentication.store'
-import { ToastStore, useToastStore } from '@/app/components/toast/store/toast.store'
+import { ToastStore, useToastStore } from '@/app/store/toast.store'
 
 import { Register, RegisterDto } from '@/library/apis/localhost/dto/user.dto'
 import { credentials } from '@/library/apis/localhost/dto/JWT.dto'
@@ -26,7 +26,7 @@ class MainController {
             .then(() => {
               addToast({
                 title: 'Signed In Successfully',
-                body: 'Login successful. Glad to see you again!',
+                body: 'Login successful. Welcome back!',
                 options: { theme: 'success' }
               })
               closeModal()
