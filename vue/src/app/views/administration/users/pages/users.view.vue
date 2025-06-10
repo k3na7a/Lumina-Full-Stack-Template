@@ -17,7 +17,7 @@ import ContentLayout from '@/app/layouts/admin/components/admin-layout.component
 const $route = useRoute()
 
 const { t } = useI18n()
-const { getUsersPaginated } = UserAdminController
+const controller = new UserAdminController(t)
 
 const loading = ref<boolean>(true)
 const options = computed<PaginationOptions>(() => parseQuery<PaginationOptions>($route.query, defaultOptions))
@@ -30,7 +30,8 @@ const response = reactive<{ data: Array<UserDto>; meta: PaginationMeta }>({
 async function getPaginatedData(payload: PaginationOptions): Promise<void> {
   loading.value = true
 
-  await getUsersPaginated(payload)
+  await controller
+    .getUsersPaginated(payload)
     .then((res: PaginationDto<UserDto>) => {
       response.data = res.data
       response.meta = res.meta

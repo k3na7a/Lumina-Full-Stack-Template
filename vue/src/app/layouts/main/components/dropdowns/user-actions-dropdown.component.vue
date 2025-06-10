@@ -1,16 +1,21 @@
 <script setup lang="ts">
-import DropdownComponent from '@/app/components/dropdown/dropdown.component.vue'
+import { useI18n } from 'vue-i18n'
 import { useRouter } from 'vue-router'
+
+import DropdownComponent from '@/app/components/dropdown/dropdown.component.vue'
+
 import { UserDto } from '@/library/apis/localhost/dto/user.dto'
 import { user_actions } from '../../schema/user-actions.schema'
 
+const { t } = useI18n()
+const $router = useRouter()
+
 const props = defineProps<{
   authenticatedUser: UserDto | undefined
-  signout: () => void
+  signout: (t: (key: string) => string) => void
 }>()
 
-const router = useRouter()
-const USER_ACTIONS = user_actions(router, props.signout)
+const USER_ACTIONS = user_actions($router, props.signout)
 </script>
 
 <template>
@@ -40,7 +45,7 @@ const USER_ACTIONS = user_actions(router, props.signout)
                   type="button"
                   :disabled="action.disabled"
                   @click="(event: MouseEvent) => {
-                    action.callback(event)
+                    action.callback(event, t)
                     close()
                 }"
                 >

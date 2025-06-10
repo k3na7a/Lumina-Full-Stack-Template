@@ -1,17 +1,21 @@
 <script setup lang="ts">
 import { computed, ComputedRef, reactive } from 'vue'
 import { Form } from 'vee-validate'
+import { useI18n } from 'vue-i18n'
+
 import TextInput from '@/app/components/inputs/text.input.vue'
 import PasswordValidationList from '@/app/components/labels/password-validation-list.component.vue'
+
 import { useFormUtil } from '@/library/utils/forms.util'
 import { UserDto, UpdatePassword } from '@/library/apis/localhost/dto/user.dto'
 import { AuthStore, useAuthStore } from '@/app/store/authentication.store'
 import { SettingsController } from '../controllers/settings.controller'
 import { validationSchema } from '../schema/update-password-validation.schema'
 
+const { t } = useI18n()
 const { getSubmitFn } = useFormUtil()
-const { updatePassword } = SettingsController
 
+const controller = new SettingsController(t)
 const authStore: AuthStore = useAuthStore()
 
 const user: ComputedRef<UserDto | undefined> = computed(() => authStore.authenticatedUser)
@@ -19,7 +23,7 @@ const state = reactive<{ loading: boolean; open: boolean }>({ loading: false, op
 
 const onSubmit = getSubmitFn(validationSchema, async (values: UpdatePassword) => {
   state.loading = true
-  updatePassword(values).finally(() => (state.loading = false))
+  controller.updatePassword(values).finally(() => (state.loading = false))
 })
 </script>
 

@@ -1,24 +1,28 @@
 <script setup lang="ts">
 import { computed, ComputedRef, ref } from 'vue'
 import { Form } from 'vee-validate'
-import { validationSchema } from '../schema/update-profile-validation.schema.ts'
+import { useI18n } from 'vue-i18n'
+
 import TextInput from '@/app/components/inputs/text.input.vue'
+
+import { validationSchema } from '../schema/update-profile-validation.schema.ts'
 import { useFormUtil } from '@/library/utils/forms.util.ts'
 import { UpdateProfile, UserDto } from '@/library/apis/localhost/dto/user.dto.ts'
 import { SettingsController } from '../controllers/settings.controller.ts'
 import { AuthStore, useAuthStore } from '@/app/store/authentication.store.ts'
 
+const { t } = useI18n()
+const controller = new SettingsController(t)
+
 const validateUtil = useFormUtil()
 const authStore: AuthStore = useAuthStore()
-
-const { updateProfile } = SettingsController
 
 const user: ComputedRef<UserDto | undefined> = computed(() => authStore.authenticatedUser)
 const loading = ref<boolean>(false)
 
 const onSubmit = validateUtil.getSubmitFn(validationSchema, async (values: UpdateProfile) => {
   loading.value = true
-  updateProfile(values).finally(() => (loading.value = false))
+  controller.updateProfile(values).finally(() => (loading.value = false))
 })
 </script>
 

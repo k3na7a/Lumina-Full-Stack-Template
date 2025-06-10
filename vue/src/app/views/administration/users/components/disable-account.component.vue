@@ -3,8 +3,11 @@ import { UserDto } from '@/library/apis/localhost/dto/user.dto'
 import { UserAdminController } from '../controllers/user-admin.controller'
 import { Router, useRouter } from 'vue-router'
 import { ROUTE_NAMES } from '@/app/router/routes'
+import { useI18n } from 'vue-i18n'
 
-const { deleteUser } = UserAdminController
+const { t } = useI18n()
+const controller = new UserAdminController(t)
+
 const $router: Router = useRouter()
 
 const props = defineProps<{
@@ -12,7 +15,7 @@ const props = defineProps<{
 }>()
 
 function remove(_: MouseEvent): void {
-  deleteUser(props.user, () => {
+  controller.deleteUser(props.user, () => {
     $router.push({ name: ROUTE_NAMES.ADMIN_USERS })
   })
 }

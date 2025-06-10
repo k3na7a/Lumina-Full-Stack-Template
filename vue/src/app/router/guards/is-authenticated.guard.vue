@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { computed, ComputedRef } from 'vue'
+import { useI18n } from 'vue-i18n'
 
 import { useAuthStore, AuthStore } from '@/app/store/authentication.store'
 import { MainController } from '@/app/layouts/main/controllers/layout.controller'
@@ -7,13 +8,14 @@ import { MainController } from '@/app/layouts/main/controllers/layout.controller
 import ErrorBoundary from '@/app/components/error-boundary/error-boundary.v1.component.vue'
 import UnauthorizedComponent from '@/app/components/unauthorized.layout.vue'
 
-const { signin } = MainController
+const { t } = useI18n()
+const controller = new MainController(t)
 
 const authStore: AuthStore = useAuthStore()
 const isAuthenticated: ComputedRef<boolean> = computed(() => authStore.isAuthenticated)
 
 const bootstrap = (): void => {
-  if (!isAuthenticated.value) signin()
+  if (!isAuthenticated.value) controller.signin()
 }
 
 bootstrap()

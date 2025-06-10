@@ -9,6 +9,7 @@ import { ForgotPassword } from '@/library/apis/localhost/dto/user.dto'
 import TextInput from '@/app/components/inputs/text.input.vue'
 import { ROUTE_NAMES } from '@/app/router/routes'
 import { GuestController } from '../controllers/guest.controller'
+import { useI18n } from 'vue-i18n'
 
 enum PAGES {
   FORM,
@@ -21,7 +22,8 @@ const state = reactive<{ loading: boolean; page: PAGES; email: string | undefine
   email: undefined
 })
 
-const { forgotPassword } = GuestController
+const { t } = useI18n()
+const controller = new GuestController(t)
 const { push }: Router = useRouter()
 const { getSubmitFn } = useFormUtil()
 
@@ -40,10 +42,12 @@ function done(): void {
 
 const onSubmit = getSubmitFn(validationSchema, async (values: { email: string }): Promise<void> => {
   state.loading = true
-  await forgotPassword({ email: values.email, redirect: process.env.BASE_URL } as ForgotPassword, () => {
-    state.email = values.email
-    state.page = PAGES.CONFIRMATION
-  }).finally(() => (state.loading = false))
+  await controller
+    .forgotPassword({ email: values.email, redirect: process.env.BASE_URL } as ForgotPassword, () => {
+      state.email = values.email
+      state.page = PAGES.CONFIRMATION
+    })
+    .finally(() => (state.loading = false))
 })
 </script>
 

@@ -2,8 +2,10 @@
 import { toRef } from 'vue'
 import { UserDto } from '@/library/apis/localhost/dto/user.dto'
 import { UserAdminController } from '../controllers/user-admin.controller.ts'
+import { useI18n } from 'vue-i18n'
 
-const { updateAvatar, removeAvatar } = UserAdminController
+const { t } = useI18n()
+const controller = new UserAdminController(t)
 
 const props = defineProps<{
   user: UserDto
@@ -13,11 +15,11 @@ const props = defineProps<{
 const user = toRef(props, 'user')
 
 function update(_: MouseEvent): void {
-  updateAvatar(user.value, props.callback)
+  controller.updateAvatar(user.value, props.callback)
 }
 
 function remove(_: MouseEvent): void {
-  removeAvatar(user.value, props.callback)
+  controller.removeAvatar(user.value, props.callback)
 }
 </script>
 

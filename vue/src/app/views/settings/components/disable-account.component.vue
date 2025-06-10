@@ -1,7 +1,9 @@
 <script setup lang="ts">
+import { useI18n } from 'vue-i18n'
 import { SettingsController } from '../controllers/settings.controller'
 
-const { disableAccount } = SettingsController
+const { t } = useI18n()
+const controller = new SettingsController(t)
 </script>
 
 <template>
@@ -12,7 +14,7 @@ const { disableAccount } = SettingsController
       </h6>
     </div>
     <div class="d-flex align-items-center justify-content-sm-end flex-grow-1">
-      <button class="btn btn-link fw-normal" type="button" @click="disableAccount">
+      <button class="btn btn-link fw-normal" type="button" @click="controller.disableAccount">
         {{ $t('actions.disable-account') }}
       </button>
     </div>

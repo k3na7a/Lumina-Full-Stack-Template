@@ -4,36 +4,69 @@
     "label": "Users",
     "header": "User Management",
     "subtitle": "Manage all registered users and their account settings.",
-    "delete-modal": {
-      "title": "Delete User Account",
-      "body": "This action will permanently delete the user account and all associated data. Are you sure you want to proceed?",
-      "action": "Delete User Account"
-    },
-    "update-modal": {
-      "remove-profile-picture": "Remove profile picture",
-      "action": "Update User"
-    },
     "user-table": {
       "title": "Manage Platform Users",
       "subtitle": "View, search, and manage user accounts across the platform",
-      "caption": "Showing {showing} of {count} users | Showing {showing} of {count} user | Showing {showing} of {count} users"
-    }
-  },
-  "user": {
-    "account-details": {
-      "title": "Manage User Account",
-      "subtitle": "Update profile data, login details, and system permissions"
+      "caption": "Showing {showing} of {count} users | Showing {showing} of {count} user | Showing {showing} of {count} users",
+      "error": {
+        "title": "Failed to Load Users",
+        "body": "An error occurred while loading users. Check your connection or refresh the page."
+      }
     },
-    "delete-account": {
-      "title": "Delete User Account",
-      "subtitle": "Permanently remove this user and all associated data from the system"
-    },
-    "avatar": {
-      "title": "Update Profile Picture",
-      "subtitle": "Upload a new image or delete the existing profile photo",
+    "single": {
+      "error": "Unable to retrieve user information. Please try again.",
+      "account-details": {
+        "title": "Manage User Account",
+        "subtitle": "Update profile data, login details, and system permissions",
+        "success": {
+          "title": "User Updated Successfully",
+          "body": "Changes to the user account were saved."
+        },
+        "error": {
+          "title": "Failed to Update User",
+          "body": "Something went wrong while updating the user profile."
+        }
+      },
+      "delete-account": {
+        "title": "Delete User Account",
+        "subtitle": "Permanently remove this user and all associated data from the system",
+        "modal": {
+          "title": "Delete User Account",
+          "body": "This action will permanently remove the user and their associated data. This cannot be undone.",
+          "action": "Delete User"
+        },
+        "success": {
+          "title": "User Deleted Successully",
+          "body": "The user account has been permanently removed."
+        },
+        "error": {
+          "title": "Failed to Delete User",
+          "body": "An error occurred while attempting to remove the user account."
+        }
+      },
+      "avatar": {
+        "title": "Update Profile Picture",
+        "subtitle": "Upload a new image or delete the existing profile photo",
+        "success": {
+          "title": "Profile Picture Updated Successfully",
+          "body": "New profile picture applied. Changes saved."
+        },
+        "error": {
+          "title": "Failed to Update Profile Picture",
+          "body": "An error occurred while uploading the new profile picture."
+        }
+      },
       "remove-avatar": {
         "title": "Remove Profile Picture",
-        "body": "This will permanently remove the user's current profile image. Are you sure you want to continue?"
+        "body": "This will permanently remove the user's current profile image. Are you sure you want to continue?",
+        "success": {
+          "title": "Profile Picture Removed Successfully",
+          "body": "The user's profile image has been removed successfully."
+        },
+        "error": {
+          "title": "Failed to Remove Profile Picture",
+          "body": "We couldn't remove the user's profile image."
+        }
       }
     }
   },

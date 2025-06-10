@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import { ref, toRef, watch } from 'vue'
 import { Form, GenericObject, SubmissionContext } from 'vee-validate'
+import { useI18n } from 'vue-i18n'
+
 import { Role, UpdateUser, UserDto } from '@/library/apis/localhost/dto/user.dto'
 import { useFormUtil } from '@/library/utils/forms.v2.util'
 import { validationSchema } from '../schema/update-user-validation.schema'
@@ -10,7 +12,8 @@ import TextInput from '@/app/components/inputs/text.input.vue'
 import InputSelectComponent from '@/app/components/inputs/select.input.vue'
 import UpdateUserProfileLayout from '../layouts/update-user-profile.layout.vue'
 
-const { updateUser } = UserAdminController
+const { t } = useI18n()
+const controller = new UserAdminController(t)
 
 const validateUtil = useFormUtil()
 const loading = ref<boolean>(false)
@@ -25,7 +28,7 @@ watch(user, (_: UserDto) => {
 
 const onSubmit = validateUtil.getSubmitFn<UpdateUser>(validationSchema, async (values: UpdateUser) => {
   loading.value = true
-  await updateUser(user.value, values, props.callback).finally(() => {
+  await controller.updateUser(user.value, values, props.callback).finally(() => {
     loading.value = false
   })
 })
@@ -57,7 +60,7 @@ const onSubmit = validateUtil.getSubmitFn<UpdateUser>(validationSchema, async (v
       </template>
       <template #submit>
         <button :disabled="!meta.valid || !meta.dirty || loading" class="btn btn-primary px-2" type="submit">
-          <p class="containter">{{ $t('administration.users.update-modal.action') }}</p>
+          <p class="containter">{{ $t('actions.save-changes') }}</p>
         </button>
       </template>
     </UpdateUserProfileLayout>

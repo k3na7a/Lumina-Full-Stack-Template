@@ -1,14 +1,18 @@
 <script setup lang="ts">
 import { computed, ComputedRef, reactive } from 'vue'
 import { Form } from 'vee-validate'
+import { useI18n } from 'vue-i18n'
+
 import TextInput from '@/app/components/inputs/text.input.vue'
+
 import { useFormUtil } from '@/library/utils/forms.util'
 import { UpdateEmail, UserDto } from '@/library/apis/localhost/dto/user.dto'
 import { SettingsController } from '../controllers/settings.controller'
 import { AuthStore, useAuthStore } from '@/app/store/authentication.store'
 import { validationSchema } from '../schema/update-email-validation.schema'
 
-const { updateEmail } = SettingsController
+const { t } = useI18n()
+const controller = new SettingsController(t)
 const { getSubmitFn } = useFormUtil()
 
 const authStore: AuthStore = useAuthStore()
@@ -18,7 +22,7 @@ const user: ComputedRef<UserDto | undefined> = computed(() => authStore.authenti
 
 const onSubmit = getSubmitFn(validationSchema, async (values: UpdateEmail): Promise<void> => {
   state.loading = true
-  updateEmail(values).finally(() => (state.loading = false))
+  controller.updateEmail(values).finally(() => (state.loading = false))
 })
 </script>
 

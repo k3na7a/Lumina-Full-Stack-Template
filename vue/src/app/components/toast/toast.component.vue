@@ -2,10 +2,7 @@
 import { ComputedRef, computed } from 'vue'
 import { Toast, ToastStore, useToastStore } from '@/app/store/toast.store'
 
-import { useStringUtil } from '@/library/utils/string.util'
-
 const store: ToastStore = useToastStore()
-const { capitalize } = useStringUtil()
 
 const toasts: ComputedRef<Toast[]> = computed<Toast[]>(() => store.getToasts)
 </script>
@@ -21,21 +18,19 @@ const toasts: ComputedRef<Toast[]> = computed<Toast[]>(() => store.getToasts)
         :class="`toast-${toast.theme}`"
         role="alert"
       >
-        <div class="d-flex flex-column flex-align-stretch">
-          <div class="d-flex align-items-center justify-content-between px-2 py-1 bg-alt2">
-            <h6 class="fw-bold">{{ capitalize(toast.title) }}</h6>
+        <div class="d-flex align-items-stretch gap-2">
+          <div class="toast-body d-flex flex-column p-2 flex-grow-1 gap-1">
+            <h6 class="fw-bold">{{ toast.title }}</h6>
+            <p class="text-light-alt">{{ toast.body }}</p>
+          </div>
+          <div class="d-flex align-items-center p-2">
             <button
               type="button"
-              class="btn btn-link link-light link-opacity-75-hover p-0"
+              class="btn btn-link link-light link-opacity-75-hover"
               @click="(_$event: MouseEvent) => store.removeToast(toast.id)"
             >
-              <font-awesome-icon :icon="['fas', 'close']" />
+              <font-awesome-icon size="lg" :icon="['fas', 'close']" />
             </button>
-          </div>
-          <div class="toast-body d-flex flex-column p-2 flex-grow-1 gap-1">
-            <p class="text-muted">
-              {{ capitalize(toast.body) }}
-            </p>
           </div>
         </div>
       </div>
@@ -57,6 +52,11 @@ $toast-themes: (
 @each $name, $color in $toast-themes {
   .toast-#{$name} {
     border: 1px solid #{$color};
+    box-shadow: 0 0 8px rgba($color, 0.4);
+
+    * > h6 {
+      color: #{$color};
+    }
   }
 }
 </style>

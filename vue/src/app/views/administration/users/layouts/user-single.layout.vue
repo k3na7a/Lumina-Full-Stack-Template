@@ -4,10 +4,10 @@
   <div class="d-flex flex-column gap-2">
     <div class="d-flex flex-column">
       <h4 class="text-light fw-semibold">
-        {{ $t('administration.user.account-details.title') }}
+        {{ $t('administration.users.single.account-details.title') }}
       </h4>
       <p class="text-muted fw-normal">
-        {{ $t('administration.user.account-details.subtitle') }}
+        {{ $t('administration.users.single.account-details.subtitle') }}
       </p>
     </div>
     <div class="card d-flex flex-column">
@@ -16,10 +16,10 @@
 
     <div class="d-flex flex-column">
       <h4 class="text-light fw-semibold">
-        {{ $t('administration.user.avatar.title') }}
+        {{ $t('administration.users.single.avatar.title') }}
       </h4>
       <p class="text-muted fw-normal">
-        {{ $t('administration.user.avatar.subtitle') }}
+        {{ $t('administration.users.single.avatar.subtitle') }}
       </p>
     </div>
 
@@ -29,10 +29,10 @@
 
     <div class="d-flex flex-column">
       <h4 class="text-light fw-semibold">
-        {{ $t('administration.user.delete-account.title') }}
+        {{ $t('administration.users.single.delete-account.title') }}
       </h4>
       <p class="text-muted fw-normal">
-        {{ $t('administration.user.delete-account.subtitle') }}
+        {{ $t('administration.users.single.delete-account.subtitle') }}
       </p>
     </div>
 

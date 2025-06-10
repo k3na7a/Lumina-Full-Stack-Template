@@ -13,21 +13,24 @@ import { useFormUtil } from '@/library/utils/forms.util'
 import TextInput from '@/app/components/inputs/text.input.vue'
 import PasswordValidationList from '@/app/components/labels/password-validation-list.component.vue'
 import { GuestController } from '../controllers/guest.controller'
+import { useI18n } from 'vue-i18n'
 
 enum PAGES {
   FORM,
   CONFIRMATION
 }
 
+const { t } = useI18n()
+const controller = new GuestController(t)
+const { getSubmitFn } = useFormUtil()
+
+const $route: RouteLocationNormalizedLoaded = useRoute()
+const $router: Router = useRouter()
+
+const queryParams: LocationQuery = $route.query
+
 const state = reactive<{ loading: boolean; page: PAGES }>({ loading: false, page: PAGES.FORM })
 
-const { resetPassword } = GuestController
-const route: RouteLocationNormalizedLoaded = useRoute()
-const router: Router = useRouter()
-
-const queryParams: LocationQuery = route.query
-
-const { getSubmitFn } = useFormUtil()
 const validationSchema = Yup.object().shape({
   new_password: Yup.string().required().matches(PasswordValidation.regex),
   confirm_password: Yup.string()
@@ -40,14 +43,14 @@ function callback(): void {
 }
 
 function done(): void {
-  router.push({ name: ROUTE_NAMES.HOME })
+  $router.push({ name: ROUTE_NAMES.HOME })
 }
 
 const onSubmit = getSubmitFn(validationSchema, async (values: ResetPassword): Promise<void> => {
   if (!(queryParams.hasOwnProperty('reset_token') && typeof queryParams['reset_token'] === 'string')) return
 
   state.loading = true
-  await resetPassword(values, queryParams['reset_token'], callback).finally(() => (state.loading = false))
+  await controller.resetPassword(values, queryParams['reset_token'], callback).finally(() => (state.loading = false))
 })
 </script>
 

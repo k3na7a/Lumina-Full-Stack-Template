@@ -1,11 +1,15 @@
 <script setup lang="ts">
+import { useI18n } from 'vue-i18n'
+import { computed, ComputedRef } from 'vue'
+
 import { AuthStore, useAuthStore } from '@/app/store/authentication.store'
 import { UserDto } from '@/library/apis/localhost/dto/user.dto'
-import { computed, ComputedRef } from 'vue'
 import { SettingsController } from '../controllers/settings.controller'
 
+const { t } = useI18n()
+const controller = new SettingsController(t)
+
 const authStore: AuthStore = useAuthStore()
-const { updateAvatar, removeAvatar } = SettingsController
 
 const user: ComputedRef<UserDto | undefined> = computed(() => authStore.authenticatedUser)
 </script>
@@ -18,12 +22,12 @@ const user: ComputedRef<UserDto | undefined> = computed(() => authStore.authenti
     <div class="d-flex flex-column align-items-start flex-grow-1 gap-1">
       <div class="d-flex gap-2 flex-nowrap align-items-center">
         <div>
-          <button class="btn btn-secondary px-2" type="button" @click="updateAvatar">
+          <button class="btn btn-secondary px-2" type="button" @click="controller.updateAvatar">
             {{ $t('actions.update-avatar') }}
           </button>
         </div>
         <div>
-          <button class="btn btn-dark btn-icon px-0 fw-normal" type="button" @click="removeAvatar">
+          <button class="btn btn-dark btn-icon px-0 fw-normal" type="button" @click="controller.removeAvatar">
             <font-awesome-icon :icon="['fas', 'trash-can']" />
           </button>
         </div>

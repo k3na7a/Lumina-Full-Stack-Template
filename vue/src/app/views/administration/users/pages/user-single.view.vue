@@ -9,8 +9,10 @@ import DisableAccountComponent from '../components/disable-account.component.vue
 import UserModal from '../components/update-user-profile.component.vue'
 
 import SingleLayout from '../layouts/user-single.layout.vue'
+import { useI18n } from 'vue-i18n'
 
-const { getUserById } = UserAdminController
+const { t } = useI18n()
+const controller = new UserAdminController(t)
 
 const $route = useRoute()
 const id = $route.params.id as string
@@ -20,7 +22,7 @@ function setUser(newUser: UserDto): void {
   user.value = newUser
 }
 
-await getUserById(id).then((value: UserDto) => {
+await controller.getUserById(id).then((value: UserDto) => {
   user.value = value
 })
 </script>
@@ -29,13 +31,13 @@ await getUserById(id).then((value: UserDto) => {
   <div class="content-view-settings">
     <SingleLayout>
       <template #update-profile>
-        <UserModal :user="user" :callback="setUser" />
+        <UserModal :user :callback="setUser" />
       </template>
       <template #update-avatar>
         <UpdateUserAvatar :user :callback="setUser" />
       </template>
       <template #disable-account>
-        <DisableAccountComponent v-if="user" :user="user" />
+        <DisableAccountComponent :user="user" />
       </template>
     </SingleLayout>
   </div>

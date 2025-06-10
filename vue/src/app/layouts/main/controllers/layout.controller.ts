@@ -13,41 +13,22 @@ import { Register, RegisterDto } from '@/library/apis/localhost/dto/user.dto'
 import { credentials } from '@/library/apis/localhost/dto/JWT.dto'
 
 class MainController {
-  public static signin = (): void => {
-    const { openModal, closeModal }: ModalStore = useModalStore()
-    const { signIn }: AuthStore = useAuthStore()
-    const { addToast }: ToastStore = useToastStore()
+  private readonly modalStore: ModalStore = useModalStore()
+  private readonly authStore: AuthStore = useAuthStore()
+  private readonly toastStore: ToastStore = useToastStore()
 
-    openModal({
-      view: markRaw(SignInModal),
-      properties: {
-        callback: async (values: credentials): Promise<void> => {
-          await signIn(values)
-            .then(() => {
-              addToast({
-                title: 'Signed In Successfully',
-                body: 'Login successful. Welcome back!',
-                options: { theme: 'success' }
-              })
-              closeModal()
-            })
-            .catch((error: AxiosError) => {
-              console.warn('[Axios] Failed to POST sign-in')
-              addToast({
-                title: error.response?.statusText || 'ERROR',
-                body: error.message,
-                options: { theme: 'danger' }
-              })
-            })
-        }
-      }
-    })
+  private readonly $t: (key: string) => string
+
+  constructor(t: (key: string) => string) {
+    this.$t = t
   }
 
-  public static register = (): void => {
-    const { openModal, closeModal }: ModalStore = useModalStore()
-    const { register }: AuthStore = useAuthStore()
-    const { addToast }: ToastStore = useToastStore()
+  public register = (): void => {
+    const { openModal, closeModal } = this.modalStore
+    const { register } = this.authStore
+    const { addToast } = this.toastStore
+
+    const t = this.$t
 
     openModal({
       view: markRaw(RegisterModal),
@@ -55,18 +36,19 @@ class MainController {
         callback: async (values: Register): Promise<void> => {
           await register(new RegisterDto(values))
             .then(() => {
+              console.log('[Axios] PUT /register request succeeded')
               addToast({
-                title: 'Registration Complete',
-                body: 'Welcome aboard! Your account is ready to use.',
+                title: t('authentication.register.success.title'),
+                body: t('authentication.register.success.body'),
                 options: { theme: 'success' }
               })
               closeModal()
             })
             .catch((error: AxiosError) => {
-              console.warn('[Axios] Failed to PUT register')
+              console.warn(`[Axios] Failed to PUT /register : ${error.message}`)
               addToast({
-                title: error.response?.statusText || 'ERROR',
-                body: error.message,
+                title: t('authentication.register.error.title'),
+                body: t('authentication.register.error.body'),
                 options: { theme: 'danger' }
               })
             })
@@ -75,37 +57,74 @@ class MainController {
     })
   }
 
-  public static signout = (): void => {
-    const { openModal, closeModal }: ModalStore = useModalStore()
-    const { signOut }: AuthStore = useAuthStore()
-    const { addToast }: ToastStore = useToastStore()
+  public signin = (): void => {
+    const { addToast } = this.toastStore
+    const { closeModal, openModal } = this.modalStore
+    const { signIn } = this.authStore
+
+    const t = this.$t
 
     openModal({
-      view: markRaw(ConfirmationModal),
+      view: markRaw(SignInModal),
       properties: {
-        close: closeModal,
-        callback: async (): Promise<void> => {
-          await signOut()
+        callback: async (values: credentials): Promise<void> => {
+          await signIn(values)
             .then(() => {
+              console.log('[Axios] POST /sign-in request succeeded')
               addToast({
-                title: 'Signed Out Successfully',
-                body: "You've logged out. See you next time!",
+                title: t('authentication.log-in.success.title'),
+                body: t('authentication.log-in.success.body'),
                 options: { theme: 'success' }
               })
               closeModal()
             })
             .catch((error: AxiosError) => {
-              console.warn('[Axios] Failed to POST sign-out')
+              console.warn(`[Axios] Failed to POST /sign-in : ${error.message}`)
               addToast({
-                title: error.response?.statusText || 'ERROR',
-                body: error.message,
+                title: t('authentication.log-in.error.title'),
+                body: t('authentication.log-in.error.body'),
                 options: { theme: 'danger' }
               })
             })
-        },
-        title: 'authentication.log-out.modal-title',
-        body: 'authentication.log-out.modal-body',
-        action: 'actions.log-out'
+        }
+      }
+    })
+  }
+
+  public signout = (): void => {
+    const { openModal, closeModal }: ModalStore = useModalStore()
+    const { signOut }: AuthStore = useAuthStore()
+    const { addToast }: ToastStore = useToastStore()
+
+    const t = this.$t
+
+    openModal({
+      view: markRaw(ConfirmationModal),
+      properties: {
+        title: t('authentication.log-out.modal-title'),
+        body: t('authentication.log-out.modal-body'),
+        action: t('actions.log-out'),
+        close: closeModal,
+        callback: async (): Promise<void> => {
+          await signOut()
+            .then(() => {
+              console.log('[Axios] POST /sign-out request succeeded')
+              addToast({
+                title: t('authentication.log-out.success.title'),
+                body: t('authentication.log-out.success.body'),
+                options: { theme: 'success' }
+              })
+              closeModal()
+            })
+            .catch((error: AxiosError) => {
+              console.warn(`[Axios] Failed to POST /sign-out : ${error.message}`)
+              addToast({
+                title: t('authentication.log-out.error.title'),
+                body: t('authentication.log-out.error.body'),
+                options: { theme: 'danger' }
+              })
+            })
+        }
       }
     })
   }

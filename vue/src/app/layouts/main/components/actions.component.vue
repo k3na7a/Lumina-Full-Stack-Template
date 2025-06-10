@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { computed, ComputedRef } from 'vue'
+import { useI18n } from 'vue-i18n'
 
 import LanguagesDropdown from './dropdowns/languages-dropdown.component.vue'
 import UserActionsDropdown from './dropdowns/user-actions-dropdown.component.vue'
@@ -8,8 +9,10 @@ import { AuthStore, useAuthStore } from '@/app/store/authentication.store'
 import { UserDto } from '@/library/apis/localhost/dto/user.dto'
 import { MainController } from '../controllers/layout.controller'
 
+const { t } = useI18n()
+const controller = new MainController(t)
+
 const authStore: AuthStore = useAuthStore()
-const { signin, register, signout } = MainController
 
 const user: ComputedRef<UserDto | undefined> = computed(() => authStore.authenticatedUser)
 </script>
@@ -22,7 +25,7 @@ const user: ComputedRef<UserDto | undefined> = computed(() => authStore.authenti
 
     <template v-if="!user">
       <nav class="align-content-center">
-        <button class="btn btn-secondary px-0 border-0" type="button" @click="signin">
+        <button class="btn btn-secondary px-0 border-0" type="button" @click="controller.signin">
           <div class="px-2 fw-bold">
             {{ $t('actions.log-in') }}
           </div>
@@ -30,7 +33,7 @@ const user: ComputedRef<UserDto | undefined> = computed(() => authStore.authenti
       </nav>
 
       <nav class="align-content-center flex-grow-1">
-        <button class="btn btn-primary px-0 border-0" type="button" @click="register">
+        <button class="btn btn-primary px-0 border-0" type="button" @click="controller.register">
           <div class="px-2 fw-bold">
             {{ $t('actions.sign-up') }}
           </div>
@@ -40,7 +43,7 @@ const user: ComputedRef<UserDto | undefined> = computed(() => authStore.authenti
 
     <template v-else="isAuthenticated">
       <nav class="align-content-center flex-grow-1">
-        <UserActionsDropdown :signout="signout" :authenticated-user="user" />
+        <UserActionsDropdown :signout="controller.signout" :authenticated-user="user" />
       </nav>
     </template>
   </div>

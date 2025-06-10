@@ -11,40 +11,65 @@ import {
 } from '@/library/apis/localhost/dto/user.dto'
 
 class GuestController {
-  public static forgotPassword = async (props: ForgotPassword, callback?: () => void): Promise<void> => {
-    const { forgotPassword }: AuthStore = useAuthStore()
-    const { addToast }: ToastStore = useToastStore()
+  private readonly authStore: AuthStore = useAuthStore()
+  private readonly toastStore: ToastStore = useToastStore()
+
+  private readonly $t: (key: string) => string
+
+  constructor(t: (key: string) => string) {
+    this.$t = t
+  }
+
+  public forgotPassword = async (props: ForgotPassword, callback?: () => void): Promise<void> => {
+    const { forgotPassword } = this.authStore
+    const { addToast } = this.toastStore
+
+    const t = this.$t
 
     await forgotPassword(new ForgotPasswordDto(props))
       .then(() => {
+        console.log('[Axios] POST /forgot-password request succeeded')
         if (callback) callback()
         addToast({
-          title: 'Password Reset Email Sent',
-          body: "We've sent a link to your email so you can reset your password. Please check your inbox.",
+          title: t('authentication.account-recovery.success.title'),
+          body: t('authentication.account-recovery.success.body'),
           options: { theme: 'success' }
         })
       })
-      .catch((error: AxiosError) =>
-        addToast({ title: error.response?.statusText || 'ERROR', body: error.message, options: { theme: 'danger' } })
-      )
+      .catch((error: AxiosError) => {
+        console.warn(`[Axios] Failed to POST /forgot-password : ${error.message}`)
+        addToast({
+          title: t('authentication.account-recovery.error.title'),
+          body: t('authentication.account-recovery.error.body'),
+          options: { theme: 'danger' }
+        })
+      })
   }
 
-  public static resetPassword = async (props: ResetPassword, token: string, callback?: () => void): Promise<void> => {
-    const { resetPassword }: AuthStore = useAuthStore()
-    const { addToast }: ToastStore = useToastStore()
+  public resetPassword = async (props: ResetPassword, token: string, callback?: () => void): Promise<void> => {
+    const { resetPassword } = this.authStore
+    const { addToast } = this.toastStore
+
+    const t = this.$t
 
     await resetPassword(new ResetPasswordDto(props, token))
       .then(() => {
+        console.log('[Axios] PATCH /reset-password request succeeded')
         if (callback) callback()
         addToast({
-          title: 'Password Reset Successful',
-          body: "Your password has been changed successfully. You're all set!",
+          title: t('authentication.password-reset.success.title'),
+          body: t('authentication.password-reset.success.body'),
           options: { theme: 'success' }
         })
       })
-      .catch((error: AxiosError) =>
-        addToast({ title: error.response?.statusText || 'ERROR', body: error.message, options: { theme: 'danger' } })
-      )
+      .catch((error: AxiosError) => {
+        console.warn(`[Axios] Failed to PATCH /reset-password : ${error.message}`)
+        addToast({
+          title: t('authentication.password-reset.error.title'),
+          body: t('authentication.password-reset.error.body'),
+          options: { theme: 'danger' }
+        })
+      })
   }
 }
 
