@@ -6,11 +6,12 @@ import { options } from './schema/navigation.schema'
 import SubNavigationLayout from '@/app/components/top-nav/sub-navigation.layout.vue'
 import ErrorBoundary from '@/app/components/error-boundary/error-boundary.v1.component.vue'
 import Alert from '@/app/components/alerts/alert.component.vue'
+
 const $route: RouteLocationNormalizedLoaded = useRoute()
 </script>
 
 <template>
-  <SubNavigationLayout title="administration.users.header" subtitle="administration.users.subtitle" :routes="options">
+  <SubNavigationLayout title="administration.users.header" :routes="options">
     <template #content>
       <RouterView v-slot="{ Component }" :key="$route.path">
         <template v-if="Component">

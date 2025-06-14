@@ -4,22 +4,20 @@ import {
   NotFoundException,
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { GameEntity } from '../entities/game.entity';
 import { Not, Repository } from 'typeorm';
-import { CreateGameDto, GamePaginationOptions } from '../dto/game.dto';
+
+import { GameEntity } from '../entities/game.entity';
+import { GamePaginationOptions } from '../dto/game.dto';
 import {
   PaginationDto,
   PaginationMeta,
 } from 'src/library/data/dto/pagination.dto';
-import { AssetsService } from './assets.service';
-import { AssetsEntity } from '../entities/assets.entity';
 
 @Injectable()
 export class GameService {
   constructor(
     @InjectRepository(GameEntity)
     private readonly repository: Repository<GameEntity>,
-    private readonly assetsService: AssetsService,
   ) {}
 
   public async findOneById(id: string): Promise<GameEntity> {
@@ -48,8 +46,8 @@ export class GameService {
       throw new NotAcceptableException('A game with this slug already exists.');
   }
 
-  public async create(dto: CreateGameDto): Promise<GameEntity> {
-    const game = this.repository.create({ ...dto, assets: new AssetsEntity() });
+  public async create(dto: Partial<GameEntity>): Promise<GameEntity> {
+    const game = this.repository.create({ ...dto });
     return this.repository.save(game);
   }
 
@@ -59,8 +57,8 @@ export class GameService {
     const { sort, search, order, take, skip } = pageOptions;
     const [games, itemCount] = await this.repository
       .createQueryBuilder('game')
-      .leftJoinAndSelect('game.assets', 'assets')
-      .leftJoinAndSelect('assets.coverLarge', 'cover')
+      .leftJoinAndSelect('game.cover', 'cover')
+      .leftJoinAndSelect('game.platforms', 'platform')
       .where('game.name like :query', { query: `%${search}%` })
       .orderBy({ [sort]: order })
       .take(take)
@@ -71,7 +69,10 @@ export class GameService {
     return new PaginationDto(games, meta);
   }
 
-  public async update(id: string, dto: CreateGameDto): Promise<GameEntity> {
+  public async update(
+    id: string,
+    dto: Partial<GameEntity>,
+  ): Promise<GameEntity> {
     const game = await this.findOneById(id);
 
     if (dto.slug && dto.slug !== game.slug)
@@ -85,8 +86,6 @@ export class GameService {
 
   public async delete(id: string): Promise<GameEntity> {
     const game = await this.findOneById(id);
-
-    await this.assetsService.remove(game.assets);
 
     return this.repository.remove(game);
   }

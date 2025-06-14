@@ -4,12 +4,15 @@ import { TypeOrmPlugin } from 'src/plugins/typeorm.plugin';
 import { MediaModule } from '../media/media.module';
 import { GameEntity } from './entities/game.entity';
 import { GameService } from './services/games.service';
-import { AssetsEntity } from './entities/assets.entity';
-import { AssetsService } from './services/assets.service';
+import { PlatformEntity } from './entities/platform.entity';
+import { PlatformService } from './services/platforms.service';
 
 @Module({
-  imports: [TypeOrmPlugin.forFeature([GameEntity, AssetsEntity]), MediaModule],
-  providers: [GameService, AssetsService],
-  exports: [GameService, AssetsService],
+  imports: [
+    TypeOrmPlugin.forFeature([GameEntity, PlatformEntity]),
+    MediaModule,
+  ],
+  providers: [GameService, PlatformService],
+  exports: [GameService, PlatformService],
 })
 export class GamesModule {}

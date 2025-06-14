@@ -1,5 +1,5 @@
 import { LocalhostAPI as API, TOKEN_ID } from '@/library/apis/localhost/localhost.api'
-import { useLocalStorageUtil } from '@/library/utils/local-storage.util'
+import { useLocalStorageUtil } from '@/library/utilities/local-storage.util'
 import {
   DeleteAccountDto,
   ForgotPasswordDto,
@@ -91,43 +91,42 @@ const useAuthStore: StoreDef = defineStore({
 
     async verifyToken(): Promise<void> {
       if (!TOKEN.getItem()) return
-
-      const dto: JWTDto = await API.authentication.account.verifyToken()
+      const dto: JWTDto = await API.authentication.verifyToken()
       this.authenticate(dto)
     },
 
     async signOut(): Promise<void> {
-      await API.authentication.account.signOut()
+      await API.authentication.signOut()
       this.purge()
     },
 
     async updateEmail(props: UpdateEmailDto): Promise<void> {
-      const dto: JWTDto = await API.authentication.account.updateEmail(props)
+      const dto: JWTDto = await API.authentication.updateEmail(props)
       this.authenticate(dto)
     },
 
     async updatePassword(props: UpdatePasswordDto): Promise<void> {
-      const dto: JWTDto = await API.authentication.account.updatePassword(props)
+      const dto: JWTDto = await API.authentication.updatePassword(props)
       this.authenticate(dto)
     },
 
     async deleteAccount(props: DeleteAccountDto): Promise<void> {
-      await API.authentication.account.deleteAccount(props)
+      await API.authentication.deleteAccount(props)
       this.purge()
     },
 
     async updateProfile(props: UpdateProfileDto): Promise<void> {
-      const dto: JWTDto = await API.authentication.account.profile.updateProfile(props)
+      const dto: JWTDto = await API.authentication.updateProfile(props)
       this.authenticate(dto)
     },
 
     async updateAvatar(props: File): Promise<void> {
-      const dto: JWTDto = await API.authentication.account.profile.updateAvatar(props)
+      const dto: JWTDto = await API.authentication.updateAvatar(props)
       this.authenticate(dto)
     },
 
     async removeAvatar(): Promise<void> {
-      const dto: JWTDto = await API.authentication.account.profile.removeAvatar()
+      const dto: JWTDto = await API.authentication.removeAvatar()
       this.authenticate(dto)
     }
   }

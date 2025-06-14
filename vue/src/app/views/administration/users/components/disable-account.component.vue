@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { UserDto } from '@/library/apis/localhost/dto/user.dto'
-import { UserAdminController } from '../controllers/user-admin.controller'
+import { UserAdminController } from '../controller/admin.user.controller'
 import { Router, useRouter } from 'vue-router'
 import { ROUTE_NAMES } from '@/app/router/routes'
 import { useI18n } from 'vue-i18n'
@@ -15,7 +15,7 @@ const props = defineProps<{
 }>()
 
 function remove(_: MouseEvent): void {
-  controller.deleteUser(props.user, () => {
+  controller.deleteUser(props.user, (_: UserDto) => {
     $router.push({ name: ROUTE_NAMES.ADMIN_USERS })
   })
 }
@@ -25,7 +25,7 @@ function remove(_: MouseEvent): void {
   <div class="d-flex flex-column flex-sm-row gap-3 p-3">
     <div class="row-header">
       <h6 class="fw-bold">
-        {{ $t('settings.profile.disable-account.form-header') }}
+        {{ $t('administration.users.single.delete-account.label') }}
       </h6>
     </div>
     <div class="d-flex align-items-center justify-content-sm-end flex-grow-1">

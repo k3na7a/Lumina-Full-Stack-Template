@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
 
-import { UserAdminModule } from './users/users.module';
-import { GamesAdminModule } from './games/games.module';
+import { UserAdminModule } from './users/users.admin.module';
+import { GamesAdminModule } from './games/games.admin.module';
 import { RouterModule } from '@nestjs/core';
 
 @Module({

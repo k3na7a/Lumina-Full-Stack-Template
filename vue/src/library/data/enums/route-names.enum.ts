@@ -10,6 +10,7 @@ enum ROUTE_NAMES {
   ADMIN_USERS_NEW = 'admin-users-new',
 
   ADMIN_GAMES = 'admin-games',
+  ADMIN_PLATFORMS = 'admin-platforms',
 
   // SETTINGS ROUTES
   SETTINGS = 'settings',

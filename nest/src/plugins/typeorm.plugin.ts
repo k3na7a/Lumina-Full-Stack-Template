@@ -5,14 +5,17 @@ import { ImageEntity } from 'src/app/media/entities/image.entity';
 import { ProfileEntity } from 'src/app/users/entities/profile.entity';
 import { UserEntity } from 'src/app/users/entities/user.entity';
 import { GameEntity } from 'src/app/games/entities/game.entity';
-import { AssetsEntity } from 'src/app/games/entities/assets.entity';
+import { PlatformEntity } from 'src/app/games/entities/platform.entity';
 
 const entities = [
+  // GENERIC
+  ImageEntity,
+  // USERS
   UserEntity,
   ProfileEntity,
-  ImageEntity,
+  // GAMES & SOFTWARE
   GameEntity,
-  AssetsEntity,
+  PlatformEntity,
 ];
 
 const config: TypeOrmModuleOptions = {

@@ -6,7 +6,7 @@ import TextInput from '@/app/components/inputs/text.input.vue'
 import ModalTitleComponent from '@/app/components/modal/modal-title.component.vue'
 
 import { ROUTE_NAMES } from '@/app/router/routes'
-import { useFormUtil } from '@/library/utils/forms.util'
+import { useFormUtil } from '@/library/utilities/forms.util'
 import { credentials } from '@/library/apis/localhost/dto/JWT.dto'
 import { validationSchema } from '../../schema/signin-validation.schema'
 

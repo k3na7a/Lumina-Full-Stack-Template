@@ -4,7 +4,7 @@ import ModalComponent from '@/app/components/modal/modal.component.vue'
 import ErrorBoundary from '@/app/components/error-boundary/error-boundary.v1.component.vue'
 
 import { provide, ref } from 'vue'
-import { UpdateKeySymbol } from '@/library/data/schema/key.schema'
+import { UpdateKeySymbol } from '@/library/schema/key.schema'
 
 const renderKey = ref(Date.now())
 const updateKey = () => (renderKey.value = Date.now())

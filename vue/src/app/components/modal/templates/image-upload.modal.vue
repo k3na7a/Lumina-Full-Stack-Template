@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import { Form } from 'vee-validate'
-import { useFormUtil } from '@/library/utils/forms.util'
+import { useFormUtil } from '@/library/utilities/forms.util'
 import ModalTitleComponent from '@/app/components/modal/modal-title.component.vue'
 import FileInputComponent from '@/app/components/inputs/file.input.vue'
 import { FormValues, validationSchema } from '../schema/image-upload-validation.schema'

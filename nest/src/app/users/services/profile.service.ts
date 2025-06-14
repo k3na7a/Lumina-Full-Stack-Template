@@ -5,7 +5,6 @@ import { Repository } from 'typeorm';
 import { ImageService } from 'src/app/media/services/image.service';
 import { IMAGE_TYPE } from 'src/app/media/constants/image-routes.constants';
 import { ImageEntity } from 'src/app/media/entities/image.entity';
-import { UpdateUserProfile } from '../interfaces/user.interfaces';
 
 @Injectable()
 export class ProfileService {
@@ -60,7 +59,7 @@ export class ProfileService {
 
   public async update(
     profile: ProfileEntity,
-    dto: UpdateUserProfile,
+    dto: Partial<ProfileEntity>,
   ): Promise<ProfileEntity> {
     const updated = await this.repository.preload({
       id: profile.id,

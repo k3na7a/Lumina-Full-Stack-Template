@@ -1,7 +1,6 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import * as bcrypt from 'bcrypt';
 
 import { CreateUserInterface } from 'src/app/users/interfaces/user.interfaces';
 import {
@@ -21,10 +20,7 @@ export class UserService {
   ) {}
 
   public async create(dto: CreateUserInterface): Promise<UserEntity> {
-    const salt: string = await bcrypt.genSalt();
-    const hash: string = await bcrypt.hash(dto.password, salt);
-
-    const user = this.repository.create({ ...dto, password: hash });
+    const user = this.repository.create({ ...dto });
     return this.repository.save(user);
   }
 
@@ -74,9 +70,6 @@ export class UserService {
 
   public async remove(id: string): Promise<UserEntity> {
     const user = await this.findOneById(id);
-    const { profile } = user;
-
-    if (profile.avatar) await this.profileService.removeAvatar(profile);
 
     return this.repository.remove(user);
   }

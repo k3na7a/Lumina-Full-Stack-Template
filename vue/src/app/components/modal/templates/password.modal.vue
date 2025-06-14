@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import { Form } from 'vee-validate'
-import { useFormUtil } from '@/library/utils/forms.util'
+import { useFormUtil } from '@/library/utilities/forms.util'
 import TextInput from '@/app/components/inputs/text.input.vue'
 import ModalTitleComponent from '@/app/components/modal/modal-title.component.vue'
 import { FormValues, validationSchema } from '../schema/password-validation.schema'
@@ -29,12 +29,14 @@ const onSubmit = getSubmitFn(validationSchema, (values: FormValues) => {
   <Form @submit="onSubmit" :validation-schema="validationSchema" v-slot="{ meta }">
     <div class="d-flex flex-column gap-3">
       <ModalTitleComponent :title="props.title" />
-      <div class="d-flex flex-column">
-        <h6 class="fw-normal text-light-alt">{{ props.body }}</h6>
-      </div>
-      <div class="d-flex flex-column">
-        <TextInput autocomplete="current-password" class="mb-1" name="password" type="password" />
-        <small class="text-light-alt">{{ $t('authentication.password-security') }}</small>
+      <div class="d-flex flex-column gap-2">
+        <div class="d-flex flex-column">
+          <h6 class="fw-normal text-light-alt">{{ props.body }}</h6>
+        </div>
+        <div class="d-flex flex-column">
+          <TextInput autocomplete="current-password" class="mb-1" name="password" type="password" />
+          <small class="text-light-alt">{{ $t('authentication.password-security') }}</small>
+        </div>
       </div>
       <div class="d-grid">
         <button :disabled="!meta.valid || loading || !meta.dirty" class="btn btn-primary px-0" type="submit">

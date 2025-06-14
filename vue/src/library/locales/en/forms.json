@@ -13,7 +13,9 @@
   "browse": "Browse",
   "created": "Created At",
   "date-registered": "Registered",
+  "description": "Description",
   "actions": "Actions",
+  "cover": "Cover Art",
   "phone": "Phone Number",
   "new-email": "New Email Address",
   "password": "Password",
@@ -31,7 +33,12 @@
   "no-results": "No results found",
   "slug": "URL Slug",
   "tags": "Tags",
+  "release-date": "Release Date",
+  "permanently-delete": "permanently delete",
+  "confirm-deletion": "To confirm deletion, type { 0 } in the text input field.",
   "seo-item": "SEO-friendly text used in the URLs of your content items.",
   "img-input-warning": "Must be JPEG, PNG, or GIF and cannot exceed 10MB.",
-  "error-general": "There was an error!"
+  "error-general": "Something Went Wrong!",
+  "success-general": "Changes Saved!",
+  "success": "Success!"
 }

@@ -1,20 +1,27 @@
 import { ApiProperty } from '@nestjs/swagger';
+import { nanoid } from 'src/plugins/nanoid.plugin';
 import {
-  PrimaryGeneratedColumn,
   CreateDateColumn,
   UpdateDateColumn,
+  PrimaryColumn,
+  BeforeInsert,
 } from 'typeorm';
 
 export abstract class BaseEntity {
   @ApiProperty()
-  @PrimaryGeneratedColumn('uuid')
-  public id: string;
+  @PrimaryColumn()
+  public id!: string;
+
+  @BeforeInsert()
+  async generateId(): Promise<void> {
+    this.id = nanoid();
+  }
 
   @ApiProperty()
   @CreateDateColumn()
-  public createdAt: Date;
+  public readonly createdAt!: Date;
 
   @ApiProperty()
   @UpdateDateColumn()
-  public updatedAt: Date;
+  public readonly updatedAt!: Date;
 }

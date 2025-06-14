@@ -6,6 +6,7 @@ import { PaginationOptions } from 'src/library/dto/pagination.dto';
 enum SORT_OPTIONS {
   CREATED = 'game.createdAt',
   NAME = 'game.name',
+  RELEASE_DATE = 'game.release_date',
 }
 
 class GamePaginationOptions extends PaginationOptions {
@@ -26,6 +27,7 @@ class CreateGameDto {
   public readonly release_date!: Date;
 
   @ApiPropertyOptional()
+  @IsOptional()
   @IsString()
   public readonly description?: string;
 

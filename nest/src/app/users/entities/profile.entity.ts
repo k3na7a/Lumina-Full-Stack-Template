@@ -1,4 +1,4 @@
-import { ApiProperty } from '@nestjs/swagger';
+import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 import { BaseEntity } from 'src/library/data/entities/base.entity';
 import { Entity, Column, OneToOne, JoinColumn, ManyToOne } from 'typeorm';
 import { UserEntity } from './user.entity';
@@ -12,15 +12,11 @@ class Name {
   @ApiProperty()
   @Column()
   public readonly last!: string;
-
-  public getFullName() {
-    return [this.first, this.last].join(' ');
-  }
 }
 
 @Entity('profiles')
 export class ProfileEntity extends BaseEntity {
-  @ApiProperty({ type: () => ImageEntity })
+  @ApiPropertyOptional({ type: () => ImageEntity })
   @ManyToOne(() => ImageEntity, {
     cascade: ['insert', 'update'],
     eager: true,

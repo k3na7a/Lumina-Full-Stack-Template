@@ -47,6 +47,11 @@ export class AuthService {
     throw new UnauthorizedException('Invalid credentials');
   }
 
+  public async updateRefreshToken(userId: string, refreshToken: string) {
+    const hashed = this.createHash(refreshToken);
+    await this.userService.update(userId, { refreshToken: hashed });
+  }
+
   public async getTokens(payload: Payload): Promise<JWTInterface> {
     const [access_token, refresh_token] = await Promise.all([
       this.jwtService.signAsync(payload, {
@@ -87,37 +92,17 @@ export class AuthService {
     return bcrypt.hash(password, salt);
   }
 
-  public async updateRefreshToken(userId: string, refreshToken: string) {
-    const hashed = this.createHash(refreshToken);
-    await this.userService.update(userId, { refreshToken: hashed });
-  }
-
   public async register(dto: RegisterDto): Promise<JWTDto> {
-    const user: UserEntity = await this.userService.create(dto);
+    const password = await this.hashPassword(dto.password);
+    const user: UserEntity = await this.userService.create({
+      ...dto,
+      password,
+    });
     return this.issueTokens(user);
   }
 
   public async signIn(user: UserEntity): Promise<JWTDto> {
     return this.issueTokens(user);
-  }
-
-  private async sendForgotPasswordEmail(
-    user: UserEntity,
-    resetToken: string,
-    redirectUrl: string,
-  ): Promise<void> {
-    return SendGridPlugin.sendMail({
-      to: [user.email],
-      subject: ForgotPasswordEmailSubject,
-      html: HandlebarsPlugin.compile<ForgotPasswordOptions>({
-        template: ForgotPasswordEmailBody,
-        data: {
-          name: user.getFullName(),
-          email: user.email,
-          redirect: `${redirectUrl}/guest/password-reset?${new URLSearchParams({ reset_token: resetToken })}`,
-        },
-      }),
-    });
   }
 
   public async forgotPassword(dto: ForgotPasswordDto): Promise<void> {
@@ -129,7 +114,18 @@ export class AuthService {
     const hashedResetToken = this.createHash(tokens.access_token);
     await this.userService.update(user.id, { resetToken: hashedResetToken });
 
-    await this.sendForgotPasswordEmail(user, tokens.access_token, dto.redirect);
+    await SendGridPlugin.sendMail({
+      to: [user.email],
+      subject: ForgotPasswordEmailSubject,
+      html: HandlebarsPlugin.compile<ForgotPasswordOptions>({
+        template: ForgotPasswordEmailBody,
+        data: {
+          name: `${user.profile.name.first} ${user.profile.name.last}`,
+          email: user.email,
+          redirect: `${dto.redirect}/guest/password-reset?${new URLSearchParams({ reset_token: tokens.access_token })}`,
+        },
+      }),
+    });
   }
 
   public async resetPassword(
@@ -170,10 +166,11 @@ export class AuthService {
   ): Promise<JWTDto> {
     await this.validateUser(user.email, password);
 
-    const updatedUser = await this.userService.update(user.id, {
+    await this.userService.update(user.id, {
       email: new_email,
     });
 
+    const updatedUser = await this.userService.findOneById(user.id);
     return this.issueTokens(updatedUser);
   }
 
@@ -183,11 +180,12 @@ export class AuthService {
   ): Promise<JWTDto> {
     await this.validateUser(user.email, old_password);
 
-    const hashedPassword = await this.hashPassword(new_password);
-    const updatedUser = await this.userService.update(user.id, {
-      password: hashedPassword,
+    const hash = await this.hashPassword(new_password);
+    await this.userService.update(user.id, {
+      password: hash,
     });
 
+    const updatedUser = await this.userService.findOneById(user.id);
     return this.issueTokens(updatedUser);
   }
 
@@ -195,7 +193,12 @@ export class AuthService {
     user: UserEntity,
     { password }: deleteAccountDto,
   ): Promise<void> {
+    const { profile } = user;
+
     await this.validateUser(user.email, password);
+
+    if (profile.avatar) await this.profileService.removeAvatar(profile);
+
     await this.userService.remove(user.id);
   }
 

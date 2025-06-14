@@ -5,37 +5,16 @@
   "log-in": {
     "modal-title": "Log in to Testhub",
     "trouble": "Trouble logging in?",
-    "success": {
-      "title": "Signed In Successfully",
-      "body": "Login successful. Welcome back!"
-    },
-    "error": {
-      "title": "Sign In Failed",
-      "body": "We couldn't sign you in. Double-check your credentials and try again."
-    }
+    "success": "Login successful. Welcome back!"
   },
   "register": {
     "modal-title": "Join Testhub today",
-    "success": {
-      "title": "Registration Complete",
-      "body": "Welcome aboard! Your account is ready to use."
-    },
-    "error": {
-      "title": "Registration Failed",
-      "body": "Something went wrong during registration. Check your details and try again."
-    }
+    "success": "Welcome aboard! Your account is ready to use."
   },
   "log-out": {
     "modal-title": "Log out of Testhub",
-    "modal-body": "Are you sure you want to log out of Testhub?",
-    "success": {
-      "title": "Signed Out Successfully",
-      "body": "You've logged out. See you next time!"
-    },
-    "error": {
-      "title": "Sign-Out Failed",
-      "body": "An error occurred while signing out. Your session may still be active."
-    }
+    "modal-body": "Are you sure you want to log out of your Testhub account?",
+    "success": "You've logged out. See you next time!"
   },
   "disable-account": {
     "modal-title": "Disable your Testhub account",
@@ -48,28 +27,14 @@
     "confirm-title": "Check your email",
     "confirm-body-sent-link": "Please go to your {0} email and click the password reset link we've sent for your Testhub account.",
     "confirm-body-check-spam": "It could take a few minutes to appear, and be sure to check any spam and promotional folders—just in case!",
-    "success": {
-      "title": "Password Reset Email Sent",
-      "body": "We've sent a link to your email so you can reset your password. Please check your inbox."
-    },
-    "error": {
-      "title": "Password Reset Email Failed",
-      "body": "Something went wrong while sending the reset email. Make sure your email address is correct and try again."
-    }
+    "success": "We've sent a link to your email so you can reset your password. Please check your inbox."
   },
   "password-reset": {
     "title": "Set New Password",
     "subtitle": "Set a new password for your account. Resetting your password will also invalidate any existing log in sessions.",
     "confirm-title": "Password Reset",
     "confirm-body": "Your password has been reset successfully! You can now use your new password to log in to your account.",
-    "success": {
-      "title": "Password Reset Successful",
-      "body": "Your password has been reset. You can now sign in with your new credentials."
-    },
-    "error": {
-      "title": "Password Reset Failed",
-      "body": "Something went wrong while resetting your password. Make sure your reset link is valid and try again."
-    }
+    "success": "Your password has been reset. You can now sign in with your new credentials."
   },
   "password-validation": {
     "label": "Passwords must be 8 to 16 characters long and contain the following:",

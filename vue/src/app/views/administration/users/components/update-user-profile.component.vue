@@ -4,9 +4,9 @@ import { Form, GenericObject, SubmissionContext } from 'vee-validate'
 import { useI18n } from 'vue-i18n'
 
 import { Role, UpdateUser, UserDto } from '@/library/apis/localhost/dto/user.dto'
-import { useFormUtil } from '@/library/utils/forms.v2.util'
+import { useFormUtil } from '@/library/utilities/forms.v2.util'
 import { validationSchema } from '../schema/update-user-validation.schema'
-import { UserAdminController } from '../controllers/user-admin.controller'
+import { UserAdminController } from '../controller/admin.user.controller'
 
 import TextInput from '@/app/components/inputs/text.input.vue'
 import InputSelectComponent from '@/app/components/inputs/select.input.vue'

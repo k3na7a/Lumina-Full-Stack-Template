@@ -19,11 +19,13 @@ class MainController {
 
   private readonly $t: (key: string) => string
 
+  private readonly debug: boolean = false
+
   constructor(t: (key: string) => string) {
     this.$t = t
   }
 
-  public register = (): void => {
+  public readonly register = (): void => {
     const { openModal, closeModal } = this.modalStore
     const { register } = this.authStore
     const { addToast } = this.toastStore
@@ -36,19 +38,19 @@ class MainController {
         callback: async (values: Register): Promise<void> => {
           await register(new RegisterDto(values))
             .then(() => {
-              console.log('[Axios] PUT /register request succeeded')
+              this.debug && console.log('[Axios] PUT /register request succeeded')
               addToast({
-                title: t('authentication.register.success.title'),
-                body: t('authentication.register.success.body'),
+                title: t('forms.success'),
+                body: t('authentication.register.success'),
                 options: { theme: 'success' }
               })
               closeModal()
             })
             .catch((error: AxiosError) => {
-              console.warn(`[Axios] Failed to PUT /register : ${error.message}`)
+              this.debug && console.warn(`[Axios] Failed to PUT /register : ${error.message}`)
               addToast({
-                title: t('authentication.register.error.title'),
-                body: t('authentication.register.error.body'),
+                title: t('forms.error-general'),
+                body: error.message,
                 options: { theme: 'danger' }
               })
             })
@@ -57,7 +59,7 @@ class MainController {
     })
   }
 
-  public signin = (): void => {
+  public readonly signin = (): void => {
     const { addToast } = this.toastStore
     const { closeModal, openModal } = this.modalStore
     const { signIn } = this.authStore
@@ -70,19 +72,19 @@ class MainController {
         callback: async (values: credentials): Promise<void> => {
           await signIn(values)
             .then(() => {
-              console.log('[Axios] POST /sign-in request succeeded')
+              this.debug && console.log('[Axios] POST /sign-in request succeeded')
               addToast({
-                title: t('authentication.log-in.success.title'),
-                body: t('authentication.log-in.success.body'),
+                title: t('forms.success'),
+                body: t('authentication.log-in.success'),
                 options: { theme: 'success' }
               })
               closeModal()
             })
             .catch((error: AxiosError) => {
-              console.warn(`[Axios] Failed to POST /sign-in : ${error.message}`)
+              this.debug && console.warn(`[Axios] Failed to POST /sign-in : ${error.message}`)
               addToast({
-                title: t('authentication.log-in.error.title'),
-                body: t('authentication.log-in.error.body'),
+                title: t('forms.error-general'),
+                body: error.message,
                 options: { theme: 'danger' }
               })
             })
@@ -91,7 +93,7 @@ class MainController {
     })
   }
 
-  public signout = (): void => {
+  public readonly signout = (): void => {
     const { openModal, closeModal }: ModalStore = useModalStore()
     const { signOut }: AuthStore = useAuthStore()
     const { addToast }: ToastStore = useToastStore()
@@ -108,19 +110,19 @@ class MainController {
         callback: async (): Promise<void> => {
           await signOut()
             .then(() => {
-              console.log('[Axios] POST /sign-out request succeeded')
+              this.debug && console.log('[Axios] POST /sign-out request succeeded')
               addToast({
-                title: t('authentication.log-out.success.title'),
-                body: t('authentication.log-out.success.body'),
+                title: t('forms.success'),
+                body: t('authentication.log-out.success'),
                 options: { theme: 'success' }
               })
               closeModal()
             })
             .catch((error: AxiosError) => {
-              console.warn(`[Axios] Failed to POST /sign-out : ${error.message}`)
+              this.debug && console.warn(`[Axios] Failed to POST /sign-out : ${error.message}`)
               addToast({
-                title: t('authentication.log-out.error.title'),
-                body: t('authentication.log-out.error.body'),
+                title: t('forms.error-general'),
+                body: error.message,
                 options: { theme: 'danger' }
               })
             })

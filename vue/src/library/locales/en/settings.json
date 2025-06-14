@@ -7,52 +7,24 @@
     "profile-settings": {
       "header": "Profile Settings",
       "sub-header": "Change identifying details for your account",
-      "success": {
-        "title": "Profile Updated Succesfully",
-        "body": "Changes saved! Your profile has been updated."
-      },
-      "error": {
-        "title": "Failed to Update Profile",
-        "body": "An error occurred while saving your changes. Please check your inputs and try again."
-      }
+      "success": "Your profile has been updated successfully."
     },
     "avatar": {
       "label": "Profile Picture",
       "modal-title": "Update your Testhub profile picture",
-      "success": {
-        "title": "Profile Picture Updated Succesfully",
-        "body": "Looking good! Your new profile picture is live."
-      },
-      "error": {
-        "title": "Profile Picture Upload Failed",
-        "body": "Something went wrong during the upload. Make sure the file is a supported image format and try again."
-      }
+      "success": "Looking good! Your new profile picture is live."
     },
     "remove-avatar": {
       "title": "Remove your profile picture",
       "body": "Are you sure you want to remove your profile picture?",
       "action": "Remove Profile Picture",
-      "success": {
-        "title": "Profile Picture Removed Succesfully",
-        "body": "The profile image has been cleared. A default avatar is now in place."
-      },
-      "error": {
-        "title": "Failed to Remove Profile Picture",
-        "body": "An error occurred while removing the image. Please refresh the page or try again later."
-      }
+      "success": "The profile image has been cleared. A default avatar is now in place."
     },
     "disable-account": {
       "header": "Disabling Your Testhub Account",
       "sub-header": "Completely deactivate your account",
       "form-header": "Disable Your Testhub Account",
-      "success": {
-        "title": "Account Deleted Successfully",
-        "body": "The user account and all associated data have been successfully deleted."
-      },
-      "error": {
-        "title": "Failed to Delete Account",
-        "body": "Something went wrong while removing the account. Try again later or contact support."
-      }
+      "success": "The user account and all associated data have been successfully deleted."
     }
   },
   "security-privacy": {
@@ -60,16 +32,9 @@
     "contact": {
       "header": "Contact",
       "sub-header": "Where we send important messages about your account",
-      "email-linked": "This email is linked to your account.",
       "email": {
-        "success": {
-          "title": "Email Address Updated Successfully",
-          "body": "All set! Your new email is now linked to your account."
-        },
-        "error": {
-          "title": "Failed to Update Email",
-          "body": "An error occurred while changing your email. Make sure it's valid and try again."
-        }
+        "linked": "This email is linked to your account.",
+        "success": "All set! Your new email is now linked to your account."
       }
     },
     "security": {
@@ -78,14 +43,7 @@
       "password": {
         "change-password": "Change Password.",
         "improve-security": "{0} Improve your security with a strong password.",
-        "success": {
-          "title": "Password Updated Successfully",
-          "body": "Your new password is active. You can continue using your account."
-        },
-        "error": {
-          "title": "Failed to Update Password",
-          "body": "An error occurred while changing your password. Make sure your current password is correct and try again."
-        }
+        "success": "Your new password is active. You can continue using your account."
       }
     }
   }

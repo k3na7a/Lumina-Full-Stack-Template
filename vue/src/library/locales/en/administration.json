@@ -5,68 +5,33 @@
     "header": "User Management",
     "subtitle": "Manage all registered users and their account settings.",
     "user-table": {
-      "title": "Manage Platform Users",
+      "title": "Manage your platforms users",
       "subtitle": "View, search, and manage user accounts across the platform",
-      "caption": "Showing {showing} of {count} users | Showing {showing} of {count} user | Showing {showing} of {count} users",
-      "error": {
-        "title": "Failed to Load Users",
-        "body": "An error occurred while loading users. Check your connection or refresh the page."
-      }
+      "caption": "Showing {showing} of {count} users | Showing {showing} of {count} user | Showing {showing} of {count} users"
     },
     "single": {
-      "error": "Unable to retrieve user information. Please try again.",
+      "error": "Unable to retrieve information for user ID { id }. Please try again.",
       "account-details": {
-        "title": "Manage User Account",
+        "title": "Account Details",
         "subtitle": "Update profile data, login details, and system permissions",
-        "success": {
-          "title": "User Updated Successfully",
-          "body": "Changes to the user account were saved."
-        },
-        "error": {
-          "title": "Failed to Update User",
-          "body": "Something went wrong while updating the user profile."
-        }
+        "success": "Changes to the user account were saved successfully."
       },
       "delete-account": {
-        "title": "Delete User Account",
+        "title": "Account Status",
         "subtitle": "Permanently remove this user and all associated data from the system",
-        "modal": {
-          "title": "Delete User Account",
-          "body": "This action will permanently remove the user and their associated data. This cannot be undone.",
-          "action": "Delete User"
-        },
-        "success": {
-          "title": "User Deleted Successully",
-          "body": "The user account has been permanently removed."
-        },
-        "error": {
-          "title": "Failed to Delete User",
-          "body": "An error occurred while attempting to remove the user account."
-        }
+        "label": "Delete User Testhub Account",
+        "modal-title": "Permanently Delete User",
+        "success": "The user account has been permanently removed."
       },
       "avatar": {
-        "title": "Update Profile Picture",
+        "title": "Profile Picture",
         "subtitle": "Upload a new image or delete the existing profile photo",
-        "success": {
-          "title": "Profile Picture Updated Successfully",
-          "body": "New profile picture applied. Changes saved."
-        },
-        "error": {
-          "title": "Failed to Update Profile Picture",
-          "body": "An error occurred while uploading the new profile picture."
-        }
+        "success": "New profile picture applied successfully."
       },
       "remove-avatar": {
         "title": "Remove Profile Picture",
         "body": "This will permanently remove the user's current profile image. Are you sure you want to continue?",
-        "success": {
-          "title": "Profile Picture Removed Successfully",
-          "body": "The user's profile image has been removed successfully."
-        },
-        "error": {
-          "title": "Failed to Remove Profile Picture",
-          "body": "We couldn't remove the user's profile image."
-        }
+        "success": "The user's profile image has been removed successfully."
       }
     }
   },
@@ -75,7 +40,13 @@
     "label": "Games & Software",
     "games": {
       "title": "Create and modify your games & software",
-      "subtitle": "Video Games!"
+      "subtitle": "Video Games!",
+      "caption": "Showing {showing} of {count} games | Showing {showing} of {count} game | Showing {showing} of {count} games",
+      "create": {
+        "title": "New Game or Software",
+        "action": "Create New",
+        "success": "New game object has been created successfully."
+      }
     }
   }
 }

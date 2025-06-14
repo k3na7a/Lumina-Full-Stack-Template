@@ -24,11 +24,11 @@ export class UserEntity extends BaseEntity {
 
   @Column({ type: 'text', nullable: true, default: null })
   @Exclude()
-  public readonly refreshToken!: string | null;
+  public readonly refreshToken?: string | null;
 
   @Column({ type: 'text', nullable: true, default: null })
   @Exclude()
-  public readonly resetToken!: string | null;
+  public readonly resetToken?: string | null;
 
   @ApiProperty({ type: () => ProfileEntity })
   @OneToOne(() => ProfileEntity, (profile: ProfileEntity) => profile.user, {
@@ -36,8 +36,4 @@ export class UserEntity extends BaseEntity {
     eager: true,
   })
   public readonly profile!: ProfileEntity;
-
-  public getFullName(): string {
-    return [this.profile.name.first, this.profile.name.last].join(' ');
-  }
 }

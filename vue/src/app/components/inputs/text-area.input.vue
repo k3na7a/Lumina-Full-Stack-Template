@@ -1,8 +1,7 @@
-<!-- <textarea id="w3review" name="w3review" rows="4" cols="50"></textarea> -->
-
 <script setup lang="ts">
-import { onMounted, toRef, watch } from 'vue'
+import { ref, toRef, watch } from 'vue'
 import { useField } from 'vee-validate'
+import { deepEqual } from '@/library/utilities/object.util'
 
 const props = defineProps<{
   name: string
@@ -14,7 +13,9 @@ const props = defineProps<{
 }>()
 
 const name = toRef(props, 'name')
-const { value, errorMessage, handleBlur, handleChange } = useField(name.value, undefined, {
+const isSyncing = ref<boolean>(false)
+
+const { value, errorMessage, handleBlur, handleChange } = useField<string | undefined>(name.value, undefined, {
   initialValue: props.value
 })
 
@@ -23,8 +24,23 @@ watch(value, (newVal: string | undefined) => {
   emit('update', newVal)
 })
 
-onMounted(() => {
-  emit('update', value.value)
+watch(
+  () => props.value,
+  (val: string | undefined) => {
+    if (!deepEqual(val, value.value)) {
+      isSyncing.value = true
+      value.value = val
+    }
+  }
+)
+
+watch(value, (newVal: string | undefined) => {
+  if (isSyncing.value) {
+    isSyncing.value = false
+    return
+  }
+
+  emit('update', newVal)
 })
 </script>
 
@@ -48,40 +64,39 @@ onMounted(() => {
 @import '@/library/sass/variables/index';
 
 .text-input {
-  &.has-error input {
+  &.has-error textarea {
     border-color: $danger;
   }
 
-  &.has-error input:hover {
+  &.has-error textarea:hover {
     box-shadow: 0 0 0 0.1rem $danger;
   }
 
-  &.success input {
+  &.success textarea {
     border-color: $success;
   }
 
-  &.success input:hover {
+  &.success textarea:hover {
     box-shadow: 0 0 0 0.1rem $success;
   }
 
-  input:hover {
+  textarea:hover {
     box-shadow: 0 0 0 0.1rem $muted;
   }
 
-  input:focus {
+  textarea:focus {
     border-color: $primary !important;
     box-shadow: 0 0 0 0.1rem $primary !important;
   }
 
-  input {
+  textarea {
     outline: none;
     border: 0.1rem $muted solid;
-    height: 3rem;
-
     transition: all 0.15s ease-in-out;
+    resize: none;
   }
 
-  input:disabled {
+  textarea:disabled {
     pointer-events: none;
     border-color: grey;
     opacity: 75%;

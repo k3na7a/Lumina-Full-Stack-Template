@@ -1,6 +1,6 @@
 import { Store, StoreDefinition, defineStore } from 'pinia'
 
-const DEFAULT_TIMEOUT = 15
+const DEFAULT_TIMEOUT = 10
 type theme = 'primary' | 'secondary' | 'success' | 'warning' | 'danger' | 'info' | 'light'
 
 interface Toast {

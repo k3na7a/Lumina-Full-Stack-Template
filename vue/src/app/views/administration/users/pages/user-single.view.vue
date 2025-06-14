@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { UserDto } from '@/library/apis/localhost/dto/user.dto'
-import { UserAdminController } from '../controllers/user-admin.controller'
+import { UserAdminController } from '../controller/admin.user.controller'
 import { useRoute } from 'vue-router'
 import { ref } from 'vue'
 

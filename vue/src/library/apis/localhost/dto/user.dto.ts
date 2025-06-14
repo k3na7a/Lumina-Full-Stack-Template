@@ -1,4 +1,5 @@
-import getAvatar from '@/library/utils/ui-avatars.util'
+import getAvatar from '@/library/utilities/ui-avatars.util'
+import { iImage } from './media.dto'
 
 type UpdatePassword = { current_password: string; password: string; confirm_password: string }
 type UpdateEmail = { password: string; email: string; confirm_email: string }
@@ -14,16 +15,12 @@ class UpdateUserDto {
   public readonly lastname: string
   public readonly email: string
   public readonly role: Role
-  // public readonly avatar?: File
-  // public readonly 'remove-avatar': boolean
 
   constructor(payload: UpdateUser) {
     this.firstname = payload.firstname
     this.lastname = payload.lastname
     this.email = payload.email
     this.role = payload.role || Role.USER
-    // this.avatar = payload.avatar || undefined
-    // this['remove-avatar'] = payload['remove-avatar']
   }
 }
 
@@ -122,13 +119,8 @@ interface iProfile {
   readonly createdAt: Date
   readonly updatedAt: Date
 
-  readonly avatar: Avatar | null
+  readonly avatar: iImage | null
   readonly name: Name
-}
-
-interface Avatar {
-  readonly filename: string
-  readonly uri: string
 }
 
 interface Name {
@@ -197,7 +189,6 @@ export type {
   UpdateProfile,
   Register,
   Name,
-  Avatar,
   iProfile,
   iUser,
   UpdateUser

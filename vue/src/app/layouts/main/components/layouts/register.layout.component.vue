@@ -1,0 +1,60 @@
+<script setup lang="ts">
+import { ROUTE_NAMES } from '@/app/router/routes'
+
+import PasswordValidationList from '@/app/components/labels/password-validation-list.component.vue'
+import ModalTitleComponent from '@/app/components/modal/modal-title.component.vue'
+</script>
+
+<template>
+  <div class="d-flex flex-column gap-3">
+    <ModalTitleComponent :title="$t('authentication.register.modal-title')" />
+    <div class="d-flex flex-column gap-1">
+      <h6 class="fw-semibold">{{ $t('forms.name') }}</h6>
+      <div class="row gy-3 align-items-start flex-grow-1">
+        <div class="col-12 col-sm-6 d-flex flex-column gap-1">
+          <slot name="firstname"></slot>
+          <small>{{ $t('forms.given-name') }}</small>
+        </div>
+        <div class="col-12 col-sm-6 d-flex flex-column gap-1">
+          <slot name="lastname"></slot>
+          <small>{{ $t('forms.family-name') }}</small>
+        </div>
+      </div>
+    </div>
+
+    <div class="d-flex flex-column">
+      <div class="row gap-3">
+        <div class="col-12">
+          <slot name="email"></slot>
+        </div>
+        <div class="col-12 d-flex flex-column gap-1">
+          <slot name="new-password"></slot>
+          <PasswordValidationList />
+        </div>
+      </div>
+    </div>
+
+    <div class="d-flex flex-column text-muted">
+      <i18n-t keypath="legal.term" tag="p" scope="global">
+        <RouterLink
+          target="_blank"
+          :to="{ name: ROUTE_NAMES.HOME }"
+          class="link-underline link-underline-opacity-0 link-underline-opacity-100-hover"
+        >
+          {{ $t('legal.terms-of-service') }}
+        </RouterLink>
+        <RouterLink
+          target="_blank"
+          :to="{ name: ROUTE_NAMES.HOME }"
+          class="link-underline link-underline-opacity-0 link-underline-opacity-100-hover"
+        >
+          {{ $t('legal.privacy-notice') }}
+        </RouterLink>
+      </i18n-t>
+    </div>
+
+    <div class="d-grid">
+      <slot name="submit"></slot>
+    </div>
+  </div>
+</template>

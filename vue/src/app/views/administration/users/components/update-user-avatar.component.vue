@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { toRef } from 'vue'
 import { UserDto } from '@/library/apis/localhost/dto/user.dto'
-import { UserAdminController } from '../controllers/user-admin.controller.ts'
+import { UserAdminController } from '../controller/admin.user.controller.ts'
 import { useI18n } from 'vue-i18n'
 
 const { t } = useI18n()

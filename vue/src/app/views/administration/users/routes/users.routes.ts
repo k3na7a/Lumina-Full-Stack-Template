@@ -13,7 +13,7 @@ const route: RouteRecordRaw = {
         {
           path: '',
           name: ROUTE_NAMES.ADMIN_USERS,
-          component: () => import('@/app/views/administration/users/pages/users.view.vue')
+          component: () => import('@/app/views/administration/users/pages/user-table.view.vue')
         },
         {
           path: ':id',
