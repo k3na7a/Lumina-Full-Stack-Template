@@ -1,24 +1,9 @@
 import { TypeOrmModule, TypeOrmModuleOptions } from '@nestjs/typeorm';
 import { EntityClassOrSchema } from '@nestjs/typeorm/dist/interfaces/entity-class-or-schema.type';
 
-import { ImageEntity } from 'src/app/media/entities/image.entity';
-import { ProfileEntity } from 'src/app/users/entities/profile.entity';
-import { UserEntity } from 'src/app/users/entities/user.entity';
-import { GameEntity } from 'src/app/games/entities/game.entity';
-import { PlatformEntity } from 'src/app/games/entities/platform.entity';
+import entities from 'src/config/entities.config';
 
-const entities = [
-  // GENERIC
-  ImageEntity,
-  // USERS
-  UserEntity,
-  ProfileEntity,
-  // GAMES & SOFTWARE
-  GameEntity,
-  PlatformEntity,
-];
-
-const config: TypeOrmModuleOptions = {
+const connectionOptions: TypeOrmModuleOptions = {
   type: 'mysql',
   host: process.env.DB_HOST,
   port: Number(process.env.DB_PORT),
@@ -31,7 +16,7 @@ const config: TypeOrmModuleOptions = {
 };
 
 export class TypeOrmPlugin {
-  public static forRoot = TypeOrmModule.forRoot(config);
+  public static forRoot = TypeOrmModule.forRoot(connectionOptions);
   public static forFeature = (entities: EntityClassOrSchema[]) =>
     TypeOrmModule.forFeature(entities);
 }

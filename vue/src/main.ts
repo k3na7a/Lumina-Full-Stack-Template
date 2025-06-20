@@ -1,17 +1,17 @@
 import { createApp } from 'vue'
 
-import '@/library/sass/style.scss'
+import '@/shared/sass/style.scss'
 
-import App from '@/app/views/app.view.vue'
+import App from '@/shared/layouts/app/app.view.vue'
 
-import { FontAwesomeService as FontAwesome } from '@/plugins/fontawesome.plugin'
-import { PiniaService as Pinia } from '@/plugins/pinia.plugin'
-import { I18nService as I18n } from '@/plugins/vuei18n.plugin'
-import { VueRouterService as Router } from '@/plugins/vuerouter.plugin'
+import { FontAwesomeService as FontAwesome } from '@/core/plugins/fontawesome.plugin'
+import { PiniaService as Pinia } from '@/core/plugins/pinia.plugin'
+import { I18nService as I18n } from '@/core/plugins/vuei18n.plugin'
+import { VueRouterService as Router } from '@/core/plugins/vuerouter.plugin'
 
-import { routes } from '@/app/router/routes'
-import { Ckeditor5Service } from './plugins/ckeditor5.plugin'
-import { CustomDirectiveService } from './plugins/custom-directives.plugin'
+import { routes } from '@/core/router/routes'
+import { Ckeditor5Service } from './core/plugins/ckeditor5.plugin'
+import { CustomDirectiveService } from './core/plugins/custom-directives.plugin'
 
 async function bootstrap(): Promise<void> {
   const app = createApp(App)

@@ -11,7 +11,8 @@ import {
   Min,
 } from 'class-validator';
 
-import { Order } from '../data/enums/order.enum';
+import { Order } from '../enums/order.enum';
+import { PaginationMetaParameters } from '../interfaces/pagination.interface';
 
 class PaginationMeta {
   @ApiProperty()
@@ -88,14 +89,4 @@ class PaginationOptions {
   }
 }
 
-interface PaginationMetaParameters {
-  readonly pageOptions: PaginationOptions;
-  readonly itemCount: number;
-}
-
-export {
-  PaginationOptions,
-  PaginationDto,
-  PaginationMeta,
-  PaginationMetaParameters,
-};
+export { PaginationOptions, PaginationDto, PaginationMeta };

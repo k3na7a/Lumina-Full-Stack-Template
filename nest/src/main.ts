@@ -1,10 +1,13 @@
 import { NestFactory } from '@nestjs/core';
 import { Logger, ValidationPipe } from '@nestjs/common';
-
-import { AppModule } from './app/app.module';
-import { SwaggerPlugin } from './plugins/swagger.plugin';
-import { SendGridPlugin } from './plugins/sendgrid.plugin';
 import { json, urlencoded } from 'express';
+
+import { config } from 'dotenv';
+config();
+
+import { AppModule } from 'src/app/app.module';
+import { SwaggerPlugin } from 'src/plugins/swagger.plugin';
+import { SendGridPlugin } from 'src/plugins/sendgrid.plugin';
 
 async function bootstrap(): Promise<void> {
   const app = await NestFactory.create(AppModule);
