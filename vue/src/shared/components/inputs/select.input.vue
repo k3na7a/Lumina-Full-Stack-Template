@@ -3,7 +3,7 @@ import { onBeforeUnmount, onMounted, ref, toRef, watch } from 'vue'
 import * as bootstrap from 'bootstrap'
 import { useField } from 'vee-validate'
 
-import { deepEqual } from '@/core/utilities/object.util'
+import { deepEqual } from '@/core/utils/object.util'
 
 const props = defineProps<{
   name: string

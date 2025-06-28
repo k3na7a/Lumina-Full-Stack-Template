@@ -44,7 +44,6 @@
   "placeholders": {
     "first-name": "Jane",
     "last-name": "Doe",
-    "email": "Enter your email",
-    "password": "Enter at least 8 characters"
+    "email": "jane.doe001@email.com"
   }
 }

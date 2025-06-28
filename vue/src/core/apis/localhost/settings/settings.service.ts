@@ -1,6 +1,6 @@
 import { AxiosInstance } from 'axios'
 
-import { ILocalStorageUtil } from '@/core/utilities/local-storage.util'
+import { ILocalStorageUtil } from '@/core/utils/local-storage.util'
 import { security } from './security/security.service'
 import { profile } from './profile/profile.service'
 

@@ -9,7 +9,6 @@ import {
   Param,
   ParseFilePipe,
   Patch,
-  Post,
   Query,
   UploadedFile,
   UseInterceptors,
@@ -24,8 +23,8 @@ import { UserAdminService } from 'src/app/features/administration/users/services
 import { UserEntity } from 'src/app/modules/users/entities/user.entity';
 
 import { PaginationDto } from 'src/library/dto/pagination.dto';
-import { megabyte } from 'src/library/constants/size.constants';
 import { UserPaginationOptions, UpdateUserDto } from 'src/library/dto/user.dto';
+import { megabyte } from 'src/library/constants/size.constants';
 
 @ApiTags('Administration / User Management / Users')
 @Controller('users')
@@ -51,24 +50,10 @@ class UserAdminController {
   @Patch('/:id')
   @ApiBody({ type: UpdateUserDto })
   @ApiOkResponse({ type: UserEntity })
+  @UseInterceptors(FileInterceptor('avatar', { storage }))
   async update(
     @Param('id') id: string,
     @Body() dto: UpdateUserDto,
-  ): Promise<UserEntity> {
-    return this.service.update(id, dto);
-  }
-
-  @Delete('/:id')
-  @ApiOkResponse({ type: UserEntity })
-  async delete(@Param('id') id: string): Promise<UserEntity> {
-    return this.service.remove(id);
-  }
-
-  @Post('/:id/profile/avatar')
-  @ApiOkResponse({ type: UserEntity })
-  @UseInterceptors(FileInterceptor('avatar', { storage }))
-  async handleAvatarUpload(
-    @Param('id') id: string,
     @UploadedFile(
       new ParseFilePipe({
         fileIsRequired: false,
@@ -82,15 +67,15 @@ class UserAdminController {
         ],
       }),
     )
-    file: Express.Multer.File,
+    file?: Express.Multer.File,
   ): Promise<UserEntity> {
-    return this.service.uploadAvatar(id, file);
+    return this.service.update(id, dto, file);
   }
 
-  @Delete('/:id/profile/avatar')
+  @Delete('/:id')
   @ApiOkResponse({ type: UserEntity })
-  async removeAvatar(@Param('id') id: string): Promise<UserEntity> {
-    return this.service.removeAvatar(id);
+  async delete(@Param('id') id: string): Promise<UserEntity> {
+    return this.service.remove(id);
   }
 }
 

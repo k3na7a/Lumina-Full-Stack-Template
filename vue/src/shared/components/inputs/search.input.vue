@@ -2,8 +2,9 @@
 import { ref, watch } from 'vue'
 import { useDebounceFn } from '@vueuse/core'
 
-import { second } from '@/shared/constants/time.constants'
-import { deepEqual } from '@/core/utilities/object.util'
+import { deepEqual } from '@/core/utils/object.util'
+
+import { second } from '@/library/constants/time.constants'
 
 const props = defineProps<{ disabled?: boolean; value?: string }>()
 const value = ref<string | undefined>(props.value)

@@ -1,7 +1,7 @@
 import { AxiosInstance } from 'axios'
 
-import { ILocalStorageUtil } from '@/core/utilities/local-storage.util'
-import { AxiosService } from '@/core/utilities/axios.util'
+import { ILocalStorageUtil } from '@/core/utils/local-storage.util'
+import { AxiosService } from '@/core/utils/axios.util'
 import { UpdateProfileDto } from '@/core/apis/dto/user.dto'
 import { IJWT, JWTDto } from '@/core/apis/dto/JWT.dto'
 

@@ -1,8 +1,8 @@
 import { AxiosInstance, AxiosResponse } from 'axios'
 
-import { ILocalStorageUtil } from '@/core/utilities/local-storage.util'
+import { ILocalStorageUtil } from '@/core/utils/local-storage.util'
 import { PaginationDto, PaginationOptions } from '@/core/apis/dto/pagination.dto'
-import { AxiosService } from '@/core/utilities/axios.util'
+import { AxiosService } from '@/core/utils/axios.util'
 import { CreateGameDto, GameDto, iGame } from '@/core/apis/dto/game.dto'
 
 class games {

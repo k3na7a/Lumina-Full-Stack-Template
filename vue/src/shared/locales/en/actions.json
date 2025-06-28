@@ -25,5 +25,10 @@
   "remove-avatar": "Remove Profile Picture",
   "create": "Create",
   "update": "Update",
-  "delete": "Delete"
+  "delete": "Delete",
+  "enter-email": "Enter your email",
+  "confirm-email": "Confirm your email",
+  "enter-password": "Enter your password",
+  "enter-new-password": "Enter at least 8 characters",
+  "enter-new-password-confirm": "Passwords must match"
 }

@@ -1,5 +1,5 @@
-import { iImage } from "./media.dto"
-import { iPlatform, PlatformDto } from "./platform.dto"
+import { iImage } from './media.dto'
+import { iPlatform, PlatformDto } from './platform.dto'
 
 interface iGame {
   readonly id: string
@@ -15,7 +15,7 @@ interface iGame {
 
 interface icreategame {
   readonly name: string
-  readonly cover: File
+  readonly cover?: File | null
   readonly description?: string
   readonly release_date: Date
   readonly slug: string
@@ -30,7 +30,7 @@ class CreateGameDto {
 
   constructor(new_game: icreategame) {
     this.name = new_game.name
-    this.cover = new_game.cover
+    this.cover = new_game.cover || undefined
     this.release_date = new_game.release_date
     this.description = new_game.description
     this.slug = new_game.slug
@@ -45,6 +45,8 @@ class GameDto {
   readonly name: string
   readonly slug: string
 
+  readonly description?: string
+
   readonly cover: string
   readonly release_date: Date
 
@@ -52,13 +54,14 @@ class GameDto {
 
   constructor(game: iGame) {
     this.id = game.id
-    this.createdAt = game.createdAt
-    this.updatedAt = game.updatedAt
+    this.createdAt = new Date(game.createdAt)
+    this.updatedAt = new Date(game.updatedAt)
 
     this.name = game.name
     this.slug = game.slug
 
-    this.release_date = game.release_date
+    this.description = game.description || undefined
+    this.release_date = new Date(game.release_date)
     this.cover = game.cover ? game.cover.uri : '/media/games/no-cover.png'
 
     this.platforms = game.platforms ? game.platforms.map((value: iPlatform) => new PlatformDto(value)) : []

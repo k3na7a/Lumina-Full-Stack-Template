@@ -1,0 +1,31 @@
+import { RouteRecordRaw } from 'vue-router'
+import { ROUTE_NAMES } from '@/library/enums/route-names.enum'
+
+const route: RouteRecordRaw = {
+  path: '/',
+  redirect: { name: ROUTE_NAMES.HOME },
+  component: () => import('@/core/router/guards/is-authenticated.guard.vue'),
+  children: [
+    {
+      path: '/settings',
+      name: ROUTE_NAMES.SETTINGS,
+      redirect: { name: ROUTE_NAMES.PROFILE },
+      component: () => import('@/views/settings/settings.view.vue'),
+      meta: { pageTitle: 'Settings' },
+      children: [
+        {
+          path: 'profile',
+          name: ROUTE_NAMES.PROFILE,
+          component: () => import('@/views/settings/pages/profile.view.vue')
+        },
+        {
+          path: 'security',
+          name: ROUTE_NAMES.SECURITY,
+          component: () => import('@/views/settings/pages/security.view.vue')
+        }
+      ]
+    }
+  ]
+}
+
+export default route

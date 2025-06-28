@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { kilobyte } from '@/shared/constants/size.constants'
+import { kilobyte } from '@/library/constants/size.constants'
 import { useField } from 'vee-validate'
 import { onMounted, ref, toRef, watch } from 'vue'
 

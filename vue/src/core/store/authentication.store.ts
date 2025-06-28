@@ -1,5 +1,5 @@
 import { LocalhostAPI as API, TOKEN_ID } from '@/core/apis/localhost/localhost.api'
-import { useLocalStorageUtil } from '@/core/utilities/local-storage.util'
+import { useLocalStorageUtil } from '@/core/utils/local-storage.util'
 import {
   DeleteAccountDto,
   ForgotPasswordDto,

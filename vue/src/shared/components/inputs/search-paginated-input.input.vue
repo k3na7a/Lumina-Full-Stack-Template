@@ -1,13 +1,14 @@
 <script lang="ts" setup generic="T">
-import { useDebounceFn } from '@vueuse/core'
-import { second } from '@/shared/constants/time.constants'
-
 import { reactive, ref, toRef, UnwrapRef, watch } from 'vue'
 import * as bootstrap from 'bootstrap'
 import { useField } from 'vee-validate'
-import { checkIds, deepEqual } from '@/core/utilities/object.util'
+import { useDebounceFn } from '@vueuse/core'
 import { useI18n } from 'vue-i18n'
+
+import { checkIds, deepEqual } from '@/core/utils/object.util'
 import { PaginationOptions, PaginationDto, Order } from '@/core/apis/dto/pagination.dto'
+
+import { second } from '@/library/constants/time.constants'
 
 const props = defineProps<{
   name: string

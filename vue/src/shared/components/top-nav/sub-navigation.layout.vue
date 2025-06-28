@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { sub_navigation } from '@/shared/components/side-nav/types/sub-navigation.type'
+import { sub_navigation } from '@/library/types/sub-navigation.type'
 
-import HeaderComponent from './components/layout-header.component.vue'
+import HeaderComponent from '@/shared/components/header/topnav-header.component.vue'
 
 const props = defineProps<{ title: string; subtitle?: string; routes: sub_navigation }>()
 </script>

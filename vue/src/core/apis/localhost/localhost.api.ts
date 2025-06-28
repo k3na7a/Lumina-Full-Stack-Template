@@ -1,7 +1,7 @@
 import axios, { AxiosInstance } from 'axios'
 
-import { ILocalStorageUtil, useLocalStorageUtil } from '@/core/utilities/local-storage.util'
-import { second } from '@/shared/constants/time.constants'
+import { ILocalStorageUtil, useLocalStorageUtil } from '@/core/utils/local-storage.util'
+import { second } from '@/library/constants/time.constants'
 
 import { authentication } from './authentication/auth.service'
 import { administration } from './administration/admin.service'

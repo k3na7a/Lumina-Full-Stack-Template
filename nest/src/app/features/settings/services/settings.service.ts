@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
 
 import { UpdateUserProfile } from 'src/library/interfaces/user.interfaces';
 import { updatePasswordDto } from 'src/library/dto/updatePassword.dto';
@@ -9,6 +9,9 @@ import { UserEntity } from 'src/app/modules/users/entities/user.entity';
 import { ProfileService } from 'src/app/modules/users/services/profile.service';
 import { UserService } from 'src/app/modules/users/services/users.service';
 import { UserAccountService } from 'src/app/modules/users/services/users-account.service';
+import { ImageService } from 'src/app/modules/media/services/image.service';
+import { IMAGE_TYPE } from 'src/library/enums/image-routes.enum';
+import { ImageEntity } from 'src/app/modules/media/entities/image.entity';
 
 @Injectable()
 export class SettingsService {
@@ -16,7 +19,25 @@ export class SettingsService {
     private readonly userService: UserService,
     private readonly profileService: ProfileService,
     private readonly accountService: UserAccountService,
+    private readonly imageService: ImageService,
   ) {}
+
+  private async handleAvatar(
+    user: UserEntity,
+    file: Express.Multer.File,
+  ): Promise<ImageEntity> {
+    const { avatar, id: profileId } = user.profile;
+    const type = IMAGE_TYPE.AVATARS;
+
+    if (!avatar)
+      return this.imageService.create({
+        file,
+        altText: `Avatar for profile ID ${profileId}`,
+        type,
+      });
+
+    return this.imageService.update(avatar.id, { file, type });
+  }
 
   public async updateEmail(
     user: UserEntity,
@@ -52,10 +73,10 @@ export class SettingsService {
     { password }: deleteAccountDto,
   ): Promise<void> {
     const { profile } = user;
-    
+
     await this.accountService.validateUser(user.email, password);
 
-    if (profile.avatar) await this.profileService.removeAvatar(profile);
+    if (profile.avatar) await this.imageService.remove(profile.avatar.id);
 
     await this.userService.remove(user.id);
   }
@@ -74,14 +95,18 @@ export class SettingsService {
     user: UserEntity,
     file: Express.Multer.File,
   ): Promise<JWTDto> {
-    await this.profileService.uploadAvatar(user.profile, file);
+    const avatar = await this.handleAvatar(user, file);
+    await this.profileService.update(user.profile, { avatar });
 
     const updatedUser = await this.userService.findOneById(user.id);
     return this.accountService.issueTokens(updatedUser);
   }
 
   public async removeAvatar(user: UserEntity) {
-    await this.profileService.removeAvatar(user.profile);
+    const avatar = user.profile.avatar;
+    if (!avatar) throw new BadRequestException('No profile picture found');
+
+    await this.imageService.remove(avatar.id);
 
     const updatedUser = await this.userService.findOneById(user.id);
     return this.accountService.issueTokens(updatedUser);

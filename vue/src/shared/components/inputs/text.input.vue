@@ -2,8 +2,9 @@
 import { InputTypeHTMLAttribute, ref, toRef, watch } from 'vue'
 import { useField } from 'vee-validate'
 
-import { HTMLAutoComplete } from '@/shared/components/inputs/types/HTMLautocomplete.type'
-import { deepEqual } from '@/core/utilities/object.util'
+import { deepEqual } from '@/core/utils/object.util'
+
+import { HTMLAutoComplete } from '@/library/types/HTMLautocomplete.type'
 
 const emit = defineEmits<{ update: [value: string | undefined] }>()
 

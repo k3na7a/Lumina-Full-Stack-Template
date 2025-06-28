@@ -1,8 +1,9 @@
-import { IsEnum, IsOptional, IsString } from 'class-validator';
+import { IsBoolean, IsEnum, IsOptional, IsString } from 'class-validator';
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 
 import { Role } from 'src/library/enums/role.enum';
 import { PaginationOptions } from 'src/library/dto/pagination.dto';
+import { Transform } from 'class-transformer';
 
 enum SORT_OPTIONS {
   CREATED = 'user.createdAt',
@@ -29,6 +30,13 @@ class UpdateUserDto {
   @ApiProperty()
   @IsEnum(Role)
   public readonly role: Role;
+  @ApiPropertyOptional()
+  @Transform(({ value }) =>
+    value === 'true' ? true : value === 'false' ? false : value,
+  )
+  @IsBoolean()
+  @IsOptional()
+  public readonly 'remove-avatar'?: boolean;
 }
 
 export { UserPaginationOptions, UpdateUserDto };
