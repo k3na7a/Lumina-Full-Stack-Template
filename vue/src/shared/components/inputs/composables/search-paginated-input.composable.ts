@@ -18,7 +18,8 @@ type proptype<T> = {
 
 function useSearchPaginatedInput<T>(props: proptype<T>, emit: (evt: 'update', value: T[] | undefined) => void) {
   const name = toRef(props, 'name')
-  const { value } = useField<T[]>(name.value, undefined, { initialValue: props.value || [] })
+
+  const { value } = useField<T[]>(name.value, undefined, { initialValue: props.value })
 
   const SearchRef = ref<InstanceType<typeof HTMLElement>>()
   const inputRef = ref<InstanceType<typeof HTMLElement>>()

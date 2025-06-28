@@ -19,7 +19,7 @@ function useGameForm({ game, callback }: proptype) {
     slug: game?.slug,
     description: game?.description,
     release_date: game?.release_date,
-    platforms: game?.platforms,
+    platforms: game?.platforms || [],
     cover: undefined
   }))
 

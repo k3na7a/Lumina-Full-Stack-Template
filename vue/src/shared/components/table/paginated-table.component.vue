@@ -176,6 +176,7 @@ table {
   th:not(:first-child) {
     .cell {
       justify-content: end;
+      text-align: end;
     }
   }
 }

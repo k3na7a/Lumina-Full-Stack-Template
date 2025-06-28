@@ -18,8 +18,6 @@ class games {
   }
 
   public readonly getGamesPaginated = async (params: PaginationOptions): Promise<PaginationDto<GameDto>> => {
-    console.log(params)
-
     const response: AxiosResponse = await this.$api.get(
       'administration/games-and-software/games',
       this.requestConfigWith({ params })
