@@ -1,6 +1,12 @@
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 import { Type } from 'class-transformer';
-import { IsEnum, IsObject, IsOptional, IsString } from 'class-validator';
+import {
+  IsArray,
+  IsEnum,
+  IsObject,
+  IsOptional,
+  IsString,
+} from 'class-validator';
 import { PaginationOptions } from 'src/library/dto/pagination.dto';
 
 enum SORT_OPTIONS {
@@ -34,6 +40,11 @@ class CreateGameDto {
   @ApiProperty()
   @IsString()
   public readonly slug!: string;
+
+  @ApiPropertyOptional({ type: String, isArray: true })
+  @IsArray()
+  @IsOptional()
+  public readonly platforms: Array<string> = [];
 }
 
 export { CreateGameDto, GamePaginationOptions };

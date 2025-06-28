@@ -19,6 +19,7 @@ interface icreategame {
   readonly description?: string
   readonly release_date: Date
   readonly slug: string
+  readonly platforms?: iPlatform[]
 }
 
 class CreateGameDto {
@@ -27,6 +28,7 @@ class CreateGameDto {
   readonly release_date!: Date
   readonly description?: string
   readonly slug!: string
+  readonly platforms!: string[]
 
   constructor(new_game: icreategame) {
     this.name = new_game.name
@@ -34,6 +36,8 @@ class CreateGameDto {
     this.release_date = new_game.release_date
     this.description = new_game.description
     this.slug = new_game.slug
+
+    this.platforms = new_game.platforms?.map((v: iPlatform) => v.id) || []
   }
 }
 

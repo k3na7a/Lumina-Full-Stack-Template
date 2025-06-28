@@ -5,7 +5,7 @@ import SearchInputComponent from '@/shared/components/inputs/search.input.vue'
 import SelectInputComponent from '@/shared/components/inputs/select.input.vue'
 import PaginationInputComponent from '@/shared/components/pagination/pagination.component.vue'
 
-import { proptype, usePaginatedTable } from './composables/paginated-table.handler'
+import { proptype, usePaginatedTable } from './composables/paginated-table.composable'
 
 const { columns, rows, pages, options, loading, sortOptions, caption } = defineProps<proptype<T>>()
 const { resetPageAndUpdateQuery, updateQuery } = usePaginatedTable()

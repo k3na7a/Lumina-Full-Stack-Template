@@ -2,6 +2,7 @@ import { BadRequestException, Injectable } from '@nestjs/common';
 
 import { GameEntity } from 'src/app/modules/games/entities/game.entity';
 import { GameService } from 'src/app/modules/games/services/games.service';
+import { PlatformService } from 'src/app/modules/games/services/platforms.service';
 import { ImageEntity } from 'src/app/modules/media/entities/image.entity';
 import { ImageService } from 'src/app/modules/media/services/image.service';
 
@@ -14,6 +15,7 @@ export class GamesAdminService {
   constructor(
     private readonly gameService: GameService,
     private readonly imageService: ImageService,
+    private readonly platformService: PlatformService,
   ) {}
 
   private async handleCreateCover(
@@ -30,7 +32,8 @@ export class GamesAdminService {
   }
 
   private async handleUpdateCover(game: GameEntity, file: Express.Multer.File) {
-    if (!game.cover) throw new BadRequestException('Game does not have a cover');
+    if (!game.cover)
+      throw new BadRequestException('Game does not have a cover');
 
     const cover: ImageEntity = await this.imageService.update(game.cover.id, {
       file,
@@ -64,7 +67,13 @@ export class GamesAdminService {
   ): Promise<GameEntity> {
     await this.gameService.ensureSlugIsUnique(dto.slug);
 
-    const newGame = await this.gameService.create(dto);
+    const platforms = await this.platformService.findManyById(dto.platforms);
+
+    const newGame = await this.gameService.create({
+      ...dto,
+      platforms,
+    });
+
     if (file) await this.handleCreateCover(newGame, file);
 
     return this.gameService.findOneById(newGame.id);
@@ -78,9 +87,11 @@ export class GamesAdminService {
     await this.gameService.ensureSlugIsUnique(dto.slug, id);
 
     const game = await this.gameService.findOneById(id);
+    const platforms = await this.platformService.findManyById(dto.platforms);
+
     if (file) await this.handleUploadCover(game, file);
 
-    await this.gameService.update(game.id, dto);
+    await this.gameService.update(game.id, { ...dto, platforms });
 
     return this.gameService.findOneById(id);
   }

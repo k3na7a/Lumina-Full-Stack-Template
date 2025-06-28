@@ -5,7 +5,8 @@ import ActionsComponent from '@/shared/components/dropdown/actions-dropdown.comp
 import ContentLayout from '@/views/administration/layouts/content.layout.vue'
 import { usePlatformTable } from '../composables/platform-table.composable.ts'
 
-const { t, response, options, loading, tableColumns, sort, createPlatform } = await usePlatformTable()
+const { t, response, options, loading, tableColumns, sort, createPlatform, getPaginatedData } = usePlatformTable()
+await getPaginatedData(options.value)
 </script>
 
 <template>

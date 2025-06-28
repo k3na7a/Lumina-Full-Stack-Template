@@ -16,13 +16,13 @@ const defaultOptions: PaginationOptions = {
   search: undefined
 }
 
-async function usePlatformTable() {
+function usePlatformTable() {
   const { t } = useI18n()
-  const { query } = useRoute()
+  const $route = useRoute()
   const { create, getPaginated } = usePlatformAdminHandler(t)
 
   const loading = ref<boolean>(false)
-  const options = computed<PaginationOptions>(() => parseQuery<PaginationOptions>(query, defaultOptions))
+  const options = computed<PaginationOptions>(() => parseQuery<PaginationOptions>($route.query, defaultOptions))
 
   const sort: Array<SortOptions> = [
     { sort: 'platform.name', order: Order.ASC, label: 'forms.name' },
@@ -58,17 +58,15 @@ async function usePlatformTable() {
     create((_: PlatformDto) => getPaginatedData(options.value))
   }
 
-  await getPaginatedData(options.value)
-
   watch(
-    () => query,
+    () => $route.query,
     async (newQuery: LocationQuery): Promise<void> => {
       const parsed = parseQuery<PaginationOptions>(newQuery, defaultOptions)
       await getPaginatedData(parsed)
     }
   )
 
-  return { t, response, options, loading, tableColumns, sort, createPlatform }
+  return { t, response, options, loading, tableColumns, sort, createPlatform, getPaginatedData }
 }
 
 export { usePlatformTable }

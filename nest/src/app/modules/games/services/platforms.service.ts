@@ -4,7 +4,7 @@ import {
   NotFoundException,
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Not, Repository } from 'typeorm';
+import { In, Not, Repository } from 'typeorm';
 
 import { PlatformEntity } from 'src/app/modules/games/entities/platform.entity';
 import { PlatformPaginationOptions } from 'src/library/dto/platform.dto';
@@ -26,6 +26,10 @@ export class PlatformService {
 
   public async findOneBySlug(slug: string): Promise<PlatformEntity | null> {
     return this.repository.findOne({ where: { slug } });
+  }
+
+  public async findManyById(ids?: string[]): Promise<PlatformEntity[]> {
+    return this.repository.find({ where: { id: In(ids || []) } });
   }
 
   public async ensureSlugIsUnique(

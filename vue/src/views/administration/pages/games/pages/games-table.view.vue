@@ -5,7 +5,10 @@ import ActionsComponent from '@/shared/components/dropdown/actions-dropdown.comp
 import ContentLayout from '@/views/administration/layouts/content.layout.vue'
 import { useGamesTable } from '../composables/game-table.composable'
 
-const { t, options, loading, tableColumns, response, sort, createGame, updateGame, removeGame } = await useGamesTable()
+const { t, options, loading, tableColumns, response, sort, createGame, updateGame, removeGame, getPaginatedData } =
+  useGamesTable()
+
+await getPaginatedData(options.value)
 </script>
 
 <template>
@@ -51,7 +54,11 @@ const { t, options, loading, tableColumns, response, sort, createGame, updateGam
         </template>
         <template #platforms="{ row }">
           <small class="fw-semibold text-muted">
-            <template v-if="row.platforms.length"></template>
+            <template v-if="row.platforms.length">
+              <div class="d-flex flex-column gap-1">
+                <small v-for="platform of row.platforms" class="text-primary fw-semibold">{{ platform.name }}</small>
+              </div>
+            </template>
             <template v-else>-</template>
           </small>
         </template>

@@ -16,14 +16,14 @@ const defaultOptions: PaginationOptions = {
   search: undefined
 }
 
-async function useGamesTable() {
+function useGamesTable() {
   const { t } = useI18n()
-  const { query } = useRoute()
+  const $route = useRoute()
 
   const { create, update, remove, getPaginated } = useGameAdminHandler(t)
 
   const loading = ref<boolean>(false)
-  const options = computed<PaginationOptions>(() => parseQuery<PaginationOptions>(query, defaultOptions))
+  const options = computed<PaginationOptions>(() => parseQuery<PaginationOptions>($route.query, defaultOptions))
 
   const response = reactive<{ data: Array<GameDto>; meta: PaginationMeta }>({
     data: [],
@@ -67,17 +67,15 @@ async function useGamesTable() {
       .finally(() => (loading.value = false))
   }
 
-  await getPaginatedData(options.value)
-
   watch(
-    () => query,
+    () => $route.query,
     async (newQuery: LocationQuery): Promise<void> => {
       const parsed = parseQuery<PaginationOptions>(newQuery, defaultOptions)
       await getPaginatedData(parsed)
     }
   )
 
-  return { t, loading, options, response, tableColumns, sort, createGame, updateGame, removeGame }
+  return { t, loading, options, response, tableColumns, sort, createGame, updateGame, removeGame, getPaginatedData }
 }
 
 export { useGamesTable }
