@@ -2,8 +2,8 @@ import { AxiosInstance } from 'axios'
 
 import { ILocalStorageUtil } from '@/core/utils/local-storage.util'
 import { AxiosService } from '@/core/utils/axios.util'
-import { JWTDto, IJWT } from '@/core/apis/dto/JWT.dto'
-import { RegisterDto, ResetPasswordDto } from '@/core/apis/dto/user.dto'
+import { JWTDto, IJWT } from '@/library/dto/JWT.dto'
+import { RegisterDto, ResetPasswordDto } from '@/library/dto/user.dto'
 
 class authentication {
   private readonly $api: AxiosInstance

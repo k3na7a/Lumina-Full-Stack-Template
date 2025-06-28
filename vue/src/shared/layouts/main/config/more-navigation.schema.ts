@@ -1,7 +1,4 @@
-type more_navigation = Array<{
-  title: string
-  children: Array<{ title: string; redirect: string }>
-}>
+import { more_navigation } from '../../../../library/types/more-navigation.type'
 
 const MORE_NAVIGATION: more_navigation = [
   {

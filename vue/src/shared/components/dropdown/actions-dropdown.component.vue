@@ -1,16 +1,18 @@
 <script setup lang="ts">
 import DropdownComponent from '@/shared/components/dropdown/base/dropdown.component.vue'
 
-const props = defineProps<{
+type props = {
   id: string
   type: string
   updateCallback?: () => void
   deleteCallback?: () => void
-}>()
+}
+
+const { id, type, updateCallback, deleteCallback } = defineProps<props>()
 </script>
 
 <template>
-  <DropdownComponent dropdownAlign="end">
+  <DropdownComponent dropdownAlign="end" class="th-action-dropdown">
     <template #button>
       <font-awesome-icon :icon="['fas', 'ellipsis-vertical']" />
     </template>
@@ -20,7 +22,7 @@ const props = defineProps<{
           <div class="px-2 py-1 text-truncate">
             <h5 class="text-muted fw-bolder text-nowrap">{{ $t('forms.actions') }}</h5>
             <small class="text-primary fst-italic text-nowrap">
-              {{ props.type }}: <span class="text-light-alt">{{ props.id }}</span>
+              {{ type }}: <span class="text-light-alt">{{ id }}</span>
             </small>
           </div>
           <div class="d-flex flex-column gap-1">
@@ -58,11 +60,3 @@ const props = defineProps<{
     </template>
   </DropdownComponent>
 </template>
-
-<style lang="scss" scoped>
-@import '@/shared/sass/variables/index';
-
-*:disabled {
-  opacity: 40%;
-}
-</style>

@@ -1,18 +1,13 @@
 import { AxiosRequestConfig, AxiosResponse } from 'axios'
 
-interface IRequestConfig {
-  content?: string
-  token?: string | null
-  params?: Record<string, any>
-  data?: Record<string, any>
-}
+import { RequestConfig } from '@/library/types/request-config.type'
 
 class AxiosService {
   public static parseResponse = <T>(DtoClass: new (data: any) => T) => {
     return (response: AxiosResponse): T => new DtoClass(response.data)
   }
 
-  public static requestConfig = ({ token, params, content, data }: IRequestConfig): AxiosRequestConfig => {
+  public static requestConfig = ({ token, params, content, data }: RequestConfig): AxiosRequestConfig => {
     const headers: Record<string, string> = {}
 
     if (token) headers['Authorization'] = `Bearer ${token}`
@@ -32,4 +27,3 @@ class AxiosService {
 }
 
 export { AxiosService }
-export type { IRequestConfig }

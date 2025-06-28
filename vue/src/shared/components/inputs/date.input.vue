@@ -1,96 +1,30 @@
 <script setup lang="ts">
-import { onMounted, onUnmounted, ref, toRef, watch } from 'vue'
-import { getMonthDetails, months, days } from '@/core/utils/date.util'
-
-import * as bootstrap from 'bootstrap'
 import moment from 'moment'
-import { useField } from 'vee-validate'
+
+import { getMonthDetails } from '@/core/utils/date.util'
+
+import { days } from '@/library/constants/date.constants'
+import { useDateInput } from './composables/date-input.composable'
 
 const props = defineProps<{ name: string; value?: Date }>()
-const todayTimestamp = moment().startOf('day')
-
-const date = new Date()
-
-const name = toRef(props, 'name')
-const { value, errorMessage } = useField<Date | undefined>(name.value, undefined, {
-  initialValue: props.value
-})
-
-const year = ref<number>(value.value?.getFullYear() || date.getFullYear())
-const month = ref<number>(value.value?.getMonth() || date.getMonth())
-
 const emit = defineEmits<{ update: [value: Date | undefined] }>()
-watch(value, (newVal: Date | undefined) => {
-  emit('update', newVal)
-})
 
-onMounted(() => {
-  emit('update', value.value)
-})
-
-const dropdownRef = ref<InstanceType<typeof HTMLElement>>()
-function closeDropdown(): void {
-  const dropdown = bootstrap.Dropdown.getOrCreateInstance(dropdownRef.value || '')
-  dropdown.hide()
-}
-
-function toggleDropdown(): void {
-  const dropdown = bootstrap.Dropdown.getOrCreateInstance(dropdownRef.value || '')
-  dropdown.toggle()
-}
-
-function reset(): void {
-  if (value.value) {
-    year.value = value.value.getFullYear()
-    month.value = value.value.getMonth()
-  } else {
-    year.value = date.getFullYear()
-    month.value = date.getMonth()
-  }
-}
-
-function clear(): void {
-  value.value = undefined
-  closeDropdown()
-}
-
-function set(event: MouseEvent): void {
-  const target = event.target as HTMLButtonElement
-  value.value = new Date(parseInt(target.id))
-  closeDropdown()
-}
-
-function setToday(): void {
-  value.value = todayTimestamp.toDate()
-  closeDropdown()
-}
-
-function getMonthStr(month: number): string {
-  return months[Math.max(Math.min(11, month), 0)]
-}
-
-function updateYear(offset: number): void {
-  year.value = year.value + offset
-}
-
-function updateMonth(offset: number): void {
-  month.value = month.value + offset
-
-  if (month.value === -1) {
-    month.value = 11
-    year.value--
-  } else if (month.value === 12) {
-    month.value = 0
-    year.value++
-  }
-}
-
-onMounted(() => {
-  dropdownRef.value?.addEventListener('hidden.bs.dropdown', reset)
-})
-onUnmounted(() => {
-  dropdownRef.value?.removeEventListener('hidden.bs.dropdown', reset)
-})
+const {
+  value,
+  month,
+  year,
+  todayTimestamp,
+  dropdownRef,
+  closeDropdown,
+  toggleDropdown,
+  clear,
+  set,
+  setToday,
+  errorMessage,
+  updateMonth,
+  updateYear,
+  getMonthStr
+} = useDateInput(props, emit)
 </script>
 
 <template>
@@ -181,50 +115,3 @@ onUnmounted(() => {
     </div>
   </div>
 </template>
-
-<style lang="scss" scoped>
-@import '@/shared/sass/variables/index';
-
-.dropdown.date-picker {
-  .date-picker-btn {
-    border: 0.1rem $muted solid;
-    outline: none;
-    height: 3rem;
-    transition: all 0.15s ease-in-out;
-  }
-
-  &:hover {
-    .date-picker-btn {
-      box-shadow: 0 0 0 0.1rem $muted;
-
-      &.has-error {
-        box-shadow: 0 0 0 0.1rem $danger !important;
-      }
-    }
-  }
-
-  &:focus-within {
-    .date-picker-btn {
-      border-color: $primary;
-      box-shadow: 0 0 0 0.1rem $primary;
-
-      &.has-error {
-        box-shadow: 0 0 0 0.1rem $danger !important;
-      }
-    }
-  }
-
-  .has-error {
-    border-color: $danger !important;
-  }
-
-  .dropdown-menu {
-    border: 0.1rem $muted solid;
-    min-width: fit-content;
-
-    button {
-      margin: 0;
-    }
-  }
-}
-</style>

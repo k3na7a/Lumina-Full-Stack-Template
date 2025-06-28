@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
 
 import { GameEntity } from 'src/app/modules/games/entities/game.entity';
 import { GameService } from 'src/app/modules/games/services/games.service';
@@ -16,7 +16,7 @@ export class GamesAdminService {
     private readonly imageService: ImageService,
   ) {}
 
-  private async handleUploadCover(
+  private async handleCreateCover(
     game: GameEntity,
     file: Express.Multer.File,
   ): Promise<GameEntity> {
@@ -27,6 +27,25 @@ export class GamesAdminService {
     });
 
     return this.gameService.update(game.id, { ...game, cover });
+  }
+
+  private async handleUpdateCover(game: GameEntity, file: Express.Multer.File) {
+    if (!game.cover) throw new BadRequestException('Game does not have a cover');
+
+    const cover: ImageEntity = await this.imageService.update(game.cover.id, {
+      file,
+      type: IMAGE_TYPE.COVERS,
+    });
+
+    return this.gameService.update(game.id, { ...game, cover });
+  }
+
+  private async handleUploadCover(
+    game: GameEntity,
+    file: Express.Multer.File,
+  ): Promise<GameEntity> {
+    if (game.cover) return this.handleUpdateCover(game, file);
+    return this.handleCreateCover(game, file);
   }
 
   public async paginate(
@@ -46,13 +65,20 @@ export class GamesAdminService {
     await this.gameService.ensureSlugIsUnique(dto.slug);
 
     const newGame = await this.gameService.create(dto);
-    if (file) await this.handleUploadCover(newGame, file);
+    if (file) await this.handleCreateCover(newGame, file);
 
     return this.gameService.findOneById(newGame.id);
   }
 
-  public async update(id: string, dto: object): Promise<GameEntity> {
+  public async update(
+    id: string,
+    dto: CreateGameDto,
+    file?: Express.Multer.File,
+  ): Promise<GameEntity> {
+    await this.gameService.ensureSlugIsUnique(dto.slug, id);
+
     const game = await this.gameService.findOneById(id);
+    if (file) await this.handleUploadCover(game, file);
 
     await this.gameService.update(game.id, dto);
 

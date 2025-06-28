@@ -1,0 +1,343 @@
+.th-checkbox {
+  label {
+    cursor: pointer;
+
+    input {
+      position: absolute;
+      width: 0px;
+      height: 0px;
+    }
+
+    .th-checkbox {
+      height: 1.8rem;
+      aspect-ratio: 1 / 1;
+      border: 0.1rem solid $muted;
+      background-color: $backgroundAlt;
+      transition: border 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+    }
+
+    &:hover {
+      .th-checkbox {
+        box-shadow: 0 0 0 0.1rem $muted;
+      }
+    }
+
+    &:focus-within,
+    &:has(:active) {
+      .th-checkbox {
+        border: 0.1rem solid $primary;
+        box-shadow: 0 0 0 0.1rem $primary;
+      }
+    }
+  }
+}
+
+.th-text-input {
+  &.has-error input {
+    border-color: $danger;
+  }
+
+  &.has-error input:hover {
+    box-shadow: 0 0 0 0.1rem $danger;
+  }
+
+  &.success input {
+    border-color: $success;
+  }
+
+  &.success input:hover {
+    box-shadow: 0 0 0 0.1rem $success;
+  }
+
+  input:hover {
+    box-shadow: 0 0 0 0.1rem $muted;
+  }
+
+  input:focus {
+    border-color: $primary !important;
+    box-shadow: 0 0 0 0.1rem $primary !important;
+  }
+
+  input {
+    outline: none;
+    border: 0.1rem $muted solid;
+    height: 3rem;
+
+    transition: all 0.15s ease-in-out;
+  }
+
+  input:disabled {
+    pointer-events: none;
+    border-color: grey;
+    opacity: 75%;
+  }
+}
+
+.th-text-area-input {
+  &.has-error textarea {
+    border-color: $danger;
+  }
+
+  &.has-error textarea:hover {
+    box-shadow: 0 0 0 0.1rem $danger;
+  }
+
+  &.success textarea {
+    border-color: $success;
+  }
+
+  &.success textarea:hover {
+    box-shadow: 0 0 0 0.1rem $success;
+  }
+
+  textarea:hover {
+    box-shadow: 0 0 0 0.1rem $muted;
+  }
+
+  textarea:focus {
+    border-color: $primary !important;
+    box-shadow: 0 0 0 0.1rem $primary !important;
+  }
+
+  textarea {
+    outline: none;
+    border: 0.1rem $muted solid;
+    transition: all 0.15s ease-in-out;
+    resize: none;
+  }
+
+  textarea:disabled {
+    pointer-events: none;
+    border-color: grey;
+    opacity: 75%;
+  }
+}
+
+.th-select {
+  .highlight {
+    background-color: $bg-hover;
+  }
+
+  .select-btn {
+    outline: none;
+    border: 0.1rem $muted solid;
+    height: 3rem;
+
+    transition: all 0.15s ease-in-out;
+
+    &:disabled {
+      opacity: $disabled-opacity;
+      color: $muted !important;
+    }
+  }
+
+  .dropdown-menu {
+    border: 0.1rem $muted solid;
+
+    button {
+      margin-bottom: 0px !important;
+      outline: none;
+    }
+  }
+
+  &:hover {
+    .select-btn {
+      box-shadow: 0 0 0 0.1rem $muted;
+    }
+  }
+
+  &.has-error {
+    .select-btn {
+      border-color: $danger !important;
+    }
+
+    &:hover {
+      .select-btn {
+        box-shadow: 0 0 0 0.1rem $danger;
+      }
+    }
+  }
+
+  &:focus-within {
+    .select-btn {
+      border-color: $primary !important;
+      box-shadow: 0 0 0 0.1rem $primary !important;
+    }
+  }
+
+  &.disabled {
+    pointer-events: none;
+  }
+}
+
+.th-search-input.input-group {
+  background-color: $backgroundAlt;
+  border: 0.1rem $muted solid;
+  height: 3rem;
+  transition: all 0.15s ease-in-out;
+
+  &:has(.disabled) {
+    pointer-events: none;
+    opacity: $disabled-opacity;
+  }
+
+  button {
+    outline: none;
+
+    &:focus {
+      color: $primary !important;
+    }
+  }
+
+  :disabled {
+    color: $muted !important;
+    opacity: 0.7;
+  }
+
+  &:hover {
+    box-shadow: 0 0 0 0.1rem $muted;
+  }
+
+  &:focus-within {
+    border-color: $primary !important;
+    box-shadow: 0 0 0 0.1rem $primary !important;
+  }
+
+  & > * {
+    border: none;
+    background-color: transparent;
+  }
+
+  input {
+    outline: none;
+    min-width: none !important;
+  }
+}
+
+.search-paginated {
+  .highlight {
+    background-color: $bg-hover;
+  }
+
+  .search {
+    .dropdown-menu {
+      border: 0.1rem solid $muted;
+      max-height: 20rem;
+    }
+  }
+
+  .search-input.input-group {
+    background-color: $backgroundAlt;
+    border: 0.1rem $muted solid;
+    height: 3rem;
+    transition: all 0.15s ease-in-out;
+
+    &:has(.disabled) {
+      pointer-events: none;
+      opacity: $disabled-opacity;
+    }
+
+    button {
+      outline: none;
+
+      &:focus {
+        color: $primary !important;
+      }
+    }
+
+    :disabled {
+      color: $muted !important;
+      opacity: 0.7;
+    }
+
+    &:hover {
+      box-shadow: 0 0 0 0.1rem $muted;
+    }
+
+    &:focus-within {
+      border-color: $primary !important;
+      box-shadow: 0 0 0 0.1rem $primary !important;
+    }
+
+    & > * {
+      border: none;
+      background-color: transparent;
+    }
+
+    input {
+      outline: none;
+      min-width: none !important;
+    }
+  }
+}
+
+.th-file-input {
+  .file-input-display {
+    background-color: $backgroundAlt;
+    border: 0.1rem dashed $muted;
+  }
+
+  .file-input-component {
+    border: 0.1rem $muted dashed;
+    width: 100%;
+    transition: all 0.15s ease-in-out;
+
+    &:hover,
+    &:has(input:focus),
+    &:has(input:active) {
+      border: 0.1rem $lightAlt dashed;
+      // box-shadow: 0 0 0 0.1rem $primary;
+    }
+
+    input {
+      left: 0;
+      right: 0;
+      top: 0;
+      bottom: 0;
+      cursor: pointer;
+    }
+  }
+}
+
+.dropdown.date-picker {
+  .date-picker-btn {
+    border: 0.1rem $muted solid;
+    outline: none;
+    height: 3rem;
+    transition: all 0.15s ease-in-out;
+  }
+
+  &:hover {
+    .date-picker-btn {
+      box-shadow: 0 0 0 0.1rem $muted;
+
+      &.has-error {
+        box-shadow: 0 0 0 0.1rem $danger !important;
+      }
+    }
+  }
+
+  &:focus-within {
+    .date-picker-btn {
+      border-color: $primary;
+      box-shadow: 0 0 0 0.1rem $primary;
+
+      &.has-error {
+        box-shadow: 0 0 0 0.1rem $danger !important;
+      }
+    }
+  }
+
+  .has-error {
+    border-color: $danger !important;
+  }
+
+  .dropdown-menu {
+    border: 0.1rem $muted solid;
+    min-width: fit-content;
+
+    button {
+      margin: 0;
+    }
+  }
+}

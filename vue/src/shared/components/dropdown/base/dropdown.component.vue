@@ -1,42 +1,8 @@
 <script setup lang="ts">
-import { onBeforeUnmount, onMounted, ref } from 'vue'
-import * as bootstrap from 'bootstrap'
+import { useDropdown } from '../composables/dropdown.composable'
 
-const dropdownRef = ref<InstanceType<typeof HTMLElement>>()
-const isOpen = ref(false)
-
-const props = defineProps<{ dropdownAlign?: 'end' | 'start' }>()
-let dropdownInstance: bootstrap.Dropdown | null = null
-
-function closeDropdown(): void {
-  const dropdown = bootstrap.Dropdown.getOrCreateInstance(dropdownRef.value || '')
-  dropdown.hide()
-}
-
-function toggleDropdown(): void {
-  const dropdown = bootstrap.Dropdown.getOrCreateInstance(dropdownRef.value || '')
-  dropdown.toggle()
-}
-
-onMounted(() => {
-  if (dropdownRef.value) {
-    dropdownInstance = bootstrap.Dropdown.getOrCreateInstance(dropdownRef.value)
-
-    dropdownRef.value.addEventListener('shown.bs.dropdown', () => {
-      isOpen.value = true
-    })
-    dropdownRef.value.addEventListener('hidden.bs.dropdown', () => {
-      isOpen.value = false
-    })
-  }
-})
-
-onBeforeUnmount(() => {
-  if (dropdownRef.value) {
-    dropdownRef.value.removeEventListener('shown.bs.dropdown', () => {})
-    dropdownRef.value.removeEventListener('hidden.bs.dropdown', () => {})
-  }
-})
+const { dropdownRef, closeDropdown, toggleDropdown } = useDropdown()
+const { dropdownAlign } = defineProps<{ dropdownAlign?: 'end' | 'start' }>()
 </script>
 
 <template>
@@ -49,7 +15,7 @@ onBeforeUnmount(() => {
       </button>
     </div>
     <div
-      :class="{ 'dropdown-menu-end': props.dropdownAlign === 'end' }"
+      :class="{ 'dropdown-menu-end': dropdownAlign === 'end' }"
       class="dropdown-menu dropdown-menu-dark p-2"
       @click.stop
     >
@@ -57,7 +23,3 @@ onBeforeUnmount(() => {
     </div>
   </div>
 </template>
-
-<style lang="scss" scoped>
-@import '@/shared/sass/variables/index';
-</style>

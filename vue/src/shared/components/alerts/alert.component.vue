@@ -1,8 +1,10 @@
 <script setup lang="ts">
-const props = defineProps<{
+type props = {
   error: any
   callback: (() => void) | undefined
-}>()
+}
+
+const { error, callback } = defineProps<props>()
 </script>
 
 <template>
@@ -12,7 +14,7 @@ const props = defineProps<{
     </div>
     <div class="toast-body d-flex flex-column p-2 flex-grow-1 gap-1">
       <p class="text-light-alt">
-        {{ props.error }}
+        {{ error }}
       </p>
       <div class="d-flex justify-content-end">
         <button class="btn btn-danger text-light px-2" @click="callback">Try Again</button>
@@ -20,11 +22,3 @@ const props = defineProps<{
     </div>
   </div>
 </template>
-
-<style lang="scss" scoped>
-@import '@/shared/sass/variables/index';
-
-.error-alert {
-  border: 1px solid $danger;
-}
-</style>

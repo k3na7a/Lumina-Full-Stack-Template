@@ -1,39 +1,16 @@
 <script setup lang="ts">
 import { kilobyte } from '@/library/constants/size.constants'
-import { useField } from 'vee-validate'
-import { onMounted, ref, toRef, watch } from 'vue'
 
-const props = defineProps<{ name: string }>()
-
-const name = toRef(props, 'name')
-const inputRef = ref<InstanceType<typeof HTMLInputElement>>()
-
-const { value } = useField<File | undefined>(name.value, undefined, { initialValue: undefined })
+import { proptype, useFileInput } from './composables/file-input.composable'
 
 const emit = defineEmits<{ update: [value: File | undefined] }>()
-watch(value, (newVal: File | undefined) => {
-  emit('update', newVal)
-})
+const props = defineProps<proptype>()
 
-onMounted(() => {
-  emit('update', value.value)
-})
-
-function onChange(event: Event) {
-  const target = event.target as HTMLInputElement
-  const files: FileList | null = target.files
-
-  value.value = files?.length ? files[0] : undefined
-}
-
-function removeFile(_event: MouseEvent) {
-  value.value = undefined
-  if (inputRef.value) inputRef.value.value = ''
-}
+const { value, removeFile, onChange } = useFileInput(props, emit)
 </script>
 
 <template>
-  <div class="file-input d-flex flex-column" :key="JSON.stringify(value)">
+  <div class="th-file-input d-flex flex-column" :key="JSON.stringify(value)">
     <div class="file-input-component position-relative" v-if="!value">
       <input
         ref="inputRef"
@@ -80,35 +57,3 @@ function removeFile(_event: MouseEvent) {
     </div>
   </div>
 </template>
-
-<style lang="scss" scoped>
-@import '@/shared/sass/variables/index';
-
-.file-input {
-  .file-input-display {
-    background-color: $backgroundAlt;
-    border: 0.1rem dashed $muted;
-  }
-
-  .file-input-component {
-    border: 0.1rem $muted dashed;
-    width: 100%;
-    transition: all 0.15s ease-in-out;
-
-    &:hover,
-    &:has(input:focus),
-    &:has(input:active) {
-      border: 0.1rem $lightAlt dashed;
-      // box-shadow: 0 0 0 0.1rem $primary;
-    }
-
-    input {
-      left: 0;
-      right: 0;
-      top: 0;
-      bottom: 0;
-      cursor: pointer;
-    }
-  }
-}
-</style>

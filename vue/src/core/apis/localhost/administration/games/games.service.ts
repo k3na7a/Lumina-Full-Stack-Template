@@ -1,9 +1,9 @@
 import { AxiosInstance, AxiosResponse } from 'axios'
 
 import { ILocalStorageUtil } from '@/core/utils/local-storage.util'
-import { PaginationDto, PaginationOptions } from '@/core/apis/dto/pagination.dto'
+import { PaginationDto, PaginationOptions } from '@/library/dto/pagination.dto'
 import { AxiosService } from '@/core/utils/axios.util'
-import { CreateGameDto, GameDto, iGame } from '@/core/apis/dto/game.dto'
+import { CreateGameDto, GameDto, iGame } from '@/library/dto/game.dto'
 
 class games {
   private readonly $api: AxiosInstance
@@ -36,6 +36,22 @@ class games {
 
     const response = await this.$api.put<iGame>(
       'administration/games-and-software/games',
+      params,
+      this.requestConfigWith({ content: 'multipart/form-data' })
+    )
+
+    return new GameDto(response.data)
+  }
+
+  public readonly update = async (id: string, params: CreateGameDto) => {
+    const formData = new FormData()
+
+    Object.keys(params).forEach((key: string) => {
+      if (Object(params)[key]) formData.append(key, Object(params)[key])
+    })
+
+    const response = await this.$api.patch<iGame>(
+      `administration/games-and-software/games/${id}`,
       params,
       this.requestConfigWith({ content: 'multipart/form-data' })
     )

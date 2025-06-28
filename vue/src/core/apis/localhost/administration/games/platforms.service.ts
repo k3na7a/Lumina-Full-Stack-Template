@@ -1,9 +1,9 @@
 import { AxiosInstance, AxiosResponse } from 'axios'
 
 import { ILocalStorageUtil } from '@/core/utils/local-storage.util'
-import { PaginationDto, PaginationOptions } from '@/core/apis/dto/pagination.dto'
+import { PaginationDto, PaginationOptions } from '@/library/dto/pagination.dto'
 import { AxiosService } from '@/core/utils/axios.util'
-import { CreatePlatformDto, PlatformDto, iPlatform } from '@/core/apis/dto/platform.dto'
+import { CreatePlatformDto, PlatformDto, iPlatform } from '@/library/dto/platform.dto'
 
 class platforms {
   private readonly $api: AxiosInstance

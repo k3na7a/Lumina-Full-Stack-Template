@@ -1,30 +1,10 @@
 <script setup lang="ts">
-import { computed, ComputedRef, ref } from 'vue'
 import { Form } from 'vee-validate'
-import { useI18n } from 'vue-i18n'
-
-import { useFormUtil } from '@/core/utils/forms.util.ts'
-import { UserDto, UpdateProfile } from '@/core/apis/dto/user.dto.ts'
-import { AuthStore, useAuthStore } from '@/core/store/authentication.store.ts'
-
 import TextInput from '@/shared/components/inputs/text.input.vue'
+import { proptype, useUpdateProfile } from '../composables/update-profile.composable.ts'
 
-import { validationSchema } from '../composables/forms/update-profile-validation.schema.ts'
-import { useSettingsHandler } from '../composables/settings.handler.ts'
-
-const { t } = useI18n()
-const handler = useSettingsHandler(t)
-
-const validateUtil = useFormUtil()
-const authStore: AuthStore = useAuthStore()
-
-const user: ComputedRef<UserDto | undefined> = computed(() => authStore.authenticatedUser)
-const loading = ref<boolean>(false)
-
-const onSubmit = validateUtil.getSubmitFn(validationSchema, async (values: UpdateProfile) => {
-  loading.value = true
-  handler.updateProfile(values).finally(() => (loading.value = false))
-})
+const { user, callback } = defineProps<proptype>()
+const { loading, onSubmit, validationSchema } = useUpdateProfile(callback)
 </script>
 
 <template>

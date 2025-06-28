@@ -1,29 +1,15 @@
 <script setup lang="ts">
-import { ref } from 'vue'
 import { Form } from 'vee-validate'
 
-import { useFormUtil } from '@/core/utils/forms.util'
-import { credentials } from '@/core/apis/dto/JWT.dto'
-
 import { ROUTE_NAMES } from '@/library/enums/route-names.enum'
+
 import ModalTitleComponent from '@/shared/components/modal/base/modal-title.component.vue'
 import TextInput from '@/shared/components/inputs/text.input.vue'
 
-import { validationSchema } from './composables/signin-validation.schema'
+import { proptype, useSignInModal } from './composables/signin.composable'
 
-const validateUtil = useFormUtil()
-
-const loading = ref<boolean>(false)
-const props = defineProps<{
-  callback: (values: credentials) => Promise<void>
-}>()
-
-const onSubmit = validateUtil.getSubmitFn(validationSchema, async (values: credentials) => {
-  loading.value = true
-  props.callback(values).finally(() => {
-    loading.value = false
-  })
-})
+const { callback } = defineProps<proptype>()
+const { validationSchema, onSubmit, loading } = useSignInModal(callback)
 </script>
 
 <template>

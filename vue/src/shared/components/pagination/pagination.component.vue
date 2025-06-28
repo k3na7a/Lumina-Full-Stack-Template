@@ -1,10 +1,17 @@
 <script setup lang="ts">
-const props = defineProps<{ disabled?: boolean; page: number; total: number; offset: number }>()
+type props = {
+  disabled?: boolean
+  page: number
+  total: number
+  offset: number
+}
+
 const emit = defineEmits<{ update: [value: number] }>()
+const { disabled, page, total, offset } = defineProps<props>()
 </script>
 
 <template>
-  <ul class="pagination m-0 flex-wrap user-select-none">
+  <ul class="pagination th-pagination m-0 flex-wrap user-select-none">
     <li class="page-item">
       <button
         v-tooltip="{ text: $t('forms.first'), position: 'bottom', trigger: 'hover' }"
@@ -24,7 +31,7 @@ const emit = defineEmits<{ update: [value: number] }>()
         v-tooltip="{ text: $t('forms.previous'), position: 'bottom', trigger: 'hover' }"
         type="button"
         class="btn btn-secondary btn-icon"
-        @click="(_event: MouseEvent) => emit('update', props.page - 1)"
+        @click="(_event: MouseEvent) => emit('update', page - 1)"
         :disabled="page == 1 || disabled"
       >
         <div class="d-flex align-items-center justify-content-center">
@@ -86,28 +93,3 @@ const emit = defineEmits<{ update: [value: number] }>()
     </li>
   </ul>
 </template>
-
-<style lang="scss" scoped>
-@import '@/shared/sass/variables/index';
-
-.pagination {
-  gap: 0.5rem;
-
-  .page-item {
-    display: flex;
-    align-items: center;
-
-    .btn {
-      font-size: $font-size-7;
-      font-weight: 600;
-      height: 3rem;
-      width: 3rem;
-
-      &.active {
-        background-color: $primary !important;
-        color: #000;
-      }
-    }
-  }
-}
-</style>

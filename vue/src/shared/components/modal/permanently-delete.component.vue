@@ -1,36 +1,19 @@
 <script setup lang="ts">
-import { ref } from 'vue'
 import { Form } from 'vee-validate'
-
-import { useFormUtil } from '@/core/utils/forms.util'
 
 import TextInput from '@/shared/components/inputs/text.input.vue'
 import ModalTitleComponent from '@/shared/components/modal/base/modal-title.component.vue'
 
-import { FormValues, validationSchema, $string } from './composables/permanently-delete-validation.schema'
+import { proptype, usePermanentlyDeleteModal } from './composables/permanently-delete.composable'
 
-const props = defineProps<{
-  close: () => void
-  callback: () => Promise<void>
-  title: string
-  action: string
-}>()
-
-const loading = ref<boolean>(false)
-const { getSubmitFn } = useFormUtil()
-
-const onSubmit = getSubmitFn(validationSchema, (_: FormValues) => {
-  loading.value = true
-  props.callback().finally(() => {
-    loading.value = false
-  })
-})
+const { callback, title, action } = defineProps<proptype>()
+const { loading, onSubmit, validationSchema, $string } = usePermanentlyDeleteModal(callback)
 </script>
 
 <template>
   <Form @submit="onSubmit" :validation-schema="validationSchema" v-slot="{ meta }">
     <div class="d-flex flex-column gap-3">
-      <ModalTitleComponent :title="props.title" />
+      <ModalTitleComponent :title="title" />
       <div class="d-flex flex-column gap-2">
         <div class="d-flex flex-column">
           <i18n-t keypath="forms.confirm-deletion" tag="h6" class="fw-normal text-light-alt" scope="global">
@@ -43,7 +26,7 @@ const onSubmit = getSubmitFn(validationSchema, (_: FormValues) => {
       </div>
       <div class="d-grid">
         <button :disabled="!meta.valid || loading || !meta.dirty" class="btn btn-primary px-0" type="submit">
-          <div v-if="!loading" class="containter">{{ props.action }}</div>
+          <div v-if="!loading" class="containter">{{ action }}</div>
           <div v-else class="containter">{{ $t('actions.loading') }}</div>
         </button>
       </div>

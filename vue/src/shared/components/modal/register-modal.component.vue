@@ -1,32 +1,13 @@
 <script setup lang="ts">
-import { ref } from 'vue'
 import { Form } from 'vee-validate'
-import { useI18n } from 'vue-i18n'
-
-import { useFormUtil } from '@/core/utils/forms.util'
 
 import TextInput from '@/shared/components/inputs/text.input.vue'
 
 import Layout from './layouts/register.layout.vue'
-import { validationSchema, registrationValues } from './composables/registration-validation.schema'
+import { useRegisterModal, proptype } from './composables/registration.composable'
 
-const { getSubmitFn } = useFormUtil()
-const { messages, locale } = useI18n()
-
-const currentMessages = messages.value[locale.value] as Record<string, any>
-const emailPlaceholder = currentMessages.administration.users['user-table'].update.placeholders.email as string
-
-const loading = ref<boolean>(false)
-const props = defineProps<{
-  callback: (values: any) => Promise<void>
-}>()
-
-const onSubmit = getSubmitFn(validationSchema, async (values: registrationValues) => {
-  loading.value = true
-  props.callback(values).finally(() => {
-    loading.value = false
-  })
-})
+const { callback } = defineProps<proptype>()
+const { loading, onSubmit, validationSchema, emailPlaceholder } = useRegisterModal(callback)
 </script>
 
 <template>

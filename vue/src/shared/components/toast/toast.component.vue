@@ -2,9 +2,8 @@
 import { ComputedRef, computed } from 'vue'
 import { Toast, ToastStore, useToastStore } from '@/core/store/toast.store'
 
-const store: ToastStore = useToastStore()
-
-const toasts: ComputedRef<Toast[]> = computed<Toast[]>(() => store.getToasts)
+const { getToasts, removeToast }: ToastStore = useToastStore()
+const toasts: ComputedRef<Toast[]> = computed<Toast[]>(() => getToasts)
 </script>
 
 <template>
@@ -27,7 +26,7 @@ const toasts: ComputedRef<Toast[]> = computed<Toast[]>(() => store.getToasts)
             <button
               type="button"
               class="btn btn-link link-light link-opacity-75-hover"
-              @click="(_$event: MouseEvent) => store.removeToast(toast.id)"
+              @click="(_$event: MouseEvent) => removeToast(toast.id)"
             >
               <font-awesome-icon size="lg" :icon="['fas', 'close']" />
             </button>
@@ -37,26 +36,3 @@ const toasts: ComputedRef<Toast[]> = computed<Toast[]>(() => store.getToasts)
     </TransitionGroup>
   </div>
 </template>
-
-<style lang="scss" scoped>
-@import '@/shared/sass/variables/index';
-
-$toast-themes: (
-  danger: $danger,
-  primary: $primary,
-  success: $success,
-  warning: $warning,
-  info: $info
-);
-
-@each $name, $color in $toast-themes {
-  .toast-#{$name} {
-    border: 1px solid #{$color};
-    box-shadow: 0 0 8px rgba($color, 0.4);
-
-    * > h6 {
-      color: #{$color};
-    }
-  }
-}
-</style>

@@ -1,30 +1,13 @@
 <script setup lang="ts">
-import { computed, ComputedRef, reactive } from 'vue'
 import { Form } from 'vee-validate'
-import { useI18n } from 'vue-i18n'
 
 import TextInput from '@/shared/components/inputs/text.input.vue'
 import PasswordValidationList from '@/shared/components/labels/password-validation-list.component.vue'
 
-import { useFormUtil } from '@/core/utils/forms.util'
-import { useSettingsHandler } from '@/views/settings/composables/settings.handler'
-import { validationSchema } from '../../../core/composables/forms/update-password-validation.schema'
-import { UserDto, UpdatePassword } from '@/core/apis/dto/user.dto'
-import { AuthStore, useAuthStore } from '@/core/store/authentication.store'
+import { useUpdatePassword, proptype } from '../composables/update-password.composable'
 
-const { t } = useI18n()
-const { getSubmitFn } = useFormUtil()
-
-const handler = useSettingsHandler(t)
-const authStore: AuthStore = useAuthStore()
-
-const user: ComputedRef<UserDto | undefined> = computed(() => authStore.authenticatedUser)
-const state = reactive<{ loading: boolean; open: boolean }>({ loading: false, open: false })
-
-const onSubmit = getSubmitFn(validationSchema, async (values: UpdatePassword) => {
-  state.loading = true
-  handler.updatePassword(values).finally(() => (state.loading = false))
-})
+const { user, callback } = defineProps<proptype>()
+const { validationSchema, onSubmit, state } = useUpdatePassword(callback)
 </script>
 
 <template>

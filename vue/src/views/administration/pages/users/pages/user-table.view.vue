@@ -5,16 +5,16 @@ import { useI18n } from 'vue-i18n'
 import moment from 'moment'
 
 import { parseQuery } from '@/core/utils/parse-query.util'
-import { PaginationOptions, PaginationMeta, PaginationDto } from '@/core/apis/dto/pagination.dto'
-import { UserDto } from '@/core/apis/dto/user.dto'
+import { PaginationOptions, PaginationMeta, PaginationDto } from '@/library/dto/pagination.dto'
+import { UserDto } from '@/library/dto/user.dto'
 
 import ActionsComponent from '@/shared/components/dropdown/actions-dropdown.component.vue'
-import TablePaginatedComponent from '@/shared/components/table/paginated.component.vue'
+import TablePaginatedComponent from '@/shared/components/table/paginated-table.component.vue'
 
-import ContentLayout from '@/views/administration/layouts/content-view-admin.component.vue'
+import ContentLayout from '@/views/administration/layouts/content.layout.vue'
 
-import { defaultOptions, tableColumns, sort, badges } from '../schema/users.schema'
-import { useUserAdminHandler } from '../composables/user.handler'
+import { defaultOptions, tableColumns, sort, badges } from '../config/users-table.config'
+import { useUserAdminHandler } from '../handlers/user.handler'
 
 const $route = useRoute()
 

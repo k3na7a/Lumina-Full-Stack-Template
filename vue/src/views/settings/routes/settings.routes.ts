@@ -4,7 +4,7 @@ import { ROUTE_NAMES } from '@/library/enums/route-names.enum'
 const route: RouteRecordRaw = {
   path: '/',
   redirect: { name: ROUTE_NAMES.HOME },
-  component: () => import('@/core/router/guards/is-authenticated.guard.vue'),
+  component: () => import('@/shared/components/guards/is-authenticated.guard.vue'),
   children: [
     {
       path: '/settings',

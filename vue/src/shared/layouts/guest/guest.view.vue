@@ -3,7 +3,7 @@ import { RouteLocationNormalizedLoaded, useRoute } from 'vue-router'
 
 import NavbarComponent from '@/shared/components/navbar/navbar.component.vue'
 import LanguagesDropdown from '@/shared/components/dropdown/languages-dropdown.component.vue'
-import ErrorBoundary from '@/shared/components/error-boundary/error-boundary.v1.component.vue'
+import RenderedView from '@/shared/components/page/page.component.vue'
 
 import { ROUTE_NAMES } from '@/library/enums/route-names.enum'
 
@@ -33,22 +33,6 @@ const $route: RouteLocationNormalizedLoaded = useRoute()
   </NavbarComponent>
 
   <div class="content-wrapper d-flex flex-column flex-grow-1 overflow-auto">
-    <RouterView v-slot="{ Component }" :key="$route.path">
-      <template v-if="Component">
-        <ErrorBoundary>
-          <Suspense>
-            <template #default>
-              <component :is="Component" />
-            </template>
-            <template #fallback>
-              {{ $t('actions.loading') }}
-            </template>
-          </Suspense>
-          <template #error>
-            {{ $t('forms.error-general') }}
-          </template>
-        </ErrorBoundary>
-      </template>
-    </RouterView>
+    <RenderedView :key="$route.path" />
   </div>
 </template>

@@ -5,7 +5,7 @@ import { ROUTE_NAMES } from '@/library/enums/route-names.enum'
 const route: RouteRecordRaw = {
   path: '/',
   redirect: { name: ROUTE_NAMES.ADMINISTRATION },
-  component: () => import('@/core/router/guards/is-administrator.guard.vue'),
+  component: () => import('@/shared/components/guards/is-administrator.guard.vue'),
   children: [
     {
       path: '/administration',

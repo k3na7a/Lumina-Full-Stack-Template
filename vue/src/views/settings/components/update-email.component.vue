@@ -1,29 +1,10 @@
 <script setup lang="ts">
-import { computed, ComputedRef, reactive } from 'vue'
 import { Form } from 'vee-validate'
-import { useI18n } from 'vue-i18n'
-
 import TextInput from '@/shared/components/inputs/text.input.vue'
+import { proptype, useUpdateEmail } from '../composables/update-email.composable'
 
-import { useFormUtil } from '@/core/utils/forms.util'
-import { useSettingsHandler } from '@/views/settings/composables/settings.handler'
-import { validationSchema } from '../../../core/composables/forms/update-email-validation.schema'
-import { UserDto, UpdateEmail } from '@/core/apis/dto/user.dto'
-import { AuthStore, useAuthStore } from '@/core/store/authentication.store'
-
-const { t } = useI18n()
-const handler = useSettingsHandler(t)
-const { getSubmitFn } = useFormUtil()
-
-const authStore: AuthStore = useAuthStore()
-
-const state = reactive<{ loading: boolean; open: boolean }>({ loading: false, open: false })
-const user: ComputedRef<UserDto | undefined> = computed(() => authStore.authenticatedUser)
-
-const onSubmit = getSubmitFn(validationSchema, async (values: UpdateEmail): Promise<void> => {
-  state.loading = true
-  handler.updateEmail(values).finally(() => (state.loading = false))
-})
+const props = defineProps<proptype>()
+const { onSubmit, user, state, validationSchema } = useUpdateEmail(props)
 </script>
 
 <template>

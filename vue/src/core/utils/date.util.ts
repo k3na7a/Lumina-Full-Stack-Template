@@ -1,18 +1,4 @@
-const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
-const months = [
-  'January',
-  'February',
-  'March',
-  'April',
-  'May',
-  'June',
-  'July',
-  'August',
-  'September',
-  'October',
-  'November',
-  'December'
-]
+import { days } from '@/library/constants/date.constants'
 
 const getNumberOfDays = (year: number, month: number) => {
   return 40 - new Date(year, month, 40).getDate()
@@ -75,4 +61,4 @@ const getMonthDetails = (year: number, month: number) => {
   return monthArray
 }
 
-export { getDayDetails, getMonthDetails, getNumberOfDays, months, days }
+export { getDayDetails, getMonthDetails, getNumberOfDays }

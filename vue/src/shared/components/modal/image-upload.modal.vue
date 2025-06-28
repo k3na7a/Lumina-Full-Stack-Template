@@ -1,38 +1,25 @@
 <script setup lang="ts">
-import { ref } from 'vue'
 import { Form } from 'vee-validate'
-
-import { useFormUtil } from '@/core/utils/forms.util'
 
 import ModalTitleComponent from '@/shared/components/modal/base/modal-title.component.vue'
 import FileInputComponent from '@/shared/components/inputs/file.input.vue'
 
-import { FormValues, validationSchema } from './composables/image-upload-validation.schema'
+import { useImageUploadModal, proptype } from './composables/image-upload.composable'
 
-const loading = ref<boolean>(false)
-const props = defineProps<{
-  callback: (values: FormValues) => Promise<void>
-  title: string
-  action: string
-}>()
-
-const { getSubmitFn } = useFormUtil()
-const onSubmit = getSubmitFn(validationSchema, (values: FormValues) => {
-  loading.value = true
-  props.callback(values).finally(() => (loading.value = false))
-})
+const { title, action, callback } = defineProps<proptype>()
+const { loading, validationSchema, onSubmit } = useImageUploadModal(callback)
 </script>
 
 <template>
   <Form @submit="onSubmit" :validation-schema="validationSchema" v-slot="{ meta }">
     <div class="d-flex flex-column gap-3">
-      <ModalTitleComponent :title="props.title" />
+      <ModalTitleComponent :title="title" />
       <div class="d-flex flex-column">
         <FileInputComponent name="image" />
       </div>
       <div class="d-grid">
         <button :disabled="!meta.valid || loading || !meta.dirty" class="btn btn-primary px-0" type="submit">
-          <div v-if="!loading" class="containter">{{ props.action }}</div>
+          <div v-if="!loading" class="containter">{{ action }}</div>
           <div v-else class="containter">{{ $t('actions.loading') }}</div>
         </button>
       </div>

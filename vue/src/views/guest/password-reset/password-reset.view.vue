@@ -5,8 +5,8 @@ import { useI18n } from 'vue-i18n'
 import { LocationQuery, RouteLocationNormalizedLoaded, Router, useRoute, useRouter } from 'vue-router'
 
 import { useFormUtil } from '@/core/utils/forms.util'
-import { ResetPassword } from '@/core/apis/dto/user.dto'
-import { useAuthHandler } from '@/core/composables/authentication.handler'
+import { ResetPassword } from '@/library/dto/user.dto'
+import { useAuthHandler } from '@/core/handlers/authentication.handler'
 
 import { ROUTE_NAMES } from '@/library/enums/route-names.enum'
 import TextInput from '@/shared/components/inputs/text.input.vue'

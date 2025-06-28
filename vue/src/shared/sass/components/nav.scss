@@ -1,0 +1,20 @@
+.admin-drawer {
+  button.dropdown-item {
+    border-radius: $border-radius;
+    color: $light;
+    height: 3rem;
+
+    &.dropdown-item:hover,
+    &.dropdown-item:focus {
+      background-color: $bg-hover;
+    }
+  }
+  .active {
+    background-color: $bg-active;
+    pointer-events: none;
+
+    button {
+      color: $muted !important;
+    }
+  }
+}

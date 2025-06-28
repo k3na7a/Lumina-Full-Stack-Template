@@ -1,17 +1,18 @@
 <script setup lang="ts">
-import { computed, ComputedRef } from 'vue'
 import { RouteLocationNormalizedLoaded, useRoute } from 'vue-router'
-
-import { AuthStore, useAuthStore } from '@/core/store/authentication.store'
 
 import NavigationDropdown from '@/shared/components/dropdown/navigation-dropdown.component.vue'
 
-import { MAIN_NAVIGATION } from '../config/main-navigation.schema'
+import { nav as Navigation } from '../types/navigation.type'
+
+type props = {
+  isAuthenticated: boolean
+  navigation: Navigation[]
+}
 
 const $route: RouteLocationNormalizedLoaded = useRoute()
-const authStore: AuthStore = useAuthStore()
 
-const isAuthenticated: ComputedRef<boolean> = computed(() => authStore.isAuthenticated)
+const { isAuthenticated, navigation } = defineProps<props>()
 </script>
 
 <template>
@@ -27,7 +28,7 @@ const isAuthenticated: ComputedRef<boolean> = computed(() => authStore.isAuthent
     </div>
 
     <div class="d-flex gap-3">
-      <template v-for="nav in MAIN_NAVIGATION" :key="nav.name">
+      <template v-for="nav in navigation" :key="nav.name">
         <div v-if="!nav.auth || isAuthenticated" class="m-nav d-flex flex-column">
           <nav class="align-content-center flex-grow-1">
             <RouterLink :to="{ name: nav.name }" class="text-decoration-none" activeClass="text-primary">
@@ -42,53 +43,9 @@ const isAuthenticated: ComputedRef<boolean> = computed(() => authStore.isAuthent
       </template>
       <div class="d-flex flex-column">
         <nav class="align-content-center flex-grow-1">
-          <NavigationDropdown />
+          <NavigationDropdown :navigation="[]" />
         </nav>
       </div>
     </div>
   </div>
 </template>
-
-<style lang="scss" scoped>
-@import '@/shared/sass/variables/index';
-
-.th-navbar {
-  .m-nav {
-    nav {
-      margin-top: 0.2rem;
-    }
-  }
-
-  nav {
-    a {
-      font-family: $noto-sans;
-      font-weight: 600;
-
-      font-size: $font-size-5;
-
-      color: $light;
-      transition: color 0.15s ease-in-out;
-
-      &:hover {
-        color: $primary;
-      }
-    }
-  }
-
-  nav.nav-logo {
-    width: map-get($header-config, height, desktop);
-
-    img.logo {
-      width: 3rem;
-    }
-  }
-
-  div.highlight {
-    height: 0.2rem;
-
-    &.active {
-      background-color: $primary;
-    }
-  }
-}
-</style>

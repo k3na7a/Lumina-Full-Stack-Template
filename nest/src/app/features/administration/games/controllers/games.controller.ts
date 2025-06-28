@@ -72,11 +72,26 @@ class GameAdminController {
 
   @Patch('/:id')
   @ApiOkResponse({ type: GameEntity })
+  @UseInterceptors(FileInterceptor('cover', { storage }))
   async update(
     @Param('id') id: string,
-    @Body() dto: object,
+    @Body() dto: CreateGameDto,
+    @UploadedFile(
+      new ParseFilePipe({
+        fileIsRequired: false,
+        validators: [
+          new MaxFileSizeValidator({
+            maxSize: 10 * megabyte,
+          }),
+          new FileTypeValidator({
+            fileType: '.(png|jpeg|jpg|gif)',
+          }),
+        ],
+      }),
+    )
+    file?: Express.Multer.File,
   ): Promise<GameEntity> {
-    return this.service.update(id, dto);
+    return this.service.update(id, dto, file);
   }
 
   @Delete('/:id')

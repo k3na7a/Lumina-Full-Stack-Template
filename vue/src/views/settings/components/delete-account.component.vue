@@ -1,10 +1,7 @@
 <script setup lang="ts">
-import { useI18n } from 'vue-i18n'
+type proptype = { callback: () => void }
 
-import { useSettingsHandler } from '../composables/settings.handler';
-
-const { t } = useI18n()
-const handler = useSettingsHandler(t)
+const { callback } = defineProps<proptype>()
 </script>
 
 <template>
@@ -15,7 +12,7 @@ const handler = useSettingsHandler(t)
       </h6>
     </div>
     <div class="d-flex align-items-center justify-content-sm-end flex-grow-1">
-      <button class="btn btn-link fw-normal" type="button" @click="handler.disableAccount">
+      <button class="btn btn-link fw-normal" type="button" @click="callback">
         {{ $t('actions.disable-account') }}
       </button>
     </div>

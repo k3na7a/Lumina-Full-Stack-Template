@@ -1,17 +1,13 @@
 <script setup lang="ts">
-import { useI18n } from 'vue-i18n'
-import { computed, ComputedRef } from 'vue'
+import { UserDto } from '@/library/dto/user.dto'
 
-import { useSettingsHandler } from '@/views/settings/composables/settings.handler'
-import { UserDto } from '@/core/apis/dto/user.dto'
-import { AuthStore, useAuthStore } from '@/core/store/authentication.store'
+type proptype = {
+  user: UserDto
+  updateAvatar: () => void
+  removeAvatar: () => void
+}
 
-const { t } = useI18n()
-const handler = useSettingsHandler(t)
-
-const authStore: AuthStore = useAuthStore()
-
-const user: ComputedRef<UserDto | undefined> = computed(() => authStore.authenticatedUser)
+const { user, updateAvatar, removeAvatar } = defineProps<proptype>()
 </script>
 
 <template>
@@ -22,12 +18,12 @@ const user: ComputedRef<UserDto | undefined> = computed(() => authStore.authenti
     <div class="d-flex flex-column align-items-start flex-grow-1 gap-1">
       <div class="d-flex gap-2 flex-nowrap align-items-center">
         <div>
-          <button class="btn btn-secondary px-2" type="button" @click="handler.updateAvatar">
+          <button class="btn btn-secondary px-2" type="button" @click="updateAvatar">
             {{ $t('actions.update-avatar') }}
           </button>
         </div>
         <div>
-          <button class="btn btn-dark btn-icon px-0 fw-normal" type="button" @click="handler.removeAvatar">
+          <button class="btn btn-dark btn-icon px-0 fw-normal" type="button" @click="removeAvatar">
             <font-awesome-icon :icon="['fas', 'trash-can']" />
           </button>
         </div>

@@ -82,16 +82,3 @@ watch(isOpen, async (value: boolean, _prev: boolean): Promise<void> => {
     </div>
   </div>
 </template>
-
-<style lang="scss" scoped>
-@import '@/shared/sass/variables/index';
-
-.modal {
-  .modal-close button {
-    width: 3rem;
-    height: 3rem;
-  }
-
-  background-color: rgba(0, 0, 0, 0.85);
-}
-</style>

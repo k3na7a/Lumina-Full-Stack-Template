@@ -1,54 +1,11 @@
 <script setup lang="ts">
-import { computed, reactive, ref, watch } from 'vue'
-import { useI18n } from 'vue-i18n'
-import { LocationQuery, useRoute } from 'vue-router'
 import moment from 'moment'
-
-import { parseQuery } from '@/core/utils/parse-query.util'
-import { GameDto } from '@/core/apis/dto/game.dto'
-import { PaginationOptions, PaginationMeta, PaginationDto } from '@/core/apis/dto/pagination.dto'
-
-import TablePaginatedComponent from '@/shared/components/table/paginated.component.vue'
+import TablePaginatedComponent from '@/shared/components/table/paginated-table.component.vue'
 import ActionsComponent from '@/shared/components/dropdown/actions-dropdown.component.vue'
+import ContentLayout from '@/views/administration/layouts/content.layout.vue'
+import { useGamesTable } from '../composables/game-table.composable'
 
-import ContentLayout from '@/views/administration/layouts/content-view-admin.component.vue'
-
-import { defaultOptions, sort, tableColumns } from '../schema/games.schema'
-import { useGameAdminHandler } from '../composables/games.handler'
-
-const $route = useRoute()
-
-const { t } = useI18n()
-const handler = useGameAdminHandler(t)
-
-const loading = ref<boolean>(false)
-const options = computed<PaginationOptions>(() => parseQuery<PaginationOptions>($route.query, defaultOptions))
-const response = reactive<{ data: Array<GameDto>; meta: PaginationMeta }>({
-  data: [],
-  meta: new PaginationMeta({ pageOptions: defaultOptions, itemCount: 0 })
-})
-
-async function getPaginatedData(payload: PaginationOptions): Promise<void> {
-  loading.value = true
-
-  await handler
-    .getPaginated(payload)
-    .then((res: PaginationDto<GameDto>) => {
-      response.data = res.data
-      response.meta = res.meta
-    })
-    .finally(() => (loading.value = false))
-}
-
-await getPaginatedData(options.value)
-
-watch(
-  () => $route.query,
-  async (newQuery: LocationQuery): Promise<void> => {
-    const parsed = parseQuery<PaginationOptions>(newQuery, defaultOptions)
-    await getPaginatedData(parsed)
-  }
-)
+const { t, options, loading, tableColumns, response, sort, createGame, updateGame, removeGame } = await useGamesTable()
 </script>
 
 <template>
@@ -74,11 +31,7 @@ watch(
       >
         <template v-slot>
           <div class="d-flex gap-2">
-            <button
-              class="btn btn-dark btn-icon"
-              type="button"
-              @click="() => handler.create((_: GameDto) => getPaginatedData(options))"
-            >
+            <button class="btn btn-dark btn-icon" type="button" @click="createGame">
               <font-awesome-icon size="lg" :icon="['fas', 'plus']" />
             </button>
           </div>
@@ -111,8 +64,8 @@ watch(
           <ActionsComponent
             :id="row.id"
             type="game"
-            :updateCallback="() => handler.update(row, (_: GameDto) => getPaginatedData(options))"
-            :deleteCallback="() => handler.remove(row, (_: GameDto) => getPaginatedData(options))"
+            :updateCallback="() => updateGame(row)"
+            :deleteCallback="() => removeGame(row)"
           />
         </template>
       </TablePaginatedComponent>
@@ -124,8 +77,8 @@ watch(
 @import '@/shared/sass/variables/index';
 
 .cover-icon {
-  height: 3rem;
-  width: 2.3rem;
+  height: 4.2rem;
+  width: 3.2rem;
   object-fit: cover;
   border: 0.1rem $secondary dashed;
 }

@@ -1,25 +1,11 @@
 <script setup lang="ts">
-import { ref } from 'vue'
 import { Form } from 'vee-validate'
 
 import ModalTitleComponent from '@/shared/components/modal/base/modal-title.component.vue'
+import { useConfimModal, proptype } from './composables/confirm.composable'
 
-const props = defineProps<{
-  close: () => void
-  callback: () => Promise<void>
-  title: string
-  body: string
-  action: string
-}>()
-
-const loading = ref<boolean>(false)
-
-const onSubmit = (): void => {
-  loading.value = true
-  props.callback().finally(() => {
-    loading.value = false
-  })
-}
+const { close, callback, title, body, action } = defineProps<proptype>()
+const { loading, onSubmit } = useConfimModal(callback)
 </script>
 
 <template>

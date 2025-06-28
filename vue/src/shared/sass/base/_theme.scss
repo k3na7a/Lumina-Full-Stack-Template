@@ -227,22 +227,6 @@ main {
   border: 0.1rem $secondary dashed;
 }
 
-.th-navbar {
-  z-index: map-get($header-config, z-index);
-
-  .top-nav {
-    height: map-get($header-config, height, desktop);
-  }
-
-  nav.nav-logo {
-    width: map-get($header-config, height, desktop);
-
-    img.logo {
-      width: 3rem;
-    }
-  }
-}
-
 .loader {
   width: 48px;
   height: 48px;

@@ -33,7 +33,7 @@ const { saveItem }: ILocalStorageUtil = useLocalStorageUtil(TOKEN)
               }"
             >
               <span class="text-truncate pe-2">{{ _locale.display }}</span>
-              <img :src="_locale.flag" style="height: 15px" class="rounded-circle" />
+              <img :src="_locale.flag" style="height: 1.5rem; width: 1.5rem" class="rounded-circle" />
             </button>
           </template>
         </div>

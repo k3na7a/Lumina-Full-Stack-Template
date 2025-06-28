@@ -1,36 +1,15 @@
 <script setup lang="ts">
-import { computed, ref } from 'vue'
 import { Form } from 'vee-validate'
-
-import { useFormUtil } from '@/core/utils/forms.util'
-import { validationSchema } from '../schema/platforms.schema'
 
 import TextInput from '@/shared/components/inputs/text.input.vue'
 import DateInput from '@/shared/components/inputs/date.input.vue'
 
 import Layout from '../layouts/platform.layout.vue'
-import { PlatformDto } from '@/core/apis/dto/platform.dto'
+import { usePlatformComposable, proptype } from '../composables/platform.composable'
 
-const props = defineProps<{
-  platform?: PlatformDto
-  callback: (values: any) => Promise<void>
-}>()
+const props = defineProps<proptype>()
 
-const validateUtil = useFormUtil()
-const loading = ref<boolean>(false)
-
-const initialValues = computed(() => ({
-  name: props.platform?.name,
-  release_date: props.platform?.release_date,
-  slug: props.platform?.slug
-}))
-
-const onSubmit = validateUtil.getSubmitFn(validationSchema, async (values: object) => {
-  loading.value = true
-  await props.callback(values).finally(() => {
-    loading.value = false
-  })
-})
+const { loading, initialValues, onSubmit, validationSchema } = usePlatformComposable(props)
 </script>
 
 <template>

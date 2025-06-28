@@ -1,0 +1,75 @@
+table.th-table-paginated {
+  width: 100%;
+  border-collapse: collapse;
+
+  border-bottom: 0.1rem $primary solid;
+  border-top: 0.1rem $secondary solid;
+
+  &.disabled {
+    tbody {
+      pointer-events: none;
+      opacity: $disabled-opacity;
+    }
+  }
+
+  thead {
+    background-color: rgba(0, 0, 0, 0.12);
+    border-bottom: 0.1rem $primary solid;
+  }
+
+  tbody {
+    color: $lightAlt;
+    transition: opacity 0.15s ease-in-out;
+
+    tr {
+      border-bottom: 0.1rem $secondary solid;
+
+      &:nth-of-type(even) {
+        background-color: rgba(255, 255, 255, 0.04);
+      }
+    }
+  }
+
+  .cell {
+    min-height: 5rem;
+    padding: 1rem;
+    display: flex;
+    align-items: center;
+
+    .badge {
+      font-size: $font-size-8 !important;
+    }
+  }
+
+  td {
+    min-width: fit-content !important;
+  }
+
+  td:not(:first-child),
+  th:not(:first-child) {
+    .cell {
+      justify-content: end;
+    }
+  }
+}
+
+.th-pagination {
+  gap: 0.5rem;
+
+  .page-item {
+    display: flex;
+    align-items: center;
+
+    .btn {
+      font-size: $font-size-7;
+      font-weight: 600;
+      height: 3rem;
+      width: 3rem;
+
+      &.active {
+        background-color: $primary !important;
+        color: #000;
+      }
+    }
+  }
+}

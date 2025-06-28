@@ -1,6 +1,9 @@
 <script setup lang="ts">
+import { more_navigation } from '@/library/types/more-navigation.type'
 import DropdownComponent from '@/shared/components/dropdown/base/dropdown.component.vue'
-import { MORE_NAVIGATION } from '@/shared/layouts/main/config/more-navigation.schema'
+
+type props = { navigation: more_navigation }
+const { navigation } = defineProps<props>()
 </script>
 
 <template>
@@ -10,7 +13,7 @@ import { MORE_NAVIGATION } from '@/shared/layouts/main/config/more-navigation.sc
     </template>
     <template #menu="{ close }">
       <div class="d-flex flex-column gap-2">
-        <template v-for="(nav, index) of MORE_NAVIGATION">
+        <template v-for="(nav, index) of navigation">
           <hr v-if="index" class="dropdown-divider mx-1 my-0 bg-secondary opacity-50" />
 
           <div class="d-flex flex-column gap-1">
