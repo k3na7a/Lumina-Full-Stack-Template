@@ -58,6 +58,14 @@ export function usePlatformAdminHandler(t: (key: string) => string): {
     })
   }
 
+  // function remove(success?: () => void | Promise<void>): void {
+  //   const { openModal, closeModal } = modalStore
+
+  //   openModal({
+
+  //   })
+  // }
+
   async function getPaginated(params: PaginationOptions): Promise<PaginationDto<PlatformDto>> {
     return api.getPaginated(params).catch((error: AxiosError) => {
       showErrorToast(error)

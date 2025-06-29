@@ -1,11 +1,11 @@
-import { SortOptions, Order, PaginationOptions, PaginationDto, PaginationMeta } from '@/library/dto/pagination.dto'
-import { PlatformDto } from '@/library/dto/platform.dto'
-import { columns } from '@/library/types/table-column.type'
-
 import { ref, computed, reactive, watch } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { useRoute, LocationQuery } from 'vue-router'
+
 import { parseQuery } from '@/core/utils/parse-query.util.ts'
+import { SortOptions, Order, PaginationOptions, PaginationDto, PaginationMeta } from '@/library/dto/pagination.dto'
+import { PlatformDto } from '@/library/dto/platform.dto'
+import { columns } from '@/library/types/table-column.type'
 import { usePlatformAdminHandler } from '../handlers/platforms.handler'
 
 const defaultOptions: PaginationOptions = {
@@ -16,6 +16,20 @@ const defaultOptions: PaginationOptions = {
   search: undefined
 }
 
+const sort: Array<SortOptions> = [
+  { sort: 'platform.name', order: Order.ASC, label: 'forms.name' },
+  { sort: 'platform.release_date', order: Order.ASC, label: 'forms.release-date' },
+  { sort: 'platform.createdAt', order: Order.DESC, label: 'forms.newest' },
+  { sort: 'platform.createdAt', order: Order.ASC, label: 'forms.oldest' }
+]
+
+const tableColumns: columns = [
+  { name: 'platform', label: 'Platform' },
+  { name: 'count', label: '# of Games' },
+  { name: 'release', label: 'forms.release-date' },
+  { name: 'actions' }
+]
+
 function usePlatformTable() {
   const { t } = useI18n()
   const $route = useRoute()
@@ -23,20 +37,6 @@ function usePlatformTable() {
 
   const loading = ref<boolean>(false)
   const options = computed<PaginationOptions>(() => parseQuery<PaginationOptions>($route.query, defaultOptions))
-
-  const sort: Array<SortOptions> = [
-    { sort: 'platform.name', order: Order.ASC, label: 'forms.name' },
-    { sort: 'platform.release_date', order: Order.ASC, label: 'forms.release-date' },
-    { sort: 'platform.createdAt', order: Order.DESC, label: 'forms.newest' },
-    { sort: 'platform.createdAt', order: Order.ASC, label: 'forms.oldest' }
-  ]
-
-  const tableColumns: columns = [
-    { name: 'platform', label: 'Platform' },
-    { name: 'count', label: '# of Games' },
-    { name: 'release', label: 'forms.release-date' },
-    { name: 'actions' }
-  ]
 
   const response = reactive<{ data: Array<PlatformDto>; meta: PaginationMeta }>({
     data: [],

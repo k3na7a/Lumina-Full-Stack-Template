@@ -6,6 +6,7 @@ import ContentLayout from '@/views/administration/layouts/content.layout.vue'
 import { usePlatformTable } from '../composables/platform-table.composable.ts'
 
 const { t, response, options, loading, tableColumns, sort, createPlatform, getPaginatedData } = usePlatformTable()
+
 await getPaginatedData(options.value)
 </script>
 
@@ -49,7 +50,7 @@ await getPaginatedData(options.value)
           </div>
         </template>
         <template #count="{ row }">
-          <small class="fw-semibold text-muted">
+          <small class="fw-semibold" :class="row.gameCount ? 'text-light' : 'text-muted'">
             {{ row.gameCount }}
           </small>
         </template>

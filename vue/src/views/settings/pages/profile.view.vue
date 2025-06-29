@@ -1,30 +1,19 @@
 <script setup lang="ts">
-import { useI18n } from 'vue-i18n'
-import { computed, ComputedRef } from 'vue'
-
-import { AuthStore, useAuthStore } from '@/core/store/authentication.store'
-
-import { UserDto } from '@/library/dto/user.dto'
-
 import ProfileLayout from '../layouts/profile.layout.vue'
 import UpdateProfileComponent from '../components/update-profile.component.vue'
 import ProfilePictureComponent from '../components/update-avatar.component.vue'
-import { useSettingsHandler } from '../handlers/settings.handler'
+import { useProfilePage } from '../composables/profile.composable'
 
-const authStore: AuthStore = useAuthStore()
-const user: ComputedRef<UserDto | undefined> = computed(() => authStore.authenticatedUser)
-
-const { t } = useI18n()
-const { updateAvatar, removeAvatar, updateProfile } = useSettingsHandler(t)
+const { user, updateAvatar, removeAvatar, updateProfile } = useProfilePage()
 </script>
 
 <template>
   <ProfileLayout>
     <template #profile-picture>
-      <ProfilePictureComponent v-if="user" :user="user" :update-avatar="updateAvatar" :remove-avatar="removeAvatar" />
+      <ProfilePictureComponent :user="user" :update-avatar="updateAvatar" :remove-avatar="removeAvatar" />
     </template>
     <template #update-profile>
-      <UpdateProfileComponent v-if="user" :user="user" :callback="updateProfile" />
+      <UpdateProfileComponent :user="user" :callback="updateProfile" />
     </template>
   </ProfileLayout>
 </template>

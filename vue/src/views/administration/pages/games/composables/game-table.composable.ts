@@ -1,20 +1,34 @@
-import { PaginationOptions, Order, SortOptions, PaginationMeta, PaginationDto } from '@/library/dto/pagination.dto'
-import { useGameAdminHandler } from '../handlers/games.handler'
 import { useI18n } from 'vue-i18n'
 import { LocationQuery, useRoute } from 'vue-router'
 import { computed, reactive, ref, watch } from 'vue'
-import { GameDto } from '@/library/dto/game.dto'
-import { parseQuery } from '@/core/utils/parse-query.util'
 
-type columns = Array<{ name: string; label?: string }>
+import { parseQuery } from '@/core/utils/parse-query.util'
+import { GameDto } from '@/library/dto/game.dto'
+import { columns } from '@/library/types/table-column.type'
+import { PaginationOptions, Order, SortOptions, PaginationMeta, PaginationDto } from '@/library/dto/pagination.dto'
+import { useGameAdminHandler } from '../handlers/games.handler'
 
 const defaultOptions: PaginationOptions = {
   take: 25,
   order: Order.ASC,
   page: 1,
-  sort: 'game.name',
+  sort: 'game.release_date',
   search: undefined
 }
+
+const tableColumns: columns = [
+  { name: 'user', label: 'administration.games-and-software.games.item' },
+  { name: 'platforms', label: 'administration.games-and-software.platforms.label' },
+  { name: 'release', label: 'forms.release-date' },
+  { name: 'actions' }
+]
+
+const sort: Array<SortOptions> = [
+  { sort: 'game.name', order: Order.ASC, label: 'forms.name' },
+  { sort: 'game.release_date', order: Order.ASC, label: 'forms.release-date' },
+  { sort: 'game.createdAt', order: Order.DESC, label: 'forms.newest' },
+  { sort: 'game.createdAt', order: Order.ASC, label: 'forms.oldest' }
+]
 
 function useGamesTable() {
   const { t } = useI18n()
@@ -29,20 +43,6 @@ function useGamesTable() {
     data: [],
     meta: new PaginationMeta({ pageOptions: defaultOptions, itemCount: 0 })
   })
-
-  const tableColumns: columns = [
-    { name: 'user', label: 'administration.games-and-software.games.item' },
-    { name: 'platforms', label: 'administration.games-and-software.platforms.label' },
-    { name: 'release', label: 'forms.release-date' },
-    { name: 'actions' }
-  ]
-
-  const sort: Array<SortOptions> = [
-    { sort: 'game.name', order: Order.ASC, label: 'forms.name' },
-    { sort: 'game.release_date', order: Order.ASC, label: 'forms.release-date' },
-    { sort: 'game.createdAt', order: Order.DESC, label: 'forms.newest' },
-    { sort: 'game.createdAt', order: Order.ASC, label: 'forms.oldest' }
-  ]
 
   function createGame(): void {
     create((_: GameDto) => getPaginatedData(options.value))

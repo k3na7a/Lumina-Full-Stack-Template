@@ -1,13 +1,22 @@
 import * as Yup from 'yup'
+import { computed, ref } from 'vue'
 
 import { PlatformDto } from '@/library/dto/platform.dto'
 import { GameDto, icreategame } from '@/library/dto/game.dto'
 import { useFormUtil } from '@/core/utils/forms.util'
-import { computed, ref } from 'vue'
+import { Order, PaginationOptions } from '@/library/dto/pagination.dto'
 
 type proptype = {
   game?: GameDto
   callback: (values: icreategame) => Promise<void>
+}
+
+const platformOptions: PaginationOptions = {
+  take: 25,
+  order: Order.ASC,
+  page: 1,
+  sort: 'platform.name',
+  search: undefined
 }
 
 function useGameForm({ game, callback }: proptype) {
@@ -42,7 +51,8 @@ function useGameForm({ game, callback }: proptype) {
     validationSchema,
     initialValues,
     onSubmit,
-    loading
+    loading,
+    platformOptions
   }
 }
 

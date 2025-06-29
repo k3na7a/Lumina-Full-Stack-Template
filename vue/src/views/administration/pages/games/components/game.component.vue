@@ -12,18 +12,9 @@ import SearchPaginatedInput from '@/shared/components/inputs/search-paginated-in
 
 import Layout from '../layouts/game.layout.vue'
 import { proptype, useGameForm } from '../composables/game.composable'
-import { Order, PaginationOptions } from '@/library/dto/pagination.dto'
-
-const platformOptions: PaginationOptions = {
-  take: 25,
-  order: Order.ASC,
-  page: 1,
-  sort: 'platform.name',
-  search: undefined
-}
 
 const props = defineProps<proptype>()
-const { onSubmit, initialValues, validationSchema, loading } = useGameForm(props)
+const { onSubmit, initialValues, validationSchema, loading, platformOptions } = useGameForm(props)
 </script>
 
 <template>

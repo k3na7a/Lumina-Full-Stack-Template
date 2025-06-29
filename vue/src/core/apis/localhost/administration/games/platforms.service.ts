@@ -33,6 +33,26 @@ class platforms {
       body,
       this.requestConfigWith({})
     )
+
+    return new PlatformDto(response.data)
+  }
+
+  public readonly update = async (id: string, body: CreatePlatformDto): Promise<PlatformDto> => {
+    const response: AxiosResponse = await this.$api.patch<iPlatform>(
+      `administration/games-and-software/platforms/${id}`,
+      body,
+      this.requestConfigWith({})
+    )
+
+    return new PlatformDto(response.data)
+  }
+
+  public readonly delete = async (id: string): Promise<PlatformDto> => {
+    const response: AxiosResponse = await this.$api.delete<iPlatform>(
+      `administration/games-and-software/platforms/${id}`,
+      this.requestConfigWith({})
+    )
+
     return new PlatformDto(response.data)
   }
 }

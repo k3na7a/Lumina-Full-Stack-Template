@@ -22,7 +22,7 @@ const toasts: ComputedRef<Toast[]> = computed<Toast[]>(() => getToasts)
             <h6 class="fw-bold">{{ toast.title }}</h6>
             <p class="text-light-alt">{{ toast.body }}</p>
           </div>
-          <div class="d-flex align-items-center p-2">
+          <div class="d-flex align-items-center p-3">
             <button
               type="button"
               class="btn btn-link link-light link-opacity-75-hover"
