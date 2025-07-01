@@ -3,11 +3,8 @@ import {
   ClassSerializerInterceptor,
   Controller,
   Delete,
-  FileTypeValidator,
   Get,
-  MaxFileSizeValidator,
   Param,
-  ParseFilePipe,
   Patch,
   Query,
   UploadedFile,
@@ -24,7 +21,8 @@ import { UserEntity } from 'src/app/modules/users/entities/user.entity';
 
 import { PaginationDto } from 'src/library/dto/pagination.dto';
 import { UserPaginationOptions, UpdateUserDto } from 'src/library/dto/user.dto';
-import { megabyte } from 'src/library/constants/size.constants';
+
+import { ImageUploadValidationPipe } from 'src/app/common/pipes/image-upload.pipe';
 
 @ApiTags('Administration / User Management / Users')
 @Controller('users')
@@ -54,19 +52,7 @@ class UserAdminController {
   async update(
     @Param('id') id: string,
     @Body() dto: UpdateUserDto,
-    @UploadedFile(
-      new ParseFilePipe({
-        fileIsRequired: false,
-        validators: [
-          new MaxFileSizeValidator({
-            maxSize: 10 * megabyte,
-          }),
-          new FileTypeValidator({
-            fileType: '.(png|jpeg|jpg|gif)',
-          }),
-        ],
-      }),
-    )
+    @UploadedFile(new ImageUploadValidationPipe({}))
     file?: Express.Multer.File,
   ): Promise<UserEntity> {
     return this.service.update(id, dto, file);

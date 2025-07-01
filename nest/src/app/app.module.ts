@@ -4,6 +4,7 @@ import { ServeStaticModule } from '@nestjs/serve-static';
 import { join } from 'path';
 import { JwtModule } from '@nestjs/jwt';
 import { RouterModule } from '@nestjs/core';
+import { BullModule } from '@nestjs/bullmq';
 
 import { TypeOrmPlugin } from 'src/plugins/typeorm.plugin';
 import { AccessTokenStrategy } from 'src/app/common/strategies/accesstoken.strategy';
@@ -16,6 +17,7 @@ import { AdminModule } from 'src/app/features/administration/admin.module';
 import { GamesAdminModule } from 'src/app/features/administration/games/games.module';
 import { UserAdminModule } from 'src/app/features/administration/users/users.module';
 import { SettingsModule } from 'src/app/features/settings/settings.module';
+import { LogQueueModule } from './modules/log/log-queue.module';
 
 const rootPath = join(__dirname, '../..', 'public');
 const serveRoot = '/';
@@ -27,7 +29,16 @@ const envFilePath = '.env';
     ConfigModule.forRoot({ isGlobal: true, envFilePath }),
     ServeStaticModule.forRoot({ rootPath, serveRoot }),
 
+    BullModule.forRoot({
+      connection: {
+        host: process.env.REDIS_HOST,
+        port: Number(process.env.REDIS_PORT),
+        password: process.env.REDIS_PASSWORD,
+      },
+    }),
+
     TypeOrmPlugin.forRoot,
+    LogQueueModule,
     UserModule,
 
     AuthModule,

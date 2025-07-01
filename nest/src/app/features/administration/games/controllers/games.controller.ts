@@ -3,7 +3,6 @@ import {
   ClassSerializerInterceptor,
   Controller,
   Delete,
-  FileTypeValidator,
   Get,
   MaxFileSizeValidator,
   Param,
@@ -24,6 +23,8 @@ import { Administrator } from 'src/app/common/decorators/administrator.decorator
 import { GameEntity } from 'src/app/modules/games/entities/game.entity';
 import { CreateGameDto, GamePaginationOptions } from 'src/library/dto/game.dto';
 import { GamesAdminService } from 'src/app/features/administration/games/services/games.service';
+import { CustomFileTypeValidator } from 'src/app/common/validators/custom-file-type.validator';
+import { ImageUploadValidationPipe } from 'src/app/common/pipes/image-upload.pipe';
 
 @ApiTags('Administration / Games & Software / Games')
 @Controller('games')
@@ -38,19 +39,7 @@ class GameAdminController {
   @UseInterceptors(FileInterceptor('cover', { storage }))
   async create(
     @Body() dto: CreateGameDto,
-    @UploadedFile(
-      new ParseFilePipe({
-        fileIsRequired: false,
-        validators: [
-          new MaxFileSizeValidator({
-            maxSize: 10 * megabyte,
-          }),
-          new FileTypeValidator({
-            fileType: '.(png|jpeg|jpg|gif)',
-          }),
-        ],
-      }),
-    )
+    @UploadedFile(new ImageUploadValidationPipe({}))
     file?: Express.Multer.File,
   ): Promise<GameEntity> {
     return this.service.create(dto, file);
@@ -83,9 +72,12 @@ class GameAdminController {
           new MaxFileSizeValidator({
             maxSize: 10 * megabyte,
           }),
-          new FileTypeValidator({
-            fileType: '.(png|jpeg|jpg|gif)',
-          }),
+          new CustomFileTypeValidator([
+            'image/png',
+            'image/jpeg',
+            'image/jpg',
+            'image/gif',
+          ]),
         ],
       }),
     )

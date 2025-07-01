@@ -5,6 +5,8 @@ enum ROUTE_NAMES {
   // ADMINISTRATION ROUTES
   ADMINISTRATION = 'administration',
 
+  ADMIN_DASHBOARD = 'admin-dashboard',
+
   ADMIN_USERS = 'admin-users',
   ADMIN_USERS_SINGLE = 'admin-users-single',
   ADMIN_USERS_NEW = 'admin-users-new',

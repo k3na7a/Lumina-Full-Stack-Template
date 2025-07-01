@@ -2,7 +2,7 @@ import { createApp } from 'vue'
 
 import '@/shared/sass/style.scss'
 
-import App from '@/views/app.view.vue'
+import App from '@/app.view.vue'
 
 import { FontAwesomeService as FontAwesome } from '@/core/plugins/fontawesome.plugin'
 import { PiniaService as Pinia } from '@/core/plugins/pinia.plugin'

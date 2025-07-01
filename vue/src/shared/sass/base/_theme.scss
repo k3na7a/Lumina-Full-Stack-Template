@@ -12,75 +12,16 @@ body {
   }
 }
 
-.card {
-  scrollbar-color: $scrollbar-color $backgroundLight;
-}
-
-.light-link {
-  color: $lightAlt;
-  &:hover {
-    opacity: 80%;
-  }
-}
-
-.display-font {
-  font-family: $noto-sans;
-}
-
-.text-muted {
-  color: $muted !important;
-}
-
-main {
-  min-width: 36rem;
-}
-
-#app {
-  height: 100vh;
-  overflow: hidden;
-
-  display: flex;
-  flex-direction: column;
-}
-
-.hover-cursor-pointer:hover {
-  cursor: pointer;
-}
-
-.hover-underline:hover {
-  text-decoration: underline;
-}
-
-.pointer-events-none {
-  pointer-events: none;
-}
-
-.box-shadow {
-  box-shadow: $boxShadow;
-}
-
-.border-radius {
-  border-radius: $border-radius;
-}
-
-.content-view-settings {
-  max-width: 90rem;
-}
-
-.content-view-administration {
-  max-width: 90rem;
-}
-
-.sub-navigation-layout {
-  min-width: 35rem;
-}
-
 .bg-alt {
   background-color: $backgroundAlt;
 }
 
 .bg-alt2 {
   background-color: $backgroundLight;
+}
+
+.text-muted {
+  color: $muted !important;
 }
 
 .text-light-alt {
@@ -91,171 +32,17 @@ main {
   color: grey;
 }
 
-.toast-container {
-  backface-visibility: hidden;
+.light-link {
+  color: $lightAlt;
+  &:hover {
+    opacity: 80%;
+  }
 }
 
-.content-wrapper {
-  margin-top: map-get($header-config, height, desktop);
-}
-
-.admin-drawer {
-  border-right: 0.1rem solid $secondary;
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  z-index: 1;
-}
-
-.card {
+.box-shadow {
   box-shadow: $boxShadow;
-  border: 0.1rem solid $secondary;
+}
+
+.border-radius {
   border-radius: $border-radius;
-
-  background-color: $backgroundLight;
-  color: $light;
-
-  .section:not(:last-child) {
-    border-bottom: 0.1rem $secondary solid;
-  }
-}
-
-.dropdown-menu {
-  width: max-content;
-  min-width: 20rem;
-  max-width: 20rem;
-
-  max-height: 40rem;
-  overflow-y: auto;
-
-  box-shadow: $boxShadow;
-  border-radius: $border-radius;
-  background-color: $backgroundAlt;
-
-  scrollbar-color: $scrollbar-color $backgroundAlt;
-
-  button.dropdown-item {
-    font-size: $font-size-7 !important;
-    font-weight: 400 !important;
-    border-radius: $border-radius;
-    color: $light;
-
-    &.dropdown-item:hover,
-    &.dropdown-item:focus {
-      background-color: $bg-hover;
-    }
-
-    &.dropdown-item.active {
-      background-color: $bg-active;
-    }
-
-    &:disabled {
-      color: $muted;
-    }
-  }
-}
-
-.btn {
-  border: none;
-  border-radius: $border-radius;
-
-  height: 3rem;
-  line-height: $line-height-base;
-
-  white-space: nowrap;
-
-  padding: 0;
-
-  font-weight: 700;
-  font-size: $font-size-7;
-
-  transition: all 0.15s ease-in-out;
-
-  &.btn-icon {
-    width: 3rem;
-  }
-
-  &.btn-icon-sm {
-    width: 2.5rem;
-    height: 2.5rem;
-  }
-
-  &:disabled {
-    opacity: $disabled-opacity;
-  }
-
-  &.btn-link {
-    text-decoration: none;
-    transition: none !important;
-    height: max-content;
-
-    &:hover {
-      text-decoration: underline;
-    }
-  }
-
-  &.btn-dark {
-    background-color: transparent !important;
-
-    &:hover {
-      background-color: rgba(255, 255, 255, 0.075) !important;
-    }
-
-    &:active {
-      background-color: rgba(255, 255, 255, 0.125) !important;
-    }
-  }
-}
-
-.tooltip {
-  border: 0.1rem $light solid;
-  font-size: $font-size-7;
-
-  .tooltip-inner {
-    background-color: $background;
-  }
-
-  .tooltip-arrow {
-    display: none !important;
-  }
-}
-
-.avatar-icon {
-  width: 3rem;
-  height: 3rem;
-  object-fit: cover;
-  border: 0.1rem $secondary dashed;
-}
-
-.loader {
-  width: 48px;
-  height: 48px;
-  display: inline-block;
-  position: relative;
-  border: 3px solid;
-  border-color: $primary #0000 $light #0000;
-  border-radius: 50%;
-  box-sizing: border-box;
-  animation: 1s rotate linear infinite;
-}
-
-.container-overflow {
-  /* overflow */
-  overflow-x: auto;
-
-  /* shadow */
-  animation: scroll-shadow-inset linear;
-  animation-timeline: scroll(self inline);
-}
-
-@keyframes scroll-shadow-inset {
-  /* start with inset shadow on right */
-  from {
-    box-shadow: inset -15px -10px 15px 0px rgb(0 0 0 / 0.5);
-  }
-
-  /* end with inset shadow on left */
-  to {
-    box-shadow: inset 15px -10px 15px 0px rgb(0 0 0 / 0.5);
-  }
 }

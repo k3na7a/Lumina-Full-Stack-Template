@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { RouteLocationNormalizedLoaded, useRoute } from 'vue-router'
 
-import NavigationDropdown from '@/shared/components/dropdown/navigation-dropdown.component.vue'
+import NavigationDropdown from '@/shared/components/dropdown/navigation.dropdown.component.vue'
 
 import { nav as Navigation } from '../types/navigation.type'
 

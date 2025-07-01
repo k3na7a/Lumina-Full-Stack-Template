@@ -120,32 +120,3 @@ onMounted(() => {
     </div>
   </div>
 </template>
-
-<style lang="scss" scoped>
-@import '@/shared/sass/variables/index';
-
-.multi-select {
-  border: 0.1rem $muted solid;
-  transition: all 0.15s ease-in-out;
-
-  .display {
-    max-width: 15rem;
-  }
-
-  input {
-    background-color: transparent;
-    outline: none;
-    border: none;
-    min-width: 10rem;
-  }
-
-  &:hover {
-    box-shadow: 0 0 0 0.1rem $muted;
-  }
-
-  &:has(:focus) {
-    border: 0.1rem $primary solid;
-    box-shadow: 0 0 0 0.1rem $primary !important;
-  }
-}
-</style>

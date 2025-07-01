@@ -2,7 +2,7 @@
 import { RouteLocationNormalizedLoaded, useRoute } from 'vue-router'
 
 import NavbarComponent from '@/shared/components/navbar/navbar.component.vue'
-import LanguagesDropdown from '@/shared/components/dropdown/languages-dropdown.component.vue'
+import LanguagesDropdown from '@/shared/components/dropdown/languages.dropdown.component.vue'
 import RenderedView from '@/shared/components/page/page.component.vue'
 
 import { ROUTE_NAMES } from '@/library/enums/route-names.enum'

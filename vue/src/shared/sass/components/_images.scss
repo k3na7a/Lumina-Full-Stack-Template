@@ -1,0 +1,21 @@
+.avatar-icon {
+  width: 3.2rem;
+  height: 3.2rem;
+  object-fit: cover;
+  border: 0.1rem $secondary dashed;
+}
+
+.cover-icon {
+  height: 4.2rem;
+  width: 3.2rem;
+  object-fit: cover;
+  border: 0.1rem $secondary dashed;
+}
+
+.profile-picture-settings {
+  img {
+    width: 9.6rem;
+    height: 9.6rem;
+    object-fit: cover;
+  }
+}

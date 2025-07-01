@@ -1,0 +1,14 @@
+.card {
+  box-shadow: $boxShadow;
+  border: 0.1rem solid $secondary;
+  border-radius: $border-radius;
+
+  scrollbar-color: $scrollbar-color $backgroundLight;
+
+  background-color: $backgroundLight;
+  color: $light;
+
+  .section:not(:last-child) {
+    border-bottom: 0.1rem $secondary solid;
+  }
+}

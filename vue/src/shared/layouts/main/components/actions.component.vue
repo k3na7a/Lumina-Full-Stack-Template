@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { UserDto } from '@/library/dto/user.dto'
 
-import LanguagesDropdown from '@/shared/components/dropdown/languages-dropdown.component.vue'
+import LanguagesDropdown from '@/shared/components/dropdown/languages.dropdown.component.vue'
 
 import UserActionsDropdown from './dropdowns/actions.dropdown.component.vue'
 

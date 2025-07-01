@@ -1,0 +1,12 @@
+.tooltip {
+  border: 0.1rem $light solid;
+  font-size: $font-size-7;
+
+  .tooltip-inner {
+    background-color: $background;
+  }
+
+  .tooltip-arrow {
+    display: none !important;
+  }
+}

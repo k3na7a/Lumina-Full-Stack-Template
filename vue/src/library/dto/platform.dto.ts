@@ -41,11 +41,11 @@ class PlatformDto {
 
   constructor(platform: iPlatform) {
     this.id = platform.id
-    this.createdAt = platform.createdAt
-    this.updatedAt = platform.updatedAt
+    this.createdAt = new Date(platform.createdAt)
+    this.updatedAt = new Date(platform.updatedAt)
 
     this.name = platform.name
-    this.release_date = platform.release_date
+    this.release_date = new Date(platform.release_date)
     this.slug = platform.slug
 
     this.gameCount = platform.gameCount

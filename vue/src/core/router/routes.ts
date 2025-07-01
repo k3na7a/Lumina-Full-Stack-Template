@@ -4,12 +4,12 @@ import { AuthStore, useAuthStore } from '@/core/store/authentication.store'
 
 import { ROUTE_NAMES } from '@/library/enums/route-names.enum'
 
-import home from '@/views/home/routes/home.routes'
-import settings from '@/views/settings/routes/settings.routes'
-import admin from '@/views/administration/routes/administration.routes'
+import home from '@/pages/home/routes/home.routes'
+import settings from '@/features/settings/routes/settings.routes'
+import admin from '@/features/administration/routes/administration.routes'
 
-import accountRecovery from '@/views/guest/account-recovery/routes/account-recovery.routes'
-import passwordReset from '@/views/guest/password-reset/routes/password-reset.routes'
+import accountRecovery from '@/pages/account-recovery/routes/account-recovery.routes'
+import passwordReset from '@/pages/password-reset/routes/password-reset.routes'
 
 const routes: RouteRecordRaw[] = [
   {
@@ -24,7 +24,7 @@ const routes: RouteRecordRaw[] = [
     children: [home, settings, admin]
   },
   {
-    path: '/user',
+    path: '/guest',
     component: () => import('@/shared/layouts/guest/guest.view.vue'),
     children: [accountRecovery, passwordReset]
   },

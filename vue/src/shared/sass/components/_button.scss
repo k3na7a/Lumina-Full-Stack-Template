@@ -1,0 +1,51 @@
+.btn {
+  border: none;
+  border-radius: $border-radius;
+
+  height: 3rem;
+  line-height: $line-height-base;
+
+  white-space: nowrap;
+
+  padding: 0;
+
+  font-weight: 700;
+  font-size: $font-size-7;
+
+  transition: all 0.15s ease-in-out;
+
+  &.btn-icon {
+    width: 3rem;
+  }
+
+  &.btn-icon-sm {
+    width: 2.5rem;
+    height: 2.5rem;
+  }
+
+  &:disabled {
+    opacity: $disabled-opacity;
+  }
+
+  &.btn-link {
+    text-decoration: none;
+    transition: none !important;
+    height: max-content;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+
+  &.btn-dark {
+    background-color: transparent !important;
+
+    &:hover {
+      background-color: rgba(255, 255, 255, 0.075) !important;
+    }
+
+    &:active {
+      background-color: rgba(255, 255, 255, 0.125) !important;
+    }
+  }
+}

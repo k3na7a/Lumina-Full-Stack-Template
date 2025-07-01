@@ -1,7 +1,5 @@
 <script setup lang="ts">
 import { ROUTE_NAMES } from '@/library/enums/route-names.enum'
-
-import PasswordValidationList from '@/shared/components/labels/password-validation-list.component.vue'
 import ModalTitleComponent from '@/shared/components/modal/base/modal-title.component.vue'
 </script>
 
@@ -29,7 +27,16 @@ import ModalTitleComponent from '@/shared/components/modal/base/modal-title.comp
         </div>
         <div class="col-12 d-flex flex-column gap-1">
           <slot name="new-password"></slot>
-          <PasswordValidationList />
+          <div class="d-flex flex-column">
+            <small>{{ $t('authentication.password-validation.label') }}</small>
+            <ul class="mb-0" style="list-style-type: circle">
+              <template v-for="(, idx) of [...Array(4)]" :key="idx">
+                <li>
+                  <small>{{ $t(`authentication.password-validation.contains.${idx + 1}`) }}</small>
+                </li>
+              </template>
+            </ul>
+          </div>
         </div>
       </div>
     </div>
