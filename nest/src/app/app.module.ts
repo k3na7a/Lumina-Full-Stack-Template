@@ -17,7 +17,8 @@ import { AdminModule } from 'src/app/features/administration/admin.module';
 import { GamesAdminModule } from 'src/app/features/administration/games/games.module';
 import { UserAdminModule } from 'src/app/features/administration/users/users.module';
 import { SettingsModule } from 'src/app/features/settings/settings.module';
-import { LogQueueModule } from './modules/log/log-queue.module';
+import { connection } from 'src/config/redis.config';
+import { LogQueueModule } from './queues/logging/log-queue.module';
 
 const rootPath = join(__dirname, '../..', 'public');
 const serveRoot = '/';
@@ -28,14 +29,7 @@ const envFilePath = '.env';
     JwtModule.register({ global: true }),
     ConfigModule.forRoot({ isGlobal: true, envFilePath }),
     ServeStaticModule.forRoot({ rootPath, serveRoot }),
-
-    BullModule.forRoot({
-      connection: {
-        host: process.env.REDIS_HOST,
-        port: Number(process.env.REDIS_PORT),
-        password: process.env.REDIS_PASSWORD,
-      },
-    }),
+    BullModule.forRoot({ connection }),
 
     TypeOrmPlugin.forRoot,
     LogQueueModule,

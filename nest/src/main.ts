@@ -10,7 +10,7 @@ import { SwaggerPlugin } from 'src/plugins/swagger.plugin';
 import { SendGridPlugin } from 'src/plugins/sendgrid.plugin';
 import { BullBoardPlugin } from './plugins/bull-board.plugin';
 import { GlobalHttpExceptionFilter } from './app/common/filters/global-exceptions.filter';
-import { LogService } from './app/modules/log/services/log.service';
+import { LogService } from './app/queues/logging/services/log.service';
 
 async function bootstrap(): Promise<void> {
   const app = await NestFactory.create(AppModule);

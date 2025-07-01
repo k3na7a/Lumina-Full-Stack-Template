@@ -6,7 +6,7 @@ import {
   HttpStatus,
 } from '@nestjs/common';
 import { Request, Response } from 'express';
-import { LogService } from 'src/app/modules/log/services/log.service';
+import { LogService } from 'src/app/queues/logging/services/log.service';
 import { LoggerActions } from 'src/config/logger.config';
 
 @Catch(HttpException)
@@ -28,7 +28,8 @@ export class GlobalHttpExceptionFilter implements ExceptionFilter {
 
     this.logService.log({
       type: LoggerActions.ERROR,
-      message: `[HTTP ERROR] ${request.method} ${request.url} | Status: ${status} | Message: ${message}`,
+      context: 'HTTP',
+      message: `${request.method} ${request.url} | Status: ${status} | Message: ${message}`,
     });
 
     response.status(status).json({
