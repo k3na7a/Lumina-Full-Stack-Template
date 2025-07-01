@@ -23,6 +23,10 @@ export class LogService {
   }
 
   async log(payload: jobtype) {
-    await this.logQueue.add(LOG_QUEUE, payload);
+    await this.logQueue.add(LOG_QUEUE, payload, {
+      attempts: 3,
+      backoff: { type: 'exponential', delay: 1000 },
+      removeOnComplete: true,
+    });
   }
 }
