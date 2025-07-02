@@ -1,14 +1,12 @@
-export const LOG_QUEUE = 'LogQueue';
+export const LOG_QUEUE = 'logger-queue';
+export const LOG_DLQ = 'logger-dlq';
 
 export enum LoggerActions {
-  LOG = 'log',
-  FATAL = 'fatal',
-  INFO = 'info',
-  DEBUG = 'debug',
-  WARNING = 'warning',
-  ERROR = 'error',
-  VERBOSE = 'verbose',
+  INFO = 'information',
+  WARN = 'warning',
+  ERR = 'error',
 }
+
 export interface jobtype {
   message: string;
   type: LoggerActions;

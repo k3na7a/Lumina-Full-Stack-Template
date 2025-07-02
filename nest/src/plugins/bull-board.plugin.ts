@@ -11,9 +11,12 @@ export class BullBoardPlugin {
 
     const serverAdapter = new ExpressAdapter();
     serverAdapter.setBasePath(path);
-    
+
     createBullBoard({
-      queues: [new BullMQAdapter(logService.logQueue)],
+      queues: [
+        new BullMQAdapter(logService.logQueue),
+        new BullMQAdapter(logService.deadLetterQueue),
+      ],
       serverAdapter,
     });
 

@@ -4,7 +4,7 @@ import { EntityClassOrSchema } from '@nestjs/typeorm/dist/interfaces/entity-clas
 import entities from 'src/config/entities.config';
 import { LogQueueModule } from 'src/app/queues/logging/log-queue.module';
 import { LogService } from 'src/app/queues/logging/services/log.service';
-import { TypeOrmQueueLogger } from 'src/app/common/loggers/typeorm.logger';
+import { TypeOrmLogger } from 'src/app/common/loggers/typeorm.logger';
 
 type Logging = Array<
   'query' | 'error' | 'warn' | 'info' | 'log' | 'migration' | 'schema'
@@ -28,7 +28,7 @@ export class TypeOrmPlugin {
     inject: [LogService],
     useFactory: (logService: LogService) => ({
       ...connectionOptions,
-      logger: new TypeOrmQueueLogger(logService, {
+      logger: new TypeOrmLogger(logService, {
         logLevels: logging,
       }),
       logging,

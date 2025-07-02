@@ -27,8 +27,8 @@ export class GlobalHttpExceptionFilter implements ExceptionFilter {
     }
 
     this.logService.log({
-      type: LoggerActions.ERROR,
-      context: 'HTTP',
+      type: LoggerActions.ERR,
+      context: GlobalHttpExceptionFilter.name,
       message: `${request.method} ${request.url} | Status: ${status} | Message: ${message}`,
     });
 
