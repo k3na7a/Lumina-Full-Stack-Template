@@ -107,18 +107,18 @@ Includes modules for authentication flows, user profile management, and administ
 
 ---
 
+## 🔐 Security Policy
+
+📌 [Security Policy](./SECURITY.md)
+
+---
+
 ## ✅ Future Improvements
 
 - Add OpenTelemetry / APM for distributed tracing.
 - Automated tests with Jest and e2e integration tests.
 - Deployment pipeline with Docker or CI/CD.
 - Service accounts and granular access controls.
-
----
-
-## 🔐 Security Policy
-
-📌 [Security Policy](./SECURITY.md)
 
 ---
 
