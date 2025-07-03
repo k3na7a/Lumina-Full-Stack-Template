@@ -16,13 +16,13 @@ interface emailProps {
 
 class SendGridPlugin {
   public static init(): void {
-    sgMail.setApiKey(process.env.SENDGRID_API_KEY || '');
+    sgMail.setApiKey(String(process.env.SENDGRID_API_KEY));
   }
 
   public static async sendMail(props: emailProps): Promise<void> {
     await sgMail.send({
       ...props,
-      from: process.env.SENDGRID_VERIFIED_SENDER || '',
+      from: `${String(process.env.SENDGRID_VERIFIED_SENDER)} <${String(process.env.SENDGRID_VERIFIED_SENDER_EMAIL)}>`,
     });
   }
 }

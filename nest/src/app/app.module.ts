@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { MiddlewareConsumer, Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { ServeStaticModule } from '@nestjs/serve-static';
 import { join } from 'path';
@@ -14,11 +14,15 @@ import { UserModule } from 'src/app/modules/users/users.module';
 
 import { AuthModule } from 'src/app/features/authentication/auth.module';
 import { AdminModule } from 'src/app/features/administration/admin.module';
-import { GamesAdminModule } from 'src/app/features/administration/games/games.module';
-import { UserAdminModule } from 'src/app/features/administration/users/users.module';
 import { SettingsModule } from 'src/app/features/settings/settings.module';
-import { connection } from 'src/config/redis.config';
+import { connection } from 'src/app/config/redis.config';
 import { LogQueueModule } from './queues/logging/log-queue.module';
+import { validationSchema } from 'src/app/config/app.config';
+import { HealthModule } from './features/health/health.module';
+import { appRoutes } from './config/routes.config';
+import { RequestContext } from './common/providers/request-context.provider';
+import { RequestContextMiddleware } from './common/middleware/request-context.middleware';
+import { RequestContextInterceptor } from './common/interceptors/request-context.interceptor';
 
 const rootPath = join(__dirname, '../..', 'public');
 const serveRoot = '/';
@@ -27,42 +31,31 @@ const envFilePath = '.env';
 @Module({
   imports: [
     JwtModule.register({ global: true }),
-    ConfigModule.forRoot({ isGlobal: true, envFilePath }),
+    ConfigModule.forRoot({ isGlobal: true, envFilePath, validationSchema }),
     ServeStaticModule.forRoot({ rootPath, serveRoot }),
     BullModule.forRoot({ connection }),
-
+    RouterModule.register(appRoutes),
     TypeOrmPlugin.forRoot,
+
     LogQueueModule,
     UserModule,
 
+    HealthModule,
     AuthModule,
     SettingsModule,
     AdminModule,
-
-    RouterModule.register([
-      {
-        path: 'authentication',
-        children: [AuthModule],
-      },
-      {
-        path: 'settings',
-        children: [SettingsModule],
-      },
-      {
-        path: 'administration',
-        children: [
-          {
-            path: 'user-management',
-            children: [UserAdminModule],
-          },
-          {
-            path: 'games-and-software',
-            children: [GamesAdminModule],
-          },
-        ],
-      },
-    ]),
   ],
-  providers: [AccessTokenStrategy, LocalStrategy, RefreshTokenStrategy],
+  providers: [
+    AccessTokenStrategy,
+    LocalStrategy,
+    RefreshTokenStrategy,
+    RequestContext,
+    RequestContextInterceptor,
+    RequestContextMiddleware,
+  ],
 })
-export class AppModule {}
+export class AppModule {
+  configure(consumer: MiddlewareConsumer) {
+    consumer.apply(RequestContextMiddleware).forRoutes('*');
+  }
+}

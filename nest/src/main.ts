@@ -7,21 +7,29 @@ config();
 
 import { AppModule } from 'src/app/app.module';
 import { SwaggerPlugin } from 'src/plugins/swagger.plugin';
-import { SendGridPlugin } from 'src/plugins/sendgrid.plugin';
+import { SendGridPlugin } from 'src/app/queues/email/sendgrid.plugin';
 import { BullBoardPlugin } from './plugins/bull-board.plugin';
-import { GlobalHttpExceptionFilter } from './app/common/filters/global-exceptions.filter';
+import { GlobalExceptionFilter } from './app/common/filters/global-exceptions.filter';
 import { LogService } from './app/queues/logging/services/log.service';
+import { RequestContextInterceptor } from './app/common/interceptors/request-context.interceptor';
 
 async function bootstrap(): Promise<void> {
   const app = await NestFactory.create(AppModule);
+
   const logService = app.get(LogService);
+  const requestConfigInterceptor = app.get(RequestContextInterceptor);
+
+  const logger = new Logger('NestApplication');
 
   const prefix = process.env.GLOBAL_PREFIX || 'api';
   const port = process.env.PORT || 3000;
+  
+  const bullboard_prefix = 'queue-jobs';
 
   app.setGlobalPrefix(prefix);
   app.useGlobalPipes(new ValidationPipe({ whitelist: true, transform: true }));
-  app.useGlobalFilters(new GlobalHttpExceptionFilter(logService));
+  app.useGlobalFilters(new GlobalExceptionFilter(logService));
+  app.useGlobalInterceptors(requestConfigInterceptor);
 
   app.enableCors({
     origin: 'http://localhost:8080',
@@ -35,14 +43,16 @@ async function bootstrap(): Promise<void> {
   app.use(urlencoded({ extended: true, limit: '50mb' }));
 
   SwaggerPlugin.init(app, prefix);
-  BullBoardPlugin.init(app, '/queue-jobs');
+  BullBoardPlugin.init(app, `/${bullboard_prefix}`);
   SendGridPlugin.init();
 
   await app.listen(port);
 
-  Logger.log(
+  logger.log(
     `🚀 Application is running on: http://localhost:${port}/${prefix}`,
-    'NestApplication',
+  );
+  logger.log(
+    `📊 BullBoard is available at: http://localhost:${port}/${bullboard_prefix}`,
   );
 }
 

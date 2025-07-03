@@ -5,14 +5,21 @@ import { Match } from 'src/library/validators/match.validator';
 import { PasswordValidation } from 'src/library/regex/password-validation.regex';
 
 class ResetPasswordDto {
-  @ApiProperty()
+  @ApiProperty({
+    description: 'The new password. Must meet complexity requirements.',
+    example: 'N3wP@ssword123!',
+  })
   @IsString()
   @Matches(PasswordValidation.regex, {
     message: PasswordValidation.message,
   })
   public readonly new_password!: string;
 
-  @ApiProperty()
+  @ApiProperty({
+    description:
+      'Confirmation for the new password. Must match `new_password`.',
+    example: 'N3wP@ssword123!',
+  })
   @Match(ResetPasswordDto, (s: ResetPasswordDto) => s.new_password)
   public readonly confirm_password!: string;
 }

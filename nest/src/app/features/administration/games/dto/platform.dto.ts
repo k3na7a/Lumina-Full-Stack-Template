@@ -10,23 +10,37 @@ enum SORT_OPTIONS {
 }
 
 class PlatformPaginationOptions extends PaginationOptions {
-  @ApiPropertyOptional({ enum: SORT_OPTIONS, default: SORT_OPTIONS.CREATED })
+  @ApiPropertyOptional({
+    description: 'Sort order for the platform list. Defaults to `CREATED`.',
+    enum: SORT_OPTIONS,
+    default: SORT_OPTIONS.CREATED,
+    example: SORT_OPTIONS.CREATED,
+  })
   @IsEnum(SORT_OPTIONS)
   @IsOptional()
   public readonly sort: SORT_OPTIONS = SORT_OPTIONS.CREATED;
 }
 
 class CreatePlatformDto {
-  @ApiProperty()
+  @ApiProperty({
+    description: 'The name of the platform.',
+    example: 'Nintendo Switch',
+  })
   @IsString()
   public readonly name!: string;
 
-  @ApiProperty()
+  @ApiProperty({
+    description: 'The official release date of the platform.',
+    example: '2017-03-03T00:00:00.000Z',
+  })
   @IsObject()
   @Type(() => Date)
   public readonly release_date!: Date;
 
-  @ApiProperty()
+  @ApiProperty({
+    description: 'A URL-friendly unique slug for the platform.',
+    example: 'nintendo-switch',
+  })
   @IsString()
   public readonly slug!: string;
 }

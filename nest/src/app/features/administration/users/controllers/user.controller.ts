@@ -13,14 +13,14 @@ import {
 import { ApiBody, ApiOkResponse, ApiTags } from '@nestjs/swagger';
 import { FileInterceptor } from '@nestjs/platform-express/multer';
 
-import { storage } from 'src/config/storage.config';
+import { storage } from 'src/app/config/storage.config';
 
 import { Administrator } from 'src/app/common/decorators/administrator.decorator';
 import { UserAdminService } from 'src/app/features/administration/users/services/users.service';
 import { UserEntity } from 'src/app/modules/users/entities/user.entity';
 
 import { PaginationDto } from 'src/library/dto/pagination.dto';
-import { UserPaginationOptions, UpdateUserDto } from 'src/library/dto/user.dto';
+import { UserPaginationOptions, UpdateUserDto } from 'src/app/features/administration/users/dto/user.dto';
 
 import { ImageUploadValidationPipe } from 'src/app/common/pipes/image-upload.pipe';
 

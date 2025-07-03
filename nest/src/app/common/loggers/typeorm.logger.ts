@@ -1,7 +1,8 @@
 import { Logger } from 'typeorm';
-import { LoggerActions } from 'src/config/logger.config';
-import { LogService } from '../../queues/logging/services/log.service';
-import { useStringUtil } from '../utilities/string.util';
+
+import { useStringUtil } from 'src/app/common/utilities/string.util';
+import { LogService } from 'src/app/queues/logging/services/log.service';
+import { LoggerActions } from 'src/library/enums/logger-actions.enum';
 
 type Logging = Array<
   'query' | 'error' | 'warn' | 'info' | 'log' | 'migration' | 'schema'
@@ -32,7 +33,11 @@ export class TypeOrmLogger implements Logger {
     });
   }
 
-  async logQueryError(error: string, query: string, parameters?: any[]): Promise<void> {
+  async logQueryError(
+    error: string,
+    query: string,
+    parameters?: any[],
+  ): Promise<void> {
     if (!this.isEnabled('error')) return;
 
     await this.logService.log({
@@ -42,7 +47,11 @@ export class TypeOrmLogger implements Logger {
     });
   }
 
-  async logQuerySlow(time: number, query: string, parameters?: any[]): Promise<void> {
+  async logQuerySlow(
+    time: number,
+    query: string,
+    parameters?: any[],
+  ): Promise<void> {
     if (!this.isEnabled('warn')) return;
 
     await this.logService.log({

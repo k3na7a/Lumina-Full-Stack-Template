@@ -13,20 +13,29 @@ import {
 
 import { PasswordValidation } from 'src/library/regex/password-validation.regex';
 
-class CreateUserNameDto {
-  @ApiProperty()
+export class CreateUserNameDto {
+  @ApiProperty({
+    description: "The user's first name.",
+    example: 'Jane',
+  })
   @IsString()
   @IsNotEmpty()
   public first!: string;
 
-  @ApiProperty()
+  @ApiProperty({
+    description: "The user's last name.",
+    example: 'Doe',
+  })
   @IsString()
   @IsNotEmpty()
   public last!: string;
 }
 
 export class RegisterProfileDto {
-  @ApiProperty()
+  @ApiProperty({
+    description: "The user's name details.",
+    type: () => CreateUserNameDto,
+  })
   @IsDefined()
   @IsObject()
   @IsNotEmptyObject()
@@ -36,18 +45,27 @@ export class RegisterProfileDto {
 }
 
 export class RegisterDto {
-  @ApiProperty()
+  @ApiProperty({
+    description: "The user's email address.",
+    example: 'jane.doe@example.com',
+  })
   @IsEmail()
   public readonly email!: string;
 
-  @ApiProperty()
+  @ApiProperty({
+    description: "The user's password, must meet complexity requirements.",
+    example: 'P@ssw0rd123!',
+  })
   @IsString()
   @Matches(PasswordValidation.regex, {
     message: PasswordValidation.message,
   })
   public readonly password!: string;
 
-  @ApiProperty()
+  @ApiProperty({
+    description: 'Profile details for the new user.',
+    type: () => RegisterProfileDto,
+  })
   @IsDefined()
   @IsObject()
   @IsNotEmptyObject()

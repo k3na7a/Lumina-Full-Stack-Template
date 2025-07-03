@@ -1,8 +1,8 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
 
 import { UpdateUserProfile } from 'src/library/interfaces/user.interfaces';
-import { updatePasswordDto } from 'src/library/dto/updatePassword.dto';
-import { deleteAccountDto } from 'src/library/dto/deleteAccount.dto';
+import { updatePasswordDto } from 'src/app/features/settings/dto/updatePassword.dto';
+import { deleteAccountDto } from 'src/app/features/settings/dto/deleteAccount.dto';
 import { JWTDto } from 'src/library/dto/jwt.dto';
 
 import { UserEntity } from 'src/app/modules/users/entities/user.entity';

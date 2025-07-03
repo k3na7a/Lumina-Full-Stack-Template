@@ -15,17 +15,40 @@ import { Order } from '../enums/order.enum';
 import { PaginationMetaParameters } from '../interfaces/pagination.interface';
 
 class PaginationMeta {
-  @ApiProperty()
+  @ApiProperty({
+    description: 'Current page number.',
+    example: 1,
+  })
   readonly page: number;
-  @ApiProperty()
+
+  @ApiProperty({
+    description: 'Number of items per page.',
+    example: 25,
+  })
   readonly take: number;
-  @ApiProperty()
+
+  @ApiProperty({
+    description: 'Total number of items available.',
+    example: 200,
+  })
   readonly itemCount: number;
-  @ApiProperty()
+
+  @ApiProperty({
+    description: 'Total number of pages calculated from itemCount and take.',
+    example: 8,
+  })
   readonly pageCount: number;
-  @ApiProperty()
+
+  @ApiProperty({
+    description: 'Indicates if there is a previous page.',
+    example: true,
+  })
   readonly hasPreviousPage: boolean;
-  @ApiProperty()
+
+  @ApiProperty({
+    description: 'Indicates if there is a next page.',
+    example: true,
+  })
   readonly hasNextPage: boolean;
 
   constructor({ pageOptions, itemCount }: PaginationMetaParameters) {
@@ -39,10 +62,17 @@ class PaginationMeta {
 }
 
 class PaginationDto<T> {
-  @ApiProperty({ isArray: true })
+  @ApiProperty({
+    description: 'List of items for the current page.',
+    isArray: true,
+    example: [],
+  })
   @IsArray()
   readonly data: T[];
-  @ApiProperty({ type: () => PaginationMeta })
+  @ApiProperty({
+    description: 'Pagination metadata for the response.',
+    type: () => PaginationMeta,
+  })
   readonly meta: PaginationMeta;
 
   constructor(payload: T[], meta: PaginationMeta) {

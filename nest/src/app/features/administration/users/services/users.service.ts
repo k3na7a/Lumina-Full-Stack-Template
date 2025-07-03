@@ -7,7 +7,7 @@ import { ProfileService } from 'src/app/modules/users/services/profile.service';
 import { UserService } from 'src/app/modules/users/services/users.service';
 
 import { PaginationDto } from 'src/library/dto/pagination.dto';
-import { UserPaginationOptions, UpdateUserDto } from 'src/library/dto/user.dto';
+import { UserPaginationOptions, UpdateUserDto } from 'src/app/features/administration/users/dto/user.dto';
 import { IMAGE_TYPE } from 'src/library/enums/image-routes.enum';
 
 @Injectable()

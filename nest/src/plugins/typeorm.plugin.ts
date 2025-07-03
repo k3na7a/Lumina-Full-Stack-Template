@@ -1,7 +1,7 @@
 import { TypeOrmModule, TypeOrmModuleOptions } from '@nestjs/typeorm';
 import { EntityClassOrSchema } from '@nestjs/typeorm/dist/interfaces/entity-class-or-schema.type';
 
-import entities from 'src/config/entities.config';
+import entities from 'src/app/config/entities.config';
 import { LogQueueModule } from 'src/app/queues/logging/log-queue.module';
 import { LogService } from 'src/app/queues/logging/services/log.service';
 import { TypeOrmLogger } from 'src/app/common/loggers/typeorm.logger';
@@ -13,13 +13,17 @@ type Logging = Array<
 const logging: Logging = ['warn', 'error'];
 const connectionOptions: TypeOrmModuleOptions = {
   type: 'mysql',
-  host: process.env.DB_HOST,
+  host: String(process.env.DB_HOST),
   port: Number(process.env.DB_PORT),
-  username: process.env.DB_USERNAME,
-  password: process.env.DB_PASSWORD,
-  database: process.env.DB_DATABASE,
+  username: String(process.env.DB_USERNAME),
+  password: String(process.env.DB_PASSWORD),
+  database: String(process.env.DB_DATABASE),
   entities,
-  synchronize: true,
+  synchronize: process.env.NODE_ENV !== 'production',
+  maxQueryExecutionTime: 500,
+  extra: {
+    connectionLimit: 10,
+  },
 };
 
 export class TypeOrmPlugin {

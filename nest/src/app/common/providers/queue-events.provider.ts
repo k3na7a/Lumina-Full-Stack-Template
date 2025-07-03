@@ -60,6 +60,10 @@ export class QueueEventsProvider implements OnModuleInit {
       );
     });
 
+    queueEvents.on('stalled', async ({ jobId }) => {
+      logger.warn(`{${queueName}} Job stalled: ID=${jobId}`);
+    });
+
     queueEvents.on('added', async ({ jobId }) => {
       logger.log(`{${queueName}} Job started: ID=${jobId}`);
     });

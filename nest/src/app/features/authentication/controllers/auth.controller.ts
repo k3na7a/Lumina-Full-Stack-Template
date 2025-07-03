@@ -25,11 +25,11 @@ import { LocalAuthGuard } from 'src/app/common/guards/localAuth.guard';
 
 import { UserEntity } from 'src/app/modules/users/entities/user.entity';
 
-import { ForgotPasswordDto } from 'src/library/dto/forgotPassword.dto';
+import { ForgotPasswordDto } from 'src/app/features/authentication/dto/forgotPassword.dto';
 import { JWTDto } from 'src/library/dto/jwt.dto';
-import { RegisterDto } from 'src/library/dto/register.dto';
-import { ResetPasswordDto } from 'src/library/dto/resetPassword.dto';
-import { SignInDto } from 'src/library/dto/signIn.dto';
+import { RegisterDto } from 'src/app/features/authentication/dto/register.dto';
+import { ResetPasswordDto } from 'src/app/features/authentication/dto/resetPassword.dto';
+import { SignInDto } from 'src/app/features/authentication/dto/signIn.dto';
 
 @ApiTags('Authentication')
 @Controller('')

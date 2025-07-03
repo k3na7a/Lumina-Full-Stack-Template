@@ -1,25 +1,21 @@
-// dead-letter-queue.processor.ts
-
 import { Processor, WorkerHost } from '@nestjs/bullmq';
 import { Logger } from '@nestjs/common';
 import { Job } from 'bullmq';
 
-import { jobtype, LOG_DLQ } from 'src/config/logger.config';
+import { LOG_DLQ } from 'src/app/config/logger.config';
+import { jobtype } from 'src/library/interfaces/logger.interface';
 
 @Processor(LOG_DLQ)
 export class DeadLetterQueueProcessor extends WorkerHost {
   private readonly logger = new Logger(DeadLetterQueueProcessor.name);
 
   async process(job: Job<jobtype>) {
-    this.logger.warn(
-      `[DLQ Processor] Handling DLQ job: ${JSON.stringify(job.data)}`,
-    );
+    this.logger.warn(`Handling DLQ job: ${JSON.stringify(job.data)}`);
+  }
 
-    // 🔥 Do something smart:
-    // - Notify a dev team
-    // - Store in a DB for audit
-    // - Send an email alert
-    // - Or even retry manually later
+  async onApplicationShutdown(signal?: string) {
+    this.logger.warn(`Graceful shutdown (${signal})...`);
+    await Promise.allSettled([this.worker.close()]);
+    this.logger.log('Shut down gracefully.');
   }
 }
-

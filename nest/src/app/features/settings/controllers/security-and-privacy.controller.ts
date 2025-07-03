@@ -10,14 +10,14 @@ import { ApiBody, ApiOkResponse, ApiTags } from '@nestjs/swagger';
 
 import { CurrentUser } from 'src/app/common/decorators/current-user.decorator';
 import { Authenticated } from 'src/app/common/decorators/authenticated.decorator';
-import { deleteAccountDto } from 'src/library/dto/deleteAccount.dto';
-import { updateEmailDto } from 'src/library/dto/updateEmail.dto';
-import { updatePasswordDto } from 'src/library/dto/updatePassword.dto';
+import { deleteAccountDto } from 'src/app/features/settings/dto/deleteAccount.dto';
+import { updateEmailDto } from 'src/app/features/settings/dto/updateEmail.dto';
+import { updatePasswordDto } from 'src/app/features/settings/dto/updatePassword.dto';
 import { UserEntity } from 'src/app/modules/users/entities/user.entity';
 import { JWTDto } from 'src/library/dto/jwt.dto';
 import { SettingsService } from '../services/settings.service';
 
-@ApiTags('Settings / Security & Privacy')
+@ApiTags('User Settings / Security & Privacy')
 @Controller('security-and-privacy')
 @Authenticated()
 @UseInterceptors(ClassSerializerInterceptor)

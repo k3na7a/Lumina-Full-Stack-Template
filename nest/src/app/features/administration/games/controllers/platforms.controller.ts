@@ -19,7 +19,7 @@ import { PlatformEntity } from 'src/app/modules/games/entities/platform.entity';
 import {
   CreatePlatformDto,
   PlatformPaginationOptions,
-} from 'src/library/dto/platform.dto';
+} from 'src/app/features/administration/games/dto/platform.dto';
 import { PaginationDto } from 'src/library/dto/pagination.dto';
 
 @ApiTags('Administration / Games & Software / Platforms')

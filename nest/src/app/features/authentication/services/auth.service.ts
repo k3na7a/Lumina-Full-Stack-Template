@@ -5,13 +5,13 @@ import {
   subject as ForgotPasswordEmailSubject,
   template as ForgotPasswordEmailBody,
   options as ForgotPasswordOptions,
-} from 'src/library/templates/forgot-password.template';
+} from 'src/app/queues/email/templates/forgot-password.template';
 import { Payload } from 'src/library/interfaces/payload.interface';
-import { ForgotPasswordDto } from 'src/library/dto/forgotPassword.dto';
+import { ForgotPasswordDto } from 'src/app/features/authentication/dto/forgotPassword.dto';
 import { JWTDto } from 'src/library/dto/jwt.dto';
-import { RegisterDto } from 'src/library/dto/register.dto';
+import { RegisterDto } from 'src/app/features/authentication/dto/register.dto';
 
-import { SendGridPlugin } from 'src/plugins/sendgrid.plugin';
+import { SendGridPlugin } from 'src/app/queues/email/sendgrid.plugin';
 import { HandlebarsPlugin } from 'src/plugins/handlebars.plugin';
 
 import { UserEntity } from 'src/app/modules/users/entities/user.entity';

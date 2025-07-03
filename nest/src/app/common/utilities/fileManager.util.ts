@@ -1,17 +1,26 @@
 import * as fs from 'fs';
-import { access, appendFile as append } from 'fs/promises';
+import * as path from 'path';
+import { access, appendFile as append, stat, mkdir } from 'fs/promises';
 
 type IUseFileManager = {
   readFile(srcPath: string): string | undefined;
   writeFile(srcPath: string, payload: string): Promise<void>;
   removeFile: (srcPath: string) => Promise<void>;
-  accessFile: (srcPath: string) => Promise<void>;
+  accessFile: (srcPath: string) => Promise<boolean>;
   appendFile: (srcPath: string, payload: string) => Promise<void>;
+  getFileSizeMB: (filePath: string) => Promise<number>;
+  createDirectory: (dir: string) => Promise<void>;
 };
 
 function useFileManager(): IUseFileManager {
-  async function accessFile(srcPath: string): Promise<void> {
-    await access(srcPath);
+  async function accessFile(srcPath: string): Promise<boolean> {
+    return access(srcPath)
+      .then(() => true)
+      .catch(() => false);
+  }
+
+  async function createDirectory(dir: string): Promise<void> {
+    await mkdir(path.join(process.cwd(), dir), { recursive: true });
   }
 
   async function appendFile(srcPath: string, payload: string): Promise<void> {
@@ -54,7 +63,20 @@ function useFileManager(): IUseFileManager {
     );
   }
 
-  return { readFile, writeFile, removeFile, accessFile, appendFile };
+  async function getFileSizeMB(filePath: string): Promise<number> {
+    const stats = await stat(filePath);
+    return stats.size / (1024 * 1024);
+  }
+
+  return {
+    readFile,
+    writeFile,
+    removeFile,
+    accessFile,
+    appendFile,
+    getFileSizeMB,
+    createDirectory,
+  };
 }
 
 export { useFileManager };

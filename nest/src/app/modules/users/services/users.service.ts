@@ -2,7 +2,7 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 
-import { UserPaginationOptions } from 'src/library/dto/user.dto';
+import { UserPaginationOptions } from 'src/app/features/administration/users/dto/user.dto';
 import { PaginationDto, PaginationMeta } from 'src/library/dto/pagination.dto';
 import { CreateUserInterface } from 'src/library/interfaces/user.interfaces';
 import { UserEntity } from 'src/app/modules/users/entities/user.entity';

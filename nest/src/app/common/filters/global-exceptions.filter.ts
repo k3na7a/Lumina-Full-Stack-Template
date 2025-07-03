@@ -7,10 +7,10 @@ import {
 } from '@nestjs/common';
 import { Request, Response } from 'express';
 import { LogService } from 'src/app/queues/logging/services/log.service';
-import { LoggerActions } from 'src/config/logger.config';
+import { LoggerActions } from 'src/library/enums/logger-actions.enum';
 
-@Catch(HttpException)
-export class GlobalHttpExceptionFilter implements ExceptionFilter {
+@Catch(HttpException, Error)
+export class GlobalExceptionFilter implements ExceptionFilter {
   constructor(private readonly logService: LogService) {}
 
   catch(exception: unknown, host: ArgumentsHost) {
@@ -28,7 +28,7 @@ export class GlobalHttpExceptionFilter implements ExceptionFilter {
 
     this.logService.log({
       type: LoggerActions.ERR,
-      context: GlobalHttpExceptionFilter.name,
+      context: GlobalExceptionFilter.name,
       message: `${request.method} ${request.url} | Status: ${status} | Message: ${message}`,
     });
 

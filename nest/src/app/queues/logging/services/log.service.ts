@@ -1,7 +1,8 @@
 import { InjectQueue } from '@nestjs/bullmq';
 import { Injectable } from '@nestjs/common';
 import { Queue } from 'bullmq';
-import { jobtype, LOG_DLQ, LOG_QUEUE } from 'src/config/logger.config';
+import { LOG_DLQ, LOG_QUEUE } from 'src/app/config/logger.config';
+import { jobtype } from 'src/library/interfaces/logger.interface';
 
 @Injectable()
 export class LogService {
@@ -13,10 +14,6 @@ export class LogService {
   ) {}
 
   async log(payload: jobtype) {
-    await this.logQueue.add(LOG_QUEUE, payload, {
-      attempts: 3,
-      backoff: { type: 'exponential', delay: 1000 },
-      removeOnComplete: true,
-    });
+    await this.logQueue.add(LOG_QUEUE, payload);
   }
 }
