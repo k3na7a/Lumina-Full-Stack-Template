@@ -6,15 +6,15 @@ This is the **NestJS API server** for the Full Stack Vue3 Application.
 
 ## 📌 Features
 
-✅ **Modern NestJS 10+** — Modular, dependency injection, robust.
-✅ **TypeORM** — Production-ready with migrations, no `synchronize` in prod.
-✅ **BullMQ** — Queues and workers with graceful shutdown and log rotation.
-✅ **Custom Logging** — Smart file rotation by size and date.
-✅ **Swagger Docs** — Auto-generated for all DTOs.
-✅ **Rate Limiting** — Per-user/IP limits to protect from brute force & DoS.
-✅ **Validation** — Class-validator for DTOs, Joi for env variables.
-✅ **S3 & SendGrid** — Handles file storage and transactional email.
-✅ **Security Best Practices** — Helmet, strict CORS, HTTPS ready.
+- ✅ **Modern NestJS 10+** — Modular, dependency injection, robust.
+- ✅ **TypeORM** — Production-ready with migrations, no `synchronize` in prod.
+- ✅ **BullMQ** — Queues and workers with graceful shutdown and log rotation.
+- ✅ **Custom Logging** — Smart file rotation by size and date.
+- ✅ **Swagger Docs** — Auto-generated for all DTOs.
+- ✅ **Rate Limiting** — Per-user/IP limits to protect from brute force & DoS.
+- ✅ **Validation** — Class-validator for DTOs, Joi for env variables.
+- ✅ **S3 & SendGrid** — Handles file storage and transactional email.
+- ✅ **Security Best Practices** — Helmet, strict CORS, HTTPS ready.
 
 ---
 

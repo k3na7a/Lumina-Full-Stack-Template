@@ -6,14 +6,14 @@ This is the **Vue 3** frontend for your Full Stack Application.
 
 ## 📌 Features
 
-✅ **Vue 3 + Vite** — Modern dev server, fast HMR.
-✅ **TypeScript** — Strict types throughout.
-✅ **Pinia** — Next-gen state management.
-✅ **Vue Router** — Nested routes & route guards.
-✅ **Composable architecture** — Reusable logic & stores.
-✅ **Axios** — For safe typed API calls.
-✅ **Forms** — `vee-validate` for robust form validation.
-✅ **Environment Config** — `.env` based per environment.
+- ✅ **Vue 3 + Vite** — Modern dev server, fast HMR.
+- ✅ **TypeScript** — Strict types throughout.
+- ✅ **Pinia** — Next-gen state management.
+- ✅ **Vue Router** — Nested routes & route guards.
+- ✅ **Composable architecture** — Reusable logic & stores.
+- ✅ **Axios** — For safe typed API calls.
+- ✅ **Forms** — `vee-validate` for robust form validation.
+- ✅ **Environment Config** — `.env` based per environment.
 
 ---
 
