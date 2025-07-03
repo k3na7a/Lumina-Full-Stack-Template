@@ -14,13 +14,22 @@ export class RedisHealthIndicator {
 
   async pingCheck(key: string): Promise<HealthIndicatorResult> {
     const indicator = this.healthIndicatorService.check(key);
-
     const redis = new Redis(connection);
 
-    const result = await redis.ping();
-    redis.disconnect();
+    const start = Date.now();
 
-    if (result === 'PONG') return indicator.up();
-    return indicator.down();
+    return redis
+      .ping()
+      .then(() =>
+        indicator.up({
+          ping: Date.now() - start,
+          host: connection.host,
+          port: connection.port,
+        }),
+      )
+      .catch((error) =>
+        indicator.down({ reason: error?.message ?? String(error) }),
+      )
+      .finally(() => redis.disconnect());
   }
 }

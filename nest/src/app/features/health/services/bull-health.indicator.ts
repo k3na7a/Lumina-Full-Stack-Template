@@ -16,10 +16,22 @@ export class BullHealthIndicator {
     const indicator = this.healthIndicatorService.check(key);
     const queue = new Queue(key, { connection });
 
-    const { failed } = await queue.getJobCounts();
+    const counts = await queue.getJobCounts();
+    const { active, waiting, failed, delayed, paused } = counts;
     const isHealthy = failed === 0;
 
-    if (isHealthy) return indicator.up();
-    return indicator.down({ failedJobs: failed });
+    const details: Record<string, number> = {};
+    if (active > 0) details.activeJobs = active;
+    if (waiting > 0) details.waitingJobs = waiting;
+    if (delayed > 0) details.delayedJobs = delayed;
+    if (paused > 0) details.pausedJobs = paused;
+    if (failed > 0) details.failedJobs = failed;
+
+    return isHealthy
+      ? indicator.up(details)
+      : indicator.down({
+          ...details,
+          reason: `${failed} failed job(s) in queue`,
+        });
   }
 }

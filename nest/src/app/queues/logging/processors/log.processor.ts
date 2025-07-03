@@ -7,7 +7,7 @@ import { useFileManager } from 'src/app/common/utilities/fileManager.util';
 import { LOG_QUEUE, logActionMap } from 'src/app/config/logger.config';
 import { jobtype } from 'src/library/interfaces/logger.interface';
 import { megabyte } from 'src/library/constants/size.constants';
-import { ImATeapotException, Logger } from '@nestjs/common';
+import { Logger } from '@nestjs/common';
 
 @Processor(LOG_QUEUE)
 export class LogQueueProcessor extends WorkerHost {
@@ -29,8 +29,6 @@ export class LogQueueProcessor extends WorkerHost {
     const { message, type, context } = job.data;
     const { appendFile, accessFile, getFileSizeMB, createDirectory } =
       this.fileManager;
-
-    throw new ImATeapotException();
 
     const now: moment.Moment = moment();
     const dateString: string = now.format('YYYYMMDD');

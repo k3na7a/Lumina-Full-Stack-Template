@@ -47,12 +47,11 @@ export class QueueEventsProvider implements OnModuleInit {
           `{${queueName}} Moving job ID=${jobId} to DLQ {${deadLetterQueueName}}`,
         );
 
-        await this.dlq.add(deadLetterQueueName, job.data, {
-          removeOnComplete: false,
-          removeOnFail: false,
-        });
+        await this.dlq.add(deadLetterQueueName, job.data);
 
-        logger.log(`{${deadLetterQueueName}} DLQ job added: ${jobId}`);
+        logger.log(
+          `{${queueName}} Job ID=${jobId} successfully added to DLQ {${deadLetterQueueName}}`,
+        );
         return;
       }
       logger.warn(

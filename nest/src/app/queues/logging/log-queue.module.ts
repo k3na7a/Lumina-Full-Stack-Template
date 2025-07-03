@@ -7,6 +7,7 @@ import { LogService } from './services/log.service';
 import { LogQueueProcessor } from './processors/log.processor';
 import { QueueEventsProvider } from 'src/app/common/providers/queue-events.provider';
 import { connection } from 'src/app/config/redis.config';
+import { DeadLetterQueueProcessor } from './processors/dlq.processor';
 
 @Global()
 @Module({
@@ -35,6 +36,7 @@ import { connection } from 'src/app/config/redis.config';
   providers: [
     LogService,
     LogQueueProcessor,
+    DeadLetterQueueProcessor,
     {
       provide: QueueEventsProvider,
       useFactory: () =>

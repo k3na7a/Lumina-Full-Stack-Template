@@ -10,7 +10,7 @@ export class DeadLetterQueueProcessor extends WorkerHost {
   private readonly logger = new Logger(DeadLetterQueueProcessor.name);
 
   async process(job: Job<jobtype>) {
-    this.logger.warn(`Handling DLQ job: ${JSON.stringify(job.data)}`);
+    this.logger.warn(`Handling DLQ job: ID=${job.id}`);
   }
 
   async onApplicationShutdown(signal?: string) {
