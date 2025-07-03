@@ -1,7 +1,7 @@
 import { NestFactory } from '@nestjs/core';
 import { Logger, ValidationPipe } from '@nestjs/common';
 import { json, urlencoded } from 'express';
-
+import helmet from 'helmet';
 import { config } from 'dotenv';
 config();
 
@@ -23,7 +23,7 @@ async function bootstrap(): Promise<void> {
 
   const prefix = process.env.GLOBAL_PREFIX || 'api';
   const port = process.env.PORT || 3000;
-  
+
   const bullboard_prefix = 'queue-jobs';
 
   app.setGlobalPrefix(prefix);
@@ -39,6 +39,7 @@ async function bootstrap(): Promise<void> {
     credentials: true,
   });
 
+  app.use(helmet());
   app.use(json({ limit: '50mb' }));
   app.use(urlencoded({ extended: true, limit: '50mb' }));
 

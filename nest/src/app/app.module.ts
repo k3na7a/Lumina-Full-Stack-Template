@@ -3,7 +3,7 @@ import { ConfigModule } from '@nestjs/config';
 import { ServeStaticModule } from '@nestjs/serve-static';
 import { join } from 'path';
 import { JwtModule } from '@nestjs/jwt';
-import { RouterModule } from '@nestjs/core';
+import { APP_GUARD, RouterModule } from '@nestjs/core';
 import { BullModule } from '@nestjs/bullmq';
 
 import { TypeOrmPlugin } from 'src/plugins/typeorm.plugin';
@@ -23,6 +23,8 @@ import { appRoutes } from './config/routes.config';
 import { RequestContext } from './common/providers/request-context.provider';
 import { RequestContextMiddleware } from './common/middleware/request-context.middleware';
 import { RequestContextInterceptor } from './common/interceptors/request-context.interceptor';
+import { ThrottlerGuard, ThrottlerModule } from '@nestjs/throttler';
+import { minute } from 'src/library/constants/time.constants';
 
 const rootPath = join(__dirname, '../..', 'public');
 const serveRoot = '/';
@@ -36,6 +38,14 @@ const envFilePath = '.env';
     BullModule.forRoot({ connection }),
     RouterModule.register(appRoutes),
     TypeOrmPlugin.forRoot,
+    ThrottlerModule.forRoot({
+      throttlers: [
+        {
+          ttl: 1 * minute,
+          limit: 10,
+        },
+      ],
+    }),
 
     LogQueueModule,
     UserModule,
@@ -52,6 +62,11 @@ const envFilePath = '.env';
     RequestContext,
     RequestContextInterceptor,
     RequestContextMiddleware,
+
+    {
+      provide: APP_GUARD,
+      useClass: ThrottlerGuard,
+    },
   ],
 })
 export class AppModule {
