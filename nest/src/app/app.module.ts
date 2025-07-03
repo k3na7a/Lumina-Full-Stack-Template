@@ -42,7 +42,7 @@ const envFilePath = '.env';
       throttlers: [
         {
           ttl: 1 * minute,
-          limit: 10,
+          limit: 60,
         },
       ],
     }),

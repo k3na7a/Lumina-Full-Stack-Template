@@ -116,6 +116,12 @@ Includes modules for authentication flows, user profile management, and administ
 
 ---
 
+## 🔐 Security Policy
+
+📌 [Security Policy](./SECURITY.md)
+
+---
+
 ## 🤝 Contributing
 
 PRs and ideas are welcome! Feel free to fork and build on this as your own boilerplate for production-ready full-stack apps.
@@ -125,4 +131,3 @@ PRs and ideas are welcome! Feel free to fork and build on this as your own boile
 ## 📜 License
 
 MIT License.
-

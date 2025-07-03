@@ -9,7 +9,9 @@ import { DiskHealthIndicator } from '../services/disk-health.indicator';
 import { TypeOrmHealthIndicator } from '../services/typeorm-health.indicator';
 
 import { HealthResponseDto } from '../dto/health.dto';
+import { SkipThrottle } from '@nestjs/throttler';
 
+@SkipThrottle()
 @ApiTags('Health Check')
 @Controller('')
 export class HealthController {

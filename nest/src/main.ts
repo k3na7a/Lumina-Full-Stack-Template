@@ -26,11 +26,14 @@ async function bootstrap(): Promise<void> {
 
   const bullboard_prefix = 'queue-jobs';
 
+  app.use(helmet());
+  app.use(json({ limit: '50mb' }));
+  app.use(urlencoded({ extended: true, limit: '50mb' }));
+
   app.setGlobalPrefix(prefix);
   app.useGlobalPipes(new ValidationPipe({ whitelist: true, transform: true }));
   app.useGlobalFilters(new GlobalExceptionFilter(logService));
   app.useGlobalInterceptors(requestConfigInterceptor);
-
   app.enableCors({
     origin: 'http://localhost:8080',
     methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE'],
@@ -38,10 +41,6 @@ async function bootstrap(): Promise<void> {
     exposedHeaders: ['Authorization'],
     credentials: true,
   });
-
-  app.use(helmet());
-  app.use(json({ limit: '50mb' }));
-  app.use(urlencoded({ extended: true, limit: '50mb' }));
 
   SwaggerPlugin.init(app, prefix);
   BullBoardPlugin.init(app, `/${bullboard_prefix}`);
