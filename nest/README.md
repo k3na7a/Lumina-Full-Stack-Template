@@ -1,73 +1,189 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="200" alt="Nest Logo" /></a>
-</p>
+# 🚀 Full-Stack Vue3 + NestJS Application — Back End
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+This is the **NestJS API server** for the Full Stack Vue3 Application.
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+---
 
-## Description
+## 📌 Features
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+✅ **Modern NestJS 10+** — Modular, dependency injection, robust.
+✅ **TypeORM** — Production-ready with migrations, no `synchronize` in prod.
+✅ **BullMQ** — Queues and workers with graceful shutdown and log rotation.
+✅ **Custom Logging** — Smart file rotation by size and date.
+✅ **Swagger Docs** — Auto-generated for all DTOs.
+✅ **Rate Limiting** — Per-user/IP limits to protect from brute force & DoS.
+✅ **Validation** — Class-validator for DTOs, Joi for env variables.
+✅ **S3 & SendGrid** — Handles file storage and transactional email.
+✅ **Security Best Practices** — Helmet, strict CORS, HTTPS ready.
 
-## Installation
+---
 
-```bash
-$ npm install
-```
+## ⚙️ Tech Stack
 
-## Running the app
+- **NestJS 10**
+- **TypeORM**
+- **BullMQ + Redis**
+- **Swagger**
+- **AWS S3**
+- **SendGrid**
 
-```bash
-# development
-$ npm run start
+---
 
-# watch mode
-$ npm run start:dev
+## 🚀 Getting Started
 
-# production mode
-$ npm run start:prod
-```
-
-## Test
+### 📦 Install
 
 ```bash
-# unit tests
-$ npm run test
-
-# e2e tests
-$ npm run test:e2e
-
-# test coverage
-$ npm run test:cov
+npm install
 ```
 
-## Support
+### ⚙️ Configure Environment
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+```bash
+cp .env.example .env
+```
 
-## Stay in touch
+Edit `.env`:
 
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+```env
+# API CONFIG
+PORT=3000
+GLOBAL_PREFIX=api
+NODE_ENV=development
 
-## License
+BASE_URL=http://localhost:3000
 
-Nest is [MIT licensed](LICENSE).
+# JWT SECRET KEYS
+JWT_SECRET_KEY=...
+JWT_EXPIRY_TIME=15m
+
+REFRESH_SECRET_KEY=...
+REFRESH_EXPIRY_TIME=7d
+
+# Sendgrid
+SENDGRID_API_KEY=...
+SENDGRID_VERIFIED_SENDER=...
+SENDGRID_VERIFIED_SENDER_EMAIL=...
+
+# crypto salt
+CRYPTO_SECRET=...
+
+# redis cloud
+REDIS_PASSWORD=...
+REDIS_PORT=...
+REDIS_HOST=...
+
+# rds database credentials
+DB_HOST=...
+DB_PORT=...
+DB_USERNAME=...
+DB_PASSWORD=...
+DB_DATABASE=...
+
+# aws s3 bucket
+AWS_S3_REGION=...
+AWS_S3_BUCKET=...
+AWS_ACCESS=...
+AWS_SECRET=...
+
+AWS_S3_URL=...
+```
+
+---
+
+### 🗄️ Run Migrations
+
+```bash
+npm run typeorm:migration:run
+```
+
+---
+
+### 🏃 Start Dev Server
+
+```bash
+npm run start:dev
+```
+
+API runs at **[http://localhost:3000](http://localhost:3000)**
+Swagger docs at **[http://localhost:3000/api](http://localhost:3000/api)**
+BullBoard dashboard at **[http://localhost:3000/api](http://localhost:3000/queue-jobs)**
+
+---
+
+## 🛡️ Security
+
+- Rate limiting with `@nestjs/throttler` (per user/IP).
+- Helmet + CORS strict config.
+- Strong password hashing (`bcrypt`).
+- All DTOs validated.
+- Environment variables validated at boot.
+- Graceful shutdown for BullMQ workers.
+
+For full details, see [`SECURITY.md`](../SECURITY.md).
+
+---
+
+## 🗂️ Project Structure
+
+```plaintext
+src/
+ ├── app/                   # Shared core utilities and app-wide modules
+ │   ├── common/            # Common reusable elements
+ │   │   ├── config/        # Application configuration helpers
+ │   │   ├── decorators/    # Custom decorators
+ │   │   ├── filters/       # Exception filters
+ │   │   ├── guards/        # Auth and role guards
+ │   │   ├── interceptors/  # Logging, transform interceptors
+ │   │   ├── loggers/       # Custom logger classes
+ │   │   ├── middleware/    # Express/Nest middleware
+ │   │   ├── pipes/         # Validation pipes and transformers
+ │   │   ├── providers/     # Global providers
+ │   │   ├── strategies/    # Passport strategies
+ │   │   ├── utilities/     # Helper utility functions
+ │   │   ├── validators/    # Custom validators
+ │   ├── config/            # App-wide config modules and env validation
+ │   ├── features/          # Feature-specific modules (e.g., auth, user)
+ │   ├── modules/           # Main application modules
+ │   ├── queues/            # BullMQ processors, workers
+ ├── library/               # TypeORM entities and shared library files
+ │   ├── constants/         # Global constants
+ │   ├── dto/               # DTOs and API contracts
+ │   ├── entities/          # TypeORM entities
+ │   ├── enum/              # Enums for consistent values
+ │   ├── interfaces/        # Global TypeScript interfaces
+ │   ├── regex/             # Regex patterns for validation
+ │   ├── validators/        # Reusable validators and helpers
+ ├── plugins/               # Additional NestJS plugins or integrations
+ └── main.ts                # App bootstrap entry
+```
+
+---
+
+## 🧰 Useful Scripts
+
+```bash
+npm run start:dev   # Dev mode with watch
+npm run start:prod  # Production build
+npm run test        # Unit tests
+npm run lint        # Lint code
+npm run format      # Prettier format
+```
+
+---
+
+## 👏 Contributing
+
+1. Fork the repo
+2. Create your feature branch
+3. Open a pull request!
+
+---
+
+## 🏆 License
+
+[MIT](../LICENSE)
+
+---
+
+**Built with ❤️ by John Desjardins**

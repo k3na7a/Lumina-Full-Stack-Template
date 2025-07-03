@@ -130,4 +130,4 @@ PRs and ideas are welcome! Feel free to fork and build on this as your own boile
 
 ## 📜 License
 
-MIT License.
+[MIT](./LICENSE)
