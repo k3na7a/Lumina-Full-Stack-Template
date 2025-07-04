@@ -14,10 +14,7 @@ export class RequestContextInterceptor implements NestInterceptor {
     const req = context.switchToHttp().getRequest();
     const store = this.requestContext.getStore();
 
-    if (store && req.user) {
-      store.userId = req.user.id;
-    }
-
+    if (store && req.user) store.userId = req.user.id;
     return next.handle();
   }
 }

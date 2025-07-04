@@ -19,7 +19,7 @@ const connectionOptions: TypeOrmModuleOptions = {
   password: String(process.env.DB_PASSWORD),
   database: String(process.env.DB_DATABASE),
   entities,
-  synchronize: process.env.NODE_ENV !== 'production',
+  synchronize: false,
   maxQueryExecutionTime: 500,
   extra: {
     connectionLimit: 10,

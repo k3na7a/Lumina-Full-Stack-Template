@@ -18,7 +18,6 @@ import {
 
 import { AuthService } from '../services/auth.service';
 
-import { AccessTokenGuard } from 'src/app/common/guards/accesstoken.guard';
 import { CurrentUser } from 'src/app/common/decorators/current-user.decorator';
 import { Authenticated } from 'src/app/common/decorators/authenticated.decorator';
 import { LocalAuthGuard } from 'src/app/common/guards/localAuth.guard';
@@ -72,7 +71,7 @@ export class AuthController {
 
   @Post('/reset-password')
   @ApiBearerAuth('access-token')
-  @UseGuards(AccessTokenGuard)
+  // @UseGuards(AccessTokenGuard)
   @ApiBody({ type: ResetPasswordDto })
   async resetPassword(
     @CurrentUser() user: UserEntity,

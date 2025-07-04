@@ -1,19 +1,20 @@
 import { InjectQueue } from '@nestjs/bullmq';
 import { Injectable } from '@nestjs/common';
 import { Queue } from 'bullmq';
-import { LOG_DLQ, LOG_QUEUE } from 'src/app/config/logger.config';
+import { LoggerQueues } from 'src/library/enums/logger-actions.enum';
+
 import { jobtype } from 'src/library/interfaces/logger.interface';
 
 @Injectable()
 export class LogService {
   constructor(
-    @InjectQueue(LOG_QUEUE)
+    @InjectQueue(LoggerQueues.LOG_QUEUE)
     public readonly logQueue: Queue<jobtype>,
-    @InjectQueue(LOG_DLQ)
+    @InjectQueue(LoggerQueues.LOG_DLQ)
     public readonly deadLetterQueue: Queue,
   ) {}
 
   async log(payload: jobtype) {
-    await this.logQueue.add(LOG_QUEUE, payload);
+    await this.logQueue.add(LoggerQueues.LOG_QUEUE, payload);
   }
 }

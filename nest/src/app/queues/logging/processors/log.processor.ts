@@ -4,18 +4,26 @@ import * as path from 'path';
 import * as moment from 'moment';
 
 import { useFileManager } from 'src/app/common/utilities/fileManager.util';
-import { LOG_QUEUE, logActionMap } from 'src/app/config/logger.config';
 import { jobtype } from 'src/library/interfaces/logger.interface';
 import { megabyte } from 'src/library/constants/size.constants';
 import { Logger } from '@nestjs/common';
+import { LoggerActions, LoggerQueues } from 'src/library/enums/logger-actions.enum';
 
-@Processor(LOG_QUEUE)
+@Processor(LoggerQueues.LOG_QUEUE)
 export class LogQueueProcessor extends WorkerHost {
   private readonly fileManager = useFileManager();
   private readonly MAX_SIZE_MB = 5 * megabyte;
   private readonly directory_name = 'logs';
 
   private readonly logger = new Logger(LogQueueProcessor.name);
+  private readonly logActionMap: Record<
+    string,
+    (message: string, context: string) => void
+  > = {
+    [LoggerActions.INFO]: Logger.log.bind(Logger),
+    [LoggerActions.WARN]: Logger.warn.bind(Logger),
+    [LoggerActions.ERR]: Logger.error.bind(Logger),
+  };
 
   private buildLogPath(dateString: string, suffix: string): string {
     return path.join(
@@ -59,7 +67,7 @@ export class LogQueueProcessor extends WorkerHost {
     if (exists) await appendFile(srcPath, `${new_message}\n`);
     else await appendFile(srcPath, log_start);
 
-    logActionMap[type](message, context);
+    this.logActionMap[type](message, context);
   }
 
   async onApplicationShutdown(signal?: string) {

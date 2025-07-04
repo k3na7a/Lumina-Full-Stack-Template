@@ -5,7 +5,7 @@ import Layout from './layouts/register.layout.vue'
 import { useRegisterModal, proptype } from './composables/registration.composable'
 
 const { callback } = defineProps<proptype>()
-const { loading, onSubmit, validationSchema, emailPlaceholder } = useRegisterModal(callback)
+const { loading, onSubmit, validationSchema } = useRegisterModal(callback)
 </script>
 
 <template>
@@ -28,7 +28,13 @@ const { loading, onSubmit, validationSchema, emailPlaceholder } = useRegisterMod
         />
       </template>
       <template #email>
-        <TextInput autocomplete="email" name="email" type="email" label="forms.email" :placeholder="emailPlaceholder" />
+        <TextInput
+          autocomplete="email"
+          name="email"
+          type="email"
+          label="forms.email"
+          :placeholder="$t('actions.enter-email')"
+        />
       </template>
       <template #new-password>
         <TextInput

@@ -2,10 +2,10 @@ import { Processor, WorkerHost } from '@nestjs/bullmq';
 import { Logger } from '@nestjs/common';
 import { Job } from 'bullmq';
 
-import { LOG_DLQ } from 'src/app/config/logger.config';
+import { LoggerQueues } from 'src/library/enums/logger-actions.enum';
 import { jobtype } from 'src/library/interfaces/logger.interface';
 
-@Processor(LOG_DLQ)
+@Processor(LoggerQueues.LOG_DLQ)
 export class DeadLetterQueueProcessor extends WorkerHost {
   private readonly logger = new Logger(DeadLetterQueueProcessor.name);
 

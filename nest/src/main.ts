@@ -27,8 +27,8 @@ async function bootstrap(): Promise<void> {
   const bullboard_prefix = 'queue-jobs';
 
   app.use(helmet());
-  app.use(json({ limit: '50mb' }));
-  app.use(urlencoded({ extended: true, limit: '50mb' }));
+  app.use(json({ limit: '1mb' }));
+  app.use(urlencoded({ extended: true, limit: '1mb' }));
 
   app.setGlobalPrefix(prefix);
   app.useGlobalPipes(new ValidationPipe({ whitelist: true, transform: true }));

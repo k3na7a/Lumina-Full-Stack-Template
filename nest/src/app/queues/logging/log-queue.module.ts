@@ -1,20 +1,19 @@
 import { Global, Module } from '@nestjs/common';
 import { BullModule } from '@nestjs/bullmq';
 
-import { LOG_DLQ, LOG_QUEUE } from 'src/app/config/logger.config';
-
 import { LogService } from './services/log.service';
 import { LogQueueProcessor } from './processors/log.processor';
 import { QueueEventsProvider } from 'src/app/common/providers/queue-events.provider';
 import { connection } from 'src/app/config/redis.config';
 import { DeadLetterQueueProcessor } from './processors/dlq.processor';
+import { LoggerQueues } from 'src/library/enums/logger-actions.enum';
 
 @Global()
 @Module({
   imports: [
     BullModule.registerQueue(
       {
-        name: LOG_QUEUE,
+        name: LoggerQueues.LOG_QUEUE,
         defaultJobOptions: {
           removeOnComplete: true,
           removeOnFail: false,
@@ -23,7 +22,7 @@ import { DeadLetterQueueProcessor } from './processors/dlq.processor';
         },
       },
       {
-        name: LOG_DLQ,
+        name: LoggerQueues.LOG_DLQ,
         defaultJobOptions: {
           removeOnComplete: false,
           removeOnFail: false,
@@ -41,9 +40,9 @@ import { DeadLetterQueueProcessor } from './processors/dlq.processor';
       provide: QueueEventsProvider,
       useFactory: () =>
         new QueueEventsProvider({
-          queueName: LOG_QUEUE,
+          queueName: LoggerQueues.LOG_QUEUE,
           connection,
-          deadLetterQueueName: LOG_DLQ,
+          deadLetterQueueName: LoggerQueues.LOG_DLQ,
         }),
     },
   ],

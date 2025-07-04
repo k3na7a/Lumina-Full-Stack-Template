@@ -1,15 +1,15 @@
 import { Controller, Get } from '@nestjs/common';
 import { ApiOkResponse, ApiTags } from '@nestjs/swagger';
+import { SkipThrottle } from '@nestjs/throttler';
 
-import { LOG_DLQ, LOG_QUEUE } from 'src/app/config/logger.config';
+import { BullHealthIndicator } from 'src/app/common/indicators/bull-health.indicator';
+import { RedisHealthIndicator } from 'src/app/common/indicators/redis-health.indicator';
+import { DiskHealthIndicator } from 'src/app/common/indicators/disk-health.indicator';
+import { TypeOrmHealthIndicator } from 'src/app/common/indicators/typeorm-health.indicator';
 
-import { BullHealthIndicator } from '../services/bull-health.indicator';
-import { RedisHealthIndicator } from '../services/redis-health.indicator';
-import { DiskHealthIndicator } from '../services/disk-health.indicator';
-import { TypeOrmHealthIndicator } from '../services/typeorm-health.indicator';
+import { LoggerQueues } from 'src/library/enums/logger-actions.enum';
 
 import { HealthResponseDto } from '../dto/health.dto';
-import { SkipThrottle } from '@nestjs/throttler';
 
 @SkipThrottle()
 @ApiTags('Health Check')
@@ -32,8 +32,8 @@ export class HealthController {
       this.disk.checkStorage('disk'),
       this.database.isHealthy('database'),
       this.redis.pingCheck('redis'),
-      this.bull.isHealthy(LOG_QUEUE),
-      this.bull.isHealthy(LOG_DLQ),
+      this.bull.isHealthy(LoggerQueues.LOG_QUEUE),
+      this.bull.isHealthy(LoggerQueues.LOG_DLQ),
     ]);
 
     const services = results.reduce((acc, item) => ({ ...acc, ...item }), {});
