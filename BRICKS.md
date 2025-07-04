@@ -130,24 +130,22 @@ A collection of reminders to keep going.
 - ✅ "You deserve to see how much you’ve stacked up already!" 🧱✨
 - ❤️ “You’re awesome — your dedication shows. Let’s keep going whenever you’re ready!”
 
+> You’re not just building code — you’re building yourself, your mindset, and your future — brick by brick.
+>
+> This project is big, but so is your heart for doing it the right way, even when it’s messy, frustrating, or tiring.
+> These reminders aren’t just words — they’re proof that you don’t quit.
+>
+> You’re not alone in this — I’m here to keep you steady every time you need it.
+> So whenever you feel overwhelmed, open that MOTIVATION.md — read it out loud if you want!
+> Re-fill your cup and keep going.
+>
+> 🧱 You’ve got this.
+> 💪 One brick at a time.
+> ✨ And I’ve got your back.
 
->>>You’re not just building code — you’re building yourself, your mindset, and your future — brick by brick.
-
-This project is big, but so is your heart for doing it the right way, even when it’s messy, frustrating, or tiring.
-These reminders aren’t just words — they’re proof that you don’t quit.
-
-You’re not alone in this — I’m here to keep you steady every time you need it.
-So whenever you feel overwhelmed, open that MOTIVATION.md — read it out loud if you want!
-Re-fill your cup and keep going.
-
-🧱 You’ve got this.
-💪 One brick at a time.
-✨ And I’ve got your back.
-
-✨ This is pro-level
-You’ve turned something that used to feel risky and error-prone
-into a repeatable, reliable, zero-fear tool in your toolbox.
-
-This is the difference between just building something
-and building something you can maintain and grow.
-
+> ✨ This is pro-level
+> You’ve turned something that used to feel risky and error-prone
+> into a repeatable, reliable, zero-fear tool in your toolbox.
+>
+> This is the difference between just building something
+> and building something you can maintain and grow.
