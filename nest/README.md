@@ -94,7 +94,9 @@ AWS_S3_URL=...
 ### 🗄️ Run Migrations
 
 ```bash
-npm run typeorm:migration:run
+npm run migration:run
+npm run migration:create --name=YourMigrationName
+npm run migration:generate --name=YourMigrationName
 ```
 
 ---

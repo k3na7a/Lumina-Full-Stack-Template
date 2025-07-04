@@ -62,7 +62,6 @@ const envFilePath = '.env';
     RequestContext,
     RequestContextInterceptor,
     RequestContextMiddleware,
-
     {
       provide: APP_GUARD,
       useClass: ThrottlerGuard,

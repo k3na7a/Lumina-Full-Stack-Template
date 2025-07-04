@@ -21,7 +21,7 @@ class Name {
   public readonly last!: string;
 }
 
-@Entity('profiles')
+@Entity('user_profiles')
 export class ProfileEntity extends BaseEntity {
   @ApiPropertyOptional({ type: () => ImageEntity })
   @ManyToOne(() => ImageEntity, {
