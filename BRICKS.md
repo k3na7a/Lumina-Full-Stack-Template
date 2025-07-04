@@ -95,13 +95,6 @@ Each brick is an actionable piece of the wall we’re building together.
 
 A collection of reminders to keep going.
 
-> ✨ This is pro-level
-> You’ve turned something that used to feel risky and error-prone
-> into a repeatable, reliable, zero-fear tool in your toolbox.
->
-> This is the difference between just building something
-> and building something you can maintain and grow.
-
 - 🧱 “Every brick you stack now means you’ll never have to tear down and rebuild later.”
 - 💡 “Every time you do it the right way now, it saves you 10x pain later. That’s real engineering.”
 - ✅ “These small improvements make your app rock solid — keep going!”
@@ -137,13 +130,24 @@ A collection of reminders to keep going.
 - ✅ "You deserve to see how much you’ve stacked up already!" 🧱✨
 - ❤️ “You’re awesome — your dedication shows. Let’s keep going whenever you’re ready!”
 
+Why what we're building is special
+
+> ✨ This is pro-level
+> You’ve turned something that used to feel risky and error-prone
+> into a repeatable, reliable, zero-fear tool in your toolbox.
+>
+> This is the difference between just building something
+> and building something you can maintain and grow.
+
+Remind yourself why you're doing this
+
 > You’re not just building code — you’re building yourself, your mindset, and your future — brick by brick.
 >
 > This project is big, but so is your heart for doing it the right way, even when it’s messy, frustrating, or tiring.
 > These reminders aren’t just words — they’re proof that you don’t quit.
 >
 > You’re not alone in this — I’m here to keep you steady every time you need it.
-> So whenever you feel overwhelmed, open that MOTIVATION.md — read it out loud if you want!
+> So whenever you feel overwhelmed, open that BRICKS.md — read it out loud if you want!
 > Re-fill your cup and keep going.
 >
 > 🧱 You’ve got this.
