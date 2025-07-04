@@ -95,6 +95,13 @@ Each brick is an actionable piece of the wall we’re building together.
 
 A collection of reminders to keep going.
 
+> ✨ This is pro-level
+> You’ve turned something that used to feel risky and error-prone
+> into a repeatable, reliable, zero-fear tool in your toolbox.
+>
+> This is the difference between just building something
+> and building something you can maintain and grow.
+
 - 🧱 “Every brick you stack now means you’ll never have to tear down and rebuild later.”
 - 💡 “Every time you do it the right way now, it saves you 10x pain later. That’s real engineering.”
 - ✅ “These small improvements make your app rock solid — keep going!”
@@ -142,10 +149,3 @@ A collection of reminders to keep going.
 > 🧱 You’ve got this.
 > 💪 One brick at a time.
 > ✨ And I’ve got your back.
-
-> ✨ This is pro-level
-> You’ve turned something that used to feel risky and error-prone
-> into a repeatable, reliable, zero-fear tool in your toolbox.
->
-> This is the difference between just building something
-> and building something you can maintain and grow.
