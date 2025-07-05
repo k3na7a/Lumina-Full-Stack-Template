@@ -11,7 +11,7 @@ import {
   LoggerActions,
   LoggerQueues,
 } from 'src/library/enums/logger-actions.enum';
-import { S3Service } from 'src/app/common/services/s3.service';
+import { S3Service } from 'src/app/modules/shared/services/s3.service';
 
 @Processor(LoggerQueues.LOG_QUEUE)
 export class LogQueueProcessor extends WorkerHost {
@@ -79,22 +79,14 @@ export class LogQueueProcessor extends WorkerHost {
     else await appendFile(srcPath, log_start);
 
     if (rotatedFilePath) {
-      this.logger.log(`Rotated log file: ${rotatedFilePath}`);
-
       await this.s3Service.uploadFromDisk(rotatedFilePath, 'logs');
       await this.fileManager.removeFile(rotatedFilePath);
-
-      this.logger.log(
-        `Uploaded & deleted local rotated file: ${rotatedFilePath}`,
-      );
     }
 
     this.logActionMap[type](message, context);
   }
 
-  async onApplicationShutdown(signal?: string): Promise<void> {
-    this.logger.warn(`Graceful shutdown (${signal})...`);
+  async onApplicationShutdown(): Promise<void> {
     await Promise.allSettled([this.worker.close()]);
-    this.logger.log('Shut down gracefully.');
   }
 }

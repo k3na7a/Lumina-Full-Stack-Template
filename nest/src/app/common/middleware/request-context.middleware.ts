@@ -1,6 +1,6 @@
 import { Injectable, NestMiddleware } from '@nestjs/common';
 import { Request, Response, NextFunction } from 'express';
-import { randomUUID } from 'node:crypto';
+import { nanoid } from 'src/plugins/nanoid.plugin';
 import { RequestContext } from '../providers/request-context.provider';
 
 export interface RequestContextStore {
@@ -15,9 +15,8 @@ export class RequestContextMiddleware implements NestMiddleware {
 
   use(req: Request, _res: Response, next: NextFunction) {
     const store: RequestContextStore = {
-      requestId: randomUUID(),
+      requestId: nanoid(),
       ipAddress: req.ip,
-      userId: undefined,
     };
 
     this.requestContext.run(store, next);

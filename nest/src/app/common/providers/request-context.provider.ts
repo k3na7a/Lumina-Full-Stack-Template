@@ -10,6 +10,7 @@ export class RequestContext {
     store: RequestContextStore,
     callback: (...args: any[]) => void,
   ): void {
+    console.log(RequestContext.name, 'run');
     this.storage.run(store, callback);
   }
 

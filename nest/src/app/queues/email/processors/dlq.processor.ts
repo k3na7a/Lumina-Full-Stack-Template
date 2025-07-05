@@ -12,9 +12,7 @@ export class DeadLetterQueueProcessor extends WorkerHost {
     this.logger.warn(`{${'email-dlq'}} Handling DLQ job: ID=${job.id}`);
   }
 
-  async onApplicationShutdown(signal?: string) {
-    this.logger.warn(`Graceful shutdown (${signal})...`);
+  async onApplicationShutdown() {
     await Promise.allSettled([this.worker.close()]);
-    this.logger.log('Shut down gracefully.');
   }
 }

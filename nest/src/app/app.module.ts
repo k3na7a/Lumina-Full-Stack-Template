@@ -20,7 +20,6 @@ import { LogQueueModule } from './queues/logging/log-queue.module';
 import { validationSchema } from 'src/config/env-validation.config';
 import { HealthModule } from './features/health/health.module';
 import { appRoutes } from '../config/routes.config';
-import { RequestContext } from './common/providers/request-context.provider';
 import { RequestContextMiddleware } from './common/middleware/request-context.middleware';
 import { ThrottlerModule } from '@nestjs/throttler';
 import { minute } from 'src/library/constants/time.constants';
@@ -55,8 +54,7 @@ const envFilePath = '.env';
     AccessTokenStrategy,
     LocalStrategy,
     RefreshTokenStrategy,
-    RequestContext,
-    RequestContextMiddleware,
+
     {
       provide: APP_GUARD,
       useClass: JwtAuthGuard,
@@ -65,6 +63,7 @@ const envFilePath = '.env';
       provide: APP_GUARD,
       useClass: CustomThrottlerGuard,
     },
+    
   ],
 })
 export class AppModule {

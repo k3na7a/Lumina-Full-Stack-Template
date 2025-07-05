@@ -27,51 +27,22 @@ export class QueueEventsProvider implements OnModuleInit {
 
   async onModuleInit() {
     const queueEvents = this.queueEvents;
-    const logger = this.logger;
+    const { deadLetterQueueName } = this.options;
 
-    const { queueName, deadLetterQueueName } = this.options;
-
-    queueEvents.on('failed', async ({ jobId, failedReason }) => {
+    queueEvents.on('failed', async ({ jobId }) => {
       const job = await this.queue.getJob(jobId);
       if (!job) return;
 
-      const attemptsMade = job.attemptsMade;
-      const maxAttempts = job.opts.attempts || 1;
-
-      logger.error(
-        `{${queueName}} Job failed: ID=${jobId} Attempts=${attemptsMade}/${maxAttempts} Reason=${failedReason}`,
-      );
-
       if (this.dlq && deadLetterQueueName) {
-        logger.warn(
-          `{${queueName}} Moving job ID=${jobId} to DLQ {${deadLetterQueueName}}`,
-        );
-
         await this.dlq.add(deadLetterQueueName, job.data);
-
-        logger.log(
-          `{${queueName}} Job ID=${jobId} successfully added to DLQ {${deadLetterQueueName}}`,
-        );
         return;
       }
-      logger.warn(
-        `{${queueName}} Job ID=${jobId} permanently failed — no DLQ attached.`,
-      );
     });
 
-    queueEvents.on('stalled', async ({ jobId }) => {
-      logger.warn(`{${queueName}} Job stalled: ID=${jobId}`);
-    });
-
-    queueEvents.on('added', async ({ jobId }) => {
-      logger.log(`{${queueName}} Job started: ID=${jobId}`);
-    });
-
-    queueEvents.on('completed', ({ jobId }) => {
-      logger.log(`{${this.options.queueName}} Job completed: ID=${jobId}`);
-    });
+    queueEvents.on('stalled', async () => {});
+    queueEvents.on('added', async () => {});
+    queueEvents.on('completed', () => {});
 
     await queueEvents.waitUntilReady();
-    logger.log(`{${this.options.queueName}} Events listeners ready.`);
   }
 }

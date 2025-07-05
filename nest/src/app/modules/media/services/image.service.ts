@@ -9,7 +9,7 @@ import { imageSize } from 'image-size';
 import { Repository } from 'typeorm';
 
 import { ImageEntity } from 'src/app/modules/media/entities/image.entity';
-import { S3Service } from 'src/app/common/services/s3.service';
+import { S3Service } from 'src/app/modules/shared/services/s3.service';
 import { createImage } from 'src/library/interfaces/create-image.interface';
 
 @Injectable()

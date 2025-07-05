@@ -17,9 +17,7 @@ export class EmailQueueProcessor extends WorkerHost {
     });
   }
 
-  async onApplicationShutdown(signal?: string) {
-    this.logger.warn(`Graceful shutdown (${signal})...`);
+  async onApplicationShutdown() {
     await Promise.allSettled([this.worker.close()]);
-    this.logger.log('Shut down gracefully.');
   }
 }

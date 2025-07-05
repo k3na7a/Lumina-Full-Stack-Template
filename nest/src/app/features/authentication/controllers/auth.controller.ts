@@ -29,7 +29,6 @@ import { Throttle } from '@nestjs/throttler';
 import { minute } from 'src/library/constants/time.constants';
 import { RequestContext } from 'src/app/common/providers/request-context.provider';
 
-@Public()
 @ApiTags('Authentication')
 @Controller('')
 @UseInterceptors(ClassSerializerInterceptor)
@@ -40,6 +39,7 @@ export class AuthController {
   ) {}
 
   @Put('/register')
+  @Public()
   @Throttle({ default: { limit: 3, ttl: 1 * minute } })
   @ApiBody({ type: RegisterDto })
   @ApiOkResponse({ type: JWTDto })
@@ -48,6 +48,7 @@ export class AuthController {
   }
 
   @Post('/sign-in')
+  @Public()
   @Throttle({ default: { limit: 5, ttl: 1 * minute } })
   @ApiBody({ type: SignInDto })
   @ApiOkResponse({ type: JWTDto })
@@ -57,6 +58,7 @@ export class AuthController {
   }
 
   @Post('/forgot-password')
+  @Public()
   @Throttle({ default: { limit: 3, ttl: 1 * minute } })
   @ApiBody({ type: ForgotPasswordDto })
   async forgotPassword(@Body() dto: ForgotPasswordDto): Promise<void> {
@@ -67,8 +69,7 @@ export class AuthController {
   @Throttle({ default: { limit: 10, ttl: 1 * minute } })
   @RequiresRefreshToken()
   async verifyToken(@CurrentUser() user: UserEntity): Promise<JWTDto> {
-    const store = this.requestContext.getStore();
-    console.log(store);
+    console.log('Controller store:', this.requestContext.getStore());
 
     return this.authService.verify(user);
   }

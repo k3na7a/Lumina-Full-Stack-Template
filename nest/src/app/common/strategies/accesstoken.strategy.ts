@@ -10,7 +10,7 @@ import {
 } from 'src/library/interfaces/payload.interface';
 
 @Injectable()
-class AccessTokenStrategy extends PassportStrategy(Strategy, 'jwt') {
+class AccessTokenStrategy extends PassportStrategy(Strategy, 'jwt-access') {
   constructor(private usersService: UserService) {
     super({
       jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),

@@ -7,7 +7,7 @@ import { QueueEventsProvider } from 'src/app/common/providers/queue-events.provi
 import { connection } from 'src/config/redis.config';
 import { DeadLetterQueueProcessor } from './processors/dlq.processor';
 import { LoggerQueues } from 'src/library/enums/logger-actions.enum';
-import { S3Service } from 'src/app/common/services/s3.service';
+import { S3Service } from 'src/app/modules/shared/services/s3.service';
 
 @Global()
 @Module({
