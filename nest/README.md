@@ -129,13 +129,16 @@ For full details, see [`SECURITY.md`](../SECURITY.md).
 ## 🗂️ Project Structure
 
 ```plaintext
-src/
+logs/                       #
+migrations/                 #
+uploads/                    #
+src/                        #
  ├── app/                   # Shared core utilities and app-wide modules
  │   ├── common/            # Common reusable elements
- │   │   ├── config/        # Application configuration helpers
  │   │   ├── decorators/    # Custom decorators
  │   │   ├── filters/       # Exception filters
  │   │   ├── guards/        # Auth and role guards
+ │   │   ├── indicators/    #
  │   │   ├── interceptors/  # Logging, transform interceptors
  │   │   ├── loggers/       # Custom logger classes
  │   │   ├── middleware/    # Express/Nest middleware
@@ -144,10 +147,10 @@ src/
  │   │   ├── strategies/    # Passport strategies
  │   │   ├── utilities/     # Helper utility functions
  │   │   ├── validators/    # Custom validators
- │   ├── config/            # App-wide config modules and env validation
  │   ├── features/          # Feature-specific modules (e.g., auth, user)
  │   ├── modules/           # Main application modules
  │   ├── queues/            # BullMQ processors, workers
+ ├── config/                # App-wide config modules and env validation
  ├── library/               # TypeORM entities and shared library files
  │   ├── constants/         # Global constants
  │   ├── dto/               # DTOs and API contracts

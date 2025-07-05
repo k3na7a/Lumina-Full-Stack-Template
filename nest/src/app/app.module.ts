@@ -15,18 +15,17 @@ import { UserModule } from 'src/app/modules/users/users.module';
 import { AuthModule } from 'src/app/features/authentication/auth.module';
 import { AdminModule } from 'src/app/features/administration/admin.module';
 import { SettingsModule } from 'src/app/features/settings/settings.module';
-import { connection } from 'src/app/config/redis.config';
+import { connection } from 'src/config/redis.config';
 import { LogQueueModule } from './queues/logging/log-queue.module';
-import { validationSchema } from 'src/app/config/env-validation.config';
+import { validationSchema } from 'src/config/env-validation.config';
 import { HealthModule } from './features/health/health.module';
-import { appRoutes } from './config/routes.config';
+import { appRoutes } from '../config/routes.config';
 import { RequestContext } from './common/providers/request-context.provider';
 import { RequestContextMiddleware } from './common/middleware/request-context.middleware';
 import { RequestContextInterceptor } from './common/interceptors/request-context.interceptor';
 import { ThrottlerModule } from '@nestjs/throttler';
 import { minute } from 'src/library/constants/time.constants';
 import { CustomThrottlerGuard } from './common/guards/throttler.guard';
-import { JwtAuthGuard } from './common/guards/jwt-auth.guard';
 
 const rootPath = join(__dirname, '../..', 'public');
 const serveRoot = '/';
@@ -64,10 +63,11 @@ const envFilePath = '.env';
     RequestContext,
     RequestContextInterceptor,
     RequestContextMiddleware,
-    {
-      provide: APP_GUARD,
-      useClass: JwtAuthGuard,
-    },
+
+    // {
+    //   provide: APP_GUARD,
+    //   useClass: JwtAuthGuard,
+    // },
     {
       provide: APP_GUARD,
       useClass: CustomThrottlerGuard,

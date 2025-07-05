@@ -13,7 +13,7 @@ import {
 import { ApiBody, ApiOkResponse, ApiTags } from '@nestjs/swagger';
 import { FileInterceptor } from '@nestjs/platform-express/multer';
 
-import { storage } from 'src/app/config/storage.config';
+import { storage } from 'src/config/storage.config';
 
 import { Administrator } from 'src/app/common/decorators/administrator.decorator';
 import { UserAdminService } from 'src/app/features/administration/users/services/users.service';

@@ -4,7 +4,7 @@ import {
   HealthIndicatorService,
 } from '@nestjs/terminus';
 import Redis from 'ioredis';
-import { connection } from 'src/app/config/redis.config';
+import { connection } from 'src/config/redis.config';
 
 @Injectable()
 export class RedisHealthIndicator {

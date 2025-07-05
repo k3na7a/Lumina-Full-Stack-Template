@@ -17,4 +17,4 @@ function generateFilename(file: Express.Multer.File) {
   return `${uuidv4()}${extname(file.originalname)}`;
 }
 
-export { storage, generateFilename };
+export { storage };

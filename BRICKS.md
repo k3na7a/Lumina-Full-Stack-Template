@@ -30,12 +30,12 @@ Each brick is an actionable piece of the wall we’re building together.
 - ✔️ Workers drain before exit, logs flushed
 - ✔️ AsyncLocalStorage or cls-hooked for request scoping
 - ✔️ Move profile → user_profile for clarity
+- Per-route rate limits for sensitive endpoints (/auth/login, /reset)
 
 ---
 
 ## 🚧 Bricks In Progress 🧱
 
-- Per-route rate limits for sensitive endpoints (/auth/login, /reset)
 - Add request ID tracing end-to-end
 - Push rotated logs to cold storage (S3)
 - Add BullMQ metrics or Prometheus integration

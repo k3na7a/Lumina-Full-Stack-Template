@@ -8,12 +8,16 @@ import {
   UploadedFile,
   UseInterceptors,
 } from '@nestjs/common';
-import { ApiBody, ApiOkResponse, ApiTags } from '@nestjs/swagger';
+import {
+  ApiBearerAuth,
+  ApiBody,
+  ApiOkResponse,
+  ApiTags,
+} from '@nestjs/swagger';
 import { FileInterceptor } from '@nestjs/platform-express';
 
 import { CurrentUser } from 'src/app/common/decorators/current-user.decorator';
-import { storage } from 'src/app/config/storage.config';
-import { Authenticated } from 'src/app/common/decorators/authenticated.decorator';
+import { storage } from 'src/config/storage.config';
 import { UserEntity } from 'src/app/modules/users/entities/user.entity';
 import { JWTDto } from 'src/library/dto/jwt.dto';
 import { RegisterProfileDto } from 'src/app/features/authentication/dto/register.dto';
@@ -22,7 +26,7 @@ import { ImageUploadValidationPipe } from 'src/app/common/pipes/image-upload.pip
 
 @ApiTags('User Settings / Profile')
 @Controller('profile')
-@Authenticated()
+@ApiBearerAuth('access-token')
 @UseInterceptors(ClassSerializerInterceptor)
 export class ProfileController {
   constructor(private readonly service: SettingsService) {}

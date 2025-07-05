@@ -4,7 +4,7 @@ import {
   HealthIndicatorService,
 } from '@nestjs/terminus';
 import { Queue } from 'bullmq';
-import { connection } from 'src/app/config/redis.config';
+import { connection } from 'src/config/redis.config';
 
 @Injectable()
 export class BullHealthIndicator {

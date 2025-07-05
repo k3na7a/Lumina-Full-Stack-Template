@@ -1,7 +1,7 @@
 import { TypeOrmModule, TypeOrmModuleOptions } from '@nestjs/typeorm';
 import { EntityClassOrSchema } from '@nestjs/typeorm/dist/interfaces/entity-class-or-schema.type';
 
-import entities from 'src/app/config/entities.config';
+import entities from 'src/config/entities.config';
 import { LogQueueModule } from 'src/app/queues/logging/log-queue.module';
 import { LogService } from 'src/app/queues/logging/services/log.service';
 import { TypeOrmLogger } from 'src/app/common/loggers/typeorm.logger';
