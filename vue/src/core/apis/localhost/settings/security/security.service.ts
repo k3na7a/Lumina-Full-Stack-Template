@@ -1,46 +1,40 @@
 import { AxiosInstance } from 'axios'
 
-import { ILocalStorageUtil } from '@/core/utils/local-storage.util'
 import { AxiosService } from '@/core/utils/axios.util'
 import { UpdateEmailDto, UpdatePasswordDto } from '@/library/dto/user.dto'
 import { IJWT, JWTDto } from '@/library/dto/JWT.dto'
 
 class security {
   private readonly $api: AxiosInstance
-  private readonly $token: ILocalStorageUtil
 
-  constructor(api: AxiosInstance, token: ILocalStorageUtil) {
+  constructor(api: AxiosInstance) {
     this.$api = api
-    this.$token = token
   }
 
-  private readonly requestConfigWith = (options: Partial<{ content: string; data: object; params: object }>) =>
-    AxiosService.requestConfig({ token: this.$token.getItem(), ...options })
-
-  public readonly updateEmail = async (payload: UpdateEmailDto): Promise<JWTDto> => {
+  public readonly updateEmail = async (payload: UpdateEmailDto, token: string): Promise<JWTDto> => {
     const response = await this.$api.patch<IJWT>(
       'settings/security-and-privacy/update-email',
       payload,
-      this.requestConfigWith({})
+      AxiosService.requestConfig({ token })
     )
 
     return new JWTDto(response.data)
   }
 
-  public readonly updatePassword = async (payload: UpdatePasswordDto): Promise<JWTDto> => {
+  public readonly updatePassword = async (payload: UpdatePasswordDto, token: string): Promise<JWTDto> => {
     const response = await this.$api.patch<IJWT>(
       'settings/security-and-privacy/update-password',
       payload,
-      this.requestConfigWith({})
+      AxiosService.requestConfig({ token })
     )
 
     return new JWTDto(response.data)
   }
 
-  public readonly deleteAccount = async (payload: { password: string }): Promise<void> => {
+  public readonly deleteAccount = async (payload: { password: string }, token: string): Promise<void> => {
     await this.$api.delete<void>(
       'settings/security-and-privacy/delete-account',
-      this.requestConfigWith({ data: payload })
+      AxiosService.requestConfig({ token, data: payload })
     )
   }
 }

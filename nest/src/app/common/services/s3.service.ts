@@ -7,9 +7,12 @@ import {
   DeleteObjectCommandOutput,
 } from '@aws-sdk/client-s3';
 import { readFile } from 'node:fs/promises';
+import * as mime from 'mime-types';
+import * as Path from 'path';
 
 import { LogService } from 'src/app/queues/logging/services/log.service';
 import { LoggerActions } from 'src/library/enums/logger-actions.enum';
+import { createReadStream, statSync } from 'node:fs';
 
 @Injectable()
 export class S3Service {
@@ -50,6 +53,35 @@ export class S3Service {
       type: LoggerActions.INFO,
       context: S3Service.name,
       message: `Uploaded file to ${this.bucket}/${key} | size=${file.size} | type=${file.mimetype}`,
+    });
+
+    return result;
+  }
+
+  async uploadFromDisk(
+    localFilePath: string,
+    path: string,
+  ): Promise<PutObjectCommandOutput> {
+    const fileStream = createReadStream(localFilePath);
+    const mimetype = mime.lookup(localFilePath) || undefined;
+    const { size } = statSync(localFilePath);
+
+    const key = this.buildKey(path, Path.basename(localFilePath));
+
+    mime.lookup(localFilePath);
+    const command = new PutObjectCommand({
+      Bucket: this.bucket,
+      Key: key,
+      Body: fileStream,
+      ContentType: mimetype,
+    });
+
+    const result = await this.s3.send(command);
+
+    await this.logService.log({
+      type: LoggerActions.INFO,
+      context: S3Service.name,
+      message: `Uploaded file to ${this.bucket}/${key} | size=${size} | type=${mimetype}`,
     });
 
     return result;

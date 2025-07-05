@@ -13,7 +13,7 @@ import {
 import { ApiBody, ApiOkResponse, ApiTags } from '@nestjs/swagger';
 
 import { PlatformAdminService } from 'src/app/features/administration/games/services/platforms.service';
-import { Administrator } from 'src/app/common/decorators/administrator.decorator';
+import { IsAdministrator } from 'src/app/common/decorators/administrator.decorator';
 import { PlatformEntity } from 'src/app/modules/games/entities/platform.entity';
 
 import {
@@ -24,7 +24,7 @@ import { PaginationDto } from 'src/library/dto/pagination.dto';
 
 @ApiTags('Administration / Games & Software / Platforms')
 @Controller('platforms')
-@Administrator()
+@IsAdministrator()
 @UseInterceptors(ClassSerializerInterceptor)
 class PlatformAdminController {
   constructor(private readonly service: PlatformAdminService) {}

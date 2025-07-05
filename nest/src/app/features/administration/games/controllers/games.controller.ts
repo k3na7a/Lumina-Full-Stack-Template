@@ -19,16 +19,19 @@ import { FileInterceptor } from '@nestjs/platform-express/multer';
 import { storage } from 'src/config/storage.config';
 import { megabyte } from 'src/library/constants/size.constants';
 import { PaginationDto } from 'src/library/dto/pagination.dto';
-import { Administrator } from 'src/app/common/decorators/administrator.decorator';
+import { IsAdministrator } from 'src/app/common/decorators/administrator.decorator';
 import { GameEntity } from 'src/app/modules/games/entities/game.entity';
-import { CreateGameDto, GamePaginationOptions } from 'src/app/features/administration/games/dto/game.dto';
+import {
+  CreateGameDto,
+  GamePaginationOptions,
+} from 'src/app/features/administration/games/dto/game.dto';
 import { GamesAdminService } from 'src/app/features/administration/games/services/games.service';
 import { CustomFileTypeValidator } from 'src/app/common/validators/custom-file-type.validator';
 import { ImageUploadValidationPipe } from 'src/app/common/pipes/image-upload.pipe';
 
 @ApiTags('Administration / Games & Software / Games')
 @Controller('games')
-@Administrator()
+@IsAdministrator()
 @UseInterceptors(ClassSerializerInterceptor)
 class GameAdminController {
   constructor(private readonly service: GamesAdminService) {}

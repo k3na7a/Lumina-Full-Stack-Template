@@ -11,6 +11,7 @@ import { ToastStore, useToastStore } from '@/core/store/toast.store'
 import ConfirmDeleteModal from '@/shared/components/modal/permanently-delete.component.vue'
 
 import NewGameModal from '../components/game.component.vue'
+import { AuthStore, useAuthStore } from '@/core/store/authentication.store'
 
 export function useGameAdminHandler(t: (key: string) => string): {
   create: (success?: (value: GameDto) => void | Promise<void>) => void
@@ -20,6 +21,7 @@ export function useGameAdminHandler(t: (key: string) => string): {
 } {
   const toastStore: ToastStore = useToastStore()
   const modalStore: ModalStore = useModalStore()
+  const authStore: AuthStore = useAuthStore()
 
   const api = LocalhostAPI.administration.games
 
@@ -50,8 +52,11 @@ export function useGameAdminHandler(t: (key: string) => string): {
       view: markRaw(NewGameModal),
       properties: {
         callback: async (values: icreategame): Promise<void> => {
+          const token = await authStore.getValidAccessToken()
+          if (!token) throw new Error('Could not get valid access token')
+
           await api
-            .create(new CreateGameDto(values))
+            .create(new CreateGameDto(values), token)
             .then((value: GameDto) => {
               if (success) success(value)
               showSuccessToast('administration.games-and-software.games.create.success')
@@ -64,7 +69,10 @@ export function useGameAdminHandler(t: (key: string) => string): {
   }
 
   async function getPaginated(params: PaginationOptions): Promise<PaginationDto<GameDto>> {
-    return api.getGamesPaginated(params).catch((error: AxiosError) => {
+    const token = await authStore.getValidAccessToken()
+    if (!token) throw new Error('Could not get valid access token')
+
+    return api.getGamesPaginated(params, token).catch((error: AxiosError) => {
       showErrorToast(error)
       return { data: [], meta: new PaginationMeta({ pageOptions: params, itemCount: 0 }) }
     })
@@ -78,8 +86,11 @@ export function useGameAdminHandler(t: (key: string) => string): {
       properties: {
         game,
         callback: async (values: icreategame): Promise<void> => {
+          const token = await authStore.getValidAccessToken()
+          if (!token) throw new Error('Could not get valid access token')
+
           await api
-            .update(id, new CreateGameDto(values))
+            .update(id, new CreateGameDto(values), token)
             .then((value: GameDto) => {
               if (success) success(value)
               showSuccessToast('administration.games-and-software.games.delete.success')
@@ -102,8 +113,11 @@ export function useGameAdminHandler(t: (key: string) => string): {
         action: t('administration.games-and-software.games.delete.action'),
         close: closeModal,
         callback: async (): Promise<void> => {
+          const token = await authStore.getValidAccessToken()
+          if (!token) throw new Error('Could not get valid access token')
+
           await api
-            .delete(id)
+            .delete(id, token)
             .then((value: GameDto) => {
               if (success) success(value)
               showSuccessToast('administration.games-and-software.games.delete.success')

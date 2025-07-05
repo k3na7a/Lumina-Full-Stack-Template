@@ -10,23 +10,27 @@ import {
   UploadedFile,
   UseInterceptors,
 } from '@nestjs/common';
-import { ApiBody, ApiOkResponse, ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiBody, ApiOkResponse, ApiTags } from '@nestjs/swagger';
 import { FileInterceptor } from '@nestjs/platform-express/multer';
 
 import { storage } from 'src/config/storage.config';
 
-import { Administrator } from 'src/app/common/decorators/administrator.decorator';
+import { IsAdministrator } from 'src/app/common/decorators/administrator.decorator';
 import { UserAdminService } from 'src/app/features/administration/users/services/users.service';
 import { UserEntity } from 'src/app/modules/users/entities/user.entity';
 
 import { PaginationDto } from 'src/library/dto/pagination.dto';
-import { UserPaginationOptions, UpdateUserDto } from 'src/app/features/administration/users/dto/user.dto';
+import {
+  UserPaginationOptions,
+  UpdateUserDto,
+} from 'src/app/features/administration/users/dto/user.dto';
 
 import { ImageUploadValidationPipe } from 'src/app/common/pipes/image-upload.pipe';
 
 @ApiTags('Administration / User Management / Users')
 @Controller('users')
-@Administrator()
+@IsAdministrator()
+@ApiBearerAuth('access-token')
 @UseInterceptors(ClassSerializerInterceptor)
 class UserAdminController {
   constructor(private readonly service: UserAdminService) {}

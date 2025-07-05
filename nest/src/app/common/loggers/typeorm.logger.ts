@@ -43,7 +43,7 @@ export class TypeOrmLogger implements Logger {
     await this.logService.log({
       type: LoggerActions.ERR,
       context: this.context,
-      message: `Error: ${error} -- Query: ${query} -- Params: ${JSON.stringify(parameters)}`,
+      message: `${error} -- Query: ${query} -- Params: ${JSON.stringify(parameters)}`,
     });
   }
 

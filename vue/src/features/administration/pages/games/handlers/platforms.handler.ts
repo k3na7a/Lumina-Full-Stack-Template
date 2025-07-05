@@ -9,6 +9,7 @@ import { ToastStore, useToastStore } from '@/core/store/toast.store'
 
 import ConfirmDeleteModal from '@/shared/components/modal/permanently-delete.component.vue'
 import NewPlatformModal from '../components/platform.component.vue'
+import { AuthStore, useAuthStore } from '@/core/store/authentication.store'
 
 export function usePlatformAdminHandler(t: (key: string) => string): {
   create: (success?: (value: PlatformDto) => void | Promise<void>) => void
@@ -18,6 +19,7 @@ export function usePlatformAdminHandler(t: (key: string) => string): {
 } {
   const toastStore: ToastStore = useToastStore()
   const modalStore: ModalStore = useModalStore()
+  const authStore: AuthStore = useAuthStore()
 
   const api = LocalhostAPI.administration.platforms
 
@@ -48,8 +50,11 @@ export function usePlatformAdminHandler(t: (key: string) => string): {
       view: markRaw(NewPlatformModal),
       properties: {
         callback: async (values: icreateplatform) => {
+          const token = await authStore.getValidAccessToken()
+          if (!token) throw new Error('Could not get valid access token')
+
           await api
-            .create(new CreatePlatformDto(values))
+            .create(new CreatePlatformDto(values), token)
             .then((value: PlatformDto) => {
               if (success) success(value)
               showSuccessToast('administration.games-and-software.games.create.success')
@@ -62,7 +67,10 @@ export function usePlatformAdminHandler(t: (key: string) => string): {
   }
 
   async function paginate(params: PaginationOptions): Promise<PaginationDto<PlatformDto>> {
-    return api.getPaginated(params).catch((error: AxiosError) => {
+    const token = await authStore.getValidAccessToken()
+    if (!token) throw new Error('Could not get valid access token')
+
+    return api.getPaginated(params, token).catch((error: AxiosError) => {
       showErrorToast(error)
       return { data: [], meta: new PaginationMeta({ pageOptions: params, itemCount: 0 }) }
     })
@@ -77,8 +85,11 @@ export function usePlatformAdminHandler(t: (key: string) => string): {
       properties: {
         platform,
         callback: async (values: icreateplatform) => {
+          const token = await authStore.getValidAccessToken()
+          if (!token) throw new Error('Could not get valid access token')
+
           await api
-            .update(id, new CreatePlatformDto(values))
+            .update(id, new CreatePlatformDto(values), token)
             .then((value: PlatformDto) => {
               if (success) success(value)
               showSuccessToast('administration.games-and-software.games.create.success')
@@ -100,8 +111,11 @@ export function usePlatformAdminHandler(t: (key: string) => string): {
         action: t('administration.games-and-software.games.delete.action'),
         close: closeModal,
         callback: async () => {
+          const token = await authStore.getValidAccessToken()
+          if (!token) throw new Error('Could not get valid access token')
+
           await api
-            .delete(platform.id)
+            .delete(platform.id, token)
             .then((value: PlatformDto) => {
               if (success) success(value)
               showSuccessToast('administration.games-and-software.games.create.success')

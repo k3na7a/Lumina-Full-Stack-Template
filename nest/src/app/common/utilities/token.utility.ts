@@ -25,7 +25,7 @@ class TokenManager {
     return this.jwtService.decode(token) as DecodedJWT;
   }
 
-  public createHash(data: string): string {
+  public createHMAC(data: string): string {
     const hmac = createHmac('sha256', process.env.CRYPTO_SECRET ?? '');
     return hmac.update(data).digest('hex');
   }

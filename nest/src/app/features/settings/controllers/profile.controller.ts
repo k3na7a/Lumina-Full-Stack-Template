@@ -24,7 +24,7 @@ import { RegisterProfileDto } from 'src/app/features/authentication/dto/register
 import { SettingsService } from '../services/settings.service';
 import { ImageUploadValidationPipe } from 'src/app/common/pipes/image-upload.pipe';
 
-@ApiTags('User Settings / Profile')
+@ApiTags('Settings / Profile')
 @Controller('profile')
 @ApiBearerAuth('access-token')
 @UseInterceptors(ClassSerializerInterceptor)
@@ -37,7 +37,7 @@ export class ProfileController {
   async updateProfile(
     @CurrentUser() user: UserEntity,
     @Body() dto: RegisterProfileDto,
-  ): Promise<JWTDto> {
+  ): Promise<UserEntity> {
     return this.service.updateProfile(user, dto);
   }
 
@@ -48,13 +48,13 @@ export class ProfileController {
     @CurrentUser() user: UserEntity,
     @UploadedFile(new ImageUploadValidationPipe({ fileIsRequired: true }))
     file: Express.Multer.File,
-  ): Promise<JWTDto> {
+  ): Promise<UserEntity> {
     return this.service.updateAvatar(user, file);
   }
 
   @Delete('/avatar/remove')
   @ApiOkResponse({ type: JWTDto })
-  async removeAvatar(@CurrentUser() user: UserEntity): Promise<JWTDto> {
+  async removeAvatar(@CurrentUser() user: UserEntity): Promise<UserEntity> {
     return this.service.removeAvatar(user);
   }
 }

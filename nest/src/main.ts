@@ -7,7 +7,7 @@ config();
 
 import { AppModule } from 'src/app/app.module';
 import { SwaggerPlugin } from 'src/plugins/swagger.plugin';
-import { SendGridPlugin } from 'src/app/queues/email/sendgrid.plugin';
+import { SendGridPlugin } from 'src/plugins/sendgrid.plugin';
 import { BullBoardPlugin } from './plugins/bull-board.plugin';
 import { GlobalExceptionFilter } from './app/common/filters/global-exceptions.filter';
 import { LogService } from './app/queues/logging/services/log.service';

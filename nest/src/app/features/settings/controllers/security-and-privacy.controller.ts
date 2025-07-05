@@ -15,23 +15,14 @@ import { updatePasswordDto } from 'src/app/features/settings/dto/updatePassword.
 import { UserEntity } from 'src/app/modules/users/entities/user.entity';
 import { JWTDto } from 'src/library/dto/jwt.dto';
 import { SettingsService } from '../services/settings.service';
-import { Authenticated } from 'src/app/common/decorators/authenticated.decorator';
+import { RequiresRefreshToken } from 'src/app/common/decorators/refresh-token.decorator';
 
-@ApiTags('User Settings / Security & Privacy')
+@ApiTags('Settings / Security & Privacy')
 @Controller('security-and-privacy')
-@Authenticated()
+@RequiresRefreshToken()
 @UseInterceptors(ClassSerializerInterceptor)
 export class SecurityController {
   constructor(private readonly service: SettingsService) {}
-
-  @Delete('/delete-account')
-  @ApiBody({ type: deleteAccountDto })
-  async deleteAccount(
-    @CurrentUser() user: UserEntity,
-    @Body() dto: deleteAccountDto,
-  ): Promise<void> {
-    await this.service.deleteAccount(user, dto);
-  }
 
   @Patch('/email')
   @ApiBody({ type: updateEmailDto })
@@ -51,5 +42,14 @@ export class SecurityController {
     @Body() dto: updatePasswordDto,
   ): Promise<JWTDto> {
     return this.service.updatePassword(user, dto);
+  }
+
+  @Delete('/delete-account')
+  @ApiBody({ type: deleteAccountDto })
+  async deleteAccount(
+    @CurrentUser() user: UserEntity,
+    @Body() dto: deleteAccountDto,
+  ): Promise<void> {
+    await this.service.deleteAccount(user, dto);
   }
 }

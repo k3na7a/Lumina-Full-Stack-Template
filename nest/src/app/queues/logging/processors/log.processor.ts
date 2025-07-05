@@ -7,12 +7,16 @@ import { useFileManager } from 'src/app/common/utilities/fileManager.util';
 import { jobtype } from 'src/library/interfaces/logger.interface';
 import { megabyte } from 'src/library/constants/size.constants';
 import { Logger } from '@nestjs/common';
-import { LoggerActions, LoggerQueues } from 'src/library/enums/logger-actions.enum';
+import {
+  LoggerActions,
+  LoggerQueues,
+} from 'src/library/enums/logger-actions.enum';
+import { S3Service } from 'src/app/common/services/s3.service';
 
 @Processor(LoggerQueues.LOG_QUEUE)
 export class LogQueueProcessor extends WorkerHost {
   private readonly fileManager = useFileManager();
-  private readonly MAX_SIZE_MB = 5 * megabyte;
+  private readonly MAX_SIZE_MB = 1 * megabyte;
   private readonly directory_name = 'logs';
 
   private readonly logger = new Logger(LogQueueProcessor.name);
@@ -25,6 +29,10 @@ export class LogQueueProcessor extends WorkerHost {
     [LoggerActions.ERR]: Logger.error.bind(Logger),
   };
 
+  constructor(private readonly s3Service: S3Service) {
+    super();
+  }
+
   private buildLogPath(dateString: string, suffix: string): string {
     return path.join(
       process.cwd(),
@@ -33,7 +41,7 @@ export class LogQueueProcessor extends WorkerHost {
     );
   }
 
-  async process(job: Job<jobtype>) {
+  async process(job: Job<jobtype>): Promise<void> {
     const { message, type, context } = job.data;
     const { appendFile, accessFile, getFileSizeMB, createDirectory } =
       this.fileManager;
@@ -52,6 +60,7 @@ export class LogQueueProcessor extends WorkerHost {
 
     await createDirectory(this.directory_name);
 
+    let rotatedFilePath: string | null = null;
     while (await accessFile(srcPath)) {
       const size = await getFileSizeMB(srcPath);
 
@@ -60,6 +69,8 @@ export class LogQueueProcessor extends WorkerHost {
         break;
       }
 
+      rotatedFilePath = srcPath;
+
       suffix = suffix === '' ? '-1' : `-${parseInt(suffix.slice(1), 10) + 1}`;
       srcPath = this.buildLogPath(dateString, suffix);
     }
@@ -67,10 +78,21 @@ export class LogQueueProcessor extends WorkerHost {
     if (exists) await appendFile(srcPath, `${new_message}\n`);
     else await appendFile(srcPath, log_start);
 
+    if (rotatedFilePath) {
+      this.logger.log(`Rotated log file: ${rotatedFilePath}`);
+
+      await this.s3Service.uploadFromDisk(rotatedFilePath, 'logs');
+      await this.fileManager.removeFile(rotatedFilePath);
+
+      this.logger.log(
+        `Uploaded & deleted local rotated file: ${rotatedFilePath}`,
+      );
+    }
+
     this.logActionMap[type](message, context);
   }
 
-  async onApplicationShutdown(signal?: string) {
+  async onApplicationShutdown(signal?: string): Promise<void> {
     this.logger.warn(`Graceful shutdown (${signal})...`);
     await Promise.allSettled([this.worker.close()]);
     this.logger.log('Shut down gracefully.');

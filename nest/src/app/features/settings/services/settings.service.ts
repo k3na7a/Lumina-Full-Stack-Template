@@ -84,31 +84,28 @@ export class SettingsService {
   public async updateProfile(
     user: UserEntity,
     profile: UpdateUserProfile,
-  ): Promise<JWTDto> {
+  ): Promise<UserEntity> {
     await this.profileService.update(user.profile, profile);
 
-    const updatedUser = await this.userService.findOneById(user.id);
-    return this.accountService.issueTokens(updatedUser);
+    return this.userService.findOneById(user.id);
   }
 
   public async updateAvatar(
     user: UserEntity,
     file: Express.Multer.File,
-  ): Promise<JWTDto> {
+  ): Promise<UserEntity> {
     const avatar = await this.handleAvatar(user, file);
     await this.profileService.update(user.profile, { avatar });
 
-    const updatedUser = await this.userService.findOneById(user.id);
-    return this.accountService.issueTokens(updatedUser);
+    return this.userService.findOneById(user.id);
   }
 
-  public async removeAvatar(user: UserEntity) {
+  public async removeAvatar(user: UserEntity): Promise<UserEntity> {
     const avatar = user.profile.avatar;
     if (!avatar) throw new BadRequestException('No profile picture found');
 
     await this.imageService.remove(avatar.id);
 
-    const updatedUser = await this.userService.findOneById(user.id);
-    return this.accountService.issueTokens(updatedUser);
+    return this.userService.findOneById(user.id);
   }
 }

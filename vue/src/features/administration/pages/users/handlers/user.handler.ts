@@ -10,6 +10,7 @@ import NewUserModal from '../components/user.component.vue'
 import { PaginationOptions, PaginationDto, PaginationMeta } from '@/library/dto/pagination.dto'
 import { UserDto, UpdateUser, UpdateUserDto } from '@/library/dto/user.dto'
 import { LocalhostAPI } from '@/core/apis/localhost/localhost.api'
+import { AuthStore, useAuthStore } from '@/core/store/authentication.store'
 
 export function useUserAdminHandler(t: (key: string) => string): {
   getById: (id: string) => Promise<UserDto>
@@ -19,6 +20,7 @@ export function useUserAdminHandler(t: (key: string) => string): {
 } {
   const toastStore: ToastStore = useToastStore()
   const modalStore: ModalStore = useModalStore()
+  const authStore: AuthStore = useAuthStore()
 
   const api = LocalhostAPI.administration.users
 
@@ -43,11 +45,17 @@ export function useUserAdminHandler(t: (key: string) => string): {
   }
 
   async function getById(id: string): Promise<UserDto> {
-    return api.getById(id)
+    const token = await authStore.getValidAccessToken()
+    if (!token) throw new Error('Could not get valid access token')
+
+    return api.getById(id, token)
   }
 
   async function getPaginated(params: PaginationOptions): Promise<PaginationDto<UserDto>> {
-    return api.getPaginated(params).catch((error: AxiosError) => {
+    const token = await authStore.getValidAccessToken()
+    if (!token) throw new Error('Could not get valid access token')
+
+    return api.getPaginated(params, token).catch((error: AxiosError) => {
       showErrorToast(error)
       return { data: [], meta: new PaginationMeta({ pageOptions: params, itemCount: 0 }) }
     })
@@ -62,8 +70,11 @@ export function useUserAdminHandler(t: (key: string) => string): {
       properties: {
         user,
         callback: async (values: UpdateUser): Promise<void> => {
+          const token = await authStore.getValidAccessToken()
+          if (!token) throw new Error('Could not get valid access token')
+
           await api
-            .update(id, new UpdateUserDto(values))
+            .update(id, new UpdateUserDto(values), token)
             .then((value: UserDto) => {
               if (success) success(value)
               showSuccessToast('administration.users.user-table.update.success')
@@ -86,8 +97,11 @@ export function useUserAdminHandler(t: (key: string) => string): {
         action: t('actions.disable-account'),
         close: closeModal,
         callback: async (): Promise<void> => {
+          const token = await authStore.getValidAccessToken()
+          if (!token) throw new Error('Could not get valid access token')
+
           await api
-            .remove(id)
+            .remove(id, token)
             .then((value: UserDto) => {
               if (success) success(value)
               showSuccessToast('administration.users.user-table.delete.success')

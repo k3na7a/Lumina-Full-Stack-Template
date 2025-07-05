@@ -1,43 +1,43 @@
 import { AxiosInstance } from 'axios'
 
-import { ILocalStorageUtil } from '@/core/utils/local-storage.util'
 import { AxiosService } from '@/core/utils/axios.util'
-import { UpdateProfileDto } from '@/library/dto/user.dto'
-import { IJWT, JWTDto } from '@/library/dto/JWT.dto'
+import { iUser, UpdateProfileDto, UserDto } from '@/library/dto/user.dto'
 
 class profile {
   private readonly $api: AxiosInstance
-  private readonly $token: ILocalStorageUtil
 
-  constructor(api: AxiosInstance, token: ILocalStorageUtil) {
+  constructor(api: AxiosInstance) {
     this.$api = api
-    this.$token = token
   }
 
-  private readonly requestConfigWith = (options: Partial<{ content: string; data: object; params: object }>) =>
-    AxiosService.requestConfig({ token: this.$token.getItem(), ...options })
-
-  public readonly updateProfile = async (payload: UpdateProfileDto): Promise<JWTDto> => {
-    const response = await this.$api.patch<IJWT>('settings/profile/update', payload, this.requestConfigWith({}))
-    return new JWTDto(response.data)
+  public readonly updateProfile = async (payload: UpdateProfileDto, token: string): Promise<UserDto> => {
+    const response = await this.$api.patch<iUser>(
+      'settings/profile/update',
+      payload,
+      AxiosService.requestConfig({ token })
+    )
+    return new UserDto(response.data)
   }
 
-  public readonly updateAvatar = async (payload: File): Promise<JWTDto> => {
+  public readonly updateAvatar = async (payload: File, token: string): Promise<UserDto> => {
     const formData = new FormData()
     formData.append('avatar', payload)
 
-    const response = await this.$api.post<IJWT>(
+    const response = await this.$api.post<iUser>(
       'settings/profile/avatar/upload',
       formData,
-      this.requestConfigWith({ content: 'multipart/form-data' })
+      AxiosService.requestConfig({ token, content: 'multipart/form-data' })
     )
 
-    return new JWTDto(response.data)
+    return new UserDto(response.data)
   }
 
-  public readonly removeAvatar = async (): Promise<JWTDto> => {
-    const response = await this.$api.delete<IJWT>('settings/profile/avatar/remove', this.requestConfigWith({}))
-    return new JWTDto(response.data)
+  public readonly removeAvatar = async (token: string): Promise<UserDto> => {
+    const response = await this.$api.delete<iUser>(
+      'settings/profile/avatar/remove',
+      AxiosService.requestConfig({ token })
+    )
+    return new UserDto(response.data)
   }
 }
 

@@ -26,6 +26,7 @@ import { RequestContextInterceptor } from './common/interceptors/request-context
 import { ThrottlerModule } from '@nestjs/throttler';
 import { minute } from 'src/library/constants/time.constants';
 import { CustomThrottlerGuard } from './common/guards/throttler.guard';
+import { JwtAuthGuard } from './common/guards/jwt-auth.guard';
 
 const rootPath = join(__dirname, '../..', 'public');
 const serveRoot = '/';
@@ -39,14 +40,7 @@ const envFilePath = '.env';
     BullModule.forRoot({ connection }),
     RouterModule.register(appRoutes),
     TypeOrmPlugin.forRoot,
-    ThrottlerModule.forRoot({
-      throttlers: [
-        {
-          ttl: 1 * minute,
-          limit: 60,
-        },
-      ],
-    }),
+    ThrottlerModule.forRoot({ throttlers: [{ ttl: 1 * minute, limit: 60 }] }),
 
     LogQueueModule,
     UserModule,
@@ -63,11 +57,10 @@ const envFilePath = '.env';
     RequestContext,
     RequestContextInterceptor,
     RequestContextMiddleware,
-
-    // {
-    //   provide: APP_GUARD,
-    //   useClass: JwtAuthGuard,
-    // },
+    {
+      provide: APP_GUARD,
+      useClass: JwtAuthGuard,
+    },
     {
       provide: APP_GUARD,
       useClass: CustomThrottlerGuard,

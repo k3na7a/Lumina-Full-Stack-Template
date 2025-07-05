@@ -6,7 +6,8 @@ export interface JWTInterface {
 }
 
 export interface tokenParams {
-  token: string;
+  refresh_token: string;
+  access_token: string;
   iat: number;
   exp: number;
   user: UserEntity;
