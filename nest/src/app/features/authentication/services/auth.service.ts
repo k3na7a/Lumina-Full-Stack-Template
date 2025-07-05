@@ -12,7 +12,6 @@ import { ForgotPasswordDto } from 'src/app/features/authentication/dto/forgotPas
 import { JWTDto } from 'src/library/dto/jwt.dto';
 import { RegisterDto } from 'src/app/features/authentication/dto/register.dto';
 
-import { SendGridPlugin } from 'src/plugins/sendgrid.plugin';
 import { HandlebarsPlugin } from 'src/plugins/handlebars.plugin';
 
 import { UserEntity } from 'src/app/modules/users/entities/user.entity';
@@ -20,6 +19,7 @@ import { UserService } from 'src/app/modules/users/services/users.service';
 import { UserAccountService } from 'src/app/modules/users/services/users-account.service';
 import { JWTInterface } from 'src/library/interfaces/jwt.interface';
 import { TokenManager } from 'src/app/common/utilities/token.utility';
+import { EmailService } from 'src/app/queues/email/services/email.service';
 
 @Injectable()
 export class AuthService {
@@ -28,6 +28,7 @@ export class AuthService {
   constructor(
     private readonly userService: UserService,
     private readonly accountService: UserAccountService,
+    private readonly emailService: EmailService,
     private readonly jwtService: JwtService,
   ) {
     this.tokenManager = new TokenManager(jwtService);
@@ -55,12 +56,13 @@ export class AuthService {
 
     const payload: Payload = { email: user.email, sub: user.id };
 
-    const tokens: JWTInterface = await this.tokenManager.generateTokens(payload);
+    const tokens: JWTInterface =
+      await this.tokenManager.generateTokens(payload);
     const hash = this.tokenManager.createHMAC(tokens.access_token);
 
     await this.userService.update(user.id, { resetToken: hash });
 
-    await SendGridPlugin.sendMail({
+    await this.emailService.sendEmail({
       to: [user.email],
       subject: ForgotPasswordEmailSubject,
       html: HandlebarsPlugin.compile<ForgotPasswordOptions>({
@@ -79,7 +81,7 @@ export class AuthService {
     password: string,
     accessToken: string,
   ): Promise<void> {
-    const hashedToken = this.tokenManager.createHMAC(accessToken)
+    const hashedToken = this.tokenManager.createHMAC(accessToken);
 
     if (!user.resetToken)
       throw new UnauthorizedException('Reset token not set for user');

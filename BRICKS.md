@@ -23,7 +23,7 @@ Each brick is an actionable piece of the wall we’re building together.
 - ✔️ Graceful shutdown (onApplicationShutdown) drains workers safely
 - ✔️ Health checks for BullMQ, Redis, and TypeORM
 - ✔️ Router module refactored to router.ts
-- ✔️ Logging to S3
+- ✔️ Logging S3 events
 - ✔️ Fallback for unexpected non-HTTP errors
 - ✔️ Monitor BullMQ for stuck/blocked jobs
 - ✔️ DB connection pooling tuned (maxQueryExecutionTime)
@@ -31,13 +31,13 @@ Each brick is an actionable piece of the wall we’re building together.
 - ✔️ AsyncLocalStorage or cls-hooked for request scoping
 - ✔️ Move profile → user_profile for clarity
 - ✔️ Per-route rate limits for sensitive endpoints (/auth/login, /reset)
+- ✔️ Push rotated logs to cold storage (S3)
 
 ---
 
 ## 🚧 Bricks In Progress 🧱
 
 - Add request ID tracing end-to-end
-- Push rotated logs to cold storage (S3)
 - Add BullMQ metrics or Prometheus integration
 - Send Slack/Email/Discord alerts for critical events (failed jobs, DB loss, crash)
 - Add concurrency limits for workers to protect CPU

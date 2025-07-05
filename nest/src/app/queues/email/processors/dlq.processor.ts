@@ -2,17 +2,14 @@ import { Processor, WorkerHost } from '@nestjs/bullmq';
 import { Logger } from '@nestjs/common';
 import { Job } from 'bullmq';
 
-import { LoggerQueues } from 'src/library/enums/logger-actions.enum';
-import { jobtype } from 'src/library/interfaces/logger.interface';
+import { emailProps } from 'src/plugins/sendgrid.plugin';
 
-@Processor(LoggerQueues.LOG_DLQ)
+@Processor('email-dlq')
 export class DeadLetterQueueProcessor extends WorkerHost {
   private readonly logger = new Logger(DeadLetterQueueProcessor.name);
 
-  async process(job: Job<jobtype>) {
-    this.logger.warn(
-      `{${LoggerQueues.LOG_DLQ}} Handling DLQ job: ID=${job.id}`,
-    );
+  async process(job: Job<emailProps>) {
+    this.logger.warn(`{${'email-dlq'}} Handling DLQ job: ID=${job.id}`);
   }
 
   async onApplicationShutdown(signal?: string) {

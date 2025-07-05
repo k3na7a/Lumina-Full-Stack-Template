@@ -13,10 +13,10 @@ const template = `<!doctype html>
   <title>Reset Your Password</title>
 </head>
 <body style="margin: 0; padding: 0; font-family: Arial, sans-serif; background-color: #f4f4f7; color: #333;">
-  <table width="100%" cellpadding="0" cellspacing="0" style="padding: 2rem 0;">
+  <table width="100%" cellpadding="0" cellspacing="0" style="padding: 2rem;">
     <tr>
       <td align="center">
-        <table width="100%" max-width="600" cellpadding="0" cellspacing="0" style="background: #ffffff; border-radius: 8px; padding: 2rem; box-shadow: 0 0 10px rgba(0,0,0,0.05);">
+        <table width="100%" max-width="600" cellpadding="0" cellspacing="0" padding: 2rem; box-shadow: 0 0 10px rgba(0,0,0,0.05);">
           <tr>
             <td align="left">
               <h2 style="margin-top: 0;">Hello {{ name }},</h2>
