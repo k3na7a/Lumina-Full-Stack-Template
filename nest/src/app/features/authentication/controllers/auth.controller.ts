@@ -69,8 +69,6 @@ export class AuthController {
   @Throttle({ default: { limit: 10, ttl: 1 * minute } })
   @RequiresRefreshToken()
   async verifyToken(@CurrentUser() user: UserEntity): Promise<JWTDto> {
-    console.log('Controller store:', this.requestContext.getStore());
-
     return this.authService.verify(user);
   }
 
