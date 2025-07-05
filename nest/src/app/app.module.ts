@@ -22,11 +22,11 @@ import { HealthModule } from './features/health/health.module';
 import { appRoutes } from '../config/routes.config';
 import { RequestContext } from './common/providers/request-context.provider';
 import { RequestContextMiddleware } from './common/middleware/request-context.middleware';
-import { RequestContextInterceptor } from './common/interceptors/request-context.interceptor';
 import { ThrottlerModule } from '@nestjs/throttler';
 import { minute } from 'src/library/constants/time.constants';
 import { CustomThrottlerGuard } from './common/guards/throttler.guard';
 import { JwtAuthGuard } from './common/guards/jwt-auth.guard';
+import { CoreModule } from './modules/shared/shared.module';
 
 const rootPath = join(__dirname, '../..', 'public');
 const serveRoot = '/';
@@ -42,6 +42,7 @@ const envFilePath = '.env';
     TypeOrmPlugin.forRoot,
     ThrottlerModule.forRoot({ throttlers: [{ ttl: 1 * minute, limit: 60 }] }),
 
+    CoreModule,
     LogQueueModule,
     UserModule,
 
@@ -55,7 +56,6 @@ const envFilePath = '.env';
     LocalStrategy,
     RefreshTokenStrategy,
     RequestContext,
-    RequestContextInterceptor,
     RequestContextMiddleware,
     {
       provide: APP_GUARD,

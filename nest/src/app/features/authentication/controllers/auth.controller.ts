@@ -27,13 +27,17 @@ import { RequiresRefreshToken } from 'src/app/common/decorators/refresh-token.de
 import { Public } from 'src/app/common/decorators/public.decorator';
 import { Throttle } from '@nestjs/throttler';
 import { minute } from 'src/library/constants/time.constants';
+import { RequestContext } from 'src/app/common/providers/request-context.provider';
 
 @Public()
 @ApiTags('Authentication')
 @Controller('')
 @UseInterceptors(ClassSerializerInterceptor)
 export class AuthController {
-  constructor(private readonly authService: AuthService) {}
+  constructor(
+    private readonly authService: AuthService,
+    private readonly requestContext: RequestContext,
+  ) {}
 
   @Put('/register')
   @Throttle({ default: { limit: 3, ttl: 1 * minute } })
@@ -63,6 +67,9 @@ export class AuthController {
   @Throttle({ default: { limit: 10, ttl: 1 * minute } })
   @RequiresRefreshToken()
   async verifyToken(@CurrentUser() user: UserEntity): Promise<JWTDto> {
+    const store = this.requestContext.getStore();
+    console.log(store);
+
     return this.authService.verify(user);
   }
 

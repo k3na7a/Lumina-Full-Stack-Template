@@ -26,6 +26,8 @@ export class GlobalExceptionFilter implements ExceptionFilter {
       message = exception.message;
     }
 
+    console.log(exception);
+
     this.logService.log({
       type: LoggerActions.ERR,
       context: GlobalExceptionFilter.name,

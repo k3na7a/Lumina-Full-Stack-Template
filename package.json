@@ -1,6 +1,6 @@
 {
   "name": "full-stack-demo-application",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "Full-Stack Demo Web Application",
   "scripts": {
     "web": "cd vue && npm run dev",

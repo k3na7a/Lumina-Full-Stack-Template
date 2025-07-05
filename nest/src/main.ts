@@ -11,13 +11,11 @@ import { SendGridPlugin } from 'src/plugins/sendgrid.plugin';
 import { BullBoardPlugin } from './plugins/bull-board.plugin';
 import { GlobalExceptionFilter } from './app/common/filters/global-exceptions.filter';
 import { LogService } from './app/queues/logging/services/log.service';
-import { RequestContextInterceptor } from './app/common/interceptors/request-context.interceptor';
 
 async function bootstrap(): Promise<void> {
   const app = await NestFactory.create(AppModule);
 
   const logService = app.get(LogService);
-  const requestConfigInterceptor = app.get(RequestContextInterceptor);
 
   const logger = new Logger('NestApplication');
 
@@ -33,7 +31,6 @@ async function bootstrap(): Promise<void> {
   app.setGlobalPrefix(prefix);
   app.useGlobalPipes(new ValidationPipe({ whitelist: true, transform: true }));
   app.useGlobalFilters(new GlobalExceptionFilter(logService));
-  app.useGlobalInterceptors(requestConfigInterceptor);
   app.enableCors({
     origin: 'http://localhost:8080',
     methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE'],

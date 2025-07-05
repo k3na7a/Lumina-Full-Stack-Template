@@ -4,5 +4,6 @@
 
 - Digital Ocean (Droplets : Online Virtual Linux for Hosting)
 - HTTPS Cirtificates (???)
+- Domain (~20$/yr) BrickStackSoftware?
 
 Current approx. budget ~14$/mo
