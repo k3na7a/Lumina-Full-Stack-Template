@@ -18,8 +18,7 @@ export class LogQueueProcessor extends WorkerHost {
   private readonly fileManager = useFileManager();
   private readonly MAX_SIZE_MB = 1 * megabyte;
   private readonly directory_name = 'logs';
-
-  private readonly logger = new Logger(LogQueueProcessor.name);
+  
   private readonly logActionMap: Record<
     string,
     (message: string, context: string) => void
@@ -75,13 +74,13 @@ export class LogQueueProcessor extends WorkerHost {
       srcPath = this.buildLogPath(dateString, suffix);
     }
 
-    if (exists) await appendFile(srcPath, `${new_message}\n`);
-    else await appendFile(srcPath, log_start);
-
     if (rotatedFilePath) {
       await this.s3Service.uploadFromDisk(rotatedFilePath, 'logs');
       await this.fileManager.removeFile(rotatedFilePath);
     }
+
+    if (exists) await appendFile(srcPath, `${new_message}\n`);
+    else await appendFile(srcPath, log_start);
 
     this.logActionMap[type](message, context);
   }

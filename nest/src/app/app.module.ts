@@ -63,7 +63,6 @@ const envFilePath = '.env';
       provide: APP_GUARD,
       useClass: CustomThrottlerGuard,
     },
-    
   ],
 })
 export class AppModule {

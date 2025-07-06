@@ -43,7 +43,7 @@ export class UserAccountService {
     const hashed = this.tokenManager.createHMAC(tokens.refresh_token);
     await this.userService.update(user.id, { refreshToken: hashed });
 
-    const decoded = this.tokenManager.decode(tokens.refresh_token);
+    const decoded = this.tokenManager.decode(tokens.access_token);
 
     return new JWTDto({
       refresh_token: tokens.refresh_token,
