@@ -29,7 +29,7 @@ export class GlobalExceptionFilter implements ExceptionFilter {
     this.logService.log({
       type: LoggerActions.ERR,
       context: GlobalExceptionFilter.name,
-      message: `${request.method} ${request.url} | Status: ${status} | Message: ${exception}`,
+      message: `Request: ${request.method} ${request.url} | Status: ${status} | Message: ${exception}`,
     });
 
     response.status(status).json({

@@ -52,7 +52,7 @@ export class S3Service {
     await this.logService.log({
       type: LoggerActions.INFO,
       context: S3Service.name,
-      message: `Uploaded file to ${this.bucket}/${key} | size=${file.size} | type=${file.mimetype}`,
+      message: `Message: Uploaded file ${file.filename} to ${this.bucket}/${key} | Size: ${file.size} | Type: ${file.mimetype}`,
     });
 
     return result;
@@ -66,7 +66,8 @@ export class S3Service {
     const mimetype = mime.lookup(localFilePath) || undefined;
     const { size } = statSync(localFilePath);
 
-    const key = this.buildKey(path, Path.basename(localFilePath));
+    const filename = Path.basename(localFilePath);
+    const key = this.buildKey(path, filename);
 
     mime.lookup(localFilePath);
     const command = new PutObjectCommand({
@@ -81,7 +82,7 @@ export class S3Service {
     await this.logService.log({
       type: LoggerActions.INFO,
       context: S3Service.name,
-      message: `Uploaded file to ${this.bucket}/${key} | size=${size} | type=${mimetype}`,
+      message: `Message: Uploaded file ${filename} to ${this.bucket}/${key} | Size: ${size} | Type: ${mimetype}`,
     });
 
     return result;
@@ -103,7 +104,7 @@ export class S3Service {
     await this.logService.log({
       type: LoggerActions.INFO,
       context: S3Service.name,
-      message: `Deleted file from ${this.bucket}/${key}`,
+      message: `Message: Deleted file ${filename} from ${this.bucket}/${key}`,
     });
 
     return result;

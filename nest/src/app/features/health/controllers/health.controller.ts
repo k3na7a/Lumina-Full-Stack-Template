@@ -36,6 +36,8 @@ export class HealthController {
       this.redis.pingCheck('redis'),
       this.bull.isHealthy(LoggerQueues.LOG_QUEUE),
       this.bull.isHealthy(LoggerQueues.LOG_DLQ),
+      this.bull.isHealthy('email-queue'),
+      this.bull.isHealthy('email-dlq'),
     ]);
 
     const services = results.reduce((acc, item) => ({ ...acc, ...item }), {});

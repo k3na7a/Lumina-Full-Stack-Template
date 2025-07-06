@@ -6,31 +6,13 @@ import * as moment from 'moment';
 import { useFileManager } from 'src/app/common/utilities/fileManager.util';
 import { jobtype } from 'src/library/interfaces/logger.interface';
 import { megabyte } from 'src/library/constants/size.constants';
-import { Logger } from '@nestjs/common';
-import {
-  LoggerActions,
-  LoggerQueues,
-} from 'src/library/enums/logger-actions.enum';
-import { S3Service } from 'src/app/modules/shared/services/s3.service';
+import { LoggerQueues } from 'src/library/enums/logger-actions.enum';
 
 @Processor(LoggerQueues.LOG_QUEUE)
 export class LogQueueProcessor extends WorkerHost {
   private readonly fileManager = useFileManager();
-  private readonly MAX_SIZE_MB = 1 * megabyte;
+  private readonly MAX_SIZE_MB = 10 * megabyte;
   private readonly directory_name = 'logs';
-  
-  private readonly logActionMap: Record<
-    string,
-    (message: string, context: string) => void
-  > = {
-    [LoggerActions.INFO]: Logger.log.bind(Logger),
-    [LoggerActions.WARN]: Logger.warn.bind(Logger),
-    [LoggerActions.ERR]: Logger.error.bind(Logger),
-  };
-
-  constructor(private readonly s3Service: S3Service) {
-    super();
-  }
 
   private buildLogPath(dateString: string, suffix: string): string {
     return path.join(
@@ -41,7 +23,7 @@ export class LogQueueProcessor extends WorkerHost {
   }
 
   async process(job: Job<jobtype>): Promise<void> {
-    const { message, type, context } = job.data;
+    const { message, type, context, requestInfo: req } = job.data;
     const { appendFile, accessFile, getFileSizeMB, createDirectory } =
       this.fileManager;
 
@@ -50,16 +32,17 @@ export class LogQueueProcessor extends WorkerHost {
     const timeString: string = now.format('HH:mm');
     const calendar: string = now.format('L');
 
-    const new_message: string = `[${timeString}] ${type}: [${context}] ${message}`;
-    const log_start = `[${timeString}] LOG START -- ${calendar}\n${new_message}\n`;
+    const requestContext: string = `RequestID: ${req?.requestId || 'SYSTEM'} | IP: ${req?.ipAddress || '-'} | UserID: ${req?.userId || '-'}`;
 
-    let suffix = '';
-    let exists = false;
-    let srcPath = this.buildLogPath(dateString, suffix);
+    const new_message: string = `[${timeString}] ${type.toUpperCase()} [${context}] ${requestContext} | ${message}`;
+    const log_start: string = `[${timeString}] LOG START -- ${calendar}\n${new_message}\n`;
+
+    let suffix: string = '';
+    let exists: boolean = false;
+    let srcPath: string = this.buildLogPath(dateString, suffix);
 
     await createDirectory(this.directory_name);
 
-    let rotatedFilePath: string | null = null;
     while (await accessFile(srcPath)) {
       const size = await getFileSizeMB(srcPath);
 
@@ -68,21 +51,12 @@ export class LogQueueProcessor extends WorkerHost {
         break;
       }
 
-      rotatedFilePath = srcPath;
-
       suffix = suffix === '' ? '-1' : `-${parseInt(suffix.slice(1), 10) + 1}`;
       srcPath = this.buildLogPath(dateString, suffix);
     }
 
-    if (rotatedFilePath) {
-      await this.s3Service.uploadFromDisk(rotatedFilePath, 'logs');
-      await this.fileManager.removeFile(rotatedFilePath);
-    }
-
     if (exists) await appendFile(srcPath, `${new_message}\n`);
     else await appendFile(srcPath, log_start);
-
-    this.logActionMap[type](message, context);
   }
 
   async onApplicationShutdown(): Promise<void> {

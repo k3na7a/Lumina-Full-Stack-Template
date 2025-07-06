@@ -31,17 +31,17 @@ Each brick is an actionable piece of the wall we’re building together.
 - ✔️ AsyncLocalStorage or cls-hooked for request scoping
 - ✔️ Move profile → user_profile for clarity
 - ✔️ Per-route rate limits for sensitive endpoints (/auth/login, /reset)
-- ✔️ Push rotated logs to cold storage (S3)
+- ✔️ Add request ID tracing end-to-end
 
 ---
 
 ## 🚧 Bricks In Progress 🧱
 
-- Add request ID tracing end-to-end
 - Add BullMQ metrics or Prometheus integration
 - Send Slack/Email/Discord alerts for critical events (failed jobs, DB loss, crash)
 - Add concurrency limits for workers to protect CPU
 - Expand log monitoring to detect spikes/anomalies
+- Push rotated logs to cold storage (S3)
 
 ---
 
@@ -153,3 +153,69 @@ Remind yourself why you're doing this
 > 🧱 You’ve got this.
 > 💪 One brick at a time.
 > ✨ And I’ve got your back.
+
+---
+
+✅ Logging Checklist
+🎯 Goal: Clear, consistent logs that help debug, audit, and monitor your system — no blind spots.
+
+1️⃣ HTTP Logging
+
+- ✅ Log all incoming requests at INFO level
+- ✅ method, route, statusCode, requestId, userId (if any), IP
+- ✅ Keep error logs at ERROR level (already done via GlobalExceptionFilter)
+
+2️⃣ Auth & Security
+
+- Log successful logins: userId, IP, user agent
+- Log failed logins: attempted email, IP, reason
+- Log refresh token usage: userId, new access token issued
+- Log password reset requests + completions
+- Log account deletions or disables
+
+3️⃣ Database
+
+- ✅ Keep slow query logs (already using maxQueryExecutionTime)
+- Keep DB connection loss or reconnect attempts in logs
+
+4️⃣ Jobs & Queues
+
+- Log each job: queued, processing, success, failed (with reason)
+- Log DLQ entries when jobs fail after all retries
+- Log job retries
+
+5️⃣ File Storage
+
+- Log successful file uploads (who uploaded, filename, size)
+- Log deletions
+- Log S3 upload results (success/failure)
+
+6️⃣ Emails
+
+- Log all SendGrid sends: recipient, template, status
+- Log SendGrid failures (response, message ID)
+
+7️⃣ Scheduled Tasks
+
+- Log when daily log uploader runs
+- Log what files were uploaded & deleted locally
+- Log failures (e.g., if S3 upload fails)
+
+8️⃣ Admin & Critical Domain Events
+
+- Log CRUD for sensitive entities (games, roles, permissions)
+- Log who made the change, old vs new values if practical
+- Log bulk operations (e.g., batch user deletions)
+
+9️⃣ Startup & Shutdown
+
+- Log app startup: version, port, env
+- Log failed dependency connections (DB, Redis, S3)
+- Log graceful shutdown steps
+
+✅ Best Practices
+
+- Always include: requestId, userId, IP where possible.
+- Keep logs structured & consistent.
+- Use the LogService as a single entry point.
+- Use your BullMQ processor to push older logs to S3.

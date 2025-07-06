@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { Form } from 'vee-validate'
 
-import { LocalhostAPI } from '@/core/apis/localhost/localhost.api'
 import { generateUrlSlug } from '@/core/utils/slug.util'
 
 import TextInput from '@/shared/components/inputs/text.input.vue'
@@ -14,7 +13,7 @@ import Layout from '../layouts/game.layout.vue'
 import { proptype, useGameForm } from '../composables/game.composable'
 
 const props = defineProps<proptype>()
-const { onSubmit, initialValues, validationSchema, loading, platformOptions } = useGameForm(props)
+const { onSubmit, initialValues, validationSchema, loading, platformOptions, getPlatforms } = useGameForm(props)
 </script>
 
 <template>
@@ -46,11 +45,7 @@ const { onSubmit, initialValues, validationSchema, loading, platformOptions } = 
         />
       </template>
       <template #platforms>
-        <SearchPaginatedInput
-          name="platforms"
-          :callback="LocalhostAPI.administration.platforms.getPaginated"
-          :options="platformOptions"
-        >
+        <SearchPaginatedInput name="platforms" :callback="getPlatforms" :options="platformOptions">
           <template #option="{ option }">
             {{ option.name }}
             <small class="ms-2 text-muted fst-italic">{{ option.id }}</small>

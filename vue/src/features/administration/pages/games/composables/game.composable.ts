@@ -5,6 +5,8 @@ import { PlatformDto } from '@/library/dto/platform.dto'
 import { GameDto, icreategame } from '@/library/dto/game.dto'
 import { useFormUtil } from '@/core/utils/forms.util'
 import { Order, PaginationOptions } from '@/library/dto/pagination.dto'
+import { AuthStore, useAuthStore } from '@/core/store/authentication.store'
+import { LocalhostAPI } from '@/core/apis/localhost/localhost.api'
 
 type proptype = {
   game?: GameDto
@@ -22,6 +24,13 @@ const platformOptions: PaginationOptions = {
 function useGameForm({ game, callback }: proptype) {
   const validateUtil = useFormUtil()
   const loading = ref(false)
+
+  const { getValidAccessToken }: AuthStore = useAuthStore()
+
+  async function getPlatforms(options: PaginationOptions) {
+    const accessToken = await getValidAccessToken()
+    return LocalhostAPI.administration.platforms.getPaginated(options, accessToken as string)
+  }
 
   const initialValues = computed(() => ({
     name: game?.name,
@@ -52,7 +61,8 @@ function useGameForm({ game, callback }: proptype) {
     initialValues,
     onSubmit,
     loading,
-    platformOptions
+    platformOptions,
+    getPlatforms
   }
 }
 

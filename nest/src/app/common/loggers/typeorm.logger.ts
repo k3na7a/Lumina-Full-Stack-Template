@@ -29,7 +29,7 @@ export class TypeOrmLogger implements Logger {
     await this.logService.log({
       type: LoggerActions.INFO,
       context: this.context,
-      message: `Query: ${query} -- Params: ${JSON.stringify(parameters)}`,
+      message: `Query: ${query} | Params: ${JSON.stringify(parameters)}`,
     });
   }
 
@@ -43,7 +43,7 @@ export class TypeOrmLogger implements Logger {
     await this.logService.log({
       type: LoggerActions.ERR,
       context: this.context,
-      message: `${error} -- Query: ${query} -- Params: ${JSON.stringify(parameters)}`,
+      message: `Error: ${error} | Query: ${query} | Params: ${JSON.stringify(parameters)}`,
     });
   }
 
@@ -57,7 +57,7 @@ export class TypeOrmLogger implements Logger {
     await this.logService.log({
       type: LoggerActions.WARN,
       context: this.context,
-      message: `Slow Query: ${time}ms -- Query: ${query} -- Params: ${JSON.stringify(parameters)}`,
+      message: `Slow Query: ${time}ms | Query: ${query} | Params: ${JSON.stringify(parameters)}`,
     });
   }
 
@@ -75,16 +75,13 @@ export class TypeOrmLogger implements Logger {
     if (!this.isEnabled('migration')) return;
 
     await this.logService.log({
-      type: LoggerActions.INFO,
+      type: LoggerActions.WARN,
       context: this.context,
       message: `Migration: ${message}`,
     });
   }
 
-  async log(
-    level: 'log' | 'info' | 'warn' | 'migration' | 'schema',
-    message: any,
-  ): Promise<void> {
+  async log(level: 'warn' | 'info' | 'log', message: any): Promise<void> {
     if (!this.isEnabled(level)) return;
 
     const { capitalize } = this.stringUtil;
@@ -92,8 +89,6 @@ export class TypeOrmLogger implements Logger {
     switch (level) {
       case 'log':
       case 'info':
-      case 'migration':
-      case 'schema':
         await this.logService.log({
           type: LoggerActions.INFO,
           context: this.context,

@@ -26,6 +26,9 @@ import { minute } from 'src/library/constants/time.constants';
 import { CustomThrottlerGuard } from './common/guards/throttler.guard';
 import { JwtAuthGuard } from './common/guards/jwt-auth.guard';
 import { CoreModule } from './modules/shared/shared.module';
+import { ConnectionLogger } from './common/loggers/connection.logger';
+import { DataSource } from 'typeorm';
+import { LogService } from './queues/logging/services/log.service';
 
 const rootPath = join(__dirname, '../..', 'public');
 const serveRoot = '/';
@@ -39,7 +42,7 @@ const envFilePath = '.env';
     BullModule.forRoot({ connection }),
     RouterModule.register(appRoutes),
     TypeOrmPlugin.forRoot,
-    ThrottlerModule.forRoot({ throttlers: [{ ttl: 1 * minute, limit: 60 }] }),
+    ThrottlerModule.forRoot({ throttlers: [{ ttl: 1 * minute, limit: 20 }] }),
 
     CoreModule,
     LogQueueModule,
@@ -51,8 +54,8 @@ const envFilePath = '.env';
     AdminModule,
   ],
   providers: [
-    AccessTokenStrategy,
     LocalStrategy,
+    AccessTokenStrategy,
     RefreshTokenStrategy,
 
     {
@@ -62,6 +65,14 @@ const envFilePath = '.env';
     {
       provide: APP_GUARD,
       useClass: CustomThrottlerGuard,
+    },
+
+    {
+      provide: ConnectionLogger,
+      useFactory: (dataSource: DataSource, logService: LogService) => {
+        return new ConnectionLogger(dataSource, logService);
+      },
+      inject: [DataSource, LogService],
     },
   ],
 })
