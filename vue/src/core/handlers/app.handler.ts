@@ -7,12 +7,12 @@ import ConfirmationModal from '@/shared/components/modal/confirm.modal.vue'
 
 import { credentials } from '@/library/dto/JWT.dto'
 import { Register, RegisterDto } from '@/library/dto/user.dto'
-import { AuthStore, useAuthStore } from '@/core/store/authentication.store'
+import { AppStore, useAppStore } from '@/core/store/app.store'
 import { ModalStore, useModalStore } from '@/core/store/modal.store'
 import { ToastStore, useToastStore } from '@/core/store/toast.store'
 import { ForgotPassword, ForgotPasswordDto, ResetPassword, ResetPasswordDto } from '@/library/dto/user.dto'
 
-export type AuthHandler = {
+export type AppHandler = {
   register: () => void
   signin: () => void
   signout: () => void
@@ -20,9 +20,9 @@ export type AuthHandler = {
   resetPassword(props: ResetPassword, token: string, callback?: () => void | Promise<void>): Promise<void>
 }
 
-export function useAuthHandler(t: (key: string) => string): AuthHandler {
+export function useAppHandler(t: (key: string) => string): AppHandler {
   const modalStore: ModalStore = useModalStore()
-  const authStore: AuthStore = useAuthStore()
+  const appStore: AppStore = useAppStore()
   const toastStore: ToastStore = useToastStore()
 
   function showSuccessToast(key: string): void {
@@ -47,7 +47,7 @@ export function useAuthHandler(t: (key: string) => string): AuthHandler {
 
   function register(): void {
     const { openModal, closeModal } = modalStore
-    const { register } = authStore
+    const { register } = appStore
 
     openModal({
       view: markRaw(RegisterModal),
@@ -66,7 +66,7 @@ export function useAuthHandler(t: (key: string) => string): AuthHandler {
 
   function signin(): void {
     const { closeModal, openModal } = modalStore
-    const { signIn } = authStore
+    const { signIn } = appStore
 
     openModal({
       view: markRaw(SignInModal),
@@ -85,7 +85,7 @@ export function useAuthHandler(t: (key: string) => string): AuthHandler {
 
   function signout(): void {
     const { openModal, closeModal }: ModalStore = useModalStore()
-    const { signOut }: AuthStore = useAuthStore()
+    const { signOut } = appStore
 
     openModal({
       view: markRaw(ConfirmationModal),
@@ -107,7 +107,7 @@ export function useAuthHandler(t: (key: string) => string): AuthHandler {
   }
 
   async function forgotPassword(props: ForgotPassword, callback?: () => void | Promise<void>): Promise<void> {
-    const { forgotPassword } = authStore
+    const { forgotPassword } = appStore
 
     await forgotPassword(new ForgotPasswordDto(props))
       .then(() => {
@@ -122,7 +122,7 @@ export function useAuthHandler(t: (key: string) => string): AuthHandler {
     token: string,
     callback?: () => void | Promise<void>
   ): Promise<void> {
-    const { resetPassword } = authStore
+    const { resetPassword } = appStore
 
     await resetPassword(new ResetPasswordDto(props, token))
       .then(() => {

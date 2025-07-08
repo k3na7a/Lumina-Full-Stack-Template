@@ -6,7 +6,7 @@ import { useI18n } from 'vue-i18n'
 
 import { useFormUtil } from '@/core/utils/forms.util.ts'
 import { ForgotPassword } from '@/library/dto/user.dto.ts'
-import { useAuthHandler } from '@/core/handlers/authentication.handler.ts'
+import { useAppHandler } from '@/core/handlers/app.handler.ts'
 
 import { validationSchema } from './account-recovery.form.ts'
 
@@ -19,7 +19,7 @@ enum PAGES {
 }
 
 const { t } = useI18n()
-const handler = useAuthHandler(t)
+const handler = useAppHandler(t)
 const { push }: Router = useRouter()
 const { getSubmitFn } = useFormUtil()
 

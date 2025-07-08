@@ -15,7 +15,6 @@ class RefreshTokenStrategy extends PassportStrategy(Strategy, 'jwt-refresh') {
     super({
       jwtFromRequest: ExtractJwt.fromExtractors([
         (req: Request) => {
-          console.log('Extractor: cookies', req.cookies);
           return req?.cookies?.['refresh_token'] || null;
         },
       ]),
@@ -33,7 +32,6 @@ class RefreshTokenStrategy extends PassportStrategy(Strategy, 'jwt-refresh') {
     email: string;
     sub: string;
   }> {
-    console.log('validate refresh token');
     const refreshToken = req.cookies?.['refresh_token'];
     if (!refreshToken) throw new UnauthorizedException('Refresh token missing');
 

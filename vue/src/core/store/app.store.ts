@@ -1,4 +1,4 @@
-import { LocalhostAPI as API } from '@/core/apis/localhost/localhost.api'
+import { LocalhostAPI as API, LocalhostAPI } from '@/core/apis/localhost/localhost.api'
 import {
   DeleteAccountDto,
   ForgotPasswordDto,
@@ -20,18 +20,26 @@ interface IAccessToken {
   exp: number
 }
 
-interface IAuthState {
+interface ICsrfToken {
+  token: string
+  iat: number
+  exp: number
+}
+
+interface IAppState {
+  $csrf_token: ICsrfToken | null
   $access_token: IAccessToken | null
   $authenticated: boolean
   $user: UserDto | undefined
 }
 
-interface AuthGetters {
-  isAuthenticated: (state: IAuthState) => boolean
-  authenticatedUser: (state: IAuthState) => UserDto | undefined
+interface AppGetters {
+  isAuthenticated: (state: IAppState) => boolean
+  authenticatedUser: (state: IAppState) => UserDto | undefined
 }
 
-interface AuthActions {
+interface AppActions {
+  initialize(): Promise<void>
   authenticate(props: JWTDto): Promise<void>
   verifyToken(): Promise<void>
   purge(): Promise<void>
@@ -47,24 +55,32 @@ interface AuthActions {
   updatePassword(props: UpdatePasswordDto): Promise<void>
   deleteAccount(props: DeleteAccountDto): Promise<void>
   getValidAccessToken(): Promise<string | null>
+  getValidCsrfToken(): Promise<string | null>
+  getCsrfToken(): Promise<void>
 }
 
-type AuthStore = Store<'authentication', IAuthState, AuthGetters, AuthActions>
-type StoreDef = StoreDefinition<'authentication', IAuthState, AuthGetters, AuthActions>
+type AppStore = Store<'application', IAppState, AppGetters, AppActions>
+type StoreDef = StoreDefinition<'application', IAppState, AppGetters, AppActions>
 
-const useAuthStore: StoreDef = defineStore({
-  id: 'authentication',
-  state: (): IAuthState => ({
+const useAppStore: StoreDef = defineStore({
+  id: 'application',
+  state: (): IAppState => ({
+    $csrf_token: null,
     $access_token: null,
     $authenticated: false,
     $user: undefined
   }),
   getters: {
-    isAuthenticated: (state: IAuthState): boolean => state.$authenticated,
-    authenticatedUser: (state: IAuthState): UserDto | undefined => state.$user
+    isAuthenticated: (state: IAppState): boolean => state.$authenticated,
+    authenticatedUser: (state: IAppState): UserDto | undefined => state.$user
   },
   actions: {
-    async authenticate(props: JWTDto) {
+    async initialize(): Promise<void> {
+      await this.getCsrfToken()
+      await this.verifyToken()
+    },
+
+    async authenticate(props: JWTDto): Promise<void> {
       this.$user = props.user
       this.$authenticated = true
       this.$access_token = {
@@ -79,6 +95,22 @@ const useAuthStore: StoreDef = defineStore({
       this.$authenticated = false
     },
 
+    async getValidCsrfToken(): Promise<string | null> {
+      const now = Date.now()
+
+      if (this.$csrf_token && this.$csrf_token.exp > now) {
+        return this.$csrf_token.token
+      }
+
+      await this.getCsrfToken()
+      return this.$csrf_token?.token || null
+    },
+
+    async getCsrfToken(): Promise<void> {
+      const csrf_token = await LocalhostAPI.authentication.csrfToken()
+      this.$csrf_token = csrf_token
+    },
+
     async getValidAccessToken(): Promise<string | null> {
       const now = Date.now() / second
 
@@ -87,24 +119,30 @@ const useAuthStore: StoreDef = defineStore({
       }
 
       await this.verifyToken()
-
       return this.$access_token?.token || null
     },
 
-    // AUTHENTICATION ROUTES
-
     async verifyToken(): Promise<void> {
-      const dto: JWTDto = await API.authentication.verifyToken()
+      const token = await this.getValidCsrfToken()
+      if (!token) throw new Error('Could not verify rcsf token')
+
+      const dto: JWTDto = await API.authentication.verifyToken(token)
       this.authenticate(dto)
     },
 
     async register(props: RegisterDto): Promise<void> {
-      const dto: JWTDto = await API.authentication.register(props)
+      const token = await this.getValidCsrfToken()
+      if (!token) throw new Error('Could not verify rcsf token')
+
+      const dto: JWTDto = await API.authentication.register(props, token)
       this.authenticate(dto)
     },
 
     async signIn(props: credentials): Promise<void> {
-      const dto: JWTDto = await API.authentication.signIn(props)
+      const token = await this.getValidCsrfToken()
+      if (!token) throw new Error('Could not verify rcsf token')
+
+      const dto: JWTDto = await API.authentication.signIn(props, token)
       this.authenticate(dto)
     },
 
@@ -114,7 +152,10 @@ const useAuthStore: StoreDef = defineStore({
     },
 
     async signOut(): Promise<void> {
-      await API.authentication.signOut()
+      const token = await this.getValidCsrfToken()
+      if (!token) throw new Error('Could not verify rcsf token')
+
+      await API.authentication.signOut(token)
       this.purge()
     },
 
@@ -123,24 +164,29 @@ const useAuthStore: StoreDef = defineStore({
       this.purge()
     },
 
-    // SETTINGS > SECURITY
-
     async deleteAccount(props: DeleteAccountDto): Promise<void> {
-      await API.settings.security.deleteAccount(props)
+      const token = await this.getValidCsrfToken()
+      if (!token) throw new Error('Could not verify rcsf token')
+
+      await API.settings.security.deleteAccount(props, token)
       this.purge()
     },
 
     async updateEmail(props: UpdateEmailDto): Promise<void> {
-      const dto: JWTDto = await API.settings.security.updateEmail(props)
+      const token = await this.getValidCsrfToken()
+      if (!token) throw new Error('Could not verify rcsf token')
+
+      const dto: JWTDto = await API.settings.security.updateEmail(props, token)
       this.authenticate(dto)
     },
 
     async updatePassword(props: UpdatePasswordDto): Promise<void> {
-      const dto: JWTDto = await API.settings.security.updatePassword(props)
+      const token = await this.getValidCsrfToken()
+      if (!token) throw new Error('Could not verify rcsf token')
+
+      const dto: JWTDto = await API.settings.security.updatePassword(props, token)
       this.authenticate(dto)
     },
-
-    // SETTINGS > PROFILE
 
     async updateProfile(props: UpdateProfileDto): Promise<void> {
       const token = await this.getValidAccessToken()
@@ -168,5 +214,5 @@ const useAuthStore: StoreDef = defineStore({
   }
 })
 
-export { useAuthStore }
-export type { AuthStore }
+export { useAppStore }
+export type { AppStore }

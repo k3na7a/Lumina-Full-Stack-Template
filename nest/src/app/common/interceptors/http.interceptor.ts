@@ -7,15 +7,11 @@ import {
 import { Observable, tap } from 'rxjs';
 import { Request, Response } from 'express';
 import { LogService } from 'src/app/queues/logging/services/log.service';
-import { RequestContext } from '../providers/request-context.provider';
 import { LoggerActions } from 'src/library/enums/logger-actions.enum';
 
 @Injectable()
 export class HttpInterceptor implements NestInterceptor {
-  constructor(
-    private readonly logService: LogService,
-    private readonly requestContext: RequestContext,
-  ) {}
+  constructor(private readonly logService: LogService) {}
 
   intercept(context: ExecutionContext, next: CallHandler): Observable<any> {
     const httpCtx = context.switchToHttp();
@@ -34,12 +30,12 @@ export class HttpInterceptor implements NestInterceptor {
         await this.logService.log({
           type: LoggerActions.INFO,
           message: {
-            Request: `${method} ${originalUrl}`,
-            Status: statusCode,
-            Duration: `${duration}ms`,
+            method: method,
+            url: originalUrl,
+            status: statusCode,
+            duration: `${duration}ms`,
           },
           context: HttpInterceptor.name,
-          requestInfo: this.requestContext.getStore(),
         });
       }),
     );

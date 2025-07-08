@@ -10,7 +10,7 @@ const route: RouteRecordRaw = {
     {
       path: '/administration',
       name: ROUTE_NAMES.ADMINISTRATION,
-      redirect: { name: ROUTE_NAMES.ADMIN_USERS },
+      redirect: { name: ROUTE_NAMES.ADMIN_DASHBOARD },
       meta: { pageTitle: 'Administration' },
       component: () => import('@/features/administration/admin.view.vue'),
       children: [

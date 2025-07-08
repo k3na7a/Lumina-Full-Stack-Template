@@ -6,7 +6,7 @@ import { LocationQuery, RouteLocationNormalizedLoaded, Router, useRoute, useRout
 
 import { useFormUtil } from '@/core/utils/forms.util'
 import { ResetPassword } from '@/library/dto/user.dto'
-import { useAuthHandler } from '@/core/handlers/authentication.handler'
+import { useAppHandler } from '@/core/handlers/app.handler'
 
 import { ROUTE_NAMES } from '@/library/enums/route-names.enum'
 import TextInput from '@/shared/components/inputs/text.input.vue'
@@ -19,7 +19,7 @@ enum PAGES {
 }
 
 const { t } = useI18n()
-const handler = useAuthHandler(t)
+const handler = useAppHandler(t)
 const { getSubmitFn } = useFormUtil()
 
 const $route: RouteLocationNormalizedLoaded = useRoute()

@@ -5,7 +5,7 @@ import { PlatformDto } from '@/library/dto/platform.dto'
 import { GameDto, icreategame } from '@/library/dto/game.dto'
 import { useFormUtil } from '@/core/utils/forms.util'
 import { Order, PaginationOptions } from '@/library/dto/pagination.dto'
-import { AuthStore, useAuthStore } from '@/core/store/authentication.store'
+import { AppStore, useAppStore } from '@/core/store/app.store'
 import { LocalhostAPI } from '@/core/apis/localhost/localhost.api'
 
 type proptype = {
@@ -25,7 +25,7 @@ function useGameForm({ game, callback }: proptype) {
   const validateUtil = useFormUtil()
   const loading = ref(false)
 
-  const { getValidAccessToken }: AuthStore = useAuthStore()
+  const { getValidAccessToken }: AppStore = useAppStore()
 
   async function getPlatforms(options: PaginationOptions) {
     const accessToken = await getValidAccessToken()

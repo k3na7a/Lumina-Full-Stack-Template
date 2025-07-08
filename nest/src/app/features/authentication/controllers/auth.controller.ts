@@ -5,13 +5,14 @@ import {
   Get,
   Post,
   Put,
+  Req,
   Request,
   Res,
   UseGuards,
   UseInterceptors,
 } from '@nestjs/common';
 import { ApiBody, ApiOkResponse, ApiTags } from '@nestjs/swagger';
-import { Response } from 'express';
+import { Response, Request as RequestType } from 'express';
 import { Throttle } from '@nestjs/throttler';
 
 import { AuthService } from '../services/auth.service';
@@ -22,18 +23,34 @@ import { LocalAuthGuard } from 'src/app/common/guards/localAuth.guard';
 import { UserEntity } from 'src/app/modules/users/entities/user.entity';
 
 import { ForgotPasswordDto } from 'src/app/features/authentication/dto/forgotPassword.dto';
-import { JWTDto } from 'src/library/dto/jwt.dto';
+import { CsrfDto, JWTDto } from 'src/library/dto/jwt.dto';
 import { RegisterDto } from 'src/app/features/authentication/dto/register.dto';
 import { ResetPasswordDto } from 'src/app/features/authentication/dto/resetPassword.dto';
 import { SignInDto } from 'src/app/features/authentication/dto/signIn.dto';
 import { RequiresRefreshToken } from 'src/app/common/decorators/refresh-token.decorator';
-import { minute } from 'src/library/constants/time.constants';
+import { hour, minute } from 'src/library/constants/time.constants';
 
 @ApiTags('Authentication')
 @Controller('')
 @UseInterceptors(ClassSerializerInterceptor)
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
+
+  @Get('/csrf-token')
+  @Throttle({ default: { limit: 10, ttl: 1 * minute } })
+  async getCsrfToken(@Req() req: RequestType, @Res() res: Response) {
+    const iat = Date.now();
+    const token = req.csrfToken();
+    const exp = iat + 1 * hour;
+
+    res.json(
+      new CsrfDto({
+        token,
+        exp,
+        iat,
+      }),
+    );
+  }
 
   @Put('/register')
   @Throttle({ default: { limit: 3, ttl: 1 * minute } })

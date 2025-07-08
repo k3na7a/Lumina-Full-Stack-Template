@@ -9,7 +9,7 @@ import { ToastStore, useToastStore } from '@/core/store/toast.store'
 
 import ConfirmDeleteModal from '@/shared/components/modal/permanently-delete.component.vue'
 import NewPlatformModal from '../components/platform.component.vue'
-import { AuthStore, useAuthStore } from '@/core/store/authentication.store'
+import { AppStore, useAppStore } from '@/core/store/app.store'
 
 export function usePlatformAdminHandler(t: (key: string) => string): {
   create: (success?: (value: PlatformDto) => void | Promise<void>) => void
@@ -19,7 +19,7 @@ export function usePlatformAdminHandler(t: (key: string) => string): {
 } {
   const toastStore: ToastStore = useToastStore()
   const modalStore: ModalStore = useModalStore()
-  const authStore: AuthStore = useAuthStore()
+  const appStore: AppStore = useAppStore()
 
   const api = LocalhostAPI.administration.platforms
 
@@ -50,7 +50,7 @@ export function usePlatformAdminHandler(t: (key: string) => string): {
       view: markRaw(NewPlatformModal),
       properties: {
         callback: async (values: icreateplatform) => {
-          const token = await authStore.getValidAccessToken()
+          const token = await appStore.getValidAccessToken()
           if (!token) throw new Error('Could not get valid access token')
 
           await api
@@ -67,7 +67,7 @@ export function usePlatformAdminHandler(t: (key: string) => string): {
   }
 
   async function paginate(params: PaginationOptions): Promise<PaginationDto<PlatformDto>> {
-    const token = await authStore.getValidAccessToken()
+    const token = await appStore.getValidAccessToken()
     if (!token) throw new Error('Could not get valid access token')
 
     return api.getPaginated(params, token).catch((error: AxiosError) => {
@@ -85,7 +85,7 @@ export function usePlatformAdminHandler(t: (key: string) => string): {
       properties: {
         platform,
         callback: async (values: icreateplatform) => {
-          const token = await authStore.getValidAccessToken()
+          const token = await appStore.getValidAccessToken()
           if (!token) throw new Error('Could not get valid access token')
 
           await api
@@ -111,7 +111,7 @@ export function usePlatformAdminHandler(t: (key: string) => string): {
         action: t('administration.games-and-software.games.delete.action'),
         close: closeModal,
         callback: async () => {
-          const token = await authStore.getValidAccessToken()
+          const token = await appStore.getValidAccessToken()
           if (!token) throw new Error('Could not get valid access token')
 
           await api

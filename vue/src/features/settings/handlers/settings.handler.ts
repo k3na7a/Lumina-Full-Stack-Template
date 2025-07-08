@@ -16,7 +16,7 @@ import {
   UpdatePasswordDto
 } from '@/library/dto/user.dto'
 
-import { AuthStore, useAuthStore } from '@/core/store/authentication.store'
+import { AppStore, useAppStore } from '@/core/store/app.store'
 import { ModalStore, useModalStore } from '@/core/store/modal.store'
 import { ToastStore, useToastStore } from '@/core/store/toast.store'
 
@@ -28,7 +28,7 @@ export function useSettingsHandler(t: (key: string) => string): {
   updatePassword: (props: UpdatePassword) => Promise<void>
   disableAccount: () => void
 } {
-  const authStore: AuthStore = useAuthStore()
+  const appStore: AppStore = useAppStore()
   const toastStore: ToastStore = useToastStore()
   const modalStore: ModalStore = useModalStore()
 
@@ -53,7 +53,7 @@ export function useSettingsHandler(t: (key: string) => string): {
   }
 
   async function updateProfile(props: UpdateProfile): Promise<void> {
-    const { updateProfile } = authStore
+    const { updateProfile } = appStore
 
     await updateProfile(new UpdateProfileDto(props))
       .then(() => showSuccessToast('settings.profile.profile-settings.success'))
@@ -62,7 +62,7 @@ export function useSettingsHandler(t: (key: string) => string): {
 
   function updateAvatar(): void {
     const { openModal, closeModal } = modalStore
-    const { updateAvatar } = authStore
+    const { updateAvatar } = appStore
 
     openModal({
       view: markRaw(UploadImageModal),
@@ -82,7 +82,7 @@ export function useSettingsHandler(t: (key: string) => string): {
   }
 
   function removeAvatar(): void {
-    const { removeAvatar } = authStore
+    const { removeAvatar } = appStore
     const { openModal, closeModal } = modalStore
 
     openModal({
@@ -105,7 +105,7 @@ export function useSettingsHandler(t: (key: string) => string): {
   }
 
   async function updateEmail(props: UpdateEmail): Promise<void> {
-    const { updateEmail } = authStore
+    const { updateEmail } = appStore
 
     await updateEmail(new UpdateEmailDto(props))
       .then(() => showSuccessToast('settings.security-privacy.contact.email.success'))
@@ -113,7 +113,7 @@ export function useSettingsHandler(t: (key: string) => string): {
   }
 
   async function updatePassword(props: UpdatePassword): Promise<void> {
-    const { updatePassword } = authStore
+    const { updatePassword } = appStore
 
     await updatePassword(new UpdatePasswordDto(props))
       .then(() => showSuccessToast('settings.security-privacy.security.password.success'))
@@ -122,7 +122,7 @@ export function useSettingsHandler(t: (key: string) => string): {
 
   function disableAccount(): void {
     const { openModal, closeModal } = modalStore
-    const { deleteAccount } = authStore
+    const { deleteAccount } = appStore
 
     openModal({
       view: markRaw(PasswordModal),

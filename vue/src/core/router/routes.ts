@@ -1,6 +1,4 @@
-import { NavigationGuardNext, RouteLocationNormalized, RouteRecordRaw } from 'vue-router'
-
-import { AuthStore, useAuthStore } from '@/core/store/authentication.store'
+import { RouteRecordRaw } from 'vue-router'
 
 import { ROUTE_NAMES } from '@/library/enums/route-names.enum'
 
@@ -16,11 +14,6 @@ const routes: RouteRecordRaw[] = [
     path: '/',
     redirect: { name: ROUTE_NAMES.HOME },
     component: () => import('@/shared/layouts/main/main.view.vue'),
-    beforeEnter: async (_to: RouteLocationNormalized, _from: RouteLocationNormalized, next: NavigationGuardNext) => {
-      const authStore: AuthStore = useAuthStore()
-      await authStore.verifyToken().catch(() => console.warn('[Auth] Failed to initialize user session.'))
-      next()
-    },
     children: [home, settings, admin]
   },
   {

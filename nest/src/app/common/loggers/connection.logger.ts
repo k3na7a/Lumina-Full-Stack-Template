@@ -18,10 +18,10 @@ export class ConnectionLogger implements OnModuleInit {
       type: LoggerActions.INFO,
       context: ConnectionLogger.name,
       message: {
-        Message: `Database connected!`,
-        DB: database,
-        Port: port,
-        Host: host,
+        message: `Database connected!`,
+        database,
+        port,
+        host,
       },
     });
   }
@@ -34,10 +34,10 @@ export class ConnectionLogger implements OnModuleInit {
       type: LoggerActions.WARN,
       context: ConnectionLogger.name,
       message: {
-        Message: `Database disconnected! (${signal || 'SIGTERM'})`,
-        DB: database,
-        Port: port,
-        Host: host,
+        message: `Database disconnected! (${signal || 'SIGTERM'})`,
+        database,
+        port,
+        host,
       },
     });
   }

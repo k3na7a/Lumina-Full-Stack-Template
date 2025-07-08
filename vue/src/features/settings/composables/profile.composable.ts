@@ -1,20 +1,20 @@
-import { AuthStore, useAuthStore } from '@/core/store/authentication.store'
+import { AppStore, useAppStore } from '@/core/store/app.store'
 import { computed, ComputedRef } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { useSettingsHandler } from '../handlers/settings.handler'
 import { UserDto } from '@/library/dto/user.dto'
 
 function useProfilePage() {
-  const authStore: AuthStore = useAuthStore()
+  const appStore: AppStore = useAppStore()
 
   const { t } = useI18n()
   const { updateAvatar, removeAvatar, updateProfile } = useSettingsHandler(t)
 
   const user: ComputedRef<UserDto> = computed(() => {
-    if (!authStore.authenticatedUser) {
+    if (!appStore.authenticatedUser) {
       throw new Error('[Auth] authenticatedUser is unexpectedly undefined in a protected route.')
     }
-    return authStore.authenticatedUser
+    return appStore.authenticatedUser
   })
 
   return {

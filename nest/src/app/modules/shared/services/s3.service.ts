@@ -53,9 +53,10 @@ export class S3Service {
       type: LoggerActions.INFO,
       context: S3Service.name,
       message: {
-        Message: `Uploaded file ${file.filename} to ${this.bucket}/${key}`,
-        Size: file.size,
-        Type: file.mimetype,
+        message: `Uploaded file to ${this.bucket}/${key}`,
+        filename: file.filename,
+        size: `${file.size}B`,
+        mimetype: file.mimetype,
       },
     });
 
@@ -87,9 +88,10 @@ export class S3Service {
       type: LoggerActions.INFO,
       context: S3Service.name,
       message: {
-        Message: `Uploaded file ${filename} to ${this.bucket}/${key}`,
-        Size: size,
-        Type: mimetype,
+        message: `Uploaded file to ${this.bucket}/${key}`,
+        filename,
+        size,
+        mimetype,
       },
     });
 
@@ -101,7 +103,6 @@ export class S3Service {
     path: string,
   ): Promise<DeleteObjectCommandOutput> {
     const key = this.buildKey(path, filename);
-
     const command = new DeleteObjectCommand({
       Bucket: this.bucket,
       Key: key,
@@ -113,7 +114,8 @@ export class S3Service {
       type: LoggerActions.INFO,
       context: S3Service.name,
       message: {
-        Message: `Deleted file ${filename} from ${this.bucket}/${key}`,
+        message: `Deleted file from ${this.bucket}/${key}`,
+        filename,
       },
     });
 

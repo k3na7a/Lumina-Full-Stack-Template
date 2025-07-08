@@ -7,7 +7,6 @@ import { useFileManager } from 'src/app/common/utilities/fileManager.util';
 import { jobtype } from 'src/library/interfaces/logger.interface';
 import { megabyte } from 'src/library/constants/size.constants';
 import { LoggerQueues } from 'src/library/enums/logger-actions.enum';
-import { useStringUtil } from 'src/app/common/utilities/string.util';
 
 @Processor(LoggerQueues.LOG_QUEUE)
 export class LogQueueProcessor extends WorkerHost {
@@ -26,7 +25,6 @@ export class LogQueueProcessor extends WorkerHost {
   private formatLogBlock(
     data: Record<string, string | number | undefined>,
   ): string {
-    const { capitalize } = useStringUtil();
     const longestKey = Math.max(...Object.keys(data).map((k) => k.length));
 
     const lines = Object.entries(data).map(([key, value]) => {
@@ -41,7 +39,7 @@ export class LogQueueProcessor extends WorkerHost {
         output = JSON.stringify(value);
       }
 
-      return `\t${capitalize(key).padEnd(longestKey)} \t: ${output}`;
+      return `\t${key.toUpperCase().padEnd(longestKey)} \t: ${output}`;
     });
 
     return lines.join('\n');
@@ -63,6 +61,7 @@ export class LogQueueProcessor extends WorkerHost {
     });
 
     const block = this.formatLogBlock({
+      timestamp: Date.now(),
       ...req,
       ...meta,
     });

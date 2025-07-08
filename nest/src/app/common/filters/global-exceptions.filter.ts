@@ -34,10 +34,11 @@ export class GlobalExceptionFilter implements ExceptionFilter {
       type: LoggerActions.ERR,
       context: GlobalExceptionFilter.name,
       message: {
-        Request: `${request.method} ${request.url}`,
-        Status: status,
-        Exception: message,
-        ...(exception instanceof Error && { Stack: exception.stack }),
+        method: request.method,
+        url: request.url,
+        status: status,
+        exception: message,
+        ...(exception instanceof Error && { message: exception.message }),
       },
     });
 

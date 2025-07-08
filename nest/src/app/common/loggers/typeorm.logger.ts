@@ -44,9 +44,9 @@ export class TypeOrmLogger implements Logger {
       type: LoggerActions.ERR,
       context: this.context,
       message: {
-        Error: error,
-        Query: query,
-        Params: JSON.stringify(parameters),
+        error,
+        query,
+        params: JSON.stringify(parameters),
       },
     });
   }
@@ -62,9 +62,9 @@ export class TypeOrmLogger implements Logger {
       type: LoggerActions.WARN,
       context: this.context,
       message: {
-        ['Slow Query']: `${time}ms`,
-        Query: query,
-        Params: JSON.stringify(parameters),
+        ['slow query']: `${time}ms`,
+        query: query,
+        params: JSON.stringify(parameters),
       },
     });
   }
@@ -75,7 +75,7 @@ export class TypeOrmLogger implements Logger {
     await this.logService.log({
       type: LoggerActions.INFO,
       context: this.context,
-      message: { ['Schema Build']: message },
+      message: { ['schema build']: message },
     });
   }
 
@@ -85,7 +85,7 @@ export class TypeOrmLogger implements Logger {
     await this.logService.log({
       type: LoggerActions.WARN,
       context: this.context,
-      message: { Migration: message },
+      message: { migration: message },
     });
   }
 
@@ -101,7 +101,7 @@ export class TypeOrmLogger implements Logger {
           type: LoggerActions.INFO,
           context: this.context,
           message: {
-            Message: `${capitalize(level)} -- ${message}`,
+            message: `${capitalize(level)} -- ${message}`,
           },
         });
         break;
@@ -110,7 +110,7 @@ export class TypeOrmLogger implements Logger {
           type: LoggerActions.WARN,
           context: this.context,
           message: {
-            Message: `${capitalize(level)} -- ${message}`,
+            message: `${capitalize(level)} -- ${message}`,
           },
         });
         break;

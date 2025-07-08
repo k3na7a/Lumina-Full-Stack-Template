@@ -12,12 +12,14 @@ class AxiosService {
     params,
     content,
     data,
-    withCredentials = false
+    withCredentials = false,
+    csrfToken
   }: RequestConfig): AxiosRequestConfig => {
     const headers: Record<string, string> = {}
 
     if (token) headers['Authorization'] = `Bearer ${token}`
     if (content) headers['Content-Type'] = content
+    if (withCredentials && csrfToken) headers['X-CSRF-Token'] = csrfToken
 
     return {
       ...(params && {

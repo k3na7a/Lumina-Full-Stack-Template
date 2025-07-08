@@ -1,8 +1,8 @@
 import { computed, ComputedRef } from 'vue'
 import { useI18n } from 'vue-i18n'
 
-import { useAuthStore, AuthStore } from '@/core/store/authentication.store'
-import { useAuthHandler } from '@/core/handlers/authentication.handler'
+import { useAppStore, AppStore } from '@/core/store/app.store'
+import { useAppHandler } from '@/core/handlers/app.handler'
 
 type IsAuthenticatedGuard = {
   isAuthenticated: ComputedRef<boolean>
@@ -10,10 +10,10 @@ type IsAuthenticatedGuard = {
 
 function useIsAuthenticatedGuard(): IsAuthenticatedGuard {
   const { t } = useI18n()
-  const { signin } = useAuthHandler(t)
+  const { signin } = useAppHandler(t)
 
-  const authStore: AuthStore = useAuthStore()
-  const isAuthenticated: ComputedRef<boolean> = computed(() => authStore.isAuthenticated)
+  const appStore: AppStore = useAppStore()
+  const isAuthenticated: ComputedRef<boolean> = computed(() => appStore.isAuthenticated)
 
   if (!isAuthenticated.value) signin()
 

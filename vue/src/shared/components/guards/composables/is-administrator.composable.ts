@@ -1,6 +1,6 @@
 import { ComputedRef, computed } from 'vue'
 
-import { AuthStore, useAuthStore } from '@/core/store/authentication.store'
+import { AppStore, useAppStore } from '@/core/store/app.store'
 
 import { Role } from '@/library/dto/user.dto'
 
@@ -9,8 +9,8 @@ type IsAdministratorGuard = {
 }
 
 function useIsAdministratorGuard(): IsAdministratorGuard {
-  const authStore: AuthStore = useAuthStore()
-  const isAuthenticated: ComputedRef<boolean> = computed(() => authStore.authenticatedUser?.role === Role.ADMIN)
+  const appStore: AppStore = useAppStore()
+  const isAuthenticated: ComputedRef<boolean> = computed(() => appStore.authenticatedUser?.role === Role.ADMIN)
 
   return { isAuthenticated }
 }

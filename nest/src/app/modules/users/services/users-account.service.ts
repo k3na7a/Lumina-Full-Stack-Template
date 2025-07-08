@@ -59,8 +59,8 @@ export class UserAccountService {
     const decoded = this.tokenManager.decode(tokens.access_token);
     res.cookie('refresh_token', tokens.refresh_token, {
       httpOnly: true,
-      sameSite: 'lax',
-      secure: false,
+      sameSite: 'strict',
+      secure: true,
       path: '/',
       maxAge: 7 * day,
     });

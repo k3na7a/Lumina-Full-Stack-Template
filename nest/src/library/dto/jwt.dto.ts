@@ -35,3 +35,29 @@ export class JWTDto {
     this.user = user;
   }
 }
+
+export class CsrfDto {
+  @ApiProperty({
+    description: 'The signed csrf token string.',
+    example: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...',
+  })
+  public readonly token: string;
+
+  @ApiProperty({
+    description: 'Issued At timestamp. (Epoch Unix Timestamp)',
+    example: 1751977200,
+  })
+  public readonly iat: number;
+
+  @ApiProperty({
+    description: 'Expiration timestamp. (Epoch Unix Timestamp)',
+    example: 1751977200,
+  })
+  public readonly exp: number;
+
+  constructor({ token, iat, exp }: any) {
+    this.token = token;
+    this.iat = iat;
+    this.exp = exp;
+  }
+}

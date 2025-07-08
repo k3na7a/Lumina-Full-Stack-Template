@@ -1,8 +1,8 @@
 import { ComputedRef, computed } from 'vue'
 import { useI18n } from 'vue-i18n'
 
-import { useAuthHandler } from '@/core/handlers/authentication.handler'
-import { AuthStore, useAuthStore } from '@/core/store/authentication.store'
+import { useAppHandler } from '@/core/handlers/app.handler'
+import { AppStore, useAppStore } from '@/core/store/app.store'
 
 import { UserDto } from '@/library/dto/user.dto'
 
@@ -16,12 +16,12 @@ type MainLayout = {
 
 function useMainLayout(): MainLayout {
   const { t } = useI18n()
-  const { register, signin, signout } = useAuthHandler(t)
+  const { register, signin, signout } = useAppHandler(t)
 
-  const authStore: AuthStore = useAuthStore()
+  const appStore: AppStore = useAppStore()
 
-  const user: ComputedRef<UserDto | undefined> = computed(() => authStore.authenticatedUser)
-  const isAuthenticated: ComputedRef<boolean> = computed(() => authStore.isAuthenticated)
+  const user: ComputedRef<UserDto | undefined> = computed(() => appStore.authenticatedUser)
+  const isAuthenticated: ComputedRef<boolean> = computed(() => appStore.isAuthenticated)
 
   return {
     register,
