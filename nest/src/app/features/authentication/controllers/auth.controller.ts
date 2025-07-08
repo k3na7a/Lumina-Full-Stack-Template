@@ -6,10 +6,13 @@ import {
   Post,
   Put,
   Request,
+  Res,
   UseGuards,
   UseInterceptors,
 } from '@nestjs/common';
 import { ApiBody, ApiOkResponse, ApiTags } from '@nestjs/swagger';
+import { Response } from 'express';
+import { Throttle } from '@nestjs/throttler';
 
 import { AuthService } from '../services/auth.service';
 
@@ -24,41 +27,38 @@ import { RegisterDto } from 'src/app/features/authentication/dto/register.dto';
 import { ResetPasswordDto } from 'src/app/features/authentication/dto/resetPassword.dto';
 import { SignInDto } from 'src/app/features/authentication/dto/signIn.dto';
 import { RequiresRefreshToken } from 'src/app/common/decorators/refresh-token.decorator';
-import { Public } from 'src/app/common/decorators/public.decorator';
-import { Throttle } from '@nestjs/throttler';
 import { minute } from 'src/library/constants/time.constants';
-import { RequestContext } from 'src/app/common/providers/request-context.provider';
 
 @ApiTags('Authentication')
 @Controller('')
 @UseInterceptors(ClassSerializerInterceptor)
 export class AuthController {
-  constructor(
-    private readonly authService: AuthService,
-    private readonly requestContext: RequestContext,
-  ) {}
+  constructor(private readonly authService: AuthService) {}
 
   @Put('/register')
-  @Public()
   @Throttle({ default: { limit: 3, ttl: 1 * minute } })
   @ApiBody({ type: RegisterDto })
   @ApiOkResponse({ type: JWTDto })
-  async register(@Body() dto: RegisterDto): Promise<JWTDto> {
-    return this.authService.register(dto);
+  async register(
+    @Body() dto: RegisterDto,
+    @Res({ passthrough: true }) res: Response,
+  ): Promise<JWTDto> {
+    return this.authService.register(dto, res);
   }
 
   @Post('/sign-in')
-  @Public()
   @Throttle({ default: { limit: 5, ttl: 1 * minute } })
   @ApiBody({ type: SignInDto })
   @ApiOkResponse({ type: JWTDto })
   @UseGuards(LocalAuthGuard)
-  async signIn(@CurrentUser() user: UserEntity): Promise<JWTDto> {
-    return this.authService.signIn(user);
+  async signIn(
+    @CurrentUser() user: UserEntity,
+    @Res({ passthrough: true }) res: Response,
+  ): Promise<JWTDto> {
+    return this.authService.signIn(user, res);
   }
 
   @Post('/forgot-password')
-  @Public()
   @Throttle({ default: { limit: 3, ttl: 1 * minute } })
   @ApiBody({ type: ForgotPasswordDto })
   async forgotPassword(@Body() dto: ForgotPasswordDto): Promise<void> {
@@ -68,15 +68,21 @@ export class AuthController {
   @Get('/verify-token')
   @Throttle({ default: { limit: 10, ttl: 1 * minute } })
   @RequiresRefreshToken()
-  async verifyToken(@CurrentUser() user: UserEntity): Promise<JWTDto> {
-    return this.authService.verify(user);
+  async verifyToken(
+    @CurrentUser() user: UserEntity,
+    @Res({ passthrough: true }) res: Response,
+  ): Promise<JWTDto> {
+    return this.authService.verify(user, res);
   }
 
   @Post('/sign-out')
   @Throttle({ default: { limit: 10, ttl: 1 * minute } })
   @RequiresRefreshToken()
-  async signOut(@CurrentUser() user: UserEntity): Promise<void> {
-    await this.authService.signOut(user);
+  async signOut(
+    @CurrentUser() user: UserEntity,
+    @Res({ passthrough: true }) res: Response,
+  ): Promise<void> {
+    await this.authService.signOut(user, res);
   }
 
   @Post('/reset-password')

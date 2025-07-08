@@ -29,12 +29,24 @@ export class QueueEventsProvider implements OnModuleInit {
     const queueEvents = this.queueEvents;
     const { deadLetterQueueName } = this.options;
 
-    queueEvents.on('failed', async ({ jobId }) => {
+    queueEvents.on('failed', async ({ jobId, failedReason }) => {
       const job = await this.queue.getJob(jobId);
       if (!job) return;
 
       if (this.dlq && deadLetterQueueName) {
-        await this.dlq.add(deadLetterQueueName, job.data);
+        const failurePayload = {
+          originalData: job.data,
+          meta: {
+            jobId: job.id,
+            attemptsMade: job.attemptsMade,
+            failedReason,
+            stacktrace: job.stacktrace,
+            timestamp: Date.now(),
+            queueName: this.queue.name,
+          },
+        };
+
+        await this.dlq.add(deadLetterQueueName, failurePayload);
         return;
       }
     });

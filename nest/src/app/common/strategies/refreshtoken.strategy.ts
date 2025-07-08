@@ -13,7 +13,12 @@ import { Payload } from 'src/library/interfaces/payload.interface';
 class RefreshTokenStrategy extends PassportStrategy(Strategy, 'jwt-refresh') {
   constructor(private readonly usersService: UserService) {
     super({
-      jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
+      jwtFromRequest: ExtractJwt.fromExtractors([
+        (req: Request) => {
+          console.log('Extractor: cookies', req.cookies);
+          return req?.cookies?.['refresh_token'] || null;
+        },
+      ]),
       secretOrKey: process.env.REFRESH_SECRET_KEY,
       passReqToCallback: true,
     });
@@ -28,11 +33,8 @@ class RefreshTokenStrategy extends PassportStrategy(Strategy, 'jwt-refresh') {
     email: string;
     sub: string;
   }> {
-    const refreshToken = req
-      .get('Authorization')
-      ?.replace(/^Bearer\s+/i, '')
-      ?.trim();
-
+    console.log('validate refresh token');
+    const refreshToken = req.cookies?.['refresh_token'];
     if (!refreshToken) throw new UnauthorizedException('Refresh token missing');
 
     const user = await this.usersService.findOneByEmail(payload.email);

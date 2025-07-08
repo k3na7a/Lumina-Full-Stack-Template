@@ -1,5 +1,4 @@
-import { LocalhostAPI as API, REFRESH_TOKEN_ID } from '@/core/apis/localhost/localhost.api'
-import { useLocalStorageUtil } from '@/core/utils/local-storage.util'
+import { LocalhostAPI as API } from '@/core/apis/localhost/localhost.api'
 import {
   DeleteAccountDto,
   ForgotPasswordDto,
@@ -53,8 +52,6 @@ interface AuthActions {
 type AuthStore = Store<'authentication', IAuthState, AuthGetters, AuthActions>
 type StoreDef = StoreDefinition<'authentication', IAuthState, AuthGetters, AuthActions>
 
-const REFRESH_TOKEN = useLocalStorageUtil(REFRESH_TOKEN_ID)
-
 const useAuthStore: StoreDef = defineStore({
   id: 'authentication',
   state: (): IAuthState => ({
@@ -68,8 +65,6 @@ const useAuthStore: StoreDef = defineStore({
   },
   actions: {
     async authenticate(props: JWTDto) {
-      REFRESH_TOKEN.saveItem(props.refresh_token)
-
       this.$user = props.user
       this.$authenticated = true
       this.$access_token = {
@@ -80,8 +75,6 @@ const useAuthStore: StoreDef = defineStore({
     },
 
     async purge(): Promise<void> {
-      REFRESH_TOKEN.destroyItem()
-
       this.$user = undefined
       this.$authenticated = false
     },
@@ -93,11 +86,7 @@ const useAuthStore: StoreDef = defineStore({
         return this.$access_token.token
       }
 
-      const token = REFRESH_TOKEN.getItem<string>()
-      if (!token) throw new Error('Could not verify refresh token')
-
-      const dto: JWTDto = await API.authentication.verifyToken(token)
-      this.authenticate(dto)
+      await this.verifyToken()
 
       return this.$access_token?.token || null
     },
@@ -105,10 +94,7 @@ const useAuthStore: StoreDef = defineStore({
     // AUTHENTICATION ROUTES
 
     async verifyToken(): Promise<void> {
-      const token = REFRESH_TOKEN.getItem<string>()
-      if (!token) return
-
-      const dto: JWTDto = await API.authentication.verifyToken(token)
+      const dto: JWTDto = await API.authentication.verifyToken()
       this.authenticate(dto)
     },
 
@@ -128,44 +114,29 @@ const useAuthStore: StoreDef = defineStore({
     },
 
     async signOut(): Promise<void> {
-      const token = REFRESH_TOKEN.getItem<string>()
-      if (!token) throw new Error('Could not verify refresh token')
-
-      await API.authentication.signOut(token)
+      await API.authentication.signOut()
       this.purge()
     },
 
     async resetPassword(props: ResetPasswordDto): Promise<void> {
-      const token = REFRESH_TOKEN.getItem<string>()
-      if (!token) throw new Error('Could not verify refresh token')
-
-      await API.authentication.resetPassword(props, token)
+      await API.authentication.resetPassword(props, '')
       this.purge()
     },
 
     // SETTINGS > SECURITY
 
     async deleteAccount(props: DeleteAccountDto): Promise<void> {
-      const token = REFRESH_TOKEN.getItem<string>()
-      if (!token) throw new Error('Could not verify refresh token')
-
-      await API.settings.security.deleteAccount(props, token)
+      await API.settings.security.deleteAccount(props)
       this.purge()
     },
 
     async updateEmail(props: UpdateEmailDto): Promise<void> {
-      const token = REFRESH_TOKEN.getItem<string>()
-      if (!token) throw new Error('Could not verify refresh token')
-
-      const dto: JWTDto = await API.settings.security.updateEmail(props, token)
+      const dto: JWTDto = await API.settings.security.updateEmail(props)
       this.authenticate(dto)
     },
 
     async updatePassword(props: UpdatePasswordDto): Promise<void> {
-      const token = REFRESH_TOKEN.getItem<string>()
-      if (!token) throw new Error('Could not verify refresh token')
-
-      const dto: JWTDto = await API.settings.security.updatePassword(props, token)
+      const dto: JWTDto = await API.settings.security.updatePassword(props)
       this.authenticate(dto)
     },
 

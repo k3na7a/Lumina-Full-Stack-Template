@@ -52,7 +52,11 @@ export class S3Service {
     await this.logService.log({
       type: LoggerActions.INFO,
       context: S3Service.name,
-      message: `Message: Uploaded file ${file.filename} to ${this.bucket}/${key} | Size: ${file.size} | Type: ${file.mimetype}`,
+      message: {
+        Message: `Uploaded file ${file.filename} to ${this.bucket}/${key}`,
+        Size: file.size,
+        Type: file.mimetype,
+      },
     });
 
     return result;
@@ -82,7 +86,11 @@ export class S3Service {
     await this.logService.log({
       type: LoggerActions.INFO,
       context: S3Service.name,
-      message: `Message: Uploaded file ${filename} to ${this.bucket}/${key} | Size: ${size} | Type: ${mimetype}`,
+      message: {
+        Message: `Uploaded file ${filename} to ${this.bucket}/${key}`,
+        Size: size,
+        Type: mimetype,
+      },
     });
 
     return result;
@@ -104,7 +112,9 @@ export class S3Service {
     await this.logService.log({
       type: LoggerActions.INFO,
       context: S3Service.name,
-      message: `Message: Deleted file ${filename} from ${this.bucket}/${key}`,
+      message: {
+        Message: `Deleted file ${filename} from ${this.bucket}/${key}`,
+      },
     });
 
     return result;

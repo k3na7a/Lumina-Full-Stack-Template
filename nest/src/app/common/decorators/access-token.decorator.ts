@@ -1,11 +1,11 @@
 import { applyDecorators, UseGuards } from '@nestjs/common';
 import { ApiBearerAuth } from '@nestjs/swagger';
 
-import { RefreshTokenGuard } from '../guards/refreshtoken.guard';
+import { JwtAuthGuard } from '../guards/jwt-auth.guard';
 
-export function RequiresRefreshToken() {
+export function RequiresAuthentication() {
   return applyDecorators(
     ApiBearerAuth('access-token'),
-    UseGuards(RefreshTokenGuard),
+    UseGuards(JwtAuthGuard),
   );
 }

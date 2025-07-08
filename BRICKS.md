@@ -176,7 +176,7 @@ Remind yourself why you're doing this
 3️⃣ Database
 
 - ✅ Keep slow query logs (already using maxQueryExecutionTime)
-- Keep DB connection loss or reconnect attempts in logs
+- ✅ Keep DB connection loss or reconnect attempts in logs (Health Check Cron Job)
 
 4️⃣ Jobs & Queues
 

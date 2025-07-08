@@ -13,7 +13,7 @@ import { LoggerActions } from 'src/library/enums/logger-actions.enum';
 export class GlobalExceptionFilter implements ExceptionFilter {
   constructor(private readonly logService: LogService) {}
 
-  catch(exception: unknown, host: ArgumentsHost) {
+  async catch(exception: unknown, host: ArgumentsHost) {
     const ctx = host.switchToHttp();
     const response = ctx.getResponse<Response>();
     const request = ctx.getRequest<Request>();
@@ -24,12 +24,21 @@ export class GlobalExceptionFilter implements ExceptionFilter {
     if (exception instanceof HttpException) {
       status = exception.getStatus();
       message = exception.message;
+    } else if (exception instanceof Error) {
+      message = exception.message;
+    } else {
+      message = String(exception);
     }
 
-    this.logService.log({
+    await this.logService.log({
       type: LoggerActions.ERR,
       context: GlobalExceptionFilter.name,
-      message: `Request: ${request.method} ${request.url} | Status: ${status} | Message: ${exception}`,
+      message: {
+        Request: `${request.method} ${request.url}`,
+        Status: status,
+        Exception: message,
+        ...(exception instanceof Error && { Stack: exception.stack }),
+      },
     });
 
     response.status(status).json({

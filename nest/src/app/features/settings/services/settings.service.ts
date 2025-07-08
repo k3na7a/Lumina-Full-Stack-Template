@@ -12,6 +12,7 @@ import { UserAccountService } from 'src/app/modules/users/services/users-account
 import { ImageService } from 'src/app/modules/media/services/image.service';
 import { IMAGE_TYPE } from 'src/library/enums/image-routes.enum';
 import { ImageEntity } from 'src/app/modules/media/entities/image.entity';
+import { Response } from 'express';
 
 @Injectable()
 export class SettingsService {
@@ -42,6 +43,7 @@ export class SettingsService {
   public async updateEmail(
     user: UserEntity,
     { password, new_email }: { password: string; new_email: string },
+    res: Response,
   ): Promise<JWTDto> {
     await this.accountService.validateUser(user.email, password);
 
@@ -50,12 +52,13 @@ export class SettingsService {
     });
 
     const updatedUser = await this.userService.findOneById(user.id);
-    return this.accountService.issueTokens(updatedUser);
+    return this.accountService.issueTokens(updatedUser, res);
   }
 
   public async updatePassword(
     user: UserEntity,
     { old_password, new_password }: updatePasswordDto,
+    res: Response,
   ): Promise<JWTDto> {
     await this.accountService.validateUser(user.email, old_password);
 
@@ -65,14 +68,17 @@ export class SettingsService {
     });
 
     const updatedUser = await this.userService.findOneById(user.id);
-    return this.accountService.issueTokens(updatedUser);
+    return this.accountService.issueTokens(updatedUser, res);
   }
 
   public async deleteAccount(
     user: UserEntity,
     { password }: deleteAccountDto,
+    res: Response,
   ): Promise<void> {
     const { profile } = user;
+
+    await this.accountService.revokeTokens(user, res);
 
     await this.accountService.validateUser(user.email, password);
 

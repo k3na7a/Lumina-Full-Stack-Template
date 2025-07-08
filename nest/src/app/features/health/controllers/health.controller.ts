@@ -10,10 +10,8 @@ import { TypeOrmHealthIndicator } from 'src/app/common/indicators/typeorm-health
 import { LoggerQueues } from 'src/library/enums/logger-actions.enum';
 
 import { HealthResponseDto } from '../dto/health.dto';
-import { Public } from 'src/app/common/decorators/public.decorator';
 
 @SkipThrottle()
-@Public()
 @ApiTags('Health Check')
 @Controller('')
 export class HealthController {

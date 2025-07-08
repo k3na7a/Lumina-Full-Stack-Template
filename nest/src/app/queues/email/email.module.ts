@@ -15,7 +15,7 @@ import { EmailService } from './services/email.service';
         name: 'email-queue',
         defaultJobOptions: {
           removeOnComplete: true,
-          removeOnFail: false,
+          removeOnFail: true,
           attempts: 3,
           backoff: { type: 'exponential', delay: 1000 },
         },

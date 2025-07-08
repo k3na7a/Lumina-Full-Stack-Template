@@ -10,7 +10,7 @@ type Logging = Array<
   'query' | 'error' | 'warn' | 'info' | 'log' | 'migration' | 'schema'
 >;
 
-const logging: Logging = ['warn', 'error'];
+const logging: Logging = ['error', 'warn', 'migration'];
 const connectionOptions: TypeOrmModuleOptions = {
   type: 'mysql',
   host: String(process.env.DB_HOST),

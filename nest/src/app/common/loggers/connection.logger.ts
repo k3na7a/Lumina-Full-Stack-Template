@@ -14,10 +14,15 @@ export class ConnectionLogger implements OnModuleInit {
   async onModuleInit() {
     const { host, port, database } = this.dataSource
       .options as MysqlConnectionOptions;
-    this.logService.log({
+    await this.logService.log({
       type: LoggerActions.INFO,
       context: ConnectionLogger.name,
-      message: `Message: Database connected! | Host: ${host} | Port: ${port} | DB: ${database}`,
+      message: {
+        Message: `Database connected!`,
+        DB: database,
+        Port: port,
+        Host: host,
+      },
     });
   }
 
@@ -25,10 +30,15 @@ export class ConnectionLogger implements OnModuleInit {
     const { host, port, database } = this.dataSource
       .options as MysqlConnectionOptions;
 
-    this.logService.log({
+    await this.logService.log({
       type: LoggerActions.WARN,
       context: ConnectionLogger.name,
-      message: `Message: Database disconnected! (${signal || 'SIGTERM'}) | Host: ${host} | Port: ${port} | DB: ${database}`,
+      message: {
+        Message: `Database disconnected! (${signal || 'SIGTERM'})`,
+        DB: database,
+        Port: port,
+        Host: host,
+      },
     });
   }
 }

@@ -17,7 +17,7 @@ import { S3Service } from 'src/app/modules/shared/services/s3.service';
         name: LoggerQueues.LOG_QUEUE,
         defaultJobOptions: {
           removeOnComplete: true,
-          removeOnFail: false,
+          removeOnFail: true,
           attempts: 3,
           backoff: { type: 'exponential', delay: 1000 },
         },

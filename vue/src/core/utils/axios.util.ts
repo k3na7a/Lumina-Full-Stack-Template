@@ -7,7 +7,13 @@ class AxiosService {
     return (response: AxiosResponse): T => new DtoClass(response.data)
   }
 
-  public static requestConfig = ({ token, params, content, data }: RequestConfig): AxiosRequestConfig => {
+  public static requestConfig = ({
+    token,
+    params,
+    content,
+    data,
+    withCredentials = false
+  }: RequestConfig): AxiosRequestConfig => {
     const headers: Record<string, string> = {}
 
     if (token) headers['Authorization'] = `Bearer ${token}`
@@ -20,6 +26,7 @@ class AxiosService {
           indexes: null
         }
       }),
+      ...(withCredentials && { withCredentials }),
       ...(Object.keys(headers).length && { headers }),
       ...(data && { data })
     }

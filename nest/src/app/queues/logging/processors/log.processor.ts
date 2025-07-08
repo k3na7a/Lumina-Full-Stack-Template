@@ -7,6 +7,7 @@ import { useFileManager } from 'src/app/common/utilities/fileManager.util';
 import { jobtype } from 'src/library/interfaces/logger.interface';
 import { megabyte } from 'src/library/constants/size.constants';
 import { LoggerQueues } from 'src/library/enums/logger-actions.enum';
+import { useStringUtil } from 'src/app/common/utilities/string.util';
 
 @Processor(LoggerQueues.LOG_QUEUE)
 export class LogQueueProcessor extends WorkerHost {
@@ -22,6 +23,30 @@ export class LogQueueProcessor extends WorkerHost {
     );
   }
 
+  private formatLogBlock(
+    data: Record<string, string | number | undefined>,
+  ): string {
+    const { capitalize } = useStringUtil();
+    const longestKey = Math.max(...Object.keys(data).map((k) => k.length));
+
+    const lines = Object.entries(data).map(([key, value]) => {
+      let output: string;
+
+      if (typeof value === 'object') {
+        output = JSON.stringify(value, null, 2)
+          .split('\n')
+          .map((line) => `\t${line}`)
+          .join('\n');
+      } else {
+        output = JSON.stringify(value);
+      }
+
+      return `\t${capitalize(key).padEnd(longestKey)} \t: ${output}`;
+    });
+
+    return lines.join('\n');
+  }
+
   async process(job: Job<jobtype>): Promise<void> {
     const { message, type, context, requestInfo: req } = job.data;
     const { appendFile, accessFile, getFileSizeMB, createDirectory } =
@@ -32,9 +57,17 @@ export class LogQueueProcessor extends WorkerHost {
     const timeString: string = now.format('HH:mm');
     const calendar: string = now.format('L');
 
-    const requestContext: string = `RequestID: ${req?.requestId || 'SYSTEM'} | IP: ${req?.ipAddress || '-'} | UserID: ${req?.userId || '-'}`;
+    const meta: Record<string, any> = {};
+    Object.keys(message).forEach((key: string) => {
+      meta[key] = message[key];
+    });
 
-    const new_message: string = `[${timeString}] ${type.toUpperCase()} [${context}] ${requestContext} | ${message}`;
+    const block = this.formatLogBlock({
+      ...req,
+      ...meta,
+    });
+
+    const new_message: string = `[${timeString}] ${type.toUpperCase()} [${context}]\n${block}`;
     const log_start: string = `[${timeString}] LOG START -- ${calendar}\n${new_message}\n`;
 
     let suffix: string = '';

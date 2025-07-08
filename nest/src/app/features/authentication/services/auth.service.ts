@@ -1,6 +1,7 @@
 import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { timingSafeEqual } from 'node:crypto';
 import { JwtService } from '@nestjs/jwt';
+import { Response } from 'express';
 
 import {
   subject as ForgotPasswordEmailSubject,
@@ -34,21 +35,21 @@ export class AuthService {
     this.tokenManager = new TokenManager(jwtService);
   }
 
-  public async verify(user: UserEntity): Promise<JWTDto> {
-    return this.accountService.issueTokens(user);
+  public async verify(user: UserEntity, res: Response): Promise<JWTDto> {
+    return this.accountService.issueTokens(user, res);
   }
 
-  public async register(dto: RegisterDto): Promise<JWTDto> {
+  public async register(dto: RegisterDto, res: Response): Promise<JWTDto> {
     const password = await this.accountService.hashPassword(dto.password);
     const user: UserEntity = await this.userService.create({
       ...dto,
       password,
     });
-    return this.accountService.issueTokens(user);
+    return this.accountService.issueTokens(user, res);
   }
 
-  public async signIn(user: UserEntity): Promise<JWTDto> {
-    return this.accountService.issueTokens(user);
+  public async signIn(user: UserEntity, res: Response): Promise<JWTDto> {
+    return this.accountService.issueTokens(user, res);
   }
 
   public async forgotPassword(dto: ForgotPasswordDto): Promise<void> {
@@ -104,7 +105,7 @@ export class AuthService {
     });
   }
 
-  public async signOut(user: UserEntity): Promise<void> {
-    await this.userService.update(user.id, { refreshToken: null });
+  public async signOut(user: UserEntity, res: Response): Promise<void> {
+    await this.accountService.revokeTokens(user, res);
   }
 }

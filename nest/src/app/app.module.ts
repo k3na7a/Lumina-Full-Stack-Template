@@ -24,7 +24,6 @@ import { RequestContextMiddleware } from './common/middleware/request-context.mi
 import { ThrottlerModule } from '@nestjs/throttler';
 import { minute } from 'src/library/constants/time.constants';
 import { CustomThrottlerGuard } from './common/guards/throttler.guard';
-import { JwtAuthGuard } from './common/guards/jwt-auth.guard';
 import { CoreModule } from './modules/shared/shared.module';
 import { ConnectionLogger } from './common/loggers/connection.logger';
 import { DataSource } from 'typeorm';
@@ -58,10 +57,6 @@ const envFilePath = '.env';
     AccessTokenStrategy,
     RefreshTokenStrategy,
 
-    {
-      provide: APP_GUARD,
-      useClass: JwtAuthGuard,
-    },
     {
       provide: APP_GUARD,
       useClass: CustomThrottlerGuard,

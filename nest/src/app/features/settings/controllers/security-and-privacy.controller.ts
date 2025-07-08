@@ -4,9 +4,11 @@ import {
   Controller,
   Delete,
   Patch,
+  Res,
   UseInterceptors,
 } from '@nestjs/common';
 import { ApiBody, ApiOkResponse, ApiTags } from '@nestjs/swagger';
+import { Response } from 'express';
 
 import { CurrentUser } from 'src/app/common/decorators/current-user.decorator';
 import { deleteAccountDto } from 'src/app/features/settings/dto/deleteAccount.dto';
@@ -30,8 +32,9 @@ export class SecurityController {
   async updateEmail(
     @CurrentUser() user: UserEntity,
     @Body() dto: updateEmailDto,
+    @Res({ passthrough: true }) res: Response,
   ): Promise<JWTDto> {
-    return this.service.updateEmail(user, dto);
+    return this.service.updateEmail(user, dto, res);
   }
 
   @Patch('/password')
@@ -40,8 +43,9 @@ export class SecurityController {
   async updatePassword(
     @CurrentUser() user: UserEntity,
     @Body() dto: updatePasswordDto,
+    @Res({ passthrough: true }) res: Response,
   ): Promise<JWTDto> {
-    return this.service.updatePassword(user, dto);
+    return this.service.updatePassword(user, dto, res);
   }
 
   @Delete('/delete-account')
@@ -49,7 +53,8 @@ export class SecurityController {
   async deleteAccount(
     @CurrentUser() user: UserEntity,
     @Body() dto: deleteAccountDto,
+    @Res({ passthrough: true }) res: Response,
   ): Promise<void> {
-    await this.service.deleteAccount(user, dto);
+    await this.service.deleteAccount(user, dto, res);
   }
 }

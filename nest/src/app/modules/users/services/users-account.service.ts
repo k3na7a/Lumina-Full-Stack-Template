@@ -5,9 +5,12 @@ import { UserEntity } from 'src/app/modules/users/entities/user.entity';
 import { TokenManager } from 'src/app/common/utilities/token.utility';
 import { UserService } from './users.service';
 
+import { Response } from 'express';
 import * as bcrypt from 'bcrypt';
+
 import { JWTDto } from 'src/library/dto/jwt.dto';
 import { Payload } from 'src/library/interfaces/payload.interface';
+import { day } from 'src/library/constants/time.constants';
 
 @Injectable()
 export class UserAccountService {
@@ -36,7 +39,17 @@ export class UserAccountService {
     return bcrypt.hash(password, salt);
   }
 
-  public async issueTokens(user: UserEntity): Promise<JWTDto> {
+  public async revokeTokens(user: UserEntity, res: Response): Promise<void> {
+    await this.userService.update(user.id, { refreshToken: null });
+    res.clearCookie('refresh_token', {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === 'production',
+      sameSite: false,
+      path: '/',
+    });
+  }
+
+  public async issueTokens(user: UserEntity, res: Response): Promise<JWTDto> {
     const payload: Payload = { email: user.email, sub: user.id };
     const tokens = await this.tokenManager.generateTokens(payload);
 
@@ -44,9 +57,15 @@ export class UserAccountService {
     await this.userService.update(user.id, { refreshToken: hashed });
 
     const decoded = this.tokenManager.decode(tokens.access_token);
+    res.cookie('refresh_token', tokens.refresh_token, {
+      httpOnly: true,
+      sameSite: 'lax',
+      secure: false,
+      path: '/',
+      maxAge: 7 * day,
+    });
 
     return new JWTDto({
-      refresh_token: tokens.refresh_token,
       access_token: tokens.access_token,
       iat: decoded.iat,
       exp: decoded.exp,

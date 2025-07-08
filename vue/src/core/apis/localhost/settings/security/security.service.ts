@@ -11,30 +11,30 @@ class security {
     this.$api = api
   }
 
-  public readonly updateEmail = async (payload: UpdateEmailDto, token: string): Promise<JWTDto> => {
+  public readonly updateEmail = async (payload: UpdateEmailDto): Promise<JWTDto> => {
     const response = await this.$api.patch<IJWT>(
       'settings/security-and-privacy/update-email',
       payload,
-      AxiosService.requestConfig({ token })
+      AxiosService.requestConfig({ withCredentials: true })
     )
 
     return new JWTDto(response.data)
   }
 
-  public readonly updatePassword = async (payload: UpdatePasswordDto, token: string): Promise<JWTDto> => {
+  public readonly updatePassword = async (payload: UpdatePasswordDto): Promise<JWTDto> => {
     const response = await this.$api.patch<IJWT>(
       'settings/security-and-privacy/update-password',
       payload,
-      AxiosService.requestConfig({ token })
+      AxiosService.requestConfig({ withCredentials: true })
     )
 
     return new JWTDto(response.data)
   }
 
-  public readonly deleteAccount = async (payload: { password: string }, token: string): Promise<void> => {
+  public readonly deleteAccount = async (payload: { password: string }): Promise<void> => {
     await this.$api.delete<void>(
       'settings/security-and-privacy/delete-account',
-      AxiosService.requestConfig({ token, data: payload })
+      AxiosService.requestConfig({ data: payload, withCredentials: true })
     )
   }
 }

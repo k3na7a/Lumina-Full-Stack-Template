@@ -29,7 +29,7 @@ export class TypeOrmLogger implements Logger {
     await this.logService.log({
       type: LoggerActions.INFO,
       context: this.context,
-      message: `Query: ${query} | Params: ${JSON.stringify(parameters)}`,
+      message: { Query: query, Params: JSON.stringify(parameters) },
     });
   }
 
@@ -43,7 +43,11 @@ export class TypeOrmLogger implements Logger {
     await this.logService.log({
       type: LoggerActions.ERR,
       context: this.context,
-      message: `Error: ${error} | Query: ${query} | Params: ${JSON.stringify(parameters)}`,
+      message: {
+        Error: error,
+        Query: query,
+        Params: JSON.stringify(parameters),
+      },
     });
   }
 
@@ -57,7 +61,11 @@ export class TypeOrmLogger implements Logger {
     await this.logService.log({
       type: LoggerActions.WARN,
       context: this.context,
-      message: `Slow Query: ${time}ms | Query: ${query} | Params: ${JSON.stringify(parameters)}`,
+      message: {
+        ['Slow Query']: `${time}ms`,
+        Query: query,
+        Params: JSON.stringify(parameters),
+      },
     });
   }
 
@@ -67,7 +75,7 @@ export class TypeOrmLogger implements Logger {
     await this.logService.log({
       type: LoggerActions.INFO,
       context: this.context,
-      message: `Schema Build: ${message}`,
+      message: { ['Schema Build']: message },
     });
   }
 
@@ -77,7 +85,7 @@ export class TypeOrmLogger implements Logger {
     await this.logService.log({
       type: LoggerActions.WARN,
       context: this.context,
-      message: `Migration: ${message}`,
+      message: { Migration: message },
     });
   }
 
@@ -92,14 +100,18 @@ export class TypeOrmLogger implements Logger {
         await this.logService.log({
           type: LoggerActions.INFO,
           context: this.context,
-          message: `${capitalize(level)} -- ${message}`,
+          message: {
+            Message: `${capitalize(level)} -- ${message}`,
+          },
         });
         break;
       case 'warn':
         await this.logService.log({
           type: LoggerActions.WARN,
           context: this.context,
-          message: `${capitalize(level)} -- ${message}`,
+          message: {
+            Message: `${capitalize(level)} -- ${message}`,
+          },
         });
         break;
       default:

@@ -9,7 +9,7 @@ import { settings } from './settings/settings.service'
 const REFRESH_TOKEN_ID = 'localhost-refresh-token'
 
 const instance: AxiosInstance = axios.create({
-  baseURL: 'http://localhost:3000/api/',
+  baseURL: 'https://localhost:3000/api/',
   timeout: 10 * second,
   headers: { ['Content-Type']: 'application/json' }
 })

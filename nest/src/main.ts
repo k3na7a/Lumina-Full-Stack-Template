@@ -2,6 +2,8 @@ import { NestFactory } from '@nestjs/core';
 import { Logger, ValidationPipe } from '@nestjs/common';
 import { json, urlencoded } from 'express';
 import helmet from 'helmet';
+import * as cookieParser from 'cookie-parser';
+import * as fs from 'fs';
 import { config } from 'dotenv';
 config();
 
@@ -15,7 +17,12 @@ import { HttpInterceptor } from './app/common/interceptors/http.interceptor';
 import { RequestContext } from './app/common/providers/request-context.provider';
 
 async function bootstrap(): Promise<void> {
-  const app = await NestFactory.create(AppModule);
+  const httpsOptions = {
+    key: fs.readFileSync('certs/localhost-key.pem'),
+    cert: fs.readFileSync('certs/localhost.pem'),
+  };
+
+  const app = await NestFactory.create(AppModule, { httpsOptions });
 
   const logService = app.get(LogService);
   const requestContext = app.get(RequestContext);
@@ -30,13 +37,14 @@ async function bootstrap(): Promise<void> {
   app.use(helmet());
   app.use(json({ limit: '1mb' }));
   app.use(urlencoded({ extended: true, limit: '1mb' }));
+  app.use(cookieParser());
 
   app.setGlobalPrefix(prefix);
   app.useGlobalPipes(new ValidationPipe({ whitelist: true, transform: true }));
   app.useGlobalFilters(new GlobalExceptionFilter(logService));
   app.useGlobalInterceptors(new HttpInterceptor(logService, requestContext));
   app.enableCors({
-    origin: 'http://localhost:8080',
+    origin: 'https://localhost:8080',
     methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE'],
     allowedHeaders: ['Content-Type', 'Authorization'],
     exposedHeaders: ['Authorization'],
@@ -50,10 +58,10 @@ async function bootstrap(): Promise<void> {
   await app.listen(port);
 
   logger.log(
-    `🚀 Application is running on: http://localhost:${port}/${prefix}`,
+    `🚀 Application is running on: https://localhost:${port}/${prefix}`,
   );
   logger.log(
-    `📊 BullBoard is available at: http://localhost:${port}/${bullboard_prefix}`,
+    `📊 BullBoard is available at: https://localhost:${port}/${bullboard_prefix}`,
   );
 }
 

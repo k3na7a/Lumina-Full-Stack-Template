@@ -3,7 +3,7 @@ import { LoggerActions } from '../enums/logger-actions.enum';
 
 export interface jobtype {
   type: LoggerActions;
-  message: string;
+  message: Record<string, any>;
   context: string;
   requestInfo?: RequestContextStore;
 }

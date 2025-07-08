@@ -27,13 +27,17 @@ export class HttpInterceptor implements NestInterceptor {
     const startedAt = Date.now();
 
     return next.handle().pipe(
-      tap(() => {
+      tap(async () => {
         const statusCode = response.statusCode;
         const duration = Date.now() - startedAt;
 
-        this.logService.log({
+        await this.logService.log({
           type: LoggerActions.INFO,
-          message: `Request: ${method} ${originalUrl} | Status: ${statusCode} | Duration: ${duration}ms`,
+          message: {
+            Request: `${method} ${originalUrl}`,
+            Status: statusCode,
+            Duration: `${duration}ms`,
+          },
           context: HttpInterceptor.name,
           requestInfo: this.requestContext.getStore(),
         });

@@ -11,18 +11,29 @@ class authentication {
     this.$api = api
   }
 
-  public readonly verifyToken = async (token: string): Promise<JWTDto> => {
-    const response = await this.$api.get<IJWT>('authentication/verify-token', AxiosService.requestConfig({ token }))
+  public readonly verifyToken = async (): Promise<JWTDto> => {
+    const response = await this.$api.get<IJWT>(
+      'authentication/verify-token',
+      AxiosService.requestConfig({ withCredentials: true })
+    )
     return new JWTDto(response.data)
   }
 
   public readonly register = async (payload: RegisterDto): Promise<JWTDto> => {
-    const response = await this.$api.put<IJWT>('authentication/register', payload)
+    const response = await this.$api.put<IJWT>(
+      'authentication/register',
+      payload,
+      AxiosService.requestConfig({ withCredentials: true })
+    )
     return new JWTDto(response.data)
   }
 
   public readonly signIn = async (payload: { email: string; password: string }): Promise<JWTDto> => {
-    const response = await this.$api.post<IJWT>('authentication/sign-in', payload)
+    const response = await this.$api.post<IJWT>(
+      'authentication/sign-in',
+      payload,
+      AxiosService.requestConfig({ withCredentials: true })
+    )
     return new JWTDto(response.data)
   }
 
@@ -30,8 +41,8 @@ class authentication {
     await this.$api.post<void>('authentication/forgot-password', payload)
   }
 
-  public readonly signOut = async (token: string): Promise<void> => {
-    await this.$api.post<JWTDto>('authentication/sign-out', {}, AxiosService.requestConfig({ token }))
+  public readonly signOut = async (): Promise<void> => {
+    await this.$api.post<JWTDto>('authentication/sign-out', {}, AxiosService.requestConfig({ withCredentials: true }))
   }
 
   public readonly resetPassword = async (payload: ResetPasswordDto, token: string): Promise<void> => {
