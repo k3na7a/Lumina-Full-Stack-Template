@@ -36,22 +36,6 @@ import { hour, minute } from 'src/library/constants/time.constants';
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
 
-  @Get('/csrf-token')
-  @Throttle({ default: { limit: 10, ttl: 1 * minute } })
-  async getCsrfToken(@Req() req: RequestType, @Res() res: Response) {
-    const iat = Date.now();
-    const token = req.csrfToken();
-    const exp = iat + 1 * hour;
-
-    res.json(
-      new CsrfDto({
-        token,
-        exp,
-        iat,
-      }),
-    );
-  }
-
   @Put('/register')
   @Throttle({ default: { limit: 3, ttl: 1 * minute } })
   @ApiBody({ type: RegisterDto })
@@ -82,7 +66,25 @@ export class AuthController {
     await this.authService.forgotPassword(dto);
   }
 
+  @Get('/csrf-token')
+  @Throttle({ default: { limit: 10, ttl: 1 * minute } })
+  @ApiOkResponse({ type: CsrfDto })
+  async getCsrfToken(@Req() req: RequestType, @Res() res: Response) {
+    const iat = Date.now();
+    const token = req.csrfToken();
+    const exp = iat + 1 * hour;
+
+    res.json(
+      new CsrfDto({
+        token,
+        exp,
+        iat,
+      }),
+    );
+  }
+
   @Get('/verify-token')
+  @ApiOkResponse({ type: JWTDto })
   @Throttle({ default: { limit: 10, ttl: 1 * minute } })
   @RequiresRefreshToken()
   async verifyToken(

@@ -38,7 +38,7 @@ export class GlobalExceptionFilter implements ExceptionFilter {
         url: request.url,
         status: status,
         exception: message,
-        ...(exception instanceof Error && { message: exception.message }),
+        ...(exception instanceof Error && { stack: exception.stack }),
       },
     });
 
