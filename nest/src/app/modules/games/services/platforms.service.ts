@@ -63,7 +63,7 @@ export class PlatformService {
       .where('platform.name like :query', { query: `%${search}%` })
       .loadRelationCountAndMap('platform.gameCount', 'platform.games')
       .orderBy({ [sort]: order })
-      .take(take)
+      .limit(take)
       .offset(skip)
       .getManyAndCount();
 

@@ -13,7 +13,7 @@ class security {
 
   public readonly updateEmail = async (payload: UpdateEmailDto, csrfToken: string): Promise<JWTDto> => {
     const response = await this.$api.patch<IJWT>(
-      'settings/security-and-privacy/update-email',
+      'settings/security-and-privacy/email',
       payload,
       AxiosService.requestConfig({ withCredentials: true, csrfToken })
     )
@@ -23,7 +23,7 @@ class security {
 
   public readonly updatePassword = async (payload: UpdatePasswordDto, csrfToken: string): Promise<JWTDto> => {
     const response = await this.$api.patch<IJWT>(
-      'settings/security-and-privacy/update-password',
+      'settings/security-and-privacy/password',
       payload,
       AxiosService.requestConfig({ withCredentials: true, csrfToken })
     )

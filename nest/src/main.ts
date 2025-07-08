@@ -3,7 +3,6 @@ import { Logger, ValidationPipe } from '@nestjs/common';
 import { json, urlencoded } from 'express';
 import * as cookieParser from 'cookie-parser';
 import * as fs from 'fs';
-import * as csurf from 'csurf';
 import { config } from 'dotenv';
 config();
 
@@ -15,7 +14,6 @@ import { GlobalExceptionFilter } from './app/common/filters/global-exceptions.fi
 import { LogService } from './app/queues/logging/services/log.service';
 import { HttpInterceptor } from './app/common/interceptors/http.interceptor';
 import { HelmetPlugin } from './plugins/helmet.plugin';
-import { hour } from './library/constants/time.constants';
 
 async function bootstrap(): Promise<void> {
   const httpsOptions = {
@@ -37,17 +35,6 @@ async function bootstrap(): Promise<void> {
   app.use(json({ limit: '1mb' }));
   app.use(urlencoded({ extended: true, limit: '1mb' }));
   app.use(cookieParser());
-
-  app.use(
-    csurf({
-      cookie: {
-        httpOnly: true,
-        sameSite: 'strict',
-        secure: true,
-        maxAge: 1 * hour,
-      },
-    }),
-  );
 
   app.setGlobalPrefix(prefix);
   app.useGlobalPipes(new ValidationPipe({ whitelist: true, transform: true }));

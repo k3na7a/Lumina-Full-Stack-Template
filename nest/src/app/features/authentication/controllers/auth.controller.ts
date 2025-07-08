@@ -29,6 +29,7 @@ import { ResetPasswordDto } from 'src/app/features/authentication/dto/resetPassw
 import { SignInDto } from 'src/app/features/authentication/dto/signIn.dto';
 import { RequiresRefreshToken } from 'src/app/common/decorators/refresh-token.decorator';
 import { hour, minute } from 'src/library/constants/time.constants';
+import { CsrfGuard } from 'src/app/common/guards/csrf.guard';
 
 @ApiTags('Authentication')
 @Controller('')
@@ -69,18 +70,13 @@ export class AuthController {
   @Get('/csrf-token')
   @Throttle({ default: { limit: 10, ttl: 1 * minute } })
   @ApiOkResponse({ type: CsrfDto })
-  async getCsrfToken(@Req() req: RequestType, @Res() res: Response) {
+  @UseGuards(CsrfGuard)
+  async getCsrfToken(@Req() req: RequestType) {
     const iat = Date.now();
     const token = req.csrfToken();
     const exp = iat + 1 * hour;
 
-    res.json(
-      new CsrfDto({
-        token,
-        exp,
-        iat,
-      }),
-    );
+    return new CsrfDto({ token, exp, iat });
   }
 
   @Get('/verify-token')
@@ -90,7 +86,11 @@ export class AuthController {
   async verifyToken(
     @CurrentUser() user: UserEntity,
     @Res({ passthrough: true }) res: Response,
+    @Req() req: RequestType,
   ): Promise<JWTDto> {
+    console.log('Cookie secret:', req.cookies._csrf);
+    console.log('Token header:', req.headers['x-csrf-token']);
+
     return this.authService.verify(user, res);
   }
 
