@@ -86,11 +86,7 @@ export class AuthController {
   async verifyToken(
     @CurrentUser() user: UserEntity,
     @Res({ passthrough: true }) res: Response,
-    @Req() req: RequestType,
   ): Promise<JWTDto> {
-    console.log('Cookie secret:', req.cookies._csrf);
-    console.log('Token header:', req.headers['x-csrf-token']);
-
     return this.authService.verify(user, res);
   }
 

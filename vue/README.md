@@ -44,7 +44,7 @@ npm install
 Create a `.env` or `.env.local`:
 
 ```env
-VITE_API_URL=http://localhost:3000
+VITE_API_URL=https://localhost:8080
 ```
 
 ---
@@ -55,7 +55,7 @@ VITE_API_URL=http://localhost:3000
 npm run dev
 ```
 
-Open **[http://localhost:5173](http://localhost:5173)**
+Open **[https://localhost:8080](https://localhost:8080)**
 
 ---
 

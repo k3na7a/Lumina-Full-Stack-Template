@@ -14,11 +14,8 @@ class VueRouterService {
     routes: [] as Array<RouteRecordRaw>
   } as RouterOptions)
 
-  public static init(app: App<Element>, routes: RouteRecordRaw[], debug: boolean = false): void {
-    for (const route of routes) {
-      if (debug) console.log(route)
-      this.$router.addRoute(route as RouteRecordRaw)
-    }
+  public static init(app: App<Element>, routes: RouteRecordRaw[]): void {
+    for (const route of routes) this.$router.addRoute(route as RouteRecordRaw)
 
     this.$router.beforeResolve((to: RouteLocationNormalized) => {
       document.title = `${to.meta.pageTitle} - ${process.env.TITLE}`

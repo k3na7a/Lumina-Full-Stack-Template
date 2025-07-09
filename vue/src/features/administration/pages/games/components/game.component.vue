@@ -50,7 +50,7 @@ const { onSubmit, initialValues, validationSchema, loading, platformOptions, get
             {{ option.name }}
             <small class="ms-2 text-muted fst-italic">{{ option.id }}</small>
           </template>
-        </SearchPaginatedInput>
+    </SearchPaginatedInput>                                     
       </template>
       <template #slug>
         <TextInput

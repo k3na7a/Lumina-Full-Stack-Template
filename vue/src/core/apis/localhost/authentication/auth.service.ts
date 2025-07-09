@@ -20,7 +20,6 @@ class authentication {
   }
 
   public readonly verifyToken = async (csrfToken: string): Promise<JWTDto> => {
-    console.log(csrfToken)
     const response = await this.$api.get<IJWT>(
       'authentication/verify-token',
       AxiosService.requestConfig({ withCredentials: true, csrfToken })

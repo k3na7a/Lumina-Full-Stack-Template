@@ -51,7 +51,7 @@ PORT=3000
 GLOBAL_PREFIX=api
 NODE_ENV=development
 
-BASE_URL=http://localhost:3000
+BASE_URL=https://localhost:3000
 
 # JWT SECRET KEYS
 JWT_SECRET_KEY=...

@@ -5,13 +5,12 @@ import * as moment from 'moment';
 
 import { useFileManager } from 'src/app/common/utilities/fileManager.util';
 import { jobtype } from 'src/library/interfaces/logger.interface';
-import { megabyte } from 'src/library/constants/size.constants';
 import { LoggerQueues } from 'src/library/enums/logger-actions.enum';
 
 @Processor(LoggerQueues.LOG_QUEUE)
 export class LogQueueProcessor extends WorkerHost {
   private readonly fileManager = useFileManager();
-  private readonly MAX_SIZE_MB = 10 * megabyte;
+  private readonly MAX_SIZE_MB = 1;
   private readonly directory_name = 'logs';
 
   private buildLogPath(dateString: string, suffix: string): string {
@@ -77,7 +76,6 @@ export class LogQueueProcessor extends WorkerHost {
 
     while (await accessFile(srcPath)) {
       const size = await getFileSizeMB(srcPath);
-
       if (size < this.MAX_SIZE_MB) {
         exists = true;
         break;

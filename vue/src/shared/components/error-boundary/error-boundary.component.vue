@@ -4,7 +4,6 @@ import { computed, onErrorCaptured, ref } from 'vue'
 const error = ref<Error>()
 
 onErrorCaptured((err) => {
-  console.log(err)
   error.value = err
   return false
 })

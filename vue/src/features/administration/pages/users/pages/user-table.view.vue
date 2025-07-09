@@ -1,11 +1,6 @@
 <script setup lang="ts">
-import { computed, reactive, ref, watch } from 'vue'
-import { LocationQuery, useRoute } from 'vue-router'
-import { useI18n } from 'vue-i18n'
 import moment from 'moment'
 
-import { parseQuery } from '@/core/utils/parse-query.util'
-import { PaginationOptions, PaginationMeta, PaginationDto } from '@/library/dto/pagination.dto'
 import { UserDto } from '@/library/dto/user.dto'
 
 import ActionsComponent from '@/shared/components/dropdown/table-actions.dropdown.component.vue'
@@ -13,43 +8,12 @@ import TablePaginatedComponent from '@/shared/components/table/paginated-table.c
 
 import ContentLayout from '@/features/administration/layouts/content.layout.vue'
 
-import { defaultOptions, tableColumns, sort, badges } from '../config/users-table.config'
-import { useUserAdminHandler } from '../handlers/user.handler'
+import { tableColumns, sort, badges } from '../config/users-table.config'
+import { useUserTable } from '../composables/user-table.composable'
 
-const $route = useRoute()
-
-const { t } = useI18n()
-const handler = useUserAdminHandler(t)
-
-const loading = ref<boolean>(true)
-const options = computed<PaginationOptions>(() => parseQuery<PaginationOptions>($route.query, defaultOptions))
-
-const response = reactive<{ data: Array<UserDto>; meta: PaginationMeta }>({
-  data: [],
-  meta: new PaginationMeta({ pageOptions: options.value, itemCount: 0 })
-})
-
-async function getPaginatedData(payload: PaginationOptions): Promise<void> {
-  loading.value = true
-
-  await handler
-    .getPaginated(payload)
-    .then((res: PaginationDto<UserDto>) => {
-      response.data = res.data
-      response.meta = res.meta
-    })
-    .finally(() => (loading.value = false))
-}
+const { getPaginatedData, options, loading, response, handler, t } = useUserTable()
 
 await getPaginatedData(options.value)
-
-watch(
-  () => $route.query,
-  async (newQuery: LocationQuery): Promise<void> => {
-    const parsed = parseQuery<PaginationOptions>(newQuery, defaultOptions)
-    await getPaginatedData(parsed)
-  }
-)
 </script>
 
 <template>
@@ -83,8 +47,8 @@ watch(
 
         <template #role="{ row }">
           <div class="d-flex align-items-center">
-            <small class="fw-semibold text-truncate text-light-alt" :class="`text-light-alt`">
-              {{ $t(badges[row.role].label).toUpperCase() }}
+            <small class="fw-semibold text-truncate text-primary" :class="`text-light-alt`">
+              {{ $t(badges[row.role].label).toLowerCase() }}
             </small>
           </div>
         </template>

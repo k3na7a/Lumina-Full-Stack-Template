@@ -15,10 +15,9 @@ import { CustomDirectiveService } from './core/plugins/custom-directives.plugin'
 
 async function bootstrap(): Promise<void> {
   const app = createApp(App)
-  const debug: boolean = false
 
   Pinia.init(app)
-  Router.init(app, routes, debug)
+  Router.init(app, routes)
   I18n.init(app)
   FontAwesome.init(app)
   Ckeditor5Service.init(app)

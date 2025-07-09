@@ -56,7 +56,6 @@ export class GameService {
     pageOptions: GamePaginationOptions,
   ): Promise<PaginationDto<GameEntity>> {
     const { sort, search, order, take, skip } = pageOptions;
-    console.log(take, skip);
     const [games, itemCount] = await this.repository
       .createQueryBuilder('game')
       .leftJoinAndSelect('game.cover', 'cover')
