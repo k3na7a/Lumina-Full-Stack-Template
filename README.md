@@ -115,10 +115,15 @@ Includes modules for authentication flows, user profile management, and administ
 
 ## ✅ Future Improvements
 
+- Sign up with Google
+- 2FA with Google Authenticator
 - Add OpenTelemetry / APM for distributed tracing.
 - Automated tests with Jest and e2e integration tests.
 - Deployment pipeline with Docker or CI/CD.
 - Service accounts and granular access controls.
+- Expanded User Roles & Permissions System.
+- Administration Dashboard
+- API versioning for smooth upgrades
 
 ---
 
