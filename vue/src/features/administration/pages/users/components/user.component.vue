@@ -48,7 +48,7 @@ const { loading, onSubmit, validationSchema, initialValues, emailPlaceholder } =
         <FileInput name="avatar" />
       </template>
       <template #checkbox>
-        <CheckboxInput name="remove-avatar" label="administration.users.user-table.update.remove-profile-picture" />
+        <CheckboxInput name="remove-avatar" label="administration.user-management.user-table.update.remove-profile-picture" />
       </template>
       <template #submit>
         <button :disabled="!meta.valid || !meta.dirty || loading" class="btn btn-primary px-2" type="submit">

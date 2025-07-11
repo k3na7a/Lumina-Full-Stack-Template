@@ -77,7 +77,7 @@ export function useUserAdminHandler(t: (key: string) => string): {
             .update(id, new UpdateUserDto(values), token)
             .then((value: UserDto) => {
               if (success) success(value)
-              showSuccessToast('administration.users.user-table.update.success')
+              showSuccessToast('administration.user-management.user-table.update.success')
               closeModal()
             })
             .catch(showErrorToast)
@@ -93,7 +93,7 @@ export function useUserAdminHandler(t: (key: string) => string): {
     openModal({
       view: markRaw(ConfirmDeleteModal),
       properties: {
-        title: t('administration.users.user-table.delete.title'),
+        title: t('administration.user-management.user-table.delete.title'),
         action: t('actions.disable-account'),
         close: closeModal,
         callback: async (): Promise<void> => {
@@ -104,7 +104,7 @@ export function useUserAdminHandler(t: (key: string) => string): {
             .remove(id, token)
             .then((value: UserDto) => {
               if (success) success(value)
-              showSuccessToast('administration.users.user-table.delete.success')
+              showSuccessToast('administration.user-management.user-table.delete.success')
               closeModal()
             })
             .catch(showErrorToast)

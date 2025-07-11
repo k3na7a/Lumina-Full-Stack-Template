@@ -1,4 +1,4 @@
-# Full-Stack Vue 3 + NestJS Application
+# Full-Stack Vue 3 + NestJS + MySQL Application
 
 ## 🚀 Overview
 

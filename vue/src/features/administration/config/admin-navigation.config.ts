@@ -9,12 +9,12 @@ const routes: side_navigation = [
   },
   {
     name: ROUTE_NAMES.ADMIN_USERS,
-    label: 'administration.users.header',
+    label: 'administration.user-management.header',
     icon: ['fas', 'user']
   },
   {
     name: ROUTE_NAMES.ADMIN_GAMES_AND_SOFTWARE,
-    label: 'administration.games-and-software.label',
+    label: 'administration.games-and-software.header',
     icon: ['fas', 'book']
   }
 ]

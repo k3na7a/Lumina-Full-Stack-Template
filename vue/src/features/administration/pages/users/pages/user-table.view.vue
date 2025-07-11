@@ -11,7 +11,10 @@ await promise()
 </script>
 
 <template>
-  <ContentLayout title="administration.users.user-table.title" subtitle="administration.users.user-table.subtitle">
+  <ContentLayout
+    title="administration.user-management.user-table.title"
+    subtitle="administration.user-management.user-table.subtitle"
+  >
     <template #table>
       <TablePaginatedComponent
         v-model:options="options"
@@ -22,7 +25,7 @@ await promise()
         :sort-options="sort"
         :caption="
           t(
-            'administration.users.user-table.caption',
+            'administration.user-management.user-table.caption',
             {
               start: (response.meta.page - 1) * response.meta.take + 1,
               end: (response.meta.page - 1) * response.meta.take + response.data.length
@@ -79,7 +82,8 @@ await promise()
             ]"
           >
             <small class="text-primary fst-italic text-nowrap">
-              user: <span class="text-light-alt">{{ row.id }}</span>
+              {{ $t('administration.user-management.user-table.item') }}:
+              <span class="text-light-alt">{{ row.id }}</span>
             </small>
           </ActionsComponent>
         </template>

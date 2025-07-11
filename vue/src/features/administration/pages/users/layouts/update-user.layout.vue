@@ -4,7 +4,7 @@ import ModalTitle from '@/shared/components/modal/base/modal-title.component.vue
 
 <template>
   <div class="d-flex flex-column gap-3">
-    <ModalTitle :title="$t('administration.users.user-table.update.title')" />
+    <ModalTitle :title="$t('administration.user-management.user-table.update.title')" />
 
     <div class="d-flex flex-column gap-1">
       <h6 class="fw-semibold">{{ $t('forms.name') }}</h6>

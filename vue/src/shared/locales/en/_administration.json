@@ -3,11 +3,11 @@
   "dashboard": {
     "label": "Dashboard"
   },
-  "users": {
-    "label": "Users",
+  "user-management": {
     "header": "User Management",
-    "subtitle": "Manage all registered users and their account settings.",
     "user-table": {
+      "item": "User",
+      "label": "Users",
       "title": "Manage your platforms users",
       "subtitle": "View, search, and manage user accounts across the platform",
       "caption": "Showing {start}-{end} of {count} users | Showing {start}-{end} of {count} user | Showing {start}-{end} of {count} users",
@@ -20,13 +20,19 @@
         "title": "Permanently Delete User",
         "success": "The user account has been permanently removed."
       }
+    },
+    "roles": {
+      "label": "Roles"
+    },
+    "permissions": {
+      "label": "Permissions"
     }
   },
   "games-and-software": {
     "header": "Games & Software",
-    "label": "Games & Software",
     "games": {
       "item": "Game",
+      "label": "Games & Software",
       "title": "Create and modify your games & software",
       "subtitle": "Manage your game library and software releases.",
       "caption": "Showing {start}-{end} of {count} games | Showing {start}-{end} of {count} game | Showing {start}-{end} of {count} games",

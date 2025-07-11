@@ -20,10 +20,9 @@ Permissions is currently hard coded (user.role == Role.enum)
 - ✅ Check for cookie before doing an appstore init
 - ✅ Add Create buttons to Dropdown Actions menu with future options (eg export)
 
-- ✅ Platforms + Dashboard need localized strings
-
 **code cleanup**
 
+- Platforms + Dashboard need localized strings
 - Fix Reset Password Flow (haven't touched this through many updates of token system)
 - Fix Throttle (JWT Guards run after Throttle Guard therefor userId is never set, this is a minor issue but causes conflicts when multiple users on the same ip are using the app)
 

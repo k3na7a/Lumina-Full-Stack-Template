@@ -92,7 +92,8 @@ await getPaginatedData(options.value)
             ]"
           >
             <small class="text-primary fst-italic text-nowrap">
-              platform: <span class="text-light-alt">{{ row.id }}</span>
+              {{ $t('administration.games-and-software.platforms.item') }}:
+              <span class="text-light-alt">{{ row.id }}</span>
             </small>
           </ActionsComponent>
         </template>

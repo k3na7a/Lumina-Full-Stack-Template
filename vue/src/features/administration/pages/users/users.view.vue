@@ -10,7 +10,7 @@ const $route: RouteLocationNormalizedLoaded = useRoute()
 </script>
 
 <template>
-  <SubNavigationLayout title="administration.users.header" :routes="options">
+  <SubNavigationLayout title="administration.user-management.header" :routes="options">
     <template #content>
       <RenderedView :key="$route.path" />
     </template>
