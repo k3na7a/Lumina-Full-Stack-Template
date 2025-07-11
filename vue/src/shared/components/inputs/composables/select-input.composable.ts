@@ -9,6 +9,7 @@ type proptype<T> = {
   value?: T
   options: Array<T>
   disabled?: boolean
+  icon?: [string, string]
 }
 
 type SelectInput<T> = {

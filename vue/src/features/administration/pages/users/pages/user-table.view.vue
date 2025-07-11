@@ -1,19 +1,13 @@
 <script setup lang="ts">
 import moment from 'moment'
 
-import { UserDto } from '@/library/dto/user.dto'
-
 import ActionsComponent from '@/shared/components/dropdown/table-actions.dropdown.component.vue'
 import TablePaginatedComponent from '@/shared/components/table/paginated-table.component.vue'
-
 import ContentLayout from '@/features/administration/layouts/content.layout.vue'
-
-import { tableColumns, sort, badges } from '../config/users-table.config'
 import { useUserTable } from '../composables/user-table.composable'
 
-const { getPaginatedData, options, loading, response, handler, t } = useUserTable()
-
-await getPaginatedData(options.value)
+const { promise, update, remove, options, loading, response, tableColumns, sort, t } = useUserTable()
+await promise()
 </script>
 
 <template>
@@ -27,9 +21,22 @@ await getPaginatedData(options.value)
         :pages="response.meta?.pageCount"
         :sort-options="sort"
         :caption="
-          t('administration.users.user-table.caption', { showing: response.data.length }, response.meta.itemCount)
+          t(
+            'administration.users.user-table.caption',
+            {
+              start: (response.meta.page - 1) * response.meta.take + 1,
+              end: (response.meta.page - 1) * response.meta.take + response.data.length
+            },
+            response.meta.itemCount
+          )
         "
       >
+        <template v-slot>
+          <div class="d-flex gap-2">
+            <ActionsComponent disabled size="lg" :payload="[]" />
+          </div>
+        </template>
+
         <template #user="{ row }">
           <div class="d-flex align-items-center gap-2">
             <img class="avatar-icon rounded-circle" :src="row.profile.avatar" />
@@ -48,22 +55,33 @@ await getPaginatedData(options.value)
         <template #role="{ row }">
           <div class="d-flex align-items-center">
             <small class="fw-semibold text-truncate text-primary" :class="`text-light-alt`">
-              {{ $t(badges[row.role].label).toLowerCase() }}
+              {{ row.role.toLowerCase() }}
             </small>
           </div>
         </template>
 
         <template #created="{ row }">
-          <small class="fw-semibold text-muted">{{ moment(row.createdAt).format('L') }}</small>
+          <small class="fw-semibold text-muted">
+            {{ moment(row.createdAt).format('L') }}
+          </small>
         </template>
 
         <template #actions="{ row }">
           <ActionsComponent
-            type="user"
-            :id="row.id"
-            :updateCallback="() => handler.update(row, (_: UserDto) => getPaginatedData(options))"
-            :deleteCallback="() => handler.remove(row, (_: UserDto) => getPaginatedData(options))"
-          />
+            :payload="[
+              {
+                title: 'actions.update',
+                icon: ['fas', 'pen-to-square'],
+                callback: () => update(row),
+                theme: 'warning'
+              },
+              { title: 'actions.delete', icon: ['fas', 'trash-can'], callback: () => remove(row), theme: 'danger' }
+            ]"
+          >
+            <small class="text-primary fst-italic text-nowrap">
+              user: <span class="text-light-alt">{{ row.id }}</span>
+            </small>
+          </ActionsComponent>
         </template>
       </TablePaginatedComponent>
     </template>

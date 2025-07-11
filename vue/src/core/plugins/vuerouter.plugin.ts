@@ -1,3 +1,4 @@
+import { ROUTE_NAMES } from '@/library/enums/route-names.enum'
 import { App } from 'vue'
 import {
   RouteLocationNormalized,
@@ -7,6 +8,19 @@ import {
   createRouter,
   createWebHistory
 } from 'vue-router'
+
+import 'vue-router'
+
+export interface Breadcrumb {
+  name: string
+  to?: ROUTE_NAMES | null // optional, null for the active item
+}
+
+declare module 'vue-router' {
+  interface RouteMeta {
+    breadcrumbs?: Breadcrumb[]
+  }
+}
 
 class VueRouterService {
   private static $router: Router = createRouter({

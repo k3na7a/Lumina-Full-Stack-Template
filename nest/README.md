@@ -138,7 +138,6 @@ src/                        #
  │   │   ├── decorators/    # Custom decorators
  │   │   ├── filters/       # Exception filters
  │   │   ├── guards/        # Auth and role guards
- │   │   ├── indicators/    #
  │   │   ├── interceptors/  # Logging, transform interceptors
  │   │   ├── loggers/       # Custom logger classes
  │   │   ├── middleware/    # Express/Nest middleware

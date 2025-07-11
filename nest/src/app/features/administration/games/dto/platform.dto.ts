@@ -7,6 +7,7 @@ enum SORT_OPTIONS {
   CREATED = 'platform.createdAt',
   NAME = 'platform.name',
   RELEASE_DATE = 'platform.release_date',
+  GAME_COUNT = 'gameCount',
 }
 
 class PlatformPaginationOptions extends PaginationOptions {

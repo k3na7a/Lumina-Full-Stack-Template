@@ -12,18 +12,20 @@ export class ConnectionLogger implements OnModuleInit {
   ) {}
 
   async onModuleInit() {
+    const debug = false;
     const { host, port, database } = this.dataSource
       .options as MysqlConnectionOptions;
-    await this.logService.log({
-      type: LoggerActions.INFO,
-      context: ConnectionLogger.name,
-      message: {
-        message: `Database connected!`,
-        database,
-        port,
-        host,
-      },
-    });
+    if (debug)
+      await this.logService.log({
+        type: LoggerActions.INFO,
+        context: ConnectionLogger.name,
+        message: {
+          message: `Database connected!`,
+          database,
+          port,
+          host,
+        },
+      });
   }
 
   async onApplicationShutdown(signal?: string) {

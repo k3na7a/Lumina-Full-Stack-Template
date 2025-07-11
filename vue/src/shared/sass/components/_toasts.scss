@@ -8,10 +8,11 @@ $toast-themes: (
 
 @each $name, $color in $toast-themes {
   .toast-#{$name} {
-    border: 1px solid #{$color};
-    box-shadow: 0 0 8px rgba($color, 0.4);
+    .highlight {
+      background-color: #{$color};
+    }
 
-    * > h6 {
+    * > h5 {
       color: #{$color};
     }
   }

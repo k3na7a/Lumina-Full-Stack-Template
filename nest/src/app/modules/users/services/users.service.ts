@@ -45,8 +45,8 @@ export class UserService {
         { query: `%${search}%` },
       )
       .orderBy({ [sort]: order })
-      .limit(take)
-      .offset(skip)
+      .take(take)
+      .skip(skip)
       .getManyAndCount();
 
     const meta = new PaginationMeta({ pageOptions, itemCount });

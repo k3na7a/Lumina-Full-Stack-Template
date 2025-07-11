@@ -1,5 +1,8 @@
 {
   "label": "Administration",
+  "dashboard": {
+    "label": "Dashboard"
+  },
   "users": {
     "label": "Users",
     "header": "User Management",
@@ -7,7 +10,7 @@
     "user-table": {
       "title": "Manage your platforms users",
       "subtitle": "View, search, and manage user accounts across the platform",
-      "caption": "Showing {showing} of {count} users | Showing {showing} of {count} user | Showing {showing} of {count} users",
+      "caption": "Showing {start}-{end} of {count} users | Showing {start}-{end} of {count} user | Showing {start}-{end} of {count} users",
       "update": {
         "title": "Update User Account Details",
         "remove-profile-picture": "Remove profile picture",
@@ -25,8 +28,8 @@
     "games": {
       "item": "Game",
       "title": "Create and modify your games & software",
-      "subtitle": "Video Games!",
-      "caption": "Showing {showing} of {count} games | Showing {showing} of {count} game | Showing {showing} of {count} games",
+      "subtitle": "Manage your game library and software releases.",
+      "caption": "Showing {start}-{end} of {count} games | Showing {start}-{end} of {count} game | Showing {start}-{end} of {count} games",
       "create": {
         "title": "New Game or Software",
         "form": {
@@ -47,7 +50,10 @@
       }
     },
     "platforms": {
-      "label": "Platforms"
+      "item": "Platform",
+      "label": "Platforms",
+      "title": "Consoles, operating systems, or distribution channels",
+      "subtitle": "All your supported platforms in one place."
     }
   }
 }

@@ -1,24 +1,25 @@
+import { ROUTE_NAMES } from '@/library/enums/route-names.enum'
 import { more_navigation } from '../../../../library/types/more-navigation.type'
 
 const MORE_NAVIGATION: more_navigation = [
   {
     title: 'navigation.general',
     children: [
-      { title: 'navigation.subnavigation.about', redirect: 'About' },
-      { title: 'navigation.subnavigation.blog', redirect: 'About' },
-      { title: 'navigation.subnavigation.developers', redirect: 'About' },
-      { title: 'navigation.subnavigation.jobs', redirect: 'About' },
-      { title: 'navigation.subnavigation.partners', redirect: 'About' }
+      { title: 'navigation.subnavigation.about', redirect: ROUTE_NAMES.HOME },
+      { title: 'navigation.subnavigation.blog', redirect: ROUTE_NAMES.HOME },
+      { title: 'navigation.subnavigation.developers', redirect: ROUTE_NAMES.HOME },
+      { title: 'navigation.subnavigation.jobs', redirect: ROUTE_NAMES.HOME },
+      { title: 'navigation.subnavigation.partners', redirect: ROUTE_NAMES.HOME }
     ]
   },
   {
     title: 'navigation.help&legal',
     children: [
-      { title: 'navigation.subnavigation.community', redirect: 'About' },
-      { title: 'navigation.subnavigation.cookies', redirect: 'About' },
-      { title: 'navigation.subnavigation.help', redirect: 'About' },
-      { title: 'navigation.subnavigation.privacy', redirect: 'About' },
-      { title: 'navigation.subnavigation.terms', redirect: 'About' }
+      { title: 'navigation.subnavigation.community', redirect: ROUTE_NAMES.HOME },
+      { title: 'navigation.subnavigation.cookies', redirect: ROUTE_NAMES.HOME },
+      { title: 'navigation.subnavigation.help', redirect: ROUTE_NAMES.HOME },
+      { title: 'navigation.subnavigation.privacy', redirect: ROUTE_NAMES.HOME },
+      { title: 'navigation.subnavigation.terms', redirect: ROUTE_NAMES.HOME }
     ]
   }
 ]

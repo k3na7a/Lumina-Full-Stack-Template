@@ -63,8 +63,11 @@ export class AuthController {
   @Post('/forgot-password')
   @Throttle({ default: { limit: 3, ttl: 1 * minute } })
   @ApiBody({ type: ForgotPasswordDto })
-  async forgotPassword(@Body() dto: ForgotPasswordDto): Promise<void> {
-    await this.authService.forgotPassword(dto);
+  async forgotPassword(
+    @Body() dto: ForgotPasswordDto,
+    @Res({ passthrough: true }) res: Response,
+  ): Promise<void> {
+    await this.authService.forgotPassword(dto, res);
   }
 
   @Get('/csrf-token')

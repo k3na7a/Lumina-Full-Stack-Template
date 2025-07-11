@@ -4,7 +4,7 @@ import { side_navigation } from '@/library/types/sub-navigation.type'
 const routes: side_navigation = [
   {
     name: ROUTE_NAMES.ADMIN_DASHBOARD,
-    label: 'Dashboard',
+    label: 'administration.dashboard.label',
     icon: ['fas', 'gauge']
   },
   {

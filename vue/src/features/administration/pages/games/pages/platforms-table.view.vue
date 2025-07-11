@@ -23,8 +23,8 @@ await getPaginatedData(options.value)
 
 <template>
   <ContentLayout
-    title="administration.games-and-software.games.title"
-    subtitle="administration.games-and-software.games.subtitle"
+    title="administration.games-and-software.platforms.title"
+    subtitle="administration.games-and-software.platforms.subtitle"
   >
     <template #table>
       <TablePaginatedComponent
@@ -44,9 +44,17 @@ await getPaginatedData(options.value)
       >
         <template v-slot>
           <div class="d-flex gap-2">
-            <button class="btn btn-dark btn-icon" type="button" @click="createPlatform">
-              <font-awesome-icon size="lg" :icon="['fas', 'plus']" />
-            </button>
+            <ActionsComponent
+              size="lg"
+              :payload="[
+                {
+                  title: 'actions.create',
+                  icon: ['fas', 'plus'],
+                  callback: createPlatform,
+                  theme: 'success'
+                }
+              ]"
+            />
           </div>
         </template>
 
@@ -68,11 +76,25 @@ await getPaginatedData(options.value)
         </template>
         <template #actions="{ row }">
           <ActionsComponent
-            :id="row.id"
-            type="platform"
-            :deleteCallback="() => removePlatform(row)"
-            :updateCallback="() => updatePlatform(row)"
-          />
+            :payload="[
+              {
+                title: 'actions.update',
+                icon: ['fas', 'pen-to-square'],
+                callback: () => updatePlatform(row),
+                theme: 'warning'
+              },
+              {
+                title: 'actions.delete',
+                icon: ['fas', 'trash-can'],
+                callback: () => removePlatform(row),
+                theme: 'danger'
+              }
+            ]"
+          >
+            <small class="text-primary fst-italic text-nowrap">
+              platform: <span class="text-light-alt">{{ row.id }}</span>
+            </small>
+          </ActionsComponent>
         </template>
       </TablePaginatedComponent>
     </template>

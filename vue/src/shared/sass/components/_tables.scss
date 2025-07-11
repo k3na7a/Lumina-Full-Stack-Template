@@ -2,8 +2,9 @@ table {
   width: 100%;
   border-collapse: collapse;
 
-  border-bottom: 0.1rem $primary solid;
   border-top: 0.1rem $secondary solid;
+  border-right: 0.1rem $secondary solid;
+  border-left: 0.1rem $secondary solid;
 
   &.disabled {
     tbody {
@@ -13,7 +14,7 @@ table {
   }
 
   thead {
-    background-color: rgba(0, 0, 0, 0.12);
+    background-color: $bg-dark;
     border-bottom: 0.1rem $primary solid;
   }
 
@@ -25,7 +26,7 @@ table {
       border-bottom: 0.1rem $secondary solid;
 
       &:nth-of-type(even) {
-        background-color: rgba(255, 255, 255, 0.04);
+        background-color: $bg-hover;
       }
     }
   }
@@ -55,8 +56,6 @@ table {
 }
 
 .th-pagination {
-  gap: 0.5rem;
-
   .page-item {
     display: flex;
     align-items: center;
@@ -89,5 +88,15 @@ table {
 
   to {
     box-shadow: inset 15px -10px 15px 0px rgb(0 0 0 / 0.5);
+  }
+}
+
+.search-bar {
+  max-width: 30rem;
+}
+
+@include media-breakpoint-down(md) {
+  .search-bar {
+    max-width: none;
   }
 }

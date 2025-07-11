@@ -5,6 +5,13 @@ import { tokenParams } from 'src/library/interfaces/jwt.interface';
 
 export class JWTDto {
   @ApiProperty({
+    description:
+      'Expiration timestamp for refresh cookie (seconds since Unix epoch).',
+    example: 1688213427,
+  })
+  public readonly refresh: number;
+
+  @ApiProperty({
     description: 'The signed JWT access token string.',
     example: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...',
   })
@@ -28,7 +35,8 @@ export class JWTDto {
   })
   public readonly user: UserEntity;
 
-  constructor({ access_token, iat, exp, user }: tokenParams) {
+  constructor({ access_token, iat, exp, user, refresh }: tokenParams) {
+    this.refresh = refresh;
     this.access_token = access_token;
     this.iat = iat;
     this.exp = exp;

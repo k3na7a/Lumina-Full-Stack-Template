@@ -57,6 +57,8 @@ export class UserAccountService {
     await this.userService.update(user.id, { refreshToken: hashed });
 
     const decoded = this.tokenManager.decode(tokens.access_token);
+    const refresh = this.tokenManager.decode(tokens.refresh_token);
+
     res.cookie('refresh_token', tokens.refresh_token, {
       httpOnly: true,
       sameSite: 'strict',
@@ -66,6 +68,7 @@ export class UserAccountService {
     });
 
     return new JWTDto({
+      refresh: refresh.exp,
       access_token: tokens.access_token,
       iat: decoded.iat,
       exp: decoded.exp,

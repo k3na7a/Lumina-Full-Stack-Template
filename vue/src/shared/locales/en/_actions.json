@@ -30,5 +30,7 @@
   "confirm-email": "Confirm your email",
   "enter-password": "Enter your password",
   "enter-new-password": "Enter at least 8 characters",
-  "enter-new-password-confirm": "Passwords must match"
+  "enter-new-password-confirm": "Passwords must match",
+  "authenticating": "Authenticating...",
+  "select-option": "select an option..."
 }

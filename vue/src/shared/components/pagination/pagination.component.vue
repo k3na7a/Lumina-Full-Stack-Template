@@ -1,95 +1,97 @@
 <script setup lang="ts">
+import SelectInputComponent from '@/shared/components/inputs/select.input.vue'
+
 type props = {
   disabled?: boolean
   page: number
   total: number
-  offset: number
 }
 
 const emit = defineEmits<{ update: [value: number] }>()
-const { disabled, page, total, offset } = defineProps<props>()
+const { disabled, page, total } = defineProps<props>()
 </script>
 
 <template>
-  <ul class="pagination th-pagination m-0 flex-wrap user-select-none">
-    <li class="page-item">
-      <button
-        v-tooltip="{ text: $t('forms.first'), position: 'bottom', trigger: 'hover' }"
-        type="button"
-        class="btn btn-secondary btn-icon"
-        @click="(_event: MouseEvent) => emit('update', 1)"
-        :disabled="page == 1 || disabled"
-      >
-        <div class="d-flex align-items-center justify-content-center">
-          <font-awesome-icon :icon="['fas', 'angles-left']" />
-        </div>
-      </button>
-    </li>
+  <ul class="pagination th-pagination m-0 flex-nowrap user-select-none gap-2">
+    <div class="d-flex align-items-center gap-1">
+      <li class="page-item">
+        <button
+          v-tooltip="{ text: $t('forms.first'), position: 'bottom', trigger: 'hover' }"
+          type="button"
+          class="btn btn-secondary btn-icon"
+          @click="(_event: MouseEvent) => emit('update', 1)"
+          :disabled="page == 1 || disabled"
+        >
+          <div class="d-flex align-items-center justify-content-center">
+            <font-awesome-icon :icon="['fas', 'angles-left']" />
+          </div>
+        </button>
+      </li>
 
-    <li class="page-item">
-      <button
-        v-tooltip="{ text: $t('forms.previous'), position: 'bottom', trigger: 'hover' }"
-        type="button"
-        class="btn btn-secondary btn-icon"
-        @click="(_event: MouseEvent) => emit('update', page - 1)"
-        :disabled="page == 1 || disabled"
-      >
-        <div class="d-flex align-items-center justify-content-center">
-          <font-awesome-icon :icon="['fas', 'angle-left']" />
-        </div>
-      </button>
-    </li>
+      <li class="page-item">
+        <button
+          v-tooltip="{ text: $t('forms.previous'), position: 'bottom', trigger: 'hover' }"
+          type="button"
+          class="btn btn-secondary btn-icon"
+          @click="(_event: MouseEvent) => emit('update', page - 1)"
+          :disabled="page == 1 || disabled"
+        >
+          <div class="d-flex align-items-center justify-content-center">
+            <font-awesome-icon :icon="['fas', 'angle-left']" />
+          </div>
+        </button>
+      </li>
+    </div>
 
-    <li
-      v-for="(item, idx) of [...Array(total)]
-        .map((_, index) => index + 1)
-        .filter(
-          (index) =>
-            index >= page - offset + (page + offset > total ? total - page - offset : 0) &&
-            index <= page + offset - (page - offset - 1 < 0 ? page - offset - 1 : 0)
-        )"
-      class="page-item"
-      :key="idx"
+    <i18n-t
+      keypath="forms.pagination-page"
+      tag="small"
+      class="fw-normal text-light-alt d-flex gap-2 align-items-center text-nowrap"
+      scope="global"
     >
-      <button
-        type="button"
-        class="btn btn-secondary btn-icon"
-        :class="{ active: item == page }"
-        :disabled="item == page || disabled"
-        @click="(_event: MouseEvent) => emit('update', item)"
+      <SelectInputComponent
+        name="page"
+        :disabled="total <= 1"
+        @update="(page: any) => emit('update', page)"
+        style="width: 6.5rem"
+        :value="page"
+        :options="Array.from({ length: total }, (_, i) => i + 1)"
       >
-        <div class="d-flex align-items-center justify-content-center">
-          {{ item }}
-        </div>
-      </button>
-    </li>
+        <template #option="{ option }">
+          {{ option }}
+        </template>
+      </SelectInputComponent>
+      {{ total }}
+    </i18n-t>
 
-    <li class="page-item">
-      <button
-        v-tooltip="{ text: $t('forms.next'), position: 'bottom', trigger: 'hover' }"
-        :disabled="page == total || disabled"
-        type="button"
-        class="btn btn-secondary btn-icon"
-        @click="(_event: MouseEvent) => emit('update', page + 1)"
-      >
-        <div class="d-flex align-items-center justify-content-center">
-          <font-awesome-icon :icon="['fas', 'angle-right']" />
-        </div>
-      </button>
-    </li>
+    <div class="d-flex align-items-center gap-1">
+      <li class="page-item">
+        <button
+          v-tooltip="{ text: $t('forms.next'), position: 'bottom', trigger: 'hover' }"
+          :disabled="page == total || disabled"
+          type="button"
+          class="btn btn-secondary btn-icon"
+          @click="(_event: MouseEvent) => emit('update', page + 1)"
+        >
+          <div class="d-flex align-items-center justify-content-center">
+            <font-awesome-icon :icon="['fas', 'angle-right']" />
+          </div>
+        </button>
+      </li>
 
-    <li class="page-item">
-      <button
-        v-tooltip="{ text: $t('forms.last'), position: 'bottom', trigger: 'hover' }"
-        type="button"
-        :disabled="page == total || disabled"
-        class="btn btn-secondary btn-icon"
-        @click="(_event: MouseEvent) => emit('update', total)"
-      >
-        <div class="d-flex align-items-center justify-content-center">
-          <font-awesome-icon :icon="['fas', 'angles-right']" />
-        </div>
-      </button>
-    </li>
+      <li class="page-item">
+        <button
+          v-tooltip="{ text: $t('forms.last'), position: 'bottom', trigger: 'hover' }"
+          type="button"
+          :disabled="page == total || disabled"
+          class="btn btn-secondary btn-icon"
+          @click="(_event: MouseEvent) => emit('update', total)"
+        >
+          <div class="d-flex align-items-center justify-content-center">
+            <font-awesome-icon :icon="['fas', 'angles-right']" />
+          </div>
+        </button>
+      </li>
+    </div>
   </ul>
 </template>

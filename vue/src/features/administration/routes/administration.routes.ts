@@ -31,7 +31,14 @@ const route: RouteRecordRaw = {
                 {
                   path: '',
                   name: ROUTE_NAMES.ADMIN_USERS,
-                  component: () => import('@/features/administration/pages/users/pages/user-table.view.vue')
+                  component: () => import('@/features/administration/pages/users/pages/user-table.view.vue'),
+                  meta: {
+                    breadcrumbs: [
+                      { name: 'Administration', to: ROUTE_NAMES.ADMINISTRATION },
+                      { name: 'User Management', to: ROUTE_NAMES.ADMIN_USERS },
+                      { name: 'Users', to: null }
+                    ]
+                  }
                 }
               ]
             }
@@ -46,12 +53,26 @@ const route: RouteRecordRaw = {
             {
               path: 'games',
               name: ROUTE_NAMES.ADMIN_GAMES,
-              component: () => import('@/features/administration/pages/games/pages/games-table.view.vue')
+              component: () => import('@/features/administration/pages/games/pages/games-table.view.vue'),
+              meta: {
+                breadcrumbs: [
+                  { name: 'Administration', to: ROUTE_NAMES.ADMINISTRATION },
+                  { name: 'Games & Software', to: ROUTE_NAMES.ADMIN_GAMES },
+                  { name: 'Games & Software', to: null }
+                ]
+              }
             },
             {
               path: 'platforms',
               name: ROUTE_NAMES.ADMIN_PLATFORMS,
-              component: () => import('@/features/administration/pages/games/pages/platforms-table.view.vue')
+              component: () => import('@/features/administration/pages/games/pages/platforms-table.view.vue'),
+              meta: {
+                breadcrumbs: [
+                  { name: 'Administration', to: ROUTE_NAMES.ADMINISTRATION },
+                  { name: 'Games & Software', to: ROUTE_NAMES.ADMIN_GAMES },
+                  { name: 'Platforms', to: null }
+                ]
+              }
             }
           ]
         }

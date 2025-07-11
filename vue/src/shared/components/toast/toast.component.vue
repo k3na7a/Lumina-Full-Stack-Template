@@ -17,19 +17,22 @@ const toasts: ComputedRef<Toast[]> = computed<Toast[]>(() => getToasts)
         :class="`toast-${toast.theme}`"
         role="alert"
       >
-        <div class="d-flex align-items-stretch gap-2">
-          <div class="toast-body d-flex flex-column p-2 flex-grow-1 gap-1">
-            <h6 class="fw-bold">{{ toast.title }}</h6>
-            <p class="text-light-alt">{{ toast.body }}</p>
-          </div>
-          <div class="d-flex align-items-center p-3">
-            <button
-              type="button"
-              class="btn btn-link link-light link-opacity-75-hover"
-              @click="(_$event: MouseEvent) => removeToast(toast.id)"
-            >
-              <font-awesome-icon size="lg" :icon="['fas', 'close']" />
-            </button>
+        <div class="d-flex align-items-stretch">
+          <div class="highlight" style="width: 0.3rem"></div>
+          <div class="d-flex align-items-stretch flex-grow-1 gap-2">
+            <div class="toast-body d-flex flex-column p-2 flex-grow-1 gap-1">
+              <h5 class="fw-bold display-font">{{ toast.title }}</h5>
+              <p class="text-light-alt">{{ toast.body }}</p>
+            </div>
+            <div class="d-flex align-items-center p-3">
+              <button
+                type="button"
+                class="btn btn-link link-light link-opacity-75-hover"
+                @click="(_$event: MouseEvent) => removeToast(toast.id)"
+              >
+                <font-awesome-icon size="lg" :icon="['fas', 'close']" />
+              </button>
+            </div>
           </div>
         </div>
       </div>

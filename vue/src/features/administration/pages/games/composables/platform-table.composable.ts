@@ -19,6 +19,7 @@ const defaultOptions: PaginationOptions = {
 const sort: Array<SortOptions> = [
   { sort: 'platform.name', order: Order.ASC, label: 'forms.name' },
   { sort: 'platform.release_date', order: Order.ASC, label: 'forms.release-date' },
+  { sort: 'gameCount', order: Order.DESC, label: '# of Games' },
   { sort: 'platform.createdAt', order: Order.DESC, label: 'forms.newest' },
   { sort: 'platform.createdAt', order: Order.ASC, label: 'forms.oldest' }
 ]

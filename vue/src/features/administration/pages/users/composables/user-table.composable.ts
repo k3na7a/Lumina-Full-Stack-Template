@@ -42,7 +42,7 @@ function useUserTable() {
     meta: new PaginationMeta({ pageOptions: options.value, itemCount: 0 })
   })
 
-  async function getPaginatedData(payload: PaginationOptions): Promise<void> {
+   async function getPaginatedData(payload: PaginationOptions): Promise<void> {
     loading.value = true
 
     await handler
@@ -54,6 +54,17 @@ function useUserTable() {
       .finally(() => (loading.value = false))
   }
 
+  async function promise() {
+    await getPaginatedData(options.value)
+  }
+
+  async function update(row: UserDto) {
+    handler.update(row, (_: UserDto) => getPaginatedData(options.value))
+  }
+  async function remove(row: UserDto) {
+    handler.remove(row, (_: UserDto) => getPaginatedData(options.value))
+  }
+
   watch(
     () => $route.query,
     async (newQuery: LocationQuery): Promise<void> => {
@@ -62,7 +73,7 @@ function useUserTable() {
     }
   )
 
-  return { sort, defaultOptions, tableColumns, response, options, loading, handler, getPaginatedData, t }
+  return { sort, defaultOptions, tableColumns, response, options, loading, t, promise, update, remove }
 }
 
 export { useUserTable }

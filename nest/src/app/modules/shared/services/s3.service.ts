@@ -13,6 +13,7 @@ import * as Path from 'path';
 import { LogService } from 'src/app/queues/logging/services/log.service';
 import { LoggerActions } from 'src/library/enums/logger-actions.enum';
 import { createReadStream, statSync } from 'node:fs';
+import { kilobyte } from 'src/library/constants/size.constants';
 
 @Injectable()
 export class S3Service {
@@ -28,6 +29,10 @@ export class S3Service {
 
   private get bucket(): string {
     return String(process.env.AWS_S3_BUCKET);
+  }
+
+  private get bucketPath(): string {
+    return String(process.env.AWS_S3_URL);
   }
 
   private buildKey(path: string, filename: string): string {
@@ -53,9 +58,10 @@ export class S3Service {
       type: LoggerActions.INFO,
       context: S3Service.name,
       message: {
-        message: `Uploaded file to ${this.bucket}/${key}`,
-        filename: file.filename,
-        size: `${file.size}B`,
+        message: `Uploaded file to ${this.bucketPath}/${key}`,
+        file: key,
+        bucket: this.bucket,
+        size: `${Number(file.size / kilobyte).toFixed(2)}kb`,
         mimetype: file.mimetype,
       },
     });
@@ -74,7 +80,6 @@ export class S3Service {
     const filename = Path.basename(localFilePath);
     const key = this.buildKey(path, filename);
 
-    mime.lookup(localFilePath);
     const command = new PutObjectCommand({
       Bucket: this.bucket,
       Key: key,
@@ -88,9 +93,10 @@ export class S3Service {
       type: LoggerActions.INFO,
       context: S3Service.name,
       message: {
-        message: `Uploaded file to ${this.bucket}/${key}`,
-        filename,
-        size,
+        message: `Uploaded file to ${this.bucketPath}/${key}`,
+        file: key,
+        bucket: this.bucket,
+        size: `${Number(size / kilobyte).toFixed(2)}kb`,
         mimetype,
       },
     });
@@ -115,7 +121,8 @@ export class S3Service {
       context: S3Service.name,
       message: {
         message: `Deleted file from ${this.bucket}/${key}`,
-        filename,
+        file: key,
+        bucket: this.bucket,
       },
     });
 

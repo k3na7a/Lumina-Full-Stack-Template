@@ -1,59 +1,45 @@
 <script setup lang="ts">
 import DropdownComponent from '@/shared/components/dropdown/base/dropdown.component.vue'
+import { actions } from '@/shared/layouts/main/composables/main.composable'
 
 type props = {
-  id: string
-  type: string
-  updateCallback?: () => void
-  deleteCallback?: () => void
+  size?: 'sm' | 'lg' | 'xl'
+  disabled?: boolean
+  payload: actions[]
 }
 
-const { id, type, updateCallback, deleteCallback } = defineProps<props>()
+const { payload } = defineProps<props>()
 </script>
 
 <template>
-  <DropdownComponent dropdownAlign="end" class="th-action-dropdown">
+  <DropdownComponent :disabled="disabled" dropdownAlign="end" class="th-action-dropdown">
     <template #button>
-      <font-awesome-icon :icon="['fas', 'ellipsis-vertical']" />
+      <font-awesome-icon :size="size" :icon="['fas', 'ellipsis-vertical']" />
     </template>
     <template #menu="{ close }">
       <div class="d-flex flex-column gap-1">
         <div class="d-flex flex-column gap-1 overflow-hidden">
           <div class="px-2 py-1 text-truncate">
-            <h5 class="text-muted fw-bolder text-nowrap">{{ $t('forms.actions') }}</h5>
-            <small class="text-primary fst-italic text-nowrap">
-              {{ type }}: <span class="text-light-alt">{{ id }}</span>
-            </small>
+            <h5 class="text-muted fw-bolder text-nowrap display-font">{{ $t('forms.actions') }}</h5>
+            <slot></slot>
           </div>
+
           <div class="d-flex flex-column gap-1">
-            <button
-              v-if="updateCallback"
-              class="dropdown-item d-flex justify-content-between align-items-center px-2 m-0 text-warning"
-              type="button"
-              @click="(_:MouseEvent) => {
-                updateCallback && updateCallback()
-                close()
-              }"
-            >
-              <span class="text-truncate pe-2">Update</span>
-              <span style="width: 1.5rem" class="text-center">
-                <font-awesome-icon :icon="['fas', 'pen-to-square']" />
-              </span>
-            </button>
-            <button
-              v-if="deleteCallback"
-              class="dropdown-item d-flex justify-content-between align-items-center px-2 m-0 text-danger"
-              type="button"
-              @click="(_:MouseEvent) => {
-                deleteCallback && deleteCallback()
-                close()
-              }"
-            >
-              <span class="text-truncate pe-2">Delete</span>
-              <span style="width: 1.5rem" class="text-center">
-                <font-awesome-icon :icon="['fas', 'trash-can']" />
-              </span>
-            </button>
+            <template v-for="action of payload" :key="action.title">
+              <button
+                class="dropdown-item d-flex justify-content-between align-items-center px-2 m-0"
+                :class="{ [`text-${action.theme}`]: action.theme }"
+                type="button"
+                :disabled="action.disabled"
+                @click="(_: MouseEvent) => {
+                    action.callback && action.callback()
+                    close()
+                }"
+              >
+                <span class="text-truncate pe-2">{{ $t(action.title) }}</span>
+                <span style="width: 1.5rem" class="text-center"><font-awesome-icon :icon="action.icon" /></span>
+              </button>
+            </template>
           </div>
         </div>
       </div>

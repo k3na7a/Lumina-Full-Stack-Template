@@ -52,11 +52,15 @@ export class AuthService {
     return this.accountService.issueTokens(user, res);
   }
 
-  public async forgotPassword(dto: ForgotPasswordDto): Promise<void> {
+  public async forgotPassword(
+    dto: ForgotPasswordDto,
+    res: Response,
+  ): Promise<void> {
     const user = await this.userService.findOneByEmail(dto.email);
 
-    const payload: Payload = { email: user.email, sub: user.id };
+    await this.accountService.revokeTokens(user, res);
 
+    const payload: Payload = { email: user.email, sub: user.id };
     const tokens: JWTInterface =
       await this.tokenManager.generateTokens(payload);
     const hash = this.tokenManager.createHMAC(tokens.access_token);

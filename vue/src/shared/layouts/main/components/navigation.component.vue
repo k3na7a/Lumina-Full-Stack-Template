@@ -4,10 +4,12 @@ import { RouteLocationNormalizedLoaded, useRoute } from 'vue-router'
 import NavigationDropdown from '@/shared/components/dropdown/navigation.dropdown.component.vue'
 
 import { nav as Navigation } from '../types/navigation.type'
+import { more_navigation } from '@/library/types/more-navigation.type'
 
 type props = {
   isAuthenticated: boolean
   navigation: Navigation[]
+  moreNavigation: more_navigation
 }
 
 const $route: RouteLocationNormalizedLoaded = useRoute()
@@ -43,7 +45,7 @@ const { isAuthenticated, navigation } = defineProps<props>()
       </template>
       <div class="d-flex flex-column">
         <nav class="align-content-center flex-grow-1">
-          <NavigationDropdown :navigation="[]" />
+          <NavigationDropdown :navigation="moreNavigation" />
         </nav>
       </div>
     </div>

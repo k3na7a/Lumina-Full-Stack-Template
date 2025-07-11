@@ -19,7 +19,7 @@ const { saveItem }: ILocalStorageUtil = useLocalStorageUtil(TOKEN)
     </template>
     <template #menu="{ close }">
       <div class="d-flex flex-column gap-1">
-        <h5 class="p-0 px-2 py-1 text-muted fw-bolder text-nowrap">{{ $t('navigation.language') }}</h5>
+        <h5 class="p-0 px-2 py-1 text-muted fw-bolder text-nowrap display-font">{{ $t('navigation.language') }}</h5>
         <div class="d-flex flex-column gap-1">
           <template v-for="_locale of Object.values(LOCALES)" :key="_locale.key">
             <button

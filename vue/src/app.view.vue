@@ -5,14 +5,11 @@ import RenderedView from '@/shared/components/page/page.component.vue'
 
 import { useApp } from './core/composables/app.composable'
 
-const { renderKey, loading } = useApp()
+const { renderKey } = useApp()
 </script>
 
 <template>
-  <template v-if="loading"> Loading... </template>
-  <template v-else>
-    <RenderedView :key="renderKey" />
-  </template>
+  <RenderedView :key="renderKey" />
 
   <ModalComponent />
   <ToastComponent />

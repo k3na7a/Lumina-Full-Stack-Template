@@ -1,5 +1,7 @@
 {
   "items-selected": "{count} items selected | {count} item selected | {count} items selected",
+  "pagination-page": "Page {0} of {1}",
+  "pagination-rows": "Rows per page {0}",
   "name": "Name",
   "given-name": "Given Name",
   "family-name": "Family Name",
@@ -30,6 +32,7 @@
   "newest": "Newest",
   "oldest": "Oldest",
   "today": "Today",
+  "sort": "Sort",
   "no-results": "No results found",
   "slug": "URL Slug",
   "tags": "Tags",

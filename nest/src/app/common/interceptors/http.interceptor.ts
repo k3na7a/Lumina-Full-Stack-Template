@@ -14,6 +14,7 @@ export class HttpInterceptor implements NestInterceptor {
   constructor(private readonly logService: LogService) {}
 
   intercept(context: ExecutionContext, next: CallHandler): Observable<any> {
+    const debug = false;
     const httpCtx = context.switchToHttp();
     const request = httpCtx.getRequest<Request>();
     const response = httpCtx.getResponse<Response>();
@@ -27,16 +28,17 @@ export class HttpInterceptor implements NestInterceptor {
         const statusCode = response.statusCode;
         const duration = Date.now() - startedAt;
 
-        await this.logService.log({
-          type: LoggerActions.INFO,
-          message: {
-            method: method,
-            url: originalUrl,
-            status: statusCode,
-            duration: `${duration}ms`,
-          },
-          context: HttpInterceptor.name,
-        });
+        if (debug)
+          await this.logService.log({
+            type: LoggerActions.INFO,
+            message: {
+              method: method,
+              url: originalUrl,
+              status: statusCode,
+              duration: `${duration}ms`,
+            },
+            context: HttpInterceptor.name,
+          });
       }),
     );
   }

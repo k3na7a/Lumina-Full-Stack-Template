@@ -56,14 +56,15 @@ export class GameService {
     pageOptions: GamePaginationOptions,
   ): Promise<PaginationDto<GameEntity>> {
     const { sort, search, order, take, skip } = pageOptions;
+
     const [games, itemCount] = await this.repository
       .createQueryBuilder('game')
       .leftJoinAndSelect('game.cover', 'cover')
       .leftJoinAndSelect('game.platforms', 'platform')
       .where('game.name like :query', { query: `%${search}%` })
       .orderBy({ [sort]: order })
-      .limit(take)
-      .offset(skip)
+      .take(take)
+      .skip(skip)
       .getManyAndCount();
 
     const meta = new PaginationMeta({ pageOptions, itemCount });

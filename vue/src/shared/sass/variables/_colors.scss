@@ -1,23 +1,13 @@
-:root {
-  --primary: #42b883;
-  --secondary: rgba(83, 83, 95, 0.38);
-  --success: #bdd9ba;
-  --danger: #cf6679;
-  --warning: #ffd9ab;
-  --info: #a3d2ff;
-  --light: #f7f7f8;
-}
-
-$primary: #42b883;
+$primary: #41b883;
 $secondary: rgba(83, 83, 95, 0.38);
-
-$success: #bdd9ba;
-$danger: #cf6679;
-$warning: #ffd9ab;
-$info: #a3d2ff;
+$success: #a8e6a3;
+$danger: #f08080;
+$warning: #efd87e;
+$info: #aadcf0;
 
 $bg-hover: rgba(255, 255, 255, 0.05);
 $bg-active: rgba(255, 255, 255, 0.15);
+$bg-dark: rgba(0, 0, 0, 0.12);
 
 $scrollbar-color: hsla(0, 0%, 100%, 0.35);
 
@@ -35,3 +25,13 @@ $placeholder-opacity-min: 0.1;
 $table-color: $light;
 $table-bg: inherit;
 $table-border-color: $secondary;
+
+:root {
+  --primary: $primary;
+  --secondary: $secondary;
+  --success: $success;
+  --danger: $danger;
+  --warning: $warning;
+  --info: $info;
+  --light: $light;
+}

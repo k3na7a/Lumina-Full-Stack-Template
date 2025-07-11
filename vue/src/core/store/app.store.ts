@@ -13,22 +13,17 @@ import {
 import { Store, StoreDefinition, defineStore } from 'pinia'
 import { credentials, JWTDto } from '@/library/dto/JWT.dto'
 import { second } from '@/library/constants/time.constants'
+import { useLocalStorageUtil } from '../utils/local-storage.util'
 
-interface IAccessToken {
-  token: string
-  iat: number
-  exp: number
-}
-
-interface ICsrfToken {
+interface IToken {
   token: string
   iat: number
   exp: number
 }
 
 interface IAppState {
-  $csrf_token: ICsrfToken | null
-  $access_token: IAccessToken | null
+  $csrf_token: IToken | null
+  $access_token: IToken | null
   $authenticated: boolean
   $user: UserDto | undefined
 }
@@ -62,6 +57,8 @@ interface AppActions {
 type AppStore = Store<'application', IAppState, AppGetters, AppActions>
 type StoreDef = StoreDefinition<'application', IAppState, AppGetters, AppActions>
 
+const localStorage = useLocalStorageUtil('refresh_expiry')
+
 const useAppStore: StoreDef = defineStore({
   id: 'application',
   state: (): IAppState => ({
@@ -76,11 +73,21 @@ const useAppStore: StoreDef = defineStore({
   },
   actions: {
     async initialize(): Promise<void> {
+      const now = Date.now() / second
+      const exp = localStorage.getItem<number>()
+
+      if (!exp || isNaN(exp) || now > exp) {
+        localStorage.destroyItem()
+        return
+      }
+
       await this.getCsrfToken()
       await this.verifyToken()
     },
 
     async authenticate(props: JWTDto): Promise<void> {
+      localStorage.saveItem<number>(props.refresh)
+
       this.$user = props.user
       this.$authenticated = true
       this.$access_token = {
@@ -91,6 +98,8 @@ const useAppStore: StoreDef = defineStore({
     },
 
     async purge(): Promise<void> {
+      localStorage.destroyItem()
+
       this.$user = undefined
       this.$authenticated = false
     },

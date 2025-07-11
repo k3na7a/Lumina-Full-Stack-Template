@@ -16,21 +16,18 @@
   .m-nav {
     nav {
       margin-top: 0.2rem;
-    }
-  }
+      a {
+        font-family: $outfit;
+        font-weight: 600;
 
-  nav {
-    a {
-      font-family: $outfit;
-      font-weight: 600;
+        font-size: $font-size-5;
 
-      font-size: $font-size-5;
+        color: $light;
+        transition: color 0.15s ease-in-out;
 
-      color: $light;
-      transition: color 0.15s ease-in-out;
-
-      &:hover {
-        color: $primary;
+        &:hover {
+          color: $primary;
+        }
       }
     }
   }

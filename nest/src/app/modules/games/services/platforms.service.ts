@@ -58,13 +58,22 @@ export class PlatformService {
     pageOptions: PlatformPaginationOptions,
   ): Promise<PaginationDto<PlatformEntity>> {
     const { sort, search, order, take, skip } = pageOptions;
+    // NOTE : AddSelect will add count to SQL for sorting (important query) but will not map to platform entity
+    //      : LoadRelationCountAndMap will map to platform entity (at cost of counting twice)
+    //      : TypeORM does not yet allow AddSelectAndMap so we had to do this as a hack (JD)
     const [platforms, itemCount] = await this.repository
       .createQueryBuilder('platform')
+      .addSelect((subQuery) => {
+        return subQuery
+          .select('COUNT(*)')
+          .from('game_platforms', 'gp')
+          .where('gp.platform_id = platform.id');
+      }, 'gameCount')
       .where('platform.name like :query', { query: `%${search}%` })
       .loadRelationCountAndMap('platform.gameCount', 'platform.games')
       .orderBy({ [sort]: order })
-      .limit(take)
-      .offset(skip)
+      .take(take)
+      .skip(skip)
       .getManyAndCount();
 
     const meta = new PaginationMeta({ pageOptions, itemCount });
