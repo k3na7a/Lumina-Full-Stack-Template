@@ -30,6 +30,7 @@
   },
   "games-and-software": {
     "header": "Games & Software",
+    "no-of-games": "# of Games",
     "games": {
       "item": "Game",
       "label": "Games & Software",
@@ -59,7 +60,8 @@
       "item": "Platform",
       "label": "Platforms",
       "title": "Consoles, operating systems, or distribution channels",
-      "subtitle": "All your supported platforms in one place."
+      "subtitle": "All your supported platforms in one place.",
+      "caption": "Showing {start}-{end} of {count} platforms | Showing {start}-{end} of {count} platform | Showing {start}-{end} of {count} platforms"
     }
   }
 }

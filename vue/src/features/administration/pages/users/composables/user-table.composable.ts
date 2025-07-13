@@ -1,4 +1,4 @@
-import { Order, PaginationDto, PaginationMeta, PaginationOptions, SortOptions } from '@/library/dto/pagination.dto'
+import { Order, PaginationDto, PaginationMeta, PaginationOptions } from '@/library/dto/pagination.dto'
 import { columns } from '@/library/types/table-column.type'
 import { computed, reactive, ref, watch } from 'vue'
 import { useI18n } from 'vue-i18n'
@@ -11,7 +11,7 @@ const tableColumns: columns = [
   { name: 'user', label: 'forms.user' },
   { name: 'email', label: 'forms.email' },
   { name: 'role', label: 'forms.role' },
-  { name: 'created', label: 'forms.date-registered' },
+  { name: 'created', label: 'forms.date-registered', sort: 'user.createdAt' },
   { name: 'actions' }
 ]
 
@@ -22,11 +22,6 @@ const defaultOptions: PaginationOptions = {
   sort: 'user.createdAt',
   search: undefined
 }
-
-const sort: Array<SortOptions> = [
-  { sort: 'user.createdAt', order: Order.DESC, label: 'forms.newest' },
-  { sort: 'user.createdAt', order: Order.ASC, label: 'forms.oldest' }
-]
 
 function useUserTable() {
   const $route = useRoute()
@@ -42,7 +37,7 @@ function useUserTable() {
     meta: new PaginationMeta({ pageOptions: options.value, itemCount: 0 })
   })
 
-   async function getPaginatedData(payload: PaginationOptions): Promise<void> {
+  async function getPaginatedData(payload: PaginationOptions): Promise<void> {
     loading.value = true
 
     await handler
@@ -73,7 +68,7 @@ function useUserTable() {
     }
   )
 
-  return { sort, defaultOptions, tableColumns, response, options, loading, t, promise, update, remove }
+  return { defaultOptions, tableColumns, response, options, loading, t, promise, update, remove }
 }
 
 export { useUserTable }

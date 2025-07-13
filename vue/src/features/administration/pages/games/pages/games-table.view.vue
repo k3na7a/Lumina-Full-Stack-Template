@@ -5,7 +5,7 @@ import ActionsComponent from '@/shared/components/dropdown/table-actions.dropdow
 import ContentLayout from '@/features/administration/layouts/content.layout.vue'
 import { useGamesTable } from '../composables/game-table.composable'
 
-const { t, options, loading, tableColumns, response, sort, createGame, updateGame, removeGame, getPaginatedData } =
+const { t, options, loading, tableColumns, response, createGame, updateGame, removeGame, getPaginatedData } =
   useGamesTable()
 
 await getPaginatedData(options.value)
@@ -23,7 +23,6 @@ await getPaginatedData(options.value)
         :columns="tableColumns"
         :rows="response.data"
         :pages="response.meta?.pageCount"
-        :sort-options="sort"
         :caption="
           t(
             'administration.games-and-software.games.caption',
@@ -36,28 +35,26 @@ await getPaginatedData(options.value)
         "
       >
         <template v-slot>
-          <div class="d-flex gap-2">
-            <ActionsComponent
-              size="lg"
-              :payload="[
-                {
-                  title: 'actions.create',
-                  icon: ['fas', 'plus'],
-                  callback: createGame,
-                  theme: 'success'
-                }
-              ]"
-            />
-          </div>
+          <ActionsComponent
+            size="lg"
+            :payload="[
+              {
+                title: 'actions.create',
+                icon: ['fas', 'plus'],
+                callback: createGame,
+                theme: 'success'
+              }
+            ]"
+          />
         </template>
-        <template #user="{ row }">
-          <div class="d-flex flex-row align-items-center gap-2">
+        <template #game="{ row }">
+          <div class="d-flex flex-row align-items-center gap-2" style="max-width: 30rem">
             <img class="cover-icon" :src="row.cover" />
-            <div class="d-flex flex-column">
-              <small class="text-muted fst-italic">
+            <div class="d-flex flex-column overflow-hidden">
+              <small class="text-muted fst-italic text-truncate">
                 {{ row.id }}
               </small>
-              <p class="fw-semibold text-light">
+              <p class="fw-semibold text-light text-truncate">
                 {{ row.name }}
               </p>
             </div>

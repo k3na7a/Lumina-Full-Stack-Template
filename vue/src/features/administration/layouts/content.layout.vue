@@ -31,13 +31,19 @@ const { title, subtitle } = defineProps<proptype>()
           >
             <template v-for="(crumb, idx) in breadcrumbs" :key="idx">
               <li>
-                <RouterLink v-if="crumb.to" :to="{ name: crumb.to }" class="text-decoration-none">
+                <RouterLink
+                  v-if="crumb.to"
+                  :to="{ name: crumb.to }"
+                  class="link-offset-2 link-underline link-underline-opacity-0 link-underline-opacity-75-hover"
+                >
                   <p>{{ crumb.name }}</p>
                 </RouterLink>
                 <p v-else class="text-light-alt">{{ crumb.name }}</p>
               </li>
               <template v-if="idx < breadcrumbs.length - 1">
-                <li class="text-muted"><font-awesome-icon size="sm" :icon="['fas', 'chevron-right']" /></li>
+                <li class="text-muted">
+                  <font-awesome-icon size="sm" :icon="['fas', 'chevron-right']" />
+                </li>
               </template>
             </template>
           </ol>

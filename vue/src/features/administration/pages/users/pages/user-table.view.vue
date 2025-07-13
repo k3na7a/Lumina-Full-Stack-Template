@@ -6,7 +6,7 @@ import TablePaginatedComponent from '@/shared/components/table/paginated-table.c
 import ContentLayout from '@/features/administration/layouts/content.layout.vue'
 import { useUserTable } from '../composables/user-table.composable'
 
-const { promise, update, remove, options, loading, response, tableColumns, sort, t } = useUserTable()
+const { promise, update, remove, options, loading, response, tableColumns, t } = useUserTable()
 await promise()
 </script>
 
@@ -22,7 +22,6 @@ await promise()
         :columns="tableColumns"
         :rows="response.data"
         :pages="response.meta?.pageCount"
-        :sort-options="sort"
         :caption="
           t(
             'administration.user-management.user-table.caption',

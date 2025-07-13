@@ -11,7 +11,6 @@ const {
   options,
   loading,
   tableColumns,
-  sort,
   createPlatform,
   getPaginatedData,
   removePlatform,
@@ -33,11 +32,13 @@ await getPaginatedData(options.value)
         :columns="tableColumns"
         :rows="response.data"
         :pages="response.meta?.pageCount"
-        :sort-options="sort"
         :caption="
           t(
-            'administration.games-and-software.games.caption',
-            { showing: response.data.length },
+            'administration.games-and-software.platforms.caption',
+            {
+              start: (response.meta.page - 1) * response.meta.take + 1,
+              end: (response.meta.page - 1) * response.meta.take + response.data.length
+            },
             response.meta.itemCount
           )
         "

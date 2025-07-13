@@ -22,9 +22,7 @@ const { disabled, page, total } = defineProps<props>()
           @click="(_event: MouseEvent) => emit('update', 1)"
           :disabled="page == 1 || disabled"
         >
-          <div class="d-flex align-items-center justify-content-center">
-            <font-awesome-icon :icon="['fas', 'angles-left']" />
-          </div>
+          <font-awesome-icon :icon="['fas', 'angles-left']" />
         </button>
       </li>
 
@@ -36,9 +34,7 @@ const { disabled, page, total } = defineProps<props>()
           @click="(_event: MouseEvent) => emit('update', page - 1)"
           :disabled="page == 1 || disabled"
         >
-          <div class="d-flex align-items-center justify-content-center">
-            <font-awesome-icon :icon="['fas', 'angle-left']" />
-          </div>
+          <font-awesome-icon :icon="['fas', 'angle-left']" />
         </button>
       </li>
     </div>
@@ -73,9 +69,7 @@ const { disabled, page, total } = defineProps<props>()
           class="btn btn-secondary btn-icon"
           @click="(_event: MouseEvent) => emit('update', page + 1)"
         >
-          <div class="d-flex align-items-center justify-content-center">
-            <font-awesome-icon :icon="['fas', 'angle-right']" />
-          </div>
+          <font-awesome-icon :icon="['fas', 'angle-right']" />
         </button>
       </li>
 
@@ -87,11 +81,10 @@ const { disabled, page, total } = defineProps<props>()
           class="btn btn-secondary btn-icon"
           @click="(_event: MouseEvent) => emit('update', total)"
         >
-          <div class="d-flex align-items-center justify-content-center">
-            <font-awesome-icon :icon="['fas', 'angles-right']" />
-          </div>
+          <font-awesome-icon :icon="['fas', 'angles-right']" />
         </button>
       </li>
     </div>
   </ul>
 </template>
+-+*

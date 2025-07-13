@@ -31,7 +31,6 @@ export class PlatformEntity extends BaseEntity {
     example: 42,
     description: 'Number of games linked to this platform',
   })
-  @Column({ select: false })
   public readonly gameCount?: number;
 
   @ManyToMany(() => GameEntity, (game) => game.platforms)

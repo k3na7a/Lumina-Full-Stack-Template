@@ -34,6 +34,7 @@ const route: RouteRecordRaw = {
                   component: () => import('@/features/administration/pages/users/pages/user-table.view.vue'),
                   meta: {
                     breadcrumbs: [
+                      { name: 'Home', to: ROUTE_NAMES.HOME },
                       { name: 'Administration', to: ROUTE_NAMES.ADMINISTRATION },
                       { name: 'User Management', to: ROUTE_NAMES.ADMIN_USERS },
                       { name: 'Users', to: null }
@@ -56,6 +57,7 @@ const route: RouteRecordRaw = {
               component: () => import('@/features/administration/pages/games/pages/games-table.view.vue'),
               meta: {
                 breadcrumbs: [
+                  { name: 'Home', to: ROUTE_NAMES.HOME },
                   { name: 'Administration', to: ROUTE_NAMES.ADMINISTRATION },
                   { name: 'Games & Software', to: ROUTE_NAMES.ADMIN_GAMES },
                   { name: 'Games & Software', to: null }
@@ -68,6 +70,7 @@ const route: RouteRecordRaw = {
               component: () => import('@/features/administration/pages/games/pages/platforms-table.view.vue'),
               meta: {
                 breadcrumbs: [
+                  { name: 'Home', to: ROUTE_NAMES.HOME },
                   { name: 'Administration', to: ROUTE_NAMES.ADMINISTRATION },
                   { name: 'Games & Software', to: ROUTE_NAMES.ADMIN_GAMES },
                   { name: 'Platforms', to: null }

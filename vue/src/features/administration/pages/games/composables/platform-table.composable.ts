@@ -3,31 +3,23 @@ import { useI18n } from 'vue-i18n'
 import { useRoute, LocationQuery } from 'vue-router'
 
 import { parseQuery } from '@/core/utils/parse-query.util.ts'
-import { SortOptions, Order, PaginationOptions, PaginationDto, PaginationMeta } from '@/library/dto/pagination.dto'
+import { Order, PaginationOptions, PaginationDto, PaginationMeta } from '@/library/dto/pagination.dto'
 import { PlatformDto } from '@/library/dto/platform.dto'
 import { columns } from '@/library/types/table-column.type'
 import { usePlatformAdminHandler } from '../handlers/platforms.handler'
 
 const defaultOptions: PaginationOptions = {
   take: 25,
-  order: Order.ASC,
+  order: Order.DESC,
   page: 1,
-  sort: 'platform.name',
+  sort: 'gameCount',
   search: undefined
 }
 
-const sort: Array<SortOptions> = [
-  { sort: 'platform.name', order: Order.ASC, label: 'forms.name' },
-  { sort: 'platform.release_date', order: Order.ASC, label: 'forms.release-date' },
-  { sort: 'gameCount', order: Order.DESC, label: '# of Games' },
-  { sort: 'platform.createdAt', order: Order.DESC, label: 'forms.newest' },
-  { sort: 'platform.createdAt', order: Order.ASC, label: 'forms.oldest' }
-]
-
 const tableColumns: columns = [
-  { name: 'platform', label: 'Platform' },
-  { name: 'count', label: '# of Games' },
-  { name: 'release', label: 'forms.release-date' },
+  { name: 'platform', label: 'administration.games-and-software.platforms.label', sort: 'platform.name' },
+  { name: 'count', label: 'administration.games-and-software.no-of-games', sort: 'gameCount' },
+  { name: 'release', label: 'forms.release-date', sort: 'platform.release_date' },
   { name: 'actions' }
 ]
 
@@ -81,7 +73,6 @@ function usePlatformTable() {
     options,
     loading,
     tableColumns,
-    sort,
     createPlatform,
     removePlatform,
     updatePlatform,

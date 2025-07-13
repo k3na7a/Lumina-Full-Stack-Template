@@ -39,11 +39,18 @@ The project demonstrates clean architecture, best practices, and robust develope
 
 ✅ **Production-Ready**
 
-- Environment variable validation.
-- Custom TypeORM logger with queues.
-- Graceful shutdown.
-- BullBoard for queue monitoring.
-- Request context with AsyncLocalStorage.
+- ✔️ Environment variable validation.
+- ✔️ Custom TypeORM logger with queues.
+- ✔️ Graceful shutdown.
+- ✔️ BullBoard for queue monitoring.
+- ✔️ Request context with AsyncLocalStorage.
+- ✔️ JWT auth with secure refresh flow
+- ✔️ Scoped CSRF protection for cookie-based endpoints
+- ✔️ Exact parent pagination for reliable tables
+- ✔️ RBAC with flexible roles + permissions
+- ✔️ CORS locked to trusted origins
+- ✔️ Logs, metrics, and graceful background jobs
+- ✔️ HTTPS, Helmet, rate limiting — ready for the real world.
 
 ---
 

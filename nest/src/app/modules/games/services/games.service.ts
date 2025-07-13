@@ -62,7 +62,7 @@ export class GameService {
       .leftJoinAndSelect('game.cover', 'cover')
       .leftJoinAndSelect('game.platforms', 'platform')
       .where('game.name like :query', { query: `%${search}%` })
-      .orderBy({ [sort]: order })
+      .orderBy({ [sort]: order, 'game.name': 'ASC' })
       .take(take)
       .skip(skip)
       .getManyAndCount();

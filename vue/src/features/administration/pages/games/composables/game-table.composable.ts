@@ -5,7 +5,7 @@ import { computed, reactive, ref, watch } from 'vue'
 import { parseQuery } from '@/core/utils/parse-query.util'
 import { GameDto } from '@/library/dto/game.dto'
 import { columns } from '@/library/types/table-column.type'
-import { PaginationOptions, Order, SortOptions, PaginationMeta, PaginationDto } from '@/library/dto/pagination.dto'
+import { PaginationOptions, Order, PaginationMeta, PaginationDto } from '@/library/dto/pagination.dto'
 import { useGameAdminHandler } from '../handlers/games.handler'
 
 const defaultOptions: PaginationOptions = {
@@ -17,17 +17,10 @@ const defaultOptions: PaginationOptions = {
 }
 
 const tableColumns: columns = [
-  { name: 'user', label: 'administration.games-and-software.games.item' },
+  { name: 'game', label: 'administration.games-and-software.games.item', sort: 'game.name' },
   { name: 'platforms', label: 'administration.games-and-software.platforms.label' },
-  { name: 'release', label: 'forms.release-date' },
+  { name: 'release', label: 'forms.release-date', sort: 'game.release_date' },
   { name: 'actions' }
-]
-
-const sort: Array<SortOptions> = [
-  { sort: 'game.name', order: Order.ASC, label: 'forms.name' },
-  { sort: 'game.release_date', order: Order.ASC, label: 'forms.release-date' },
-  { sort: 'game.createdAt', order: Order.DESC, label: 'forms.newest' },
-  { sort: 'game.createdAt', order: Order.ASC, label: 'forms.oldest' }
 ]
 
 function useGamesTable() {
@@ -75,7 +68,7 @@ function useGamesTable() {
     }
   )
 
-  return { t, loading, options, response, tableColumns, sort, createGame, updateGame, removeGame, getPaginatedData }
+  return { t, loading, options, response, tableColumns, createGame, updateGame, removeGame, getPaginatedData }
 }
 
 export { useGamesTable }

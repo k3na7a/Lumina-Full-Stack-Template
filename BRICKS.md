@@ -19,10 +19,14 @@ Permissions is currently hard coded (user.role == Role.enum)
 - ✅ UserActions / Actions / Navigation dropdown fixes ( UserAction should use both Actions and Navigation structure )
 - ✅ Check for cookie before doing an appstore init
 - ✅ Add Create buttons to Dropdown Actions menu with future options (eg export)
+- ✅ Move Table Sorting to Headers instead of dropdown
 
 **code cleanup**
 
+- Search Bar : X should not use debounce and emit change immediately
 - Platforms + Dashboard need localized strings
+- Localize Breadcrumbs in Administration
+- Pagination Filters (Game_platforms, user_roles, etc.) Modal? Inline Form?
 - Fix Reset Password Flow (haven't touched this through many updates of token system)
 - Fix Throttle (JWT Guards run after Throttle Guard therefor userId is never set, this is a minor issue but causes conflicts when multiple users on the same ip are using the app)
 
@@ -129,3 +133,106 @@ Permissions is currently hard coded (user.role == Role.enum)
 - Log graceful shutdown steps
 
 ---
+
+🚀✨ Awesome! Here’s your crystal-clear, real-world
+✅ “Pre-Production Security & Readiness Checklist”
+for your full-stack Vue 3 + NestJS app — so you (or any teammate) can verify your app is truly ready to ship without second-guessing.
+
+✅✅✅ 📌 Full-Stack Security & Production Readiness Checklist
+🔐 1️⃣ Authentication & Tokens
+✅ Short-lived access tokens (JWT) with secure signature & expiration
+✅ Refresh tokens stored in HttpOnly Secure cookies
+✅ CSRF protection scoped only to routes that rely on cookies (refresh, sign-out)
+✅ Rotate refresh tokens on reuse or sign-in if possible
+✅ /sign-out and /delete-account clear the refresh cookie
+
+🔒 2️⃣ Session Cookies
+✅ All cookies:
+
+HttpOnly: true (protects from XSS)
+
+Secure: true (HTTPS only)
+
+SameSite: 'Strict' (blocks CSRF window)
+✅ CORS origin matches your cookie domain
+✅ withCredentials: true set in frontend Axios for any call that needs cookies
+
+🔐 3️⃣ CORS
+✅ Whitelist your trusted domains — no wildcards if cookies are used
+✅ credentials: true for cross-origin requests with cookies
+✅ Preflight requests tested (OPTIONS works as expected)
+
+✅ 4️⃣ CSRF
+✅ Use csurf only on routes that use cookies
+✅ Public GETs (like /csrf-token) use safe throttle but no CSRF guard
+✅ Frontend always:
+
+Calls /csrf-token once per session
+
+Stores token in Pinia or in-memory
+
+Sends X-CSRF-Token header with relevant mutations
+✅ withCredentials: true when fetching the CSRF secret cookie
+
+⚙️ 5️⃣ RBAC & Permissions
+✅ roles & permissions are modeled as many-to-many tables
+✅ Use stable constants/enums for permission checks in code — no magic strings
+✅ Seed all permissions into the DB so they can’t be missing
+✅ Assign default role to every user on sign-up
+✅ @Permissions() decorator + PermissionsGuard checks the final resolved JWT payload
+✅ Admin panel or CLI can manage roles & permissions
+
+📊 6️⃣ Logging & Monitoring
+✅ GlobalExceptionFilter logs stack traces for internal errors, shows safe messages for HTTP errors
+✅ Logs include:
+
+Timestamp
+
+Request ID
+
+IP Address
+
+Method + URL
+
+Exception & Stack for 5xx
+✅ Sensitive tokens/secrets never logged
+✅ Logs rotate daily or by size
+✅ Plan for sending logs to Sentry, CloudWatch, Datadog, or similar
+
+⚙️ 7️⃣ BullMQ & Background Jobs
+✅ All BullMQ queues:
+
+Have sensible removeOnComplete / removeOnFail settings
+
+Use a Dead Letter Queue (DLQ) for critical jobs
+✅ Workers shut down gracefully on onApplicationShutdown
+✅ Monitor queue health with BullBoard or equivalent
+
+🔒 8️⃣ HTTPS
+✅ Local dev uses mkcert or self-signed certs for realistic cookie behavior
+✅ Staging & prod use Let’s Encrypt or trusted CA
+✅ Proxy or edge (NGINX, Cloudflare) terminates TLS
+✅ Strict-Transport-Security (HSTS) header enabled to enforce HTTPS
+
+🧩 9️⃣ Other Best Practices
+✅ Helmet sets Content-Security-Policy (CSP) to limit inline scripts & 3rd party sources
+✅ Rate limiter in place:
+
+Global rate limit for all API calls
+
+Stricter limit for auth-sensitive routes (login, signup, csrf-token)
+✅ NODE_ENV always production in prod
+✅ DB synchronize: false — migrations only!
+✅ Env secrets validated on startup
+
+✅✅✅ 10️⃣ Optional Polish
+✅ Default pagination always includes take, skip with safe defaults (DONE)
+✅ Use two-step pagination for parent rows with 1:M relations
+✅ Clear API docs (Swagger or OpenAPI) with @ApiBearerAuth, @ApiOkResponse
+✅ Plan for metrics:
+
+Requests per second
+
+Average response time
+
+Queue depth for jobs

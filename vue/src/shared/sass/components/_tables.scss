@@ -49,6 +49,7 @@ table {
   td:not(:first-child),
   th:not(:first-child) {
     .cell {
+      flex-direction: row-reverse;
       justify-content: end;
       text-align: end;
     }
@@ -91,12 +92,12 @@ table {
   }
 }
 
-.search-bar {
+.search-bar .th-search-input {
   max-width: 30rem;
 }
 
 @include media-breakpoint-down(md) {
-  .search-bar {
+  .search-bar .th-search-input {
     max-width: none;
   }
 }

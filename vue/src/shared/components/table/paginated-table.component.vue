@@ -1,39 +1,17 @@
 <script setup lang="ts" generic="T">
-import { SortOptions } from '@/library/dto/pagination.dto'
-
 import SearchInputComponent from '@/shared/components/inputs/search.input.vue'
 import SelectInputComponent from '@/shared/components/inputs/select.input.vue'
 import PaginationInputComponent from '@/shared/components/pagination/pagination.component.vue'
 
 import { proptype, usePaginatedTable } from './composables/paginated-table.composable'
+import { Order } from '@/library/dto/pagination.dto'
 
-const { columns, rows, pages, options, loading, sortOptions, caption } = defineProps<proptype<T>>()
-const { resetPageAndUpdateQuery, updateQuery } = usePaginatedTable()
+const { columns, rows, pages, options, loading, caption } = defineProps<proptype<T>>()
+const { resetPageAndUpdateQuery, updateQuery, handleSort, sortParam, orderParam } = usePaginatedTable()
 </script>
 
 <template>
   <div class="th-table-paginated d-flex flex-column gap-3">
-    <div class="d-flex flex-row gap-3 align-items-center">
-      <SelectInputComponent
-        v-if="sortOptions"
-        :style="{ minWidth: '20rem' }"
-        :icon="['fas', 'arrow-down-a-z']"
-        name="sort"
-        @update="
-            (sort: SortOptions | undefined) => {
-              if (!sort) return
-              resetPageAndUpdateQuery({ sort: sort.sort, order: sort.order })
-            }
-          "
-        :value="sortOptions.find((e) => e.order == options.order && e.sort == options.sort)"
-        :options="sortOptions"
-      >
-        <template #option="{ option }">
-          {{ $t(option?.label) }}
-        </template>
-      </SelectInputComponent>
-    </div>
-
     <div class="d-flex flex-column flex-md-row justify-content-between gap-3" style="column-gap: 1rem">
       <div class="d-flex flex-grow-1 search-bar">
         <SearchInputComponent
@@ -41,7 +19,6 @@ const { resetPageAndUpdateQuery, updateQuery } = usePaginatedTable()
           @update="(value: string | undefined) => resetPageAndUpdateQuery({ search: value })"
         />
       </div>
-
       <div class="d-flex gap-2 align-items-center justify-content-end">
         <small>{{ caption }}</small>
         <slot></slot>
@@ -53,14 +30,35 @@ const { resetPageAndUpdateQuery, updateQuery } = usePaginatedTable()
         <thead>
           <tr>
             <th scope="col" v-for="column in columns" :key="`${column.name}`">
-              <div class="cell">
-                <p class="fw-semibold" v-if="column.label">
-                  {{ $t(column.label) }}
-                </p>
+              <div class="cell gap-2 fw-semibold">
+                <template v-if="column.sort">
+                  <button
+                    class="btn btn-link link-light link-opacity-75-hover link-underline-opacity-75-hover"
+                    type="button"
+                    @click="() => handleSort(column.sort as string)"
+                  >
+                    {{ $t(column.label as string) }}
+                  </button>
+                  <template v-if="column.sort === sortParam">
+                    <font-awesome-icon
+                      :class="orderParam === Order.DESC ? 'text-danger' : 'text-success'"
+                      :icon="['fas', orderParam === Order.DESC ? 'sort-down' : 'sort-up']"
+                    />
+                  </template>
+                  <template v-else>
+                    <font-awesome-icon class="text-secondary" :icon="['fas', 'sort']" />
+                  </template>
+                </template>
+                <template v-else>
+                  <p v-if="column.label">
+                    {{ $t(column.label) }}
+                  </p>
+                </template>
               </div>
             </th>
           </tr>
         </thead>
+
         <template v-if="rows.length">
           <tbody>
             <template v-for="(row, idx) in rows" :key="`row:${idx}`">
@@ -74,6 +72,7 @@ const { resetPageAndUpdateQuery, updateQuery } = usePaginatedTable()
             </template>
           </tbody>
         </template>
+
         <template v-else>
           <tbody>
             <tr>
@@ -87,6 +86,7 @@ const { resetPageAndUpdateQuery, updateQuery } = usePaginatedTable()
         </template>
       </table>
     </div>
+
     <div
       class="d-flex flex-column-reverse flex-sm-row justify-content-between align-items-end align-items-sm-center"
       style="column-gap: 1rem; row-gap: 2rem"
