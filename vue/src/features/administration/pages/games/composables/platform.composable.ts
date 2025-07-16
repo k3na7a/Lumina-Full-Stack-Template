@@ -5,6 +5,7 @@ import { PlatformDto } from '@/library/dto/platform.dto'
 
 type proptype = {
   platform?: PlatformDto
+  title: string
   callback: (values: any) => Promise<void>
 }
 

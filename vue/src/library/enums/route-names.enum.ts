@@ -8,9 +8,9 @@ enum ROUTE_NAMES {
   ADMIN_DASHBOARD = 'admin-dashboard',
 
   ADMIN_USERS = 'admin-users',
-  ADMIN_USERS_SINGLE = 'admin-users-single',
-  ADMIN_USERS_NEW = 'admin-users-new',
-
+  ADMIN_USER_ROLES = 'admin-user-roles',
+  ADMIN_USER_PERMISSIONS = 'asmin-user-permissions',
+  
   ADMIN_GAMES_AND_SOFTWARE = 'admin-games-and-software',
   ADMIN_GAMES = 'admin-games',
   ADMIN_PLATFORMS = 'admin-platforms',

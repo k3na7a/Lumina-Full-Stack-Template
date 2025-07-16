@@ -40,6 +40,7 @@ export class UserService {
       .createQueryBuilder('user')
       .leftJoinAndSelect('user.profile', 'profile')
       .leftJoinAndSelect('profile.avatar', 'avatar')
+      .leftJoinAndSelect('user.roles', 'roles')
       .where(
         "user.email like :query OR CONCAT(profile.name.first, ' ', profile.name.last) like :query",
         { query: `%${search}%` },

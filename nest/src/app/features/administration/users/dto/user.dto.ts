@@ -1,9 +1,15 @@
-import { IsBoolean, IsEnum, IsOptional, IsString } from 'class-validator';
+import {
+  IsArray,
+  IsBoolean,
+  IsEnum,
+  IsOptional,
+  IsString,
+} from 'class-validator';
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
+import { Transform } from 'class-transformer';
 
 import { Role } from 'src/library/enums/role.enum';
 import { PaginationOptions } from 'src/library/dto/pagination.dto';
-import { Transform } from 'class-transformer';
 
 enum SORT_OPTIONS {
   CREATED = 'user.createdAt',
@@ -49,9 +55,8 @@ class UpdateUserDto {
   public readonly role: Role;
 
   @ApiPropertyOptional({
-    description: "The user's role within the system.",
-    enum: Role,
-    example: Role.USER,
+    description: "Delete user's profile picture?",
+    example: false,
   })
   @Transform(({ value }) =>
     value === 'true' ? true : value === 'false' ? false : value,
@@ -59,6 +64,21 @@ class UpdateUserDto {
   @IsBoolean()
   @IsOptional()
   public readonly 'remove-avatar'?: boolean;
+
+  @ApiPropertyOptional({
+    description: 'List of role IDs available to the user.',
+    type: String,
+    isArray: true,
+    example: ['ztUmWA4SSFB8CaFIUPT5d', 'cOGgxhPtZWVtcTQPhAPLP'],
+  })
+  @IsArray()
+  @IsString({ each: true })
+  @IsOptional()
+  @Transform(({ value }) => {
+    if (typeof value === 'string') return [value];
+    return value;
+  })
+  public readonly roles: Array<string> = [];
 }
 
 export { UserPaginationOptions, UpdateUserDto };

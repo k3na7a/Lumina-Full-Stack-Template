@@ -1,10 +1,8 @@
-<script setup lang="ts">
-import ModalTitle from '@/shared/components/modal/base/modal-title.component.vue'
-</script>
+<script setup lang="ts" />
 
 <template>
   <div class="d-flex flex-column gap-3">
-    <ModalTitle :title="$t('administration.games-and-software.games.create.title')" />
+    <slot name="title"></slot>
 
     <div class="d-flex flex-column gap-1">
       <h6 class="d-block fw-semibold">{{ $t('forms.name') }}</h6>

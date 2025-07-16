@@ -8,12 +8,14 @@ import FileInput from '@/shared/components/inputs/file.input.vue'
 import DateInput from '@/shared/components/inputs/date.input.vue'
 import TextAreaInput from '@/shared/components/inputs/text-area.input.vue'
 import SearchPaginatedInput from '@/shared/components/inputs/search-paginated-input.input.vue'
+import ModalTitle from '@/shared/components/modal/base/modal-title.component.vue'
 
 import Layout from '../layouts/game.layout.vue'
 import { proptype, useGameForm } from '../composables/game.composable'
 
 const props = defineProps<proptype>()
 const { onSubmit, initialValues, validationSchema, loading, platformOptions, getPlatforms } = useGameForm(props)
+const { title } = props
 </script>
 
 <template>
@@ -24,11 +26,14 @@ const { onSubmit, initialValues, validationSchema, loading, platformOptions, get
     v-slot="{ meta, values }"
   >
     <Layout>
+      <template #title>
+        <ModalTitle :title="$t(title)" />
+      </template>
       <template #name>
         <TextInput
           name="name"
           type="text"
-          :placeholder="$t('administration.games-and-software.games.create.form.placeholders.name')"
+          :placeholder="$t('administration.games-and-software.games.placeholders.name')"
         />
       </template>
       <template #cover>
@@ -41,7 +46,7 @@ const { onSubmit, initialValues, validationSchema, loading, platformOptions, get
         <TextAreaInput
           name="description"
           :rows="6"
-          :placeholder="$t('administration.games-and-software.games.create.form.placeholders.description')"
+          :placeholder="$t('administration.games-and-software.games.placeholders.description')"
         />
       </template>
       <template #platforms>
@@ -50,7 +55,7 @@ const { onSubmit, initialValues, validationSchema, loading, platformOptions, get
             {{ option.name }}
             <small class="ms-2 text-muted fst-italic">{{ option.id }}</small>
           </template>
-    </SearchPaginatedInput>                                     
+        </SearchPaginatedInput>
       </template>
       <template #slug>
         <TextInput
@@ -58,14 +63,14 @@ const { onSubmit, initialValues, validationSchema, loading, platformOptions, get
           name="slug"
           label="forms.slug"
           type="text"
-          :placeholder="$t('administration.games-and-software.games.create.form.placeholders.slug')"
+          :placeholder="$t('administration.games-and-software.games.placeholders.slug')"
         />
       </template>
 
       <template #submit>
         <button :disabled="!meta.valid || !meta.dirty || loading" class="btn btn-primary px-0" type="submit">
           <div class="containter">
-            {{ $t('administration.games-and-software.games.create.action') }}
+            {{ $t('actions.save-changes') }}
           </div>
         </button>
       </template>

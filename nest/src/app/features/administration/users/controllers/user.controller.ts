@@ -10,12 +10,7 @@ import {
   UploadedFile,
   UseInterceptors,
 } from '@nestjs/common';
-import {
-  ApiBearerAuth,
-  ApiBody,
-  ApiOkResponse,
-  ApiTags,
-} from '@nestjs/swagger';
+import { ApiBody, ApiOkResponse, ApiTags } from '@nestjs/swagger';
 import { FileInterceptor } from '@nestjs/platform-express/multer';
 
 import { storage } from 'src/config/storage.config';
@@ -35,7 +30,6 @@ import { ImageUploadValidationPipe } from 'src/app/common/pipes/image-upload.pip
 @ApiTags('Administration / User Management / Users')
 @Controller('users')
 @IsAdministrator()
-@ApiBearerAuth('access-token')
 @UseInterceptors(ClassSerializerInterceptor)
 class UserAdminController {
   constructor(private readonly service: UserAdminService) {}

@@ -5,8 +5,8 @@ class BaseDto {
 
   constructor({ id, createdAt, updatedAt }: BaseDto) {
     this.id = id
-    this.createdAt = createdAt
-    this.updatedAt = updatedAt
+    this.createdAt = new Date(createdAt)
+    this.updatedAt = new Date(updatedAt)
   }
 }
 

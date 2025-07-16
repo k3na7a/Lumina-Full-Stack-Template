@@ -12,8 +12,8 @@ await promise()
 
 <template>
   <ContentLayout
-    title="administration.user-management.user-table.title"
-    subtitle="administration.user-management.user-table.subtitle"
+    title="administration.user-management.users.title"
+    subtitle="administration.user-management.users.subtitle"
   >
     <template #table>
       <TablePaginatedComponent
@@ -24,9 +24,9 @@ await promise()
         :pages="response.meta?.pageCount"
         :caption="
           t(
-            'administration.user-management.user-table.caption',
+            'administration.user-management.users.caption',
             {
-              start: (response.meta.page - 1) * response.meta.take + 1,
+              start: (response.meta.page - 1) * response.meta.take + (response.data.length ? 1 : 0),
               end: (response.meta.page - 1) * response.meta.take + response.data.length
             },
             response.meta.itemCount
@@ -54,11 +54,28 @@ await promise()
           <small class="fst-italic text-light-alt">{{ row.email }}</small>
         </template>
 
-        <template #role="{ row }">
+        <template #roles="{ row }">
           <div class="d-flex align-items-center">
-            <small class="fw-semibold text-truncate text-primary" :class="`text-light-alt`">
-              {{ row.role.toLowerCase() }}
-            </small>
+            <template v-if="row.roles.length">
+              <div class="d-flex flex-column gap-1">
+                <template v-for="role in row.roles">
+                  <small
+                    v-if="role.description"
+                    class="fw-semibold text-info"
+                    style="cursor: help"
+                    v-tooltip="{ text: role.description, position: 'bottom', trigger: 'hover' }"
+                  >
+                    {{ role.name }}
+                  </small>
+                  <small v-else class="fw-semibold text-muted">
+                    {{ role.name }}
+                  </small>
+                </template>
+              </div>
+            </template>
+            <template v-else>
+              <small class="text-muted">...</small>
+            </template>
           </div>
         </template>
 
@@ -81,7 +98,7 @@ await promise()
             ]"
           >
             <small class="text-primary fst-italic text-nowrap">
-              {{ $t('administration.user-management.user-table.item') }}:
+              {{ $t('administration.user-management.users.item') }}:
               <span class="text-light-alt">{{ row.id }}</span>
             </small>
           </ActionsComponent>

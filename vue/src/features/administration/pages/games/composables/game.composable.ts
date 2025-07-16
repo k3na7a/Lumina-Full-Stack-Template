@@ -10,6 +10,7 @@ import { LocalhostAPI } from '@/core/apis/localhost/localhost.api'
 
 type proptype = {
   game?: GameDto
+  title: string
   callback: (values: icreategame) => Promise<void>
 }
 

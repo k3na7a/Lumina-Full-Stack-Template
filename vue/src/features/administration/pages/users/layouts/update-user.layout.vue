@@ -1,10 +1,7 @@
-<script setup lang="ts">
-import ModalTitle from '@/shared/components/modal/base/modal-title.component.vue'
-</script>
-
+<script setup lang="ts" />
 <template>
   <div class="d-flex flex-column gap-3">
-    <ModalTitle :title="$t('administration.user-management.user-table.update.title')" />
+    <slot name="title"></slot>
 
     <div class="d-flex flex-column gap-1">
       <h6 class="fw-semibold">{{ $t('forms.name') }}</h6>
@@ -26,6 +23,10 @@ import ModalTitle from '@/shared/components/modal/base/modal-title.component.vue
     <div class="d-flex flex-column gap-1">
       <h6 class="fw-semibold">{{ $t('forms.role') }}</h6>
       <slot name="role"></slot>
+    </div>
+    <div class="d-flex flex-column gap-1">
+      <h6 class="fw-semibold">{{ $t('forms.roles') }}</h6>
+      <slot name="roles"></slot>
     </div>
     <div class="d-flex flex-column gap-1">
       <h6 class="fw-semibold">{{ $t('forms.profile-picture') }}</h6>

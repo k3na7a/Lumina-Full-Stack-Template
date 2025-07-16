@@ -49,6 +49,7 @@ export function usePlatformAdminHandler(t: (key: string) => string): {
     openModal({
       view: markRaw(NewPlatformModal),
       properties: {
+        title: 'administration.games-and-software.platforms.create.title',
         callback: async (values: icreateplatform) => {
           const token = await appStore.getValidAccessToken()
           if (!token) throw new Error('Could not get valid access token')
@@ -57,7 +58,7 @@ export function usePlatformAdminHandler(t: (key: string) => string): {
             .create(new CreatePlatformDto(values), token)
             .then((value: PlatformDto) => {
               if (success) success(value)
-              showSuccessToast('administration.games-and-software.games.create.success')
+              showSuccessToast('administration.games-and-software.platforms.create.success')
               closeModal()
             })
             .catch(showErrorToast)
@@ -84,6 +85,7 @@ export function usePlatformAdminHandler(t: (key: string) => string): {
       view: markRaw(NewPlatformModal),
       properties: {
         platform,
+        title: 'administration.games-and-software.platforms.update.title',
         callback: async (values: icreateplatform) => {
           const token = await appStore.getValidAccessToken()
           if (!token) throw new Error('Could not get valid access token')
@@ -92,7 +94,7 @@ export function usePlatformAdminHandler(t: (key: string) => string): {
             .update(id, new CreatePlatformDto(values), token)
             .then((value: PlatformDto) => {
               if (success) success(value)
-              showSuccessToast('administration.games-and-software.games.create.success')
+              showSuccessToast('administration.games-and-software.platforms.update.success')
               closeModal()
             })
             .catch(showErrorToast)
@@ -107,8 +109,8 @@ export function usePlatformAdminHandler(t: (key: string) => string): {
     openModal({
       view: markRaw(ConfirmDeleteModal),
       properties: {
-        title: t('administration.games-and-software.games.delete.title'),
-        action: t('administration.games-and-software.games.delete.action'),
+        title: t('administration.games-and-software.platforms.delete.title'),
+        action: t('actions.save-changes'),
         close: closeModal,
         callback: async () => {
           const token = await appStore.getValidAccessToken()
@@ -118,7 +120,7 @@ export function usePlatformAdminHandler(t: (key: string) => string): {
             .delete(platform.id, token)
             .then((value: PlatformDto) => {
               if (success) success(value)
-              showSuccessToast('administration.games-and-software.games.create.success')
+              showSuccessToast('administration.games-and-software.platforms.delete.success')
               closeModal()
             })
             .catch(showErrorToast)

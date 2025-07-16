@@ -5,13 +5,14 @@ import { generateUrlSlug } from '@/core/utils/slug.util'
 
 import TextInput from '@/shared/components/inputs/text.input.vue'
 import DateInput from '@/shared/components/inputs/date.input.vue'
+import ModalTitle from '@/shared/components/modal/base/modal-title.component.vue'
 
 import Layout from '../layouts/platform.layout.vue'
 import { usePlatformComposable, proptype } from '../composables/platform.composable'
 
 const props = defineProps<proptype>()
-
 const { loading, initialValues, onSubmit, validationSchema } = usePlatformComposable(props)
+const { title } = props
 </script>
 
 <template>
@@ -22,8 +23,16 @@ const { loading, initialValues, onSubmit, validationSchema } = usePlatformCompos
     v-slot="{ meta, values }"
   >
     <Layout>
+      <template #title>
+        <ModalTitle :title="$t(title)" />
+      </template>
+
       <template #name>
-        <TextInput name="name" type="text" :placeholder="$t('Nintendo Entertainment System')" />
+        <TextInput
+          name="name"
+          type="text"
+          :placeholder="$t('administration.games-and-software.platforms.placeholders.name')"
+        />
       </template>
 
       <template #release_date>
@@ -36,14 +45,14 @@ const { loading, initialValues, onSubmit, validationSchema } = usePlatformCompos
           name="slug"
           label="forms.slug"
           type="text"
-          :placeholder="$t('nintendo-entertainment-system')"
+          :placeholder="$t('administration.games-and-software.platforms.placeholders.slug')"
         />
       </template>
 
       <template #submit>
         <button :disabled="!meta.valid || !meta.dirty || loading" class="btn btn-primary px-0" type="submit">
           <div class="containter">
-            {{ $t('administration.games-and-software.games.create.action') }}
+            {{ $t('actions.save-changes') }}
           </div>
         </button>
       </template>

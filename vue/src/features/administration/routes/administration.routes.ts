@@ -34,14 +34,40 @@ const route: RouteRecordRaw = {
                   component: () => import('@/features/administration/pages/users/pages/user-table.view.vue'),
                   meta: {
                     breadcrumbs: [
-                      { name: 'Home', to: ROUTE_NAMES.HOME },
-                      { name: 'Administration', to: ROUTE_NAMES.ADMINISTRATION },
-                      { name: 'User Management', to: ROUTE_NAMES.ADMIN_USERS },
-                      { name: 'Users', to: null }
+                      { name: 'navigation.home', to: ROUTE_NAMES.HOME },
+                      { name: 'administration.label', to: ROUTE_NAMES.ADMINISTRATION },
+                      { name: 'administration.user-management.header', to: ROUTE_NAMES.ADMIN_USERS },
+                      { name: 'administration.user-management.users.label', to: null }
                     ]
                   }
                 }
               ]
+            },
+            {
+              path: 'roles',
+              name: ROUTE_NAMES.ADMIN_USER_ROLES,
+              component: () => import('@/features/administration/pages/users/pages/role-table.view.vue'),
+              meta: {
+                breadcrumbs: [
+                  { name: 'navigation.home', to: ROUTE_NAMES.HOME },
+                  { name: 'administration.label', to: ROUTE_NAMES.ADMINISTRATION },
+                  { name: 'administration.user-management.header', to: ROUTE_NAMES.ADMIN_USERS },
+                  { name: 'administration.user-management.roles.label', to: null }
+                ]
+              }
+            },
+            {
+              path: 'permissions',
+              name: ROUTE_NAMES.ADMIN_USER_PERMISSIONS,
+              component: () => import('@/features/administration/pages/users/pages/permission-table.view.vue'),
+              meta: {
+                breadcrumbs: [
+                  { name: 'navigation.home', to: ROUTE_NAMES.HOME },
+                  { name: 'administration.label', to: ROUTE_NAMES.ADMINISTRATION },
+                  { name: 'administration.user-management.header', to: ROUTE_NAMES.ADMIN_USERS },
+                  { name: 'administration.user-management.permissions.label', to: null }
+                ]
+              }
             }
           ]
         },
@@ -57,10 +83,10 @@ const route: RouteRecordRaw = {
               component: () => import('@/features/administration/pages/games/pages/games-table.view.vue'),
               meta: {
                 breadcrumbs: [
-                  { name: 'Home', to: ROUTE_NAMES.HOME },
-                  { name: 'Administration', to: ROUTE_NAMES.ADMINISTRATION },
-                  { name: 'Games & Software', to: ROUTE_NAMES.ADMIN_GAMES },
-                  { name: 'Games & Software', to: null }
+                  { name: 'navigation.home', to: ROUTE_NAMES.HOME },
+                  { name: 'administration.label', to: ROUTE_NAMES.ADMINISTRATION },
+                  { name: 'administration.games-and-software.header', to: ROUTE_NAMES.ADMIN_GAMES },
+                  { name: 'administration.games-and-software.games.label', to: null }
                 ]
               }
             },
@@ -70,10 +96,10 @@ const route: RouteRecordRaw = {
               component: () => import('@/features/administration/pages/games/pages/platforms-table.view.vue'),
               meta: {
                 breadcrumbs: [
-                  { name: 'Home', to: ROUTE_NAMES.HOME },
-                  { name: 'Administration', to: ROUTE_NAMES.ADMINISTRATION },
-                  { name: 'Games & Software', to: ROUTE_NAMES.ADMIN_GAMES },
-                  { name: 'Platforms', to: null }
+                  { name: 'navigation.home', to: ROUTE_NAMES.HOME },
+                  { name: 'administration.label', to: ROUTE_NAMES.ADMINISTRATION },
+                  { name: 'administration.games-and-software.header', to: ROUTE_NAMES.ADMIN_GAMES },
+                  { name: 'administration.games-and-software.platforms.label', to: null }
                 ]
               }
             }

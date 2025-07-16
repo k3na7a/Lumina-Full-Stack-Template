@@ -4,12 +4,17 @@ import * as Yup from 'yup'
 
 import { useFormUtil } from '@/core/utils/forms.util'
 import { UserDto, UpdateUser, Role } from '@/library/dto/user.dto'
+import { LocalhostAPI } from '@/core/apis'
+import { AppStore, useAppStore } from '@/core/store/app.store'
+import { PaginationOptions } from '@/library/dto/pagination.dto'
+import { RoleDto } from '@/library/dto/role.dto'
 
 type proptype = { user?: UserDto; callback: (values: UpdateUser) => Promise<void> }
 
 function useUserComposable(props: proptype) {
   const { messages, locale } = useI18n()
   const { getSubmitFn } = useFormUtil()
+  const { getValidAccessToken }: AppStore = useAppStore()
 
   const loading = ref<boolean>(false)
   const user: Ref<UserDto | undefined> = toRef(props, 'user')
@@ -24,8 +29,9 @@ function useUserComposable(props: proptype) {
     lastname: user.value?.profile.name.last,
     email: user.value?.email,
     role: user.value?.role,
+    roles: user.value?.roles || [],
     avatar: undefined,
-    'remove-avatar': undefined
+    'remove-avatar': false
   }))
 
   const validationSchema = Yup.object().shape({
@@ -33,9 +39,15 @@ function useUserComposable(props: proptype) {
     firstname: Yup.string().required(),
     lastname: Yup.string().required(),
     role: Yup.mixed<Role>().oneOf(Object.values(Role)).required(),
+    roles: Yup.array<RoleDto>().optional(),
     avatar: Yup.mixed<File>().notRequired(),
     'remove-avatar': Yup.boolean().required()
   })
+
+  async function getRoles(options: PaginationOptions) {
+    const accessToken = await getValidAccessToken()
+    return LocalhostAPI.administration.roles.getPaginated(options, accessToken as string)
+  }
 
   const onSubmit = getSubmitFn(validationSchema, async (values: UpdateUser) => {
     loading.value = true
@@ -44,7 +56,7 @@ function useUserComposable(props: proptype) {
     })
   })
 
-  return { user, loading, onSubmit, validationSchema, initialValues, emailPlaceholder }
+  return { user, loading, onSubmit, validationSchema, initialValues, emailPlaceholder, getRoles }
 }
 
 export type { proptype }

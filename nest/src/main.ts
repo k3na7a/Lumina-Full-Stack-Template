@@ -1,4 +1,4 @@
-import { Logger, ValidationPipe } from '@nestjs/common';
+import { BadRequestException, Logger, ValidationPipe } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 import * as cookieParser from 'cookie-parser';
 import { config } from 'dotenv';
@@ -35,7 +35,14 @@ async function bootstrap(): Promise<void> {
   app.use(cookieParser());
 
   app.setGlobalPrefix(prefix);
-  app.useGlobalPipes(new ValidationPipe({ whitelist: true, transform: true }));
+  app.useGlobalPipes(
+    new ValidationPipe({
+      exceptionFactory: (errors) => new BadRequestException(errors),
+      whitelist: true,
+      // forbidNonWhitelisted: true,
+      transform: true,
+    }),
+  );
   app.useGlobalFilters(new GlobalExceptionFilter(logService));
   app.useGlobalInterceptors(new HttpInterceptor(logService));
   app.enableCors({

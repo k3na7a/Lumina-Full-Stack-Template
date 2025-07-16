@@ -1,3 +1,4 @@
+import { BaseDto } from './base.dto'
 import { iImage } from './media.dto'
 import { iPlatform, PlatformDto } from './platform.dto'
 
@@ -41,11 +42,7 @@ class CreateGameDto {
   }
 }
 
-class GameDto {
-  readonly id: string
-  readonly createdAt: Date
-  readonly updatedAt: Date
-
+class GameDto extends BaseDto {
   readonly name: string
   readonly slug: string
 
@@ -57,9 +54,7 @@ class GameDto {
   readonly platforms: PlatformDto[]
 
   constructor(game: iGame) {
-    this.id = game.id
-    this.createdAt = new Date(game.createdAt)
-    this.updatedAt = new Date(game.updatedAt)
+    super(game)
 
     this.name = game.name
     this.slug = game.slug

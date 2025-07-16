@@ -1,5 +1,7 @@
 import getAvatar from '@/core/utils/ui-avatars.util'
 import { iImage } from './media.dto'
+import { BaseDto } from './base.dto'
+import { iRole, RoleDto } from './role.dto'
 
 type UpdatePassword = { current_password: string; password: string; confirm_password: string }
 type UpdateEmail = { password: string; email: string; confirm_email: string }
@@ -9,27 +11,30 @@ type DeleteAccount = { password: string }
 type UpdateProfile = { firstname: string; lastname: string }
 type Register = { firstname: string; lastname: string; email: string; password: string }
 type UpdateUser = {
-  email: string
-  firstname: string
-  lastname: string
-  role: Role
-  avatar?: File | null
-  'remove-avatar': boolean
+  readonly email: string
+  readonly firstname: string
+  readonly lastname: string
+  readonly role: Role
+  readonly roles?: RoleDto[]
+  readonly avatar?: File | null
+  readonly 'remove-avatar': boolean
 }
 
 class UpdateUserDto {
-  public readonly firstname: string
-  public readonly lastname: string
-  public readonly email: string
-  public readonly role: Role
+  public readonly firstname!: string
+  public readonly lastname!: string
+  public readonly email!: string
+  public readonly role!: Role
+  public readonly roles!: string[]
   public readonly avatar?: File
-  public readonly 'remove-avatar': boolean
+  public readonly 'remove-avatar'!: boolean
 
   constructor(payload: UpdateUser) {
     this.firstname = payload.firstname
     this.lastname = payload.lastname
     this.email = payload.email
     this.role = payload.role
+    this.roles = payload.roles?.map((value: RoleDto) => value.id) || []
     this.avatar = payload.avatar || undefined
     this['remove-avatar'] = payload['remove-avatar']
   }
@@ -122,7 +127,9 @@ interface iUser {
 
   readonly email: string
   readonly role: Role
+
   readonly profile: iProfile
+  readonly roles: iRole[]
 }
 
 interface iProfile {
@@ -154,27 +161,29 @@ class Profile {
   }
 }
 
-class UserDto {
-  public readonly id: string
-  public readonly createdAt: Date
-  public readonly updatedAt: Date
-
+class UserDto extends BaseDto {
   public readonly email: string
   public readonly role: Role
+
   public readonly profile: Profile
+  public readonly roles: RoleDto[]
+
+  public readonly permissions: string[]
 
   public getFullName(): string {
     return [this.profile.name.first, this.profile.name.last].join(' ')
   }
 
   constructor(user: iUser) {
-    this.id = user.id
-    this.createdAt = user.createdAt
-    this.updatedAt = user.updatedAt
+    super(user)
 
     this.email = user.email
     this.role = user.role
+
+    this.permissions = user.roles?.flatMap((val: iRole) => val.permissions?.map((permission) => permission.name))
+
     this.profile = new Profile(user.profile)
+    this.roles = user.roles ? user.roles.map((value: iRole) => new RoleDto(value)) : []
   }
 }
 
@@ -191,6 +200,7 @@ export {
   ForgotPasswordDto,
   UpdateUserDto
 }
+
 export type {
   UpdateEmail,
   UpdatePassword,

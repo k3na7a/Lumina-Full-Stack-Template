@@ -36,9 +36,9 @@ const { title, subtitle } = defineProps<proptype>()
                   :to="{ name: crumb.to }"
                   class="link-offset-2 link-underline link-underline-opacity-0 link-underline-opacity-75-hover"
                 >
-                  <p>{{ crumb.name }}</p>
+                  <p>{{ $t(crumb.name) }}</p>
                 </RouterLink>
-                <p v-else class="text-light-alt">{{ crumb.name }}</p>
+                <p v-else class="text-light-alt">{{ $t(crumb.name) }}</p>
               </li>
               <template v-if="idx < breadcrumbs.length - 1">
                 <li class="text-muted">

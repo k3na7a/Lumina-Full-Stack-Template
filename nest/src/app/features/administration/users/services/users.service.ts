@@ -7,8 +7,12 @@ import { ProfileService } from 'src/app/modules/users/services/profile.service';
 import { UserService } from 'src/app/modules/users/services/users.service';
 
 import { PaginationDto } from 'src/library/dto/pagination.dto';
-import { UserPaginationOptions, UpdateUserDto } from 'src/app/features/administration/users/dto/user.dto';
+import {
+  UserPaginationOptions,
+  UpdateUserDto,
+} from 'src/app/features/administration/users/dto/user.dto';
 import { IMAGE_TYPE } from 'src/library/enums/image-routes.enum';
+import { RoleService } from 'src/app/modules/users/services/roles.service';
 
 @Injectable()
 export class UserAdminService {
@@ -16,6 +20,7 @@ export class UserAdminService {
     private readonly userService: UserService,
     private readonly profileService: ProfileService,
     private readonly imageService: ImageService,
+    private readonly roleService: RoleService,
   ) {}
 
   private async handleAvatar(
@@ -40,7 +45,11 @@ export class UserAdminService {
     }
 
     if (file && avatar) {
-      return this.imageService.update(avatar.id, { file, type });
+      return this.imageService.update(avatar.id, {
+        file,
+        type,
+        altText: avatar.altText,
+      });
     }
 
     return null;
@@ -74,10 +83,12 @@ export class UserAdminService {
 
     const { email, role, firstname, lastname } = dto;
     const name = { first: firstname, last: lastname };
-    const avatar = await this.handleAvatar(user, file, dto['remove-avatar']);
 
+    const avatar = await this.handleAvatar(user, file, dto['remove-avatar']);
     await this.profileService.update(user.profile, { name, avatar });
-    await this.userService.update(user.id, { email, role });
+
+    const roles = await this.roleService.findManyById(dto.roles);
+    await this.userService.update(user.id, { email, role, roles });
 
     return this.userService.findOneById(user.id);
   }

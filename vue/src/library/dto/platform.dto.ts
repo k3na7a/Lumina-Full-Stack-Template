@@ -1,3 +1,5 @@
+import { BaseDto } from './base.dto'
+
 interface iPlatform {
   readonly id: string
   readonly createdAt: Date
@@ -28,11 +30,7 @@ class CreatePlatformDto {
   }
 }
 
-class PlatformDto {
-  readonly id: string
-  readonly createdAt: Date
-  readonly updatedAt: Date
-
+class PlatformDto extends BaseDto {
   readonly name: string
   readonly release_date: Date
   readonly slug: string
@@ -40,9 +38,7 @@ class PlatformDto {
   readonly gameCount?: number
 
   constructor(platform: iPlatform) {
-    this.id = platform.id
-    this.createdAt = new Date(platform.createdAt)
-    this.updatedAt = new Date(platform.updatedAt)
+    super(platform)
 
     this.name = platform.name
     this.release_date = new Date(platform.release_date)

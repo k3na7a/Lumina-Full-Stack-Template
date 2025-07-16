@@ -1,10 +1,11 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { Exclude } from 'class-transformer';
-import { OneToOne, Column, Entity } from 'typeorm';
+import { OneToOne, Column, Entity, ManyToMany, JoinTable } from 'typeorm';
 
 import { BaseEntity } from 'src/library/entities/base.entity';
 import { Role } from 'src/library/enums/role.enum';
 import { ProfileEntity } from 'src/app/modules/users/entities/profile.entity';
+import { RoleEntity } from './role.entity';
 
 @Entity('users')
 export class UserEntity extends BaseEntity {
@@ -48,4 +49,25 @@ export class UserEntity extends BaseEntity {
     eager: true,
   })
   public readonly profile!: ProfileEntity;
+
+  @ApiProperty({
+    description: 'List of roles available to this user.',
+    type: () => [RoleEntity],
+  })
+  @ManyToMany(() => RoleEntity, (role: RoleEntity) => role.users, {
+    cascade: true,
+    eager: true,
+  })
+  @JoinTable({
+    name: 'user_roles',
+    joinColumn: {
+      name: 'user_id',
+      referencedColumnName: 'id',
+    },
+    inverseJoinColumn: {
+      name: 'role_id',
+      referencedColumnName: 'id',
+    },
+  })
+  public readonly roles: RoleEntity[];
 }

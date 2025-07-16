@@ -51,6 +51,7 @@ export function useGameAdminHandler(t: (key: string) => string): {
     openModal({
       view: markRaw(NewGameModal),
       properties: {
+        title: 'administration.games-and-software.games.create.title',
         callback: async (values: icreategame): Promise<void> => {
           const token = await appStore.getValidAccessToken()
           if (!token) throw new Error('Could not get valid access token')
@@ -85,6 +86,7 @@ export function useGameAdminHandler(t: (key: string) => string): {
       view: markRaw(NewGameModal),
       properties: {
         game,
+        title: 'administration.games-and-software.games.update.title',
         callback: async (values: icreategame): Promise<void> => {
           const token = await appStore.getValidAccessToken()
           if (!token) throw new Error('Could not get valid access token')
@@ -110,7 +112,7 @@ export function useGameAdminHandler(t: (key: string) => string): {
       view: markRaw(ConfirmDeleteModal),
       properties: {
         title: t('administration.games-and-software.games.delete.title'),
-        action: t('administration.games-and-software.games.delete.action'),
+        action: t('actions.save-changes'),
         close: closeModal,
         callback: async (): Promise<void> => {
           const token = await appStore.getValidAccessToken()

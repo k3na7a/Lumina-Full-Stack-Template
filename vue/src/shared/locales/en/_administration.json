@@ -5,7 +5,7 @@
   },
   "user-management": {
     "header": "User Management",
-    "user-table": {
+    "users": {
       "item": "User",
       "label": "Users",
       "title": "Manage your platforms users",
@@ -22,10 +22,54 @@
       }
     },
     "roles": {
-      "label": "Roles"
+      "label": "Roles",
+      "item": "Role",
+      "title": "Manage User Roles",
+      "subtitle": "Control who can access and manage key parts of your system.",
+      "caption": "Showing {start}-{end} of {count} user roles | Showing {start}-{end} of {count} user role | Showing {start}-{end} of {count} user roles",
+      "create": {
+        "title": "Create New User Role",
+        "success": "New user role has been created successfully."
+      },
+      "update": {
+        "title": "Update User Role",
+        "success": "User role was updated successfully."
+      },
+      "delete": {
+        "title": "Permanently Delete User Role",
+        "success": "User role has been successfully removed."
+      },
+
+      "placeholders": {
+        "label": "Super Administrator",
+        "description": "Has full access to all resources.",
+        "name": "SUPER_ADMINISTRATOR"
+      }
     },
     "permissions": {
-      "label": "Permissions"
+      "label": "Permissions",
+      "item": "Permission",
+      "title": "System Permissions Directory",
+      "subtitle": "A complete list of all actions users can perform.",
+      "caption": "Showing {start}-{end} of {count} permissions | Showing {start}-{end} of {count} permission | Showing {start}-{end} of {count} permissions",
+      "create": {
+        "title": "Create New User Permission",
+        "success": "New user permission has been created successfully."
+      },
+      "update": {
+        "title": "Update User Permission",
+        "success": "User permission was updated successfully."
+      },
+      "delete": {
+        "title": "Permanently Delete User Permission",
+        "success": "User permission has been successfully removed."
+      },
+
+      "placeholders": {
+        "label": "Super Administrator",
+        "description": "Has full access to all resources.",
+        "name": "SUPER_ADMINISTRATOR"
+      }
     }
   },
   "games-and-software": {
@@ -37,23 +81,24 @@
       "title": "Create and modify your games & software",
       "subtitle": "Manage your game library and software releases.",
       "caption": "Showing {start}-{end} of {count} games | Showing {start}-{end} of {count} game | Showing {start}-{end} of {count} games",
+
+      "placeholders": {
+        "name": "Super Mario Bros.",
+        "description": "A side scrolling 2D platformer and first entry in the Super Mario franchise, Super Mario Bros. follows Italian plumber Mario as he treks across many levels of platforming challenges featuring hostile enemies to rescue Princess Peach from the evil king Bowser.",
+        "slug": "super-mario-bros"
+      },
+
       "create": {
-        "title": "New Game or Software",
-        "form": {
-          "placeholders": {
-            "name": "Super Mario Bros.",
-            "description": "A side scrolling 2D platformer and first entry in the Super Mario franchise, Super Mario Bros. follows Italian plumber Mario as he treks across many levels of platforming challenges featuring hostile enemies to rescue Princess Peach from the evil king Bowser.",
-            "slug": "super-mario-bros"
-          }
-        },
-        "action": "Create New Game or Software",
+        "title": "Create New Game or Software",
         "success": "New game has been created successfully."
       },
-      "update": {},
+      "update": {
+        "title": "Update Game or Software",
+        "success": "Game has been updated successfully."
+      },
       "delete": {
         "title": "Permanently Delete Game or Software",
-        "success": "Game has been successfully deleted.",
-        "action": "Delete Game or Software"
+        "success": "Game has been successfully deleted."
       }
     },
     "platforms": {
@@ -61,7 +106,25 @@
       "label": "Platforms",
       "title": "Consoles, operating systems, or distribution channels",
       "subtitle": "All your supported platforms in one place.",
-      "caption": "Showing {start}-{end} of {count} platforms | Showing {start}-{end} of {count} platform | Showing {start}-{end} of {count} platforms"
+      "caption": "Showing {start}-{end} of {count} platforms | Showing {start}-{end} of {count} platform | Showing {start}-{end} of {count} platforms",
+
+      "placeholders": {
+        "name": "Nintendo Entertainment System",
+        "slug": "nintendo-entertainment-system"
+      },
+
+      "create": {
+        "title": "Create New Platform",
+        "success": "New platform has been created successfully."
+      },
+      "update": {
+        "title": "Update Platform",
+        "success": "Platform has been updated successfully."
+      },
+      "delete": {
+        "title": "Permanently Delete Platform",
+        "success": "Platform has been successfully deleted."
+      }
     }
   }
 }

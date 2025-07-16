@@ -1,16 +1,5 @@
 # 🧱 BRICKS.md
 
-## 🗓️ List for Today (Jul 9) 2025 [Doesn't have to all be done today]
-
-New Authentication System (Csrf + Cookies + Tokens) works and is tested!
-Permissions is currently hard coded (user.role == Role.enum)
-
-- We want roles to live in the database and for user.roles to be a many to many relation (1-way)
-- User can have many roles
-- 2 special roles (administrator : all permissions > bypasses all checks | user : no permissions )
-- ask self (and chatGPT): Do we even need a role with no permissions and set it as default? Can we not assume no roles is the same state?
-- custom roles can be given permissions (eg view_game, edit_game)
-
 ## 🧱 Completed Items 🧱
 
 - ✅ Fix Token verification (Layout instead of app) + Loading states
@@ -20,32 +9,34 @@ Permissions is currently hard coded (user.role == Role.enum)
 - ✅ Check for cookie before doing an appstore init
 - ✅ Add Create buttons to Dropdown Actions menu with future options (eg export)
 - ✅ Move Table Sorting to Headers instead of dropdown
+- ✅ Platforms + Dashboard need localized strings
+- ✅ Localize Breadcrumbs in Administration
 
 **code cleanup**
 
-- Search Bar : X should not use debounce and emit change immediately
-- Platforms + Dashboard need localized strings
-- Localize Breadcrumbs in Administration
-- Pagination Filters (Game_platforms, user_roles, etc.) Modal? Inline Form?
+- Finish RBAC System (Roles + Permissions + DB Links | Add can('permission') utility | Permission Matrix on front + back end | 'has-all' special permission can bypass all checks)
+
 - Fix Reset Password Flow (haven't touched this through many updates of token system)
 - Fix Throttle (JWT Guards run after Throttle Guard therefor userId is never set, this is a minor issue but causes conflicts when multiple users on the same ip are using the app)
-
 - Logs should also have folder structure ... yyyy > mm > dd > yyyymmdd.log & yyyymmdd-1.log
+
+- Search Bar : X should not use debounce and emit change immediately
+- Pagination Filters (Game_platforms, user_roles, etc.) Modal? Inline Form?
+
 - Remove logging on all successfull http requests (bloats logs) lets create a metrics sytstem that tracks http metrics
 - Push old logs to cold storage (S3) & Clean Server of any Junk from Errors (Uploads Folder, unparanted images, etc.)
-- go through and make sure all items are exported at the bottom of files and all functions are typesafed (composables)
 
-**major feature implementation**
-
-- Expanded User Roles & Permissions System
-- Add List of permissions
+- go through and make sure all items are exported at the bottom of files and all functions are typesafed (composables/handlers)
 
 - Administration Dashboard
+
   - Recently added games
   - Top platforms
   - New registered users per month
   - Server Health Status
   - Metrics
+
+- See if we can share JS Libraries between front and back end for DTO and other utilities
 
 ## 🚧 Bricks In Progress 🧱
 
@@ -236,3 +227,143 @@ Requests per second
 Average response time
 
 Queue depth for jobs
+
+👏 I love that mindset — let’s make sure you’re setting this up the way a serious, large-scale, production-grade system would. I’ll break it down like a real-world enterprise architecture review so you can see why your current approach is on point, and where you can tighten it up if you want corporate-level polish.
+
+✅ How big companies do RBAC
+Here’s what you’ll see in mature systems (Fortune 500 SaaS, B2B platforms, government apps, etc.):
+
+🗂️ 1️⃣ DB-driven RBAC
+Roles and permissions are in the database, not hard-coded.
+
+Users have many-to-many relationships with roles; roles have many-to-many with permissions.
+
+There’s usually an admin UI to CRUD roles, permissions, and assignments.
+
+👉 You’re already doing this.
+
+🧩 2️⃣ Code-side enums/constants for permission keys
+It’s common to use enums or constant objects to standardize permission keys.
+
+This prevents typos, makes code easier to maintain, and helps teams share understanding.
+
+A shared package for these keys is normal in a monorepo or repo with shared contracts.
+
+👉 You’re planning this correctly.
+
+🔒 3️⃣ Strict backend enforcement
+Backend is always the source of truth for access control — no one trusts the client.
+
+They use reusable decorators + guards/middleware.
+
+Guards check if the user has the required permission OR role.
+
+Often permissions are hierarchical or use wildcards, but your static keys approach is fine for most business apps.
+
+👉 You’ve got the guard pattern right.
+
+🧑‍💻 4️⃣ Frontend permission checks for UX
+Large systems do client-side permission checks to show/hide tabs, buttons, or routes.
+
+Permissions are stored in an auth store (Vuex, Pinia, Redux).
+
+They come from the JWT or a /me endpoint.
+
+Frontend always calls the backend anyway — so the backend is the gatekeeper.
+
+👉 You’re on track here too.
+
+⚙️ 5️⃣ Environment management
+Large orgs have:
+
+Migrations or seeders for the initial permissions/roles.
+
+Versioned permission keys — often permissions have unique keys and descriptive names.
+
+Sometimes they even store metadata for permissions (e.g., which feature module they belong to).
+
+✅ Extra best practices for “corporate-level” quality
+Here’s what you’d do if you want this bulletproof like an enterprise SaaS:
+
+📋 A. Shared permission constants
+One source of truth for permission keys, shared in:
+
+Migrations / seeders
+
+Backend decorators & guards
+
+Frontend auth store & guards
+
+How big orgs do it:
+
+In a monorepo → a shared @acme/permissions package.
+
+Or even just a single exported file used in both places.
+
+🛡️ B. Add audit logging
+When someone updates roles or permissions in the admin panel, log it.
+
+This helps detect mistakes or misuse.
+
+Large systems have an audit_logs table:
+who did what, when, to whom.
+
+⚡ C. Cache roles & permissions
+Large orgs often cache user roles/permissions in Redis.
+
+This is useful if your user base is huge and the joins are expensive.
+
+Some systems store minimal claims in the JWT, but keep the “truth” in the DB so they can revoke access instantly.
+
+✅ D. Tests & monitoring
+They add:
+
+Startup checks: “Do all required permissions exist in the DB?”
+
+Integration tests: “Can a user with role X call endpoint Y?”
+
+Coverage for edge cases: “What happens if a permission is missing?”
+
+🔑 E. Hierarchical or wildcard permissions (optional)
+Some big systems use patterns like: platform:_ or platform:create so that platform:_ covers all.
+
+Useful for admin or super-admin roles.
+
+You don’t need this now but you could add it later.
+
+✅ Your setup matches what big companies do
+✔️ DB-driven and normalized? ✅
+✔️ Admin UI to CRUD it? ✅
+✔️ Static keys in code to prevent drift? ✅
+✔️ Frontend checks for UX, backend for enforcement? ✅
+✔️ Eager load or cache for performance? ✅
+
+🗝️ How to be “corporate-ready”
+If you want a final checklist for “we’re running this at scale”, here it is:
+
+✅ DB schema: users, roles, permissions, user_roles, role_permissions.
+✅ Unique keys for permissions, consistent across the stack.
+✅ Permissions & roles CRUDable via admin panel with audit logs.
+✅ Shared constants to prevent drift.
+✅ Guards & decorators reusable and tested.
+✅ User’s roles/permissions stored in JWT or fetched via /me.
+✅ Frontend uses useCan() or similar.
+✅ Backend enforces every action — frontend hides only for UX.
+✅ Seeders/migrations in sync with permission keys.
+✅ Short TTL for tokens or a revocation strategy if roles change.
+✅ Optional: Caching for high scale.
+✅ Optional: Permission hierarchy if needed.
+
+🎯 My honest take
+You’re doing this the way a real large team would — and you’re asking the right questions that engineers at top companies ask.
+If you stick to this structure, you’ll be production-ready, scale-ready, and won’t have regrets down the line.
+
+If you’d like, I can generate:
+
+✅ A seed script pattern using the enum keys.
+
+✅ A sample front-end auth store with useCan / hasPermission.
+
+✅ A startup check to warn if DB permissions drift from the enum.
+
+Just say: “Show me the corporate-ready bits!” — I’ll craft it so it’s bulletproof for you.

@@ -10,7 +10,7 @@ import { parseQuery } from '@/core/utils/parse-query.util'
 const tableColumns: columns = [
   { name: 'user', label: 'forms.user' },
   { name: 'email', label: 'forms.email' },
-  { name: 'role', label: 'forms.role' },
+  { name: 'roles', label: 'forms.roles' },
   { name: 'created', label: 'forms.date-registered', sort: 'user.createdAt' },
   { name: 'actions' }
 ]
@@ -53,10 +53,10 @@ function useUserTable() {
     await getPaginatedData(options.value)
   }
 
-  async function update(row: UserDto) {
+  function update(row: UserDto): void {
     handler.update(row, (_: UserDto) => getPaginatedData(options.value))
   }
-  async function remove(row: UserDto) {
+  function remove(row: UserDto): void {
     handler.remove(row, (_: UserDto) => getPaginatedData(options.value))
   }
 

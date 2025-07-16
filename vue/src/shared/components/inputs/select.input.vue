@@ -43,7 +43,7 @@ const {
       </div>
       <div class="d-flex flex-grow-1 text-start align-items-center ps-2 overflow-hidden">
         <span v-if="value" class="text-truncate"><slot name="option" :option="value"></slot></span>
-        <span v-else class="text-grey text-truncate">={{ $t('actions.select-option') }}</span>
+        <span v-else class="text-grey text-truncate">{{ $t('actions.select-option') }}</span>
       </div>
       <div class="d-flex align-items-center px-2">
         <font-awesome-icon :icon="['fas', 'angle-down']" />

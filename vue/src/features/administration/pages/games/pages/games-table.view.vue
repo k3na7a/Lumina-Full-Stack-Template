@@ -27,7 +27,7 @@ await getPaginatedData(options.value)
           t(
             'administration.games-and-software.games.caption',
             {
-              start: (response.meta.page - 1) * response.meta.take + 1,
+              start: (response.meta.page - 1) * response.meta.take + (response.data.length ? 1 : 0),
               end: (response.meta.page - 1) * response.meta.take + response.data.length
             },
             response.meta.itemCount
