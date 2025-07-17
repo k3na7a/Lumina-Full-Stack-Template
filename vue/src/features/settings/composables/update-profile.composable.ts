@@ -2,7 +2,7 @@ import { Ref, ref } from 'vue'
 import * as Yup from 'yup'
 
 import { useFormUtil } from '@/core/utils/forms.util'
-import { UpdateProfile, UserDto } from '@/library/dto/user.dto'
+import { UpdateProfile, UserDto } from '@/core/apis/localhost/administration/users/dto/user.dto'
 
 type proptype = { user: UserDto; callback: (props: UpdateProfile) => Promise<void> }
 

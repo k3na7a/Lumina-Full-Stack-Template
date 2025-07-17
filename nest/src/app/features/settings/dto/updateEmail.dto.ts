@@ -1,7 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { IsEmail, IsString } from 'class-validator';
 
-import { Match } from 'src/library/validators/match.validator';
+import { Match } from 'src/app/common/validators/match.validator';
 
 export class updateEmailDto {
   @ApiProperty({

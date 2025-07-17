@@ -1,7 +1,7 @@
 import { AxiosInstance } from 'axios'
 
-import { JWTDto, IJWT, CsrfDto, ICSRF } from '@/library/dto/JWT.dto'
-import { RegisterDto, ResetPasswordDto } from '@/library/dto/user.dto'
+import { JWTDto, IJWT, CsrfDto, ICSRF } from '@/core/apis/localhost/dto/JWT.dto'
+import { RegisterDto, ResetPasswordDto } from '@/core/apis/localhost/administration/users/dto/user.dto'
 import { AxiosService } from '@/core/utils/axios.util'
 
 class authentication {

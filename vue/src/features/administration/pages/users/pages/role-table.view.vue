@@ -4,7 +4,7 @@ import TablePaginatedComponent from '@/shared/components/table/paginated-table.c
 import ActionsComponent from '@/shared/components/dropdown/table-actions.dropdown.component.vue'
 
 import { useRoleTable } from '../composables/role-table.composable'
-import { PermissionDto } from '@/library/dto/permission.dto'
+import { PermissionDto } from '@/core/apis/localhost/administration/users/dto/permission.dto'
 
 const max_permissions = 5
 

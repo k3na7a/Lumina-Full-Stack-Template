@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { Form } from 'vee-validate'
 
-import { generateUrlSlug } from '@/core/utils/slug.util'
+import { generateUrlSlug } from '../../../../../../../library/utilities/slug.util'
 
 import TextInput from '@/shared/components/inputs/text.input.vue'
 import DateInput from '@/shared/components/inputs/date.input.vue'

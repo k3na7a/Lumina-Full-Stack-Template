@@ -1,11 +1,11 @@
 <script setup lang="ts">
-import { UserDto } from '@/library/dto/user.dto'
+import { UserDto } from '@/core/apis/localhost/administration/users/dto/user.dto'
 
 import LanguagesDropdown from '@/shared/components/dropdown/languages.dropdown.component.vue'
 
 import UserActionsDropdown from './dropdowns/actions.dropdown.component.vue'
 import { actions } from '../composables/main.composable'
-import { more_navigation } from '@/library/types/more-navigation.type'
+import { more_navigation } from '@/shared/components/dropdown/types/more-navigation.type'
 
 type props = {
   user?: UserDto

@@ -7,7 +7,7 @@ import {
 } from '@nestjs/common';
 import { Request, Response } from 'express';
 import { LogService } from 'src/app/queues/logging/services/log.service';
-import { LoggerActions } from 'src/library/enums/logger-actions.enum';
+import { LoggerActions } from 'src/app/queues/logging/enums/logger-actions.enum';
 
 @Catch(HttpException, Error)
 export class GlobalExceptionFilter implements ExceptionFilter {

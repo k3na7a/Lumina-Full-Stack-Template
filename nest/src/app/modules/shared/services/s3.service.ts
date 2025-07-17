@@ -11,9 +11,9 @@ import * as mime from 'mime-types';
 import * as Path from 'path';
 
 import { LogService } from 'src/app/queues/logging/services/log.service';
-import { LoggerActions } from 'src/library/enums/logger-actions.enum';
+import { LoggerActions } from 'src/app/queues/logging/enums/logger-actions.enum';
 import { createReadStream, statSync } from 'node:fs';
-import { kilobyte } from 'src/library/constants/size.constants';
+import { kilobyte } from '@lib/constants/size.constants';
 
 @Injectable()
 export class S3Service {

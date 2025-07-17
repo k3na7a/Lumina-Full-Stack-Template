@@ -1,7 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { Entity, Column, ManyToMany, JoinTable } from 'typeorm';
 
-import { BaseEntity } from 'src/library/entities/base.entity';
+import { BaseEntity } from 'src/app/common/entities/base.entity';
 import { UserEntity } from './user.entity';
 import { PermissionEntity } from './permission.entity';
 @Entity('roles')

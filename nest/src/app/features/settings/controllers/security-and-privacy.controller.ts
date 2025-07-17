@@ -21,13 +21,13 @@ import { deleteAccountDto } from 'src/app/features/settings/dto/deleteAccount.dt
 import { updateEmailDto } from 'src/app/features/settings/dto/updateEmail.dto';
 import { updatePasswordDto } from 'src/app/features/settings/dto/updatePassword.dto';
 import { UserEntity } from 'src/app/modules/users/entities/user.entity';
-import { JWTDto } from 'src/library/dto/jwt.dto';
+import { JWTDto } from 'src/app/common/dto/jwt.dto';
 import { SettingsService } from '../services/settings.service';
 import { Permissions } from 'src/app/common/decorators/permissions.decorator';
 import {
   PERMISSION_MATRIX,
   PermissionDomain,
-} from 'src/library/constants/permissions.constants';
+} from '@lib/constants/permissions.constants';
 import { PermissionsGuard } from 'src/app/common/guards/permissions.guard';
 import { CsrfGuard } from 'src/app/common/guards/csrf.guard';
 import { RefreshTokenGuard } from 'src/app/common/guards/refreshtoken.guard';

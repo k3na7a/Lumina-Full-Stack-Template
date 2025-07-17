@@ -1,5 +1,5 @@
 import { RouteRecordRaw } from 'vue-router'
-import { ROUTE_NAMES } from '@/library/enums/route-names.enum'
+import { ROUTE_NAMES } from '@/core/router/route-names.enum'
 
 const route: RouteRecordRaw = {
   path: '/',

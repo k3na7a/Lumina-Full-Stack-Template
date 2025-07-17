@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { RouteLocationNormalizedLoaded, useRoute } from 'vue-router'
 
-import SubNavigationLayout from '@/shared/components/top-nav/sub-navigation.layout.vue'
+import SubNavigationLayout from '@/shared/components/navigation/sub-navigation.layout.vue'
 import RenderedView from '@/shared/components/page/page.component.vue'
 
 import { options } from './config/settings-navigation.config'

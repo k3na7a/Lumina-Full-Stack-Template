@@ -1,6 +1,13 @@
 import { AxiosRequestConfig, AxiosResponse } from 'axios'
 
-import { RequestConfig } from '@/library/types/request-config.type'
+interface RequestConfig {
+  content?: string
+  token?: string | null
+  params?: Record<string, any>
+  data?: Record<string, any>
+  withCredentials?: boolean
+  csrfToken?: string
+}
 
 class AxiosService {
   public static parseResponse = <T>(DtoClass: new (data: any) => T) => {

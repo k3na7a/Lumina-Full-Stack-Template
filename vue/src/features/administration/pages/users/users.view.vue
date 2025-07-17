@@ -2,7 +2,7 @@
 import { RouteLocationNormalizedLoaded, useRoute } from 'vue-router'
 
 import RenderedView from '@/shared/components/page/page.component.vue'
-import SubNavigationLayout from '@/shared/components/top-nav/sub-navigation.layout.vue'
+import SubNavigationLayout from '@/shared/components/navigation/sub-navigation.layout.vue'
 
 import { options } from './config/navigation.config'
 

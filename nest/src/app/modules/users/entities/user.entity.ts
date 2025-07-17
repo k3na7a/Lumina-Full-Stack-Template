@@ -2,7 +2,7 @@ import { ApiProperty } from '@nestjs/swagger';
 import { Exclude } from 'class-transformer';
 import { OneToOne, Column, Entity, ManyToMany, JoinTable } from 'typeorm';
 
-import { BaseEntity } from 'src/library/entities/base.entity';
+import { BaseEntity } from 'src/app/common/entities/base.entity';
 import { ProfileEntity } from 'src/app/modules/users/entities/profile.entity';
 import { RoleEntity } from './role.entity';
 

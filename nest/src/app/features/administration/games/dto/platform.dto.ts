@@ -1,7 +1,7 @@
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 import { Type } from 'class-transformer';
 import { IsEnum, IsObject, IsOptional, IsString } from 'class-validator';
-import { PaginationOptions } from 'src/library/dto/pagination.dto';
+import { PaginationOptions } from 'src/app/common/dto/pagination.dto';
 
 enum SORT_OPTIONS {
   CREATED = 'platform.createdAt',

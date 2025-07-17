@@ -4,8 +4,8 @@ import * as path from 'path';
 import * as moment from 'moment';
 
 import { useFileManager } from 'src/app/common/utilities/fileManager.util';
-import { jobtype } from 'src/library/interfaces/logger.interface';
-import { LoggerQueues } from 'src/library/enums/logger-actions.enum';
+import { jobtype } from 'src/app/common/interfaces/logger.interface';
+import { LoggerQueues } from 'src/app/queues/logging/enums/logger-actions.enum';
 
 @Processor(LoggerQueues.LOG_QUEUE)
 export class LogQueueProcessor extends WorkerHost {

@@ -4,7 +4,7 @@ import { RouteLocationNormalizedLoaded, useRoute } from 'vue-router'
 import NavigationDropdown from '@/shared/components/dropdown/navigation.dropdown.component.vue'
 
 import { nav as Navigation } from '../types/navigation.type'
-import { more_navigation } from '@/library/types/more-navigation.type'
+import { more_navigation } from '@/shared/components/dropdown/types/more-navigation.type'
 
 type props = {
   isAuthenticated: boolean

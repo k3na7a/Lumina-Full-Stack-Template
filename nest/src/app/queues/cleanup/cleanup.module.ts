@@ -1,7 +1,7 @@
 import { InjectQueue } from '@nestjs/bullmq';
 import { Injectable } from '@nestjs/common';
 import { Queue } from 'bullmq';
-import { LoggerQueues } from 'src/library/enums/logger-actions.enum';
+import { LoggerQueues } from 'src/app/queues/logging/enums/logger-actions.enum';
 
 import { emailProps } from 'src/plugins/sendgrid.plugin';
 

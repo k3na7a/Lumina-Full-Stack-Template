@@ -1,8 +1,12 @@
 import { AxiosError } from 'axios'
 import { markRaw } from 'vue'
 
-import { PaginationOptions, PaginationDto, PaginationMeta } from '@/library/dto/pagination.dto'
-import { PlatformDto, icreateplatform, CreatePlatformDto } from '@/library/dto/platform.dto'
+import { PaginationOptions, PaginationDto, PaginationMeta } from '@/core/apis/localhost/dto/pagination.dto'
+import {
+  PlatformDto,
+  icreateplatform,
+  CreatePlatformDto
+} from '@/core/apis/localhost/administration/games/dto/platform.dto'
 import { LocalhostAPI } from '@/core/apis/localhost/localhost.api'
 import { ModalStore, useModalStore } from '@/core/store/modal.store'
 import { ToastStore, useToastStore } from '@/core/store/toast.store'

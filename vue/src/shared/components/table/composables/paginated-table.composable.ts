@@ -1,6 +1,5 @@
 import { Router, useRouter, RouteLocationNormalizedLoaded, useRoute, LocationQueryRaw } from 'vue-router'
-import { Order, PaginationOptions, SortOptions } from '@/library/dto/pagination.dto'
-import { columns } from '@/library/types/table-column.type'
+import { Order, PaginationOptions, SortOptions } from '@/core/apis/localhost/dto/pagination.dto'
 import { computed, ComputedRef } from 'vue'
 
 type proptype<T> = {
@@ -12,6 +11,8 @@ type proptype<T> = {
   sortOptions?: Array<SortOptions>
   caption?: string
 }
+
+type columns = Array<{ name: string; label?: string; sort?: string }>
 
 function usePaginatedTable(): {
   resetPageAndUpdateQuery: (params: LocationQueryRaw) => void
@@ -61,5 +62,5 @@ function usePaginatedTable(): {
   }
 }
 
-export type { proptype }
+export type { proptype, columns }
 export { usePaginatedTable }

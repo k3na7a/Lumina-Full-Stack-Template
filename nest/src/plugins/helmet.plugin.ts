@@ -1,6 +1,6 @@
 import { INestApplication } from '@nestjs/common';
 import helmet from 'helmet';
-import { day } from 'src/library/constants/time.constants';
+import { day } from '@lib/constants/time.constants';
 
 export class HelmetPlugin {
   public static init(app: INestApplication): void {

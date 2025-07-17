@@ -3,7 +3,7 @@ import { Cron, CronExpression } from '@nestjs/schedule';
 import { DataSource } from 'typeorm';
 
 import { LogService } from 'src/app/queues/logging/services/log.service';
-import { LoggerActions } from 'src/library/enums/logger-actions.enum';
+import { LoggerActions } from 'src/app/queues/logging/enums/logger-actions.enum';
 
 @Injectable()
 export class HealthCheckService {

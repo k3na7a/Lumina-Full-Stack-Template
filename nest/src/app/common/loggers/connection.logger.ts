@@ -1,6 +1,6 @@
 import { Injectable, OnModuleInit } from '@nestjs/common';
 import { LogService } from 'src/app/queues/logging/services/log.service';
-import { LoggerActions } from 'src/library/enums/logger-actions.enum';
+import { LoggerActions } from 'src/app/queues/logging/enums/logger-actions.enum';
 import { DataSource } from 'typeorm';
 import { MysqlConnectionOptions } from 'typeorm/driver/mysql/MysqlConnectionOptions';
 

@@ -7,7 +7,7 @@ import {
   IsOptional,
   IsString,
 } from 'class-validator';
-import { PaginationOptions } from 'src/library/dto/pagination.dto';
+import { PaginationOptions } from 'src/app/common/dto/pagination.dto';
 
 enum SORT_OPTIONS {
   CREATED = 'game.createdAt',

@@ -3,8 +3,11 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 
 import { UserPaginationOptions } from 'src/app/features/administration/users/dto/user.dto';
-import { PaginationDto, PaginationMeta } from 'src/library/dto/pagination.dto';
-import { CreateUserInterface } from 'src/library/interfaces/user.interfaces';
+import {
+  PaginationDto,
+  PaginationMeta,
+} from 'src/app/common/dto/pagination.dto';
+import { CreateUserInterface } from 'src/app/common/interfaces/user.interfaces';
 import { UserEntity } from 'src/app/modules/users/entities/user.entity';
 
 @Injectable()

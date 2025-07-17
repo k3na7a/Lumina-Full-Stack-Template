@@ -7,7 +7,7 @@ import { createHmac } from 'crypto';
 import { UserService } from 'src/app/modules/users/services/users.service';
 import { UserEntity } from 'src/app/modules/users/entities/user.entity';
 
-import { Payload } from 'src/library/interfaces/payload.interface';
+import { Payload } from 'src/app/common/interfaces/payload.interface';
 
 @Injectable()
 class RefreshTokenStrategy extends PassportStrategy(Strategy, 'jwt-refresh') {

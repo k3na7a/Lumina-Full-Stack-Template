@@ -7,7 +7,7 @@ import { RedisHealthIndicator } from 'src/app/features/health/indicators/redis-h
 import { DiskHealthIndicator } from 'src/app/features/health/indicators/disk-health.indicator';
 import { TypeOrmHealthIndicator } from 'src/app/features/health/indicators/typeorm-health.indicator';
 
-import { LoggerQueues } from 'src/library/enums/logger-actions.enum';
+import { LoggerQueues } from 'src/app/queues/logging/enums/logger-actions.enum';
 
 import { HealthResponseDto } from '../dto/health.dto';
 

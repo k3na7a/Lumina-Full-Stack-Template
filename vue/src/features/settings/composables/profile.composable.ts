@@ -2,7 +2,7 @@ import { AppStore, useAppStore } from '@/core/store/app.store'
 import { computed, ComputedRef } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { useSettingsHandler } from '../handlers/settings.handler'
-import { UserDto } from '@/library/dto/user.dto'
+import { UserDto } from '@/core/apis/localhost/administration/users/dto/user.dto'
 
 function useProfilePage() {
   const appStore: AppStore = useAppStore()

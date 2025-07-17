@@ -5,7 +5,7 @@ import { RoleService } from 'src/app/modules/users/services/roles.service';
 import {
   PaginationDto,
   PaginationOptions,
-} from 'src/library/dto/pagination.dto';
+} from 'src/app/common/dto/pagination.dto';
 import { CreateRoleDto } from '../dto/role.dto';
 import { PermissionService } from 'src/app/modules/users/services/permissions.service';
 

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { sub_navigation } from '@/library/types/sub-navigation.type'
+import { sub_navigation } from '@/shared/components/navigation/types/sub-navigation.type'
 
 type props = { title: string; subtitle?: string; routes: sub_navigation }
 

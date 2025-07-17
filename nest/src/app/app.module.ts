@@ -22,7 +22,7 @@ import { HealthModule } from './features/health/health.module';
 import { appRoutes } from '../config/routes.config';
 import { RequestContextMiddleware } from './common/middleware/request-context.middleware';
 import { ThrottlerModule } from '@nestjs/throttler';
-import { minute } from 'src/library/constants/time.constants';
+import { minute } from '@lib/constants/time.constants';
 import { CustomThrottlerGuard } from './common/guards/throttler.guard';
 import { CoreModule } from './modules/shared/shared.module';
 import { ConnectionLogger } from './common/loggers/connection.logger';

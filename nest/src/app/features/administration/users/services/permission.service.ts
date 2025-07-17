@@ -5,7 +5,7 @@ import { PermissionService } from 'src/app/modules/users/services/permissions.se
 import {
   PaginationDto,
   PaginationOptions,
-} from 'src/library/dto/pagination.dto';
+} from 'src/app/common/dto/pagination.dto';
 import { CreatePermissionDto } from '../dto/permission.dto';
 
 @Injectable()

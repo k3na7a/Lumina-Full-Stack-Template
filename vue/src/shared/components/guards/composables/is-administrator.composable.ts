@@ -1,7 +1,7 @@
 import { ComputedRef, computed } from 'vue'
 
 import { AppStore, useAppStore } from '@/core/store/app.store'
-import { PERMISSION_MATRIX, PermissionDomain } from '@/library/constants/permissions.constants'
+import { PERMISSION_MATRIX, PermissionDomain } from '@/../../library/constants/permissions.constants'
 
 type IsAdministratorGuard = {
   isAuthenticated: ComputedRef<boolean>

@@ -11,7 +11,7 @@ import {
   ValidateNested,
 } from 'class-validator';
 
-import { PasswordValidation } from 'src/library/regex/password-validation.regex';
+import { PasswordValidation } from '@lib/regex/validation.regex';
 
 export class CreateUserNameDto {
   @ApiProperty({

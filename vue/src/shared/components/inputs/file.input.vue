@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { kilobyte } from '@/library/constants/size.constants'
+import { kilobyte } from '@/../../library/constants/size.constants'
 
 import { proptype, useFileInput } from './composables/file-input.composable'
 

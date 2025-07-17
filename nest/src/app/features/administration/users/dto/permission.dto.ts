@@ -1,7 +1,7 @@
 import { IsBoolean, IsEnum, IsOptional, IsString } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
 import { Transform } from 'class-transformer';
-import { PermissionDomain } from 'src/library/constants/permissions.constants';
+import { PermissionDomain } from '@lib/constants/permissions.constants';
 
 export class CreatePermissionDto {
   @ApiProperty({

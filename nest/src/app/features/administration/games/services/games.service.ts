@@ -10,8 +10,8 @@ import {
   GamePaginationOptions,
   CreateGameDto,
 } from 'src/app/features/administration/games/dto/game.dto';
-import { PaginationDto } from 'src/library/dto/pagination.dto';
-import { IMAGE_TYPE } from 'src/library/enums/image-routes.enum';
+import { PaginationDto } from 'src/app/common/dto/pagination.dto';
+import { IMAGE_TYPE } from 'src/app/modules/media/enums/image-routes.enum';
 
 @Injectable()
 export class GamesAdminService {

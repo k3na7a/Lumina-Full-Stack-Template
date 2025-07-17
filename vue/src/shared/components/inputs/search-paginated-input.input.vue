@@ -1,7 +1,7 @@
 <script lang="ts" setup generic="T">
 import { useI18n } from 'vue-i18n'
 
-import { checkIds } from '@/core/utils/object.util'
+import { checkIds } from '@/../../library/utilities/object.util'
 
 import { proptype, useSearchPaginatedInput } from './composables/search-paginated-input.composable'
 

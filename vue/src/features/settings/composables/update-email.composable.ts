@@ -2,7 +2,7 @@ import { reactive } from 'vue'
 import * as Yup from 'yup'
 
 import { useFormUtil } from '@/core/utils/forms.util'
-import { UpdateEmail, UserDto } from '@/library/dto/user.dto'
+import { UpdateEmail, UserDto } from '@/core/apis/localhost/administration/users/dto/user.dto'
 
 type proptype = { user: UserDto; callback: (props: UpdateEmail) => Promise<void> }
 

@@ -1,16 +1,16 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
 
-import { UpdateUserProfile } from 'src/library/interfaces/user.interfaces';
+import { UpdateUserProfile } from 'src/app/common/interfaces/user.interfaces';
 import { updatePasswordDto } from 'src/app/features/settings/dto/updatePassword.dto';
 import { deleteAccountDto } from 'src/app/features/settings/dto/deleteAccount.dto';
-import { JWTDto } from 'src/library/dto/jwt.dto';
+import { JWTDto } from 'src/app/common/dto/jwt.dto';
 
 import { UserEntity } from 'src/app/modules/users/entities/user.entity';
 import { ProfileService } from 'src/app/modules/users/services/profile.service';
 import { UserService } from 'src/app/modules/users/services/users.service';
 import { UserAccountService } from 'src/app/modules/users/services/users-account.service';
 import { ImageService } from 'src/app/modules/media/services/image.service';
-import { IMAGE_TYPE } from 'src/library/enums/image-routes.enum';
+import { IMAGE_TYPE } from 'src/app/modules/media/enums/image-routes.enum';
 import { ImageEntity } from 'src/app/modules/media/entities/image.entity';
 import { Response } from 'express';
 

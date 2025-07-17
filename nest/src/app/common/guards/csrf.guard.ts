@@ -1,7 +1,7 @@
 import { CanActivate, ExecutionContext, Injectable } from '@nestjs/common';
 import { Request, Response } from 'express';
 import * as csurf from 'csurf';
-import { hour } from 'src/library/constants/time.constants';
+import { hour } from '@lib/constants/time.constants';
 
 @Injectable()
 export class CsrfGuard implements CanActivate {

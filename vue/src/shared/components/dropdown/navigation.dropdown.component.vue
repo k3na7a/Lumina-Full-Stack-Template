@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { more_navigation } from '@/library/types/more-navigation.type'
+import { more_navigation } from '@/shared/components/dropdown/types/more-navigation.type'
 import DropdownComponent from '@/shared/components/dropdown/base/dropdown.component.vue'
 
 type props = { navigation: more_navigation }

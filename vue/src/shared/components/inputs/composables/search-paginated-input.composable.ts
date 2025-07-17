@@ -3,10 +3,10 @@ import * as bootstrap from 'bootstrap'
 import { useField } from 'vee-validate'
 import { useDebounceFn } from '@vueuse/core'
 
-import { checkIds, deepEqual } from '@/core/utils/object.util'
+import { checkIds, deepEqual } from '@/../../library/utilities/object.util'
 
-import { PaginationOptions, PaginationDto, Order } from '@/library/dto/pagination.dto'
-import { second } from '@/library/constants/time.constants'
+import { PaginationOptions, PaginationDto, Order } from '@/core/apis/localhost/dto/pagination.dto'
+import { second } from '@/../../library/constants/time.constants'
 
 type proptype<T> = {
   name: string

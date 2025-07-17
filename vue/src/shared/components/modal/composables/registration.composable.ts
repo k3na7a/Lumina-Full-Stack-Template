@@ -2,7 +2,7 @@ import * as Yup from 'yup'
 import { ref } from 'vue'
 
 import { useFormUtil } from '@/core/utils/forms.util'
-import { PasswordValidation } from '@/library/regex/validation.regex'
+import { PasswordValidation } from '@/../../library/regex/validation.regex'
 
 type proptype = { callback: (values: any) => Promise<void> }
 
@@ -30,7 +30,7 @@ function useRegisterModal(callback: (values: registrationValues) => Promise<void
   return {
     loading,
     onSubmit,
-    validationSchema,
+    validationSchema
   }
 }
 

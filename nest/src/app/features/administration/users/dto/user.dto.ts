@@ -8,7 +8,7 @@ import {
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 import { Transform } from 'class-transformer';
 
-import { PaginationOptions } from 'src/library/dto/pagination.dto';
+import { PaginationOptions } from 'src/app/common/dto/pagination.dto';
 
 enum SORT_OPTIONS {
   CREATED = 'user.createdAt',

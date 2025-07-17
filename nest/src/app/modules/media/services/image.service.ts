@@ -10,7 +10,7 @@ import { Repository } from 'typeorm';
 
 import { ImageEntity } from 'src/app/modules/media/entities/image.entity';
 import { S3Service } from 'src/app/modules/shared/services/s3.service';
-import { createImage } from 'src/library/interfaces/create-image.interface';
+import { createImage } from 'src/app/common/interfaces/create-image.interface';
 
 @Injectable()
 export class ImageService {

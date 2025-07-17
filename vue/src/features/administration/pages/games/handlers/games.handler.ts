@@ -1,8 +1,8 @@
 import { markRaw } from 'vue'
 import { AxiosError } from 'axios'
 
-import { GameDto, icreategame, CreateGameDto } from '@/library/dto/game.dto'
-import { PaginationOptions, PaginationDto, PaginationMeta } from '@/library/dto/pagination.dto'
+import { GameDto, icreategame, CreateGameDto } from '@/core/apis/localhost/administration/games/dto/game.dto'
+import { PaginationOptions, PaginationDto, PaginationMeta } from '@/core/apis/localhost/dto/pagination.dto'
 
 import { LocalhostAPI } from '@/core/apis/localhost/localhost.api'
 import { ModalStore, useModalStore } from '@/core/store/modal.store'

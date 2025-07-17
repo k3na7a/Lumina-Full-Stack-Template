@@ -2,11 +2,11 @@ import { ref, computed, reactive, watch } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { useRoute, LocationQuery } from 'vue-router'
 
-import { parseQuery } from '@/core/utils/parse-query.util.ts'
-import { Order, PaginationOptions, PaginationDto, PaginationMeta } from '@/library/dto/pagination.dto'
-import { PlatformDto } from '@/library/dto/platform.dto'
-import { columns } from '@/library/types/table-column.type'
+import { parseQuery } from '@/../../library/utilities/parse-query.util.ts'
+import { Order, PaginationOptions, PaginationDto, PaginationMeta } from '@/core/apis/localhost/dto/pagination.dto'
 import { usePlatformAdminHandler } from '../handlers/platforms.handler'
+import { PlatformDto } from '@/core/apis/localhost/administration/games/dto/platform.dto'
+import { columns } from '@/shared/components/table/composables/paginated-table.composable'
 
 const defaultOptions: PaginationOptions = {
   take: 25,

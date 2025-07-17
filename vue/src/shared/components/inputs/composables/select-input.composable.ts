@@ -2,7 +2,7 @@ import { onBeforeUnmount, onMounted, Ref, ref, toRef, watch } from 'vue'
 import * as bootstrap from 'bootstrap'
 import { FieldMeta, useField } from 'vee-validate'
 
-import { deepEqual } from '@/core/utils/object.util'
+import { deepEqual } from '@/../../library/utilities/object.util'
 
 type proptype<T> = {
   name: string

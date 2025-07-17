@@ -21,7 +21,7 @@ import { FileInterceptor } from '@nestjs/platform-express/multer';
 
 import { storage } from 'src/config/storage.config';
 
-import { PaginationDto } from 'src/library/dto/pagination.dto';
+import { PaginationDto } from 'src/app/common/dto/pagination.dto';
 
 import { UserAdminService } from 'src/app/features/administration/users/services/users.service';
 import { UserEntity } from 'src/app/modules/users/entities/user.entity';
@@ -36,7 +36,7 @@ import { PermissionsGuard } from 'src/app/common/guards/permissions.guard';
 import {
   PERMISSION_MATRIX,
   PermissionDomain,
-} from 'src/library/constants/permissions.constants';
+} from '@lib/constants/permissions.constants';
 import { Permissions } from 'src/app/common/decorators/permissions.decorator';
 
 @ApiTags('Administration / User Management / Users')

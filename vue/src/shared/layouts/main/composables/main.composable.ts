@@ -4,10 +4,10 @@ import { useI18n } from 'vue-i18n'
 import { useAppHandler } from '@/core/handlers/app.handler'
 import { AppStore, useAppStore } from '@/core/store/app.store'
 
-import { UserDto } from '@/library/dto/user.dto'
+import { UserDto } from '@/core/apis/localhost/administration/users/dto/user.dto'
 import { MORE_NAVIGATION } from '../config/more-navigation.schema'
-import { more_navigation } from '@/library/types/more-navigation.type'
-import { ROUTE_NAMES } from '@/library/enums/route-names.enum'
+import { more_navigation } from '@/shared/components/dropdown/types/more-navigation.type'
+import { ROUTE_NAMES } from '@/core/router/route-names.enum'
 
 type MainLayout = {
   register: () => void

@@ -6,7 +6,7 @@ import {
   PaginationDto,
   PaginationMeta,
   PaginationOptions,
-} from 'src/library/dto/pagination.dto';
+} from 'src/app/common/dto/pagination.dto';
 
 import { RoleEntity } from '../entities/role.entity';
 

@@ -2,9 +2,9 @@ import { InjectQueue } from '@nestjs/bullmq';
 import { Injectable } from '@nestjs/common';
 import { Queue } from 'bullmq';
 import { RequestContext } from 'src/app/common/providers/request-context.provider';
-import { LoggerQueues } from 'src/library/enums/logger-actions.enum';
+import { LoggerQueues } from 'src/app/queues/logging/enums/logger-actions.enum';
 
-import { jobtype } from 'src/library/interfaces/logger.interface';
+import { jobtype } from 'src/app/common/interfaces/logger.interface';
 
 @Injectable()
 export class LogService {

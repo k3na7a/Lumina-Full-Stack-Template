@@ -1,8 +1,8 @@
 import { ApiProperty } from '@nestjs/swagger';
 
 import { IsString, Matches } from 'class-validator';
-import { Match } from 'src/library/validators/match.validator';
-import { PasswordValidation } from 'src/library/regex/password-validation.regex';
+import { Match } from 'src/app/common/validators/match.validator';
+import { PasswordValidation } from '@lib/regex/validation.regex';
 
 export class updatePasswordDto {
   @ApiProperty({

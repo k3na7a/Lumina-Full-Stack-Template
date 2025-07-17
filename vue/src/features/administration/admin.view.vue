@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import AdminLayout from '@/shared/components/side-nav/side-nav.layout.vue'
+import AdminLayout from '@/shared/components/navigation/side-nav.layout.vue'
 import RenderedView from '@/shared/components/page/page.component.vue'
 
 import { routes } from './config/admin-navigation.config'

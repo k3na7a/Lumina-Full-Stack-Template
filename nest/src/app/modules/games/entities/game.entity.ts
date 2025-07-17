@@ -8,7 +8,7 @@ import {
   ManyToOne,
 } from 'typeorm';
 
-import { BaseEntity } from 'src/library/entities/base.entity';
+import { BaseEntity } from 'src/app/common/entities/base.entity';
 import { ImageEntity } from 'src/app/modules/media/entities/image.entity';
 import { PlatformEntity } from 'src/app/modules/games/entities/platform.entity';
 

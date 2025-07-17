@@ -11,12 +11,17 @@ import {
   UseGuards,
   UseInterceptors,
 } from '@nestjs/common';
-import { ApiBearerAuth, ApiBody, ApiOkResponse, ApiTags } from '@nestjs/swagger';
+import {
+  ApiBearerAuth,
+  ApiBody,
+  ApiOkResponse,
+  ApiTags,
+} from '@nestjs/swagger';
 
 import {
   PaginationDto,
   PaginationOptions,
-} from 'src/library/dto/pagination.dto';
+} from 'src/app/common/dto/pagination.dto';
 
 import { RoleAdminService } from '../services/role.service';
 import { RoleEntity } from 'src/app/modules/users/entities/role.entity';
@@ -27,7 +32,7 @@ import { Permissions } from 'src/app/common/decorators/permissions.decorator';
 import {
   PERMISSION_MATRIX,
   PermissionDomain,
-} from 'src/library/constants/permissions.constants';
+} from '@lib/constants/permissions.constants';
 
 @ApiTags('Administration / User Management / Roles')
 @Controller('roles')

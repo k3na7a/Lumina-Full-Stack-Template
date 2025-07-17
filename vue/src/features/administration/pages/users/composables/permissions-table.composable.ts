@@ -1,12 +1,12 @@
-import { Order, PaginationDto, PaginationMeta, PaginationOptions } from '@/library/dto/pagination.dto'
-import { columns } from '@/library/types/table-column.type'
+import { Order, PaginationDto, PaginationMeta, PaginationOptions } from '@/core/apis/localhost/dto/pagination.dto'
+import { columns } from '@/shared/components/table/composables/paginated-table.composable'
 import { computed, reactive, ref, watch } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { LocationQuery, useRoute } from 'vue-router'
 
-import { parseQuery } from '@/core/utils/parse-query.util'
+import { parseQuery } from '@/../../library/utilities/parse-query.util'
 import { usePermissionAdminHandler } from '../handlers/permissions.handler'
-import { PermissionDto } from '@/library/dto/permission.dto'
+import { PermissionDto } from '@/core/apis/localhost/administration/users/dto/permission.dto'
 
 const tableColumns: columns = [
   { name: 'permission', label: 'forms.permissions', sort: 'permission.label' },

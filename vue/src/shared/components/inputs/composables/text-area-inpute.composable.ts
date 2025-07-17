@@ -1,7 +1,7 @@
 import { Ref, ref, toRef, watch } from 'vue'
 import { useField } from 'vee-validate'
 
-import { deepEqual } from '@/core/utils/object.util'
+import { deepEqual } from '@/../../library/utilities/object.util'
 
 type proptype = {
   name: string

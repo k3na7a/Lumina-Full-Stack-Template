@@ -12,11 +12,16 @@ import {
   UseGuards,
   UseInterceptors,
 } from '@nestjs/common';
-import { ApiBearerAuth, ApiBody, ApiOkResponse, ApiTags } from '@nestjs/swagger';
+import {
+  ApiBearerAuth,
+  ApiBody,
+  ApiOkResponse,
+  ApiTags,
+} from '@nestjs/swagger';
 import { FileInterceptor } from '@nestjs/platform-express/multer';
 
 import { storage } from 'src/config/storage.config';
-import { PaginationDto } from 'src/library/dto/pagination.dto';
+import { PaginationDto } from 'src/app/common/dto/pagination.dto';
 import { GameEntity } from 'src/app/modules/games/entities/game.entity';
 import {
   CreateGameDto,
@@ -29,7 +34,7 @@ import { Permissions } from 'src/app/common/decorators/permissions.decorator';
 import {
   PERMISSION_MATRIX,
   PermissionDomain,
-} from 'src/library/constants/permissions.constants';
+} from '@lib/constants/permissions.constants';
 import { JwtAuthGuard } from 'src/app/common/guards/jwt-auth.guard';
 
 @ApiTags('Administration / Games & Software / Games')

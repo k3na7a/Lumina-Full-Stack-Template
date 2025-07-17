@@ -2,11 +2,11 @@ import * as Yup from 'yup'
 import { computed, ref } from 'vue'
 
 import { useFormUtil } from '@/core/utils/forms.util'
-import { iCreateRole, RoleDto } from '@/library/dto/role.dto'
 import { LocalhostAPI } from '@/core/apis'
 import { AppStore, useAppStore } from '@/core/store/app.store'
-import { PaginationOptions } from '@/library/dto/pagination.dto'
-import { PermissionDto } from '@/library/dto/permission.dto'
+import { PaginationOptions } from '@/core/apis/localhost/dto/pagination.dto'
+import { PermissionDto } from '@/core/apis/localhost/administration/users/dto/permission.dto'
+import { RoleDto, iCreateRole } from '@/core/apis/localhost/administration/users/dto/role.dto'
 
 type proptype = {
   role?: RoleDto

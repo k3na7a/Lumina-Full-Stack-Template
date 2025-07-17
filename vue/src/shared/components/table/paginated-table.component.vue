@@ -4,7 +4,7 @@ import SelectInputComponent from '@/shared/components/inputs/select.input.vue'
 import PaginationInputComponent from '@/shared/components/pagination/pagination.component.vue'
 
 import { proptype, usePaginatedTable } from './composables/paginated-table.composable'
-import { Order } from '@/library/dto/pagination.dto'
+import { Order } from '@/core/apis/localhost/dto/pagination.dto'
 
 const { columns, rows, pages, options, loading, caption } = defineProps<proptype<T>>()
 const { resetPageAndUpdateQuery, updateQuery, handleSort, sortParam, orderParam } = usePaginatedTable()

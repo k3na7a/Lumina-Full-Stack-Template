@@ -1,7 +1,7 @@
 import * as Yup from 'yup'
 import { computed, ComputedRef, Ref, ref } from 'vue'
 import { useFormUtil } from '@/core/utils/forms.util'
-import { PlatformDto } from '@/library/dto/platform.dto'
+import { PlatformDto } from '@/core/apis/localhost/administration/games/dto/platform.dto'
 
 type proptype = {
   platform?: PlatformDto

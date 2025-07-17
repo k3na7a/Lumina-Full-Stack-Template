@@ -26,6 +26,6 @@
       "src/": ["./src/*"]
     }
   },
-  "include": ["src/**/*.ts", "src/**/*.tsx", "src/**/*.vue", "archive/multiplication-calulator.component.vue"],
+  "include": ["src/**/*.ts", "src/**/*.tsx", "src/**/*.vue", "../library/*.ts"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }

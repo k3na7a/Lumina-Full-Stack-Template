@@ -1,5 +1,5 @@
-import { ROUTE_NAMES } from '@/library/enums/route-names.enum'
-import { sub_navigation } from '@/library/types/sub-navigation.type'
+import { ROUTE_NAMES } from '@/core/router/route-names.enum'
+import { sub_navigation } from '@/shared/components/navigation/types/sub-navigation.type'
 
 const options: sub_navigation = [
   { label: 'administration.user-management.users.label', name: ROUTE_NAMES.ADMIN_USERS },

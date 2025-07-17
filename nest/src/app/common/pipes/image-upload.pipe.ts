@@ -2,7 +2,7 @@ import { Injectable, ParseFilePipe, PipeTransform } from '@nestjs/common';
 import { MaxFileSizeValidator } from '@nestjs/common';
 
 import { CustomFileTypeValidator } from '../validators/custom-file-type.validator';
-import { megabyte } from 'src/library/constants/size.constants';
+import { megabyte } from '@lib/constants/size.constants';
 
 @Injectable()
 export class ImageUploadValidationPipe implements PipeTransform {

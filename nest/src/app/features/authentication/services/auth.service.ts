@@ -8,9 +8,9 @@ import {
   template as ForgotPasswordEmailBody,
   options as ForgotPasswordOptions,
 } from 'src/app/queues/email/templates/forgot-password.template';
-import { Payload } from 'src/library/interfaces/payload.interface';
+import { Payload } from 'src/app/common/interfaces/payload.interface';
 import { ForgotPasswordDto } from 'src/app/features/authentication/dto/forgotPassword.dto';
-import { JWTDto } from 'src/library/dto/jwt.dto';
+import { JWTDto } from 'src/app/common/dto/jwt.dto';
 import { RegisterDto } from 'src/app/features/authentication/dto/register.dto';
 
 import { HandlebarsPlugin } from 'src/plugins/handlebars.plugin';
@@ -18,7 +18,7 @@ import { HandlebarsPlugin } from 'src/plugins/handlebars.plugin';
 import { UserEntity } from 'src/app/modules/users/entities/user.entity';
 import { UserService } from 'src/app/modules/users/services/users.service';
 import { UserAccountService } from 'src/app/modules/users/services/users-account.service';
-import { JWTInterface } from 'src/library/interfaces/jwt.interface';
+import { JWTInterface } from 'src/app/common/interfaces/jwt.interface';
 import { TokenManager } from 'src/app/common/utilities/token.utility';
 import { EmailService } from 'src/app/queues/email/services/email.service';
 

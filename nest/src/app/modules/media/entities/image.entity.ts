@@ -2,9 +2,9 @@ import { ApiProperty } from '@nestjs/swagger';
 import { AfterLoad, Column, Entity } from 'typeorm';
 import { Exclude } from 'class-transformer';
 
-import { BaseEntity } from 'src/library/entities/base.entity';
+import { BaseEntity } from 'src/app/common/entities/base.entity';
 import { HandlebarsPlugin } from 'src/plugins/handlebars.plugin';
-import { IMAGE_TYPE } from 'src/library/enums/image-routes.enum';
+import { IMAGE_TYPE } from 'src/app/modules/media/enums/image-routes.enum';
 
 @Entity('images')
 export class ImageEntity extends BaseEntity {

@@ -1,5 +1,5 @@
-import { ROUTE_NAMES } from '@/library/enums/route-names.enum'
-import { side_navigation } from '@/library/types/sub-navigation.type'
+import { ROUTE_NAMES } from '@/core/router/route-names.enum'
+import { side_navigation } from '@/shared/components/navigation/types/sub-navigation.type'
 
 const routes: side_navigation = [
   {

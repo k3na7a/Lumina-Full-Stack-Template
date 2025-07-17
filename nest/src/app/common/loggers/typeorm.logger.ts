@@ -2,7 +2,7 @@ import { Logger } from 'typeorm';
 
 import { useStringUtil } from 'src/app/common/utilities/string.util';
 import { LogService } from 'src/app/queues/logging/services/log.service';
-import { LoggerActions } from 'src/library/enums/logger-actions.enum';
+import { LoggerActions } from 'src/app/queues/logging/enums/logger-actions.enum';
 
 type Logging = Array<
   'query' | 'error' | 'warn' | 'info' | 'log' | 'migration' | 'schema'

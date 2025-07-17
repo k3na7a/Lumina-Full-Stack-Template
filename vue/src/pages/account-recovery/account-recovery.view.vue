@@ -5,13 +5,13 @@ import { Router, useRouter } from 'vue-router'
 import { useI18n } from 'vue-i18n'
 
 import { useFormUtil } from '@/core/utils/forms.util.ts'
-import { ForgotPassword } from '@/library/dto/user.dto.ts'
+import { ForgotPassword } from '@/core/apis/localhost/administration/users/dto/user.dto.ts'
 import { useAppHandler } from '@/core/handlers/app.handler.ts'
 
 import { validationSchema } from './account-recovery.form.ts'
 
 import TextInput from '@/shared/components/inputs/text.input.vue'
-import { ROUTE_NAMES } from '@/library/enums/route-names.enum.ts'
+import { ROUTE_NAMES } from '@/core/router/route-names.enum.ts'
 
 enum PAGES {
   FORM,

@@ -1,8 +1,8 @@
 import { AxiosInstance, AxiosResponse } from 'axios'
 
-import { PaginationDto, PaginationOptions } from '@/library/dto/pagination.dto'
+import { PaginationDto, PaginationOptions } from '@/core/apis/localhost/dto/pagination.dto'
 import { AxiosService } from '@/core/utils/axios.util'
-import { CreateGameDto, GameDto, iGame } from '@/library/dto/game.dto'
+import { CreateGameDto, GameDto, iGame } from './dto/game.dto'
 
 class games {
   private readonly $api: AxiosInstance

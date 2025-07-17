@@ -10,7 +10,7 @@ import {
   PERMISSION_MATRIX,
   PermissionDomain,
   PermissionsKey,
-} from 'src/library/constants/permissions.constants';
+} from '@lib/constants/permissions.constants';
 import { PERMISSIONS_KEY } from '../decorators/permissions.decorator';
 import { RoleEntity } from 'src/app/modules/users/entities/role.entity';
 import { UserEntity } from 'src/app/modules/users/entities/user.entity';

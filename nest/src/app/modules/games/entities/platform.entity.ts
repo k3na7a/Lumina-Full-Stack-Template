@@ -1,7 +1,7 @@
 import { Entity, Column, ManyToMany } from 'typeorm';
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 
-import { BaseEntity } from 'src/library/entities/base.entity';
+import { BaseEntity } from 'src/app/common/entities/base.entity';
 import { GameEntity } from 'src/app/modules/games/entities/game.entity';
 
 @Entity('platforms')

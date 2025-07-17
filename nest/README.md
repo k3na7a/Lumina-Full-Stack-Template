@@ -159,6 +159,7 @@ src/                        #
  │   ├── regex/             # Regex patterns for validation
  │   ├── validators/        # Reusable validators and helpers
  ├── plugins/               # Additional NestJS plugins or integrations
+ ├── seeders/               #
  └── main.ts                # App bootstrap entry
 ```
 

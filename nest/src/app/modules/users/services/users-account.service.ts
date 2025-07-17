@@ -8,10 +8,10 @@ import { UserService } from './users.service';
 import { Response } from 'express';
 import * as bcrypt from 'bcrypt';
 
-import { JWTDto } from 'src/library/dto/jwt.dto';
-import { Payload } from 'src/library/interfaces/payload.interface';
-import { day } from 'src/library/constants/time.constants';
-import { PermissionsKey } from 'src/library/constants/permissions.constants';
+import { JWTDto } from 'src/app/common/dto/jwt.dto';
+import { Payload } from 'src/app/common/interfaces/payload.interface';
+import { day } from '@lib/constants/time.constants';
+import { PermissionsKey } from '@lib/constants/permissions.constants';
 import { RoleEntity } from '../entities/role.entity';
 
 @Injectable()

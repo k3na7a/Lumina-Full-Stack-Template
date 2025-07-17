@@ -1,8 +1,11 @@
 import { JwtService } from '@nestjs/jwt';
 import { createHmac } from 'crypto';
 
-import { DecodedJWT, JWTInterface } from 'src/library/interfaces/jwt.interface';
-import { Payload } from 'src/library/interfaces/payload.interface';
+import {
+  DecodedJWT,
+  JWTInterface,
+} from 'src/app/common/interfaces/jwt.interface';
+import { Payload } from 'src/app/common/interfaces/payload.interface';
 
 class TokenManager {
   constructor(private readonly jwtService: JwtService) {}

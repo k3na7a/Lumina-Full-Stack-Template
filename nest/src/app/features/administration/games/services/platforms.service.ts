@@ -3,7 +3,7 @@ import { Injectable } from '@nestjs/common';
 import { PlatformEntity } from 'src/app/modules/games/entities/platform.entity';
 import { PlatformService } from 'src/app/modules/games/services/platforms.service';
 
-import { PaginationDto } from 'src/library/dto/pagination.dto';
+import { PaginationDto } from 'src/app/common/dto/pagination.dto';
 import { CreatePlatformDto, PlatformPaginationOptions } from 'src/app/features/administration/games/dto/platform.dto';
 
 @Injectable()

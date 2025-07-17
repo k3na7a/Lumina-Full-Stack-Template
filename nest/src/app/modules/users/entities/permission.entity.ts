@@ -1,8 +1,8 @@
 import { Entity, Column, ManyToMany } from 'typeorm';
 import { RoleEntity } from './role.entity';
-import { BaseEntity } from 'src/library/entities/base.entity';
+import { BaseEntity } from 'src/app/common/entities/base.entity';
 import { ApiProperty } from '@nestjs/swagger';
-import { PermissionDomain } from 'src/library/constants/permissions.constants';
+import { PermissionDomain } from '@lib/constants/permissions.constants';
 
 @Entity('permissions')
 export class PermissionEntity extends BaseEntity {

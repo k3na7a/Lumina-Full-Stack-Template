@@ -1,11 +1,11 @@
-import { Order, PaginationDto, PaginationMeta, PaginationOptions } from '@/library/dto/pagination.dto'
-import { columns } from '@/library/types/table-column.type'
+import { Order, PaginationDto, PaginationMeta, PaginationOptions } from '@/core/apis/localhost/dto/pagination.dto'
+import { columns } from '@/shared/components/table/composables/paginated-table.composable'
 import { computed, reactive, ref, watch } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { LocationQuery, useRoute } from 'vue-router'
 import { useUserAdminHandler } from '../handlers/user.handler'
-import { UserDto } from '@/library/dto/user.dto'
-import { parseQuery } from '@/core/utils/parse-query.util'
+import { UserDto } from '@/core/apis/localhost/administration/users/dto/user.dto'
+import { parseQuery } from '@/../../library/utilities/parse-query.util'
 
 const tableColumns: columns = [
   { name: 'user', label: 'forms.user', sort: 'role.label' },

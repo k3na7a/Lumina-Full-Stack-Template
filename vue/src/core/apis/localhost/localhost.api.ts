@@ -1,6 +1,6 @@
 import axios, { AxiosInstance } from 'axios'
 
-import { second } from '@/library/constants/time.constants'
+import { second } from '@/../../library/constants/time.constants'
 
 import { authentication } from './authentication/auth.service'
 import { administration } from './administration/admin.service'

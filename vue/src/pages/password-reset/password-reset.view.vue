@@ -5,10 +5,10 @@ import { useI18n } from 'vue-i18n'
 import { LocationQuery, RouteLocationNormalizedLoaded, Router, useRoute, useRouter } from 'vue-router'
 
 import { useFormUtil } from '@/core/utils/forms.util'
-import { ResetPassword } from '@/library/dto/user.dto'
+import { ResetPassword } from '@/core/apis/localhost/administration/users/dto/user.dto'
 import { useAppHandler } from '@/core/handlers/app.handler'
 
-import { ROUTE_NAMES } from '@/library/enums/route-names.enum'
+import { ROUTE_NAMES } from '@/core/router/route-names.enum'
 import TextInput from '@/shared/components/inputs/text.input.vue'
 
 import { validationSchema } from './password-reset.form'

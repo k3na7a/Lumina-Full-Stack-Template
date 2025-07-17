@@ -14,7 +14,7 @@ import {
   UpdateEmailDto,
   UpdatePassword,
   UpdatePasswordDto
-} from '@/library/dto/user.dto'
+} from '@/core/apis/localhost/administration/users/dto/user.dto'
 
 import { AppStore, useAppStore } from '@/core/store/app.store'
 import { ModalStore, useModalStore } from '@/core/store/modal.store'

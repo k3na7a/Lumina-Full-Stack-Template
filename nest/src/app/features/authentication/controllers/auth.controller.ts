@@ -28,11 +28,11 @@ import { LocalAuthGuard } from 'src/app/common/guards/localAuth.guard';
 import { UserEntity } from 'src/app/modules/users/entities/user.entity';
 
 import { ForgotPasswordDto } from 'src/app/features/authentication/dto/forgotPassword.dto';
-import { CsrfDto, JWTDto } from 'src/library/dto/jwt.dto';
+import { CsrfDto, JWTDto } from 'src/app/common/dto/jwt.dto';
 import { RegisterDto } from 'src/app/features/authentication/dto/register.dto';
 import { ResetPasswordDto } from 'src/app/features/authentication/dto/resetPassword.dto';
 import { SignInDto } from 'src/app/features/authentication/dto/signIn.dto';
-import { hour, minute } from 'src/library/constants/time.constants';
+import { hour, minute } from '@lib/constants/time.constants';
 import { CsrfGuard } from 'src/app/common/guards/csrf.guard';
 import { RefreshTokenGuard } from 'src/app/common/guards/refreshtoken.guard';
 
