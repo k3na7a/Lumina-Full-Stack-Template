@@ -81,14 +81,16 @@ export class UserAdminService {
   ): Promise<UserEntity> {
     const user = await this.userService.findOneById(id);
 
-    const { email, role, firstname, lastname } = dto;
+    const { email, firstname, lastname } = dto;
     const name = { first: firstname, last: lastname };
 
-    const avatar = await this.handleAvatar(user, file, dto['remove-avatar']);
+    const avatar = file
+      ? await this.handleAvatar(user, file, dto['remove-avatar'])
+      : user.profile.avatar;
     await this.profileService.update(user.profile, { name, avatar });
 
     const roles = await this.roleService.findManyById(dto.roles);
-    await this.userService.update(user.id, { email, role, roles });
+    await this.userService.update(user.id, { email, roles });
 
     return this.userService.findOneById(user.id);
   }

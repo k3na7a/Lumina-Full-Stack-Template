@@ -3,7 +3,6 @@ import { Exclude } from 'class-transformer';
 import { OneToOne, Column, Entity, ManyToMany, JoinTable } from 'typeorm';
 
 import { BaseEntity } from 'src/library/entities/base.entity';
-import { Role } from 'src/library/enums/role.enum';
 import { ProfileEntity } from 'src/app/modules/users/entities/profile.entity';
 import { RoleEntity } from './role.entity';
 
@@ -19,18 +18,6 @@ export class UserEntity extends BaseEntity {
   @Column()
   @Exclude()
   public readonly password!: string;
-
-  @ApiProperty({
-    enum: Role,
-    description: 'Role of the user in the application',
-    example: Role.USER,
-  })
-  @Column({
-    type: 'enum',
-    enum: Role,
-    default: Role.USER,
-  })
-  public readonly role!: Role;
 
   @Column({ type: 'text', nullable: true, default: null })
   @Exclude()

@@ -46,9 +46,8 @@ export class CreateRoleDto {
   @IsArray()
   @IsString({ each: true })
   @IsOptional()
-  @Transform(({ value }) => {
-    if (typeof value === 'string') return [value];
-    return value;
-  })
+  @Transform(({ value }) =>
+    Array.isArray(value) ? value : String(value).split(','),
+  )
   public readonly permissions: Array<string> = [];
 }

@@ -7,10 +7,12 @@ enum ROUTE_NAMES {
 
   ADMIN_DASHBOARD = 'admin-dashboard',
 
+  ADMIN_NOT_FOUND = 'admin-not-found',
+
   ADMIN_USERS = 'admin-users',
   ADMIN_USER_ROLES = 'admin-user-roles',
   ADMIN_USER_PERMISSIONS = 'asmin-user-permissions',
-  
+
   ADMIN_GAMES_AND_SOFTWARE = 'admin-games-and-software',
   ADMIN_GAMES = 'admin-games',
   ADMIN_PLATFORMS = 'admin-platforms',

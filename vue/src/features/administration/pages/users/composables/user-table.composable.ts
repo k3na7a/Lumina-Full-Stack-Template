@@ -8,8 +8,8 @@ import { UserDto } from '@/library/dto/user.dto'
 import { parseQuery } from '@/core/utils/parse-query.util'
 
 const tableColumns: columns = [
-  { name: 'user', label: 'forms.user' },
-  { name: 'email', label: 'forms.email' },
+  { name: 'user', label: 'forms.user', sort: 'role.label' },
+  { name: 'email', label: 'forms.email', sort: 'role.label' },
   { name: 'roles', label: 'forms.roles' },
   { name: 'created', label: 'forms.date-registered', sort: 'user.createdAt' },
   { name: 'actions' }

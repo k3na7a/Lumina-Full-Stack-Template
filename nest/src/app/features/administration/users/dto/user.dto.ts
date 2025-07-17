@@ -8,7 +8,6 @@ import {
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 import { Transform } from 'class-transformer';
 
-import { Role } from 'src/library/enums/role.enum';
 import { PaginationOptions } from 'src/library/dto/pagination.dto';
 
 enum SORT_OPTIONS {
@@ -50,10 +49,6 @@ class UpdateUserDto {
   @IsString()
   public readonly email: string;
 
-  @ApiProperty()
-  @IsEnum(Role)
-  public readonly role: Role;
-
   @ApiPropertyOptional({
     description: "Delete user's profile picture?",
     example: false,
@@ -74,10 +69,9 @@ class UpdateUserDto {
   @IsArray()
   @IsString({ each: true })
   @IsOptional()
-  @Transform(({ value }) => {
-    if (typeof value === 'string') return [value];
-    return value;
-  })
+  @Transform(({ value }) =>
+    Array.isArray(value) ? value : String(value).split(','),
+  )
   public readonly roles: Array<string> = [];
 }
 

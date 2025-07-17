@@ -26,7 +26,6 @@ const route: RouteRecordRaw = {
           children: [
             {
               path: 'users',
-              redirect: { name: ROUTE_NAMES.ADMIN_USERS },
               children: [
                 {
                   path: '',
@@ -104,6 +103,10 @@ const route: RouteRecordRaw = {
               }
             }
           ]
+        },
+        {
+          path: '/:catchAll(.*)',
+          redirect: { name: ROUTE_NAMES.ADMIN_DASHBOARD }
         }
       ]
     }

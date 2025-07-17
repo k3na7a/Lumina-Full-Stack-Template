@@ -49,29 +49,22 @@ await promise()
         </template>
 
         <template #permission="{ row }">
-          <div class="d-flex flex-column flex-grow-1">
+          <div class="d-flex flex-column flex-grow-1 overflow-hidden" style="max-width: 30rem">
             <small class="fst-italic text-muted">{{ row.id }}</small>
-            <p class="fw-semibold text-light">
+            <p class="fw-semibold text-light text-wrap">
               {{ row.label }}
+              <small class="fw-normal text-muted">:: {{ row.description }}</small>
             </p>
           </div>
         </template>
 
         <template #domain="{ row }">
-          <small class="fw-semibold text-primary">{{ row.domain }}</small>
+          <small class="fw-semibold text-light-alt">{{ row.domain }}</small>
         </template>
 
         <template #key="{ row }">
-          <small
-            v-if="row.description"
-            class="fw-semibold text-info"
-            style="cursor: help"
-            v-tooltip="{ text: row.description, position: 'bottom', trigger: 'hover' }"
-          >
+          <small class="fst-italic text-warning">
             {{ row.name.toUpperCase() }}
-          </small>
-          <small v-else class="fw-semibold text-muted">
-            {{ row.name }}
           </small>
         </template>
 

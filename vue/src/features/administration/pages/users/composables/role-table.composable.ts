@@ -10,8 +10,8 @@ import { useRoleAdminHandler } from '../handlers/roles.handler'
 import { RoleDto } from '@/library/dto/role.dto'
 
 const tableColumns: columns = [
-  { name: 'role', label: 'forms.role' },
-  { name: 'key', label: 'forms.key' },
+  { name: 'role', label: 'forms.role', sort: 'role.label' },
+  { name: 'key', label: 'forms.key', sort: 'role.label' },
   { name: 'permissions', label: 'forms.permissions' },
   { name: 'actions' }
 ]

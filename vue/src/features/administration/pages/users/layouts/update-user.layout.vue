@@ -21,10 +21,6 @@
       <slot name="email"></slot>
     </div>
     <div class="d-flex flex-column gap-1">
-      <h6 class="fw-semibold">{{ $t('forms.role') }}</h6>
-      <slot name="role"></slot>
-    </div>
-    <div class="d-flex flex-column gap-1">
       <h6 class="fw-semibold">{{ $t('forms.roles') }}</h6>
       <slot name="roles"></slot>
     </div>

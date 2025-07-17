@@ -6,9 +6,15 @@ import {
   Patch,
   Post,
   UploadedFile,
+  UseGuards,
   UseInterceptors,
 } from '@nestjs/common';
-import { ApiBody, ApiOkResponse, ApiTags } from '@nestjs/swagger';
+import {
+  ApiBearerAuth,
+  ApiBody,
+  ApiOkResponse,
+  ApiTags,
+} from '@nestjs/swagger';
 import { FileInterceptor } from '@nestjs/platform-express';
 
 import { CurrentUser } from 'src/app/common/decorators/current-user.decorator';
@@ -18,11 +24,18 @@ import { JWTDto } from 'src/library/dto/jwt.dto';
 import { RegisterProfileDto } from 'src/app/features/authentication/dto/register.dto';
 import { SettingsService } from '../services/settings.service';
 import { ImageUploadValidationPipe } from 'src/app/common/pipes/image-upload.pipe';
-import { RequiresAuthentication } from 'src/app/common/decorators/access-token.decorator';
+import { JwtAuthGuard } from 'src/app/common/guards/jwt-auth.guard';
+import { PermissionsGuard } from 'src/app/common/guards/permissions.guard';
+import { Permissions } from 'src/app/common/decorators/permissions.decorator';
+import {
+  PERMISSION_MATRIX,
+  PermissionDomain,
+} from 'src/library/constants/permissions.constants';
 
 @ApiTags('Settings / Profile')
 @Controller('profile')
-@RequiresAuthentication()
+@ApiBearerAuth('access-token')
+@UseGuards(JwtAuthGuard, PermissionsGuard)
 @UseInterceptors(ClassSerializerInterceptor)
 export class ProfileController {
   constructor(private readonly service: SettingsService) {}
@@ -30,6 +43,7 @@ export class ProfileController {
   @Patch('update')
   @ApiBody({ type: RegisterProfileDto })
   @ApiOkResponse({ type: JWTDto })
+  @Permissions(PERMISSION_MATRIX[PermissionDomain.SELF_MANAGEMENT].UPDATE_SELF)
   async updateProfile(
     @CurrentUser() user: UserEntity,
     @Body() dto: RegisterProfileDto,
@@ -40,6 +54,7 @@ export class ProfileController {
   @Post('/avatar/upload')
   @ApiOkResponse({ type: JWTDto })
   @UseInterceptors(FileInterceptor('avatar', { storage }))
+  @Permissions(PERMISSION_MATRIX[PermissionDomain.SELF_MANAGEMENT].UPDATE_SELF)
   async updateAvatar(
     @CurrentUser() user: UserEntity,
     @UploadedFile(new ImageUploadValidationPipe({ fileIsRequired: true }))
@@ -50,6 +65,7 @@ export class ProfileController {
 
   @Delete('/avatar/remove')
   @ApiOkResponse({ type: JWTDto })
+  @Permissions(PERMISSION_MATRIX[PermissionDomain.SELF_MANAGEMENT].UPDATE_SELF)
   async removeAvatar(@CurrentUser() user: UserEntity): Promise<UserEntity> {
     return this.service.removeAvatar(user);
   }

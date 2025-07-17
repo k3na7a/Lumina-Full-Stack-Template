@@ -9,9 +9,9 @@ import { usePermissionAdminHandler } from '../handlers/permissions.handler'
 import { PermissionDto } from '@/library/dto/permission.dto'
 
 const tableColumns: columns = [
-  { name: 'permission', label: 'forms.permissions' },
-  { name: 'domain', label: 'forms.domain' },
-  { name: 'key', label: 'forms.key' },
+  { name: 'permission', label: 'forms.permissions', sort: 'permission.label' },
+  { name: 'domain', label: 'forms.domain', sort: 'permission.label' },
+  { name: 'key', label: 'forms.key', sort: 'permission.label' },
   { name: 'actions' }
 ]
 

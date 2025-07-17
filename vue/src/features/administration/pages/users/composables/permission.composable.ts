@@ -2,7 +2,8 @@ import * as Yup from 'yup'
 import { computed, ref } from 'vue'
 
 import { useFormUtil } from '@/core/utils/forms.util'
-import { iCreatePermission, PermissionDomain, PermissionDto } from '@/library/dto/permission.dto'
+import { iCreatePermission, PermissionDto } from '@/library/dto/permission.dto'
+import { PermissionDomain } from '@/library/constants/permissions.constants'
 
 type proptype = {
   permission?: PermissionDto

@@ -14,7 +14,6 @@ type UpdateUser = {
   readonly email: string
   readonly firstname: string
   readonly lastname: string
-  readonly role: Role
   readonly roles?: RoleDto[]
   readonly avatar?: File | null
   readonly 'remove-avatar': boolean
@@ -24,7 +23,6 @@ class UpdateUserDto {
   public readonly firstname!: string
   public readonly lastname!: string
   public readonly email!: string
-  public readonly role!: Role
   public readonly roles!: string[]
   public readonly avatar?: File
   public readonly 'remove-avatar'!: boolean
@@ -33,7 +31,6 @@ class UpdateUserDto {
     this.firstname = payload.firstname
     this.lastname = payload.lastname
     this.email = payload.email
-    this.role = payload.role
     this.roles = payload.roles?.map((value: RoleDto) => value.id) || []
     this.avatar = payload.avatar || undefined
     this['remove-avatar'] = payload['remove-avatar']
@@ -126,7 +123,6 @@ interface iUser {
   readonly updatedAt: Date
 
   readonly email: string
-  readonly role: Role
 
   readonly profile: iProfile
   readonly roles: iRole[]
@@ -163,12 +159,8 @@ class Profile {
 
 class UserDto extends BaseDto {
   public readonly email: string
-  public readonly role: Role
-
   public readonly profile: Profile
   public readonly roles: RoleDto[]
-
-  public readonly permissions: string[]
 
   public getFullName(): string {
     return [this.profile.name.first, this.profile.name.last].join(' ')
@@ -178,10 +170,6 @@ class UserDto extends BaseDto {
     super(user)
 
     this.email = user.email
-    this.role = user.role
-
-    this.permissions = user.roles?.flatMap((val: iRole) => val.permissions?.map((permission) => permission.name))
-
     this.profile = new Profile(user.profile)
     this.roles = user.roles ? user.roles.map((value: iRole) => new RoleDto(value)) : []
   }

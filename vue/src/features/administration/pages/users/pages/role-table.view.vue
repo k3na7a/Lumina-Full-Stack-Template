@@ -52,19 +52,16 @@ await promise()
         </template>
 
         <template #role="{ row }">
-          <div class="d-flex flex-column flex-grow-1">
+          <div class="d-flex flex-column flex-grow-1 overflow-hidden" style="max-width: 30rem">
             <small class="fst-italic text-muted">{{ row.id }}</small>
-            <p class="fw-semibold text-light">{{ row.label }}</p>
+            <p class="fw-semibold text-light text-wrap">
+              {{ row.label }}<small class="fw-normal text-muted"> :: {{ row.description }}</small>
+            </p>
           </div>
         </template>
 
         <template #key="{ row }">
-          <small
-            v-if="row.description"
-            class="fw-semibold text-info"
-            style="cursor: help"
-            v-tooltip="{ text: row.description, position: 'bottom', trigger: 'hover' }"
-          >
+          <small v-if="row.description" class="fw-semibold text-light-alt">
             {{ row.name }}
           </small>
           <small v-else class="fw-semibold text-muted">

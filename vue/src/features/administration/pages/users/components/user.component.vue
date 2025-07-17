@@ -1,10 +1,7 @@
 <script setup lang="ts">
 import { Form } from 'vee-validate'
 
-import { Role } from '@/library/dto/user.dto'
-
 import TextInput from '@/shared/components/inputs/text.input.vue'
-import SelectInput from '@/shared/components/inputs/select.input.vue'
 import FileInput from '@/shared/components/inputs/file.input.vue'
 import CheckboxInput from '@/shared/components/inputs/checkbox.input.vue'
 import SearchPaginatedInput from '@/shared/components/inputs/search-paginated-input.input.vue'
@@ -41,15 +38,9 @@ const { loading, onSubmit, validationSchema, initialValues, emailPlaceholder, ge
           :placeholder="$t('forms.placeholders.last-name')"
         />
       </template>
+
       <template #email>
         <TextInput autocomplete="email" name="email" type="email" :placeholder="emailPlaceholder" />
-      </template>
-      <template #role>
-        <SelectInput name="role" :options="Object.values(Role)">
-          <template #option="{ option }">
-            {{ option }}
-          </template>
-        </SelectInput>
       </template>
 
       <template #roles>

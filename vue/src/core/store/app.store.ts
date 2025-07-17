@@ -14,6 +14,8 @@ import { Store, StoreDefinition, defineStore } from 'pinia'
 import { credentials, JWTDto } from '@/library/dto/JWT.dto'
 import { second } from '@/library/constants/time.constants'
 import { useLocalStorageUtil } from '../utils/local-storage.util'
+import { RoleDto } from '@/library/dto/role.dto'
+import { PERMISSION_MATRIX, PermissionDomain, PermissionsKey } from '@/library/constants/permissions.constants'
 
 interface IToken {
   token: string
@@ -26,6 +28,7 @@ interface IAppState {
   $access_token: IToken | null
   $authenticated: boolean
   $user: UserDto | undefined
+  $permissions: string[]
 }
 
 interface AppGetters {
@@ -52,6 +55,7 @@ interface AppActions {
   getValidAccessToken(): Promise<string | null>
   getValidCsrfToken(): Promise<string | null>
   getCsrfToken(): Promise<void>
+  canActivate(requiredPermissions: PermissionsKey[]): boolean
 }
 
 type AppStore = Store<'application', IAppState, AppGetters, AppActions>
@@ -65,13 +69,19 @@ const useAppStore: StoreDef = defineStore({
     $csrf_token: null,
     $access_token: null,
     $authenticated: false,
-    $user: undefined
+    $user: undefined,
+    $permissions: []
   }),
   getters: {
     isAuthenticated: (state: IAppState): boolean => state.$authenticated,
     authenticatedUser: (state: IAppState): UserDto | undefined => state.$user
   },
   actions: {
+    canActivate(requiredPermissions: PermissionsKey[]): boolean {
+      if (this.$permissions.includes(PERMISSION_MATRIX[PermissionDomain.SYSTEM].HAS_ALL_PERMISSIONS)) return true
+      return requiredPermissions.some((permission: string) => this.$permissions.includes(permission))
+    },
+
     async initialize(): Promise<void> {
       const now = Date.now() / second
       const exp = localStorage.getItem<number>()
@@ -90,6 +100,9 @@ const useAppStore: StoreDef = defineStore({
 
       this.$user = props.user
       this.$authenticated = true
+      this.$permissions = Array.from(
+        new Set(props.user.roles?.flatMap((val: RoleDto) => val.permissions?.map((permission) => permission.name)))
+      )
       this.$access_token = {
         token: props.access_token,
         iat: props.iat,
@@ -102,6 +115,7 @@ const useAppStore: StoreDef = defineStore({
 
       this.$user = undefined
       this.$authenticated = false
+      this.$permissions = []
     },
 
     async getValidCsrfToken(): Promise<string | null> {

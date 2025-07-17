@@ -11,6 +11,8 @@ import * as bcrypt from 'bcrypt';
 import { JWTDto } from 'src/library/dto/jwt.dto';
 import { Payload } from 'src/library/interfaces/payload.interface';
 import { day } from 'src/library/constants/time.constants';
+import { PermissionsKey } from 'src/library/constants/permissions.constants';
+import { RoleEntity } from '../entities/role.entity';
 
 @Injectable()
 export class UserAccountService {
@@ -32,6 +34,26 @@ export class UserAccountService {
 
     if (isMatch) return user;
     throw new UnauthorizedException('Invalid credentials');
+  }
+
+  public async hasPermission(
+    { roles }: UserEntity,
+    keys: PermissionsKey[],
+  ): Promise<void> {
+    const userPermissions = Array.from(
+      new Set(
+        roles?.flatMap((val: RoleEntity) =>
+          val.permissions?.map((permission) => permission.name),
+        ),
+      ),
+    );
+
+    const hasPermission = keys.some((permission: string) =>
+      userPermissions.includes(permission),
+    );
+
+    if (!hasPermission)
+      throw new UnauthorizedException('User does not have required permission');
   }
 
   public async hashPassword(password: string): Promise<string> {

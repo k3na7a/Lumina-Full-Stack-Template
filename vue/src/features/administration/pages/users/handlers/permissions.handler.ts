@@ -58,7 +58,7 @@ export function usePermissionAdminHandler(t: (key: string) => string): {
             .create(new CreatePermissionDto(values), token)
             .then((value: PermissionDto) => {
               if (success) success(value)
-              showSuccessToast('administration.user-management.roles.create.success')
+              showSuccessToast('administration.user-management.permissions.create.success')
               closeModal()
             })
             .catch(showErrorToast)
@@ -99,7 +99,7 @@ export function usePermissionAdminHandler(t: (key: string) => string): {
             .update(id, new CreatePermissionDto(values), token)
             .then((value: PermissionDto) => {
               if (success) success(value)
-              showSuccessToast('administration.user-management.roles.update.success')
+              showSuccessToast('administration.user-management.permissions.update.success')
               closeModal()
             })
             .catch(showErrorToast)

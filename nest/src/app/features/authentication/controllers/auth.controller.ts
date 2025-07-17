@@ -11,7 +11,12 @@ import {
   UseGuards,
   UseInterceptors,
 } from '@nestjs/common';
-import { ApiBody, ApiOkResponse, ApiTags } from '@nestjs/swagger';
+import {
+  ApiBearerAuth,
+  ApiBody,
+  ApiOkResponse,
+  ApiTags,
+} from '@nestjs/swagger';
 import { Response, Request as RequestType } from 'express';
 import { Throttle } from '@nestjs/throttler';
 
@@ -27,9 +32,9 @@ import { CsrfDto, JWTDto } from 'src/library/dto/jwt.dto';
 import { RegisterDto } from 'src/app/features/authentication/dto/register.dto';
 import { ResetPasswordDto } from 'src/app/features/authentication/dto/resetPassword.dto';
 import { SignInDto } from 'src/app/features/authentication/dto/signIn.dto';
-import { RequiresRefreshToken } from 'src/app/common/decorators/refresh-token.decorator';
 import { hour, minute } from 'src/library/constants/time.constants';
 import { CsrfGuard } from 'src/app/common/guards/csrf.guard';
+import { RefreshTokenGuard } from 'src/app/common/guards/refreshtoken.guard';
 
 @ApiTags('Authentication')
 @Controller('')
@@ -85,7 +90,8 @@ export class AuthController {
   @Get('/verify-token')
   @ApiOkResponse({ type: JWTDto })
   @Throttle({ default: { limit: 10, ttl: 1 * minute } })
-  @RequiresRefreshToken()
+  @ApiBearerAuth('access-token')
+  @UseGuards(CsrfGuard, RefreshTokenGuard)
   async verifyToken(
     @CurrentUser() user: UserEntity,
     @Res({ passthrough: true }) res: Response,
@@ -95,7 +101,8 @@ export class AuthController {
 
   @Post('/sign-out')
   @Throttle({ default: { limit: 10, ttl: 1 * minute } })
-  @RequiresRefreshToken()
+  @ApiBearerAuth('access-token')
+  @UseGuards(CsrfGuard, RefreshTokenGuard)
   async signOut(
     @CurrentUser() user: UserEntity,
     @Res({ passthrough: true }) res: Response,

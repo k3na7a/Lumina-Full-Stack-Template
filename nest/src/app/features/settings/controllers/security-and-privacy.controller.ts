@@ -5,9 +5,15 @@ import {
   Delete,
   Patch,
   Res,
+  UseGuards,
   UseInterceptors,
 } from '@nestjs/common';
-import { ApiBody, ApiOkResponse, ApiTags } from '@nestjs/swagger';
+import {
+  ApiBearerAuth,
+  ApiBody,
+  ApiOkResponse,
+  ApiTags,
+} from '@nestjs/swagger';
 import { Response } from 'express';
 
 import { CurrentUser } from 'src/app/common/decorators/current-user.decorator';
@@ -17,11 +23,19 @@ import { updatePasswordDto } from 'src/app/features/settings/dto/updatePassword.
 import { UserEntity } from 'src/app/modules/users/entities/user.entity';
 import { JWTDto } from 'src/library/dto/jwt.dto';
 import { SettingsService } from '../services/settings.service';
-import { RequiresRefreshToken } from 'src/app/common/decorators/refresh-token.decorator';
+import { Permissions } from 'src/app/common/decorators/permissions.decorator';
+import {
+  PERMISSION_MATRIX,
+  PermissionDomain,
+} from 'src/library/constants/permissions.constants';
+import { PermissionsGuard } from 'src/app/common/guards/permissions.guard';
+import { CsrfGuard } from 'src/app/common/guards/csrf.guard';
+import { RefreshTokenGuard } from 'src/app/common/guards/refreshtoken.guard';
 
 @ApiTags('Settings / Security & Privacy')
 @Controller('security-and-privacy')
-@RequiresRefreshToken()
+@ApiBearerAuth('access-token')
+@UseGuards(CsrfGuard, RefreshTokenGuard, PermissionsGuard)
 @UseInterceptors(ClassSerializerInterceptor)
 export class SecurityController {
   constructor(private readonly service: SettingsService) {}
@@ -29,6 +43,7 @@ export class SecurityController {
   @Patch('/email')
   @ApiBody({ type: updateEmailDto })
   @ApiOkResponse({ type: JWTDto })
+  @Permissions(PERMISSION_MATRIX[PermissionDomain.SELF_MANAGEMENT].UPDATE_SELF)
   async updateEmail(
     @CurrentUser() user: UserEntity,
     @Body() dto: updateEmailDto,
@@ -40,6 +55,7 @@ export class SecurityController {
   @Patch('/password')
   @ApiBody({ type: updatePasswordDto })
   @ApiOkResponse({ type: JWTDto })
+  @Permissions(PERMISSION_MATRIX[PermissionDomain.SELF_MANAGEMENT].UPDATE_SELF)
   async updatePassword(
     @CurrentUser() user: UserEntity,
     @Body() dto: updatePasswordDto,
@@ -50,6 +66,7 @@ export class SecurityController {
 
   @Delete('/delete-account')
   @ApiBody({ type: deleteAccountDto })
+  @Permissions(PERMISSION_MATRIX[PermissionDomain.SELF_MANAGEMENT].DELETE_SELF)
   async deleteAccount(
     @CurrentUser() user: UserEntity,
     @Body() dto: deleteAccountDto,

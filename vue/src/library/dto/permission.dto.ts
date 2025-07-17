@@ -1,14 +1,5 @@
+import { PermissionDomain } from '../constants/permissions.constants'
 import { BaseDto } from './base.dto'
-
-enum PermissionDomain {
-  APPLICATION = 'APPLICATION',
-  SELF_MANAGEMENT = 'SELF_MANAGEMENT',
-  USER_MANAGEMENT = 'USER_MANAGEMENT',
-  ROLE_MANAGEMENT = 'ROLE_MANAGEMENT',
-  PERMISSION_MANAGEMENT = 'PERMISSION_MANAGEMENT',
-  GAME_MANAGEMENT = 'GAME_MANAGEMENT',
-  PLATFORM_MANAGEMENT = 'PLATFORM_MANAGEMENT'
-}
 
 interface iPermission {
   readonly id: string

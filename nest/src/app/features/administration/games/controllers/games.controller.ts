@@ -9,14 +9,14 @@ import {
   Put,
   Query,
   UploadedFile,
+  UseGuards,
   UseInterceptors,
 } from '@nestjs/common';
-import { ApiBody, ApiOkResponse, ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiBody, ApiOkResponse, ApiTags } from '@nestjs/swagger';
 import { FileInterceptor } from '@nestjs/platform-express/multer';
 
 import { storage } from 'src/config/storage.config';
 import { PaginationDto } from 'src/library/dto/pagination.dto';
-import { IsAdministrator } from 'src/app/common/decorators/administrator.decorator';
 import { GameEntity } from 'src/app/modules/games/entities/game.entity';
 import {
   CreateGameDto,
@@ -24,10 +24,18 @@ import {
 } from 'src/app/features/administration/games/dto/game.dto';
 import { GamesAdminService } from 'src/app/features/administration/games/services/games.service';
 import { ImageUploadValidationPipe } from 'src/app/common/pipes/image-upload.pipe';
+import { PermissionsGuard } from 'src/app/common/guards/permissions.guard';
+import { Permissions } from 'src/app/common/decorators/permissions.decorator';
+import {
+  PERMISSION_MATRIX,
+  PermissionDomain,
+} from 'src/library/constants/permissions.constants';
+import { JwtAuthGuard } from 'src/app/common/guards/jwt-auth.guard';
 
 @ApiTags('Administration / Games & Software / Games')
 @Controller('games')
-@IsAdministrator()
+@ApiBearerAuth('access-token')
+@UseGuards(JwtAuthGuard, PermissionsGuard)
 @UseInterceptors(ClassSerializerInterceptor)
 class GameAdminController {
   constructor(private readonly service: GamesAdminService) {}
@@ -35,6 +43,7 @@ class GameAdminController {
   @Put('')
   @ApiBody({ type: CreateGameDto })
   @ApiOkResponse({ type: GameEntity })
+  @Permissions(PERMISSION_MATRIX[PermissionDomain.GAME_MANAGEMENT].CREATE_GAME)
   @UseInterceptors(FileInterceptor('cover', { storage }))
   async create(
     @Body() dto: CreateGameDto,
@@ -46,6 +55,7 @@ class GameAdminController {
 
   @Get('')
   @ApiOkResponse({ type: PaginationDto<GameEntity> })
+  @Permissions(PERMISSION_MATRIX[PermissionDomain.GAME_MANAGEMENT].READ_GAME)
   async paginate(
     @Query() params: GamePaginationOptions,
   ): Promise<PaginationDto<GameEntity>> {
@@ -54,6 +64,7 @@ class GameAdminController {
 
   @Get('/:id')
   @ApiOkResponse({ type: GameEntity })
+  @Permissions(PERMISSION_MATRIX[PermissionDomain.GAME_MANAGEMENT].READ_GAME)
   async getSingle(@Param('id') id: string): Promise<GameEntity> {
     return this.service.findOne(id);
   }
@@ -61,6 +72,7 @@ class GameAdminController {
   @Patch('/:id')
   @ApiOkResponse({ type: GameEntity })
   @UseInterceptors(FileInterceptor('cover', { storage }))
+  @Permissions(PERMISSION_MATRIX[PermissionDomain.GAME_MANAGEMENT].UPDATE_GAME)
   async update(
     @Param('id') id: string,
     @Body() dto: CreateGameDto,
@@ -72,6 +84,7 @@ class GameAdminController {
 
   @Delete('/:id')
   @ApiOkResponse({ type: GameEntity })
+  @Permissions(PERMISSION_MATRIX[PermissionDomain.GAME_MANAGEMENT].DELETE_GAME)
   async delete(@Param('id') id: string): Promise<GameEntity> {
     return this.service.remove(id);
   }
