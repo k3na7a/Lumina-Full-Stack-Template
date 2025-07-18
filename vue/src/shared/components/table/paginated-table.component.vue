@@ -1,10 +1,11 @@
-<script setup lang="ts" generic="T">
+<script setup lang="ts" generic="T extends BaseDto">
 import SearchInputComponent from '@/shared/components/inputs/search.input.vue'
 import SelectInputComponent from '@/shared/components/inputs/select.input.vue'
 import PaginationInputComponent from '@/shared/components/pagination/pagination.component.vue'
 
 import { proptype, usePaginatedTable } from './composables/paginated-table.composable'
 import { Order } from '@/core/apis/localhost/dto/pagination.dto'
+import { BaseDto } from '@/core/apis/localhost/dto/base.dto'
 
 const { columns, rows, pages, options, loading, caption } = defineProps<proptype<T>>()
 const { resetPageAndUpdateQuery, updateQuery, handleSort, sortParam, orderParam } = usePaginatedTable()
@@ -61,9 +62,9 @@ const { resetPageAndUpdateQuery, updateQuery, handleSort, sortParam, orderParam 
 
         <template v-if="rows.length">
           <tbody>
-            <template v-for="(row, idx) in rows" :key="`row:${idx}`">
+            <template v-for="(row, idx) in rows" :key="`row:${idx}:${row.id}`">
               <tr>
-                <td v-for="column in columns" :key="`${column.name}:${idx}`">
+                <td v-for="column in columns" :key="`cell:${column.name}:${idx}:${row.id}`">
                   <div class="cell">
                     <slot :name="column.name" :row="row"></slot>
                   </div>

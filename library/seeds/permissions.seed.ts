@@ -1,7 +1,7 @@
-import { PermissionDomain } from '../constants/permissions.constants'
+import { PermissionDomain, PermissionsKey, SystemPermissions } from '../constants/permissions.constants'
 
 export type PermissionSeed = {
-  key: string
+  key: PermissionsKey
   label: string
   description: string
   domain: PermissionDomain
@@ -9,7 +9,7 @@ export type PermissionSeed = {
 
 export const PERMISSIONS_SEED: PermissionSeed[] = [
   {
-    key: 'has_all_permissions',
+    key: SystemPermissions.HAS_ALL_PERMISSIONS,
     label: 'Has All Permissions',
     description: 'Grants the user unrestricted access to all actions in the system.',
     domain: PermissionDomain.SYSTEM

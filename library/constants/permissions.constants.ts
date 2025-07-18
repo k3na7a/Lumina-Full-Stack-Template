@@ -11,10 +11,7 @@ export enum PermissionDomain {
 // SYSTEM
 export enum SystemPermissions {
   HAS_ALL_PERMISSIONS = 'has_all_permissions',
-  // FE / UI PERMISSIONS
-  CAN_VIEW_ADMIN_DASHBOARD = 'view_admin_dashboard',
-  CAN_VIEW_USER_DASHBOARD = 'view_user_management',
-  CAN_VIEW_GAMES_DASHBOARD = 'view_games_&_software'
+  CAN_VIEW_ADMIN_DASHBOARD = 'view_admin_dashboard'
 }
 
 // MANAGE SELF
@@ -78,7 +75,3 @@ export const PERMISSION_MATRIX = {
   [PermissionDomain.GAME_MANAGEMENT]: GameManagementPermissions,
   [PermissionDomain.PLATFORM_MANAGEMENT]: PlatformManagementPermissions
 }
-
-export const USER_PERMISSIONS = [SelfManagementPermissions.UPDATE_SELF, SelfManagementPermissions.DELETE_SELF]
-
-export const SYSTEM_ADMIN_PERMISSIONS = [SystemPermissions.HAS_ALL_PERMISSIONS]

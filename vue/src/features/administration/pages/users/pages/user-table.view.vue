@@ -65,10 +65,10 @@ await promise()
                     style="cursor: help"
                     v-tooltip="{ text: role.description, position: 'bottom', trigger: 'hover' }"
                   >
-                    {{ role.name }}
+                    {{ role.label }}
                   </small>
                   <small v-else class="fw-semibold text-muted">
-                    {{ role.name }}
+                    {{ role.label }}
                   </small>
                 </template>
               </div>
