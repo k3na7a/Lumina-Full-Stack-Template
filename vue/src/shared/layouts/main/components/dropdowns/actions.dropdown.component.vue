@@ -13,18 +13,13 @@ const { authenticatedUser } = defineProps<{
 </script>
 
 <template>
-  <DropdownComponent v-if="authenticatedUser" dropdown-align="end">
-    <template #button>
-      <font-awesome-icon :icon="['fas', 'user']" />
-    </template>
+  <DropdownComponent v-if="authenticatedUser" dropdown-align="end" :image="authenticatedUser.profile.avatar">
     <template #menu="{ close }">
       <div class="d-flex flex-column gap-1">
         <div class="px-2 py-1">
           <div class="d-flex align-items-center gap-2">
-            <img class="avatar-icon rounded-circle" :src="authenticatedUser.profile.avatar" />
-
             <div class="d-flex flex-column flex-grow-1">
-              <p class="text-light fw-semibold display-font">{{ authenticatedUser?.getFullName() }}</p>
+              <h5 class="text-light fw-bolder display-font">{{ authenticatedUser?.getFullName() }}</h5>
               <small class="text-light-alt d-block text-truncate fst-italic">{{ authenticatedUser?.email }}</small>
             </div>
           </div>
@@ -64,7 +59,7 @@ const { authenticatedUser } = defineProps<{
               type="button"
               :disabled="action.disabled"
               @click="(_: MouseEvent) => {
-                    action.callback()
+                    action.callback && action.callback()
                     close()
                 }"
             >

@@ -42,10 +42,7 @@ function useMainLayout(): MainLayout {
 
   const USER_NAVIGATION: more_navigation = [
     {
-      children: [
-        { title: 'settings.label', redirect: ROUTE_NAMES.SETTINGS, icon: ['fas', 'gear'] },
-        { title: 'administration.label', redirect: ROUTE_NAMES.ADMINISTRATION, icon: ['fas', 'lock'] }
-      ]
+      children: [{ title: 'settings.label', redirect: ROUTE_NAMES.SETTINGS, icon: ['fas', 'gear'] }]
     }
   ]
 

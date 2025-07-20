@@ -53,7 +53,7 @@ await promise()
             <small class="fst-italic text-muted">{{ row.id }}</small>
             <p class="fw-semibold text-light text-wrap">
               {{ row.label }}
-              <small class="fw-normal text-muted">:: {{ row.description }}</small>
+              <!-- <small class="fw-normal text-muted">:: {{ row.description }}</small> -->
             </p>
           </div>
         </template>

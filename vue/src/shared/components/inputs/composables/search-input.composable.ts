@@ -12,6 +12,7 @@ type SearchInput = {
   inputRef: Ref<HTMLElement | undefined>
   debouncedFn: PromisifyFn<(val: string | undefined) => void>
   giveFocus: (event: PointerEvent) => void
+  clearFilter: (payload: MouseEvent) => void
 }
 
 function useSearchInput(
@@ -21,9 +22,11 @@ function useSearchInput(
   const value = ref<string | undefined>(props.value)
   const inputRef = ref<InstanceType<typeof HTMLElement>>()
 
+  const clearing = ref<boolean>(false)
+
   const debouncedFn = useDebounceFn((val: string | undefined) => {
     emit('update', val || undefined)
-  }, 0.75 * second)
+  }, 0.5 * second)
 
   function giveFocus(event: PointerEvent): void {
     event.preventDefault()
@@ -31,18 +34,23 @@ function useSearchInput(
     input.focus()
   }
 
+  function clearFilter(_: MouseEvent): void {
+    clearing.value = true
+    value.value = undefined
+    emit('update', value.value)
+  }
+
   watch(
     () => props.value,
-    (val) => {
-      if (!deepEqual(val, value.value)) {
-        value.value = val
-      }
-    }
+    (val) => !deepEqual(val, value.value) && (value.value = val)
   )
 
-  watch(value, debouncedFn)
+  watch(value, (val: string | undefined) => {
+    if (!clearing.value) debouncedFn(val)
+    clearing.value = false
+  })
 
-  return { value, inputRef, debouncedFn, giveFocus }
+  return { value, inputRef, debouncedFn, giveFocus, clearFilter }
 }
 
 export type { SearchInput, proptype }

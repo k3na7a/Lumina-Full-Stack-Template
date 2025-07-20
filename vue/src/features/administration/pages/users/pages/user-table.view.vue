@@ -41,7 +41,7 @@ await promise()
 
         <template #user="{ row }">
           <div class="d-flex align-items-center gap-2">
-            <img class="avatar-icon rounded-circle" :src="row.profile.avatar" />
+            <img class="avatar-icon" :src="row.profile.avatar" />
 
             <div class="d-flex flex-column flex-grow-1">
               <small class="fst-italic text-muted">{{ row.id }}</small>

@@ -33,7 +33,7 @@ const { isAuthenticated, navigation } = defineProps<props>()
       <template v-for="nav in navigation" :key="nav.name">
         <div v-if="!nav.auth || isAuthenticated" class="m-nav d-flex flex-column">
           <nav class="align-content-center flex-grow-1">
-            <RouterLink :to="{ name: nav.name }" class="text-decoration-none" activeClass="text-primary">
+            <RouterLink :to="{ name: nav.name }" class="text-decoration-none fw-bold" activeClass="text-primary">
               <span class="d-none d-md-block">{{ $t(nav.label) }}</span>
               <span v-tooltip="{ text: $t(nav.label), position: 'bottom', trigger: 'hover' }" class="d-block d-md-none">
                 <font-awesome-icon :icon="nav.icon" />

@@ -4,7 +4,7 @@ import { useSearchInput } from './composables/search-input.composable'
 const props = defineProps<{ disabled?: boolean; value?: string }>()
 const emit = defineEmits<{ update: [value: string | undefined]; submit: [value: string | undefined] }>()
 
-const { value, giveFocus, inputRef } = useSearchInput(props, emit)
+const { value, giveFocus, inputRef, clearFilter } = useSearchInput(props, emit)
 </script>
 
 <template>
@@ -23,7 +23,7 @@ const { value, giveFocus, inputRef } = useSearchInput(props, emit)
       :disabled="props.disabled"
       autocomplete="off"
     />
-    <button :disabled="!value || disabled" class="text-light px-2" @pointerdown.prevent @click="value = undefined">
+    <button :disabled="!value || disabled" class="text-light px-2" @pointerdown.prevent @click="clearFilter">
       <div class="d-flex align-items-center">
         <font-awesome-icon :icon="['fas', 'xmark']" />
       </div>
