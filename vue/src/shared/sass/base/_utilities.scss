@@ -10,6 +10,15 @@
   pointer-events: none;
 }
 
+.truncate-3 {
+  display: -webkit-box;
+  line-clamp: 3;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
 .loader {
   width: 48px;
   height: 48px;

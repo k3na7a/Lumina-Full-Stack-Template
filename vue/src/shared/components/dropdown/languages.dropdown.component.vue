@@ -26,7 +26,7 @@ const { saveItem }: ILocalStorageUtil = useLocalStorageUtil(TOKEN)
               :class="{ active: _locale.key == $i18n.locale }"
               class="dropdown-item d-flex justify-content-between align-items-center px-2 m-0"
               type="button"
-              @click="(_$event: MouseEvent) => {
+              @click="(_: MouseEvent) => {
                 locale = _locale.key
                 saveItem(_locale.key)
                 close()

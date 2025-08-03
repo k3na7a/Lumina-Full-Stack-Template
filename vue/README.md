@@ -65,6 +65,7 @@ Open **[https://localhost:8080](https://localhost:8080)**
 src/
  ├── core/               # Router, store, global composables, app-level config
  │   ├── apis/           # Shared API service hooks and factories
+ │   ├── composables/    # 
  │   ├── directives/     # Global Vue directives (e.g., click-outside)
  │   ├── handlers/       # Custom event or error handlers
  │   ├── plugins/        # Vue plugins and plugin registration
@@ -73,12 +74,6 @@ src/
  │   ├── utils/          # Core utilities and helpers used across the app
  ├── features/           # Domain-specific features, each with own components/composables
  ├── pages/              # Route-level views and pages
- ├── lib/                # Global types, DTOs, enums, constants
- │   ├── constants/      # Shared constants
- │   ├── dto/            # Data Transfer Objects and API contracts
- │   ├── enum/           # Enumerations for consistent values
- │   ├── regex/          # Regex patterns used in validation and parsing
- │   ├── types/          # Global TypeScript types and interfaces
  ├── shared/             # Shared resources used across the app
  │   ├── components/     # Reusable UI components shared across features
  │   ├── layouts/        # App layouts (main, guest, etc.)

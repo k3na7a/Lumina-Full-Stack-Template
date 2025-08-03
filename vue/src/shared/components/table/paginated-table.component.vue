@@ -2,6 +2,7 @@
 import SearchInputComponent from '@/shared/components/inputs/search.input.vue'
 import SelectInputComponent from '@/shared/components/inputs/select.input.vue'
 import PaginationInputComponent from '@/shared/components/pagination/pagination.component.vue'
+import CheckboxInput from '@/shared/components/inputs/checkbox.input.vue'
 
 import { proptype, usePaginatedTable } from './composables/paginated-table.composable'
 import { Order } from '@/core/apis/localhost/dto/pagination.dto'
@@ -30,6 +31,11 @@ const { resetPageAndUpdateQuery, updateQuery, handleSort, sortParam, orderParam 
       <table class="m-0" :class="{ disabled: loading }">
         <thead>
           <tr>
+            <th class="d-flex align-items-center justify-content-center">
+              <div class="cell justify-content-center">
+                <CheckboxInput name="remove-avatar" />
+              </div>
+            </th>
             <th scope="col" v-for="column in columns" :key="`${column.name}`">
               <div class="cell gap-2 fw-semibold">
                 <template v-if="column.sort">
@@ -64,6 +70,11 @@ const { resetPageAndUpdateQuery, updateQuery, handleSort, sortParam, orderParam 
           <tbody>
             <template v-for="(row, idx) in rows" :key="`row:${idx}:${row.id}`">
               <tr>
+                <td>
+                  <div class="cell justify-content-center">
+                    <CheckboxInput :name="row.id" />
+                  </div>
+                </td>
                 <td v-for="column in columns" :key="`cell:${column.name}:${idx}:${row.id}`">
                   <div class="cell">
                     <slot :name="column.name" :row="row"></slot>

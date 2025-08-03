@@ -129,13 +129,17 @@ For full details, see [`SECURITY.md`](../SECURITY.md).
 ## 🗂️ Project Structure
 
 ```plaintext
+certs/                      #
 logs/                       #
 migrations/                 #
+public/                     #
 uploads/                    #
 src/                        #
  ├── app/                   # Shared core utilities and app-wide modules
  │   ├── common/            # Common reusable elements
  │   │   ├── decorators/    # Custom decorators
+ │   │   ├── dto/           # DTOs and API contracts
+ │   │   ├── entities/      # TypeORM entities
  │   │   ├── filters/       # Exception filters
  │   │   ├── guards/        # Auth and role guards
  │   │   ├── interceptors/  # Logging, transform interceptors
@@ -143,23 +147,15 @@ src/                        #
  │   │   ├── middleware/    # Express/Nest middleware
  │   │   ├── pipes/         # Validation pipes and transformers
  │   │   ├── providers/     # Global providers
+ │   │   ├── seeders/       #
  │   │   ├── strategies/    # Passport strategies
  │   │   ├── utilities/     # Helper utility functions
  │   │   ├── validators/    # Custom validators
- │   ├── features/          # Feature-specific modules (e.g., auth, user)
+ │   ├── features/          # Feature-specific modules (e.g., auth, admin, settings)
  │   ├── modules/           # Main application modules
  │   ├── queues/            # BullMQ processors, workers
  ├── config/                # App-wide config modules and env validation
- ├── library/               # TypeORM entities and shared library files
- │   ├── constants/         # Global constants
- │   ├── dto/               # DTOs and API contracts
- │   ├── entities/          # TypeORM entities
- │   ├── enum/              # Enums for consistent values
- │   ├── interfaces/        # Global TypeScript interfaces
- │   ├── regex/             # Regex patterns for validation
- │   ├── validators/        # Reusable validators and helpers
  ├── plugins/               # Additional NestJS plugins or integrations
- ├── seeders/               #
  └── main.ts                # App bootstrap entry
 ```
 

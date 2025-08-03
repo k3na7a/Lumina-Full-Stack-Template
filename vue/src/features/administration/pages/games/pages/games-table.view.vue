@@ -35,6 +35,9 @@ await getPaginatedData(options.value)
         "
       >
         <template v-slot>
+          <button class="btn btn-dark btn-icon px-0" type="button" @click="(_: MouseEvent) => getPaginatedData(options)">
+            <font-awesome-icon size="lg" :icon="['fas', 'ellipsis-vertical']" />
+          </button>
           <ActionsComponent
             size="lg"
             :payload="[
@@ -48,7 +51,7 @@ await getPaginatedData(options.value)
           />
         </template>
         <template #game="{ row }">
-          <div class="d-flex flex-row align-items-center gap-2" style="max-width: 30rem">
+          <div class="d-flex flex-row align-items-center gap-2" style="max-width: 40rem">
             <img class="cover-icon" :src="row.cover" />
             <div class="d-flex flex-column overflow-hidden">
               <small class="text-muted fst-italic text-truncate">

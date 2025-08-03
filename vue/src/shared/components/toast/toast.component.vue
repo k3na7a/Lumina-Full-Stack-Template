@@ -28,7 +28,7 @@ const toasts: ComputedRef<Toast[]> = computed<Toast[]>(() => getToasts)
               <button
                 type="button"
                 class="btn btn-link link-light link-opacity-75-hover"
-                @click="(_$event: MouseEvent) => removeToast(toast.id)"
+                @click="(_: MouseEvent) => removeToast(toast.id)"
               >
                 <font-awesome-icon size="lg" :icon="['fas', 'close']" />
               </button>

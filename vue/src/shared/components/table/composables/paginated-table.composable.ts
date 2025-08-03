@@ -43,7 +43,9 @@ function usePaginatedTable(): {
     let nextSort: string | undefined = columnName
     let nextOrder: Order | undefined = Order.ASC
 
-    if (orderParam.value === Order.ASC) {
+    if (sortParam.value !== nextSort) {
+      nextOrder = Order.ASC
+    } else if (orderParam.value === Order.ASC) {
       nextOrder = Order.DESC
     } else if (orderParam.value === Order.DESC) {
       nextSort = undefined

@@ -1,5 +1,6 @@
 table {
   width: 100%;
+  table-layout: auto;
   border-collapse: collapse;
 
   border-top: 0.1rem $secondary solid;
@@ -18,6 +19,23 @@ table {
     border-bottom: 0.1rem $primary solid;
   }
 
+  tr {
+    gap: 2rem;
+  }
+
+  tr td:first-child,
+  tr th:first-child {
+    .cell {
+      padding-left: 20px;
+      padding-right: 0px;
+    }
+  }
+
+  tr td:not(:nth-child(2)) {
+    width: 1%;
+    white-space: nowrap;
+  }
+
   tbody {
     color: $lightAlt;
     transition: opacity 0.15s ease-in-out;
@@ -31,13 +49,9 @@ table {
     }
   }
 
-  td {
-    min-width: fit-content !important;
-  }
-
   .cell {
     min-height: 5rem;
-    padding: 1rem;
+    padding: 1rem 2rem;
     display: flex;
     align-items: center;
 
@@ -46,8 +60,8 @@ table {
     }
   }
 
-  td:not(:first-child),
-  th:not(:first-child) {
+  td:not(:nth-child(1)):not(:nth-child(2)),
+  th:not(:nth-child(1)):not(:nth-child(2)) {
     .cell {
       flex-direction: row-reverse;
       justify-content: end;

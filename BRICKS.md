@@ -2,21 +2,95 @@
 
 ---
 
+## ✅ PHASE 1: Core Cleanup & Security
+
+Highest priority—ensures system correctness, security, and clean data handling.
+
+# RBAC Finalization
+
+- [ ] Frontend permission guards per route/tab
+- [ ] Backend seeder alignment with full permission matrix
+- [ ] Final schema review (namespacing, hierarchy, wildcards if needed)
+
+# Logging Cleanup
+
+- [ ] Limit logs to error and warn
+- [ ] Route success/info to Metrics/Audit system
+- [ ] S3 uploader for rotated logs → logs/yyyy/mm/dd/yyyymmdd.log
+- [ ] Cron to clean up local logs older than X days
+
+# Technical Debt Patching
+
+- [ ] Rewrite/retest password reset logic to match token updates
+- [ ] Ensure JWTGuard runs before ThrottleGuard
+- [ ] Add IP/User-level lockouts on repeated throttles
+- [ ] Audit tokens for edge cases (expiry/invalid tokens)
+
+## 📊 PHASE 2: Metrics & Audit System
+
+Organize visibility, observability, and compliance logic.
+
+# Metrics Layer
+
+- [ ] Track endpoint hits
+- [ ] Error %, average response time
+- [ ] BullMQ job queue stats
+
+# Audit Trail System
+
+- [ ] Admin edits/deletes
+- [ ] S3 + SendGrid usage
+- [ ] Major user updates (email, password, etc.)
+- [ ] Notification deliveries
+
+You can centralize these via a @core/telemetry module or two separate metrics + audit services.
+
+## 🧼 PHASE 3: System Cleanup Tasks
+
+Cron Jobs / Maintenance Tasks
+
+- [ ] Clear orphaned uploads
+- [ ] Upload & prune logs
+- [ ] Clean up unpaired DB vs S3 entries
+- [ ] Flag failed job artifacts for cleanup
+
+## 🧪 PHASE 4: Internal Dev Tools / Feature Additions
+
+Add polished, modular tooling that shows system maturity.
+
+- [ ] 🔧 System Health Dashboard: /diagnostics
+- [ ] 🔐 RBAC Visualizer: /admin/rbac-visualizer
+- [ ] 🔑 JWT Debugger: /devtools/jwt-debugger
+- [ ] 📊 BullMQ Monitor: /admin/queues
+
+Each should be mountable into a <ToolKit> section or tabbed menu.
+
+## 🧩 PHASE 5: Optional / Future Enhancements
+
+These aren’t urgent, but should stay visible on the radar.
+
+- [ ] Add more user metadata: username, bio, phone, country
+- [ ] Google OAuth login
+- [ ] Optional 2FA (Google Authenticator)
+- [ ] New input types: Date picker, Intl phone input, Color picker
+
+---
+
 ## ✅ 1️⃣ Core RBAC & Permissions
 
-- [X] Finalize `PermissionDomain` and `PermissionKey` enums (single source of truth)
-- [X] Finalize `PERMISSION_MATRIX` for both backend and frontend (no magic strings!)
-- [X] Implement `@Permissions()` decorator with `PermissionKey[]` typing
-- [X] Finish `PermissionsGuard` with `has_all_permissions` bypass
+- [x] Finalize `PermissionDomain` and `PermissionKey` enums (single source of truth)
+- [x] Finalize `PERMISSION_MATRIX` for both backend and frontend (no magic strings!)
+- [x] Implement `@Permissions()` decorator with `PermissionKey[]` typing
+- [x] Finish `PermissionsGuard` with `has_all_permissions` bypass
 - [ ] Seed **all** baseline permissions + roles:
   - Default User → self-management only
   - Manager → self-management + read/update users/platforms
   - Administrator → has all permissions
-- [X] Add `view_` permissions for each admin UI section:
+- [x] Add `view_` permissions for each admin UI section:
   - `view_admin_dashboard`
   - `view_user_management_dashboard`
 - [ ] Add audit logs for CRUD on roles, permissions, sensitive user actions
-- [X] Add `useCan()` composable on frontend for permission checks (canActivate in application store)
+- [x] Add `useCan()` composable on frontend for permission checks (canActivate in application store)
 - [ ] Add `canActivate` tests (unit + e2e)
 
 ---

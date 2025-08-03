@@ -7,7 +7,7 @@ type FileInput = {
   name: Ref<string>
   value: Ref<File | undefined>
   onChange: (event: Event) => void
-  removeFile: (_event: MouseEvent) => void
+  removeFile: (_: MouseEvent) => void
 }
 
 function useFileInput(props: proptype, emit: (evt: 'update', value: File | undefined) => void): FileInput {
@@ -23,7 +23,7 @@ function useFileInput(props: proptype, emit: (evt: 'update', value: File | undef
     value.value = files?.length ? files[0] : undefined
   }
 
-  function removeFile(_event: MouseEvent) {
+  function removeFile(_: MouseEvent) {
     value.value = undefined
     if (inputRef.value) inputRef.value.value = ''
   }

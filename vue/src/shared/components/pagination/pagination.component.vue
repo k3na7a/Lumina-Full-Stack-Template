@@ -19,7 +19,7 @@ const { disabled, page, total } = defineProps<props>()
           v-tooltip="{ text: $t('forms.first'), position: 'bottom', trigger: 'hover' }"
           type="button"
           class="btn btn-secondary btn-icon"
-          @click="(_event: MouseEvent) => emit('update', 1)"
+          @click="(_: MouseEvent) => emit('update', 1)"
           :disabled="page == 1 || disabled"
         >
           <font-awesome-icon :icon="['fas', 'angles-left']" />
@@ -31,7 +31,7 @@ const { disabled, page, total } = defineProps<props>()
           v-tooltip="{ text: $t('forms.previous'), position: 'bottom', trigger: 'hover' }"
           type="button"
           class="btn btn-secondary btn-icon"
-          @click="(_event: MouseEvent) => emit('update', page - 1)"
+          @click="(_: MouseEvent) => emit('update', page - 1)"
           :disabled="page == 1 || disabled"
         >
           <font-awesome-icon :icon="['fas', 'angle-left']" />
@@ -67,7 +67,7 @@ const { disabled, page, total } = defineProps<props>()
           :disabled="page == total || disabled"
           type="button"
           class="btn btn-secondary btn-icon"
-          @click="(_event: MouseEvent) => emit('update', page + 1)"
+          @click="(_: MouseEvent) => emit('update', page + 1)"
         >
           <font-awesome-icon :icon="['fas', 'angle-right']" />
         </button>
@@ -79,7 +79,7 @@ const { disabled, page, total } = defineProps<props>()
           type="button"
           :disabled="page == total || disabled"
           class="btn btn-secondary btn-icon"
-          @click="(_event: MouseEvent) => emit('update', total)"
+          @click="(_: MouseEvent) => emit('update', total)"
         >
           <font-awesome-icon :icon="['fas', 'angles-right']" />
         </button>
