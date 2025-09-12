@@ -1,7 +1,7 @@
 import { InputTypeHTMLAttribute, Ref, ref, toRef, watch } from 'vue'
 import { useField } from 'vee-validate'
 
-import { deepEqual } from '@/../../library/utilities/object.util'
+import { deepEqual } from '@lib/utilities/object.util'
 
 import { HTMLAutoComplete } from '@/shared/components/inputs/types/HTMLautocomplete.type'
 

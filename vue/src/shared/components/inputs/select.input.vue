@@ -1,5 +1,5 @@
 <script setup lang="ts" generic="T">
-import { deepEqual } from '@/../../library/utilities/object.util'
+import { deepEqual } from '@lib/utilities/object.util'
 import { proptype, useSelectInput } from './composables/select-input.composable'
 
 const props = defineProps<proptype<T>>()

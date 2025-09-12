@@ -19,6 +19,7 @@
     "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
     "test:e2e": "jest --config ./test/jest-e2e.json",
+    "flush:scheduler": "ts-node -r tsconfig-paths/register src/tools/flush-scheduler.ts",
     "typeorm": "ts-node -r tsconfig-paths/register ./node_modules/typeorm/cli.js",
     "migration:run": "npm run typeorm migration:run -- -d ./srcs/config/data-source.config.ts",
     "migration:create": "cross-env-shell \"ts-node -r tsconfig-paths/register ./node_modules/typeorm/cli.js migration:create ./migrations/$npm_config_name -- -d ./src/config/data-source.config.ts\"",

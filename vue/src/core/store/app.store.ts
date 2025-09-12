@@ -12,10 +12,10 @@ import {
 } from '@/core/apis/localhost/administration/users/dto/user.dto'
 import { Store, StoreDefinition, defineStore } from 'pinia'
 import { credentials, JWTDto } from '@/core/apis/localhost/dto/JWT.dto'
-import { second } from '@/../../library/constants/time.constants'
+import { second } from '@lib/constants/time.constants'
 import { useLocalStorageUtil } from '../utils/local-storage.util'
 
-import { PERMISSION_MATRIX, PermissionDomain, PermissionsKey } from '@/../../library/constants/permissions.constants'
+import { PERMISSION_MATRIX, PermissionDomain, PermissionsKey } from '@lib/constants/permissions.constants'
 import { RoleDto } from '../apis/localhost/administration/users/dto/role.dto'
 
 interface IToken {

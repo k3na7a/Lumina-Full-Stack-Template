@@ -1,3 +1,7 @@
+.table-responsive {
+  scrollbar-width: thin;
+}
+
 table {
   width: 100%;
   table-layout: auto;
@@ -6,6 +10,10 @@ table {
   border-top: 0.1rem $secondary solid;
   border-right: 0.1rem $secondary solid;
   border-left: 0.1rem $secondary solid;
+
+  .th-checkbox {
+    background-color: transparent !important;
+  }
 
   &.disabled {
     tbody {
@@ -44,7 +52,15 @@ table {
       border-bottom: 0.1rem $secondary solid;
 
       &:nth-of-type(even) {
-        background-color: $bg-hover;
+        background-color: $backgroundAlt;
+      }
+    }
+
+    tr:has(input[type='checkbox']:checked) {
+      background-color: rgba($primary, 0.095);
+
+      &:nth-of-type(even) {
+        background-color: rgba($primary, 0.1);
       }
     }
   }

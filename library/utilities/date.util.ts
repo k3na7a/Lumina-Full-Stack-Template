@@ -1,4 +1,4 @@
-import { days } from '@/../../library/constants/date.constants'
+import { days } from '@lib/constants/date.constants'
 
 const getNumberOfDays = (year: number, month: number) => {
   return 40 - new Date(year, month, 40).getDate()

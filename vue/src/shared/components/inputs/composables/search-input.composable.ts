@@ -1,9 +1,9 @@
 import { Ref, ref, watch } from 'vue'
 import { PromisifyFn, useDebounceFn } from '@vueuse/core'
 
-import { deepEqual } from '@/../../library/utilities/object.util'
+import { deepEqual } from '@lib/utilities/object.util'
 
-import { second } from '@/../../library/constants/time.constants'
+import { second } from '@lib/constants/time.constants'
 
 type proptype = { disabled?: boolean; value?: string }
 

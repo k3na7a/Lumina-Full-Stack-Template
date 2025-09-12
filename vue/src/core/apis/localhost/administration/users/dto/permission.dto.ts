@@ -1,4 +1,4 @@
-import { PermissionDomain } from '@/../../library/constants/permissions.constants'
+import { PermissionDomain } from '@lib/constants/permissions.constants'
 import { BaseDto } from '../../../dto/base.dto'
 
 interface iPermission {

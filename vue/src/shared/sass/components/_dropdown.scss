@@ -17,6 +17,7 @@
   background-color: $backgroundAlt;
 
   scrollbar-color: $scrollbar-color $backgroundAlt;
+  scrollbar-width: thin;
 
   a.dropdown-item {
     font-size: $font-size-7 !important;

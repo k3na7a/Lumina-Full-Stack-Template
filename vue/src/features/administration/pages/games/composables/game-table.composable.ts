@@ -2,7 +2,7 @@ import { useI18n } from 'vue-i18n'
 import { LocationQuery, useRoute } from 'vue-router'
 import { computed, reactive, ref, watch } from 'vue'
 
-import { parseQuery } from '@/../../library/utilities/parse-query.util'
+import { parseQuery } from '@lib/utilities/parse-query.util'
 import { GameDto } from '@/core/apis/localhost/administration/games/dto/game.dto'
 import { PaginationOptions, Order, PaginationMeta, PaginationDto } from '@/core/apis/localhost/dto/pagination.dto'
 import { useGameAdminHandler } from '../handlers/games.handler'

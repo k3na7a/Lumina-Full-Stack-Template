@@ -22,8 +22,10 @@ const connectionOptions: TypeOrmModuleOptions = {
   synchronize: false,
   maxQueryExecutionTime: 500,
   extra: {
-    connectionLimit: 5,
-    maxIdle: 0,
+    connectionLimit: 10,
+    maxIdle: 5,
+    idleTimeout: 60000,
+    enableKeepAlive: true,
   },
 };
 

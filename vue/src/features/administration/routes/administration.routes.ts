@@ -17,7 +17,7 @@ const route: RouteRecordRaw = {
         {
           path: 'dashboard',
           name: ROUTE_NAMES.ADMIN_DASHBOARD,
-          component: () => import('@/pages/home/home.view.vue')
+          component: () => import('@/features/administration/pages/dashboard/dashboard.view.vue')
         },
         {
           path: 'user-management',

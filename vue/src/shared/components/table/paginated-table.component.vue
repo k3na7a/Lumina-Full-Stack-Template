@@ -6,10 +6,12 @@ import CheckboxInput from '@/shared/components/inputs/checkbox.input.vue'
 
 import { proptype, usePaginatedTable } from './composables/paginated-table.composable'
 import { Order } from '@/core/apis/localhost/dto/pagination.dto'
+import { TriState } from '../inputs/composables/checkbox-input.composable'
 import { BaseDto } from '@/core/apis/localhost/dto/base.dto'
 
 const { columns, rows, pages, options, loading, caption } = defineProps<proptype<T>>()
-const { resetPageAndUpdateQuery, updateQuery, handleSort, sortParam, orderParam } = usePaginatedTable()
+const { resetPageAndUpdateQuery, updateQuery, handleSort, updateSelected, sortParam, orderParam, selected } =
+  usePaginatedTable<T>()
 </script>
 
 <template>
@@ -21,9 +23,16 @@ const { resetPageAndUpdateQuery, updateQuery, handleSort, sortParam, orderParam 
           @update="(value: string | undefined) => resetPageAndUpdateQuery({ search: value })"
         />
       </div>
-      <div class="d-flex gap-2 align-items-center justify-content-end">
+      <div class="d-flex gap-3 align-items-center justify-content-end">
         <small>{{ caption }}</small>
-        <slot></slot>
+        <div class="d-flex gap-2"><slot></slot></div>
+      </div>
+    </div>
+
+    <div class="d-flex align-items-center justify-content-between p-2 bg-alt3 gap-2">
+      <small class="ps-1">{{ $t('forms.items-selected', selected.length) }}</small>
+      <div class="d-flex align-items-center gap-2">
+        <slot name="selected" :selected="selected"></slot>
       </div>
     </div>
 
@@ -33,7 +42,7 @@ const { resetPageAndUpdateQuery, updateQuery, handleSort, sortParam, orderParam 
           <tr>
             <th class="d-flex align-items-center justify-content-center">
               <div class="cell justify-content-center">
-                <CheckboxInput name="remove-avatar" />
+                <CheckboxInput name="table-header" />
               </div>
             </th>
             <th scope="col" v-for="column in columns" :key="`${column.name}`">
@@ -72,7 +81,7 @@ const { resetPageAndUpdateQuery, updateQuery, handleSort, sortParam, orderParam 
               <tr>
                 <td>
                   <div class="cell justify-content-center">
-                    <CheckboxInput :name="row.id" />
+                    <CheckboxInput :name="row.id" @update="(value: TriState) => updateSelected(value, row)" />
                   </div>
                 </td>
                 <td v-for="column in columns" :key="`cell:${column.name}:${idx}:${row.id}`">

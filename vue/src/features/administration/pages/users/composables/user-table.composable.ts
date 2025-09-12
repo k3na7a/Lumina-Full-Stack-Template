@@ -5,7 +5,7 @@ import { useI18n } from 'vue-i18n'
 import { LocationQuery, useRoute } from 'vue-router'
 import { useUserAdminHandler } from '../handlers/user.handler'
 import { UserDto } from '@/core/apis/localhost/administration/users/dto/user.dto'
-import { parseQuery } from '@/../../library/utilities/parse-query.util'
+import { parseQuery } from '@lib/utilities/parse-query.util'
 
 const tableColumns: columns = [
   { name: 'user', label: 'forms.user', sort: 'role.label' },

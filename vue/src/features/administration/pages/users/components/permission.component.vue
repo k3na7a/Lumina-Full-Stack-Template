@@ -7,7 +7,7 @@ import ModalTitle from '@/shared/components/modal/base/modal-title.component.vue
 import SelectInput from '@/shared/components/inputs/select.input.vue'
 
 import { usePermissionForm, proptype } from '../composables/permission.composable'
-import { PermissionDomain } from '@/../../library/constants/permissions.constants'
+import { PermissionDomain } from '@lib/constants/permissions.constants'
 
 const props = defineProps<proptype>()
 const { onSubmit, initialValues, validationSchema, loading } = usePermissionForm(props)

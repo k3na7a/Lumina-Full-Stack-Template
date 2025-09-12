@@ -8,7 +8,10 @@ import { In, Not, Repository } from 'typeorm';
 
 import { GameEntity } from 'src/app/modules/games/entities/game.entity';
 import { GamePaginationOptions } from 'src/app/features/administration/games/dto/game.dto';
-import { PaginationDto, PaginationMeta } from 'src/app/common/dto/pagination.dto';
+import {
+  PaginationDto,
+  PaginationMeta,
+} from 'src/app/common/dto/pagination.dto';
 
 @Injectable()
 export class GameService {
@@ -62,7 +65,7 @@ export class GameService {
       .leftJoinAndSelect('game.cover', 'cover')
       .leftJoinAndSelect('game.platforms', 'platform')
       .where('game.name like :query', { query: `%${search}%` })
-      .orderBy({ [sort]: order, 'game.name': 'ASC' })
+      .orderBy({ [sort]: order })
       .take(take)
       .skip(skip)
       .getManyAndCount();

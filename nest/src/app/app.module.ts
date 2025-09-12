@@ -19,7 +19,6 @@ import { connection } from 'src/config/redis.config';
 import { LogQueueModule } from './queues/logging/log-queue.module';
 import { validationSchema } from 'src/config/env-validation.config';
 import { HealthModule } from './features/health/health.module';
-import { appRoutes } from '../config/routes.config';
 import { RequestContextMiddleware } from './common/middleware/request-context.middleware';
 import { ThrottlerModule } from '@nestjs/throttler';
 import { minute } from '@lib/constants/time.constants';
@@ -28,6 +27,8 @@ import { CoreModule } from './modules/shared/shared.module';
 import { ConnectionLogger } from './common/loggers/connection.logger';
 import { DataSource } from 'typeorm';
 import { LogService } from './queues/logging/services/log.service';
+import { UserAdminModule } from './features/administration/users/users.module';
+import { GamesAdminModule } from './features/administration/games/games.module';
 
 const rootPath = join(__dirname, '../..', 'public');
 const serveRoot = '/';
@@ -39,7 +40,34 @@ const envFilePath = '.env';
     ConfigModule.forRoot({ isGlobal: true, envFilePath, validationSchema }),
     ServeStaticModule.forRoot({ rootPath, serveRoot }),
     BullModule.forRoot({ connection }),
-    RouterModule.register(appRoutes),
+    RouterModule.register([
+      {
+        path: 'authentication',
+        children: [AuthModule],
+      },
+      {
+        path: 'settings',
+        children: [SettingsModule],
+      },
+      {
+        path: 'administration',
+        children: [
+          {
+            path: 'user-management',
+            children: [UserAdminModule],
+          },
+          {
+            path: 'games-and-software',
+            children: [GamesAdminModule],
+          },
+        ],
+      },
+      {
+        path: 'health-check',
+        children: [HealthModule],
+      },
+    ]),
+
     TypeOrmPlugin.forRoot,
     ThrottlerModule.forRoot({ throttlers: [{ ttl: 1 * minute, limit: 20 }] }),
 

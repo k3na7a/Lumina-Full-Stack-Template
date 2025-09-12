@@ -10,6 +10,7 @@ import { TypeOrmHealthIndicator } from 'src/app/features/health/indicators/typeo
 import { LoggerQueues } from 'src/app/queues/logging/enums/logger-actions.enum';
 
 import { HealthResponseDto } from '../dto/health.dto';
+import { SchedulerRegistry } from '@nestjs/schedule';
 
 @SkipThrottle()
 @ApiTags('Health Check')
@@ -20,6 +21,7 @@ export class HealthController {
     private readonly redis: RedisHealthIndicator,
     private readonly database: TypeOrmHealthIndicator,
     private readonly disk: DiskHealthIndicator,
+    private readonly reg: SchedulerRegistry,
   ) {}
 
   @Get('')

@@ -35,8 +35,15 @@ await getPaginatedData(options.value)
         "
       >
         <template v-slot>
-          <button class="btn btn-dark btn-icon px-0" type="button" @click="(_: MouseEvent) => getPaginatedData(options)">
-            <font-awesome-icon size="lg" :icon="['fas', 'ellipsis-vertical']" />
+          <button class="btn btn-dark btn-icon px-0" type="button">
+            <font-awesome-icon size="lg" :icon="['fas', 'filter']" />
+          </button>
+          <button
+            class="btn btn-dark btn-icon px-0"
+            type="button"
+            @click="(_: MouseEvent) => getPaginatedData(options)"
+          >
+            <font-awesome-icon size="lg" :icon="['fas', 'refresh']" />
           </button>
           <ActionsComponent
             size="lg"
@@ -50,6 +57,13 @@ await getPaginatedData(options.value)
             ]"
           />
         </template>
+
+        <template #selected="{ selected }">
+          <button class="btn btn-dark btn-icon px-0" type="button" :disabled="!selected.length">
+            <font-awesome-icon :icon="['fas', 'trash']" />
+          </button>
+        </template>
+
         <template #game="{ row }">
           <div class="d-flex flex-row align-items-center gap-2" style="max-width: 40rem">
             <img class="cover-icon" :src="row.cover" />
@@ -63,6 +77,7 @@ await getPaginatedData(options.value)
             </div>
           </div>
         </template>
+
         <template #platforms="{ row }">
           <small class="fw-semibold text-muted">
             <template v-if="row.platforms.length">
@@ -73,11 +88,13 @@ await getPaginatedData(options.value)
             <template v-else>-</template>
           </small>
         </template>
+
         <template #release="{ row }">
           <small class="fw-semibold text-muted">
             {{ moment(row.release_date).format('L') }}
           </small>
         </template>
+
         <template #actions="{ row }">
           <ActionsComponent
             :payload="[

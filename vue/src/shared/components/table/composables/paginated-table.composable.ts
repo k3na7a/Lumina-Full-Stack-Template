@@ -1,6 +1,8 @@
 import { Router, useRouter, RouteLocationNormalizedLoaded, useRoute, LocationQueryRaw } from 'vue-router'
 import { Order, PaginationOptions, SortOptions } from '@/core/apis/localhost/dto/pagination.dto'
-import { computed, ComputedRef } from 'vue'
+import { computed, ComputedRef, ref, Ref } from 'vue'
+import { TriState } from '../../inputs/composables/checkbox-input.composable'
+import { BaseDto } from '@/core/apis/localhost/dto/base.dto'
 
 type proptype<T> = {
   columns: columns
@@ -14,15 +16,19 @@ type proptype<T> = {
 
 type columns = Array<{ name: string; label?: string; sort?: string }>
 
-function usePaginatedTable(): {
+function usePaginatedTable<T extends BaseDto>(): {
   resetPageAndUpdateQuery: (params: LocationQueryRaw) => void
   updateQuery: (params: LocationQueryRaw) => void
   handleSort: (columnName: string) => void
+  updateSelected: (value: TriState, item: T) => void
+  selected: Ref<T[]>
   sortParam: ComputedRef<string | undefined>
   orderParam: ComputedRef<Order | undefined>
 } {
   const $router: Router = useRouter()
   const $route: RouteLocationNormalizedLoaded = useRoute()
+
+  const selected: Ref<T[]> = ref([])
 
   const sortParam: ComputedRef<string | undefined> = computed(() => $route.query.sort as string | undefined)
   const orderParam: ComputedRef<Order | undefined> = computed(() => $route.query.order as Order | undefined)
@@ -33,6 +39,17 @@ function usePaginatedTable(): {
     if (JSON.stringify($route.query) !== JSON.stringify(next)) {
       $router.replace({ query: next })
     }
+  }
+
+  function updateSelected(value: TriState, item: T): void {
+    const isChecked = value === true
+
+    if (isChecked) {
+      selected.value.push(item)
+      return
+    }
+
+    selected.value = selected.value.filter((r) => r.id !== item.id)
   }
 
   function resetPageAndUpdateQuery(params: LocationQueryRaw): void {
@@ -60,7 +77,9 @@ function usePaginatedTable(): {
     resetPageAndUpdateQuery,
     sortParam,
     orderParam,
-    handleSort
+    handleSort,
+    selected,
+    updateSelected
   }
 }
 

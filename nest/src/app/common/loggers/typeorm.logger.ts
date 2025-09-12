@@ -39,10 +39,9 @@ export class TypeOrmLogger implements Logger {
     parameters?: any[],
   ): Promise<void> {
     if (!this.isEnabled('error')) return;
-
     await this.logService.log({
       type: LoggerActions.ERR,
-      context: this.context,
+      context: `${this.context}:logQueryError`,
       message: {
         error,
         query,

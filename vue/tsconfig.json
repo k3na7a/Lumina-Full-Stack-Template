@@ -23,7 +23,8 @@
     "paths": {
       "@/*": ["./src/*"],
       "@@/*": ["./*"],
-      "src/": ["./src/*"]
+      "@lib/*": ["../library/*"],
+      "@src/*": ["./src/*"]
     }
   },
   "include": ["src/**/*.ts", "src/**/*.tsx", "src/**/*.vue", "../library/*.ts"],

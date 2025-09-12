@@ -1,7 +1,7 @@
 import * as Yup from 'yup'
 
 import { UserDto, UpdatePassword } from '@/core/apis/localhost/administration/users/dto/user.dto'
-import { PasswordValidation } from '@/../../library/regex/validation.regex'
+import { PasswordValidation } from '@lib/regex/validation.regex'
 import { useFormUtil } from '@/core/utils/forms.util'
 import { reactive } from 'vue'
 

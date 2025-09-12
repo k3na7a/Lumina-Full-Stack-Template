@@ -2,7 +2,7 @@ import { RouteRecordRaw } from 'vue-router'
 
 import { ROUTE_NAMES } from '@/core/router/route-names.enum'
 
-import home from '@/pages/home/routes/home.routes'
+import home from '@/features/home/routes/home.routes'
 import settings from '@/features/settings/routes/settings.routes'
 import admin from '@/features/administration/routes/administration.routes'
 

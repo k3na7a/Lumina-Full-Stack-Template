@@ -3,7 +3,7 @@ import * as bootstrap from 'bootstrap'
 import moment from 'moment'
 import { useField } from 'vee-validate'
 
-import { months } from '@/../../library/constants/date.constants'
+import { months } from '@lib/constants/date.constants'
 
 type proptype = { name: string; value?: Date }
 

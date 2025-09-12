@@ -30,7 +30,8 @@ export default defineConfig({
       'vue-i18n': 'vue-i18n/dist/vue-i18n.cjs.js',
       '@': path.resolve(__dirname, './src'),
       '@@': path.resolve(__dirname, './'),
-      'src/': path.resolve(__dirname, './src')
+      '@src': path.resolve(__dirname, './src'),
+      '@lib': path.resolve(__dirname, '../library')
     }
   }
 })

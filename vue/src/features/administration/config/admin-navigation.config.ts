@@ -16,12 +16,20 @@ const routes: side_navigation = [
     name: ROUTE_NAMES.ADMIN_GAMES_AND_SOFTWARE,
     label: 'administration.games-and-software.header',
     icon: ['fas', 'floppy-disk']
-  },
-  {
-    name: ROUTE_NAMES.HOME,
-    label: 'administration.transaction-logs.label',
-    icon: ['fas', 'timeline']
   }
 ]
 
-export { routes }
+const footer: side_navigation = [
+  {
+    name: ROUTE_NAMES.HOME,
+    label: 'settings.label',
+    icon: ['fas', 'gear']
+  },
+  {
+    name: ROUTE_NAMES.HOME,
+    label: 'Send Feedback',
+    icon: ['fas', 'message']
+  }
+]
+
+export { routes, footer }

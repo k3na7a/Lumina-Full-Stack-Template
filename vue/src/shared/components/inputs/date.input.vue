@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import moment from 'moment'
 
-import { getMonthDetails } from '@/../../library/utilities/date.util'
+import { getMonthDetails } from '@lib/utilities/date.util'
 
-import { days } from '@/../../library/constants/date.constants'
+import { days } from '@lib/constants/date.constants'
 import { useDateInput } from './composables/date-input.composable'
 
 const props = defineProps<{ name: string; value?: Date }>()

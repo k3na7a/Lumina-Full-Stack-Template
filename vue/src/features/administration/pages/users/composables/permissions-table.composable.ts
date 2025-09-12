@@ -4,7 +4,7 @@ import { computed, reactive, ref, watch } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { LocationQuery, useRoute } from 'vue-router'
 
-import { parseQuery } from '@/../../library/utilities/parse-query.util'
+import { parseQuery } from '@lib/utilities/parse-query.util'
 import { usePermissionAdminHandler } from '../handlers/permissions.handler'
 import { PermissionDto } from '@/core/apis/localhost/administration/users/dto/permission.dto'
 
