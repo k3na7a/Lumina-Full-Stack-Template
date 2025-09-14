@@ -1,4 +1,4 @@
-import { iUser, UserDto } from '../administration/users/dto/user.dto'
+import { iUser, UserDto } from './user.dto'
 
 type credentials = { email: string; password: string }
 

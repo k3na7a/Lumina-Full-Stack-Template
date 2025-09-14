@@ -5,7 +5,7 @@ import SignInModal from '@/shared/components/modal/signin-modal.component.vue'
 import RegisterModal from '@/shared/components/modal/register-modal.component.vue'
 import ConfirmationModal from '@/shared/components/modal/confirm.modal.vue'
 
-import { credentials } from '@/core/apis/localhost/dto/JWT.dto'
+import { credentials } from '@lib/dto/JWT.dto'
 import { Register, RegisterDto } from '@/core/apis/localhost/administration/users/dto/user.dto'
 import { AppStore, useAppStore } from '@/core/store/app.store'
 import { ModalStore, useModalStore } from '@/core/store/modal.store'

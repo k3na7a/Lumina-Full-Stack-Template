@@ -4,7 +4,7 @@ import TablePaginatedComponent from '@/shared/components/table/paginated-table.c
 import ActionsComponent from '@/shared/components/dropdown/table-actions.dropdown.component.vue'
 
 import { useRoleTable } from '../composables/role-table.composable'
-import { PermissionDto } from '@/core/apis/localhost/administration/users/dto/permission.dto'
+import { PermissionDto } from '@lib/dto/permission.dto'
 
 const max_permissions = 5
 
@@ -56,7 +56,6 @@ await promise()
             <small class="fst-italic text-muted">{{ row.id }}</small>
             <p class="fw-semibold text-light text-wrap">
               {{ row.label }}
-              <!-- <small class="fw-normal text-muted"> :: {{ row.description }}</small> -->
             </p>
           </div>
         </template>

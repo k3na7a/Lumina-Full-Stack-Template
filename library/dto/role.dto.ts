@@ -1,4 +1,4 @@
-import { BaseDto } from "../../../dto/base.dto"
+import { BaseDto } from "@lib/dto/base.dto"
 import { iPermission, PermissionDto } from "./permission.dto"
 
 

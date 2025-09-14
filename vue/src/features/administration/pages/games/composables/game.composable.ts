@@ -1,12 +1,12 @@
 import * as Yup from 'yup'
 import { computed, ref } from 'vue'
 
-import { GameDto, icreategame } from '@/core/apis/localhost/administration/games/dto/game.dto'
+import { GameDto, icreategame } from '@lib/dto/game.dto'
 import { useFormUtil } from '@/core/utils/forms.util'
-import { Order, PaginationOptions } from '@/core/apis/localhost/dto/pagination.dto'
+import { Order, PaginationOptions } from '@lib/dto/pagination.dto'
 import { AppStore, useAppStore } from '@/core/store/app.store'
 import { LocalhostAPI } from '@/core/apis/localhost/localhost.api'
-import { PlatformDto } from '@/core/apis/localhost/administration/games/dto/platform.dto'
+import { PlatformDto } from '@lib/dto/platform.dto'
 
 type proptype = {
   game?: GameDto

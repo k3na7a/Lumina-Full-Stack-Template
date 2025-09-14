@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { UserDto } from '@/core/apis/localhost/administration/users/dto/user.dto'
+import { UserDto } from '@lib/dto/user.dto'
 
 type proptype = {
   user: UserDto

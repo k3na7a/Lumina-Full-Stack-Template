@@ -1,4 +1,4 @@
-import { Order, PaginationDto, PaginationMeta, PaginationOptions } from '@/core/apis/localhost/dto/pagination.dto'
+import { Order, PaginationDto, PaginationMeta, PaginationOptions } from '@lib/dto/pagination.dto'
 import { columns } from '@/shared/components/table/composables/paginated-table.composable'
 import { computed, reactive, ref, watch } from 'vue'
 import { useI18n } from 'vue-i18n'
@@ -6,7 +6,7 @@ import { LocationQuery, useRoute } from 'vue-router'
 
 import { parseQuery } from '@lib/utilities/parse-query.util'
 import { usePermissionAdminHandler } from '../handlers/permissions.handler'
-import { PermissionDto } from '@/core/apis/localhost/administration/users/dto/permission.dto'
+import { PermissionDto } from '@lib/dto/permission.dto'
 
 const tableColumns: columns = [
   { name: 'permission', label: 'forms.permissions', sort: 'permission.label' },

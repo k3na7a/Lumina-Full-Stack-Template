@@ -1,6 +1,6 @@
 import getAvatar from '@/core/utils/ui-avatars.util'
-import { iImage } from '../../../dto/media.dto'
-import { BaseDto } from '../../../dto/base.dto'
+import { iImage } from '@lib/dto/media.dto'
+import { BaseDto } from '@lib/dto/base.dto'
 import { iRole, RoleDto } from './role.dto'
 
 type UpdatePassword = { current_password: string; password: string; confirm_password: string }

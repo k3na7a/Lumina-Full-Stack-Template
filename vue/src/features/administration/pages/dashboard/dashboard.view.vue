@@ -4,7 +4,7 @@ import { RouteLocationNormalizedLoaded, useRoute } from 'vue-router'
 import SubNavigationLayout from '@/shared/components/navigation/sub-navigation.layout.vue'
 import RenderedView from '@/shared/components/page/page.component.vue'
 
-import { options } from './config/navigation.schema'
+import { options } from './config/navigation.schema.ts'
 
 const $route: RouteLocationNormalizedLoaded = useRoute()
 </script>

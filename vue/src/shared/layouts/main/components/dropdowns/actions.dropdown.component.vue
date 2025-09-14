@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { UserDto } from '@/core/apis/localhost/administration/users/dto/user.dto'
+import { UserDto } from '@lib/dto/user.dto'
 
 import DropdownComponent from '@/shared/components/dropdown/base/dropdown.component.vue'
 import { more_navigation } from '@/shared/components/dropdown/types/more-navigation.type'

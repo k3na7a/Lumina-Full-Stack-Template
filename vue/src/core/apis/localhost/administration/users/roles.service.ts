@@ -2,8 +2,8 @@ import { AxiosInstance, AxiosResponse } from 'axios'
 
 import { AxiosService } from '@/core/utils/axios.util'
 
-import { PaginationDto, PaginationOptions } from '@/core/apis/localhost/dto/pagination.dto'
-import { CreateRoleDto, iRole, RoleDto } from './dto/role.dto'
+import { PaginationDto, PaginationOptions } from '@lib/dto/pagination.dto'
+import { CreateRoleDto, iRole, RoleDto } from '@lib/dto/role.dto'
 
 class roles {
   private readonly $api: AxiosInstance

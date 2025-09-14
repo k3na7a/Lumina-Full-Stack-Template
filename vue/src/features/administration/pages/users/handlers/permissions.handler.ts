@@ -7,10 +7,10 @@ import { ModalStore, useModalStore } from '@/core/store/modal.store'
 import ConfirmDeleteModal from '@/shared/components/modal/permanently-delete.component.vue'
 import NewPermissionModal from '../components/permission.component.vue'
 
-import { PaginationOptions, PaginationDto, PaginationMeta } from '@/core/apis/localhost/dto/pagination.dto'
+import { PaginationOptions, PaginationDto, PaginationMeta } from '@lib/dto/pagination.dto'
 import { LocalhostAPI } from '@/core/apis/localhost/localhost.api'
 import { AppStore, useAppStore } from '@/core/store/app.store'
-import { CreatePermissionDto, iCreatePermission, PermissionDto } from '@/core/apis/localhost/administration/users/dto/permission.dto'
+import { CreatePermissionDto, iCreatePermission, PermissionDto } from '@lib/dto/permission.dto'
 
 export function usePermissionAdminHandler(t: (key: string) => string): {
   create: (success?: (value: PermissionDto) => void | Promise<void>) => void

@@ -4,9 +4,9 @@ import { computed, ref } from 'vue'
 import { useFormUtil } from '@/core/utils/forms.util'
 import { LocalhostAPI } from '@/core/apis'
 import { AppStore, useAppStore } from '@/core/store/app.store'
-import { PaginationOptions } from '@/core/apis/localhost/dto/pagination.dto'
-import { PermissionDto } from '@/core/apis/localhost/administration/users/dto/permission.dto'
-import { RoleDto, iCreateRole } from '@/core/apis/localhost/administration/users/dto/role.dto'
+import { PaginationOptions } from '@lib/dto/pagination.dto'
+import { PermissionDto } from '@lib/dto/permission.dto'
+import { RoleDto, iCreateRole } from '@lib/dto/role.dto'
 
 type proptype = {
   role?: RoleDto

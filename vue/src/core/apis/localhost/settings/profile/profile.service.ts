@@ -1,7 +1,7 @@
 import { AxiosInstance } from 'axios'
 
 import { AxiosService } from '@/core/utils/axios.util'
-import { iUser, UpdateProfileDto, UserDto } from '@/core/apis/localhost/administration/users/dto/user.dto'
+import { iUser, UpdateProfileDto, UserDto } from '@lib/dto/user.dto'
 
 class profile {
   private readonly $api: AxiosInstance

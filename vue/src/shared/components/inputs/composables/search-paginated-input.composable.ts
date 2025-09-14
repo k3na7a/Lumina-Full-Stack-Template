@@ -5,7 +5,7 @@ import { useDebounceFn } from '@vueuse/core'
 
 import { checkIds, deepEqual } from '@lib/utilities/object.util'
 
-import { PaginationOptions, PaginationDto, Order } from '@/core/apis/localhost/dto/pagination.dto'
+import { PaginationOptions, PaginationDto, Order } from '@lib/dto/pagination.dto'
 import { second } from '@lib/constants/time.constants'
 
 type proptype<T> = {

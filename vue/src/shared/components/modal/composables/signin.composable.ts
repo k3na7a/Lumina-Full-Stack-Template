@@ -3,7 +3,7 @@ import { Ref, ref } from 'vue'
 
 import { useFormUtil } from '@/core/utils/forms.util'
 
-import { credentials } from '@/core/apis/localhost/dto/JWT.dto'
+import { credentials } from '@lib/dto/JWT.dto'
 
 type proptype = { callback: (values: credentials) => Promise<void> }
 type SignInModal = {

@@ -1,8 +1,8 @@
 import { AxiosInstance } from 'axios'
 
 import { AxiosService } from '@/core/utils/axios.util'
-import { UpdateEmailDto, UpdatePasswordDto } from '@/core/apis/localhost/administration/users/dto/user.dto'
-import { IJWT, JWTDto } from '@/core/apis/localhost/dto/JWT.dto'
+import { UpdateEmailDto, UpdatePasswordDto } from '@lib/dto/user.dto'
+import { IJWT, JWTDto } from '@lib/dto/JWT.dto'
 
 class security {
   private readonly $api: AxiosInstance

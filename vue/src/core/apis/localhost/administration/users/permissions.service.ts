@@ -2,8 +2,8 @@ import { AxiosInstance, AxiosResponse } from 'axios'
 
 import { AxiosService } from '@/core/utils/axios.util'
 
-import { PaginationDto, PaginationOptions } from '@/core/apis/localhost/dto/pagination.dto'
-import { CreatePermissionDto, iPermission, PermissionDto } from '@/core/apis/localhost/administration/users/dto/permission.dto'
+import { PaginationDto, PaginationOptions } from '@lib/dto/pagination.dto'
+import { CreatePermissionDto, iPermission, PermissionDto } from '@lib/dto/permission.dto'
 
 class permissions {
   private readonly $api: AxiosInstance

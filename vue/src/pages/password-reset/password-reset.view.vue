@@ -5,7 +5,7 @@ import { useI18n } from 'vue-i18n'
 import { LocationQuery, RouteLocationNormalizedLoaded, Router, useRoute, useRouter } from 'vue-router'
 
 import { useFormUtil } from '@/core/utils/forms.util'
-import { ResetPassword } from '@/core/apis/localhost/administration/users/dto/user.dto'
+import { ResetPassword } from '@lib/dto/user.dto'
 import { useAppHandler } from '@/core/handlers/app.handler'
 
 import { ROUTE_NAMES } from '@/core/router/route-names.enum'

@@ -1,5 +1,5 @@
-import { BaseDto } from '../../../dto/base.dto'
-import { iImage } from '../../../dto/media.dto'
+import { BaseDto } from './base.dto'
+import { iImage } from './media.dto'
 import { iPlatform, PlatformDto } from './platform.dto'
 
 interface iGame {

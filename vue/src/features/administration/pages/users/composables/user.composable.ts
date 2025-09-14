@@ -3,11 +3,11 @@ import { useI18n } from 'vue-i18n'
 import * as Yup from 'yup'
 
 import { useFormUtil } from '@/core/utils/forms.util'
-import { UserDto, UpdateUser } from '@/core/apis/localhost/administration/users/dto/user.dto'
+import { UserDto, UpdateUser } from '@lib/dto/user.dto'
 import { LocalhostAPI } from '@/core/apis'
 import { AppStore, useAppStore } from '@/core/store/app.store'
-import { PaginationOptions } from '@/core/apis/localhost/dto/pagination.dto'
-import { RoleDto } from '@/core/apis/localhost/administration/users/dto/role.dto'
+import { PaginationOptions } from '@lib/dto/pagination.dto'
+import { RoleDto } from '@lib/dto/role.dto'
 
 type proptype = { user?: UserDto; callback: (values: UpdateUser) => Promise<void> }
 

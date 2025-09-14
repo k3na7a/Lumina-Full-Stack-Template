@@ -1,4 +1,4 @@
-import { BaseDto } from '../../../dto/base.dto'
+import { BaseDto } from './base.dto'
 
 interface iPlatform {
   readonly id: string

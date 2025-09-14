@@ -1,5 +1,5 @@
 import { PermissionDomain } from '@lib/constants/permissions.constants'
-import { BaseDto } from '../../../dto/base.dto'
+import { BaseDto } from './base.dto'
 
 interface iPermission {
   readonly id: string

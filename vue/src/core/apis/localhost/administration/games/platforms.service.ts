@@ -1,8 +1,8 @@
 import { AxiosInstance, AxiosResponse } from 'axios'
 
-import { PaginationDto, PaginationOptions } from '@/core/apis/localhost/dto/pagination.dto'
+import { PaginationDto, PaginationOptions } from '@lib/dto/pagination.dto'
 import { AxiosService } from '@/core/utils/axios.util'
-import { CreatePlatformDto, PlatformDto, iPlatform } from './dto/platform.dto'
+import { CreatePlatformDto, PlatformDto, iPlatform } from '@lib/dto/platform.dto'
 
 class platforms {
   private readonly $api: AxiosInstance

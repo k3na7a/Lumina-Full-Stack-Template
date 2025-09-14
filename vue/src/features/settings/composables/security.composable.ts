@@ -2,7 +2,7 @@ import { computed, ComputedRef } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { AppStore, useAppStore } from '@/core/store/app.store'
 import { useSettingsHandler } from '../handlers/settings.handler'
-import { UserDto } from '@/core/apis/localhost/administration/users/dto/user.dto'
+import { UserDto } from '@lib/dto/user.dto'
 
 function useSecurityPage() {
   const appStore: AppStore = useAppStore()

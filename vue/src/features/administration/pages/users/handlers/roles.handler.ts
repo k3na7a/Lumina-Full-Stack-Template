@@ -6,10 +6,10 @@ import { ModalStore, useModalStore } from '@/core/store/modal.store'
 
 import ConfirmDeleteModal from '@/shared/components/modal/permanently-delete.component.vue'
 
-import { PaginationOptions, PaginationDto, PaginationMeta } from '@/core/apis/localhost/dto/pagination.dto'
+import { PaginationOptions, PaginationDto, PaginationMeta } from '@lib/dto/pagination.dto'
 import { LocalhostAPI } from '@/core/apis/localhost/localhost.api'
 import { AppStore, useAppStore } from '@/core/store/app.store'
-import { CreateRoleDto, iCreateRole, RoleDto } from '@/core/apis/localhost/administration/users/dto/role.dto'
+import { CreateRoleDto, iCreateRole, RoleDto } from '@lib/dto/role.dto'
 
 import NewRoleModal from '../components/role.component.vue'
 

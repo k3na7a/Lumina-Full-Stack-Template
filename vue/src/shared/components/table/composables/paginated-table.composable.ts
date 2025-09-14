@@ -1,8 +1,9 @@
 import { Router, useRouter, RouteLocationNormalizedLoaded, useRoute, LocationQueryRaw } from 'vue-router'
-import { Order, PaginationOptions, SortOptions } from '@/core/apis/localhost/dto/pagination.dto'
+import { Order, PaginationOptions, SortOptions } from '@lib/dto/pagination.dto'
 import { computed, ComputedRef, ref, Ref } from 'vue'
 import { TriState } from '../../inputs/composables/checkbox-input.composable'
-import { BaseDto } from '@/core/apis/localhost/dto/base.dto'
+import { BaseDto } from '@lib/dto/base.dto'
+import { deepEqual } from '@lib/utilities/object.util'
 
 type proptype<T> = {
   columns: columns
@@ -49,7 +50,7 @@ function usePaginatedTable<T extends BaseDto>(): {
       return
     }
 
-    selected.value = selected.value.filter((r) => r.id !== item.id)
+    selected.value = selected.value.filter((r) => deepEqual(r, item))
   }
 
   function resetPageAndUpdateQuery(params: LocationQueryRaw): void {

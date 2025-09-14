@@ -5,7 +5,7 @@ import { Router, useRouter } from 'vue-router'
 import { useI18n } from 'vue-i18n'
 
 import { useFormUtil } from '@/core/utils/forms.util.ts'
-import { ForgotPassword } from '@/core/apis/localhost/administration/users/dto/user.dto.ts'
+import { ForgotPassword } from '@lib/dto/user.dto.ts'
 import { useAppHandler } from '@/core/handlers/app.handler.ts'
 
 import { validationSchema } from './account-recovery.form.ts'
