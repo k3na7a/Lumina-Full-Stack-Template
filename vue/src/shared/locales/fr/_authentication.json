@@ -1,0 +1,48 @@
+{
+  "not-logged-in": "Vous devez être connecté pour voir cette page",
+  "not-authorized": "Vous n’êtes pas autorisé à voir ce contenu",
+  "password-security": "Pour des raisons de sécurité, veuillez entrer votre mot de passe pour continuer.",
+  "log-in": {
+    "modal-title": "Se connecter à Testhub",
+    "trouble": "Problèmes de connexion ?",
+    "success": "Connexion réussie. Bon retour !"
+  },
+  "register": {
+    "modal-title": "Rejoignez Testhub dès aujourd’hui",
+    "success": "Bienvenue à bord ! Votre compte est prêt à être utilisé."
+  },
+  "log-out": {
+    "modal-title": "Se déconnecter de Testhub",
+    "modal-body": "Êtes-vous sûr de vouloir vous déconnecter de votre compte Testhub ?",
+    "success": "Vous vous êtes déconnecté. À la prochaine !"
+  },
+  "disable-account": {
+    "modal-title": "Désactiver votre compte Testhub",
+    "modal-body": "Êtes-vous sûr de vouloir désactiver définitivement votre compte Testhub ?"
+  },
+  "account-recovery": {
+    "title": "Récupérer l’accès à votre compte Testhub",
+    "subtitle": "Donnez-nous quelques informations sur votre compte.",
+    "label": "Entrez l’adresse e-mail associée à votre compte pour changer votre mot de passe.",
+    "confirm-title": "Vérifiez votre e-mail",
+    "confirm-body-sent-link": "Veuillez aller dans votre e-mail {0} et cliquer sur le lien de réinitialisation de mot de passe que nous avons envoyé pour votre compte Testhub.",
+    "confirm-body-check-spam": "Cela peut prendre quelques minutes à apparaître. Vérifiez aussi vos dossiers spam ou promotions — au cas où !",
+    "success": "Nous avons envoyé un lien à votre e-mail pour réinitialiser votre mot de passe. Veuillez vérifier votre boîte de réception."
+  },
+  "password-reset": {
+    "title": "Définir un nouveau mot de passe",
+    "subtitle": "Définissez un nouveau mot de passe pour votre compte. La réinitialisation de votre mot de passe invalidera aussi toute session active existante.",
+    "confirm-title": "Réinitialisation du mot de passe",
+    "confirm-body": "Votre mot de passe a été réinitialisé avec succès ! Vous pouvez maintenant utiliser votre nouveau mot de passe pour vous connecter.",
+    "success": "Votre mot de passe a été réinitialisé. Vous pouvez maintenant vous connecter avec vos nouvelles informations."
+  },
+  "password-validation": {
+    "label": "Les mots de passe doivent comporter entre 8 et 16 caractères et contenir :",
+    "contains": {
+      "1": "Au moins un chiffre de 1 à 9 (y compris 0)",
+      "2": "Au moins une lettre minuscule",
+      "3": "Au moins une lettre majuscule",
+      "4": "Au moins un caractère spécial"
+    }
+  }
+}

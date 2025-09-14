@@ -1,4 +1,3 @@
-import getAvatar from '@/core/utils/ui-avatars.util'
 import { iImage } from '@lib/dto/media.dto'
 import { BaseDto } from '@lib/dto/base.dto'
 import { iRole, RoleDto } from './role.dto'
@@ -151,9 +150,13 @@ class Profile {
   public readonly avatar: string
   public readonly name: Name
 
+  private readonly getAvatar = (first: string, last: string) => {
+    return `https://ui-avatars.com/api/?name=${[first, last].join('+')}`
+  }
+
   constructor({ name, avatar }: iProfile) {
     this.name = name
-    this.avatar = avatar?.uri || getAvatar(name.first, name.last)
+    this.avatar = avatar?.uri || this.getAvatar(name.first, name.last)
   }
 }
 

@@ -1,0 +1,48 @@
+{
+  "not-logged-in": "Debe iniciar sesión para ver esta página",
+  "not-authorized": "No está autorizado para ver este contenido",
+  "password-security": "Por seguridad, ingrese su contraseña para continuar.",
+  "log-in": {
+    "modal-title": "Iniciar sesión en Testhub",
+    "trouble": "¿Problemas para iniciar sesión?",
+    "success": "Inicio de sesión exitoso. ¡Bienvenido de nuevo!"
+  },
+  "register": {
+    "modal-title": "Únase a Testhub hoy",
+    "success": "¡Bienvenido a bordo! Su cuenta está lista para usarse."
+  },
+  "log-out": {
+    "modal-title": "Cerrar sesión en Testhub",
+    "modal-body": "¿Está seguro de que desea cerrar sesión en su cuenta de Testhub?",
+    "success": "Ha cerrado sesión. ¡Hasta la próxima!"
+  },
+  "disable-account": {
+    "modal-title": "Desactivar su cuenta de Testhub",
+    "modal-body": "¿Está seguro de que desea desactivar permanentemente su cuenta de Testhub?"
+  },
+  "account-recovery": {
+    "title": "Recuperar el acceso a su cuenta de Testhub",
+    "subtitle": "Díganos algunos datos sobre su cuenta.",
+    "label": "Ingrese el correo electrónico asociado a su cuenta para cambiar su contraseña.",
+    "confirm-title": "Revise su correo electrónico",
+    "confirm-body-sent-link": "Vaya a su correo {0} y haga clic en el enlace de restablecimiento de contraseña que le hemos enviado para su cuenta de Testhub.",
+    "confirm-body-check-spam": "Puede tardar unos minutos en aparecer. Revise también las carpetas de spam y promociones, por si acaso.",
+    "success": "Hemos enviado un enlace a su correo electrónico para que pueda restablecer su contraseña. Por favor, revise su bandeja de entrada."
+  },
+  "password-reset": {
+    "title": "Establecer nueva contraseña",
+    "subtitle": "Establezca una nueva contraseña para su cuenta. Restablecer su contraseña también invalidará cualquier sesión de inicio activa.",
+    "confirm-title": "Restablecimiento de contraseña",
+    "confirm-body": "¡Su contraseña se ha restablecido correctamente! Ahora puede usar su nueva contraseña para iniciar sesión.",
+    "success": "Su contraseña ha sido restablecida. Ahora puede iniciar sesión con sus nuevas credenciales."
+  },
+  "password-validation": {
+    "label": "Las contraseñas deben tener entre 8 y 16 caracteres y contener lo siguiente:",
+    "contains": {
+      "1": "Al menos un dígito del 1 al 9 (incluido el 0)",
+      "2": "Al menos una letra minúscula",
+      "3": "Al menos una letra mayúscula",
+      "4": "Al menos un carácter especial"
+    }
+  }
+}

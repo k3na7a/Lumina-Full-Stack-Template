@@ -1,0 +1,21 @@
+{
+  "home": "Accueil",
+  "library": "Bibliothèque",
+  "history": "Historique",
+  "applications": "Applications",
+  "help&legal": "Aide et informations légales",
+  "language": "Langue",
+  "general": "Général",
+  "subnavigation": {
+    "about": "À propos",
+    "blog": "Blog",
+    "developers": "Développeurs",
+    "jobs": "Emplois",
+    "partners": "Partenaires",
+    "community": "Directives de la communauté",
+    "cookies": "Politique relative aux cookies",
+    "help": "Aide",
+    "privacy": "Politique de confidentialité",
+    "terms": "Conditions"
+  }
+}

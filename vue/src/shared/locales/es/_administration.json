@@ -1,0 +1,127 @@
+{
+  "label": "Administración",
+  "dashboard": {
+    "label": "Panel de control"
+  },
+  "transaction-logs": {
+    "label": "Registros de transacciones"
+  },
+  "user-management": {
+    "header": "Gestión de usuarios",
+    "users": {
+      "item": "Usuario",
+      "label": "Usuarios",
+      "title": "Administrar los usuarios de su plataforma",
+      "subtitle": "Ver, buscar y administrar cuentas de usuario en toda la plataforma",
+      "caption": "Mostrando {start}-{end} de {count} usuarios | Mostrando {start}-{end} de {count} usuario | Mostrando {start}-{end} de {count} usuarios",
+      "update": {
+        "title": "Actualizar detalles de la cuenta de usuario",
+        "remove-profile-picture": "Eliminar foto de perfil",
+        "success": "Los cambios en la cuenta de usuario se guardaron correctamente."
+      },
+      "delete": {
+        "title": "Eliminar permanentemente usuario",
+        "success": "La cuenta de usuario ha sido eliminada permanentemente."
+      }
+    },
+    "roles": {
+      "label": "Roles",
+      "item": "Rol",
+      "title": "Administrar roles de usuario",
+      "subtitle": "Controle quién puede acceder y administrar partes clave de su sistema.",
+      "caption": "Mostrando {start}-{end} de {count} roles de usuario | Mostrando {start}-{end} de {count} rol de usuario | Mostrando {start}-{end} de {count} roles de usuario",
+      "create": {
+        "title": "Crear nuevo rol de usuario",
+        "success": "Nuevo rol de usuario creado correctamente."
+      },
+      "update": {
+        "title": "Actualizar rol de usuario",
+        "success": "El rol de usuario se actualizó correctamente."
+      },
+      "delete": {
+        "title": "Eliminar permanentemente rol de usuario",
+        "success": "El rol de usuario ha sido eliminado correctamente."
+      },
+      "placeholders": {
+        "label": "Super Administrador",
+        "description": "Tiene acceso completo a todos los recursos.",
+        "name": "SUPER_ADMINISTRATOR"
+      }
+    },
+    "permissions": {
+      "label": "Permisos",
+      "item": "Permiso",
+      "title": "Directorio de permisos del sistema",
+      "subtitle": "Una lista completa de todas las acciones que los usuarios pueden realizar.",
+      "caption": "Mostrando {start}-{end} de {count} permisos | Mostrando {start}-{end} de {count} permiso | Mostrando {start}-{end} de {count} permisos",
+      "create": {
+        "title": "Crear nuevo permiso de usuario",
+        "success": "Nuevo permiso de usuario creado correctamente."
+      },
+      "update": {
+        "title": "Actualizar permiso de usuario",
+        "success": "El permiso de usuario se actualizó correctamente."
+      },
+      "delete": {
+        "title": "Eliminar permanentemente permiso de usuario",
+        "success": "El permiso de usuario ha sido eliminado correctamente."
+      },
+      "placeholders": {
+        "label": "Super Administrador",
+        "description": "Tiene acceso completo a todos los recursos.",
+        "name": "SUPER_ADMINISTRATOR"
+      }
+    }
+  },
+  "games-and-software": {
+    "header": "Juegos y software",
+    "no-of-games": "Nº de juegos",
+    "games": {
+      "item": "Juego",
+      "label": "Juegos y software",
+      "title": "Crear y modificar sus juegos y software",
+      "subtitle": "Gestione su biblioteca de juegos y lanzamientos de software.",
+      "caption": "Mostrando {start}-{end} de {count} juegos | Mostrando {start}-{end} de {count} juego | Mostrando {start}-{end} de {count} juegos",
+      "placeholders": {
+        "name": "Super Mario Bros.",
+        "description": "Un juego de plataformas 2D de desplazamiento lateral y la primera entrega de la franquicia Super Mario. Super Mario Bros. sigue al fontanero italiano Mario a través de muchos niveles de desafíos de plataformas con enemigos hostiles para rescatar a la princesa Peach del rey Bowser.",
+        "slug": "super-mario-bros"
+      },
+      "create": {
+        "title": "Crear nuevo juego o software",
+        "success": "Nuevo juego creado correctamente."
+      },
+      "update": {
+        "title": "Actualizar juego o software",
+        "success": "El juego se actualizó correctamente."
+      },
+      "delete": {
+        "title": "Eliminar permanentemente juego o software",
+        "success": "El juego ha sido eliminado correctamente."
+      }
+    },
+    "platforms": {
+      "item": "Plataforma",
+      "label": "Plataformas",
+      "title": "Consolas, sistemas operativos o canales de distribución",
+      "subtitle": "Todas sus plataformas compatibles en un solo lugar.",
+      "caption": "Mostrando {start}-{end} de {count} plataformas | Mostrando {start}-{end} de {count} plataforma | Mostrando {start}-{end} de {count} plataformas",
+      "placeholders": {
+        "name": "Nintendo Entertainment System",
+        "slug": "nintendo-entertainment-system"
+      },
+      "create": {
+        "title": "Crear nueva plataforma",
+        "success": "Nueva plataforma creada correctamente."
+      },
+      "update": {
+        "title": "Actualizar plataforma",
+        "success": "La plataforma se actualizó correctamente."
+      },
+      "delete": {
+        "title": "Eliminar permanentemente plataforma",
+        "success": "La plataforma ha sido eliminada correctamente."
+      }
+    }
+  }
+}

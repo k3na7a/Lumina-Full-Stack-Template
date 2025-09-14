@@ -1,4 +1,6 @@
 import en from '@/shared/locales/en/en'
+import fr from '@/shared/locales/fr/fr'
+import es from '@/shared/locales/es/es'
 
 type locales = 'en' | 'es' | 'fr'
 const LOCALES: { [id: string]: { display: string; key: locales; flag: string } } = {
@@ -20,7 +22,9 @@ const LOCALES: { [id: string]: { display: string; key: locales; flag: string } }
 }
 
 const messages = {
-  en
+  en,
+  fr,
+  es
 }
 
 export type { locales }
