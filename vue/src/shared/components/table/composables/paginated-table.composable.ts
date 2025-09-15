@@ -43,8 +43,6 @@ function usePaginatedTable<T extends BaseDto>(): {
   function updateSelected(value: boolean, item: T): void {
     const isChecked = value === true
 
-    console.log(isChecked, item.id)
-
     if (isChecked) {
       selected.value.push(item)
       return
