@@ -1,8 +1,8 @@
 <script lang="ts" setup>
-import { TriState, useCheckboxInput } from './composables/checkbox-input.composable'
+import { useCheckboxInput } from './composables/checkbox-input.composable'
 
-const props = defineProps<{ name: string; label?: string, value?: TriState }>()
-const emit = defineEmits<{ update: [value: TriState] }>()
+const props = defineProps<{ name: string; label?: string; value?: boolean }>()
+const emit = defineEmits<{ update: [value: boolean] }>()
 
 const { name, value, inputRef } = useCheckboxInput(props, emit)
 </script>

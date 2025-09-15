@@ -6,7 +6,6 @@ import CheckboxInput from '@/shared/components/inputs/checkbox.input.vue'
 
 import { proptype, usePaginatedTable } from './composables/paginated-table.composable'
 import { Order } from '@lib/dto/pagination.dto'
-import { TriState } from '../inputs/composables/checkbox-input.composable'
 import { BaseDto } from '@lib/dto/base.dto'
 
 const { columns, rows, pages, options, loading, caption } = defineProps<proptype<T>>()
@@ -81,7 +80,7 @@ const { resetPageAndUpdateQuery, updateQuery, handleSort, updateSelected, sortPa
               <tr>
                 <td>
                   <div class="cell justify-content-center">
-                    <CheckboxInput :name="`${idx}`" @update="(value: TriState) => updateSelected(value, row)" />
+                    <CheckboxInput :name="row.id" @update="(value: boolean) => updateSelected(value, row)" />
                   </div>
                 </td>
                 <td v-for="column in columns" :key="`cell:${column.name}:${idx}:${row.id}`">
