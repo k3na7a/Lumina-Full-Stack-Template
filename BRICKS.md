@@ -199,3 +199,19 @@ These aren’t urgent, but should stay visible on the radar.
 > **💎 Ship once, scale forever. Lock RBAC, secure auth, test thoroughly, then polish UX.**
 
 ---
+
+- Table Checkboxes
+  - Need to make sure the checkboxes and system know to turn off when list changes.
+  - Global Tristate checkbox that handles state of all checkboxes.
+
+## Footer Buttons
+
+## Sorting Users
+
+- Implement Audit System (Front + Back)
+- Dashboard Overview
+  - Server Health
+  - Recent Platform History (Audits)
+  - User Statistics (# of users/How many joined in last x days)
+  - Game Information (Top Platforms/Recently Added/Etc)
+- Assets Tab in Administration to view Media Assets (Images/Videos/Audio/Files/etc.) to view media assets stored in S3/Youtube

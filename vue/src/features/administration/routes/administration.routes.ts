@@ -21,6 +21,7 @@ const route: RouteRecordRaw = {
         },
         {
           path: 'user-management',
+          name: ROUTE_NAMES.ADMIN_USER_MANAGEMENT,
           redirect: { name: ROUTE_NAMES.ADMIN_USERS },
           component: () => import('@/features/administration/pages/users/users.view.vue'),
           children: [

@@ -8,7 +8,7 @@ const routes: side_navigation = [
     icon: ['fas', 'gauge']
   },
   {
-    name: ROUTE_NAMES.ADMIN_USERS,
+    name: ROUTE_NAMES.ADMIN_USER_MANAGEMENT,
     label: 'administration.user-management.header',
     icon: ['fas', 'user']
   },
