@@ -20,7 +20,7 @@ const { payload } = defineProps<props>()
       <div class="d-flex flex-column gap-1">
         <div class="d-flex flex-column gap-1 overflow-hidden">
           <div class="px-2 py-1 text-truncate">
-            <h5 class="text-muted fw-bolder text-nowrap display-font">{{ $t('forms.actions') }}</h5>
+            <h5 class="text-muted fw-bolder text-nowrap display-font text-truncate">{{ $t('forms.actions') }}</h5>
             <slot></slot>
           </div>
 

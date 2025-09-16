@@ -17,7 +17,7 @@ const { navigation } = defineProps<props>()
           <hr v-if="index" class="dropdown-divider mx-1 my-0 bg-secondary opacity-50" />
 
           <div class="d-flex flex-column gap-1">
-            <h5 v-if="nav?.title" class="p-0 py-1 px-2 text-muted fw-bolder text-nowrap display-font">
+            <h5 v-if="nav?.title" class="p-0 py-1 px-2 text-muted fw-bolder text-nowrap display-font text-truncate">
               {{ $t(nav.title) }}
             </h5>
             <div class="d-flex flex-column gap-1">

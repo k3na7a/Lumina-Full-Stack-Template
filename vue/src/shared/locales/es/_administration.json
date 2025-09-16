@@ -1,7 +1,10 @@
 {
   "label": "Administración",
   "dashboard": {
-    "label": "Panel de control"
+    "label": "Panel de control",
+    "overview": {
+      "label": "Resumen"
+    }
   },
   "transaction-logs": {
     "label": "Registros de transacciones"

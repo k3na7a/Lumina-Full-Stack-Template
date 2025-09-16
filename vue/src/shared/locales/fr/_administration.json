@@ -1,7 +1,10 @@
 {
   "label": "Administration",
   "dashboard": {
-    "label": "Tableau de bord"
+    "label": "Tableau de bord",
+    "overview": {
+      "label": "Aperçu"
+    }
   },
   "transaction-logs": {
     "label": "Journaux des transactions"

@@ -19,7 +19,7 @@ const { authenticatedUser } = defineProps<{
         <div class="px-2 py-1">
           <div class="d-flex align-items-center gap-2">
             <div class="d-flex flex-column flex-grow-1">
-              <h5 class="text-light fw-bolder display-font">{{ authenticatedUser?.getFullName() }}</h5>
+              <h5 class="text-light fw-bolder display-font text-truncate">{{ authenticatedUser?.getFullName() }}</h5>
               <small class="text-light-alt d-block text-truncate fst-italic">{{ authenticatedUser?.email }}</small>
             </div>
           </div>
@@ -29,7 +29,7 @@ const { authenticatedUser } = defineProps<{
           <hr v-if="index" class="dropdown-divider mx-1 my-0 bg-secondary opacity-50" />
 
           <div class="d-flex flex-column gap-1">
-            <h5 v-if="nav?.title" class="p-0 py-1 px-2 text-muted fw-bolder text-nowrap display-font">
+            <h5 v-if="nav?.title" class="p-0 py-1 px-2 text-muted fw-bolder text-nowrap display-font text-truncate">
               {{ $t(nav.title) }}
             </h5>
             <div class="d-flex flex-column gap-1">

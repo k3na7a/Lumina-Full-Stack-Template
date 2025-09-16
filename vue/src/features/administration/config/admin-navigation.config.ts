@@ -19,14 +19,14 @@ const routes: side_navigation = [
   }
 ]
 
-const footer: side_navigation = [
+const footer = [
   {
-    name: ROUTE_NAMES.HOME,
+    action: () => {},
     label: 'settings.label',
     icon: ['fas', 'gear']
   },
   {
-    name: ROUTE_NAMES.HOME,
+    action: () => {},
     label: 'actions.send-feedback',
     icon: ['fas', 'message']
   }

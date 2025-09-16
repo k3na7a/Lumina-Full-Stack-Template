@@ -9,7 +9,7 @@ type props = {
     icon: string[]
   }[]
   footer?: {
-    name: ROUTE_NAMES
+    action: () => void
     label: string
     icon: string[]
   }[]
@@ -41,6 +41,7 @@ const { title, routes } = defineProps<props>()
         <div v-if="footer" class="d-flex flex-shrink-1 flex-column gap-1">
           <template v-for="navigation_item of footer" :key="navigation_item.label">
             <button
+              @click="navigation_item.action"
               class="dropdown-item d-flex align-items-center justify-content-center justify-content-lg-start gap-2 px-lg-2 py-1 m-0 overflow-hidden w-100"
               type="button"
             >

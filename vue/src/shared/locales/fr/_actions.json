@@ -32,5 +32,6 @@
   "enter-new-password": "Entrez au moins 8 caractères",
   "enter-new-password-confirm": "Les mots de passe doivent correspondre",
   "authenticating": "Authentification...",
-  "select-option": "sélectionnez une option..."
+  "select-option": "sélectionnez une option...",
+  "send-feedback": "Envoyer un retour"
 }
