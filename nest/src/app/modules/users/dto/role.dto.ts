@@ -1,6 +1,25 @@
-import { IsArray, IsBoolean, IsOptional, IsString } from 'class-validator';
+import { IsArray, IsBoolean, IsEnum, IsOptional, IsString } from 'class-validator';
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 import { Transform } from 'class-transformer';
+import { PaginationOptions } from 'src/app/common/dto/pagination.dto';
+
+enum SORT_OPTIONS {
+  CREATED = 'role.createdAt',
+  NAME = 'role.name',
+  LABEL = 'role.label',
+}
+
+export class RolePaginationOptions extends PaginationOptions {
+  @ApiPropertyOptional({
+    description: 'Sort order for the platform list. Defaults to `CREATED`.',
+    enum: SORT_OPTIONS,
+    default: SORT_OPTIONS.CREATED,
+    example: SORT_OPTIONS.CREATED,
+  })
+  @IsEnum(SORT_OPTIONS)
+  @IsOptional()
+  public readonly sort: SORT_OPTIONS = SORT_OPTIONS.CREATED;
+}
 
 export class CreateRoleDto {
   @ApiProperty({

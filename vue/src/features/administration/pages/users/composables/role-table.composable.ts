@@ -11,7 +11,7 @@ import { RoleDto } from '@lib/dto/role.dto'
 
 const tableColumns: columns = [
   { name: 'role', label: 'forms.role', sort: 'role.label' },
-  { name: 'key', label: 'forms.key', sort: 'role.label' },
+  { name: 'key', label: 'forms.key', sort: 'role.name' },
   { name: 'permissions', label: 'forms.permissions' },
   { name: 'actions' }
 ]

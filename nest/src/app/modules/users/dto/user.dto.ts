@@ -13,6 +13,8 @@ import { PaginationOptions } from 'src/app/common/dto/pagination.dto';
 enum SORT_OPTIONS {
   CREATED = 'user.createdAt',
   LAST_NAME = 'profile.name.last',
+  EMAIL = 'user.email',
+  NAME = 'fullname',
 }
 
 class UserPaginationOptions extends PaginationOptions {

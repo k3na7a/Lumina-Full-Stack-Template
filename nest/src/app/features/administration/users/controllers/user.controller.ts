@@ -28,7 +28,7 @@ import { UserEntity } from 'src/app/modules/users/entities/user.entity';
 import {
   UserPaginationOptions,
   UpdateUserDto,
-} from 'src/app/features/administration/users/dto/user.dto';
+} from 'src/app/modules/users/dto/user.dto';
 
 import { ImageUploadValidationPipe } from 'src/app/common/pipes/image-upload.pipe';
 import { JwtAuthGuard } from 'src/app/common/guards/jwt-auth.guard';

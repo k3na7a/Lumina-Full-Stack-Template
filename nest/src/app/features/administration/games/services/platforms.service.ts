@@ -4,7 +4,7 @@ import { PlatformEntity } from 'src/app/modules/games/entities/platform.entity';
 import { PlatformService } from 'src/app/modules/games/services/platforms.service';
 
 import { PaginationDto } from 'src/app/common/dto/pagination.dto';
-import { CreatePlatformDto, PlatformPaginationOptions } from 'src/app/features/administration/games/dto/platform.dto';
+import { CreatePlatformDto, PlatformPaginationOptions } from 'src/app/modules/games/dto/platform.dto';
 
 @Injectable()
 export class PlatformAdminService {

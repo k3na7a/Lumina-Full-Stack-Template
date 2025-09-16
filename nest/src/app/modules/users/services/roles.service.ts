@@ -5,10 +5,10 @@ import { In, Repository } from 'typeorm';
 import {
   PaginationDto,
   PaginationMeta,
-  PaginationOptions,
 } from 'src/app/common/dto/pagination.dto';
 
 import { RoleEntity } from '../entities/role.entity';
+import { RolePaginationOptions } from '../dto/role.dto';
 
 @Injectable()
 export class RoleService {
@@ -33,16 +33,16 @@ export class RoleService {
   }
 
   public async paginate(
-    pageOptions: PaginationOptions,
+    pageOptions: RolePaginationOptions,
   ): Promise<PaginationDto<RoleEntity>> {
-    const { search, order, take, skip } = pageOptions;
+    const { search, order, take, skip, sort } = pageOptions;
     const [roles, itemCount] = await this.repository
       .createQueryBuilder('role')
       .leftJoinAndSelect('role.permissions', 'permissions')
       .where('role.name like :query OR role.label like :query', {
         query: `%${search}%`,
       })
-      .orderBy({ 'role.label': order })
+      .orderBy({ [sort]: order })
       .take(take)
       .skip(skip)
       .getManyAndCount();

@@ -18,14 +18,14 @@ import {
   ApiTags,
 } from '@nestjs/swagger';
 
-import {
-  PaginationDto,
-  PaginationOptions,
-} from 'src/app/common/dto/pagination.dto';
+import { PaginationDto } from 'src/app/common/dto/pagination.dto';
 
 import { RoleAdminService } from '../services/role.service';
 import { RoleEntity } from 'src/app/modules/users/entities/role.entity';
-import { CreateRoleDto } from '../dto/role.dto';
+import {
+  CreateRoleDto,
+  RolePaginationOptions,
+} from 'src/app/modules/users/dto/role.dto';
 import { JwtAuthGuard } from 'src/app/common/guards/jwt-auth.guard';
 import { PermissionsGuard } from 'src/app/common/guards/permissions.guard';
 import { Permissions } from 'src/app/common/decorators/permissions.decorator';
@@ -54,7 +54,7 @@ class RoleAdminController {
   @ApiOkResponse({ type: PaginationDto<RoleEntity> })
   @Permissions(PERMISSION_MATRIX[PermissionDomain.ROLE_MANAGEMENT].READ_ROLE)
   async paginate(
-    @Query() params: PaginationOptions,
+    @Query() params: RolePaginationOptions,
   ): Promise<PaginationDto<RoleEntity>> {
     return this.service.paginate(params);
   }

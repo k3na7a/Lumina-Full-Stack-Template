@@ -1,7 +1,27 @@
 import { IsBoolean, IsEnum, IsOptional, IsString } from 'class-validator';
-import { ApiProperty } from '@nestjs/swagger';
+import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 import { Transform } from 'class-transformer';
 import { PermissionDomain } from '@lib/constants/permissions.constants';
+import { PaginationOptions } from 'src/app/common/dto/pagination.dto';
+
+enum SORT_OPTIONS {
+  CREATED = 'permission.createdAt',
+  NAME = 'permission.name',
+  LABEL = 'permission.label',
+  DOMAIN = 'permission.domain',
+}
+
+export class PermissionPaginationOptions extends PaginationOptions {
+  @ApiPropertyOptional({
+    description: 'Sort order for the platform list. Defaults to `CREATED`.',
+    enum: SORT_OPTIONS,
+    default: SORT_OPTIONS.CREATED,
+    example: SORT_OPTIONS.CREATED,
+  })
+  @IsEnum(SORT_OPTIONS)
+  @IsOptional()
+  public readonly sort: SORT_OPTIONS = SORT_OPTIONS.CREATED;
+}
 
 export class CreatePermissionDto {
   @ApiProperty({

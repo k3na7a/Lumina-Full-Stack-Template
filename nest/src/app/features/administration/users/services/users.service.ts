@@ -10,7 +10,7 @@ import { PaginationDto } from 'src/app/common/dto/pagination.dto';
 import {
   UserPaginationOptions,
   UpdateUserDto,
-} from 'src/app/features/administration/users/dto/user.dto';
+} from 'src/app/modules/users/dto/user.dto';
 import { IMAGE_TYPE } from 'src/app/modules/media/enums/image-routes.enum';
 import { RoleService } from 'src/app/modules/users/services/roles.service';
 

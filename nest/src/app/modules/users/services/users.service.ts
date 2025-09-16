@@ -2,7 +2,7 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 
-import { UserPaginationOptions } from 'src/app/features/administration/users/dto/user.dto';
+import { UserPaginationOptions } from 'src/app/modules/users/dto/user.dto';
 import {
   PaginationDto,
   PaginationMeta,
@@ -47,6 +47,10 @@ export class UserService {
       .where(
         "user.email like :query OR CONCAT(profile.name.first, ' ', profile.name.last) like :query",
         { query: `%${search}%` },
+      )
+      .addSelect(
+        "CONCAT_WS(' ', profile.name.first, profile.name.last)",
+        'fullname',
       )
       .orderBy({ [sort]: order })
       .take(take)

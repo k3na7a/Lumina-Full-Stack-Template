@@ -26,7 +26,7 @@ import { GameEntity } from 'src/app/modules/games/entities/game.entity';
 import {
   CreateGameDto,
   GamePaginationOptions,
-} from 'src/app/features/administration/games/dto/game.dto';
+} from 'src/app/modules/games/dto/game.dto';
 import { GamesAdminService } from 'src/app/features/administration/games/services/games.service';
 import { ImageUploadValidationPipe } from 'src/app/common/pipes/image-upload.pipe';
 import { PermissionsGuard } from 'src/app/common/guards/permissions.guard';

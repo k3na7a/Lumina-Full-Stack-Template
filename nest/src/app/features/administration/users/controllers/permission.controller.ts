@@ -20,13 +20,13 @@ import {
 
 import { Permissions } from 'src/app/common/decorators/permissions.decorator';
 
-import {
-  PaginationDto,
-  PaginationOptions,
-} from 'src/app/common/dto/pagination.dto';
+import { PaginationDto } from 'src/app/common/dto/pagination.dto';
 
 import { PermissionAdminService } from '../services/permission.service';
-import { CreatePermissionDto } from '../dto/permission.dto';
+import {
+  CreatePermissionDto,
+  PermissionPaginationOptions,
+} from 'src/app/modules/users/dto/permission.dto';
 import { PermissionEntity } from 'src/app/modules/users/entities/permission.entity';
 import { PermissionsGuard } from 'src/app/common/guards/permissions.guard';
 import { JwtAuthGuard } from 'src/app/common/guards/jwt-auth.guard';
@@ -59,7 +59,7 @@ class PermissionAdminController {
     PERMISSION_MATRIX[PermissionDomain.PERMISSION_MANAGEMENT].READ_PERMISSION,
   )
   async paginate(
-    @Query() params: PaginationOptions,
+    @Query() params: PermissionPaginationOptions,
   ): Promise<PaginationDto<PermissionEntity>> {
     return this.service.paginate(params);
   }

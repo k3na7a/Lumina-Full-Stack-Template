@@ -5,9 +5,9 @@ import { In, Repository } from 'typeorm';
 import {
   PaginationDto,
   PaginationMeta,
-  PaginationOptions,
 } from 'src/app/common/dto/pagination.dto';
 import { PermissionEntity } from '../entities/permission.entity';
+import { PermissionPaginationOptions } from '../dto/permission.dto';
 
 @Injectable()
 export class PermissionService {
@@ -35,9 +35,9 @@ export class PermissionService {
   }
 
   public async paginate(
-    pageOptions: PaginationOptions,
+    pageOptions: PermissionPaginationOptions,
   ): Promise<PaginationDto<PermissionEntity>> {
-    const { search, order, take, skip } = pageOptions;
+    const { search, order, take, skip, sort } = pageOptions;
     const [permissions, itemCount] = await this.repository
       .createQueryBuilder('permission')
       .where(
@@ -46,7 +46,7 @@ export class PermissionService {
           query: `%${search}%`,
         },
       )
-      .orderBy({ 'permission.label': order })
+      .orderBy({ [sort]: order })
       .take(take)
       .skip(skip)
       .getManyAndCount();

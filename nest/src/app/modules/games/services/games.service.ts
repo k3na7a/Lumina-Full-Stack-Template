@@ -7,7 +7,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { In, Not, Repository } from 'typeorm';
 
 import { GameEntity } from 'src/app/modules/games/entities/game.entity';
-import { GamePaginationOptions } from 'src/app/features/administration/games/dto/game.dto';
+import { GamePaginationOptions } from 'src/app/modules/games/dto/game.dto';
 import {
   PaginationDto,
   PaginationMeta,

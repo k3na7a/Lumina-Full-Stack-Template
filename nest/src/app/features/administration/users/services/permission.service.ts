@@ -2,11 +2,11 @@ import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { PermissionEntity } from 'src/app/modules/users/entities/permission.entity';
 import { PermissionService } from 'src/app/modules/users/services/permissions.service';
 
+import { PaginationDto } from 'src/app/common/dto/pagination.dto';
 import {
-  PaginationDto,
-  PaginationOptions,
-} from 'src/app/common/dto/pagination.dto';
-import { CreatePermissionDto } from '../dto/permission.dto';
+  CreatePermissionDto,
+  PermissionPaginationOptions,
+} from 'src/app/modules/users/dto/permission.dto';
 
 @Injectable()
 export class PermissionAdminService {
@@ -17,7 +17,7 @@ export class PermissionAdminService {
   }
 
   public async paginate(
-    params: PaginationOptions,
+    params: PermissionPaginationOptions,
   ): Promise<PaginationDto<PermissionEntity>> {
     return this.service.paginate(params);
   }

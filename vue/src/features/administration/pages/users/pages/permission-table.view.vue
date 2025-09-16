@@ -58,11 +58,11 @@ await promise()
         </template>
 
         <template #domain="{ row }">
-          <small class="fw-semibold text-light-alt">{{ row.domain }}</small>
+          <small class="fw-semibold text-primary">{{ row.domain }}</small>
         </template>
 
         <template #key="{ row }">
-          <small class="fst-italic text-warning">
+          <small class="text-warning">
             {{ row.name.toUpperCase() }}
           </small>
         </template>

@@ -7,7 +7,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { In, Not, Repository } from 'typeorm';
 
 import { PlatformEntity } from 'src/app/modules/games/entities/platform.entity';
-import { PlatformPaginationOptions } from 'src/app/features/administration/games/dto/platform.dto';
+import { PlatformPaginationOptions } from 'src/app/modules/games/dto/platform.dto';
 import { PaginationDto, PaginationMeta } from 'src/app/common/dto/pagination.dto';
 
 @Injectable()

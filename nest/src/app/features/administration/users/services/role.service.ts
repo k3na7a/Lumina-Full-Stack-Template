@@ -2,11 +2,11 @@ import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { RoleEntity } from 'src/app/modules/users/entities/role.entity';
 import { RoleService } from 'src/app/modules/users/services/roles.service';
 
+import { PaginationDto } from 'src/app/common/dto/pagination.dto';
 import {
-  PaginationDto,
-  PaginationOptions,
-} from 'src/app/common/dto/pagination.dto';
-import { CreateRoleDto } from '../dto/role.dto';
+  CreateRoleDto,
+  RolePaginationOptions,
+} from 'src/app/modules/users/dto/role.dto';
 import { PermissionService } from 'src/app/modules/users/services/permissions.service';
 
 @Injectable()
@@ -25,7 +25,7 @@ export class RoleAdminService {
   }
 
   public async paginate(
-    params: PaginationOptions,
+    params: RolePaginationOptions,
   ): Promise<PaginationDto<RoleEntity>> {
     return this.service.paginate(params);
   }

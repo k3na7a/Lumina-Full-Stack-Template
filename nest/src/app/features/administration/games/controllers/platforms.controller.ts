@@ -25,7 +25,7 @@ import { Permissions } from 'src/app/common/decorators/permissions.decorator';
 import {
   CreatePlatformDto,
   PlatformPaginationOptions,
-} from 'src/app/features/administration/games/dto/platform.dto';
+} from 'src/app/modules/games/dto/platform.dto';
 import { PaginationDto } from 'src/app/common/dto/pagination.dto';
 import { JwtAuthGuard } from 'src/app/common/guards/jwt-auth.guard';
 import { PermissionsGuard } from 'src/app/common/guards/permissions.guard';

@@ -9,7 +9,7 @@ import { ImageService } from 'src/app/modules/media/services/image.service';
 import {
   GamePaginationOptions,
   CreateGameDto,
-} from 'src/app/features/administration/games/dto/game.dto';
+} from 'src/app/modules/games/dto/game.dto';
 import { PaginationDto } from 'src/app/common/dto/pagination.dto';
 import { IMAGE_TYPE } from 'src/app/modules/media/enums/image-routes.enum';
 
