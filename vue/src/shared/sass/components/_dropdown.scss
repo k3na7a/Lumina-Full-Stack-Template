@@ -19,6 +19,10 @@
   scrollbar-color: $scrollbar-color $backgroundAlt;
   scrollbar-width: thin;
 
+  .dropdown-item {
+    transition: all 0.15s ease-in-out;
+  }
+
   a.dropdown-item {
     font-size: $font-size-7 !important;
     font-weight: 400 !important;
