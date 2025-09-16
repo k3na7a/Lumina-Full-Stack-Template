@@ -17,7 +17,23 @@ const route: RouteRecordRaw = {
         {
           path: 'dashboard',
           name: ROUTE_NAMES.ADMIN_DASHBOARD,
-          component: () => import('@/features/administration/pages/dashboard/dashboard.view.vue')
+          redirect: { name: ROUTE_NAMES.ADMIN_DASHBOARD_OVERVIEW },
+          component: () => import('@/features/administration/pages/dashboard/dashboard.view.vue'),
+          children: [
+            {
+              path: 'overview',
+              name: ROUTE_NAMES.ADMIN_DASHBOARD_OVERVIEW,
+              component: () => import('@/features/home/home.view.vue'),
+              meta: {
+                breadcrumbs: [
+                  { name: 'navigation.home', to: ROUTE_NAMES.HOME },
+                  { name: 'administration.label', to: ROUTE_NAMES.ADMINISTRATION },
+                  { name: 'administration.dashboard.label', to: ROUTE_NAMES.ADMIN_DASHBOARD },
+                  { name: 'administration.dashboard.overview.label', to: null }
+                ]
+              }
+            }
+          ]
         },
         {
           path: 'user-management',

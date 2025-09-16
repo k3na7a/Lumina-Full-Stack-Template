@@ -6,9 +6,6 @@
       "label": "Overview"
     }
   },
-  "transaction-logs": {
-    "label": "Transaction Logs"
-  },
   "user-management": {
     "header": "User Management",
     "users": {

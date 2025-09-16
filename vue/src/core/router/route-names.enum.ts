@@ -4,6 +4,7 @@ enum ROUTE_NAMES {
   ADMINISTRATION = 'administration',
 
   ADMIN_DASHBOARD = 'admin-dashboard',
+  ADMIN_DASHBOARD_OVERVIEW = 'admin-dashboard-overview',
 
   ADMIN_USER_MANAGEMENT = 'admin-user-management',
   ADMIN_USERS = 'admin-users',
