@@ -39,7 +39,7 @@ async function bootstrap(): Promise<void> {
     new ValidationPipe({
       exceptionFactory: (errors) => new BadRequestException(errors),
       whitelist: true,
-      // forbidNonWhitelisted: true,
+      forbidNonWhitelisted: true,
       transform: true,
     }),
   );
