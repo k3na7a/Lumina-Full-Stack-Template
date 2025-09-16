@@ -27,7 +27,7 @@ const footer: side_navigation = [
   },
   {
     name: ROUTE_NAMES.HOME,
-    label: 'Send Feedback',
+    label: 'actions.send-feedback',
     icon: ['fas', 'message']
   }
 ]

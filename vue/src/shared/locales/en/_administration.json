@@ -1,7 +1,10 @@
 {
   "label": "Administration",
   "dashboard": {
-    "label": "Dashboard"
+    "label": "Dashboard",
+    "overview": {
+      "label": "Overview"
+    }
   },
   "transaction-logs": {
     "label": "Transaction Logs"
