@@ -6,6 +6,9 @@
       "label": "Resumen"
     }
   },
+  "resources": {
+    "label": "Recursos multimedia"
+  },
   "transaction-logs": {
     "label": "Registros de transacciones"
   },

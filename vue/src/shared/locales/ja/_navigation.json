@@ -1,0 +1,21 @@
+{
+  "home": "ホーム",
+  "library": "ライブラリ",
+  "history": "履歴",
+  "applications": "アプリケーション",
+  "help&legal": "ヘルプと法的情報",
+  "language": "言語",
+  "general": "一般",
+  "subnavigation": {
+    "about": "概要",
+    "blog": "ブログ",
+    "developers": "開発者",
+    "jobs": "求人情報",
+    "partners": "パートナー",
+    "community": "コミュニティガイドライン",
+    "cookies": "クッキーポリシー",
+    "help": "ヘルプ",
+    "privacy": "プライバシーポリシー",
+    "terms": "利用条件"
+  }
+}

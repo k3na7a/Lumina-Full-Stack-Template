@@ -1,0 +1,48 @@
+{
+  "not-logged-in": "Sie müssen angemeldet sein, um diese Seite anzuzeigen",
+  "not-authorized": "Sie sind nicht berechtigt, diesen Inhalt zu sehen",
+  "password-security": "Aus Sicherheitsgründen geben Sie bitte Ihr Passwort ein, um fortzufahren.",
+  "log-in": {
+    "modal-title": "Bei Testhub anmelden",
+    "trouble": "Probleme beim Anmelden?",
+    "success": "Anmeldung erfolgreich. Willkommen zurück!"
+  },
+  "register": {
+    "modal-title": "Testhub noch heute beitreten",
+    "success": "Willkommen an Bord! Ihr Konto ist einsatzbereit."
+  },
+  "log-out": {
+    "modal-title": "Von Testhub abmelden",
+    "modal-body": "Sind Sie sicher, dass Sie sich von Ihrem Testhub-Konto abmelden möchten?",
+    "success": "Sie haben sich abgemeldet. Bis zum nächsten Mal!"
+  },
+  "disable-account": {
+    "modal-title": "Ihr Testhub-Konto deaktivieren",
+    "modal-body": "Sind Sie sicher, dass Sie Ihr Testhub-Konto dauerhaft deaktivieren möchten?"
+  },
+  "account-recovery": {
+    "title": "Wieder Zugriff auf Ihr Testhub-Konto erhalten",
+    "subtitle": "Geben Sie uns einige Informationen zu Ihrem Konto.",
+    "label": "Geben Sie die E-Mail-Adresse ein, die mit Ihrem Konto verknüpft ist, um Ihr Passwort zu ändern.",
+    "confirm-title": "Überprüfen Sie Ihre E-Mails",
+    "confirm-body-sent-link": "Bitte gehen Sie zu Ihrem {0}-Postfach und klicken Sie auf den Link zur Passwortzurücksetzung, den wir für Ihr Testhub-Konto gesendet haben.",
+    "confirm-body-check-spam": "Es kann ein paar Minuten dauern, bis die E-Mail erscheint. Überprüfen Sie auch Ihren Spam- oder Werbeordner – nur für den Fall!",
+    "success": "Wir haben einen Link an Ihre E-Mail gesendet, damit Sie Ihr Passwort zurücksetzen können. Bitte überprüfen Sie Ihren Posteingang."
+  },
+  "password-reset": {
+    "title": "Neues Passwort festlegen",
+    "subtitle": "Legen Sie ein neues Passwort für Ihr Konto fest. Das Zurücksetzen Ihres Passworts macht alle bestehenden Anmeldesitzungen ungültig.",
+    "confirm-title": "Passwort zurückgesetzt",
+    "confirm-body": "Ihr Passwort wurde erfolgreich zurückgesetzt! Sie können sich jetzt mit Ihrem neuen Passwort anmelden.",
+    "success": "Ihr Passwort wurde zurückgesetzt. Sie können sich nun mit Ihren neuen Anmeldedaten anmelden."
+  },
+  "password-validation": {
+    "label": "Passwörter müssen 8 bis 16 Zeichen lang sein und Folgendes enthalten:",
+    "contains": {
+      "1": "Mindestens eine Ziffer von 1 bis 9 (einschließlich 0)",
+      "2": "Mindestens einen Kleinbuchstaben",
+      "3": "Mindestens einen Großbuchstaben",
+      "4": "Mindestens ein Sonderzeichen"
+    }
+  }
+}

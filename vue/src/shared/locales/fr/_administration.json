@@ -6,6 +6,9 @@
       "label": "Aperçu"
     }
   },
+  "resources": {
+    "label": "Ressources multimédia"
+  },
   "transaction-logs": {
     "label": "Journaux des transactions"
   },

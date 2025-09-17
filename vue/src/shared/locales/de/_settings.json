@@ -1,0 +1,50 @@
+{
+  "label": "Einstellungen",
+  "title": "Kontoeinstellungen",
+  "subtitle": "Verwalten Sie hier Ihre Daten und persönlichen Einstellungen.",
+  "profile": {
+    "label": "Profil",
+    "profile-settings": {
+      "header": "Profileinstellungen",
+      "sub-header": "Ändern Sie die Identifikationsdaten für Ihr Konto",
+      "success": "Ihr Profil wurde erfolgreich aktualisiert."
+    },
+    "avatar": {
+      "label": "Profilbild",
+      "modal-title": "Aktualisieren Sie Ihr Testhub-Profilbild",
+      "success": "Sieht gut aus! Ihr neues Profilbild ist jetzt aktiv."
+    },
+    "remove-avatar": {
+      "title": "Profilbild entfernen",
+      "body": "Sind Sie sicher, dass Sie Ihr Profilbild entfernen möchten?",
+      "action": "Profilbild entfernen",
+      "success": "Das Profilbild wurde gelöscht. Ein Standardavatar ist nun eingestellt."
+    },
+    "disable-account": {
+      "header": "Ihr Testhub-Konto deaktivieren",
+      "sub-header": "Deaktivieren Sie Ihr Konto vollständig",
+      "form-header": "Ihr Testhub-Konto deaktivieren",
+      "success": "Das Benutzerkonto und alle zugehörigen Daten wurden erfolgreich gelöscht."
+    }
+  },
+  "security-privacy": {
+    "label": "Sicherheit & Datenschutz",
+    "contact": {
+      "header": "Kontakt",
+      "sub-header": "Wohin wir wichtige Nachrichten zu Ihrem Konto senden",
+      "email": {
+        "linked": "Diese E-Mail ist mit Ihrem Konto verknüpft.",
+        "success": "Alles erledigt! Ihre neue E-Mail ist jetzt mit Ihrem Konto verknüpft."
+      }
+    },
+    "security": {
+      "header": "Sicherheit",
+      "sub-header": "Halten Sie Ihr Konto sicher und geschützt",
+      "password": {
+        "change-password": "Passwort ändern.",
+        "improve-security": "{0} Verbessern Sie Ihre Sicherheit mit einem starken Passwort.",
+        "success": "Ihr neues Passwort ist aktiv. Sie können Ihr Konto weiterhin verwenden."
+      }
+    }
+  }
+}

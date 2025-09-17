@@ -1,0 +1,133 @@
+{
+  "label": "管理",
+  "dashboard": {
+    "label": "ダッシュボード",
+    "overview": {
+      "label": "概要"
+    }
+  },
+  "resources": {
+    "label": "マルチメディアリソース"
+  },
+  "transaction-logs": {
+    "label": "取引ログ"
+  },
+  "user-management": {
+    "header": "ユーザー管理",
+    "users": {
+      "item": "ユーザー",
+      "label": "ユーザー",
+      "title": "プラットフォームのユーザーを管理する",
+      "subtitle": "プラットフォーム全体のユーザーアカウントを表示、検索、管理します",
+      "caption": "{start}-{end} 件中 {count} ユーザーを表示 | {start}-{end} 件中 {count} ユーザーを表示 | {start}-{end} 件中 {count} ユーザーを表示",
+      "update": {
+        "title": "ユーザーアカウントの詳細を更新",
+        "remove-profile-picture": "プロフィール画像を削除",
+        "success": "ユーザーアカウントへの変更が正常に保存されました。"
+      },
+      "delete": {
+        "title": "ユーザーを完全に削除",
+        "success": "ユーザーアカウントは完全に削除されました。"
+      }
+    },
+    "roles": {
+      "label": "ロール",
+      "item": "ロール",
+      "title": "ユーザーロールを管理",
+      "subtitle": "システムの重要部分にアクセス・管理できる人を制御します。",
+      "caption": "{start}-{end} 件中 {count} ユーザーロールを表示 | {start}-{end} 件中 {count} ユーザーロールを表示 | {start}-{end} 件中 {count} ユーザーロールを表示",
+      "create": {
+        "title": "新しいユーザーロールを作成",
+        "success": "新しいユーザーロールが正常に作成されました。"
+      },
+      "update": {
+        "title": "ユーザーロールを更新",
+        "success": "ユーザーロールが正常に更新されました。"
+      },
+      "delete": {
+        "title": "ユーザーロールを完全に削除",
+        "success": "ユーザーロールは正常に削除されました。"
+      },
+      "placeholders": {
+        "label": "スーパー管理者",
+        "description": "すべてのリソースにフルアクセスを持っています。",
+        "name": "SUPER_ADMINISTRATOR"
+      }
+    },
+    "permissions": {
+      "label": "権限",
+      "item": "権限",
+      "title": "システム権限ディレクトリ",
+      "subtitle": "ユーザーが実行できるすべてのアクションの完全なリスト。",
+      "caption": "{start}-{end} 件中 {count} 権限を表示 | {start}-{end} 件中 {count} 権限を表示 | {start}-{end} 件中 {count} 権限を表示",
+      "create": {
+        "title": "新しいユーザー権限を作成",
+        "success": "新しいユーザー権限が正常に作成されました。"
+      },
+      "update": {
+        "title": "ユーザー権限を更新",
+        "success": "ユーザー権限が正常に更新されました。"
+      },
+      "delete": {
+        "title": "ユーザー権限を完全に削除",
+        "success": "ユーザー権限は正常に削除されました。"
+      },
+      "placeholders": {
+        "label": "スーパー管理者",
+        "description": "すべてのリソースにフルアクセスを持っています。",
+        "name": "SUPER_ADMINISTRATOR"
+      }
+    }
+  },
+  "games-and-software": {
+    "header": "ゲームとソフトウェア",
+    "no-of-games": "ゲーム数",
+    "games": {
+      "item": "ゲーム",
+      "label": "ゲームとソフトウェア",
+      "title": "ゲームやソフトウェアを作成・編集",
+      "subtitle": "ゲームライブラリとソフトウェアリリースを管理します。",
+      "caption": "{start}-{end} 件中 {count} ゲームを表示 | {start}-{end} 件中 {count} ゲームを表示 | {start}-{end} 件中 {count} ゲームを表示",
+      "placeholders": {
+        "name": "Super Mario Bros.",
+        "description": "横スクロール型の2Dプラットフォームゲームで、スーパーマリオシリーズの最初の作品。スーパーマリオブラザーズは、イタリアの配管工マリオが多数の敵や障害に挑み、ピーチ姫を邪悪なクッパ大王から救出する物語です。",
+        "slug": "super-mario-bros"
+      },
+      "create": {
+        "title": "新しいゲームまたはソフトウェアを作成",
+        "success": "新しいゲームが正常に作成されました。"
+      },
+      "update": {
+        "title": "ゲームまたはソフトウェアを更新",
+        "success": "ゲームが正常に更新されました。"
+      },
+      "delete": {
+        "title": "ゲームまたはソフトウェアを完全に削除",
+        "success": "ゲームは正常に削除されました。"
+      }
+    },
+    "platforms": {
+      "item": "プラットフォーム",
+      "label": "プラットフォーム",
+      "title": "コンソール、オペレーティングシステム、または配信チャネル",
+      "subtitle": "すべてのサポートされているプラットフォームを一箇所で管理。",
+      "caption": "{start}-{end} 件中 {count} プラットフォームを表示 | {start}-{end} 件中 {count} プラットフォームを表示 | {start}-{end} 件中 {count} プラットフォームを表示",
+      "placeholders": {
+        "name": "Nintendo Entertainment System",
+        "slug": "nintendo-entertainment-system"
+      },
+      "create": {
+        "title": "新しいプラットフォームを作成",
+        "success": "新しいプラットフォームが正常に作成されました。"
+      },
+      "update": {
+        "title": "プラットフォームを更新",
+        "success": "プラットフォームが正常に更新されました。"
+      },
+      "delete": {
+        "title": "プラットフォームを完全に削除",
+        "success": "プラットフォームは正常に削除されました。"
+      }
+    }
+  }
+}

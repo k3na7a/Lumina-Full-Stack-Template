@@ -15,7 +15,17 @@ const routes: side_navigation = [
   {
     name: ROUTE_NAMES.ADMIN_GAMES_AND_SOFTWARE,
     label: 'administration.games-and-software.header',
-    icon: ['fas', 'floppy-disk']
+    icon: ['fas', 'gamepad']
+  },
+  {
+    name: ROUTE_NAMES.HOME,
+    label: 'administration.resources.label',
+    icon: ['fas', 'film']
+  },
+  {
+    name: ROUTE_NAMES.HOME,
+    label: 'administration.transaction-logs.label',
+    icon: ['fas', 'timeline']
   }
 ]
 

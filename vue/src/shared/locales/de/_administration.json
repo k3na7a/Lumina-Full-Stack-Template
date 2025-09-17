@@ -1,0 +1,133 @@
+{
+  "label": "Verwaltung",
+  "dashboard": {
+    "label": "Dashboard",
+    "overview": {
+      "label": "Übersicht"
+    }
+  },
+  "resources": {
+    "label": "Multimedia-Ressourcen"
+  },
+  "transaction-logs": {
+    "label": "Transaktionsprotokolle"
+  },
+  "user-management": {
+    "header": "Benutzerverwaltung",
+    "users": {
+      "item": "Benutzer",
+      "label": "Benutzer",
+      "title": "Verwalten Sie die Benutzer Ihrer Plattform",
+      "subtitle": "Anzeigen, suchen und verwalten Sie Benutzerkonten auf der Plattform",
+      "caption": "{start}-{end} von {count} Benutzern werden angezeigt | {start}-{end} von {count} Benutzer wird angezeigt | {start}-{end} von {count} Benutzern werden angezeigt",
+      "update": {
+        "title": "Benutzerkontodaten aktualisieren",
+        "remove-profile-picture": "Profilbild entfernen",
+        "success": "Änderungen am Benutzerkonto wurden erfolgreich gespeichert."
+      },
+      "delete": {
+        "title": "Benutzer dauerhaft löschen",
+        "success": "Das Benutzerkonto wurde dauerhaft entfernt."
+      }
+    },
+    "roles": {
+      "label": "Rollen",
+      "item": "Rolle",
+      "title": "Benutzerrollen verwalten",
+      "subtitle": "Steuern Sie, wer auf wichtige Teile Ihres Systems zugreifen und diese verwalten kann.",
+      "caption": "{start}-{end} von {count} Benutzerrollen werden angezeigt | {start}-{end} von {count} Benutzerrolle wird angezeigt | {start}-{end} von {count} Benutzerrollen werden angezeigt",
+      "create": {
+        "title": "Neue Benutzerrolle erstellen",
+        "success": "Neue Benutzerrolle wurde erfolgreich erstellt."
+      },
+      "update": {
+        "title": "Benutzerrolle aktualisieren",
+        "success": "Benutzerrolle wurde erfolgreich aktualisiert."
+      },
+      "delete": {
+        "title": "Benutzerrolle dauerhaft löschen",
+        "success": "Benutzerrolle wurde erfolgreich entfernt."
+      },
+      "placeholders": {
+        "label": "Superadministrator",
+        "description": "Hat vollen Zugriff auf alle Ressourcen.",
+        "name": "SUPER_ADMINISTRATOR"
+      }
+    },
+    "permissions": {
+      "label": "Berechtigungen",
+      "item": "Berechtigung",
+      "title": "Systemberechtigungsverzeichnis",
+      "subtitle": "Eine vollständige Liste aller Aktionen, die Benutzer ausführen können.",
+      "caption": "{start}-{end} von {count} Berechtigungen werden angezeigt | {start}-{end} von {count} Berechtigung wird angezeigt | {start}-{end} von {count} Berechtigungen werden angezeigt",
+      "create": {
+        "title": "Neue Benutzerberechtigung erstellen",
+        "success": "Neue Benutzerberechtigung wurde erfolgreich erstellt."
+      },
+      "update": {
+        "title": "Benutzerberechtigung aktualisieren",
+        "success": "Benutzerberechtigung wurde erfolgreich aktualisiert."
+      },
+      "delete": {
+        "title": "Benutzerberechtigung dauerhaft löschen",
+        "success": "Benutzerberechtigung wurde erfolgreich entfernt."
+      },
+      "placeholders": {
+        "label": "Superadministrator",
+        "description": "Hat vollen Zugriff auf alle Ressourcen.",
+        "name": "SUPER_ADMINISTRATOR"
+      }
+    }
+  },
+  "games-and-software": {
+    "header": "Spiele & Software",
+    "no-of-games": "Anzahl der Spiele",
+    "games": {
+      "item": "Spiel",
+      "label": "Spiele & Software",
+      "title": "Erstellen und bearbeiten Sie Ihre Spiele und Software",
+      "subtitle": "Verwalten Sie Ihre Spielebibliothek und Softwareveröffentlichungen.",
+      "caption": "{start}-{end} von {count} Spielen werden angezeigt | {start}-{end} von {count} Spiel wird angezeigt | {start}-{end} von {count} Spielen werden angezeigt",
+      "placeholders": {
+        "name": "Super Mario Bros.",
+        "description": "Ein seitlich scrollendes 2D-Plattformspiel und der erste Eintrag in der Super Mario-Reihe. Super Mario Bros. folgt dem italienischen Klempner Mario durch viele Level mit Plattform-Herausforderungen und feindlichen Gegnern, um Prinzessin Peach vom bösen König Bowser zu retten.",
+        "slug": "super-mario-bros"
+      },
+      "create": {
+        "title": "Neues Spiel oder neue Software erstellen",
+        "success": "Neues Spiel wurde erfolgreich erstellt."
+      },
+      "update": {
+        "title": "Spiel oder Software aktualisieren",
+        "success": "Spiel wurde erfolgreich aktualisiert."
+      },
+      "delete": {
+        "title": "Spiel oder Software dauerhaft löschen",
+        "success": "Spiel wurde erfolgreich gelöscht."
+      }
+    },
+    "platforms": {
+      "item": "Plattform",
+      "label": "Plattformen",
+      "title": "Konsolen, Betriebssysteme oder Vertriebskanäle",
+      "subtitle": "Alle unterstützten Plattformen an einem Ort.",
+      "caption": "{start}-{end} von {count} Plattformen werden angezeigt | {start}-{end} von {count} Plattform wird angezeigt | {start}-{end} von {count} Plattformen werden angezeigt",
+      "placeholders": {
+        "name": "Nintendo Entertainment System",
+        "slug": "nintendo-entertainment-system"
+      },
+      "create": {
+        "title": "Neue Plattform erstellen",
+        "success": "Neue Plattform wurde erfolgreich erstellt."
+      },
+      "update": {
+        "title": "Plattform aktualisieren",
+        "success": "Plattform wurde erfolgreich aktualisiert."
+      },
+      "delete": {
+        "title": "Plattform dauerhaft löschen",
+        "success": "Plattform wurde erfolgreich gelöscht."
+      }
+    }
+  }
+}

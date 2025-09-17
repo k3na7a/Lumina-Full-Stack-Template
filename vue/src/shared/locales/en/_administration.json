@@ -6,6 +6,12 @@
       "label": "Overview"
     }
   },
+  "resources": {
+    "label": "Multimedia Resources"
+  },
+  "transaction-logs": {
+    "label": "Transaction Logs"
+  },
   "user-management": {
     "header": "User Management",
     "users": {

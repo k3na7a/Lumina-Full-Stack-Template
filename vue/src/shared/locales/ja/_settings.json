@@ -1,0 +1,50 @@
+{
+  "label": "設定",
+  "title": "アカウント設定",
+  "subtitle": "ここで詳細情報と個人設定を管理します。",
+  "profile": {
+    "label": "プロフィール",
+    "profile-settings": {
+      "header": "プロフィール設定",
+      "sub-header": "アカウントの識別情報を変更",
+      "success": "プロフィールが正常に更新されました。"
+    },
+    "avatar": {
+      "label": "プロフィール画像",
+      "modal-title": "Testhub のプロフィール画像を更新",
+      "success": "いい感じです！ 新しいプロフィール画像が反映されました。"
+    },
+    "remove-avatar": {
+      "title": "プロフィール画像を削除",
+      "body": "プロフィール画像を削除してもよろしいですか？",
+      "action": "プロフィール画像を削除",
+      "success": "プロフィール画像が削除されました。デフォルトのアバターが設定されています。"
+    },
+    "disable-account": {
+      "header": "Testhub アカウントの無効化",
+      "sub-header": "アカウントを完全に無効化",
+      "form-header": "Testhub アカウントを無効化",
+      "success": "ユーザーアカウントと関連データは正常に削除されました。"
+    }
+  },
+  "security-privacy": {
+    "label": "セキュリティとプライバシー",
+    "contact": {
+      "header": "連絡先",
+      "sub-header": "アカウントに関する重要なメッセージの送信先",
+      "email": {
+        "linked": "このメールはアカウントにリンクされています。",
+        "success": "準備完了！ 新しいメールアドレスがアカウントにリンクされました。"
+      }
+    },
+    "security": {
+      "header": "セキュリティ",
+      "sub-header": "アカウントを安全に保つ",
+      "password": {
+        "change-password": "パスワードを変更。",
+        "improve-security": "{0} 強力なパスワードでセキュリティを向上させましょう。",
+        "success": "新しいパスワードが有効になりました。アカウントを引き続き使用できます。"
+      }
+    }
+  }
+}
