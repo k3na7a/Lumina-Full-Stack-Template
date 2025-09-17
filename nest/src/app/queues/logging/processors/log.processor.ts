@@ -13,10 +13,17 @@ export class LogQueueProcessor extends WorkerHost {
   private readonly MAX_SIZE_MB = 1;
   private readonly directory_name = 'logs';
 
-  private buildLogPath(dateString: string, suffix: string): string {
+  private buildLogPath(
+    req: jobtype,
+    now: moment.Moment,
+    dateString: string,
+    suffix: string,
+  ): string {
     return path.join(
       process.cwd(),
       this.directory_name,
+      req.path,
+      now.format('YYYY-MM'),
       `${dateString}${suffix}.log`,
     );
   }
@@ -70,7 +77,7 @@ export class LogQueueProcessor extends WorkerHost {
 
     let suffix: string = '';
     let exists: boolean = false;
-    let srcPath: string = this.buildLogPath(dateString, suffix);
+    let srcPath: string = this.buildLogPath(job.data, now, dateString, suffix);
 
     await createDirectory(this.directory_name);
 
@@ -82,7 +89,7 @@ export class LogQueueProcessor extends WorkerHost {
       }
 
       suffix = suffix === '' ? '-1' : `-${parseInt(suffix.slice(1), 10) + 1}`;
-      srcPath = this.buildLogPath(dateString, suffix);
+      srcPath = this.buildLogPath(job.data, now, dateString, suffix);
     }
 
     if (exists) await appendFile(srcPath, `${new_message}\n`);

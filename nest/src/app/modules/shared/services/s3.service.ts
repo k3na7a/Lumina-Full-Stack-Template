@@ -11,7 +11,10 @@ import * as mime from 'mime-types';
 import * as Path from 'path';
 
 import { LogService } from 'src/app/queues/logging/services/log.service';
-import { LoggerActions } from 'src/app/queues/logging/enums/logger-actions.enum';
+import {
+  LoggerActions,
+  LoggerPath,
+} from 'src/app/queues/logging/enums/logger-actions.enum';
 import { createReadStream, statSync } from 'node:fs';
 import { kilobyte } from '@lib/constants/size.constants';
 
@@ -55,6 +58,7 @@ export class S3Service {
     const result = await this.s3.send(command);
 
     await this.logService.log({
+      path: LoggerPath.AWS,
       type: LoggerActions.INFO,
       context: S3Service.name,
       message: {
@@ -90,6 +94,7 @@ export class S3Service {
     const result = await this.s3.send(command);
 
     await this.logService.log({
+      path: LoggerPath.AWS,
       type: LoggerActions.INFO,
       context: S3Service.name,
       message: {
@@ -117,6 +122,7 @@ export class S3Service {
     const result = await this.s3.send(command);
 
     await this.logService.log({
+      path: LoggerPath.AWS,
       type: LoggerActions.INFO,
       context: S3Service.name,
       message: {

@@ -1,6 +1,9 @@
 import { Injectable, OnModuleInit } from '@nestjs/common';
 import { LogService } from 'src/app/queues/logging/services/log.service';
-import { LoggerActions } from 'src/app/queues/logging/enums/logger-actions.enum';
+import {
+  LoggerActions,
+  LoggerPath,
+} from 'src/app/queues/logging/enums/logger-actions.enum';
 import { DataSource } from 'typeorm';
 import { MysqlConnectionOptions } from 'typeorm/driver/mysql/MysqlConnectionOptions';
 
@@ -17,6 +20,7 @@ export class ConnectionLogger implements OnModuleInit {
       .options as MysqlConnectionOptions;
     if (debug)
       await this.logService.log({
+        path: LoggerPath.SYSTEM,
         type: LoggerActions.INFO,
         context: ConnectionLogger.name,
         message: {
@@ -33,6 +37,7 @@ export class ConnectionLogger implements OnModuleInit {
       .options as MysqlConnectionOptions;
 
     await this.logService.log({
+      path: LoggerPath.SYSTEM,
       type: LoggerActions.WARN,
       context: ConnectionLogger.name,
       message: {

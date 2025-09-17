@@ -3,7 +3,10 @@ import { Cron, CronExpression } from '@nestjs/schedule';
 import { DataSource } from 'typeorm';
 
 import { LogService } from 'src/app/queues/logging/services/log.service';
-import { LoggerActions } from 'src/app/queues/logging/enums/logger-actions.enum';
+import {
+  LoggerActions,
+  LoggerPath,
+} from 'src/app/queues/logging/enums/logger-actions.enum';
 
 @Injectable()
 export class HealthCheckService {
@@ -19,6 +22,7 @@ export class HealthCheckService {
       await this.dataSource.destroy();
 
       await this.logService.log({
+        path: LoggerPath.SYSTEM,
         type: LoggerActions.WARN,
         context: HealthCheckService.name,
         message: {
@@ -34,6 +38,7 @@ export class HealthCheckService {
       await this.dataSource.initialize();
 
       await this.logService.log({
+        path: LoggerPath.SYSTEM,
         type: LoggerActions.INFO,
         context: HealthCheckService.name,
         message: {
@@ -45,6 +50,7 @@ export class HealthCheckService {
       });
     } catch (err) {
       await this.logService.log({
+        path: LoggerPath.SYSTEM,
         type: LoggerActions.ERR,
         context: HealthCheckService.name,
         message: {
@@ -65,6 +71,7 @@ export class HealthCheckService {
       await this.dataSource.query('SELECT 1');
     } catch (err: any) {
       await this.logService.log({
+        path: LoggerPath.SYSTEM,
         type: LoggerActions.ERR,
         context: HealthCheckService.name,
         message: {

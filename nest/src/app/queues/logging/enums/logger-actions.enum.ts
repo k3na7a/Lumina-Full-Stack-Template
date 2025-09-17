@@ -8,3 +8,9 @@ export enum LoggerQueues {
   LOG_QUEUE = 'logger-queue',
   LOG_DLQ = 'logger-dlq',
 }
+
+export enum LoggerPath {
+  AWS = 'aws',
+  SYSTEM = 'system',
+  DEBUG = 'debug',
+}

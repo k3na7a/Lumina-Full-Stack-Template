@@ -2,7 +2,10 @@ import { Logger } from 'typeorm';
 
 import { useStringUtil } from 'src/app/common/utilities/string.util';
 import { LogService } from 'src/app/queues/logging/services/log.service';
-import { LoggerActions } from 'src/app/queues/logging/enums/logger-actions.enum';
+import {
+  LoggerActions,
+  LoggerPath,
+} from 'src/app/queues/logging/enums/logger-actions.enum';
 
 type Logging = Array<
   'query' | 'error' | 'warn' | 'info' | 'log' | 'migration' | 'schema'
@@ -27,6 +30,7 @@ export class TypeOrmLogger implements Logger {
     if (!this.isEnabled('query')) return;
 
     await this.logService.log({
+      path: LoggerPath.SYSTEM,
       type: LoggerActions.INFO,
       context: this.context,
       message: { Query: query, Params: JSON.stringify(parameters) },
@@ -40,6 +44,7 @@ export class TypeOrmLogger implements Logger {
   ): Promise<void> {
     if (!this.isEnabled('error')) return;
     await this.logService.log({
+      path: LoggerPath.SYSTEM,
       type: LoggerActions.ERR,
       context: `${this.context}:logQueryError`,
       message: {
@@ -58,6 +63,7 @@ export class TypeOrmLogger implements Logger {
     if (!this.isEnabled('warn')) return;
 
     await this.logService.log({
+      path: LoggerPath.SYSTEM,
       type: LoggerActions.WARN,
       context: this.context,
       message: {
@@ -72,6 +78,7 @@ export class TypeOrmLogger implements Logger {
     if (!this.isEnabled('schema')) return;
 
     await this.logService.log({
+      path: LoggerPath.SYSTEM,
       type: LoggerActions.INFO,
       context: this.context,
       message: { ['schema build']: message },
@@ -82,6 +89,7 @@ export class TypeOrmLogger implements Logger {
     if (!this.isEnabled('migration')) return;
 
     await this.logService.log({
+      path: LoggerPath.SYSTEM,
       type: LoggerActions.WARN,
       context: this.context,
       message: { migration: message },
@@ -97,6 +105,7 @@ export class TypeOrmLogger implements Logger {
       case 'log':
       case 'info':
         await this.logService.log({
+          path: LoggerPath.SYSTEM,
           type: LoggerActions.INFO,
           context: this.context,
           message: {
@@ -106,6 +115,7 @@ export class TypeOrmLogger implements Logger {
         break;
       case 'warn':
         await this.logService.log({
+          path: LoggerPath.SYSTEM,
           type: LoggerActions.WARN,
           context: this.context,
           message: {
