@@ -12,5 +12,6 @@ export enum LoggerQueues {
 export enum LoggerPath {
   AWS = 'aws',
   SYSTEM = 'system',
+  SENDGRID = 'sendgrid',
   DEBUG = 'debug',
 }

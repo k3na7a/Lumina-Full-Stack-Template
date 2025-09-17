@@ -7,6 +7,7 @@ export interface RequestContextStore {
   requestId: string;
   userId?: string;
   ipAddress?: string;
+  userAgent?: string;
 }
 
 @Injectable()
@@ -16,7 +17,8 @@ export class RequestContextMiddleware implements NestMiddleware {
   use(req: Request, _res: Response, next: NextFunction) {
     const store: RequestContextStore = {
       requestId: nanoid(),
-      ipAddress: req.ip,
+      ipAddress: req.ip ?? undefined,
+      userAgent: req.get('user-agent') ?? undefined,
     };
 
     this.requestContext.run(store, next);
