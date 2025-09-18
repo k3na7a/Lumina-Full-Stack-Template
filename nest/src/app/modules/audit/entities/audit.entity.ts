@@ -1,5 +1,6 @@
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
-import { Entity, Column, BaseEntity } from 'typeorm';
+import { BaseEntity } from 'src/app/common/entities/base.entity';
+import { Entity, Column } from 'typeorm';
 
 export enum ActorType {
   USER = 'user',
@@ -41,9 +42,10 @@ export class AuditEntity extends BaseEntity {
     description:
       'ID of the actor that triggered the event (user/system/service).',
     example: 'ngvJTAn5KDSbuBmixsJJP',
+    type: String,
     nullable: true,
   })
-  @Column({ nullable: true, default: null })
+  @Column({ type: 'text', nullable: true, default: null })
   public readonly actorId?: string | null;
 
   @ApiProperty({
@@ -57,17 +59,19 @@ export class AuditEntity extends BaseEntity {
   @ApiPropertyOptional({
     description: 'IP address of the actor, if available.',
     example: '192.168.0.1',
+    type: String,
     nullable: true,
   })
-  @Column({ nullable: true, default: null })
+  @Column({ type: 'text', nullable: true, default: null })
   public readonly actorIp?: string | null;
 
   @ApiPropertyOptional({
     description: 'User agent string of the actor (browser, device, etc.).',
     example: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64)',
+    type: String,
     nullable: true,
   })
-  @Column({ nullable: true, default: null })
+  @Column({ type: 'text', nullable: true, default: null })
   public readonly actorUa?: string | null;
 
   @ApiProperty({
@@ -75,7 +79,7 @@ export class AuditEntity extends BaseEntity {
     example: Action.UPDATE,
     enum: Action,
   })
-  @Column({ type: 'enum', enum: ActorType })
+  @Column({ type: 'enum', enum: Action })
   public readonly action!: Action;
 
   @ApiProperty({
@@ -104,25 +108,28 @@ export class AuditEntity extends BaseEntity {
   @ApiPropertyOptional({
     description: 'Human-readable label for the entity.',
     example: 'Jane Doe <jane.doe@example.com>',
+    type: String,
     nullable: true,
   })
-  @Column({ nullable: true, default: null })
+  @Column({ type: 'text', nullable: true, default: null })
   public readonly entityDisplay?: string | null;
 
   @ApiPropertyOptional({
     description: 'Correlation ID of the request that triggered the event.',
     example: 'vi3iZropvFNZOKT4J97HR',
+    type: String,
     nullable: true,
   })
-  @Column({ nullable: true, default: null })
+  @Column({ type: 'text', nullable: true, default: null })
   public readonly requestId!: string | null;
 
   @ApiPropertyOptional({
     description: 'ID of the job that triggered the event, if applicable.',
     example: '7VtKfpTa7ETRCCNte1vzQ',
+    type: String,
     nullable: true,
   })
-  @Column({ nullable: true, default: null })
+  @Column({ type: 'text', nullable: true, default: null })
   public readonly jobId!: string | null;
 
   @ApiProperty({
@@ -139,7 +146,7 @@ export class AuditEntity extends BaseEntity {
     type: Object,
     nullable: true,
   })
-  @Column({ type: 'json', nullable: true })
+  @Column({ type: 'simple-json', nullable: true })
   public readonly before?: Record<string, unknown> | null;
 
   @ApiPropertyOptional({
@@ -147,7 +154,7 @@ export class AuditEntity extends BaseEntity {
     type: Object,
     nullable: true,
   })
-  @Column({ type: 'json', nullable: true })
+  @Column({ type: 'simple-json', nullable: true })
   public readonly after?: Record<string, unknown> | null;
 
   @ApiPropertyOptional({
@@ -155,7 +162,7 @@ export class AuditEntity extends BaseEntity {
     type: Object,
     nullable: true,
   })
-  @Column({ type: 'json', nullable: true })
+  @Column({ type: 'simple-json', nullable: true })
   public readonly diff?: Record<string, unknown> | null;
 
   @ApiPropertyOptional({
@@ -163,7 +170,7 @@ export class AuditEntity extends BaseEntity {
     example: 'User requested account deletion',
     nullable: true,
   })
-  @Column({ nullable: true, default: true })
+  @Column({ type: 'text', nullable: true, default: null })
   public readonly reason?: string | null;
 
   @ApiPropertyOptional({
@@ -171,6 +178,6 @@ export class AuditEntity extends BaseEntity {
     type: Object,
     nullable: true,
   })
-  @Column({ type: 'json', nullable: true })
+  @Column({ type: 'simple-json', nullable: true })
   public readonly metadata?: Record<string, unknown> | null;
 }

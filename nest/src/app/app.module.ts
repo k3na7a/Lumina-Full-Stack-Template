@@ -29,6 +29,7 @@ import { DataSource } from 'typeorm';
 import { LogService } from './queues/logging/services/log.service';
 import { UserAdminModule } from './features/administration/users/users.module';
 import { GamesAdminModule } from './features/administration/games/games.module';
+import { AuditModule } from './modules/audit/audit.module';
 
 const rootPath = join(__dirname, '../..', 'public');
 const serveRoot = '/';
@@ -72,6 +73,7 @@ const envFilePath = '.env';
     ThrottlerModule.forRoot({ throttlers: [{ ttl: 1 * minute, limit: 20 }] }),
 
     CoreModule,
+    AuditModule,
     LogQueueModule,
     AuthModule,
     UserModule,
