@@ -5,7 +5,8 @@ import { RoleEntity as role } from 'src/app/modules/users/entities/role.entity';
 import { PermissionEntity as permission } from 'src/app/modules/users/entities/permission.entity';
 import { GameEntity as game } from 'src/app/modules/games/entities/game.entity';
 import { PlatformEntity as platform } from 'src/app/modules/games/entities/platform.entity';
+import { AuditEntity as audit } from 'src/app/modules/audit/entities/audit.entity';
 
-const entities = [image, user, profile, role, game, platform, permission];
+const entities = [audit, image, user, profile, role, game, platform, permission];
 
 export default entities;

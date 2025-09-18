@@ -1,5 +1,11 @@
 import { ApiProperty } from '@nestjs/swagger';
 
+export interface BaseInterface {
+  id: string;
+  createdAt: Date;
+  updatedAt: Date;
+}
+
 export abstract class BaseDto {
   @ApiProperty({
     description: 'Unique identifier for the resource',

@@ -13,6 +13,15 @@ import { ImageService } from 'src/app/modules/media/services/image.service';
 import { IMAGE_TYPE } from 'src/app/modules/media/enums/image-routes.enum';
 import { ImageEntity } from 'src/app/modules/media/entities/image.entity';
 import { Response } from 'express';
+import { AuditService } from 'src/app/modules/audit/service/audit.service';
+import {
+  ActorType,
+  AuditEntity,
+  Domain,
+  SourceType,
+  SUB_DOMAIN,
+} from 'src/app/modules/audit/entities/audit.entity';
+import { iaudit } from 'src/app/modules/audit/dto/audit.dto';
 
 @Injectable()
 export class SettingsService {
@@ -21,24 +30,8 @@ export class SettingsService {
     private readonly profileService: ProfileService,
     private readonly accountService: UserAccountService,
     private readonly imageService: ImageService,
+    private readonly auditService: AuditService,
   ) {}
-
-  private async handleAvatar(
-    user: UserEntity,
-    file: Express.Multer.File,
-  ): Promise<ImageEntity> {
-    const { avatar, id: profileId } = user.profile;
-    const type = IMAGE_TYPE.AVATARS;
-
-    if (!avatar)
-      return this.imageService.create({
-        file,
-        altText: `Avatar for profile ID ${profileId}`,
-        type,
-      });
-
-    return this.imageService.update(avatar.id, { file, type });
-  }
 
   public async updateEmail(
     user: UserEntity,
@@ -114,4 +107,33 @@ export class SettingsService {
 
     return this.userService.findOneById(user.id);
   }
+
+  private async handleAvatar(
+    user: UserEntity,
+    file: Express.Multer.File,
+  ): Promise<ImageEntity> {
+    const { avatar, id: profileId } = user.profile;
+    const type = IMAGE_TYPE.AVATARS;
+
+    if (!avatar)
+      return this.imageService.create({
+        file,
+        altText: `Avatar for profile ID ${profileId}`,
+        type,
+      });
+
+    return this.imageService.update(avatar.id, { file, type });
+  }
+
+  private async audit_event(payload: iaudit): Promise<AuditEntity> {
+    return this.auditService.create({
+      actorType: ActorType.USER,
+      source: SourceType.WEB,
+      domain: Domain.USER_MANAGEMENT,
+      subDomain: SUB_DOMAIN.USER,
+      ...payload,
+    });
+  }
+
+  private async sanitize_data() {}
 }

@@ -16,9 +16,27 @@ export enum SourceType {
   WEBHOOK = 'webhook',
 }
 
+export enum Action {
+  CREATE = 'create',
+  UPDATE = 'update',
+  DELETE = 'delete',
+}
+
+export enum Domain {
+  USER_MANAGEMENT = 'user_management',
+  GAMES_AND_SOFTWARE = 'games_and_software',
+}
+
+export enum SUB_DOMAIN {
+  USER = 'user',
+  ROLE = 'role',
+  PERMISSION = 'permission',
+  GAME = 'game',
+  PLATFORM = 'platform',
+}
+
 @Entity({ name: 'audit_event' })
-export class AuditEvent extends BaseEntity {
-  // Actor
+export class AuditEntity extends BaseEntity {
   @ApiPropertyOptional({
     description:
       'ID of the actor that triggered the event (user/system/service).',
@@ -33,10 +51,7 @@ export class AuditEvent extends BaseEntity {
     example: ActorType.USER,
     enum: ActorType,
   })
-  @Column({
-    type: 'enum',
-    enum: ActorType,
-  })
+  @Column({ type: 'enum', enum: ActorType })
   public readonly actorType!: ActorType;
 
   @ApiPropertyOptional({
@@ -47,67 +62,115 @@ export class AuditEvent extends BaseEntity {
   @Column({ nullable: true, default: null })
   public readonly actorIp?: string | null;
 
-  //   @Column({ name: 'actor_ua', type: 'varchar', length: 512, nullable: true })
-  //   actorUa!: string | null;
+  @ApiPropertyOptional({
+    description: 'User agent string of the actor (browser, device, etc.).',
+    example: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64)',
+    nullable: true,
+  })
+  @Column({ nullable: true, default: null })
+  public readonly actorUa?: string | null;
 
-  // Action / Entity
-  //   @Column({ type: 'varchar', length: 64 })
-  //   action!: string;
+  @ApiProperty({
+    description: 'Action performed by the actor.',
+    example: Action.UPDATE,
+    enum: Action,
+  })
+  @Column({ type: 'enum', enum: ActorType })
+  public readonly action!: Action;
 
-  //   @Column({ name: 'entity_type', type: 'varchar', length: 64 })
-  //   entityType!: string;
+  @ApiProperty({
+    description: 'Domain/module this audit event belongs to.',
+    example: Domain.USER_MANAGEMENT,
+    enum: Domain,
+  })
+  @Column({ type: 'enum', enum: Domain })
+  public readonly domain!: Domain;
 
-  //   @Column({ name: 'entity_id', type: 'varchar', length: 128 })
-  //   entityId!: string;
+  @ApiProperty({
+    description: 'Type of entity that was affected.',
+    example: SUB_DOMAIN.USER,
+    enum: SUB_DOMAIN,
+  })
+  @Column({ type: 'enum', enum: SUB_DOMAIN })
+  public readonly subDomain!: SUB_DOMAIN;
 
-  //   @Column({
-  //     name: 'entity_display',
-  //     type: 'varchar',
-  //     length: 256,
-  //     nullable: true,
-  //   })
-  //   entityDisplay!: string | null;
+  @ApiProperty({
+    description: 'Identifier of the entity that was affected.',
+    example: 'ngvJTAn5KDSbuBmixsJJP',
+  })
+  @Column()
+  public readonly entityId!: string;
 
-  // Domain scoping
-  //   @Column({ type: 'varchar', length: 64 })
-  //   domain!: string;
+  @ApiPropertyOptional({
+    description: 'Human-readable label for the entity.',
+    example: 'Jane Doe <jane.doe@example.com>',
+    nullable: true,
+  })
+  @Column({ nullable: true, default: null })
+  public readonly entityDisplay?: string | null;
 
-  //   @Column({ type: 'varchar', length: 64, nullable: true })
-  //   subdomain!: string | null;
+  @ApiPropertyOptional({
+    description: 'Correlation ID of the request that triggered the event.',
+    example: 'vi3iZropvFNZOKT4J97HR',
+    nullable: true,
+  })
+  @Column({ nullable: true, default: null })
+  public readonly requestId!: string | null;
 
-  // Correlation
-  //   @Column({ name: 'request_id', type: 'varchar', length: 128, nullable: true })
-  //   requestId!: string | null;
+  @ApiPropertyOptional({
+    description: 'ID of the job that triggered the event, if applicable.',
+    example: '7VtKfpTa7ETRCCNte1vzQ',
+    nullable: true,
+  })
+  @Column({ nullable: true, default: null })
+  public readonly jobId!: string | null;
 
-  //   @Column({ name: 'job_id', type: 'varchar', length: 128, nullable: true })
-  //   jobId!: string | null;
+  @ApiProperty({
+    description:
+      'Source of the event (web, API, admin UI, worker, cron, webhook).',
+    example: SourceType.WEB,
+    enum: SourceType,
+  })
+  @Column({ type: 'enum', enum: SourceType })
+  public readonly source!: SourceType;
 
-  //   @Column({ type: 'varchar', length: 32, default: 'api' })
-  //   source!: SourceType;
+  @ApiPropertyOptional({
+    description: 'State of the entity before the action.',
+    type: Object,
+    nullable: true,
+  })
+  @Column({ type: 'json', nullable: true })
+  public readonly before?: Record<string, unknown> | null;
 
-  // Payloads (use MySQL JSON)
-  //   @Column({ type: 'json', nullable: true })
-  //   before!: Record<string, unknown> | null;
+  @ApiPropertyOptional({
+    description: 'State of the entity after the action.',
+    type: Object,
+    nullable: true,
+  })
+  @Column({ type: 'json', nullable: true })
+  public readonly after?: Record<string, unknown> | null;
 
-  //   @Column({ type: 'json', nullable: true })
-  //   after!: Record<string, unknown> | null;
+  @ApiPropertyOptional({
+    description: 'Minimal diff between before and after states.',
+    type: Object,
+    nullable: true,
+  })
+  @Column({ type: 'json', nullable: true })
+  public readonly diff?: Record<string, unknown> | null;
 
-  //   @Column({ type: 'json', nullable: true })
-  //   diff!: Record<string, unknown> | null;
+  @ApiPropertyOptional({
+    description: 'Optional reason provided for the action.',
+    example: 'User requested account deletion',
+    nullable: true,
+  })
+  @Column({ nullable: true, default: true })
+  public readonly reason?: string | null;
 
-  //   @Column({ type: 'text', nullable: true })
-  //   reason!: string | null;
-
-  //   @Column({ type: 'json', nullable: true })
-  //   metadata!: Record<string, unknown> | null;
-
-  // Idempotency (optional but recommended)
-  //   @Column({
-  //     name: 'idempotency_key',
-  //     type: 'varchar',
-  //     length: 128,
-  //     nullable: true,
-  //     unique: true,
-  //   })
-  //   idempotencyKey!: string | null;
+  @ApiPropertyOptional({
+    description: 'Additional metadata relevant to the event.',
+    type: Object,
+    nullable: true,
+  })
+  @Column({ type: 'json', nullable: true })
+  public readonly metadata?: Record<string, unknown> | null;
 }

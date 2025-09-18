@@ -73,6 +73,7 @@ const envFilePath = '.env';
 
     CoreModule,
     LogQueueModule,
+    AuthModule,
     UserModule,
 
     HealthModule,
