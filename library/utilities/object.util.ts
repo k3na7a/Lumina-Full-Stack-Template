@@ -1,3 +1,5 @@
+import { IncomingHttpHeaders } from "node:http2"
+
 const deepEqual = (x: any, y: any): boolean => {
   const ok = Object.keys,
     tx = typeof x,
@@ -167,7 +169,7 @@ export function buildAuditSnapshotsAndDiff(
 const SENSITIVE_HEADERS = ['authorization', 'cookie', 'set-cookie']
 
 export function redactHeaders(
-  headers: Headers,
+  headers: Headers | IncomingHttpHeaders,
   mask = '[REDACTED]',
   sensitiveKeys: string[] = SENSITIVE_HEADERS
 ): Record<string, unknown> {

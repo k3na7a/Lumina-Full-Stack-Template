@@ -17,9 +17,12 @@ export class LogService {
   ) {}
 
   async log(payload: jobtype) {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const { request: _req, ...requestInfo } = this.requestContext.getStore() ?? {};
+
     await this.logQueue.add(LoggerQueues.LOG_QUEUE, {
       ...payload,
-      requestInfo: this.requestContext.getStore(),
+      requestInfo,
     });
   }
 }

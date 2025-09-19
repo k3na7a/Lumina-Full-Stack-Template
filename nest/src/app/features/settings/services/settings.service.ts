@@ -29,6 +29,7 @@ import {
   SUB_DOMAIN,
   Domain,
 } from '@lib/dto/audit.dto';
+import { RequestContext } from 'src/app/common/providers/request-context.provider';
 
 @Injectable()
 export class SettingsService {
@@ -38,13 +39,13 @@ export class SettingsService {
     private readonly accountService: UserAccountService,
     private readonly imageService: ImageService,
     private readonly auditService: AuditService,
+    private readonly requestContext: RequestContext,
   ) {}
 
   public async updateEmail(
     user: UserEntity,
     { password, new_email }: { password: string; new_email: string },
     res: Response,
-    req: Request,
   ): Promise<JWTDto> {
     await this.accountService.validateUser(user.email, password);
 
@@ -61,11 +62,6 @@ export class SettingsService {
       before: instanceToPlain(user),
       after: instanceToPlain(updatedUser),
       reason: 'Primary email updated by account owner.',
-      metadata: {
-        path: req.url,
-        method: req.method,
-        headers: redactHeaders(req.headers),
-      },
     });
 
     return this.accountService.issueTokens(updatedUser, res);
@@ -75,7 +71,6 @@ export class SettingsService {
     user: UserEntity,
     { old_password, new_password }: updatePasswordDto,
     res: Response,
-    req: Request,
   ): Promise<JWTDto> {
     await this.accountService.validateUser(user.email, old_password);
 
@@ -93,11 +88,6 @@ export class SettingsService {
       before: instanceToPlain(user),
       after: instanceToPlain(updatedUser),
       reason: 'Password changed by account owner.',
-      metadata: {
-        path: req.url,
-        method: req.method,
-        headers: redactHeaders(req.headers),
-      },
     });
 
     return this.accountService.issueTokens(updatedUser, res);
@@ -107,7 +97,6 @@ export class SettingsService {
     user: UserEntity,
     { password }: deleteAccountDto,
     res: Response,
-    req: Request,
   ): Promise<void> {
     const { profile } = user;
 
@@ -122,13 +111,8 @@ export class SettingsService {
       entityId: user.id,
       entityDisplay: user.email,
       before: instanceToPlain(user),
-      after: instanceToPlain({}),
+      after: instanceToPlain(null),
       reason: 'Account permanently deleted by account owner.',
-      metadata: {
-        path: req.url,
-        method: req.method,
-        headers: redactHeaders(req.headers),
-      },
     });
 
     await this.userService.remove(user.id);
@@ -137,7 +121,6 @@ export class SettingsService {
   public async updateProfile(
     user: UserEntity,
     profile: UpdateUserProfile,
-    req: Request,
   ): Promise<UserEntity> {
     await this.profileService.update(user.profile, profile);
 
@@ -150,11 +133,6 @@ export class SettingsService {
       before: instanceToPlain(user),
       after: instanceToPlain(new_user),
       reason: 'Profile details updated by account owner.',
-      metadata: {
-        path: req.url,
-        method: req.method,
-        headers: redactHeaders(req.headers),
-      },
     });
 
     return new_user;
@@ -163,7 +141,6 @@ export class SettingsService {
   public async updateAvatar(
     user: UserEntity,
     file: Express.Multer.File,
-    req: Request,
   ): Promise<UserEntity> {
     const avatar = await this.handleAvatar(user, file);
     await this.profileService.update(user.profile, { avatar });
@@ -177,20 +154,12 @@ export class SettingsService {
       before: instanceToPlain(user),
       after: instanceToPlain(new_user),
       reason: 'Profile avatar updated by account owner.',
-      metadata: {
-        path: req.url,
-        method: req.method,
-        headers: redactHeaders(req.headers),
-      },
     });
 
     return new_user;
   }
 
-  public async removeAvatar(
-    user: UserEntity,
-    req: Request,
-  ): Promise<UserEntity> {
+  public async removeAvatar(user: UserEntity): Promise<UserEntity> {
     const avatar = user.profile.avatar;
     if (!avatar) throw new BadRequestException('No profile picture found');
 
@@ -205,11 +174,6 @@ export class SettingsService {
       before: instanceToPlain(user),
       after: instanceToPlain(new_user),
       reason: 'Profile avatar removed by account owner.',
-      metadata: {
-        path: req.url,
-        method: req.method,
-        headers: redactHeaders(req.headers),
-      },
     });
 
     return new_user;
@@ -240,6 +204,9 @@ export class SettingsService {
       ['roles'],
     );
 
+    const { request } = this.requestContext.getStore() ?? {};
+    const { url, method, headers } = request ?? {};
+
     return this.auditService.create({
       ...payload,
       actorType: ActorType.USER,
@@ -248,7 +215,12 @@ export class SettingsService {
       subDomain: SUB_DOMAIN.USER,
       before: beforeRedacted,
       after: afterRedacted,
-      diff,
+      diff: diff,
+      metadata: {
+        path: url,
+        method,
+        headers: headers ? redactHeaders(headers) : undefined,
+      },
     });
   }
 }

@@ -36,5 +36,5 @@ export interface iaudit {
   before: Record<string, unknown>;
   after: Record<string, unknown>;
   reason: string;
-  metadata: Record<string, unknown> | null;
+  metadata?: Record<string, unknown> | null;
 }

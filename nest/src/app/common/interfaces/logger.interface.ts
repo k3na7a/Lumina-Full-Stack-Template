@@ -1,4 +1,3 @@
-import { RequestContextStore } from 'src/app/common/middleware/request-context.middleware';
 import {
   LoggerActions,
   LoggerPath,
@@ -7,7 +6,7 @@ import {
 export interface jobtype {
   path: LoggerPath;
   type: LoggerActions;
-  message: Record<string, any>;
+  message: Record<string, unknown>;
   context: string;
-  requestInfo?: RequestContextStore;
+  requestInfo?: Record<string, unknown>;
 }

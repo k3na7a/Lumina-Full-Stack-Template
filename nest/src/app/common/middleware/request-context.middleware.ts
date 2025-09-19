@@ -5,6 +5,7 @@ import { RequestContext } from '../providers/request-context.provider';
 
 export interface RequestContextStore {
   requestId: string;
+  request?: Request;
   userId?: string;
   ipAddress?: string;
   userAgent?: string;
@@ -17,6 +18,7 @@ export class RequestContextMiddleware implements NestMiddleware {
   use(req: Request, _res: Response, next: NextFunction) {
     const store: RequestContextStore = {
       requestId: nanoid(),
+      request: req ?? undefined,
       ipAddress: req.ip ?? undefined,
       userAgent: req.get('user-agent') ?? undefined,
     };

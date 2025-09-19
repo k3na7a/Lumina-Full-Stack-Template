@@ -5,11 +5,9 @@ import {
   Delete,
   Patch,
   Post,
-  Req,
   UploadedFile,
   UseGuards,
   UseInterceptors,
-  Request,
 } from '@nestjs/common';
 import {
   ApiBearerAuth,
@@ -47,11 +45,10 @@ export class ProfileController {
   @ApiOkResponse({ type: JWTDto })
   @Permissions(PERMISSION_MATRIX[PermissionDomain.SELF_MANAGEMENT].UPDATE_SELF)
   async updateProfile(
-    @Req() req: Request,
     @CurrentUser() user: UserEntity,
     @Body() dto: RegisterProfileDto,
   ): Promise<UserEntity> {
-    return this.service.updateProfile(user, dto, req);
+    return this.service.updateProfile(user, dto);
   }
 
   @Post('/avatar/upload')
@@ -59,21 +56,17 @@ export class ProfileController {
   @UseInterceptors(FileInterceptor('avatar', { storage }))
   @Permissions(PERMISSION_MATRIX[PermissionDomain.SELF_MANAGEMENT].UPDATE_SELF)
   async updateAvatar(
-    @Req() req: Request,
     @CurrentUser() user: UserEntity,
     @UploadedFile(new ImageUploadValidationPipe({ fileIsRequired: true }))
     file: Express.Multer.File,
   ): Promise<UserEntity> {
-    return this.service.updateAvatar(user, file, req);
+    return this.service.updateAvatar(user, file);
   }
 
   @Delete('/avatar/remove')
   @ApiOkResponse({ type: JWTDto })
   @Permissions(PERMISSION_MATRIX[PermissionDomain.SELF_MANAGEMENT].UPDATE_SELF)
-  async removeAvatar(
-    @Req() req: Request,
-    @CurrentUser() user: UserEntity,
-  ): Promise<UserEntity> {
-    return this.service.removeAvatar(user, req);
+  async removeAvatar(@CurrentUser() user: UserEntity): Promise<UserEntity> {
+    return this.service.removeAvatar(user);
   }
 }

@@ -21,6 +21,22 @@ import { UserAccountService } from 'src/app/modules/users/services/users-account
 import { JWTInterface } from 'src/app/common/interfaces/jwt.interface';
 import { TokenManager } from 'src/app/common/utilities/token.utility';
 import { EmailService } from 'src/app/queues/email/services/email.service';
+import {
+  buildAuditSnapshotsAndDiff,
+  redactHeaders,
+} from '@lib/utilities/object.util';
+import { AuditEntity } from 'src/app/modules/audit/entities/audit.entity';
+import { iaudit } from 'src/app/modules/audit/dto/audit.dto';
+import {
+  Action,
+  ActorType,
+  Domain,
+  SourceType,
+  SUB_DOMAIN,
+} from '@lib/dto/audit.dto';
+import { AuditService } from 'src/app/modules/audit/service/audit.service';
+import { instanceToPlain } from 'class-transformer';
+import { RequestContext } from 'src/app/common/providers/request-context.provider';
 
 @Injectable()
 export class AuthService {
@@ -31,6 +47,8 @@ export class AuthService {
     private readonly accountService: UserAccountService,
     private readonly emailService: EmailService,
     private readonly jwtService: JwtService,
+    private readonly auditService: AuditService,
+    private readonly requestContext: RequestContext,
   ) {
     this.tokenManager = new TokenManager(jwtService);
   }
@@ -45,11 +63,25 @@ export class AuthService {
       ...dto,
       password,
     });
+
+    await this.audit({
+      action: Action.CREATE,
+      entityId: user.id,
+      entityDisplay: user.email,
+      before: instanceToPlain(null),
+      after: instanceToPlain(user),
+      reason: 'Account created by account owner during registration.',
+    });
+
     return this.accountService.issueTokens(user, res);
   }
 
   public async signIn(user: UserEntity, res: Response): Promise<JWTDto> {
     return this.accountService.issueTokens(user, res);
+  }
+
+  public async signOut(user: UserEntity, res: Response): Promise<void> {
+    await this.accountService.revokeTokens(user, res);
   }
 
   public async forgotPassword(
@@ -109,9 +141,44 @@ export class AuthService {
       refreshToken: null,
       resetToken: null,
     });
+
+    const updatedUser = await this.userService.findOneById(user.id);
+
+    await this.audit({
+      action: Action.UPDATE,
+      entityId: updatedUser.id,
+      entityDisplay: updatedUser.email,
+      before: instanceToPlain(user),
+      after: instanceToPlain(updatedUser),
+      reason: 'Password reset by account owner using reset token.',
+    });
   }
 
-  public async signOut(user: UserEntity, res: Response): Promise<void> {
-    await this.accountService.revokeTokens(user, res);
+  private async audit(payload: iaudit): Promise<AuditEntity> {
+    const { diff, beforeRedacted, afterRedacted } = buildAuditSnapshotsAndDiff(
+      payload.before,
+      payload.after,
+      ['password', 'refreshToken', 'resetToken'],
+      ['roles'],
+    );
+
+    const { request } = this.requestContext.getStore() ?? {};
+    const { url, method, headers } = request ?? {};
+
+    return this.auditService.create({
+      ...payload,
+      actorType: ActorType.USER,
+      source: SourceType.WEB,
+      domain: Domain.USER_MANAGEMENT,
+      subDomain: SUB_DOMAIN.USER,
+      before: beforeRedacted,
+      after: afterRedacted,
+      diff: diff,
+      metadata: {
+        path: url,
+        method,
+        headers: headers ? redactHeaders(headers) : undefined,
+      },
+    });
   }
 }
