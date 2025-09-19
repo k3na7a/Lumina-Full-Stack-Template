@@ -1,4 +1,4 @@
-import { PermissionDomain } from '@lib/constants/permissions.constants'
+import { PermissionDomain } from '../constants/permissions.constants'
 import { BaseDto } from './base.dto'
 
 interface iPermission {
@@ -22,11 +22,11 @@ interface iCreatePermission {
 }
 
 class CreatePermissionDto {
-  readonly name: string
-  readonly label: string
-  readonly description?: string
-  readonly domain: PermissionDomain
-  readonly isSystemPermission: boolean
+  public readonly name: string
+  public readonly label: string
+  public readonly description?: string
+  public readonly domain: PermissionDomain
+  public readonly isSystemPermission: boolean
 
   constructor(payload: iCreatePermission) {
     this.name = payload.name
@@ -38,11 +38,11 @@ class CreatePermissionDto {
 }
 
 class PermissionDto extends BaseDto {
-  readonly name: string
-  readonly label: string
-  readonly description?: string
-  readonly domain: PermissionDomain
-  readonly isSystemPermission: boolean
+  public readonly name: string
+  public readonly label: string
+  public readonly description?: string
+  public readonly domain: PermissionDomain
+  public readonly isSystemPermission: boolean
 
   constructor(payload: iPermission) {
     super(payload)

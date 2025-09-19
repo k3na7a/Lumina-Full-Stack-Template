@@ -10,4 +10,11 @@ class BaseDto {
   }
 }
 
+interface BaseInterface {
+  readonly id: string
+  readonly createdAt: Date
+  readonly updatedAt: Date
+}
+
+export type { BaseInterface }
 export { BaseDto }

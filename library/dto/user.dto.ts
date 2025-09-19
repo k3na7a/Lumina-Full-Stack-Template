@@ -1,5 +1,5 @@
-import { iImage } from '@lib/dto/media.dto'
-import { BaseDto } from '@lib/dto/base.dto'
+import { iImage } from './media.dto'
+import { BaseDto } from './base.dto'
 import { iRole, RoleDto } from './role.dto'
 
 type UpdatePassword = { current_password: string; password: string; confirm_password: string }

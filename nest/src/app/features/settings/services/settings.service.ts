@@ -15,20 +15,20 @@ import { ImageService } from 'src/app/modules/media/services/image.service';
 import { IMAGE_TYPE } from 'src/app/modules/media/enums/image-routes.enum';
 import { ImageEntity } from 'src/app/modules/media/entities/image.entity';
 import { AuditService } from 'src/app/modules/audit/service/audit.service';
-import {
-  Action,
-  ActorType,
-  AuditEntity,
-  Domain,
-  SourceType,
-  SUB_DOMAIN,
-} from 'src/app/modules/audit/entities/audit.entity';
+import { AuditEntity } from 'src/app/modules/audit/entities/audit.entity';
 import { iaudit } from 'src/app/modules/audit/dto/audit.dto';
 
 import {
   buildAuditSnapshotsAndDiff,
   redactHeaders,
 } from '@lib/utilities/object.util';
+import {
+  Action,
+  ActorType,
+  SourceType,
+  SUB_DOMAIN,
+  Domain,
+} from '@lib/dto/audit.dto';
 
 @Injectable()
 export class SettingsService {
@@ -44,6 +44,7 @@ export class SettingsService {
     user: UserEntity,
     { password, new_email }: { password: string; new_email: string },
     res: Response,
+    req: Request,
   ): Promise<JWTDto> {
     await this.accountService.validateUser(user.email, password);
 
@@ -52,6 +53,21 @@ export class SettingsService {
     });
 
     const updatedUser = await this.userService.findOneById(user.id);
+
+    await this.audit({
+      action: Action.UPDATE,
+      entityId: updatedUser.id,
+      entityDisplay: updatedUser.email,
+      before: instanceToPlain(user),
+      after: instanceToPlain(updatedUser),
+      reason: 'Primary email updated by account owner.',
+      metadata: {
+        path: req.url,
+        method: req.method,
+        headers: redactHeaders(req.headers),
+      },
+    });
+
     return this.accountService.issueTokens(updatedUser, res);
   }
 
@@ -59,6 +75,7 @@ export class SettingsService {
     user: UserEntity,
     { old_password, new_password }: updatePasswordDto,
     res: Response,
+    req: Request,
   ): Promise<JWTDto> {
     await this.accountService.validateUser(user.email, old_password);
 
@@ -68,6 +85,21 @@ export class SettingsService {
     });
 
     const updatedUser = await this.userService.findOneById(user.id);
+
+    await this.audit({
+      action: Action.UPDATE,
+      entityId: updatedUser.id,
+      entityDisplay: updatedUser.email,
+      before: instanceToPlain(user),
+      after: instanceToPlain(updatedUser),
+      reason: 'Password changed by account owner.',
+      metadata: {
+        path: req.url,
+        method: req.method,
+        headers: redactHeaders(req.headers),
+      },
+    });
+
     return this.accountService.issueTokens(updatedUser, res);
   }
 
@@ -75,6 +107,7 @@ export class SettingsService {
     user: UserEntity,
     { password }: deleteAccountDto,
     res: Response,
+    req: Request,
   ): Promise<void> {
     const { profile } = user;
 
@@ -83,6 +116,20 @@ export class SettingsService {
     await this.accountService.validateUser(user.email, password);
 
     if (profile.avatar) await this.imageService.remove(profile.avatar.id);
+
+    await this.audit({
+      action: Action.UPDATE,
+      entityId: user.id,
+      entityDisplay: user.email,
+      before: instanceToPlain(user),
+      after: instanceToPlain({}),
+      reason: 'Account permanently deleted by account owner.',
+      metadata: {
+        path: req.url,
+        method: req.method,
+        headers: redactHeaders(req.headers),
+      },
+    });
 
     await this.userService.remove(user.id);
   }
@@ -102,7 +149,7 @@ export class SettingsService {
       entityDisplay: new_user.email,
       before: instanceToPlain(user),
       after: instanceToPlain(new_user),
-      reason: 'User initiated profile update.',
+      reason: 'Profile details updated by account owner.',
       metadata: {
         path: req.url,
         method: req.method,
@@ -116,20 +163,56 @@ export class SettingsService {
   public async updateAvatar(
     user: UserEntity,
     file: Express.Multer.File,
+    req: Request,
   ): Promise<UserEntity> {
     const avatar = await this.handleAvatar(user, file);
     await this.profileService.update(user.profile, { avatar });
 
-    return this.userService.findOneById(user.id);
+    const new_user = await this.userService.findOneById(user.id);
+
+    await this.audit({
+      action: Action.UPDATE,
+      entityId: new_user.id,
+      entityDisplay: new_user.email,
+      before: instanceToPlain(user),
+      after: instanceToPlain(new_user),
+      reason: 'Profile avatar updated by account owner.',
+      metadata: {
+        path: req.url,
+        method: req.method,
+        headers: redactHeaders(req.headers),
+      },
+    });
+
+    return new_user;
   }
 
-  public async removeAvatar(user: UserEntity): Promise<UserEntity> {
+  public async removeAvatar(
+    user: UserEntity,
+    req: Request,
+  ): Promise<UserEntity> {
     const avatar = user.profile.avatar;
     if (!avatar) throw new BadRequestException('No profile picture found');
 
     await this.imageService.remove(avatar.id);
 
-    return this.userService.findOneById(user.id);
+    const new_user = await this.userService.findOneById(user.id);
+
+    await this.audit({
+      action: Action.UPDATE,
+      entityId: new_user.id,
+      entityDisplay: new_user.email,
+      before: instanceToPlain(user),
+      after: instanceToPlain(new_user),
+      reason: 'Profile avatar removed by account owner.',
+      metadata: {
+        path: req.url,
+        method: req.method,
+        headers: redactHeaders(req.headers),
+      },
+    });
+
+    return new_user;
   }
 
   private async handleAvatar(
@@ -154,6 +237,7 @@ export class SettingsService {
       payload.before,
       payload.after,
       ['password', 'refreshToken', 'resetToken'],
+      ['roles'],
     );
 
     return this.auditService.create({

@@ -31,11 +31,11 @@ class CreatePlatformDto {
 }
 
 class PlatformDto extends BaseDto {
-  readonly name: string
-  readonly release_date: Date
-  readonly slug: string
+  public readonly name: string
+  public readonly release_date: Date
+  public readonly slug: string
 
-  readonly gameCount?: number
+  public readonly gameCount?: number
 
   constructor(platform: iPlatform) {
     super(platform)

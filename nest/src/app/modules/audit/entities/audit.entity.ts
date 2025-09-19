@@ -2,39 +2,13 @@ import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 import { BaseEntity } from 'src/app/common/entities/base.entity';
 import { Entity, Column } from 'typeorm';
 
-export enum ActorType {
-  USER = 'user',
-  SYSTEM = 'system',
-  SERVICE = 'service',
-}
-
-export enum SourceType {
-  API = 'api',
-  WEB = 'web',
-  ADMIN_UI = 'admin-ui',
-  WORKER = 'worker',
-  CRON = 'cron',
-  WEBHOOK = 'webhook',
-}
-
-export enum Action {
-  CREATE = 'create',
-  UPDATE = 'update',
-  DELETE = 'delete',
-}
-
-export enum Domain {
-  USER_MANAGEMENT = 'user_management',
-  GAMES_AND_SOFTWARE = 'games_and_software',
-}
-
-export enum SUB_DOMAIN {
-  USER = 'user',
-  ROLE = 'role',
-  PERMISSION = 'permission',
-  GAME = 'game',
-  PLATFORM = 'platform',
-}
+import {
+  ActorType,
+  Action,
+  Domain,
+  SUB_DOMAIN,
+  SourceType,
+} from '@lib/dto/audit.dto';
 
 @Entity({ name: 'audit_event' })
 export class AuditEntity extends BaseEntity {

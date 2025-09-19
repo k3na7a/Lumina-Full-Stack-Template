@@ -4,6 +4,7 @@ import {
   Controller,
   Delete,
   Patch,
+  Req,
   Res,
   UseGuards,
   UseInterceptors,
@@ -45,11 +46,12 @@ export class SecurityController {
   @ApiOkResponse({ type: JWTDto })
   @Permissions(PERMISSION_MATRIX[PermissionDomain.SELF_MANAGEMENT].UPDATE_SELF)
   async updateEmail(
+    @Req() req: Request,
     @CurrentUser() user: UserEntity,
     @Body() dto: updateEmailDto,
     @Res({ passthrough: true }) res: Response,
   ): Promise<JWTDto> {
-    return this.service.updateEmail(user, dto, res);
+    return this.service.updateEmail(user, dto, res, req);
   }
 
   @Patch('/password')
@@ -57,21 +59,23 @@ export class SecurityController {
   @ApiOkResponse({ type: JWTDto })
   @Permissions(PERMISSION_MATRIX[PermissionDomain.SELF_MANAGEMENT].UPDATE_SELF)
   async updatePassword(
+    @Req() req: Request,
     @CurrentUser() user: UserEntity,
     @Body() dto: updatePasswordDto,
     @Res({ passthrough: true }) res: Response,
   ): Promise<JWTDto> {
-    return this.service.updatePassword(user, dto, res);
+    return this.service.updatePassword(user, dto, res, req);
   }
 
   @Delete('/delete-account')
   @ApiBody({ type: deleteAccountDto })
   @Permissions(PERMISSION_MATRIX[PermissionDomain.SELF_MANAGEMENT].DELETE_SELF)
   async deleteAccount(
+    @Req() req: Request,
     @CurrentUser() user: UserEntity,
     @Body() dto: deleteAccountDto,
     @Res({ passthrough: true }) res: Response,
   ): Promise<void> {
-    await this.service.deleteAccount(user, dto, res);
+    await this.service.deleteAccount(user, dto, res, req);
   }
 }

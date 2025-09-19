@@ -30,6 +30,7 @@ import { LogService } from './queues/logging/services/log.service';
 import { UserAdminModule } from './features/administration/users/users.module';
 import { GamesAdminModule } from './features/administration/games/games.module';
 import { AuditModule } from './modules/audit/audit.module';
+import { AuditAdminModule } from './features/administration/audit/audit.module';
 
 const rootPath = join(__dirname, '../..', 'public');
 const serveRoot = '/';
@@ -54,6 +55,10 @@ const envFilePath = '.env';
         path: 'administration',
         children: [
           {
+            path: 'audit-events',
+            children: [AuditAdminModule],
+          },
+          {
             path: 'user-management',
             children: [UserAdminModule],
           },
@@ -75,7 +80,7 @@ const envFilePath = '.env';
     CoreModule,
     AuditModule,
     LogQueueModule,
-    AuthModule,
+
     UserModule,
 
     HealthModule,

@@ -5,7 +5,8 @@ export enum PermissionDomain {
   ROLE_MANAGEMENT = 'ROLE_MANAGEMENT',
   PERMISSION_MANAGEMENT = 'PERMISSION_MANAGEMENT',
   GAME_MANAGEMENT = 'GAME_MANAGEMENT',
-  PLATFORM_MANAGEMENT = 'PLATFORM_MANAGEMENT'
+  PLATFORM_MANAGEMENT = 'PLATFORM_MANAGEMENT',
+  AUDIT_MANAGEMENT = 'AUDIT_MANAGEMENT'
 }
 
 // SYSTEM
@@ -57,6 +58,10 @@ export enum PlatformManagementPermissions {
   DELETE_PLATFORM = 'delete_platform'
 }
 
+export enum AuditEventPermissions {
+  READ_AUDIT = 'read_audit'
+}
+
 export type PermissionsKey =
   | SystemPermissions
   | SelfManagementPermissions
@@ -65,6 +70,7 @@ export type PermissionsKey =
   | PermissionManagementPermissions
   | GameManagementPermissions
   | PlatformManagementPermissions
+  | AuditEventPermissions
 
 export const PERMISSION_MATRIX = {
   [PermissionDomain.SYSTEM]: SystemPermissions,
@@ -73,5 +79,6 @@ export const PERMISSION_MATRIX = {
   [PermissionDomain.ROLE_MANAGEMENT]: RoleManagementPermissions,
   [PermissionDomain.PERMISSION_MANAGEMENT]: PermissionManagementPermissions,
   [PermissionDomain.GAME_MANAGEMENT]: GameManagementPermissions,
-  [PermissionDomain.PLATFORM_MANAGEMENT]: PlatformManagementPermissions
+  [PermissionDomain.PLATFORM_MANAGEMENT]: PlatformManagementPermissions,
+  [PermissionDomain.AUDIT_MANAGEMENT]: AuditEventPermissions
 }

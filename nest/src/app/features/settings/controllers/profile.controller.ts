@@ -59,17 +59,21 @@ export class ProfileController {
   @UseInterceptors(FileInterceptor('avatar', { storage }))
   @Permissions(PERMISSION_MATRIX[PermissionDomain.SELF_MANAGEMENT].UPDATE_SELF)
   async updateAvatar(
+    @Req() req: Request,
     @CurrentUser() user: UserEntity,
     @UploadedFile(new ImageUploadValidationPipe({ fileIsRequired: true }))
     file: Express.Multer.File,
   ): Promise<UserEntity> {
-    return this.service.updateAvatar(user, file);
+    return this.service.updateAvatar(user, file, req);
   }
 
   @Delete('/avatar/remove')
   @ApiOkResponse({ type: JWTDto })
   @Permissions(PERMISSION_MATRIX[PermissionDomain.SELF_MANAGEMENT].UPDATE_SELF)
-  async removeAvatar(@CurrentUser() user: UserEntity): Promise<UserEntity> {
-    return this.service.removeAvatar(user);
+  async removeAvatar(
+    @Req() req: Request,
+    @CurrentUser() user: UserEntity,
+  ): Promise<UserEntity> {
+    return this.service.removeAvatar(user, req);
   }
 }

@@ -91,8 +91,10 @@ export class AuthService {
     if (!user.resetToken)
       throw new UnauthorizedException('Reset token not set for user');
 
-    const hashedTokenBuffer = Buffer.from(hashedToken);
-    const userResetTokenBuffer = Buffer.from(user.resetToken);
+    const hashedTokenBuffer = Buffer.from(hashedToken) as unknown as Uint8Array;
+    const userResetTokenBuffer = Buffer.from(
+      user.resetToken,
+    ) as unknown as Uint8Array;
 
     if (
       hashedTokenBuffer.length !== userResetTokenBuffer.length ||

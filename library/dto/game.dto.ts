@@ -24,12 +24,12 @@ interface icreategame {
 }
 
 class CreateGameDto {
-  readonly name!: string
-  readonly cover?: File
-  readonly release_date!: Date
-  readonly description?: string
-  readonly slug!: string
-  readonly platforms!: string[]
+  public readonly name!: string
+  public readonly cover?: File
+  public readonly release_date!: Date
+  public readonly description?: string
+  public readonly slug!: string
+  public readonly platforms!: string[]
 
   constructor(new_game: icreategame) {
     this.name = new_game.name
@@ -43,15 +43,15 @@ class CreateGameDto {
 }
 
 class GameDto extends BaseDto {
-  readonly name: string
-  readonly slug: string
+  public readonly name: string
+  public readonly slug: string
 
-  readonly description?: string
+  public readonly description?: string
 
-  readonly cover: string
-  readonly release_date: Date
+  public readonly cover: string
+  public readonly release_date: Date
 
-  readonly platforms: PlatformDto[]
+  public readonly platforms: PlatformDto[]
 
   constructor(game: iGame) {
     super(game)
