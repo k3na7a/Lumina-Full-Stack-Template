@@ -7,13 +7,44 @@ import {
   CreatePermissionDto,
   PermissionPaginationOptions,
 } from 'src/app/modules/users/dto/permission.dto';
+import { AuditService } from 'src/app/modules/audit/service/audit.service';
+import { RequestContext } from 'src/app/common/providers/request-context.provider';
+import { iaudit } from 'src/app/modules/audit/dto/audit.dto';
+import { AuditEntity } from 'src/app/modules/audit/entities/audit.entity';
+import {
+  buildAuditSnapshotsAndDiff,
+  redactHeaders,
+} from '@lib/utilities/object.util';
+import {
+  Action,
+  ActorType,
+  Domain,
+  SourceType,
+  SUB_DOMAIN,
+} from '@lib/dto/audit.dto';
+import { instanceToPlain } from 'class-transformer';
 
 @Injectable()
 export class PermissionAdminService {
-  constructor(private readonly service: PermissionService) {}
+  constructor(
+    private readonly service: PermissionService,
+    private readonly auditService: AuditService,
+    private readonly requestContext: RequestContext,
+  ) {}
 
   public async create(dto: CreatePermissionDto): Promise<PermissionEntity> {
-    return this.service.create(dto);
+    const permission = await this.service.create(dto);
+
+    await this.audit({
+      action: Action.CREATE,
+      entityId: permission.id,
+      entityDisplay: permission.name,
+      before: instanceToPlain(null),
+      after: instanceToPlain(permission),
+      reason: 'System permission added by administrator.',
+    });
+
+    return permission;
   }
 
   public async paginate(
@@ -32,6 +63,15 @@ export class PermissionAdminService {
     if (permission.isSystemPermission)
       throw new UnauthorizedException('System permissions cannot be removed.');
 
+    await this.audit({
+      action: Action.DELETE,
+      entityId: permission.id,
+      entityDisplay: permission.name,
+      before: instanceToPlain(permission),
+      after: instanceToPlain(null),
+      reason: 'System permission removed by administrator.',
+    });
+
     return this.service.remove(permission.id);
   }
 
@@ -45,6 +85,43 @@ export class PermissionAdminService {
       throw new UnauthorizedException('System permissions cannot be modified.');
 
     await this.service.update(permission.id, dto);
-    return this.service.findOneById(permission.id);
+    const updatedPermission = await this.service.findOneById(permission.id);
+
+    await this.audit({
+      action: Action.UPDATE,
+      entityId: updatedPermission.id,
+      entityDisplay: updatedPermission.name,
+      before: instanceToPlain(permission),
+      after: instanceToPlain(updatedPermission),
+      reason: 'System permission updated by administrator.',
+    });
+
+    return updatedPermission;
+  }
+
+  private async audit(payload: iaudit): Promise<AuditEntity> {
+    const { diff, beforeRedacted, afterRedacted } = buildAuditSnapshotsAndDiff(
+      payload.before,
+      payload.after,
+    );
+
+    const { request } = this.requestContext.getStore() ?? {};
+    const { url, method, headers } = request ?? {};
+
+    return this.auditService.create({
+      ...payload,
+      actorType: ActorType.USER,
+      source: SourceType.ADMIN_UI,
+      domain: Domain.USER_MANAGEMENT,
+      subDomain: SUB_DOMAIN.PERMISSION,
+      before: beforeRedacted,
+      after: afterRedacted,
+      diff: diff,
+      metadata: {
+        path: url,
+        method,
+        headers: headers ? redactHeaders(headers) : undefined,
+      },
+    });
   }
 }

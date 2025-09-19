@@ -12,6 +12,23 @@ import {
 } from 'src/app/modules/games/dto/game.dto';
 import { PaginationDto } from 'src/app/common/dto/pagination.dto';
 import { IMAGE_TYPE } from 'src/app/modules/media/enums/image-routes.enum';
+import { iaudit } from 'src/app/modules/audit/dto/audit.dto';
+import { AuditEntity } from 'src/app/modules/audit/entities/audit.entity';
+import {
+  buildAuditSnapshotsAndDiff,
+  redactHeaders,
+} from '@lib/utilities/object.util';
+import {
+  Action,
+  ActorType,
+  Domain,
+  SourceType,
+  SUB_DOMAIN,
+} from '@lib/dto/audit.dto';
+
+import { AuditService } from 'src/app/modules/audit/service/audit.service';
+import { RequestContext } from 'src/app/common/providers/request-context.provider';
+import { instanceToPlain } from 'class-transformer';
 
 @Injectable()
 export class GamesAdminService {
@@ -19,6 +36,8 @@ export class GamesAdminService {
     private readonly gameService: GameService,
     private readonly imageService: ImageService,
     private readonly platformService: PlatformService,
+    private readonly auditService: AuditService,
+    private readonly requestContext: RequestContext,
   ) {}
 
   private async handleCreateCover(
@@ -80,7 +99,18 @@ export class GamesAdminService {
 
     if (file) await this.handleCreateCover(newGame, file);
 
-    return this.gameService.findOneById(newGame.id);
+    const game = await this.gameService.findOneById(newGame.id);
+
+    await this.audit({
+      action: Action.CREATE,
+      entityId: game.id,
+      entityDisplay: game.slug,
+      before: instanceToPlain(null),
+      after: instanceToPlain(game),
+      reason: 'Game added to library by administrator.',
+    });
+
+    return game;
   }
 
   public async update(
@@ -97,7 +127,18 @@ export class GamesAdminService {
 
     await this.gameService.update(game.id, { ...dto, platforms });
 
-    return this.gameService.findOneById(id);
+    const updatedGame = await this.gameService.findOneById(id);
+
+    await this.audit({
+      action: Action.UPDATE,
+      entityId: updatedGame.id,
+      entityDisplay: updatedGame.slug,
+      before: instanceToPlain(game),
+      after: instanceToPlain(updatedGame),
+      reason: 'Game updated in library by administrator.',
+    });
+
+    return updatedGame;
   }
 
   public async remove(id: string): Promise<GameEntity> {
@@ -105,6 +146,43 @@ export class GamesAdminService {
 
     if (game.cover) await this.imageService.remove(game.cover.id);
 
+    await this.audit({
+      action: Action.UPDATE,
+      entityId: game.id,
+      entityDisplay: game.slug,
+      before: instanceToPlain(game),
+      after: instanceToPlain(null),
+      reason: 'Game removed from library by administrator.',
+    });
+
     return this.gameService.delete(game.id);
+  }
+
+  private async audit(payload: iaudit): Promise<AuditEntity> {
+    const { diff, beforeRedacted, afterRedacted } = buildAuditSnapshotsAndDiff(
+      payload.before,
+      payload.after,
+      [],
+      ['platforms'],
+    );
+
+    const { request } = this.requestContext.getStore() ?? {};
+    const { url, method, headers } = request ?? {};
+
+    return this.auditService.create({
+      ...payload,
+      actorType: ActorType.USER,
+      source: SourceType.ADMIN_UI,
+      domain: Domain.GAMES_AND_SOFTWARE,
+      subDomain: SUB_DOMAIN.GAME,
+      before: beforeRedacted,
+      after: afterRedacted,
+      diff: diff,
+      metadata: {
+        path: url,
+        method,
+        headers: headers ? redactHeaders(headers) : undefined,
+      },
+    });
   }
 }

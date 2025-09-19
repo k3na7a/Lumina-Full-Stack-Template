@@ -13,6 +13,22 @@ import {
 } from 'src/app/modules/users/dto/user.dto';
 import { IMAGE_TYPE } from 'src/app/modules/media/enums/image-routes.enum';
 import { RoleService } from 'src/app/modules/users/services/roles.service';
+import { iaudit } from 'src/app/modules/audit/dto/audit.dto';
+import { AuditEntity } from 'src/app/modules/audit/entities/audit.entity';
+import {
+  buildAuditSnapshotsAndDiff,
+  redactHeaders,
+} from '@lib/utilities/object.util';
+import { AuditService } from 'src/app/modules/audit/service/audit.service';
+import { RequestContext } from 'src/app/common/providers/request-context.provider';
+import {
+  Action,
+  ActorType,
+  Domain,
+  SourceType,
+  SUB_DOMAIN,
+} from '@lib/dto/audit.dto';
+import { instanceToPlain } from 'class-transformer';
 
 @Injectable()
 export class UserAdminService {
@@ -21,6 +37,8 @@ export class UserAdminService {
     private readonly profileService: ProfileService,
     private readonly imageService: ImageService,
     private readonly roleService: RoleService,
+    private readonly auditService: AuditService,
+    private readonly requestContext: RequestContext,
   ) {}
 
   private async handleAvatar(
@@ -31,28 +49,24 @@ export class UserAdminService {
     const { avatar, id: profileId } = user.profile;
     const type = IMAGE_TYPE.AVATARS;
 
-    if (removeAvatar && avatar) {
-      await this.imageService.remove(avatar.id);
+    if (removeAvatar) {
+      if (avatar) await this.imageService.remove(avatar.id);
       return null;
     }
 
-    if (file && !avatar) {
-      return this.imageService.create({
-        file,
-        altText: `Avatar for profile ID ${profileId}`,
-        type,
-      });
-    }
+    if (!file) return null;
 
-    if (file && avatar) {
-      return this.imageService.update(avatar.id, {
-        file,
-        type,
-        altText: avatar.altText,
-      });
-    }
-
-    return null;
+    return avatar
+      ? this.imageService.update(avatar.id, {
+          file,
+          type,
+          altText: avatar.altText,
+        })
+      : this.imageService.create({
+          file,
+          altText: `Avatar for profile ID ${profileId}`,
+          type,
+        });
   }
 
   public async paginate(
@@ -70,6 +84,15 @@ export class UserAdminService {
 
     if (user.profile.avatar)
       await this.imageService.remove(user.profile.avatar.id);
+
+    await this.audit({
+      action: Action.DELETE,
+      entityId: user.id,
+      entityDisplay: user.email,
+      before: instanceToPlain(user),
+      after: instanceToPlain(null),
+      reason: 'User account permanently deleted by administrator.',
+    });
 
     return this.userService.remove(id);
   }
@@ -92,6 +115,45 @@ export class UserAdminService {
     const roles = await this.roleService.findManyById(dto.roles);
     await this.userService.update(user.id, { email, roles });
 
-    return this.userService.findOneById(user.id);
+    const updatedUser = await this.userService.findOneById(user.id);
+
+    await this.audit({
+      action: Action.UPDATE,
+      entityId: updatedUser.id,
+      entityDisplay: updatedUser.email,
+      before: instanceToPlain(user),
+      after: instanceToPlain(updatedUser),
+      reason: 'User account details updated by administrator.',
+    });
+
+    return updatedUser;
+  }
+
+  private async audit(payload: iaudit): Promise<AuditEntity> {
+    const { diff, beforeRedacted, afterRedacted } = buildAuditSnapshotsAndDiff(
+      payload.before,
+      payload.after,
+      ['password', 'refreshToken', 'resetToken'],
+      ['roles'],
+    );
+
+    const { request } = this.requestContext.getStore() ?? {};
+    const { url, method, headers } = request ?? {};
+
+    return this.auditService.create({
+      ...payload,
+      actorType: ActorType.USER,
+      source: SourceType.ADMIN_UI,
+      domain: Domain.USER_MANAGEMENT,
+      subDomain: SUB_DOMAIN.USER,
+      before: beforeRedacted,
+      after: afterRedacted,
+      diff: diff,
+      metadata: {
+        path: url,
+        method,
+        headers: headers ? redactHeaders(headers) : undefined,
+      },
+    });
   }
 }

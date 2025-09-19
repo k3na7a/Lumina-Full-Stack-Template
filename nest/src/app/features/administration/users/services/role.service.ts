@@ -8,12 +8,30 @@ import {
   RolePaginationOptions,
 } from 'src/app/modules/users/dto/role.dto';
 import { PermissionService } from 'src/app/modules/users/services/permissions.service';
+import {
+  buildAuditSnapshotsAndDiff,
+  redactHeaders,
+} from '@lib/utilities/object.util';
+import { iaudit } from 'src/app/modules/audit/dto/audit.dto';
+import { AuditEntity } from 'src/app/modules/audit/entities/audit.entity';
+import { AuditService } from 'src/app/modules/audit/service/audit.service';
+import { RequestContext } from 'src/app/common/providers/request-context.provider';
+import {
+  Action,
+  ActorType,
+  Domain,
+  SourceType,
+  SUB_DOMAIN,
+} from '@lib/dto/audit.dto';
+import { instanceToPlain } from 'class-transformer';
 
 @Injectable()
 export class RoleAdminService {
   constructor(
     private readonly service: RoleService,
     private readonly permissionService: PermissionService,
+    private readonly auditService: AuditService,
+    private readonly requestContext: RequestContext,
   ) {}
 
   public async create(dto: CreateRoleDto): Promise<RoleEntity> {
@@ -21,7 +39,18 @@ export class RoleAdminService {
       dto.permissions,
     );
 
-    return this.service.create({ ...dto, permissions });
+    const role = await this.service.create({ ...dto, permissions });
+
+    await this.audit({
+      action: Action.CREATE,
+      entityId: role.id,
+      entityDisplay: role.name,
+      before: instanceToPlain(null),
+      after: instanceToPlain(role),
+      reason: 'User role added by administrator.',
+    });
+
+    return role;
   }
 
   public async paginate(
@@ -39,6 +68,15 @@ export class RoleAdminService {
 
     if (role.isSystemRole)
       throw new UnauthorizedException('System roles can not be removed.');
+
+    await this.audit({
+      action: Action.DELETE,
+      entityId: role.id,
+      entityDisplay: role.name,
+      before: instanceToPlain(role),
+      after: instanceToPlain(null),
+      reason: 'User role removed by administrator.',
+    });
 
     return this.service.remove(role.id);
   }
@@ -58,6 +96,45 @@ export class RoleAdminService {
       permissions,
     });
 
-    return this.service.findOneById(role.id);
+    const updatedRole = await this.service.findOneById(role.id);
+
+    await this.audit({
+      action: Action.UPDATE,
+      entityId: updatedRole.id,
+      entityDisplay: updatedRole.name,
+      before: instanceToPlain(role),
+      after: instanceToPlain(updatedRole),
+      reason: 'User role updated by administrator.',
+    });
+
+    return updatedRole;
+  }
+
+  private async audit(payload: iaudit): Promise<AuditEntity> {
+    const { diff, beforeRedacted, afterRedacted } = buildAuditSnapshotsAndDiff(
+      payload.before,
+      payload.after,
+      [],
+      ['permissions'],
+    );
+
+    const { request } = this.requestContext.getStore() ?? {};
+    const { url, method, headers } = request ?? {};
+
+    return this.auditService.create({
+      ...payload,
+      actorType: ActorType.USER,
+      source: SourceType.ADMIN_UI,
+      domain: Domain.USER_MANAGEMENT,
+      subDomain: SUB_DOMAIN.ROLE,
+      before: beforeRedacted,
+      after: afterRedacted,
+      diff: diff,
+      metadata: {
+        path: url,
+        method,
+        headers: headers ? redactHeaders(headers) : undefined,
+      },
+    });
   }
 }
