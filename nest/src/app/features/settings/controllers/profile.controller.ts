@@ -5,9 +5,11 @@ import {
   Delete,
   Patch,
   Post,
+  Req,
   UploadedFile,
   UseGuards,
   UseInterceptors,
+  Request,
 } from '@nestjs/common';
 import {
   ApiBearerAuth,
@@ -45,10 +47,11 @@ export class ProfileController {
   @ApiOkResponse({ type: JWTDto })
   @Permissions(PERMISSION_MATRIX[PermissionDomain.SELF_MANAGEMENT].UPDATE_SELF)
   async updateProfile(
+    @Req() req: Request,
     @CurrentUser() user: UserEntity,
     @Body() dto: RegisterProfileDto,
   ): Promise<UserEntity> {
-    return this.service.updateProfile(user, dto);
+    return this.service.updateProfile(user, dto, req);
   }
 
   @Post('/avatar/upload')

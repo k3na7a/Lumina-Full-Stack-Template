@@ -146,7 +146,7 @@ export class AuditEntity extends BaseEntity {
     type: Object,
     nullable: true,
   })
-  @Column({ type: 'simple-json', nullable: true })
+  @Column({ type: 'json', nullable: true })
   public readonly before?: Record<string, unknown> | null;
 
   @ApiPropertyOptional({
@@ -154,7 +154,7 @@ export class AuditEntity extends BaseEntity {
     type: Object,
     nullable: true,
   })
-  @Column({ type: 'simple-json', nullable: true })
+  @Column({ type: 'json', nullable: true })
   public readonly after?: Record<string, unknown> | null;
 
   @ApiPropertyOptional({
@@ -162,7 +162,7 @@ export class AuditEntity extends BaseEntity {
     type: Object,
     nullable: true,
   })
-  @Column({ type: 'simple-json', nullable: true })
+  @Column({ type: 'json', nullable: true })
   public readonly diff?: Record<string, unknown> | null;
 
   @ApiPropertyOptional({
@@ -178,6 +178,6 @@ export class AuditEntity extends BaseEntity {
     type: Object,
     nullable: true,
   })
-  @Column({ type: 'simple-json', nullable: true })
+  @Column({ type: 'json', nullable: true })
   public readonly metadata?: Record<string, unknown> | null;
 }

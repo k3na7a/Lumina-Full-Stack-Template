@@ -40,9 +40,8 @@ export interface iaudit {
   action: Action;
   entityId: string;
   entityDisplay: string;
-  before: Record<string, unknown> | null;
-  after: Record<string, unknown> | null;
-  diff: Record<string, unknown> | null;
+  before: Record<string, unknown>;
+  after: Record<string, unknown>;
   reason: string;
   metadata: Record<string, unknown> | null;
 }
@@ -75,21 +74,29 @@ export const JSON = {
   id: '123',
   createdAt: '2025-07-02T12:34:56.789Z',
   editedAt: '2025-07-02T12:34:56.789Z',
+
   actorId: '42',
-  actorType: 'user',
   actorIp: '203.0.113.55',
   actorUa: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64)',
-  action: 'update',
-  entityType: 'user',
-  entityId: '42',
-  entityDisplay: 'alice@example.com',
-  domain: 'user_management',
+
   requestId: 'req-abc123',
   jobId: null,
+
   source: 'web',
+  actorType: 'user',
+
+  domain: 'user_management',
+  entityType: 'user',
+
+  action: 'update',
+
+  entityId: '42',
+  entityDisplay: 'alice@example.com',
+
   before: { passwordHash: '***redacted***' },
   after: { passwordHash: '***redacted***' },
   diff: { passwordHash: { before: '***', after: '***' } },
+
   reason: 'User initiated password reset',
   metadata: {
     path: '/account/reset-password',

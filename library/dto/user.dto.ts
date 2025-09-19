@@ -150,13 +150,14 @@ function getAvatar(first: string, last: string) {
   return `https://ui-avatars.com/api/?name=${[first, last].join('+')}`
 }
 
-class Profile {
+class Profile extends BaseDto {
   public readonly avatar: string
   public readonly name: Name
 
-  constructor({ name, avatar }: iProfile) {
-    this.name = name
-    this.avatar = avatar?.uri || getAvatar(name.first, name.last)
+  constructor(profile: iProfile) {
+    super(profile)
+    this.name = profile.name
+    this.avatar = profile.avatar?.uri || getAvatar(profile.name.first, profile.name.last)
   }
 }
 

@@ -1,4 +1,6 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
+import { Response } from 'express';
+import { instanceToPlain } from 'class-transformer';
 
 import { UpdateUserProfile } from 'src/app/common/interfaces/user.interfaces';
 import { updatePasswordDto } from 'src/app/features/settings/dto/updatePassword.dto';
@@ -12,9 +14,9 @@ import { UserAccountService } from 'src/app/modules/users/services/users-account
 import { ImageService } from 'src/app/modules/media/services/image.service';
 import { IMAGE_TYPE } from 'src/app/modules/media/enums/image-routes.enum';
 import { ImageEntity } from 'src/app/modules/media/entities/image.entity';
-import { Response } from 'express';
 import { AuditService } from 'src/app/modules/audit/service/audit.service';
 import {
+  Action,
   ActorType,
   AuditEntity,
   Domain,
@@ -22,6 +24,11 @@ import {
   SUB_DOMAIN,
 } from 'src/app/modules/audit/entities/audit.entity';
 import { iaudit } from 'src/app/modules/audit/dto/audit.dto';
+
+import {
+  buildAuditSnapshotsAndDiff,
+  redactHeaders,
+} from '@lib/utilities/object.util';
 
 @Injectable()
 export class SettingsService {
@@ -83,10 +90,27 @@ export class SettingsService {
   public async updateProfile(
     user: UserEntity,
     profile: UpdateUserProfile,
+    req: Request,
   ): Promise<UserEntity> {
     await this.profileService.update(user.profile, profile);
 
-    return this.userService.findOneById(user.id);
+    const new_user = await this.userService.findOneById(user.id);
+
+    await this.audit({
+      action: Action.UPDATE,
+      entityId: new_user.id,
+      entityDisplay: new_user.email,
+      before: instanceToPlain(user),
+      after: instanceToPlain(new_user),
+      reason: 'User initiated profile update.',
+      metadata: {
+        path: req.url,
+        method: req.method,
+        headers: redactHeaders(req.headers),
+      },
+    });
+
+    return new_user;
   }
 
   public async updateAvatar(
@@ -125,15 +149,22 @@ export class SettingsService {
     return this.imageService.update(avatar.id, { file, type });
   }
 
-  private async audit_event(payload: iaudit): Promise<AuditEntity> {
+  private async audit(payload: iaudit): Promise<AuditEntity> {
+    const { diff, beforeRedacted, afterRedacted } = buildAuditSnapshotsAndDiff(
+      payload.before,
+      payload.after,
+      ['password', 'refreshToken', 'resetToken'],
+    );
+
     return this.auditService.create({
+      ...payload,
       actorType: ActorType.USER,
       source: SourceType.WEB,
       domain: Domain.USER_MANAGEMENT,
       subDomain: SUB_DOMAIN.USER,
-      ...payload,
+      before: beforeRedacted,
+      after: afterRedacted,
+      diff,
     });
   }
-
-  private async sanitize_data() {}
 }

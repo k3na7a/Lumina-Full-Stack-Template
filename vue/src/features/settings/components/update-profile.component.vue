@@ -3,8 +3,8 @@ import { Form } from 'vee-validate'
 import TextInput from '@/shared/components/inputs/text.input.vue'
 import { proptype, useUpdateProfile } from '../composables/update-profile.composable.ts'
 
-const { user, callback } = defineProps<proptype>()
-const { loading, onSubmit, validationSchema } = useUpdateProfile(callback)
+const props = defineProps<proptype>()
+const { loading, onSubmit, validationSchema } = useUpdateProfile(props)
 </script>
 
 <template>
@@ -12,7 +12,7 @@ const { loading, onSubmit, validationSchema } = useUpdateProfile(callback)
     @submit="onSubmit"
     :validation-schema="validationSchema"
     v-slot="{ meta }"
-    :key="JSON.stringify(user?.updatedAt)"
+    :key="JSON.stringify(user?.profile.updatedAt)"
   >
     <div class="section d-flex flex-column gap-3 flex-sm-row p-3">
       <div class="row-header">

@@ -12,7 +12,7 @@ type iUpdateProfile = {
   onSubmit: (values: Record<string, any>) => void
 }
 
-function useUpdateProfile(callback: (props: UpdateProfile) => Promise<void>): iUpdateProfile {
+function useUpdateProfile(props: proptype): iUpdateProfile {
   const validateUtil = useFormUtil()
 
   const loading = ref<boolean>(false)
@@ -24,7 +24,7 @@ function useUpdateProfile(callback: (props: UpdateProfile) => Promise<void>): iU
 
   const onSubmit = validateUtil.getSubmitFn(validationSchema, async (values: UpdateProfile) => {
     loading.value = true
-    callback(values).finally(() => (loading.value = false))
+    props.callback(values).finally(() => (loading.value = false))
   })
 
   return { validationSchema, loading, onSubmit }
