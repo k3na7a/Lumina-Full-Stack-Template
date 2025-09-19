@@ -111,7 +111,7 @@ export class SettingsService {
       entityId: user.id,
       entityDisplay: user.email,
       before: instanceToPlain(user),
-      after: instanceToPlain(null),
+      after: instanceToPlain({}),
       reason: 'Account permanently deleted by account owner.',
     });
 

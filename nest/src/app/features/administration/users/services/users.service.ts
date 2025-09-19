@@ -90,7 +90,7 @@ export class UserAdminService {
       entityId: user.id,
       entityDisplay: user.email,
       before: instanceToPlain(user),
-      after: instanceToPlain(null),
+      after: instanceToPlain({}),
       reason: 'User account permanently deleted by administrator.',
     });
 

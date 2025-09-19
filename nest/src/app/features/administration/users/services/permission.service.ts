@@ -39,7 +39,7 @@ export class PermissionAdminService {
       action: Action.CREATE,
       entityId: permission.id,
       entityDisplay: permission.name,
-      before: instanceToPlain(null),
+      before: instanceToPlain({}),
       after: instanceToPlain(permission),
       reason: 'System permission added by administrator.',
     });
@@ -68,7 +68,7 @@ export class PermissionAdminService {
       entityId: permission.id,
       entityDisplay: permission.name,
       before: instanceToPlain(permission),
-      after: instanceToPlain(null),
+      after: instanceToPlain({}),
       reason: 'System permission removed by administrator.',
     });
 

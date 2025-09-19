@@ -68,7 +68,7 @@ export class AuthService {
       action: Action.CREATE,
       entityId: user.id,
       entityDisplay: user.email,
-      before: instanceToPlain(null),
+      before: instanceToPlain({}),
       after: instanceToPlain(user),
       reason: 'Account created by account owner during registration.',
     });

@@ -40,7 +40,7 @@ export class PlatformAdminService {
       action: Action.CREATE,
       entityId: platform.id,
       entityDisplay: platform.slug,
-      before: instanceToPlain(null),
+      before: instanceToPlain({}),
       after: instanceToPlain(platform),
       reason: 'Gaming platform added to library by administrator.',
     });
@@ -87,7 +87,7 @@ export class PlatformAdminService {
       entityId: platform.id,
       entityDisplay: platform.slug,
       before: instanceToPlain(platform),
-      after: instanceToPlain(null),
+      after: instanceToPlain({}),
       reason: 'Gaming platform removed from library by administrator.',
     });
 

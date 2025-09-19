@@ -45,7 +45,7 @@ export class RoleAdminService {
       action: Action.CREATE,
       entityId: role.id,
       entityDisplay: role.name,
-      before: instanceToPlain(null),
+      before: instanceToPlain({}),
       after: instanceToPlain(role),
       reason: 'User role added by administrator.',
     });
@@ -74,7 +74,7 @@ export class RoleAdminService {
       entityId: role.id,
       entityDisplay: role.name,
       before: instanceToPlain(role),
-      after: instanceToPlain(null),
+      after: instanceToPlain({}),
       reason: 'User role removed by administrator.',
     });
 

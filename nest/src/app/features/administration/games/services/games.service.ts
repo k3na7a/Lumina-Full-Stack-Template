@@ -105,7 +105,7 @@ export class GamesAdminService {
       action: Action.CREATE,
       entityId: game.id,
       entityDisplay: game.slug,
-      before: instanceToPlain(null),
+      before: instanceToPlain({}),
       after: instanceToPlain(game),
       reason: 'Game added to library by administrator.',
     });
@@ -151,7 +151,7 @@ export class GamesAdminService {
       entityId: game.id,
       entityDisplay: game.slug,
       before: instanceToPlain(game),
-      after: instanceToPlain(null),
+      after: instanceToPlain({}),
       reason: 'Game removed from library by administrator.',
     });
 
