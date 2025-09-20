@@ -50,6 +50,11 @@
   "error-general": "Something Went Wrong!",
   "success-general": "Changes Saved!",
   "success": "Success!",
+  "time": "Time",
+  "actor": "Actor",
+  "action": "Action",
+  "entity": "Entity",
+  "reason": "Reason",
   "placeholders": {
     "first-name": "Jane",
     "last-name": "Doe",

@@ -50,6 +50,11 @@
   "error-general": "¡Algo salió mal!",
   "success-general": "¡Cambios guardados!",
   "success": "¡Éxito!",
+  "time": "Hora",
+  "actor": "Actor",
+  "action": "Acción",
+  "entity": "Entidad",
+  "reason": "Motivo",
   "placeholders": {
     "first-name": "Jane",
     "last-name": "Doe",

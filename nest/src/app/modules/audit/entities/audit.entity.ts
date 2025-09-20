@@ -22,6 +22,16 @@ export class AuditEntity extends BaseEntity {
   @Column({ type: 'text', nullable: true, default: null })
   public readonly actorId?: string | null;
 
+  @ApiPropertyOptional({
+    description:
+      'Human-readable label for the of the actor that triggered the event.',
+    example: 'Jane Doe <jane.doe@example.com>',
+    type: String,
+    nullable: true,
+  })
+  @Column({ type: 'text', nullable: true, default: null })
+  public readonly actorDisplay?: string | null;
+
   @ApiProperty({
     description: 'Type of actor who performed the action.',
     example: ActorType.USER,

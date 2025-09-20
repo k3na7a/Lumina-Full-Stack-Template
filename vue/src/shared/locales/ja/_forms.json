@@ -50,6 +50,11 @@
   "error-general": "エラーが発生しました！",
   "success-general": "変更が保存されました！",
   "success": "成功！",
+  "time": "時間",
+  "actor": "アクター",
+  "action": "アクション",
+  "entity": "エンティティ",
+  "reason": "理由",
   "placeholders": {
     "first-name": "Jane",
     "last-name": "Doe",

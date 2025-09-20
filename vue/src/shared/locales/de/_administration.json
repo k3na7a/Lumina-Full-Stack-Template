@@ -10,7 +10,12 @@
     "label": "Multimedia-Ressourcen"
   },
   "activity-logs": {
-    "label": "Transaktionsprotokolle"
+    "label": "Aktivitätsprotokolle",
+    "all-activities": {
+      "label": "Alle Aktivitäten",
+      "title": "Systemweiter Prüfpfad",
+      "subtitle": "Sehen Sie, wer was, wann und warum getan hat — mit vollem Kontext."
+    }
   },
   "user-management": {
     "header": "Benutzerverwaltung",

@@ -50,6 +50,11 @@
   "error-general": "Es ist ein Fehler aufgetreten!",
   "success-general": "Änderungen gespeichert!",
   "success": "Erfolg!",
+  "time": "Zeit",
+  "actor": "Akteur",
+  "action": "Aktion",
+  "entity": "Entität",
+  "reason": "Grund",
   "placeholders": {
     "first-name": "Jane",
     "last-name": "Doe",

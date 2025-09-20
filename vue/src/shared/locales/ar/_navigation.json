@@ -1,0 +1,21 @@
+{
+  "home": "الصفحة الرئيسية",
+  "library": "المكتبة",
+  "history": "السجل",
+  "applications": "التطبيقات",
+  "help&legal": "المساعدة والشؤون القانونية",
+  "language": "اللغة",
+  "general": "عام",
+  "subnavigation": {
+    "about": "حول",
+    "blog": "مدونة",
+    "developers": "المطورون",
+    "jobs": "وظائف",
+    "partners": "الشركاء",
+    "community": "إرشادات المجتمع",
+    "cookies": "سياسة ملفات تعريف الارتباط",
+    "help": "مساعدة",
+    "privacy": "سياسة الخصوصية",
+    "terms": "الشروط"
+  }
+}

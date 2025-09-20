@@ -18,12 +18,11 @@ const defaultOptions: AuditPaginationOptions = {
 }
 
 const tableColumns: columns = [
-  { name: 'time', label: 'Time', sort: 'audit_event.createdAt' },
-  { name: 'actor', label: 'Actor' },
-  { name: 'action', label: 'Action' },
-  { name: 'domain', label: 'Domain' },
-  { name: 'entity', label: 'Entity' },
-  { name: 'reason', label: 'Reason' },
+  { name: 'time', label: 'forms.time', sort: 'audit_event.createdAt' },
+  { name: 'actor', label: 'forms.actor' },
+  { name: 'action', label: 'forms.action' },
+  { name: 'entity', label: 'forms.entity' },
+  { name: 'reason', label: 'forms.reason' },
   { name: 'actions' }
 ]
 

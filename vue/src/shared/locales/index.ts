@@ -3,8 +3,9 @@ import fr from '@/shared/locales/fr/fr'
 import es from '@/shared/locales/es/es'
 import de from '@/shared/locales/de/de'
 import ja from '@/shared/locales/ja/ja'
+import ar from '@/shared/locales/ar/ar'
 
-type locales = 'en' | 'es' | 'fr' | 'de' | 'ja'
+type locales = 'en' | 'es' | 'fr' | 'de' | 'ja' | 'ar'
 const LOCALES: { [id: string]: { display: string; key: locales; flag: string } } = {
   en: {
     display: 'English',
@@ -30,6 +31,11 @@ const LOCALES: { [id: string]: { display: string; key: locales; flag: string } }
     display: '日本語',
     key: 'ja',
     flag: '/media/flags/japan.svg'
+  },
+  ar: {
+    display: 'العربية',
+    key: 'ar',
+    flag: '/media/flags/saudi-arabia.svg'
   }
 }
 
@@ -38,7 +44,8 @@ const messages = {
   fr,
   es,
   de,
-  ja
+  ja,
+  ar
 }
 
 export type { locales }

@@ -10,7 +10,12 @@
     "label": "Ressources multimédia"
   },
   "activity-logs": {
-    "label": "Journaux des transactions"
+    "label": "Journaux d’activité",
+    "all-activities": {
+      "label": "Toutes les activités",
+      "title": "Piste d’audit du système",
+      "subtitle": "Voyez qui a fait quoi, quand et pourquoi — avec tout le contexte."
+    }
   },
   "user-management": {
     "header": "Gestion des utilisateurs",

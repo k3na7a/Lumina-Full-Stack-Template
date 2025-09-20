@@ -10,7 +10,12 @@
     "label": "Recursos multimedia"
   },
   "activity-logs": {
-    "label": "Registros de transacciones"
+    "label": "Registros de actividad",
+    "all-activities": {
+      "label": "Todas las actividades",
+      "title": "Registro de auditoría del sistema",
+      "subtitle": "Vea quién hizo qué, cuándo y por qué — con todo el contexto."
+    }
   },
   "user-management": {
     "header": "Gestión de usuarios",

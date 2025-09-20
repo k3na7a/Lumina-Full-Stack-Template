@@ -43,15 +43,20 @@ await getPaginatedData(options.value)
 
         <template #time="{ row }">
           <div class="d-flex flex-column">
-            <small class="text-muted">{{ moment(row.createdAt).format('lll') }}</small>
+            <small
+              class="text-info"
+              style="cursor: help"
+              v-tooltip="{ text: moment(row.createdAt).format('llll'), position: 'bottom', trigger: 'hover' }"
+              >{{ moment(row.createdAt).fromNow() }}</small
+            >
           </div>
         </template>
 
         <template #actor="{ row }">
-          <div class="d-flex flex-column">
-            <small class="text-light-alt">
+          <div class="d-flex flex-column overflow-hidden" style="max-width: 20rem">
+            <small class="text-light-alt text-truncate">
               <span class="text-primary">{{ String(row.actorType).toUpperCase() }}</span
-              >:<span>{{ row.actorId }}</span>
+              >:<span>{{ row.actorDisplay ?? row.actorId }}</span>
             </small>
           </div>
         </template>
@@ -72,18 +77,11 @@ await getPaginatedData(options.value)
           </div>
         </template>
 
-        <template #domain="{ row }">
-          <div class="d-flex flex-column">
-            <small class="text-primary">
-              <span>{{ String(row.subDomain).toUpperCase() }}</span>
-            </small>
-          </div>
-        </template>
-
         <template #entity="{ row }">
-          <div class="d-flex flex-column overflow-hidden" style="max-width: 20rem">
+          <div class="d-flex flex-column overflow-hidden" style="max-width: 30rem">
             <small class="text-light-alt text-truncate">
-              <span>{{ row.entityDisplay }}</span>
+              <span class="text-primary">{{ String(row.subDomain).toUpperCase() }}</span
+              >:<span>{{ row.entityDisplay }}</span>
             </small>
           </div>
         </template>

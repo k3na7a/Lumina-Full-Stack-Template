@@ -26,6 +26,7 @@ export class AuditService {
       actorId: req?.userId,
       actorIp: req?.ipAddress,
       actorUa: req?.userAgent,
+      actorDisplay: req?.userDisplay,
       ...dto,
     });
     return this.repository.save(platform);

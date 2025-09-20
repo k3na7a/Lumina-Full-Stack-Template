@@ -50,6 +50,11 @@
   "error-general": "Une erreur est survenue !",
   "success-general": "Modifications enregistrées !",
   "success": "Succès !",
+  "time": "Heure",
+  "actor": "Acteur",
+  "action": "Action",
+  "entity": "Entité",
+  "reason": "Raison",
   "placeholders": {
     "first-name": "Jane",
     "last-name": "Doe",

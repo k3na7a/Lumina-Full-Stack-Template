@@ -13,7 +13,9 @@ class JwtAuthGuard extends AuthGuard('jwt-access') {
     const result = await super.canActivate(context);
 
     const { user } = context.switchToHttp().getRequest();
-    if (user?.sub) this.requestContext.set('userId', user.sub);
+
+    this.requestContext.set('userId', user.sub);
+    this.requestContext.set('userDisplay', user.email);
 
     return result as boolean;
   }

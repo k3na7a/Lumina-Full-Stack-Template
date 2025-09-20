@@ -7,6 +7,7 @@ export interface RequestContextStore {
   requestId: string;
   request?: Request;
   userId?: string;
+  userDisplay?: string;
   ipAddress?: string;
   userAgent?: string;
 }
