@@ -14,7 +14,8 @@
     "all-activities": {
       "label": "Toutes les activités",
       "title": "Piste d’audit du système",
-      "subtitle": "Voyez qui a fait quoi, quand et pourquoi — avec tout le contexte."
+      "subtitle": "Voyez qui a fait quoi, quand et pourquoi — avec tout le contexte.",
+      "caption": "Affichage de {start}-{end} sur {count} événements | Affichage de {start}-{end} sur {count} événement | Affichage de {start}-{end} sur {count} événements"
     }
   },
   "user-management": {

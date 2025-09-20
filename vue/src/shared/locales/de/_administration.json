@@ -14,7 +14,8 @@
     "all-activities": {
       "label": "Alle Aktivitäten",
       "title": "Systemweiter Prüfpfad",
-      "subtitle": "Sehen Sie, wer was, wann und warum getan hat — mit vollem Kontext."
+      "subtitle": "Sehen Sie, wer was, wann und warum getan hat — mit vollem Kontext.",
+      "caption": "{start}-{end} von {count} Ereignissen werden angezeigt | {start}-{end} von {count} Ereignis wird angezeigt | {start}-{end} von {count} Ereignissen werden angezeigt"
     }
   },
   "user-management": {

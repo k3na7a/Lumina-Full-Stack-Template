@@ -14,7 +14,8 @@
     "all-activities": {
       "label": "Todas las actividades",
       "title": "Registro de auditoría del sistema",
-      "subtitle": "Vea quién hizo qué, cuándo y por qué — con todo el contexto."
+      "subtitle": "Vea quién hizo qué, cuándo y por qué — con todo el contexto.",
+      "caption": "Mostrando {start}-{end} de {count} eventos | Mostrando {start}-{end} de {count} evento | Mostrando {start}-{end} de {count} eventos"
     }
   },
   "user-management": {

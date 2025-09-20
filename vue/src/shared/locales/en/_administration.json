@@ -14,7 +14,8 @@
     "all-activities": {
       "label": "All Activities",
       "title": "System-Wide Audit Trail",
-      "subtitle": "See who did what, when, and why — with full context."
+      "subtitle": "See who did what, when, and why — with full context.",
+      "caption": "Showing {start}-{end} of {count} events | Showing {start}-{end} of {count} event | Showing {start}-{end} of {count} events"
     }
   },
   "user-management": {
