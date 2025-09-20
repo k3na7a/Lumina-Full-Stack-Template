@@ -43,7 +43,7 @@ await getPaginatedData(options.value)
 
         <template #time="{ row }">
           <div class="d-flex flex-column">
-            <small class="text-muted">{{ moment(row.createdAt).calendar() }}</small>
+            <small class="text-muted">{{ moment(row.createdAt).format('lll') }}</small>
           </div>
         </template>
 
