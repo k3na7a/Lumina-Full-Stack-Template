@@ -2,6 +2,40 @@
   scrollbar-width: thin;
 }
 
+.table-w-checkbox {
+  tr td:not(:nth-child(2)) {
+    width: 1%;
+    white-space: nowrap;
+  }
+
+  td {
+    @include after-nth(2) {
+      .cell {
+        flex-direction: row-reverse;
+        justify-content: end;
+        text-align: end;
+      }
+    }
+  }
+
+  th {
+    @include after-nth(2) {
+      .cell {
+        // flex-direction: row-reverse;
+        justify-content: end;
+        text-align: end;
+      }
+    }
+  }
+}
+
+.table-wo-checkbox {
+  tr td {
+    width: 1%;
+    white-space: nowrap;
+  }
+}
+
 table {
   width: 100%;
   table-layout: auto;
@@ -39,10 +73,10 @@ table {
     }
   }
 
-  tr td:not(:nth-child(2)) {
-    width: 1%;
-    white-space: nowrap;
-  }
+  // tr td:not(:nth-child(2)) {
+  //   width: 1%;
+  //   white-space: nowrap;
+  // }
 
   tbody {
     color: $lightAlt;
@@ -74,15 +108,6 @@ table {
 
     .badge {
       font-size: $font-size-8 !important;
-    }
-  }
-
-  td:not(:nth-child(1)):not(:nth-child(2)),
-  th:not(:nth-child(1)):not(:nth-child(2)) {
-    .cell {
-      flex-direction: row-reverse;
-      justify-content: end;
-      text-align: end;
     }
   }
 }

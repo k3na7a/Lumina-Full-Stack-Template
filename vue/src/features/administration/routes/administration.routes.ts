@@ -122,6 +122,27 @@ const route: RouteRecordRaw = {
           ]
         },
         {
+          path: 'activity-logs',
+          name: ROUTE_NAMES.ADMIN_ACTIVITY_LOGS,
+          redirect: { name: ROUTE_NAMES.ADMIN_ACTIVITY_LOGS_ALL },
+          component: () => import('@/features/administration/pages/history/history.view.vue'),
+          children: [
+            {
+              path: 'all-activities',
+              name: ROUTE_NAMES.ADMIN_ACTIVITY_LOGS_ALL,
+              component: () => import('@/features/administration/pages/history/pages/all-activities.view.vue'),
+              meta: {
+                breadcrumbs: [
+                  { name: 'navigation.home', to: ROUTE_NAMES.HOME },
+                  { name: 'administration.label', to: ROUTE_NAMES.ADMINISTRATION },
+                  { name: 'administration.activity-logs.label', to: ROUTE_NAMES.ADMIN_ACTIVITY_LOGS },
+                  { name: 'administration.activity-logs.all-activities.label', to: null }
+                ]
+              }
+            }
+          ]
+        },
+        {
           path: '/:catchAll(.*)',
           redirect: { name: ROUTE_NAMES.ADMIN_DASHBOARD }
         }

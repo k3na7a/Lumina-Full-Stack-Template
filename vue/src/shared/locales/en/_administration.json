@@ -9,8 +9,13 @@
   "resources": {
     "label": "Multimedia Resources"
   },
-  "transaction-logs": {
-    "label": "Transaction Logs"
+  "activity-logs": {
+    "label": "Activity Logs",
+    "all-activities": {
+      "label": "All Activities",
+      "title": "System-Wide Audit Trail",
+      "subtitle": "See who did what, when, and why — with full context."
+    }
   },
   "user-management": {
     "header": "User Management",

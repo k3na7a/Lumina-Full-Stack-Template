@@ -11,6 +11,7 @@ type proptype<T> = {
   loading?: boolean
   sortOptions?: Array<SortOptions>
   caption?: string
+  nocheck?: boolean
 }
 
 type columns = Array<{ name: string; label?: string; sort?: string }>

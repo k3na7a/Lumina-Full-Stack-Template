@@ -1,4 +1,5 @@
 import { BaseDto, BaseInterface } from './base.dto'
+import { PaginationOptions } from './pagination.dto'
 
 export enum ActorType {
   USER = 'user',
@@ -32,6 +33,10 @@ export enum SUB_DOMAIN {
   PERMISSION = 'permission',
   GAME = 'game',
   PLATFORM = 'platform'
+}
+
+export class AuditPaginationOptions extends PaginationOptions {
+  public readonly domain?: Domain
 }
 
 export interface AuditEvent extends BaseInterface {
@@ -83,6 +88,27 @@ export class AuditEventDto extends BaseDto implements AuditEvent {
 
   constructor(payload: AuditEvent) {
     super(payload)
-    Object.assign(this, payload)
+
+    this.actorId = payload.actorId
+    this.actorIp = payload.actorIp
+    this.actorUa = payload.actorUa
+
+    this.requestId = payload.requestId
+    this.jobId = payload.jobId
+
+    this.actorType = payload.actorType
+    this.source = payload.source
+    this.domain = payload.domain
+    this.subDomain = payload.subDomain
+
+    this.action = payload.action
+    this.entityId = payload.entityId
+    this.entityDisplay = payload.entityDisplay
+
+    this.before = payload.before
+    this.after = payload.after
+    this.diff = payload.diff
+    this.reason = payload.reason
+    this.metadata = payload.metadata
   }
 }

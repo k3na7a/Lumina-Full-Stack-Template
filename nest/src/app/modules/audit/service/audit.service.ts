@@ -8,7 +8,7 @@ import {
 } from 'src/app/common/dto/pagination.dto';
 
 import { AuditEntity } from '../entities/audit.entity';
-import { AuditPaginationOptions } from '../dto/audit.dto';
+import { AuditPaginationOptionss } from '../dto/audit.dto';
 import { RequestContext } from 'src/app/common/providers/request-context.provider';
 
 @Injectable()
@@ -32,7 +32,7 @@ export class AuditService {
   }
 
   public async paginate(
-    pageOptions: AuditPaginationOptions,
+    pageOptions: AuditPaginationOptionss,
   ): Promise<PaginationDto<AuditEntity>> {
     const { sort, order, take, skip, domain } = pageOptions;
     const [platforms, itemCount] = await this.repository

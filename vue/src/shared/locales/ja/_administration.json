@@ -9,7 +9,7 @@
   "resources": {
     "label": "マルチメディアリソース"
   },
-  "transaction-logs": {
+  "activity-logs": {
     "label": "取引ログ"
   },
   "user-management": {

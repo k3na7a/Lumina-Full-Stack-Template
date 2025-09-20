@@ -9,7 +9,7 @@
   "resources": {
     "label": "Ressources multimédia"
   },
-  "transaction-logs": {
+  "activity-logs": {
     "label": "Journaux des transactions"
   },
   "user-management": {

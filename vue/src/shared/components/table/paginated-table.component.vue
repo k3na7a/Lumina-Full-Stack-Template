@@ -8,13 +8,16 @@ import { proptype, usePaginatedTable } from './composables/paginated-table.compo
 import { Order } from '@lib/dto/pagination.dto'
 import { BaseDto } from '@lib/dto/base.dto'
 
-const { columns, rows, pages, options, loading, caption } = defineProps<proptype<T>>()
+const { columns, rows, pages, options, loading, caption, nocheck } = defineProps<proptype<T>>()
 const { resetPageAndUpdateQuery, updateQuery, handleSort, updateSelected, sortParam, orderParam, selected } =
   usePaginatedTable<T>()
 </script>
 
 <template>
-  <div class="th-table-paginated d-flex flex-column gap-3">
+  <div
+    class="th-table-paginated d-flex flex-column gap-3"
+    :class="{ 'table-w-checkbox': !nocheck, 'table-wo-checkbox': nocheck }"
+  >
     <div class="d-flex flex-column flex-md-row justify-content-between gap-3" style="column-gap: 1rem">
       <div class="d-flex flex-grow-1 search-bar">
         <SearchInputComponent
@@ -28,7 +31,7 @@ const { resetPageAndUpdateQuery, updateQuery, handleSort, updateSelected, sortPa
       </div>
     </div>
 
-    <div class="d-flex align-items-center justify-content-between p-2 bg-alt3 gap-2">
+    <div v-if="!nocheck" class="d-flex align-items-center justify-content-between p-2 bg-alt3 gap-2">
       <small class="ps-1">{{ $t('forms.items-selected', selected.length) }}</small>
       <div class="d-flex align-items-center gap-2">
         <slot name="selected" :selected="selected"></slot>
@@ -39,7 +42,7 @@ const { resetPageAndUpdateQuery, updateQuery, handleSort, updateSelected, sortPa
       <table class="m-0" :class="{ disabled: loading }">
         <thead>
           <tr>
-            <th class="d-flex align-items-center justify-content-center">
+            <th v-if="!nocheck" class="d-flex align-items-center justify-content-center">
               <div class="cell justify-content-center">
                 <CheckboxInput name="table-header" />
               </div>
@@ -78,7 +81,7 @@ const { resetPageAndUpdateQuery, updateQuery, handleSort, updateSelected, sortPa
           <tbody>
             <template v-for="(row, idx) in rows" :key="`row:${idx}:${row.id}`">
               <tr>
-                <td>
+                <td v-if="!nocheck">
                   <div class="cell justify-content-center">
                     <CheckboxInput :name="row.id" @update="(value: boolean) => updateSelected(value, row)" />
                   </div>

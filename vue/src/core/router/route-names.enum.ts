@@ -15,6 +15,9 @@ enum ROUTE_NAMES {
   ADMIN_GAMES = 'admin-games',
   ADMIN_PLATFORMS = 'admin-platforms',
 
+  ADMIN_ACTIVITY_LOGS = 'admin-activity-logs',
+  ADMIN_ACTIVITY_LOGS_ALL = 'admin-activity-logs-all',
+
   SETTINGS = 'settings',
   SECURITY = 'security',
   PROFILE = 'profile',

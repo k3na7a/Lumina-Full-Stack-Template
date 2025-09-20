@@ -4,10 +4,10 @@ import { IsEnum, IsOptional } from 'class-validator';
 import { Action, Domain } from '@lib/dto/audit.dto';
 
 enum SORT_OPTIONS {
-  CREATED = 'audit.createdAt',
+  CREATED = 'audit_event.createdAt',
 }
 
-export class AuditPaginationOptions extends PaginationOptions {
+export class AuditPaginationOptionss extends PaginationOptions {
   @ApiPropertyOptional({
     description: 'Sort order for the audit event list. Defaults to `CREATED`.',
     enum: SORT_OPTIONS,

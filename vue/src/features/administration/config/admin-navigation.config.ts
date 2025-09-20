@@ -23,8 +23,8 @@ const routes: side_navigation = [
     icon: ['fas', 'film']
   },
   {
-    name: ROUTE_NAMES.HOME,
-    label: 'administration.transaction-logs.label',
+    name: ROUTE_NAMES.ADMIN_ACTIVITY_LOGS,
+    label: 'administration.activity-logs.label',
     icon: ['fas', 'timeline']
   }
 ]

@@ -28,8 +28,8 @@ class PaginationMeta {
 }
 
 class PaginationDto<T> {
-  readonly data: T[]
-  readonly meta: PaginationMeta
+  public readonly data: T[]
+  public readonly meta: PaginationMeta
 
   constructor(data: T[], meta: PaginationMeta) {
     this.data = data
@@ -38,12 +38,12 @@ class PaginationDto<T> {
 }
 
 class PaginationOptions {
-  order: Order = Order.ASC
-  page: number = 1
-  take: number = 10
-  sort?: string
-  search?: string
-  expanded?: boolean
+  public readonly order: Order = Order.ASC
+  public readonly page: number = 1
+  public readonly take: number = 10
+  public readonly sort?: string
+  public readonly search?: string
+  public readonly expanded?: boolean
 }
 
 interface PaginationMetaParameters {

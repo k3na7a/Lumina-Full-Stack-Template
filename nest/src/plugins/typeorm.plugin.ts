@@ -27,6 +27,7 @@ const connectionOptions: TypeOrmModuleOptions = {
     idleTimeout: 60000,
     enableKeepAlive: true,
   },
+  timezone: 'Z',
 };
 
 export class TypeOrmPlugin {

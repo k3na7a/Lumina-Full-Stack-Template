@@ -1,0 +1,7 @@
+// Mixin: selects all children after the $n-th one
+@mixin after-nth($n) {
+  // nth-child uses 1-based indexes, so n+($n+1)
+  &:not(:nth-child(-n + #{$n})) {
+    @content;
+  }
+}
