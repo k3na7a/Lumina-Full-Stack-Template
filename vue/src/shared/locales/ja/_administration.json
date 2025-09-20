@@ -16,6 +16,14 @@
       "title": "システム全体の監査証跡",
       "subtitle": "誰が、いつ、なぜ、何をしたのかを完全なコンテキストで確認できます。",
       "caption": "{start}-{end} 件中 {count} 件のイベントを表示 | {start}-{end} 件中 {count} 件のイベントを表示 | {start}-{end} 件中 {count} 件のイベントを表示"
+    },
+    "user-management": {
+      "title": "ユーザー管理監査ログ",
+      "subtitle": "アカウントの変更を追跡 — 誰がユーザーを作成、更新、削除したのか、そしてその理由。"
+    },
+    "games-and-software": {
+      "title": "ゲームとソフトウェア監査ログ",
+      "subtitle": "すべてのゲームやプラットフォームの追加、更新、削除を追跡 — 詳細付き。"
     }
   },
   "user-management": {

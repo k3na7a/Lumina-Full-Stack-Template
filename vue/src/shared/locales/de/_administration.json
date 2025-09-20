@@ -16,6 +16,14 @@
       "title": "Systemweiter Prüfpfad",
       "subtitle": "Sehen Sie, wer was, wann und warum getan hat — mit vollem Kontext.",
       "caption": "{start}-{end} von {count} Ereignissen werden angezeigt | {start}-{end} von {count} Ereignis wird angezeigt | {start}-{end} von {count} Ereignissen werden angezeigt"
+    },
+    "user-management": {
+      "title": "Prüfprotokoll der Benutzerverwaltung",
+      "subtitle": "Verfolgen Sie Kontoänderungen — wer Benutzer erstellt, aktualisiert oder entfernt hat und warum."
+    },
+    "games-and-software": {
+      "title": "Prüfprotokoll für Spiele und Software",
+      "subtitle": "Verfolgen Sie jede Hinzufügung, Aktualisierung oder Löschung von Spielen und Plattformen — mit allen Details."
     }
   },
   "user-management": {

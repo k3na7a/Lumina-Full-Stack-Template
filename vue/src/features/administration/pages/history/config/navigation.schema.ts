@@ -3,8 +3,8 @@ import { sub_navigation } from '@/shared/components/navigation/types/sub-navigat
 
 const options: sub_navigation = [
   { label: 'administration.activity-logs.all-activities.label', name: ROUTE_NAMES.ADMIN_ACTIVITY_LOGS_ALL },
-  { label: 'administration.user-management.header', name: ROUTE_NAMES.HOME },
-  { label: 'administration.games-and-software.header', name: ROUTE_NAMES.HOME }
+  { label: 'administration.user-management.header', name: ROUTE_NAMES.ADMIN_ACTIVITY_LOGS_USERS },
+  { label: 'administration.games-and-software.header', name: ROUTE_NAMES.ADMIN_ACTIVITY_LOGS_GAMES }
 ]
 
 export { options }

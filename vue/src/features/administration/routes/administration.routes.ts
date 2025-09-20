@@ -84,6 +84,19 @@ const route: RouteRecordRaw = {
                   { name: 'administration.user-management.permissions.label', to: null }
                 ]
               }
+            },
+            {
+              path: 'history',
+              name: ROUTE_NAMES.ADMIN_USER_MANAGEMENT_HISTORY,
+              component: () => import('@/features/administration/pages/history/pages/user-management.view.vue'),
+              meta: {
+                breadcrumbs: [
+                  { name: 'navigation.home', to: ROUTE_NAMES.HOME },
+                  { name: 'administration.label', to: ROUTE_NAMES.ADMINISTRATION },
+                  { name: 'administration.user-management.header', to: ROUTE_NAMES.ADMIN_USERS },
+                  { name: 'navigation.history', to: null }
+                ]
+              }
             }
           ]
         },
@@ -118,6 +131,19 @@ const route: RouteRecordRaw = {
                   { name: 'administration.games-and-software.platforms.label', to: null }
                 ]
               }
+            },
+            {
+              path: 'history',
+              name: ROUTE_NAMES.ADMIN_GAMES_AND_SOFTWARE_HISTORY,
+              component: () => import('@/features/administration/pages/history/pages/games-and-software.view.vue'),
+              meta: {
+                breadcrumbs: [
+                  { name: 'navigation.home', to: ROUTE_NAMES.HOME },
+                  { name: 'administration.label', to: ROUTE_NAMES.ADMINISTRATION },
+                  { name: 'administration.games-and-software.header', to: ROUTE_NAMES.ADMIN_GAMES },
+                  { name: 'navigation.history', to: null }
+                ]
+              }
             }
           ]
         },
@@ -137,6 +163,32 @@ const route: RouteRecordRaw = {
                   { name: 'administration.label', to: ROUTE_NAMES.ADMINISTRATION },
                   { name: 'administration.activity-logs.label', to: ROUTE_NAMES.ADMIN_ACTIVITY_LOGS },
                   { name: 'administration.activity-logs.all-activities.label', to: null }
+                ]
+              }
+            },
+            {
+              path: 'user-management',
+              name: ROUTE_NAMES.ADMIN_ACTIVITY_LOGS_USERS,
+              component: () => import('@/features/administration/pages/history/pages/user-management.view.vue'),
+              meta: {
+                breadcrumbs: [
+                  { name: 'navigation.home', to: ROUTE_NAMES.HOME },
+                  { name: 'administration.label', to: ROUTE_NAMES.ADMINISTRATION },
+                  { name: 'administration.activity-logs.label', to: ROUTE_NAMES.ADMIN_ACTIVITY_LOGS },
+                  { name: 'administration.user-management.header', to: null }
+                ]
+              }
+            },
+            {
+              path: 'games-and-software',
+              name: ROUTE_NAMES.ADMIN_ACTIVITY_LOGS_GAMES,
+              component: () => import('@/features/administration/pages/history/pages/games-and-software.view.vue'),
+              meta: {
+                breadcrumbs: [
+                  { name: 'navigation.home', to: ROUTE_NAMES.HOME },
+                  { name: 'administration.label', to: ROUTE_NAMES.ADMINISTRATION },
+                  { name: 'administration.activity-logs.label', to: ROUTE_NAMES.ADMIN_ACTIVITY_LOGS },
+                  { name: 'administration.games-and-software.header', to: null }
                 ]
               }
             }

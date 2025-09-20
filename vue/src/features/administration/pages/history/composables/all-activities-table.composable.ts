@@ -6,16 +6,7 @@ import { parseQuery } from '@lib/utilities/parse-query.util.ts'
 import { Order, PaginationOptions, PaginationDto, PaginationMeta } from '@lib/dto/pagination.dto'
 import { columns } from '@/shared/components/table/composables/paginated-table.composable'
 import { useHistoryAdminHandler } from '../handlers/history.handler'
-import { AuditEventDto, AuditPaginationOptions } from '@lib/dto/audit.dto'
-
-const defaultOptions: AuditPaginationOptions = {
-  take: 25,
-  order: Order.DESC,
-  page: 1,
-  sort: 'audit_event.createdAt',
-  search: undefined,
-  domain: undefined
-}
+import { AuditEventDto, AuditPaginationOptions, Domain } from '@lib/dto/audit.dto'
 
 const tableColumns: columns = [
   { name: 'time', label: 'forms.time', sort: 'audit_event.createdAt' },
@@ -26,10 +17,19 @@ const tableColumns: columns = [
   { name: 'actions' }
 ]
 
-export function useActivitiesTable() {
+export function useActivitiesTable(domain?: Domain) {
   const { t } = useI18n()
   const $route = useRoute()
   const { paginate } = useHistoryAdminHandler(t)
+
+  const defaultOptions: AuditPaginationOptions = {
+    take: 25,
+    order: Order.DESC,
+    page: 1,
+    sort: 'audit_event.createdAt',
+    search: undefined,
+    domain
+  }
 
   const loading = ref<boolean>(false)
   const options = computed<PaginationOptions>(() => parseQuery<PaginationOptions>($route.query, defaultOptions))

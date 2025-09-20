@@ -16,6 +16,14 @@
       "title": "System-Wide Audit Trail",
       "subtitle": "See who did what, when, and why — with full context.",
       "caption": "Showing {start}-{end} of {count} events | Showing {start}-{end} of {count} event | Showing {start}-{end} of {count} events"
+    },
+    "user-management": {
+      "title": "User Management Audit Trail",
+      "subtitle": "Track account changes — who created, updated, or removed users, and why."
+    },
+    "games-and-software": {
+      "title": "Games & Software Audit Trail",
+      "subtitle": "Follow every addition, update, or deletion of games and platforms — with full details."
     }
   },
   "user-management": {

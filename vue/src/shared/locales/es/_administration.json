@@ -16,6 +16,14 @@
       "title": "Registro de auditoría del sistema",
       "subtitle": "Vea quién hizo qué, cuándo y por qué — con todo el contexto.",
       "caption": "Mostrando {start}-{end} de {count} eventos | Mostrando {start}-{end} de {count} evento | Mostrando {start}-{end} de {count} eventos"
+    },
+    "user-management": {
+      "title": "Registro de auditoría de gestión de usuarios",
+      "subtitle": "Rastree los cambios en las cuentas — quién creó, actualizó o eliminó usuarios, y por qué."
+    },
+    "games-and-software": {
+      "title": "Registro de auditoría de juegos y software",
+      "subtitle": "Siga cada adición, actualización o eliminación de juegos y plataformas — con todos los detalles."
     }
   },
   "user-management": {

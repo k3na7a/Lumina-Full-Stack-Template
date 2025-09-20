@@ -16,6 +16,14 @@
       "title": "Piste d’audit du système",
       "subtitle": "Voyez qui a fait quoi, quand et pourquoi — avec tout le contexte.",
       "caption": "Affichage de {start}-{end} sur {count} événements | Affichage de {start}-{end} sur {count} événement | Affichage de {start}-{end} sur {count} événements"
+    },
+    "user-management": {
+      "title": "Piste d’audit de la gestion des utilisateurs",
+      "subtitle": "Suivez les changements de compte — qui a créé, mis à jour ou supprimé des utilisateurs, et pourquoi."
+    },
+    "games-and-software": {
+      "title": "Piste d’audit des jeux et logiciels",
+      "subtitle": "Suivez chaque ajout, mise à jour ou suppression de jeux et de plateformes — avec tous les détails."
     }
   },
   "user-management": {
