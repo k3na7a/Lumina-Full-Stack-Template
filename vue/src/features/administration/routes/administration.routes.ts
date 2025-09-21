@@ -177,7 +177,8 @@ const route: RouteRecordRaw = {
                 ],
                 activityLog: {
                   title: 'administration.activity-logs.all-activities.title',
-                  subtitle: 'administration.activity-logs.all-activities.subtitle'
+                  subtitle: 'administration.activity-logs.all-activities.subtitle',
+                  domain: undefined
                 }
               }
             },
