@@ -1,4 +1,5 @@
 import { ROUTE_NAMES } from '@/core/router/route-names.enum'
+import { Domain } from '@lib/dto/audit.dto'
 import { App } from 'vue'
 import {
   RouteLocationNormalized,
@@ -6,20 +7,39 @@ import {
   Router,
   RouterOptions,
   createRouter,
-  createWebHistory
+  createWebHistory,
+  useRoute
 } from 'vue-router'
 
 import 'vue-router'
 
 export interface Breadcrumb {
   name: string
-  to?: ROUTE_NAMES | null // optional, null for the active item
+  to: ROUTE_NAMES | null
+}
+
+export interface ActivityMeta {
+  title: string
+  subtitle: string
+  domain?: Domain
 }
 
 declare module 'vue-router' {
   interface RouteMeta {
     breadcrumbs?: Breadcrumb[]
+    activityLog?: ActivityMeta
   }
+}
+
+type RouteWithActivity = ReturnType<typeof useRoute> & {
+  meta: { activityLog: ActivityMeta }
+}
+
+export function useActivityRoute(): RouteWithActivity {
+  const route = useRoute()
+  if (!('activityLog' in route.meta))
+    throw new Error(`[activities] Missing meta.activityLog on route "${String(route.name) ?? route.path}"`)
+  return route as RouteWithActivity
 }
 
 class VueRouterService {

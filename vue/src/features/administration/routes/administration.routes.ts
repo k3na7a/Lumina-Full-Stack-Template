@@ -1,6 +1,7 @@
 import { RouteRecordRaw } from 'vue-router'
 
 import { ROUTE_NAMES } from '@/core/router/route-names.enum'
+import { Domain } from '@lib/dto/audit.dto'
 
 const route: RouteRecordRaw = {
   path: '/',
@@ -88,14 +89,19 @@ const route: RouteRecordRaw = {
             {
               path: 'history',
               name: ROUTE_NAMES.ADMIN_USER_MANAGEMENT_HISTORY,
-              component: () => import('@/features/administration/pages/history/pages/user-management.view.vue'),
+              component: () => import('@/features/administration/pages/history/pages/all-activities.view.vue'),
               meta: {
                 breadcrumbs: [
                   { name: 'navigation.home', to: ROUTE_NAMES.HOME },
                   { name: 'administration.label', to: ROUTE_NAMES.ADMINISTRATION },
                   { name: 'administration.user-management.header', to: ROUTE_NAMES.ADMIN_USERS },
                   { name: 'navigation.history', to: null }
-                ]
+                ],
+                activityLog: {
+                  title: 'administration.activity-logs.user-management.title',
+                  subtitle: 'administration.activity-logs.user-management.subtitle',
+                  domain: Domain.USER_MANAGEMENT
+                }
               }
             }
           ]
@@ -135,14 +141,19 @@ const route: RouteRecordRaw = {
             {
               path: 'history',
               name: ROUTE_NAMES.ADMIN_GAMES_AND_SOFTWARE_HISTORY,
-              component: () => import('@/features/administration/pages/history/pages/games-and-software.view.vue'),
+              component: () => import('@/features/administration/pages/history/pages/all-activities.view.vue'),
               meta: {
                 breadcrumbs: [
                   { name: 'navigation.home', to: ROUTE_NAMES.HOME },
                   { name: 'administration.label', to: ROUTE_NAMES.ADMINISTRATION },
                   { name: 'administration.games-and-software.header', to: ROUTE_NAMES.ADMIN_GAMES },
                   { name: 'navigation.history', to: null }
-                ]
+                ],
+                activityLog: {
+                  title: 'administration.activity-logs.games-and-software.title',
+                  subtitle: 'administration.activity-logs.games-and-software.subtitle',
+                  domain: Domain.GAMES_AND_SOFTWARE
+                }
               }
             }
           ]
@@ -163,33 +174,47 @@ const route: RouteRecordRaw = {
                   { name: 'administration.label', to: ROUTE_NAMES.ADMINISTRATION },
                   { name: 'administration.activity-logs.label', to: ROUTE_NAMES.ADMIN_ACTIVITY_LOGS },
                   { name: 'administration.activity-logs.all-activities.label', to: null }
-                ]
+                ],
+                activityLog: {
+                  title: 'administration.activity-logs.all-activities.title',
+                  subtitle: 'administration.activity-logs.all-activities.subtitle'
+                }
               }
             },
             {
               path: 'user-management',
               name: ROUTE_NAMES.ADMIN_ACTIVITY_LOGS_USERS,
-              component: () => import('@/features/administration/pages/history/pages/user-management.view.vue'),
+              component: () => import('@/features/administration/pages/history/pages/all-activities.view.vue'),
               meta: {
                 breadcrumbs: [
                   { name: 'navigation.home', to: ROUTE_NAMES.HOME },
                   { name: 'administration.label', to: ROUTE_NAMES.ADMINISTRATION },
                   { name: 'administration.activity-logs.label', to: ROUTE_NAMES.ADMIN_ACTIVITY_LOGS },
                   { name: 'administration.user-management.header', to: null }
-                ]
+                ],
+                activityLog: {
+                  title: 'administration.activity-logs.user-management.title',
+                  subtitle: 'administration.activity-logs.user-management.subtitle',
+                  domain: Domain.USER_MANAGEMENT
+                }
               }
             },
             {
               path: 'games-and-software',
               name: ROUTE_NAMES.ADMIN_ACTIVITY_LOGS_GAMES,
-              component: () => import('@/features/administration/pages/history/pages/games-and-software.view.vue'),
+              component: () => import('@/features/administration/pages/history/pages/all-activities.view.vue'),
               meta: {
                 breadcrumbs: [
                   { name: 'navigation.home', to: ROUTE_NAMES.HOME },
                   { name: 'administration.label', to: ROUTE_NAMES.ADMINISTRATION },
                   { name: 'administration.activity-logs.label', to: ROUTE_NAMES.ADMIN_ACTIVITY_LOGS },
                   { name: 'administration.games-and-software.header', to: null }
-                ]
+                ],
+                activityLog: {
+                  title: 'administration.activity-logs.games-and-software.title',
+                  subtitle: 'administration.activity-logs.games-and-software.subtitle',
+                  domain: Domain.GAMES_AND_SOFTWARE
+                }
               }
             }
           ]

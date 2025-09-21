@@ -5,17 +5,20 @@ import ContentLayout from '@/features/administration/layouts/content.layout.vue'
 import { useActivitiesTable } from '../composables/all-activities-table.composable.ts'
 import moment from 'moment'
 import { Action } from '@lib/dto/audit.dto.ts'
+import { computed } from 'vue'
+import { useActivityRoute } from '@/plugins/vuerouter.plugin.ts'
 
-const { t, response, options, loading, tableColumns, getPaginatedData } = useActivitiesTable()
+const route = useActivityRoute()
+const params = computed(() => {
+  return route.meta.activityLog
+})
 
+const { t, response, options, loading, tableColumns, getPaginatedData } = useActivitiesTable(params.value.domain)
 await getPaginatedData(options.value)
 </script>
 
 <template>
-  <ContentLayout
-    title="administration.activity-logs.all-activities.title"
-    subtitle="administration.activity-logs.all-activities.subtitle"
-  >
+  <ContentLayout :title="params.title" :subtitle="params.subtitle">
     <template #table>
       <TablePaginatedComponent
         nocheck
