@@ -43,6 +43,10 @@ body {
   }
 }
 
+a {
+  transition: all 0.15s ease-in-out;
+}
+
 .box-shadow {
   box-shadow: $boxShadow;
 }
