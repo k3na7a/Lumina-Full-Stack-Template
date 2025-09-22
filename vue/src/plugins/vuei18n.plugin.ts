@@ -1,8 +1,8 @@
 import { App } from 'vue'
 import { createI18n } from 'vue-i18n'
 
-import { useLocalStorageUtil } from '@/core/utils/local-storage.util'
-import { messages } from '@/shared/locales'
+import { useLocalStorageUtil } from '@lib/utilities/local-storage.util'
+import { messages } from '@lib/locales'
 
 const TOKEN: string = 'i18n-locale'
 

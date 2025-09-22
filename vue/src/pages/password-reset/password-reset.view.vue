@@ -8,7 +8,7 @@ import { useFormUtil } from '@/core/utils/forms.util'
 import { ResetPassword } from '@lib/dto/user.dto'
 import { useAppHandler } from '@/core/handlers/app.handler'
 
-import { ROUTE_NAMES } from '@/core/router/route-names.enum'
+import { ROUTE_NAMES } from '@lib/enums/route-names.enum'
 import TextInput from '@/shared/components/inputs/text.input.vue'
 
 import { validationSchema } from './password-reset.form'

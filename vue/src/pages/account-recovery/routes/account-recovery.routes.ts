@@ -1,4 +1,4 @@
-import { ROUTE_NAMES } from '@/core/router/route-names.enum'
+import { ROUTE_NAMES } from '@lib/enums/route-names.enum'
 import { RouteRecordRaw } from 'vue-router'
 
 

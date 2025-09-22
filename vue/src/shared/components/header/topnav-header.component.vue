@@ -19,8 +19,8 @@ const { title, subtitle, routes } = defineProps<props>()
   <header class="th-header d-flex flex-column gap-1 p-3 pb-0">
     <div v-if="breadcrumbs.length">
       <ol class="d-flex flex-row gap-2 flex-wrap m-0 p-0 align-items-center text-primary" style="list-style-type: none">
-        <li class="text-muted">
-          <font-awesome-icon size="lg" :icon="['far', 'bookmark']" />
+        <li class="text-light-alt">
+          <font-awesome-icon size="xl" :icon="['far', 'bookmark']" />
         </li>
         <template v-for="(crumb, idx) in breadcrumbs" :key="idx">
           <li>

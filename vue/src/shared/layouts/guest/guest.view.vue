@@ -5,7 +5,7 @@ import NavbarComponent from '@/shared/components/navbar/navbar.component.vue'
 import LanguagesDropdown from '@/shared/components/dropdown/languages.dropdown.component.vue'
 import RenderedView from '@/shared/components/page/page.component.vue'
 
-import { ROUTE_NAMES } from '@/core/router/route-names.enum'
+import { ROUTE_NAMES } from '@lib/enums/route-names.enum'
 
 const $route: RouteLocationNormalizedLoaded = useRoute()
 </script>

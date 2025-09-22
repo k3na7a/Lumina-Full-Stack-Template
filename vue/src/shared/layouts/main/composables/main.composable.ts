@@ -7,7 +7,7 @@ import { AppStore, useAppStore } from '@/core/store/app.store'
 import { UserDto } from '@lib/dto/user.dto'
 import { MORE_NAVIGATION } from '../config/more-navigation.schema'
 import { more_navigation } from '@/shared/components/dropdown/types/more-navigation.type'
-import { ROUTE_NAMES } from '@/core/router/route-names.enum'
+import { ROUTE_NAMES } from '@lib/enums/route-names.enum'
 
 type MainLayout = {
   register: () => void

@@ -27,6 +27,6 @@
       "@src/*": ["./src/*"]
     }
   },
-  "include": ["src/**/*.ts", "src/**/*.tsx", "src/**/*.vue", "../library/*.ts", "../archive/multiplication-calulator.component.vue"],
+  "include": ["src/**/*.ts", "src/**/*.tsx", "src/**/*.vue", "../library/*.ts", "../archive/multiplication-calulator.component.vue", "../library/enums/route-names.enum.ts", "../library/utilities/local-storage.util.ts"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }

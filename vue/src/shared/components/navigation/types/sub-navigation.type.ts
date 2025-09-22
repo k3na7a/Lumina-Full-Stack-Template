@@ -1,4 +1,4 @@
-import { ROUTE_NAMES } from '@/core/router/route-names.enum'
+import { ROUTE_NAMES } from '@lib/enums/route-names.enum'
 
 type sub_navigation = Array<{ name: ROUTE_NAMES; label: string }>
 type side_navigation = Array<{

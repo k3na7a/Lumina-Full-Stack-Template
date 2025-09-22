@@ -11,7 +11,7 @@ import { useAppHandler } from '@/core/handlers/app.handler.ts'
 import { validationSchema } from './account-recovery.form.ts'
 
 import TextInput from '@/shared/components/inputs/text.input.vue'
-import { ROUTE_NAMES } from '@/core/router/route-names.enum.ts'
+import { ROUTE_NAMES } from '@lib/enums/route-names.enum.ts'
 
 enum PAGES {
   FORM,

@@ -1,10 +1,10 @@
 <script setup lang="ts">
 import { useI18n } from 'vue-i18n'
 
-import { ILocalStorageUtil, useLocalStorageUtil } from '@/core/utils/local-storage.util'
+import { ILocalStorageUtil, useLocalStorageUtil } from '@lib/utilities/local-storage.util'
 import { TOKEN } from '@/plugins/vuei18n.plugin'
 
-import { LOCALES } from '@/shared/locales'
+import { LOCALES } from '@lib/locales'
 
 import DropdownComponent from './base/dropdown.component.vue'
 

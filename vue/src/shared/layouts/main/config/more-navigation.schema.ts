@@ -1,4 +1,4 @@
-import { ROUTE_NAMES } from '@/core/router/route-names.enum'
+import { ROUTE_NAMES } from '@lib/enums/route-names.enum'
 import { more_navigation } from '../../../components/dropdown/types/more-navigation.type'
 
 const MORE_NAVIGATION: more_navigation = [

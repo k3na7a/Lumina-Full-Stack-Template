@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { Form } from 'vee-validate'
 
-import { ROUTE_NAMES } from '@/core/router/route-names.enum'
+import { ROUTE_NAMES } from '@lib/enums/route-names.enum'
 
 import ModalTitleComponent from '@/shared/components/modal/base/modal-title.component.vue'
 import TextInput from '@/shared/components/inputs/text.input.vue'

@@ -1,4 +1,4 @@
-import { ROUTE_NAMES } from '@/core/router/route-names.enum'
+import { ROUTE_NAMES } from '@lib/enums/route-names.enum'
 import { sub_navigation } from '@/shared/components/navigation/types/sub-navigation.type'
 
 const options: sub_navigation = [

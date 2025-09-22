@@ -1,6 +1,6 @@
 import { RouteRecordRaw } from 'vue-router'
 
-import { ROUTE_NAMES } from '@/core/router/route-names.enum'
+import { ROUTE_NAMES } from '@lib/enums/route-names.enum'
 import { Domain } from '@lib/dto/audit.dto'
 
 const route: RouteRecordRaw = {

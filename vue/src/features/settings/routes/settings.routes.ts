@@ -1,5 +1,5 @@
 import { RouteRecordRaw } from 'vue-router'
-import { ROUTE_NAMES } from '@/core/router/route-names.enum'
+import { ROUTE_NAMES } from '@lib/enums/route-names.enum'
 
 const route: RouteRecordRaw = {
   path: '/',
@@ -16,12 +16,26 @@ const route: RouteRecordRaw = {
         {
           path: 'profile',
           name: ROUTE_NAMES.PROFILE,
-          component: () => import('@/features/settings/pages/profile.view.vue')
+          component: () => import('@/features/settings/pages/profile.view.vue'),
+          meta: {
+            breadcrumbs: [
+              { name: 'navigation.home', to: ROUTE_NAMES.HOME },
+              { name: 'settings.label', to: ROUTE_NAMES.ADMINISTRATION },
+              { name: 'administration.activity-logs.all-activities.label', to: null }
+            ]
+          }
         },
         {
           path: 'security',
           name: ROUTE_NAMES.SECURITY,
-          component: () => import('@/features/settings/pages/security.view.vue')
+          component: () => import('@/features/settings/pages/security.view.vue'),
+          meta: {
+            breadcrumbs: [
+              { name: 'navigation.home', to: ROUTE_NAMES.HOME },
+              { name: 'settings.label', to: ROUTE_NAMES.ADMINISTRATION },
+              { name: 'administration.activity-logs.all-activities.label', to: null }
+            ]
+          }
         }
       ]
     }
