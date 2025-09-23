@@ -1,7 +1,7 @@
 import * as Yup from 'yup'
 import { computed, ref } from 'vue'
 
-import { useFormUtil } from '@/shared/utils/forms.util'
+import { useFormUtil } from '@/core/utils/forms.util'
 import { LocalhostAPI } from '@/core/apis'
 import { AppStore, useAppStore } from '@/core/store/app.store'
 import { PaginationOptions } from '@lib/dto/pagination.dto'

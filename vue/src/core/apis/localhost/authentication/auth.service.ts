@@ -2,7 +2,7 @@ import { AxiosInstance } from 'axios'
 
 import { JWTDto, IJWT, CsrfDto, ICSRF } from '@lib/dto/JWT.dto'
 import { RegisterDto, ResetPasswordDto } from '@lib/dto/user.dto'
-import { AxiosService } from '@/shared/utils/axios.util'
+import { AxiosService } from '@/core/utils/axios.util'
 
 class authentication {
   private readonly $api: AxiosInstance

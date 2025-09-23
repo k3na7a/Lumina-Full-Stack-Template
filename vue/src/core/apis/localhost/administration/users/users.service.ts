@@ -1,7 +1,7 @@
 import { AxiosInstance, AxiosResponse } from 'axios'
 
 import { PaginationDto, PaginationOptions } from '@lib/dto/pagination.dto'
-import { AxiosService } from '@/shared/utils/axios.util'
+import { AxiosService } from '@/core/utils/axios.util'
 import { iUser, UpdateUserDto, UserDto } from '@lib/dto/user.dto'
 
 class users {

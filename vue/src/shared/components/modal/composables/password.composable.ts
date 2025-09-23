@@ -1,7 +1,7 @@
 import * as Yup from 'yup'
 import { Ref, ref } from 'vue'
 
-import { useFormUtil } from '@/shared/utils/forms.util'
+import { useFormUtil } from '@/core/utils/forms.util'
 
 type FormValues = { password: string }
 type PasswordModal = {

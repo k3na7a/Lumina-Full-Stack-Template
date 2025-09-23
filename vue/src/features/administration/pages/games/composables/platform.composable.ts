@@ -1,6 +1,6 @@
 import * as Yup from 'yup'
 import { computed, ComputedRef, Ref, ref } from 'vue'
-import { useFormUtil } from '@/shared/utils/forms.util'
+import { useFormUtil } from '@/core/utils/forms.util'
 import { PlatformDto } from '@lib/dto/platform.dto'
 
 type proptype = {

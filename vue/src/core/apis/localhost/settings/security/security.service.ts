@@ -1,6 +1,6 @@
 import { AxiosInstance } from 'axios'
 
-import { AxiosService } from '@/shared/utils/axios.util'
+import { AxiosService } from '@/core/utils/axios.util'
 import { UpdateEmailDto, UpdatePasswordDto } from '@lib/dto/user.dto'
 import { IJWT, JWTDto } from '@lib/dto/JWT.dto'
 

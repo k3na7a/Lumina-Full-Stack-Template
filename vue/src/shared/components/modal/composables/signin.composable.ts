@@ -1,7 +1,7 @@
 import * as Yup from 'yup'
 import { Ref, ref } from 'vue'
 
-import { useFormUtil } from '@/shared/utils/forms.util'
+import { useFormUtil } from '@/core/utils/forms.util'
 
 import { credentials } from '@lib/dto/JWT.dto'
 

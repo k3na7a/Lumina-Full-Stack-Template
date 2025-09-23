@@ -1,7 +1,7 @@
 import { Ref, ref } from 'vue'
 import * as Yup from 'yup'
 
-import { useFormUtil } from '@/shared/utils/forms.util'
+import { useFormUtil } from '@/core/utils/forms.util'
 import { UpdateProfile, UserDto } from '@lib/dto/user.dto'
 
 type proptype = { user: UserDto; callback: (props: UpdateProfile) => Promise<void> }

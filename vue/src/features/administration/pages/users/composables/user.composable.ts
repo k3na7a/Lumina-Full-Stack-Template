@@ -2,7 +2,7 @@ import { computed, Ref, ref, toRef } from 'vue'
 import { useI18n } from 'vue-i18n'
 import * as Yup from 'yup'
 
-import { useFormUtil } from '@/shared/utils/forms.util'
+import { useFormUtil } from '@/core/utils/forms.util'
 import { UserDto, UpdateUser } from '@lib/dto/user.dto'
 import { LocalhostAPI } from '@/core/apis'
 import { AppStore, useAppStore } from '@/core/store/app.store'

@@ -1,6 +1,6 @@
 import { AxiosInstance, AxiosResponse } from 'axios'
 
-import { AxiosService } from '@/shared/utils/axios.util'
+import { AxiosService } from '@/core/utils/axios.util'
 
 import { PaginationDto, PaginationOptions } from '@lib/dto/pagination.dto'
 import { CreatePermissionDto, iPermission, PermissionDto } from '@lib/dto/permission.dto'
