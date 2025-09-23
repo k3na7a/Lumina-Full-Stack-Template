@@ -2,7 +2,7 @@ import * as Yup from 'yup'
 
 import { UserDto, UpdatePassword } from '@lib/dto/user.dto'
 import { PasswordValidation } from '@lib/regex/validation.regex'
-import { useFormUtil } from '@/core/utils/forms.util'
+import { useFormUtil } from '@/shared/utils/forms.util'
 import { reactive } from 'vue'
 
 type proptype = { user: UserDto; callback: (props: UpdatePassword) => Promise<void> }

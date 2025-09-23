@@ -1,6 +1,6 @@
 import { AxiosInstance } from 'axios'
 
-import { AxiosService } from '@/core/utils/axios.util'
+import { AxiosService } from '@/shared/utils/axios.util'
 import { iUser, UpdateProfileDto, UserDto } from '@lib/dto/user.dto'
 
 class profile {

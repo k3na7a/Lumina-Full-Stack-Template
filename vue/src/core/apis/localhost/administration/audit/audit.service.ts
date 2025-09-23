@@ -1,7 +1,7 @@
 import { AxiosInstance, AxiosResponse } from 'axios'
 
 import { PaginationDto, PaginationOptions } from '@lib/dto/pagination.dto'
-import { AxiosService } from '@/core/utils/axios.util'
+import { AxiosService } from '@/shared/utils/axios.util'
 import { AuditEventDto, AuditEvent } from '@lib/dto/audit.dto'
 
 class audit {

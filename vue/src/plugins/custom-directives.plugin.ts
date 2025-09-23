@@ -1,5 +1,5 @@
-import { click_outside } from '@/core/directives/click-outside.directive'
-import { tooltip } from '@/core/directives/tooltip.directive'
+import { click_outside } from '@/shared/directives/click-outside.directive'
+import { tooltip } from '@/shared/directives/tooltip.directive'
 import { App } from 'vue'
 
 class CustomDirectiveService {

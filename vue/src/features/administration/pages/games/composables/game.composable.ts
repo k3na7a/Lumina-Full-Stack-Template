@@ -2,7 +2,7 @@ import * as Yup from 'yup'
 import { computed, ref } from 'vue'
 
 import { GameDto, icreategame } from '@lib/dto/game.dto'
-import { useFormUtil } from '@/core/utils/forms.util'
+import { useFormUtil } from '@/shared/utils/forms.util'
 import { Order, PaginationOptions } from '@lib/dto/pagination.dto'
 import { AppStore, useAppStore } from '@/core/store/app.store'
 import { LocalhostAPI } from '@/core/apis/localhost/localhost.api'

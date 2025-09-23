@@ -1,7 +1,7 @@
 import * as Yup from 'yup'
 import { ref } from 'vue'
 
-import { useFormUtil } from '@/core/utils/forms.util'
+import { useFormUtil } from '@/shared/utils/forms.util'
 import { PasswordValidation } from '@lib/regex/validation.regex'
 
 type proptype = { callback: (values: any) => Promise<void> }

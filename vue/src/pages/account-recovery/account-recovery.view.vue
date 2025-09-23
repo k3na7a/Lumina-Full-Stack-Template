@@ -4,7 +4,7 @@ import { Form } from 'vee-validate'
 import { Router, useRouter } from 'vue-router'
 import { useI18n } from 'vue-i18n'
 
-import { useFormUtil } from '@/core/utils/forms.util.ts'
+import { useFormUtil } from '@/shared/utils/forms.util.ts'
 import { ForgotPassword } from '@lib/dto/user.dto.ts'
 import { useAppHandler } from '@/core/handlers/app.handler.ts'
 

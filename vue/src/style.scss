@@ -10,10 +10,10 @@ html {
   font-size: 0.625rem;
 }
 
-@import './variables/index.scss';
+@import '@lib/sass/variables/index.scss';
 
 @import 'bootstrap';
 @import 'bootstrap/dist/css/bootstrap.min.css';
 
-@import './base/index.scss';
-@import './components/index.scss';
+@import '@lib/sass/base/index.scss';
+@import '@lib/sass/components/index.scss';

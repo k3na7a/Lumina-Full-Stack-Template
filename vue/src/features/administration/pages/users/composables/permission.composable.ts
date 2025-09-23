@@ -1,7 +1,7 @@
 import * as Yup from 'yup'
 import { computed, ref } from 'vue'
 
-import { useFormUtil } from '@/core/utils/forms.util'
+import { useFormUtil } from '@/shared/utils/forms.util'
 import { iCreatePermission, PermissionDto } from '@lib/dto/permission.dto'
 import { PermissionDomain } from '@lib/constants/permissions.constants'
 
