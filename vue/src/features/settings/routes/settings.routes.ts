@@ -20,7 +20,7 @@ const route: RouteRecordRaw = {
           meta: {
             breadcrumbs: [
               { name: 'navigation.home', to: ROUTE_NAMES.HOME },
-              { name: 'settings.label', to: ROUTE_NAMES.ADMINISTRATION },
+              { name: 'settings.label', to: ROUTE_NAMES.SETTINGS },
               { name: 'settings.profile.label', to: null }
             ]
           }
@@ -32,7 +32,7 @@ const route: RouteRecordRaw = {
           meta: {
             breadcrumbs: [
               { name: 'navigation.home', to: ROUTE_NAMES.HOME },
-              { name: 'settings.label', to: ROUTE_NAMES.ADMINISTRATION },
+              { name: 'settings.label', to: ROUTE_NAMES.SETTINGS },
               { name: 'settings.security-privacy.label', to: null }
             ]
           }

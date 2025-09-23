@@ -12,8 +12,8 @@ const { name, value, inputRef } = useCheckboxInput(props, emit)
     <label :for="name" class="align-items-center">
       <input ref="inputRef" :id="name" :name class="opacity-0" type="checkbox" v-model="value" />
       <div class="d-flex align-items-center gap-2">
-        <div class="d-flex justify-content-center align-items-center th-checkbox" :class="{ active: value }">
-          <small v-if="value === true" class="fw-bolder">&#x2713;</small>
+        <div class="d-flex justify-content-center align-items-center checkbox" :class="{ active: value }">
+          <small v-if="value === true" class="fw-bolder">&#x2714;</small>
         </div>
         <p v-if="props.label">
           {{ $t(props.label) }}

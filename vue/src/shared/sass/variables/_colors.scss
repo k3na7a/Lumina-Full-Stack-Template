@@ -1,9 +1,23 @@
 $primary: #41b883;
 $secondary: rgba(83, 83, 95, 0.38);
-$success: #a8e6a3;
-$danger: #f08080;
-$warning: #efd87e;
-$info: #aadcf0;
+
+// Soft / Pastel
+// $success: #a8e6a3;
+// $danger: #f08080;
+// $warning: #efd87e;
+// $info: #aadcf0;
+
+// High Chroma
+$success: #3ddc97; // vivid green-teal, strong on dark
+$danger: #ff4c4c; // bright red, unmissable
+$warning: #ffcc00; // bold amber/gold
+$info: #4da6ff; // saturated sky blue
+
+// Neon / Cyber
+// $success: #00ff9c; // neon mint
+// $danger: #ff3860; // hot pink-red
+// $warning: #ffd60a; // glowing yellow
+// $info: #1e90ff; // electric blue
 
 $put: #fca130;
 $get: #61affe;

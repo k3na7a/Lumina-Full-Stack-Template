@@ -29,12 +29,12 @@
 
   &.btn-link {
     text-decoration: none;
-    transition: none !important;
+    // transition: none !important;
+    transition: all 0.15s ease-in-out;
     height: max-content;
 
-    &:hover {
-      text-decoration: underline;
-    }
+    text-decoration: underline;
+    text-underline-offset: 0.25em !important;
   }
 
   &.btn-dark {

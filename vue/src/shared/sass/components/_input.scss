@@ -8,24 +8,28 @@
       height: 0px;
     }
 
-    .th-checkbox {
+    .checkbox {
+      transition: all 0.15s ease-in-out;
       height: 1.5rem;
       aspect-ratio: 1 / 1;
       border: 0.1rem solid $muted;
-      background-color: $backgroundAlt;
       transition: border 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
       color: $light;
+
+      &.active {
+        box-shadow: 0 0 0 0.1rem $muted;
+      }
     }
 
     &:hover {
-      .th-checkbox {
+      .checkbox {
         box-shadow: 0 0 0 0.1rem $muted;
       }
     }
 
     &:focus-within,
     &:has(:active) {
-      .th-checkbox {
+      .checkbox {
         border: 0.1rem solid $primary;
         box-shadow: 0 0 0 0.1rem $primary;
       }
