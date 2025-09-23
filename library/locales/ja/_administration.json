@@ -98,7 +98,7 @@
     "no-of-games": "ゲーム数",
     "games": {
       "item": "ゲーム",
-      "label": "ゲームとソフトウェア",
+      "label": "ゲーム",
       "title": "ゲームやソフトウェアを作成・編集",
       "subtitle": "ゲームライブラリとソフトウェアリリースを管理します。",
       "caption": "{start}-{end} 件中 {count} ゲームを表示 | {start}-{end} 件中 {count} ゲームを表示 | {start}-{end} 件中 {count} ゲームを表示",

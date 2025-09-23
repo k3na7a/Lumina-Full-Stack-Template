@@ -100,7 +100,7 @@
     "no-of-games": "# of Games",
     "games": {
       "item": "Game",
-      "label": "Games & Software",
+      "label": "Games",
       "title": "Create and modify your games & software",
       "subtitle": "Manage your game library and software releases.",
       "caption": "Showing {start}-{end} of {count} games | Showing {start}-{end} of {count} game | Showing {start}-{end} of {count} games",

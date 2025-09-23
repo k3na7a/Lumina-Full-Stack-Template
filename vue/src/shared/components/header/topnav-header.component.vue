@@ -20,21 +20,21 @@ const { title, subtitle, routes } = defineProps<props>()
     <div v-if="breadcrumbs.length">
       <ol class="d-flex flex-row gap-2 flex-wrap m-0 p-0 align-items-center text-primary" style="list-style-type: none">
         <li class="text-light-alt">
-          <font-awesome-icon size="xl" :icon="['far', 'bookmark']" />
+          <font-awesome-icon size="lg" :icon="['far', 'bookmark']" />
         </li>
         <template v-for="(crumb, idx) in breadcrumbs" :key="idx">
           <li>
             <RouterLink
               v-if="crumb.to"
               :to="{ name: crumb.to }"
-              class="link-offset-2 link-underline link-underline-opacity-0 link-underline-opacity-75-hover"
+              class="link-offset-2 link-underline link-underline-opacity-75-hover"
             >
               <p>{{ $t(crumb.name) }}</p>
             </RouterLink>
-            <p v-else class="text-light-alt">{{ $t(crumb.name) }}</p>
+            <p v-else class="text-muted">{{ $t(crumb.name) }}</p>
           </li>
           <template v-if="idx < breadcrumbs.length - 1">
-            <li class="text-muted">
+            <li class="text-light-alt">
               <font-awesome-icon size="sm" :icon="['fas', 'chevron-right']" />
             </li>
           </template>

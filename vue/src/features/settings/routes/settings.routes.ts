@@ -21,7 +21,7 @@ const route: RouteRecordRaw = {
             breadcrumbs: [
               { name: 'navigation.home', to: ROUTE_NAMES.HOME },
               { name: 'settings.label', to: ROUTE_NAMES.ADMINISTRATION },
-              { name: 'administration.activity-logs.all-activities.label', to: null }
+              { name: 'settings.profile.label', to: null }
             ]
           }
         },
@@ -33,7 +33,7 @@ const route: RouteRecordRaw = {
             breadcrumbs: [
               { name: 'navigation.home', to: ROUTE_NAMES.HOME },
               { name: 'settings.label', to: ROUTE_NAMES.ADMINISTRATION },
-              { name: 'administration.activity-logs.all-activities.label', to: null }
+              { name: 'settings.security-privacy.label', to: null }
             ]
           }
         }

@@ -98,7 +98,7 @@
     "no-of-games": "Nº de juegos",
     "games": {
       "item": "Juego",
-      "label": "Juegos y software",
+      "label": "Juegos",
       "title": "Crear y modificar sus juegos y software",
       "subtitle": "Gestione su biblioteca de juegos y lanzamientos de software.",
       "caption": "Mostrando {start}-{end} de {count} juegos | Mostrando {start}-{end} de {count} juego | Mostrando {start}-{end} de {count} juegos",
