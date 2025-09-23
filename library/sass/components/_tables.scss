@@ -3,6 +3,14 @@
 }
 
 .table-w-checkbox {
+  tr td:first-child,
+  tr th:first-child {
+    .cell {
+      padding-left: 20px;
+      padding-right: 0px;
+    }
+  }
+
   tr td:not(:nth-child(2)) {
     width: 1%;
     white-space: nowrap;
@@ -30,7 +38,7 @@
 }
 
 .table-wo-checkbox {
-  tr td {
+  tr td:last-child {
     width: 1%;
     white-space: nowrap;
   }
@@ -64,19 +72,6 @@ table {
   tr {
     gap: 2rem;
   }
-
-  tr td:first-child,
-  tr th:first-child {
-    .cell {
-      padding-left: 20px;
-      padding-right: 0px;
-    }
-  }
-
-  // tr td:not(:nth-child(2)) {
-  //   width: 1%;
-  //   white-space: nowrap;
-  // }
 
   tbody {
     color: $lightAlt;

@@ -59,7 +59,8 @@ const [$caption, itemCount] = caption
           <tr>
             <th v-if="!nocheck" class="d-flex align-items-center justify-content-center">
               <div class="cell justify-content-center">
-                <CheckboxInput name="table-header" />
+                <!-- <CheckboxInput name="table-header" /> -->
+                 #
               </div>
             </th>
             <th scope="col" v-for="column in columns" :key="`${column.name}`">

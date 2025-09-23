@@ -88,7 +88,9 @@ await getPaginatedData(options.value)
         </template>
 
         <template #actions>
-          <ActionsComponent disabled :payload="[]" />
+          <div class="d-flex w-100">
+            <ActionsComponent disabled :payload="[]" />
+          </div>
         </template>
       </TablePaginatedComponent>
     </template>
