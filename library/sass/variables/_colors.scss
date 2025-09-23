@@ -1,4 +1,10 @@
-$primary: #41b883;
+$primary: #41b883; // Vue3 Primary Theme Colour
+// $primary: #00bcd4; // vivid teal
+// $primary: #e91e63; // rich magenta
+// $primary: #9b59b6; // amethyst purple
+// $primary: #ff7f50; // coral/copper
+// $primary: #5b6ee1; // indigo leaning blue
+
 $secondary: rgba(83, 83, 95, 0.38);
 
 // Soft / Pastel
@@ -8,16 +14,27 @@ $secondary: rgba(83, 83, 95, 0.38);
 // $info: #aadcf0;
 
 // High Chroma
-$success: #3ddc97; // vivid green-teal, strong on dark
+// $success: #3ddc97; // vivid green-teal, strong on dark
 $danger: #ff4c4c; // bright red, unmissable
-$warning: #ffcc00; // bold amber/gold
+// $warning: #ffcc00; // bold amber/gold
 $info: #4da6ff; // saturated sky blue
 
+// Clean / Vivid
+// $success: #2ecc71; // crisp emerald green
+// $danger: #e74c3c; // strong red, clear but not neon
+$warning: #f1c40f; // bold amber/yellow, professional alert tone
+// $info: #3498db; // rich medium blue, highly legible
+
 // Neon / Cyber
-// $success: #00ff9c; // neon mint
+$success: #00ff9c; // neon mint
 // $danger: #ff3860; // hot pink-red
 // $warning: #ffd60a; // glowing yellow
 // $info: #1e90ff; // electric blue
+
+$success-hover: darken($success, 7%);
+$danger-hover: darken($danger, 7%);
+$warning-hover: darken($warning, 7%);
+$info-hover: darken($info, 7%);
 
 $put: #fca130;
 $get: #61affe;
