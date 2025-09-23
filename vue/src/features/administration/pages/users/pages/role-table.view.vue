@@ -8,7 +8,7 @@ import { PermissionDto } from '@lib/dto/permission.dto'
 
 const max_permissions = 5
 
-const { promise, create, update, remove, options, loading, response, tableColumns, t } = useRoleTable()
+const { promise, create, update, remove, options, loading, response, tableColumns } = useRoleTable()
 await promise()
 </script>
 
@@ -24,16 +24,7 @@ await promise()
         :columns="tableColumns"
         :rows="response.data"
         :pages="response.meta?.pageCount"
-        :caption="
-          t(
-            'administration.user-management.roles.caption',
-            {
-              start: (response.meta.page - 1) * response.meta.take + (response.data.length ? 1 : 0),
-              end: (response.meta.page - 1) * response.meta.take + response.data.length
-            },
-            response.meta.itemCount
-          )
-        "
+        :caption="['administration.user-management.roles.caption', response.meta.itemCount]"
       >
         <template v-slot>
           <div class="d-flex gap-2">

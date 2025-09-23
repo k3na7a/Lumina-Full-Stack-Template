@@ -5,17 +5,8 @@ import ActionsComponent from '@/shared/components/dropdown/table-actions.dropdow
 import ContentLayout from '@/features/administration/layouts/content.layout.vue'
 import { usePlatformTable } from '../composables/platform-table.composable.ts'
 
-const {
-  t,
-  response,
-  options,
-  loading,
-  tableColumns,
-  createPlatform,
-  getPaginatedData,
-  removePlatform,
-  updatePlatform
-} = usePlatformTable()
+const { response, options, loading, tableColumns, createPlatform, getPaginatedData, removePlatform, updatePlatform } =
+  usePlatformTable()
 
 await getPaginatedData(options.value)
 </script>
@@ -32,16 +23,7 @@ await getPaginatedData(options.value)
         :columns="tableColumns"
         :rows="response.data"
         :pages="response.meta?.pageCount"
-        :caption="
-          t(
-            'administration.games-and-software.platforms.caption',
-            {
-              start: (response.meta.page - 1) * response.meta.take + (response.data.length ? 1 : 0),
-              end: (response.meta.page - 1) * response.meta.take + response.data.length
-            },
-            response.meta.itemCount
-          )
-        "
+        :caption="['administration.games-and-software.platforms.caption', response.meta.itemCount]"
       >
         <template v-slot>
           <div class="d-flex gap-2">

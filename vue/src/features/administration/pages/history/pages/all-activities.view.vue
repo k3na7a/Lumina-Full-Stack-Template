@@ -13,7 +13,7 @@ const params = computed(() => {
   return route.meta.activityLog
 })
 
-const { t, response, options, loading, tableColumns, getPaginatedData } = useActivitiesTable(params.value.domain)
+const { response, options, loading, tableColumns, getPaginatedData } = useActivitiesTable(params.value.domain)
 await getPaginatedData(options.value)
 </script>
 
@@ -27,16 +27,8 @@ await getPaginatedData(options.value)
         :columns="tableColumns"
         :rows="response.data"
         :pages="response.meta?.pageCount"
-        :caption="
-          t(
-            'administration.activity-logs.all-activities.caption',
-            {
-              start: (response.meta.page - 1) * response.meta.take + (response.data.length ? 1 : 0),
-              end: (response.meta.page - 1) * response.meta.take + response.data.length
-            },
-            response.meta.itemCount
-          )
-        "
+        :response="response"
+        :caption="['administration.activity-logs.all-activities.caption', response.meta.itemCount]"
       >
         <template v-slot>
           <div class="d-flex gap-2">

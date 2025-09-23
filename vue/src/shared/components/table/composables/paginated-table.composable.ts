@@ -8,9 +8,9 @@ type proptype<T> = {
   rows: Array<T>
   pages: number | undefined
   options: PaginationOptions
+  caption: [string, number]
   loading?: boolean
   sortOptions?: Array<SortOptions>
-  caption?: string
   nocheck?: boolean
 }
 

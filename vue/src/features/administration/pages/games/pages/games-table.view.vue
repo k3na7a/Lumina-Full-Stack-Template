@@ -5,7 +5,7 @@ import ActionsComponent from '@/shared/components/dropdown/table-actions.dropdow
 import ContentLayout from '@/features/administration/layouts/content.layout.vue'
 import { useGamesTable } from '../composables/game-table.composable'
 
-const { t, options, loading, tableColumns, response, createGame, updateGame, removeGame, getPaginatedData } =
+const { options, loading, tableColumns, response, createGame, updateGame, removeGame, getPaginatedData } =
   useGamesTable()
 
 await getPaginatedData(options.value)
@@ -23,16 +23,7 @@ await getPaginatedData(options.value)
         :columns="tableColumns"
         :rows="response.data"
         :pages="response.meta?.pageCount"
-        :caption="
-          t(
-            'administration.games-and-software.games.caption',
-            {
-              start: (response.meta.page - 1) * response.meta.take + (response.data.length ? 1 : 0),
-              end: (response.meta.page - 1) * response.meta.take + response.data.length
-            },
-            response.meta.itemCount
-          )
-        "
+        :caption="['administration.games-and-software.games.caption', response.meta.itemCount]"
       >
         <template v-slot>
           <button class="btn btn-dark btn-icon px-0" type="button">

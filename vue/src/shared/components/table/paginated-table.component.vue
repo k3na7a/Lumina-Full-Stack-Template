@@ -3,14 +3,18 @@ import SearchInputComponent from '@/shared/components/inputs/search.input.vue'
 import SelectInputComponent from '@/shared/components/inputs/select.input.vue'
 import PaginationInputComponent from '@/shared/components/pagination/pagination.component.vue'
 import CheckboxInput from '@/shared/components/inputs/checkbox.input.vue'
+import { useI18n } from 'vue-i18n'
 
 import { proptype, usePaginatedTable } from './composables/paginated-table.composable'
 import { Order } from '@lib/dto/pagination.dto'
 import { BaseDto } from '@lib/dto/base.dto'
 
+const { t } = useI18n()
 const { columns, rows, pages, options, loading, caption, nocheck } = defineProps<proptype<T>>()
 const { resetPageAndUpdateQuery, updateQuery, handleSort, updateSelected, sortParam, orderParam, selected } =
   usePaginatedTable<T>()
+
+const [$caption, itemCount] = caption
 </script>
 
 <template>
@@ -26,7 +30,18 @@ const { resetPageAndUpdateQuery, updateQuery, handleSort, updateSelected, sortPa
         />
       </div>
       <div class="d-flex gap-3 align-items-center justify-content-end">
-        <small>{{ caption }}</small>
+        <small>
+          {{
+            t(
+              $caption,
+              {
+                start: (options.page - 1) * options.take + (rows.length ? 1 : 0),
+                end: (options.page - 1) * options.take + rows.length
+              },
+              itemCount
+            )
+          }}
+        </small>
         <div class="d-flex gap-2"><slot></slot></div>
       </div>
     </div>

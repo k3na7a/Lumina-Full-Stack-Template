@@ -6,7 +6,7 @@ import TablePaginatedComponent from '@/shared/components/table/paginated-table.c
 import ContentLayout from '@/features/administration/layouts/content.layout.vue'
 import { useUserTable } from '../composables/user-table.composable'
 
-const { promise, update, remove, options, loading, response, tableColumns, t } = useUserTable()
+const { promise, update, remove, options, loading, response, tableColumns } = useUserTable()
 await promise()
 </script>
 
@@ -22,16 +22,7 @@ await promise()
         :columns="tableColumns"
         :rows="response.data"
         :pages="response.meta?.pageCount"
-        :caption="
-          t(
-            'administration.user-management.users.caption',
-            {
-              start: (response.meta.page - 1) * response.meta.take + (response.data.length ? 1 : 0),
-              end: (response.meta.page - 1) * response.meta.take + response.data.length
-            },
-            response.meta.itemCount
-          )
-        "
+        :caption="['administration.user-management.users.caption', response.meta.itemCount]"
       >
         <template v-slot>
           <div class="d-flex gap-2">
