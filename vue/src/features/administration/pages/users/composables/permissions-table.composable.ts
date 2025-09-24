@@ -11,14 +11,15 @@ import { PermissionDto } from '@lib/dto/permission.dto'
 const tableColumns: columns = [
   { name: 'permission', label: 'forms.permissions', sort: 'permission.label' },
   { name: 'domain', label: 'forms.domain', sort: 'permission.domain' },
+  { name: 'created', label: 'forms.created', sort: 'role.createdAt' },
   { name: 'actions' }
 ]
 
 const defaultOptions: PaginationOptions = {
   take: 25,
-  order: Order.DESC,
+  order: Order.ASC,
   page: 1,
-  sort: 'permission.createdAt',
+  sort: 'permission.name',
   search: undefined
 }
 

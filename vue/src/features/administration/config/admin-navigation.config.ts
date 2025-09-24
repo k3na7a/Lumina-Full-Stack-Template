@@ -18,11 +18,6 @@ const routes: side_navigation = [
     icon: ['fas', 'gamepad']
   },
   {
-    name: ROUTE_NAMES.HOME,
-    label: 'administration.resources.label',
-    icon: ['fas', 'film']
-  },
-  {
     name: ROUTE_NAMES.ADMIN_ACTIVITY_LOGS,
     label: 'administration.activity-logs.label',
     icon: ['fas', 'timeline']

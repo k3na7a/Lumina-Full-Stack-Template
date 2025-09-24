@@ -11,6 +11,7 @@
   },
   "activity-logs": {
     "label": "Registros de actividad",
+    "item": "Evento",
     "all-activities": {
       "label": "Todas las actividades",
       "title": "Registro de auditoría del sistema",

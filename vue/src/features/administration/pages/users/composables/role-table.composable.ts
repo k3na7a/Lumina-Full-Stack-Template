@@ -12,14 +12,15 @@ import { RoleDto } from '@lib/dto/role.dto'
 const tableColumns: columns = [
   { name: 'role', label: 'forms.role', sort: 'role.label' },
   { name: 'permissions', label: 'forms.permissions' },
+  { name: 'created', label: 'forms.created', sort: 'role.createdAt' },
   { name: 'actions' }
 ]
 
 const defaultOptions: PaginationOptions = {
   take: 25,
-  order: Order.DESC,
+  order: Order.ASC,
   page: 1,
-  sort: 'role.createdAt',
+  sort: 'role.name',
   search: undefined
 }
 

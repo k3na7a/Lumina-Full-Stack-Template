@@ -11,6 +11,7 @@
   },
   "activity-logs": {
     "label": "アクティビティログ",
+    "item": "イベント",
     "all-activities": {
       "label": "すべてのアクティビティ",
       "title": "システム全体の監査証跡",

@@ -11,6 +11,7 @@
   },
   "activity-logs": {
     "label": "Journaux d’activité",
+    "item": "Événement",
     "all-activities": {
       "label": "Toutes les activités",
       "title": "Piste d’audit du système",

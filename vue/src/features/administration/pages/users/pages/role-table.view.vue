@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import moment from 'moment'
+
 import ContentLayout from '@/features/administration/layouts/content.layout.vue'
 import TablePaginatedComponent from '@/shared/components/table/paginated-table.component.vue'
 import ActionsComponent from '@/shared/components/dropdown/table-actions.dropdown.component.vue'
@@ -87,6 +89,12 @@ await promise()
               </div>
             </template>
           </div>
+        </template>
+
+        <template #created="{ row }">
+          <small class="fw-semibold text-muted">
+            {{ moment(row.createdAt).format('L') }}
+          </small>
         </template>
 
         <template #actions="{ row }">

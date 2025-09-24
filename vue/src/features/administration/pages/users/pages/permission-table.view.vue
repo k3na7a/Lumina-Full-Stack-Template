@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import moment from 'moment'
+
 import ContentLayout from '@/features/administration/layouts/content.layout.vue'
 import TablePaginatedComponent from '@/shared/components/table/paginated-table.component.vue'
 import ActionsComponent from '@/shared/components/dropdown/table-actions.dropdown.component.vue'
@@ -60,6 +62,12 @@ await promise()
             v-tooltip="{ text: iPermissionDomain[row.domain].description, position: 'bottom', trigger: 'hover' }"
           >
             {{ iPermissionDomain[row.domain].name }}
+          </small>
+        </template>
+
+        <template #created="{ row }">
+          <small class="fw-semibold text-muted">
+            {{ moment(row.createdAt).format('L') }}
           </small>
         </template>
 

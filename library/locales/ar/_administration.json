@@ -11,6 +11,7 @@
   },
   "activity-logs": {
     "label": "سجلات النشاط",
+    "item": "حدث",
     "all-activities": {
       "label": "جميع الأنشطة",
       "title": "سجل تدقيق على مستوى النظام",

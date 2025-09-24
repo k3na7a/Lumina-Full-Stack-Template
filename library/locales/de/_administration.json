@@ -11,6 +11,7 @@
   },
   "activity-logs": {
     "label": "Aktivitätsprotokolle",
+    "item": "Ereignis",
     "all-activities": {
       "label": "Alle Aktivitäten",
       "title": "Systemweiter Prüfpfad",
