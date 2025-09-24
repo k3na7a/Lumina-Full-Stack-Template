@@ -75,7 +75,11 @@ await promise()
               <div class="d-flex align-items-center">
                 <small
                   class="fw-semibold text-info"
-                  style="cursor: help"
+                  :style="{
+                    'text-decoration': 'underline',
+                    'text-underline-offset': '0.25em !important',
+                    cursor: 'help'
+                  }"
                   v-tooltip="{ text: row.permissions.slice(max_permissions).map((value: PermissionDto) => value.name).join(', '), position: 'bottom', trigger: 'hover' }"
                 >
                   {{ $t('forms.plus-more', { more: row.permissions.slice(max_permissions).length }) }}
