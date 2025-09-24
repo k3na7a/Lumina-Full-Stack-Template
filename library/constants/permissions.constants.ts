@@ -9,6 +9,51 @@ export enum PermissionDomain {
   AUDIT_MANAGEMENT = 'AUDIT_MANAGEMENT'
 }
 
+export const iPermissionDomain: {
+  [v: string]: { name: string; key: PermissionDomain; description: string }
+} = {
+  [PermissionDomain.SYSTEM]: {
+    name: 'System',
+    key: PermissionDomain.SYSTEM,
+    description: 'Core system-level permissions and operations reserved for internal or administrative use.'
+  },
+  [PermissionDomain.SELF_MANAGEMENT]: {
+    name: 'Self Management',
+    key: PermissionDomain.SELF_MANAGEMENT,
+    description: 'Permissions that allow users to manage their own account settings, profile, and credentials.'
+  },
+  [PermissionDomain.USER_MANAGEMENT]: {
+    name: 'User Management',
+    key: PermissionDomain.USER_MANAGEMENT,
+    description: 'Permissions for creating, updating, disabling, and otherwise administering other user accounts.'
+  },
+  [PermissionDomain.ROLE_MANAGEMENT]: {
+    name: 'Role Management',
+    key: PermissionDomain.ROLE_MANAGEMENT,
+    description: 'Permissions for defining, assigning, and modifying roles within the system.'
+  },
+  [PermissionDomain.PERMISSION_MANAGEMENT]: {
+    name: 'Permission Management',
+    key: PermissionDomain.PERMISSION_MANAGEMENT,
+    description: 'Permissions to configure, grant, or revoke access rights across different domains.'
+  },
+  [PermissionDomain.GAME_MANAGEMENT]: {
+    name: 'Game Management',
+    key: PermissionDomain.GAME_MANAGEMENT,
+    description: 'Permissions related to adding, editing, and maintaining game entries and metadata.'
+  },
+  [PermissionDomain.PLATFORM_MANAGEMENT]: {
+    name: 'Platform Management',
+    key: PermissionDomain.PLATFORM_MANAGEMENT,
+    description: 'Permissions related to adding, editing, and maintaining software platform entries and metadata.'
+  },
+  [PermissionDomain.AUDIT_MANAGEMENT]: {
+    name: 'Audit Management',
+    key: PermissionDomain.AUDIT_MANAGEMENT,
+    description: 'Permissions for accessing and managing audit logs and event records.'
+  }
+}
+
 // SYSTEM
 export enum SystemPermissions {
   HAS_ALL_PERMISSIONS = 'has_all_permissions',

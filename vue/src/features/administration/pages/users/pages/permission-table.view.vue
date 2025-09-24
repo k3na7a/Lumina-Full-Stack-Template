@@ -4,6 +4,7 @@ import TablePaginatedComponent from '@/shared/components/table/paginated-table.c
 import ActionsComponent from '@/shared/components/dropdown/table-actions.dropdown.component.vue'
 
 import { usePermissionsTable } from '../composables/permissions-table.composable.ts'
+import { iPermissionDomain } from '@lib/constants/permissions.constants.ts'
 
 const { promise, create, update, remove, options, loading, response, tableColumns } = usePermissionsTable()
 await promise()
@@ -56,8 +57,10 @@ await promise()
               'text-underline-offset': '0.25em !important',
               cursor: 'help'
             }"
-            >{{ row.domain }}</small
+            v-tooltip="{ text: iPermissionDomain[row.domain].description, position: 'bottom', trigger: 'hover' }"
           >
+            {{ iPermissionDomain[row.domain].name }}
+          </small>
         </template>
 
         <template #actions="{ row }">
