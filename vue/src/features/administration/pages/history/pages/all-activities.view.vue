@@ -40,10 +40,11 @@ await getPaginatedData(options.value)
           <div class="d-flex flex-column">
             <small
               class="text-info"
-              style="cursor: help"
               v-tooltip="{ text: moment(row.createdAt).format('llll'), position: 'bottom', trigger: 'hover' }"
-              >{{ moment(row.createdAt).fromNow() }}</small
+              :style="{ 'text-decoration': 'underline', 'text-underline-offset': '0.25em !important', cursor: 'help' }"
             >
+              {{ moment(row.createdAt).fromNow() }}
+            </small>
           </div>
         </template>
 
@@ -87,8 +88,22 @@ await getPaginatedData(options.value)
           </div>
         </template>
 
-        <template #actions>
-          <ActionsComponent disabled :payload="[]" />
+        <template #actions="{ row }">
+          <ActionsComponent
+            :payload="[
+              {
+                title: 'actions.view',
+                icon: ['fas', 'eye'],
+                callback: () => {},
+                theme: 'info'
+              }
+            ]"
+          >
+            <small class="text-primary fst-italic text-nowrap">
+              {{ $t('administration.activity-logs.item') }}:
+              <span class="text-light-alt">{{ row.id }}</span>
+            </small>
+          </ActionsComponent>
         </template>
       </TablePaginatedComponent>
     </template>

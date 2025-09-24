@@ -11,6 +11,7 @@
   },
   "activity-logs": {
     "label": "Activity Logs",
+    "item": "Event",
     "all-activities": {
       "label": "All Activities",
       "title": "System-Wide Audit Trail",

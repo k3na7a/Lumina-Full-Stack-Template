@@ -60,7 +60,7 @@ await getPaginatedData(options.value)
             <img class="cover-icon" :src="row.cover" />
             <div class="d-flex flex-column overflow-hidden">
               <small class="text-muted fst-italic text-truncate">
-                {{ row.id }}
+                {{ row.slug }}
               </small>
               <p class="fw-semibold text-light text-truncate">
                 {{ row.name }}

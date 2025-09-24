@@ -43,7 +43,7 @@ await getPaginatedData(options.value)
 
         <template #platform="{ row }">
           <div class="d-flex flex-column">
-            <small class="text-muted fst-italic">{{ row.id }}</small>
+            <small class="text-muted fst-italic">{{ row.slug }}</small>
             <p class="fw-semibold text-light">{{ row.name }}</p>
           </div>
         </template>

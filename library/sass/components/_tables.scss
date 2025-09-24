@@ -29,7 +29,7 @@
   th {
     @include after-nth(2) {
       .cell {
-        // flex-direction: row-reverse;
+        flex-direction: row-reverse;
         justify-content: end;
         text-align: end;
       }

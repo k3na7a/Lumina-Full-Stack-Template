@@ -35,14 +35,10 @@ await promise()
             <img class="avatar-icon" :src="row.profile.avatar" />
 
             <div class="d-flex flex-column flex-grow-1">
-              <small class="fst-italic text-muted">{{ row.id }}</small>
+              <small class="fst-italic text-muted">{{ row.email }}</small>
               <p class="fw-semibold text-light">{{ row.getFullName() }}</p>
             </div>
           </div>
-        </template>
-
-        <template #email="{ row }">
-          <small class="fst-italic text-light-alt">{{ row.email }}</small>
         </template>
 
         <template #roles="{ row }">
@@ -53,8 +49,12 @@ await promise()
                   <small
                     v-if="role.description"
                     class="fw-semibold text-info"
-                    style="cursor: help"
                     v-tooltip="{ text: role.description, position: 'bottom', trigger: 'hover' }"
+                    :style="{
+                      'text-decoration': 'underline',
+                      'text-underline-offset': '0.25em !important',
+                      cursor: 'help'
+                    }"
                   >
                     {{ role.label }}
                   </small>

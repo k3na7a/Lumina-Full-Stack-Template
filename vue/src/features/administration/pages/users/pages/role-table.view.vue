@@ -44,7 +44,7 @@ await promise()
 
         <template #role="{ row }">
           <div class="d-flex flex-column flex-grow-1 overflow-hidden" style="max-width: 30rem">
-            <small class="fst-italic text-muted">{{ row.id }}</small>
+            <small class="fst-italic text-muted">{{ row.name }}</small>
             <p class="fw-semibold text-light text-wrap">
               {{ row.label }}
             </p>
@@ -59,8 +59,17 @@ await promise()
 
         <template #permissions="{ row }">
           <div class="d-flex flex-column gap-1">
-            <small v-for="permission in row.permissions.slice(0, max_permissions)" class="text-primary fw-semibold">
-              {{ permission.name.toUpperCase() }}
+            <small
+              v-for="permission in row.permissions.slice(0, max_permissions)"
+              class="text-info fw-semibold"
+              :style="{
+                'text-decoration': 'underline',
+                'text-underline-offset': '0.25em !important',
+                cursor: 'help'
+              }"
+              v-tooltip="{ text: permission.description, position: 'bottom', trigger: 'hover' }"
+            >
+              {{ permission.label }}
             </small>
             <template v-if="row.permissions.length > max_permissions">
               <div class="d-flex align-items-center">

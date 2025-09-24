@@ -41,7 +41,7 @@ await promise()
 
         <template #permission="{ row }">
           <div class="d-flex flex-column flex-grow-1 overflow-hidden" style="max-width: 30rem">
-            <small class="fst-italic text-muted">{{ row.id }}</small>
+            <small class="fst-italic text-muted">{{ String(row.name).toUpperCase() }}</small>
             <p class="fw-semibold text-light text-wrap">
               {{ row.label }}
             </p>
@@ -49,13 +49,15 @@ await promise()
         </template>
 
         <template #domain="{ row }">
-          <small class="fw-semibold text-primary">{{ row.domain }}</small>
-        </template>
-
-        <template #key="{ row }">
-          <small class="text-warning">
-            {{ row.name.toUpperCase() }}
-          </small>
+          <small
+            class="fw-semibold text-info"
+            :style="{
+              'text-decoration': 'underline',
+              'text-underline-offset': '0.25em !important',
+              cursor: 'help'
+            }"
+            >{{ row.domain }}</small
+          >
         </template>
 
         <template #actions="{ row }">
