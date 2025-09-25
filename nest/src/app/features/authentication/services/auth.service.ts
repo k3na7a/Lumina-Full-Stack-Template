@@ -64,14 +64,17 @@ export class AuthService {
       password,
     });
 
-    await this.audit({
-      action: Action.CREATE,
-      entityId: user.id,
-      entityDisplay: user.email,
-      before: instanceToPlain({}),
-      after: instanceToPlain(user),
-      reason: 'Account created by account owner during registration.',
-    });
+    await this.audit(
+      {
+        action: Action.CREATE,
+        entityId: user.id,
+        entityDisplay: user.email,
+        before: instanceToPlain({}),
+        after: instanceToPlain(user),
+        reason: 'Account created by guest during registration.',
+      },
+      ActorType.GUEST,
+    );
 
     return this.accountService.issueTokens(user, res);
   }
@@ -154,7 +157,10 @@ export class AuthService {
     });
   }
 
-  private async audit(payload: iaudit): Promise<AuditEntity> {
+  private async audit(
+    payload: iaudit,
+    actorType: ActorType = ActorType.USER,
+  ): Promise<AuditEntity> {
     const { diff, beforeRedacted, afterRedacted } = buildAuditSnapshotsAndDiff(
       payload.before,
       payload.after,
@@ -167,7 +173,7 @@ export class AuthService {
 
     return this.auditService.create({
       ...payload,
-      actorType: ActorType.USER,
+      actorType,
       source: SourceType.WEB,
       domain: Domain.USER_MANAGEMENT,
       subDomain: SUB_DOMAIN.USER,

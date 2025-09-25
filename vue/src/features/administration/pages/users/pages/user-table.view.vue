@@ -48,13 +48,8 @@ await promise()
                 <template v-for="role in row.roles">
                   <small
                     v-if="role.description"
-                    class="fw-semibold text-info"
+                    class="fw-semibold text-info underline help"
                     v-tooltip="{ text: role.description, position: 'bottom', trigger: 'hover' }"
-                    :style="{
-                      'text-decoration': 'underline',
-                      'text-underline-offset': '0.25em !important',
-                      cursor: 'help'
-                    }"
                   >
                     {{ role.label }}
                   </small>

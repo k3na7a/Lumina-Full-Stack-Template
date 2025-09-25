@@ -53,12 +53,7 @@ await promise()
 
         <template #domain="{ row }">
           <small
-            class="fw-semibold text-info"
-            :style="{
-              'text-decoration': 'underline',
-              'text-underline-offset': '0.25em !important',
-              cursor: 'help'
-            }"
+            class="fw-semibold text-info underline help"
             v-tooltip="{ text: iPermissionDomain[row.domain].description, position: 'bottom', trigger: 'hover' }"
           >
             {{ iPermissionDomain[row.domain].name }}

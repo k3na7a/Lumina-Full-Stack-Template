@@ -43,18 +43,10 @@ import ModalTitleComponent from '@/shared/components/modal/base/modal-title.comp
 
     <div class="d-flex flex-column text-muted">
       <i18n-t keypath="legal.term" tag="p" scope="global">
-        <RouterLink
-          target="_blank"
-          :to="{ name: ROUTE_NAMES.HOME }"
-          class="link-underline link-underline-opacity-0 link-underline-opacity-100-hover"
-        >
+        <RouterLink target="_blank" :to="{ name: ROUTE_NAMES.HOME }" class="link-underline link-offset-2">
           {{ $t('legal.terms-of-service') }}
         </RouterLink>
-        <RouterLink
-          target="_blank"
-          :to="{ name: ROUTE_NAMES.HOME }"
-          class="link-underline link-underline-opacity-0 link-underline-opacity-100-hover"
-        >
+        <RouterLink target="_blank" :to="{ name: ROUTE_NAMES.HOME }" class="link-underline link-offset-2">
           {{ $t('legal.privacy-notice') }}
         </RouterLink>
       </i18n-t>

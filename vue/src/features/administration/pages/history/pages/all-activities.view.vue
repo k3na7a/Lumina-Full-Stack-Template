@@ -39,9 +39,8 @@ await getPaginatedData(options.value)
         <template #time="{ row }">
           <div class="d-flex flex-column">
             <small
-              class="text-info"
+              class="text-info underline help"
               v-tooltip="{ text: moment(row.createdAt).format('llll'), position: 'bottom', trigger: 'hover' }"
-              :style="{ 'text-decoration': 'underline', 'text-underline-offset': '0.25em !important', cursor: 'help' }"
             >
               {{ moment(row.createdAt).fromNow() }}
             </small>
@@ -51,8 +50,14 @@ await getPaginatedData(options.value)
         <template #actor="{ row }">
           <div class="d-flex flex-column overflow-hidden" style="max-width: 20rem">
             <small class="text-light-alt text-truncate">
-              <span class="text-primary">{{ String(row.actorType).toUpperCase() }}</span
-              >:<span>{{ row.actorDisplay ?? row.actorId }}</span>
+              <span
+                class="text-primary"
+                :style="{
+                  'text-decoration': 'underline',
+                  'text-underline-offset': '0.25em !important'
+                }"
+                >{{ String(row.actorType).toUpperCase() }}:</span
+              >&#32;<span>{{ row.actorDisplay ?? row.actorIp }}</span>
             </small>
           </div>
         </template>
@@ -74,16 +79,17 @@ await getPaginatedData(options.value)
         </template>
 
         <template #entity="{ row }">
-          <div class="d-flex flex-column overflow-hidden" style="max-width: 30rem">
+          <div class="d-flex flex-column overflow-hidden" style="max-width: 25rem">
             <small class="text-light-alt text-truncate">
-              <span class="text-primary">{{ String(row.subDomain).toUpperCase() }}</span
-              >:<span>{{ row.entityDisplay }}</span>
+              <span class="text-primary underline">{{ String(row.subDomain).toUpperCase() }}:</span>&#32;<span>{{
+                row.entityDisplay
+              }}</span>
             </small>
           </div>
         </template>
 
         <template #reason="{ row }">
-          <div class="d-flex flex-column overflow-hidden" style="max-width: 25rem">
+          <div class="d-flex flex-column overflow-hidden" style="max-width: 30rem">
             <small class="text-light-alt text-truncate">{{ row.reason }}</small>
           </div>
         </template>

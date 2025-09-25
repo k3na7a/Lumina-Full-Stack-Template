@@ -2,6 +2,7 @@ import { BaseDto, BaseInterface } from './base.dto'
 import { PaginationOptions } from './pagination.dto'
 
 export enum ActorType {
+  GUEST = 'guest',
   USER = 'user',
   SYSTEM = 'system',
   SERVICE = 'service'

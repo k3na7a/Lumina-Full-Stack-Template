@@ -63,12 +63,7 @@ await promise()
           <div class="d-flex flex-column gap-1">
             <small
               v-for="permission in row.permissions.slice(0, max_permissions)"
-              class="text-info fw-semibold"
-              :style="{
-                'text-decoration': 'underline',
-                'text-underline-offset': '0.25em !important',
-                cursor: 'help'
-              }"
+              class="text-info fw-semibold underline help"
               v-tooltip="{ text: permission.description, position: 'bottom', trigger: 'hover' }"
             >
               {{ permission.label }}
@@ -76,12 +71,7 @@ await promise()
             <template v-if="row.permissions.length > max_permissions">
               <div class="d-flex align-items-center">
                 <small
-                  class="fw-semibold text-info"
-                  :style="{
-                    'text-decoration': 'underline',
-                    'text-underline-offset': '0.25em !important',
-                    cursor: 'help'
-                  }"
+                  class="fw-semibold text-info underline help"
                   v-tooltip="{ text: row.permissions.slice(max_permissions).map((value: PermissionDto) => value.name).join(', '), position: 'bottom', trigger: 'hover' }"
                 >
                   {{ $t('forms.plus-more', { more: row.permissions.slice(max_permissions).length }) }}
