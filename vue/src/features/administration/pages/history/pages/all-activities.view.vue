@@ -13,7 +13,7 @@ const params = computed(() => {
   return route.meta.activityLog
 })
 
-const { response, options, loading, tableColumns, getPaginatedData } = useActivitiesTable(params.value.domain)
+const { response, options, loading, tableColumns, getPaginatedData, view } = useActivitiesTable(params.value.domain)
 await getPaginatedData(options.value)
 </script>
 
@@ -112,7 +112,7 @@ await getPaginatedData(options.value)
               {
                 title: 'actions.view',
                 icon: ['fas', 'eye'],
-                callback: () => {},
+                callback: () => view(row),
                 theme: 'info'
               }
             ]"

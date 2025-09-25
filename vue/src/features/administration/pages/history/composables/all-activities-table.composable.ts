@@ -20,7 +20,7 @@ const tableColumns: columns = [
 export function useActivitiesTable(domain?: Domain) {
   const { t } = useI18n()
   const $route = useRoute()
-  const { paginate } = useHistoryAdminHandler(t)
+  const { paginate, view } = useHistoryAdminHandler(t)
 
   const defaultOptions: AuditPaginationOptions = {
     take: 25,
@@ -64,6 +64,7 @@ export function useActivitiesTable(domain?: Domain) {
     options,
     loading,
     tableColumns,
-    getPaginatedData
+    getPaginatedData,
+    view
   }
 }

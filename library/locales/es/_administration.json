@@ -12,6 +12,7 @@
   "activity-logs": {
     "label": "Registros de actividad",
     "item": "Evento",
+    "modal-title": "Detalles de la actividad",
     "all-activities": {
       "label": "Todas las actividades",
       "title": "Registro de auditoría del sistema",

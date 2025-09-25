@@ -16,15 +16,84 @@ const checkIds = (x: any, y: any): boolean => {
   return ctx === ty && x['id'] == y['id']
 }
 
+export function jsonSyntaxHighlight(obj: unknown): string {
+  const json = JSON.stringify(obj, null, 2).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+  return json.replace(
+    /("(\\u[a-fA-F0-9]{4}|\\[^u]|[^\\"])*"(\s*:)?|\b(?:true|false|null)\b|-?\d+(?:\.\d+)?(?:[eE][+\-]?\d+)?)/g,
+    (match) => {
+      let cls = 'json-number'
+      if (match[0] === '"') {
+        cls = match.endsWith('":') ? 'json-key' : 'json-string'
+      } else if (match === 'true' || match === 'false') {
+        cls = 'json-boolean'
+      } else if (match === 'null') {
+        cls = 'json-null'
+      }
+      return `<span class="${cls}">${match}</span>`
+    }
+  )
+}
+
+function escapeHtml(s: string) {
+  return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+}
+
+type Opts = { indentSize?: number }
+
+const isPlain = (v: unknown): v is Record<string, unknown> =>
+  !!v && typeof v === 'object' && !Array.isArray(v) && Object.getPrototypeOf(v) === Object.prototype
+
+export function prettyDiffToHtml(value: unknown, opts: Opts = {}, level = 0): string {
+  const pad = '&nbsp;'.repeat((opts.indentSize ?? 2) * level)
+  // const next = (opts.indentSize ?? 2) * (level + 1)
+
+  if (Array.isArray(value)) {
+    if (value.length === 0) return `${pad}<span class="pd-bracket">[ ]</span>`
+    const open = `${pad}<span class="pd-bracket">[</span>\n`
+    const items = value.map((v) => prettyDiffToHtml(v, opts, level + 1)).join('\n')
+    const close = `\n${pad}<span class="pd-bracket">]</span>`
+    return open + items + close
+  }
+
+  if (isPlain(value)) {
+    const entries = Object.entries(value)
+    if (entries.length === 0) return `${pad}<span class="pd-empty">(empty)</span>`
+    return entries
+      .map(([k, v]) => {
+        const keyHtml = `<span class="pd-key">${escapeHtml(k)}</span><span class="pd-colon">:</span>`
+        if (isPlain(v) || Array.isArray(v)) {
+          const child = prettyDiffToHtml(v, opts, level + 1)
+          return `${pad}${keyHtml}\n${child}`
+        } else {
+          return `${pad}${keyHtml} <span class="pd-value">${formatPrimitive(v)}</span>`
+        }
+      })
+      .join('\n')
+  }
+
+  return `${pad}<span class="pd-value">${formatPrimitive(value)}</span>`
+}
+
+function formatPrimitive(v: unknown): string {
+  if (v === null) return `<span class="pd-null">null</span>`
+  switch (typeof v) {
+    case 'string':
+      return `<span class="pd-string">${escapeHtml(v)}</span>`
+    case 'number':
+      return `<span class="pd-number">${String(v)}</span>`
+    case 'boolean':
+      return `<span class="pd-boolean">${String(v)}</span>`
+    default:
+      return `<span class="pd-string">${escapeHtml(String(v))}</span>`
+  }
+}
+
 export type LeafChange = { before: unknown; after: unknown }
 export type NestedDiff = {
   added?: Record<string, unknown>
   removed?: Record<string, unknown>
   updated?: Record<string, NestedDiff | LeafChange>
 }
-
-const isPlain = (v: unknown): v is Record<string, unknown> =>
-  !!v && typeof v === 'object' && !Array.isArray(v) && Object.getPrototypeOf(v) === Object.prototype
 
 function matches(path: string[], key: string, set: Set<string>) {
   if (set.has(key)) return true

@@ -12,6 +12,7 @@
   "activity-logs": {
     "label": "Aktivitätsprotokolle",
     "item": "Ereignis",
+    "modal-title": "Aktivitätsdetails",
     "all-activities": {
       "label": "Alle Aktivitäten",
       "title": "Systemweiter Prüfpfad",

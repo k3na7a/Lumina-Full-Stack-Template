@@ -12,3 +12,14 @@
     border-bottom: 0.1rem $secondary solid;
   }
 }
+
+.code-block {
+  // d-flex flex-column gap-2 p-2 overflow-y-auto border border-secondary
+  display: flex;
+  flex-direction: column;
+  row-gap: 1rem;
+  padding: 1rem;
+  border: 0.1rem solid $secondary;
+  background: $background;
+  box-shadow: $boxShadowInset;
+}

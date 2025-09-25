@@ -69,3 +69,9 @@ small {
   font-size: $font-size-8;
   line-height: $line-height-base;
 }
+
+pre,
+code {
+  margin: 0;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', monospace;
+}

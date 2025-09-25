@@ -12,6 +12,7 @@
   "activity-logs": {
     "label": "Activity Logs",
     "item": "Event",
+    "modal-title": "Activity Details",
     "all-activities": {
       "label": "All Activities",
       "title": "System-Wide Audit Trail",

@@ -12,6 +12,7 @@
   "activity-logs": {
     "label": "Journaux d’activité",
     "item": "Événement",
+    "modal-title": "Détails de l’activité",
     "all-activities": {
       "label": "Toutes les activités",
       "title": "Piste d’audit du système",

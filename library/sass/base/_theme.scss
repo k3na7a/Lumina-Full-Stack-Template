@@ -54,3 +54,48 @@ a {
 .border-radius {
   border-radius: $border-radius;
 }
+
+.json-key {
+  color: #7aa2f7;
+}
+.json-string {
+  color: #9ece6a;
+}
+.json-number {
+  color: #e0af68;
+}
+.json-boolean {
+  color: #f7768e;
+}
+.json-null {
+  color: #c0caf5;
+  opacity: 0.85;
+}
+
+.pd-key {
+  color: #7aa2f7;
+  font-weight: 500;
+}
+.pd-colon {
+  color: #6b7280;
+}
+.pd-string {
+  color: #9ece6a;
+}
+.pd-number {
+  color: #e0af68;
+}
+.pd-boolean {
+  color: #f7768e;
+}
+.pd-null {
+  color: #c0caf5;
+  opacity: 0.85;
+}
+.pd-bracket {
+  color: #a3a3a3;
+}
+.pd-empty {
+  color: #9ca3af;
+  font-style: italic;
+}
