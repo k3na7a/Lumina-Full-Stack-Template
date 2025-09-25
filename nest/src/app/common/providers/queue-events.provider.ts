@@ -1,16 +1,16 @@
-import { Injectable, Logger, OnModuleInit } from '@nestjs/common';
+import { Injectable, OnModuleInit } from '@nestjs/common';
 import { Queue, QueueEvents } from 'bullmq';
+import { LogService } from 'src/app/queues/logging/services/log.service';
 
 interface QueueEventsProviderOptions {
   queueName: string;
   connection: any;
   deadLetterQueueName?: string;
+  logService?: LogService;
 }
 
 @Injectable()
 export class QueueEventsProvider implements OnModuleInit {
-  private readonly logger = new Logger(QueueEventsProvider.name);
-
   private readonly queue: Queue;
   private readonly queueEvents: QueueEvents;
   private readonly dlq?: Queue;
@@ -47,13 +47,16 @@ export class QueueEventsProvider implements OnModuleInit {
         };
 
         await this.dlq.add(deadLetterQueueName, failurePayload);
+
         return;
       }
     });
 
-    queueEvents.on('stalled', async () => {});
-    queueEvents.on('added', async () => {});
-    queueEvents.on('completed', () => {});
+    queueEvents.on('stalled', async ({}) => {});
+
+    queueEvents.on('added', async ({}) => {});
+
+    queueEvents.on('completed', ({}) => {});
 
     await queueEvents.waitUntilReady();
   }

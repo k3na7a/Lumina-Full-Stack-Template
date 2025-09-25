@@ -11,7 +11,7 @@ const $route: RouteLocationNormalizedLoaded = useRoute()
 </script>
 
 <template>
-  <NavbarComponent>
+  <NavbarComponent class="th-navbar">
     <template #left>
       <div class="d-flex justify-content-center">
         <nav class="nav-logo d-flex justify-content-center">
