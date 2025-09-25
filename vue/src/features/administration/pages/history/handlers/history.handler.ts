@@ -45,7 +45,6 @@ export function useHistoryAdminHandler(t: (key: string) => string): {
     const { openModal } = modalStore
     openModal({
       view: markRaw(EventModal),
-      size: 'lg',
       properties: {
         title: 'administration.activity-logs.modal-title',
         event

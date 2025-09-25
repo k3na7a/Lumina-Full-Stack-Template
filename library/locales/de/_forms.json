@@ -55,6 +55,11 @@
   "action": "Aktion",
   "entity": "Entität",
   "reason": "Grund",
+  "details": "Details",
+  "before": "Vorher",
+  "after": "Nachher",
+  "changes": "Änderungen",
+  "metadata": "Metadaten",
   "placeholders": {
     "first-name": "Jane",
     "last-name": "Doe",

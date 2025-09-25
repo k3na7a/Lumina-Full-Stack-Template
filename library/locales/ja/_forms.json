@@ -55,6 +55,11 @@
   "action": "アクション",
   "entity": "エンティティ",
   "reason": "理由",
+  "details": "詳細",
+  "before": "前",
+  "after": "後",
+  "changes": "変更",
+  "metadata": "メタデータ",
   "placeholders": {
     "first-name": "Jane",
     "last-name": "Doe",

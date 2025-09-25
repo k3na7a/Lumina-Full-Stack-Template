@@ -55,6 +55,11 @@
   "action": "الإجراء",
   "entity": "الكيان",
   "reason": "السبب",
+  "details": "التفاصيل",
+  "before": "قبل",
+  "after": "بعد",
+  "changes": "التغييرات",
+  "metadata": "البيانات الوصفية",
   "placeholders": {
     "first-name": "Jane",
     "last-name": "Doe",

@@ -88,6 +88,10 @@ function formatPrimitive(v: unknown): string {
   }
 }
 
+export function toSafeJson<T>(obj: T): Record<string, unknown> {
+  return JSON.parse(JSON.stringify(obj))
+}
+
 export type LeafChange = { before: unknown; after: unknown }
 export type NestedDiff = {
   added?: Record<string, unknown>
