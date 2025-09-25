@@ -73,9 +73,9 @@ await getPaginatedData(options.value)
           <small class="fw-semibold text-muted">
             <template v-if="row.platforms.length">
               <div class="d-flex flex-column gap-1">
-                <small v-for="platform of row.platforms" class="text-primary fw-semibold underline">{{
-                  platform.name
-                }}</small>
+                <small v-for="platform of row.platforms" class="text-primary fw-semibold underline">
+                  {{ platform.name }}
+                </small>
               </div>
             </template>
             <template v-else>-</template>
