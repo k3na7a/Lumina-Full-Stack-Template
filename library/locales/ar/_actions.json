@@ -33,5 +33,6 @@
   "enter-new-password-confirm": "يجب أن تتطابق كلمتا المرور",
   "authenticating": "جاري التحقق...",
   "select-option": "اختر خيارًا...",
-  "send-feedback": "إرسال الملاحظات"
+  "send-feedback": "إرسال الملاحظات",
+  "refresh": "تحديث"
 }

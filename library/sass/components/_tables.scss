@@ -87,11 +87,11 @@ table {
     }
 
     tr:has(input[type='checkbox']:checked) {
-      background-color: rgba($primary, 0.095);
+      background-color: rgba($primary, 0.15);
 
-      &:nth-of-type(even) {
-        background-color: rgba($primary, 0.1);
-      }
+      // &:nth-of-type(even) {
+      //   background-color: rgba($primary, 0.1);
+      // }
     }
   }
 

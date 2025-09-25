@@ -31,6 +31,12 @@ await getPaginatedData(options.value)
               size="lg"
               :payload="[
                 {
+                  title: 'actions.refresh',
+                  icon: ['fas', 'refresh'],
+                  callback: () => getPaginatedData(options),
+                  theme: 'light'
+                },
+                {
                   title: 'actions.create',
                   icon: ['fas', 'plus'],
                   callback: createPlatform,
@@ -75,8 +81,10 @@ await getPaginatedData(options.value)
             ]"
           >
             <small class="text-primary fst-italic text-nowrap">
-              {{ $t('administration.games-and-software.platforms.item') }}:
-              <span class="text-light-alt">{{ row.id }}</span>
+              <span class="underline">{{ $t('administration.games-and-software.platforms.item') }}:</span>&#32;<span
+                class="text-light-alt"
+                >{{ row.id }}</span
+              >
             </small>
           </ActionsComponent>
         </template>

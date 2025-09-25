@@ -34,6 +34,12 @@ await promise()
               size="lg"
               :payload="[
                 {
+                  title: 'actions.refresh',
+                  icon: ['fas', 'refresh'],
+                  callback: promise,
+                  theme: 'light'
+                },
+                {
                   title: 'actions.create',
                   icon: ['fas', 'plus'],
                   callback: create,
@@ -101,8 +107,9 @@ await promise()
             ]"
           >
             <small class="text-primary fst-italic text-nowrap">
-              {{ $t('administration.user-management.roles.item') }}:
-              <span class="text-light-alt">{{ row.id }}</span>
+              <span>{{ $t('administration.user-management.roles.item') }}:</span>&#32;<span class="text-light-alt">
+                {{ row.id }}
+              </span>
             </small>
           </ActionsComponent>
         </template>

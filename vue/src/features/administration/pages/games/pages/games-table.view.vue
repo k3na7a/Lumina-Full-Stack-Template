@@ -26,19 +26,15 @@ await getPaginatedData(options.value)
         :caption="['administration.games-and-software.games.caption', response.meta.itemCount]"
       >
         <template v-slot>
-          <button class="btn btn-dark btn-icon px-0" type="button">
-            <font-awesome-icon size="lg" :icon="['fas', 'filter']" />
-          </button>
-          <button
-            class="btn btn-dark btn-icon px-0"
-            type="button"
-            @click="(_: MouseEvent) => getPaginatedData(options)"
-          >
-            <font-awesome-icon size="lg" :icon="['fas', 'refresh']" />
-          </button>
           <ActionsComponent
             size="lg"
             :payload="[
+              {
+                title: 'actions.refresh',
+                icon: ['fas', 'refresh'],
+                callback: () => getPaginatedData(options),
+                theme: 'light'
+              },
               {
                 title: 'actions.create',
                 icon: ['fas', 'plus'],
@@ -106,8 +102,10 @@ await getPaginatedData(options.value)
             ]"
           >
             <small class="text-primary fst-italic text-nowrap">
-              {{ $t('administration.games-and-software.games.item') }}:
-              <span class="text-light-alt">{{ row.id }}</span>
+              <span class="underline">{{ $t('administration.games-and-software.games.item') }}:</span>&#32;<span
+                class="text-light-alt"
+                >{{ row.id }}</span
+              >
             </small>
           </ActionsComponent>
         </template>

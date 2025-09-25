@@ -1,17 +1,23 @@
 import { AxiosError } from 'axios'
+import { markRaw } from 'vue'
 
 import { PaginationDto, PaginationMeta } from '@lib/dto/pagination.dto'
+import { AuditEventDto, AuditPaginationOptions } from '@lib/dto/audit.dto'
+
 import { LocalhostAPI } from '@/core/apis/localhost/localhost.api'
 import { ToastStore, useToastStore } from '@/core/store/toast.store'
-
 import { AppStore, useAppStore } from '@/core/store/app.store'
-import { AuditEventDto, AuditPaginationOptions } from '@lib/dto/audit.dto'
+import { ModalStore, useModalStore } from '@/core/store/modal.store'
+
+import EventModal from '../components/event.modal.vue'
 
 export function useHistoryAdminHandler(t: (key: string) => string): {
   paginate: (params: AuditPaginationOptions) => Promise<PaginationDto<AuditEventDto>>
+  view: (event: AuditEventDto) => void
 } {
   const toastStore: ToastStore = useToastStore()
   const appStore: AppStore = useAppStore()
+  const modalStore: ModalStore = useModalStore()
 
   const api = LocalhostAPI.administration.audit
 
@@ -35,5 +41,16 @@ export function useHistoryAdminHandler(t: (key: string) => string): {
     })
   }
 
-  return { paginate }
+  function view(event: AuditEventDto): void {
+    const { openModal } = modalStore
+    openModal({
+      view: markRaw(EventModal),
+      properties: {
+        title: 'administration.user-management.permissions.create.title',
+        event
+      }
+    })
+  }
+
+  return { paginate, view }
 }

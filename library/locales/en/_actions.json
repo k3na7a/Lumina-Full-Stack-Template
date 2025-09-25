@@ -33,5 +33,6 @@
   "enter-new-password-confirm": "Passwords must match",
   "authenticating": "Authenticating...",
   "select-option": "select an option...",
-  "send-feedback": "Send Feedback"
+  "send-feedback": "Send Feedback",
+  "refresh": "Refresh"
 }

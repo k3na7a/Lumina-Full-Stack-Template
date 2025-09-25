@@ -27,15 +27,15 @@ const LOCALES: { [id: string]: { display: string; key: locales; flag: string } }
     key: 'de',
     flag: '/media/flags/germany.svg'
   },
-  ar: {
-    display: 'العربية',
-    key: 'ar',
-    flag: '/media/flags/saudi-arabia.svg'
-  },
   ja: {
     display: '日本語',
     key: 'ja',
     flag: '/media/flags/japan.svg'
+  },
+  ar: {
+    display: 'العربية',
+    key: 'ar',
+    flag: '/media/flags/saudi-arabia.svg'
   }
 }
 

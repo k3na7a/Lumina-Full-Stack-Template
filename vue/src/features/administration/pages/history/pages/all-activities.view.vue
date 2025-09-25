@@ -32,7 +32,17 @@ await getPaginatedData(options.value)
       >
         <template v-slot>
           <div class="d-flex gap-2">
-            <ActionsComponent disabled size="lg" :payload="[]" />
+            <ActionsComponent
+              size="lg"
+              :payload="[
+                {
+                  title: 'actions.refresh',
+                  icon: ['fas', 'refresh'],
+                  callback: () => getPaginatedData(options),
+                  theme: 'light'
+                }
+              ]"
+            />
           </div>
         </template>
 
@@ -57,7 +67,9 @@ await getPaginatedData(options.value)
                   'text-underline-offset': '0.25em !important'
                 }"
                 >{{ String(row.actorType).toUpperCase() }}:</span
-              >&#32;<span>{{ row.actorDisplay ?? row.actorIp }}</span>
+              >&#32;<span>
+                {{ row.actorDisplay ?? row.actorIp }}
+              </span>
             </small>
           </div>
         </template>
@@ -81,9 +93,9 @@ await getPaginatedData(options.value)
         <template #entity="{ row }">
           <div class="d-flex flex-column overflow-hidden" style="max-width: 25rem">
             <small class="text-light-alt text-truncate">
-              <span class="text-primary underline">{{ String(row.subDomain).toUpperCase() }}:</span>&#32;<span>{{
-                row.entityDisplay
-              }}</span>
+              <span class="text-primary underline">{{ String(row.subDomain).toUpperCase() }}:</span>&#32;<span>
+                {{ row.entityDisplay }}
+              </span>
             </small>
           </div>
         </template>
@@ -106,8 +118,11 @@ await getPaginatedData(options.value)
             ]"
           >
             <small class="text-primary fst-italic text-nowrap">
-              {{ $t('administration.activity-logs.item') }}:
-              <span class="text-light-alt">{{ row.id }}</span>
+              <span class="underline">{{ $t('administration.activity-logs.item') }}:</span>&#32;<span
+                class="text-light-alt"
+              >
+                {{ row.id }}
+              </span>
             </small>
           </ActionsComponent>
         </template>

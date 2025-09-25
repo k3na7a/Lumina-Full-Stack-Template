@@ -33,5 +33,6 @@
   "enter-new-password-confirm": "Les mots de passe doivent correspondre",
   "authenticating": "Authentification...",
   "select-option": "sélectionnez une option...",
-  "send-feedback": "Envoyer un retour"
+  "send-feedback": "Envoyer un retour",
+  "refresh": "Rafraîchir"
 }

@@ -26,7 +26,17 @@ await promise()
       >
         <template v-slot>
           <div class="d-flex gap-2">
-            <ActionsComponent disabled size="lg" :payload="[]" />
+            <ActionsComponent
+              size="lg"
+              :payload="[
+                {
+                  title: 'actions.refresh',
+                  icon: ['fas', 'refresh'],
+                  callback: promise,
+                  theme: 'light'
+                }
+              ]"
+            />
           </div>
         </template>
 
@@ -84,8 +94,10 @@ await promise()
             ]"
           >
             <small class="text-primary fst-italic text-nowrap">
-              {{ $t('administration.user-management.users.item') }}:
-              <span class="text-light-alt">{{ row.id }}</span>
+              <span class="underline">{{ $t('administration.user-management.users.item') }}:</span>&#32;<span
+                class="text-light-alt"
+                >{{ row.id }}</span
+              >
             </small>
           </ActionsComponent>
         </template>

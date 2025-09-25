@@ -33,5 +33,6 @@
   "enter-new-password-confirm": "パスワードが一致している必要があります",
   "authenticating": "認証中...",
   "select-option": "オプションを選択...",
-  "send-feedback": "フィードバックを送信"
+  "send-feedback": "フィードバックを送信",
+  "refresh": "更新"
 }
