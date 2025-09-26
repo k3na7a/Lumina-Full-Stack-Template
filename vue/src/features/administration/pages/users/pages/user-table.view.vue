@@ -6,7 +6,7 @@ import TablePaginatedComponent from '@/shared/components/table/paginated-table.c
 import ContentLayout from '@/features/administration/layouts/content.layout.vue'
 import { useUserTable } from '../composables/user-table.composable'
 
-const { promise, update, remove, options, loading, response, tableColumns } = useUserTable()
+const { promise, update, remove, view, options, loading, response, tableColumns } = useUserTable()
 await promise()
 </script>
 
@@ -85,12 +85,23 @@ await promise()
           <ActionsComponent
             :payload="[
               {
+                title: 'actions.view',
+                icon: ['fas', 'eye'],
+                callback: () => view(row),
+                theme: 'info'
+              },
+              {
                 title: 'actions.update',
                 icon: ['fas', 'pen-to-square'],
                 callback: () => update(row),
                 theme: 'warning'
               },
-              { title: 'actions.delete', icon: ['fas', 'trash-can'], callback: () => remove(row), theme: 'danger' }
+              {
+                title: 'actions.delete',
+                icon: ['fas', 'trash-can'],
+                callback: () => remove(row),
+                theme: 'danger'
+              }
             ]"
           >
             <small class="text-primary fst-italic text-nowrap">

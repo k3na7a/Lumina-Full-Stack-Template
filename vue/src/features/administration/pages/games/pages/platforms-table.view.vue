@@ -5,8 +5,17 @@ import ActionsComponent from '@/shared/components/dropdown/table-actions.dropdow
 import ContentLayout from '@/features/administration/layouts/content.layout.vue'
 import { usePlatformTable } from '../composables/platform-table.composable.ts'
 
-const { response, options, loading, tableColumns, createPlatform, getPaginatedData, removePlatform, updatePlatform } =
-  usePlatformTable()
+const {
+  response,
+  options,
+  loading,
+  tableColumns,
+  createPlatform,
+  getPaginatedData,
+  removePlatform,
+  updatePlatform,
+  viewPlatform
+} = usePlatformTable()
 
 await getPaginatedData(options.value)
 </script>
@@ -66,6 +75,12 @@ await getPaginatedData(options.value)
         <template #actions="{ row }">
           <ActionsComponent
             :payload="[
+              {
+                title: 'actions.view',
+                icon: ['fas', 'eye'],
+                callback: () => viewPlatform(row),
+                theme: 'info'
+              },
               {
                 title: 'actions.update',
                 icon: ['fas', 'pen-to-square'],

@@ -43,6 +43,7 @@ class PermissionDto extends BaseDto {
   public readonly description?: string
   public readonly domain: PermissionDomain
   public readonly isSystemPermission: boolean
+  public readonly raw: Record<string, unknown>
 
   constructor(payload: iPermission) {
     super(payload)
@@ -52,6 +53,7 @@ class PermissionDto extends BaseDto {
     this.description = payload.description
     this.isSystemPermission = payload.isSystemPermission
     this.domain = payload.domain
+    this.raw = payload as unknown as Record<string, unknown>
   }
 }
 

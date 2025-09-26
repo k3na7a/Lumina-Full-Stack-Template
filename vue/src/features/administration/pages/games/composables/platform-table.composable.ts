@@ -26,7 +26,7 @@ const tableColumns: columns = [
 function usePlatformTable() {
   const { t } = useI18n()
   const $route = useRoute()
-  const { create, paginate, remove, update } = usePlatformAdminHandler(t)
+  const { create, paginate, remove, update, view } = usePlatformAdminHandler(t)
 
   const loading = ref<boolean>(false)
   const options = computed<PaginationOptions>(() => parseQuery<PaginationOptions>($route.query, defaultOptions))
@@ -59,6 +59,10 @@ function usePlatformTable() {
     update(platform, (_: PlatformDto) => getPaginatedData(options.value))
   }
 
+  function viewPlatform(platform: PlatformDto): void {
+    view(platform)
+  }
+
   watch(
     () => $route.query,
     async (newQuery: LocationQuery): Promise<void> => {
@@ -76,7 +80,8 @@ function usePlatformTable() {
     createPlatform,
     removePlatform,
     updatePlatform,
-    getPaginatedData
+    getPaginatedData,
+    viewPlatform
   }
 }
 

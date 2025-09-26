@@ -60,8 +60,13 @@ function usePermissionsTable() {
   function update(row: PermissionDto): void {
     handler.update(row, (_: PermissionDto) => getPaginatedData(options.value))
   }
+
   function remove(row: PermissionDto): void {
     handler.remove(row, (_: PermissionDto) => getPaginatedData(options.value))
+  }
+
+  function view(row: PermissionDto): void {
+    handler.view(row)
   }
 
   watch(
@@ -72,7 +77,7 @@ function usePermissionsTable() {
     }
   )
 
-  return { defaultOptions, tableColumns, response, options, loading, t, promise, update, remove, create }
+  return { defaultOptions, tableColumns, response, options, loading, t, promise, update, remove, create, view }
 }
 
 export { usePermissionsTable, defaultOptions }

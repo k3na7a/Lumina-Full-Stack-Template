@@ -11,6 +11,7 @@ import { PaginationOptions, PaginationDto, PaginationMeta } from '@lib/dto/pagin
 import { LocalhostAPI } from '@/core/apis/localhost/localhost.api'
 import { AppStore, useAppStore } from '@/core/store/app.store'
 import { CreatePermissionDto, iCreatePermission, PermissionDto } from '@lib/dto/permission.dto'
+import JSONDetailsModal from '@/shared/components/modal/JSON-details.modal.vue'
 
 export function usePermissionAdminHandler(t: (key: string) => string): {
   create: (success?: (value: PermissionDto) => void | Promise<void>) => void
@@ -18,6 +19,7 @@ export function usePermissionAdminHandler(t: (key: string) => string): {
   getPaginated: (params: PaginationOptions) => Promise<PaginationDto<PermissionDto>>
   update(permission: PermissionDto, success?: (value: PermissionDto) => void): void
   remove: (permission: PermissionDto, success?: (value: PermissionDto) => void | Promise<void>) => void
+  view: (value: PermissionDto) => void
 } {
   const toastStore: ToastStore = useToastStore()
   const modalStore: ModalStore = useModalStore()
@@ -63,6 +65,18 @@ export function usePermissionAdminHandler(t: (key: string) => string): {
             })
             .catch(showErrorToast)
         }
+      }
+    })
+  }
+
+  function view(value: PermissionDto): void {
+    const { openModal } = modalStore
+
+    openModal({
+      view: markRaw(JSONDetailsModal),
+      properties: {
+        item: value.raw,
+        title: 'administration.user-management.permissions.view.title'
       }
     })
   }
@@ -135,5 +149,5 @@ export function usePermissionAdminHandler(t: (key: string) => string): {
     })
   }
 
-  return { getById, getPaginated, update, remove, create }
+  return { getById, getPaginated, update, remove, create, view }
 }

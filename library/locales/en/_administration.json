@@ -41,6 +41,7 @@
         "remove-profile-picture": "Remove profile picture",
         "success": "Changes to the user account were saved successfully."
       },
+      "view": { "title": "View User" },
       "delete": {
         "title": "Permanently Delete User",
         "success": "The user account has been permanently removed."
@@ -60,11 +61,11 @@
         "title": "Update User Role",
         "success": "User role was updated successfully."
       },
+      "view": { "title": "View Role" },
       "delete": {
         "title": "Permanently Delete User Role",
         "success": "User role has been successfully removed."
       },
-
       "placeholders": {
         "label": "Super Administrator",
         "description": "Has full access to all resources.",
@@ -81,6 +82,7 @@
         "title": "Create New User Permission",
         "success": "New user permission has been created successfully."
       },
+      "view": { "title": "View Permission" },
       "update": {
         "title": "Update User Permission",
         "success": "User permission was updated successfully."
@@ -89,7 +91,6 @@
         "title": "Permanently Delete User Permission",
         "success": "User permission has been successfully removed."
       },
-
       "placeholders": {
         "label": "Super Administrator",
         "description": "Has full access to all resources.",
@@ -106,13 +107,12 @@
       "title": "Create and modify your games & software",
       "subtitle": "Manage your game library and software releases.",
       "caption": "Showing {start}-{end} of {count} games | Showing {start}-{end} of {count} game | Showing {start}-{end} of {count} games",
-
       "placeholders": {
         "name": "Super Mario Bros.",
         "description": "A side scrolling 2D platformer and first entry in the Super Mario franchise, Super Mario Bros. follows Italian plumber Mario as he treks across many levels of platforming challenges featuring hostile enemies to rescue Princess Peach from the evil king Bowser.",
         "slug": "super-mario-bros"
       },
-
+      "view": { "title": "View Game or Software" },
       "create": {
         "title": "Create New Game or Software",
         "success": "New game has been created successfully."
@@ -132,12 +132,11 @@
       "title": "Consoles, operating systems, or distribution channels",
       "subtitle": "All your supported platforms in one place.",
       "caption": "Showing {start}-{end} of {count} platforms | Showing {start}-{end} of {count} platform | Showing {start}-{end} of {count} platforms",
-
       "placeholders": {
         "name": "Nintendo Entertainment System",
         "slug": "nintendo-entertainment-system"
       },
-
+      "view": { "title": "View Platform" },
       "create": {
         "title": "Create New Platform",
         "success": "New platform has been created successfully."

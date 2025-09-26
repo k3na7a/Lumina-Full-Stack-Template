@@ -5,7 +5,7 @@ import ActionsComponent from '@/shared/components/dropdown/table-actions.dropdow
 import ContentLayout from '@/features/administration/layouts/content.layout.vue'
 import { useGamesTable } from '../composables/game-table.composable'
 
-const { options, loading, tableColumns, response, createGame, updateGame, removeGame, getPaginatedData } =
+const { options, loading, tableColumns, response, createGame, updateGame, removeGame, getPaginatedData, viewGame } =
   useGamesTable()
 
 await getPaginatedData(options.value)
@@ -87,6 +87,12 @@ await getPaginatedData(options.value)
         <template #actions="{ row }">
           <ActionsComponent
             :payload="[
+              {
+                title: 'actions.view',
+                icon: ['fas', 'eye'],
+                callback: () => viewGame(row),
+                theme: 'info'
+              },
               {
                 title: 'actions.update',
                 icon: ['fas', 'pen-to-square'],

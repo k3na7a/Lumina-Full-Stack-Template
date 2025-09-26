@@ -52,6 +52,7 @@ class GameDto extends BaseDto {
   public readonly release_date: Date
 
   public readonly platforms: PlatformDto[]
+  public readonly raw: Record<string, unknown>
 
   constructor(game: iGame) {
     super(game)
@@ -64,6 +65,8 @@ class GameDto extends BaseDto {
     this.cover = game.cover ? game.cover.uri : '/media/games/no-cover.png'
 
     this.platforms = game.platforms ? game.platforms.map((value: iPlatform) => new PlatformDto(value)) : []
+
+    this.raw = game as unknown as Record<string, unknown>
   }
 }
 

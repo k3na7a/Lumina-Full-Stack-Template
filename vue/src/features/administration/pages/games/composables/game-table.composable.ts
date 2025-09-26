@@ -27,7 +27,7 @@ function useGamesTable() {
   const { t } = useI18n()
   const $route = useRoute()
 
-  const { create, update, remove, getPaginated } = useGameAdminHandler(t)
+  const { create, update, remove, getPaginated, view } = useGameAdminHandler(t)
 
   const loading = ref<boolean>(false)
   const options = computed<PaginationOptions>(() => parseQuery<PaginationOptions>($route.query, defaultOptions))
@@ -49,6 +49,10 @@ function useGamesTable() {
     update(game, (_: GameDto) => getPaginatedData(options.value))
   }
 
+  function viewGame(game: GameDto): void {
+    view(game)
+  }
+
   async function getPaginatedData(payload: PaginationOptions): Promise<void> {
     loading.value = true
 
@@ -68,7 +72,7 @@ function useGamesTable() {
     }
   )
 
-  return { t, loading, options, response, tableColumns, createGame, updateGame, removeGame, getPaginatedData }
+  return { t, loading, options, response, tableColumns, createGame, updateGame, removeGame, getPaginatedData, viewGame }
 }
 
 export { useGamesTable }

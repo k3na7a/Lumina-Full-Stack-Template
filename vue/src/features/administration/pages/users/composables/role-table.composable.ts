@@ -61,8 +61,13 @@ function useRoleTable() {
   function update(row: RoleDto): void {
     handler.update(row, (_: RoleDto) => getPaginatedData(options.value))
   }
+
   function remove(row: RoleDto): void {
     handler.remove(row, (_: RoleDto) => getPaginatedData(options.value))
+  }
+
+  function view(row: RoleDto): void {
+    handler.view(row)
   }
 
   watch(
@@ -73,7 +78,7 @@ function useRoleTable() {
     }
   )
 
-  return { defaultOptions, tableColumns, response, options, loading, t, promise, update, remove, create }
+  return { defaultOptions, tableColumns, response, options, loading, t, promise, update, remove, create, view }
 }
 
 export { useRoleTable, defaultOptions }

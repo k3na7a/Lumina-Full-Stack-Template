@@ -8,7 +8,7 @@ import ActionsComponent from '@/shared/components/dropdown/table-actions.dropdow
 import { usePermissionsTable } from '../composables/permissions-table.composable.ts'
 import { iPermissionDomain } from '@lib/constants/permissions.constants.ts'
 
-const { promise, create, update, remove, options, loading, response, tableColumns } = usePermissionsTable()
+const { promise, create, update, remove, view, options, loading, response, tableColumns } = usePermissionsTable()
 await promise()
 </script>
 
@@ -74,15 +74,27 @@ await promise()
 
         <template #actions="{ row }">
           <ActionsComponent
-            :disabled="row.isSystemPermission"
             :payload="[
               {
+                title: 'actions.view',
+                icon: ['fas', 'eye'],
+                callback: () => view(row),
+                theme: 'info'
+              },
+              {
+                disabled: row.isSystemPermission,
                 title: 'actions.update',
                 icon: ['fas', 'pen-to-square'],
                 callback: () => update(row),
                 theme: 'warning'
               },
-              { title: 'actions.delete', icon: ['fas', 'trash-can'], callback: () => remove(row), theme: 'danger' }
+              {
+                disabled: row.isSystemPermission,
+                title: 'actions.delete',
+                icon: ['fas', 'trash-can'],
+                callback: () => remove(row),
+                theme: 'danger'
+              }
             ]"
           >
             <small class="text-primary fst-italic text-nowrap">

@@ -16,41 +16,26 @@ const checkIds = (x: any, y: any): boolean => {
   return ctx === ty && x['id'] == y['id']
 }
 
-export function jsonSyntaxHighlight(obj: unknown): string {
-  const json = JSON.stringify(obj, null, 2).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
-  return json.replace(
-    /("(\\u[a-fA-F0-9]{4}|\\[^u]|[^\\"])*"(\s*:)?|\b(?:true|false|null)\b|-?\d+(?:\.\d+)?(?:[eE][+\-]?\d+)?)/g,
-    (match) => {
-      let cls = 'json-number'
-      if (match[0] === '"') {
-        cls = match.endsWith('":') ? 'json-key' : 'json-string'
-      } else if (match === 'true' || match === 'false') {
-        cls = 'json-boolean'
-      } else if (match === 'null') {
-        cls = 'json-null'
-      }
-      return `<span class="${cls}">${match}</span>`
-    }
-  )
-}
-
 function escapeHtml(s: string) {
-  return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+  return s.trim().replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
 }
 
 type Opts = { indentSize?: number }
-
 const isPlain = (v: unknown): v is Record<string, unknown> =>
   !!v && typeof v === 'object' && !Array.isArray(v) && Object.getPrototypeOf(v) === Object.prototype
 
+function primaryKeyOf(o: Record<string, unknown>): string | null {
+  for (const k of ['id', 'name', 'label', 'slug']) if (k in o) return k
+  return null
+}
+
 export function prettyDiffToHtml(value: unknown, opts: Opts = {}, level = 0): string {
   const pad = '&nbsp;'.repeat((opts.indentSize ?? 2) * level)
-  // const next = (opts.indentSize ?? 2) * (level + 1)
 
   if (Array.isArray(value)) {
     if (value.length === 0) return `${pad}<span class="pd-bracket">[ ]</span>`
     const open = `${pad}<span class="pd-bracket">[</span>\n`
-    const items = value.map((v) => prettyDiffToHtml(v, opts, level + 1)).join('\n')
+    const items = value.map((v, i) => renderArrayItem(v, opts, level + 1, i)).join('\n')
     const close = `\n${pad}<span class="pd-bracket">]</span>`
     return open + items + close
   }
@@ -72,6 +57,40 @@ export function prettyDiffToHtml(value: unknown, opts: Opts = {}, level = 0): st
   }
 
   return `${pad}<span class="pd-value">${formatPrimitive(value)}</span>`
+}
+
+function renderArrayItem(v: unknown, opts: Opts, level: number, _index: number): string {
+  const pad = '&nbsp;'.repeat((opts.indentSize ?? 2) * level)
+
+  const bullet = `<span class="pd-bullet">-</span>`
+
+  if (Array.isArray(v)) {
+    const child = prettyDiffToHtml(v, opts, level + 1)
+    return `${pad}${bullet}\n${child}`
+  }
+
+  if (isPlain(v)) {
+    const obj = v as Record<string, unknown>
+    const pk = primaryKeyOf(obj)
+
+    if (pk) {
+      const header =
+        `${pad}${bullet} <span class="pd-key">${escapeHtml(pk)}</span><span class="pd-colon">:</span> ` +
+        `<span class="pd-value">${formatPrimitive(obj[pk])}</span>`
+
+      const rest: Record<string, unknown> = {}
+      for (const [k, val] of Object.entries(obj)) if (k !== pk) rest[k] = val
+
+      const body = Object.keys(rest).length ? '\n' + prettyDiffToHtml(rest, opts, level + 1) : ''
+
+      return header + body
+    }
+
+    const child = prettyDiffToHtml(obj, opts, level + 1)
+    return `${pad}${bullet}\n${child}`
+  }
+
+  return `${pad}${bullet} <span class="pd-value">${formatPrimitive(v)}</span>`
 }
 
 function formatPrimitive(v: unknown): string {
@@ -137,13 +156,13 @@ function redactValue(
   return normalized
 }
 
-function redactObject(
+export function redactObject(
   obj: Record<string, unknown>,
   path: string[],
   sensitive: Set<string>,
   entityArrays: Set<string>,
-  mask: string,
-  idField: string
+  mask: string = '[REDACTED]',
+  idField: string = 'id'
 ): Record<string, unknown> {
   const out: Record<string, unknown> = {}
   for (const [key, val] of Object.entries(obj)) {

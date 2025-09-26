@@ -1,6 +1,5 @@
-import { BaseDto } from "./base.dto"
-import { iPermission, PermissionDto } from "./permission.dto"
-
+import { BaseDto } from './base.dto'
+import { iPermission, PermissionDto } from './permission.dto'
 
 interface iRole {
   readonly id: string
@@ -45,6 +44,7 @@ class RoleDto extends BaseDto {
   public readonly description?: string
   public readonly isSystemRole: boolean
   public readonly permissions: PermissionDto[]
+  public readonly raw: Record<string, unknown>
 
   constructor(payload: iRole) {
     super(payload)
@@ -56,6 +56,7 @@ class RoleDto extends BaseDto {
     this.permissions = payload.permissions?.length
       ? payload.permissions.map((value: iPermission) => new PermissionDto(value))
       : []
+    this.raw = payload as unknown as Record<string, unknown>
   }
 }
 

@@ -41,6 +41,7 @@
         "remove-profile-picture": "Profilbild entfernen",
         "success": "Änderungen am Benutzerkonto wurden erfolgreich gespeichert."
       },
+      "view": { "title": "Benutzer anzeigen" },
       "delete": {
         "title": "Benutzer dauerhaft löschen",
         "success": "Das Benutzerkonto wurde dauerhaft entfernt."
@@ -60,6 +61,7 @@
         "title": "Benutzerrolle aktualisieren",
         "success": "Benutzerrolle wurde erfolgreich aktualisiert."
       },
+      "view": { "title": "Rolle anzeigen" },
       "delete": {
         "title": "Benutzerrolle dauerhaft löschen",
         "success": "Benutzerrolle wurde erfolgreich entfernt."
@@ -80,6 +82,7 @@
         "title": "Neue Benutzerberechtigung erstellen",
         "success": "Neue Benutzerberechtigung wurde erfolgreich erstellt."
       },
+      "view": { "title": "Berechtigung anzeigen" },
       "update": {
         "title": "Benutzerberechtigung aktualisieren",
         "success": "Benutzerberechtigung wurde erfolgreich aktualisiert."
@@ -109,6 +112,7 @@
         "description": "Ein seitlich scrollendes 2D-Plattformspiel und der erste Eintrag in der Super Mario-Reihe. Super Mario Bros. folgt dem italienischen Klempner Mario durch viele Level mit Plattform-Herausforderungen und feindlichen Gegnern, um Prinzessin Peach vom bösen König Bowser zu retten.",
         "slug": "super-mario-bros"
       },
+      "view": { "title": "Spiel oder Software anzeigen" },
       "create": {
         "title": "Neues Spiel oder neue Software erstellen",
         "success": "Neues Spiel wurde erfolgreich erstellt."
@@ -132,6 +136,7 @@
         "name": "Nintendo Entertainment System",
         "slug": "nintendo-entertainment-system"
       },
+      "view": { "title": "Plattform anzeigen" },
       "create": {
         "title": "Neue Plattform erstellen",
         "success": "Neue Plattform wurde erfolgreich erstellt."

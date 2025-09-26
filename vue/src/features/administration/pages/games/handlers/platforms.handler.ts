@@ -2,11 +2,7 @@ import { AxiosError } from 'axios'
 import { markRaw } from 'vue'
 
 import { PaginationOptions, PaginationDto, PaginationMeta } from '@lib/dto/pagination.dto'
-import {
-  PlatformDto,
-  icreateplatform,
-  CreatePlatformDto
-} from '@lib/dto/platform.dto'
+import { PlatformDto, icreateplatform, CreatePlatformDto } from '@lib/dto/platform.dto'
 import { LocalhostAPI } from '@/core/apis/localhost/localhost.api'
 import { ModalStore, useModalStore } from '@/core/store/modal.store'
 import { ToastStore, useToastStore } from '@/core/store/toast.store'
@@ -14,12 +10,14 @@ import { ToastStore, useToastStore } from '@/core/store/toast.store'
 import ConfirmDeleteModal from '@/shared/components/modal/permanently-delete.component.vue'
 import NewPlatformModal from '../components/platform.component.vue'
 import { AppStore, useAppStore } from '@/core/store/app.store'
+import JSONDetailsModal from '@/shared/components/modal/JSON-details.modal.vue'
 
 export function usePlatformAdminHandler(t: (key: string) => string): {
   create: (success?: (value: PlatformDto) => void | Promise<void>) => void
   paginate: (params: PaginationOptions) => Promise<PaginationDto<PlatformDto>>
   update: (platform: PlatformDto, success?: (value: PlatformDto) => void | Promise<void>) => void
   remove(platform: PlatformDto, success?: (value: PlatformDto) => void | Promise<void>): void
+  view: (value: PlatformDto) => void
 } {
   const toastStore: ToastStore = useToastStore()
   const modalStore: ModalStore = useModalStore()
@@ -67,6 +65,18 @@ export function usePlatformAdminHandler(t: (key: string) => string): {
             })
             .catch(showErrorToast)
         }
+      }
+    })
+  }
+
+  function view(value: PlatformDto): void {
+    const { openModal } = modalStore
+
+    openModal({
+      view: markRaw(JSONDetailsModal),
+      properties: {
+        item: value.raw,
+        title: 'administration.games-and-software.platforms.view.title'
       }
     })
   }
@@ -133,5 +143,5 @@ export function usePlatformAdminHandler(t: (key: string) => string): {
     })
   }
 
-  return { create, paginate, remove, update }
+  return { create, paginate, remove, update, view }
 }

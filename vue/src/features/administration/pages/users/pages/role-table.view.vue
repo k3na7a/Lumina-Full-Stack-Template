@@ -10,7 +10,7 @@ import { PermissionDto } from '@lib/dto/permission.dto'
 
 const max_permissions = 5
 
-const { promise, create, update, remove, options, loading, response, tableColumns } = useRoleTable()
+const { promise, create, update, remove, view, options, loading, response, tableColumns } = useRoleTable()
 await promise()
 </script>
 
@@ -95,15 +95,27 @@ await promise()
 
         <template #actions="{ row }">
           <ActionsComponent
-            :disabled="row.isSystemRole"
             :payload="[
               {
+                title: 'actions.view',
+                icon: ['fas', 'eye'],
+                callback: () => view(row),
+                theme: 'info'
+              },
+              {
+                disabled: row.isSystemRole,
                 title: 'actions.update',
                 icon: ['fas', 'pen-to-square'],
                 callback: () => update(row),
                 theme: 'warning'
               },
-              { title: 'actions.delete', icon: ['fas', 'trash-can'], callback: () => remove(row), theme: 'danger' }
+              {
+                disabled: row.isSystemRole,
+                title: 'actions.delete',
+                icon: ['fas', 'trash-can'],
+                callback: () => remove(row),
+                theme: 'danger'
+              }
             ]"
           >
             <small class="text-primary fst-italic text-nowrap">

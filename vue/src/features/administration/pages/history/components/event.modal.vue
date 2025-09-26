@@ -3,18 +3,11 @@ import { AuditEventDto } from '@lib/dto/audit.dto'
 
 import ModalTitle from '@/shared/components/modal/base/modal-title.component.vue'
 import Layout from '../layouts/event.layout.vue'
-import { computed } from 'vue'
-import { prettyDiffToHtml, toSafeJson } from '@lib/utilities/object.util'
+import { useActivitiesModal } from '../composables/activities-modal.composable'
 
 const props = defineProps<{ title: string; event: AuditEventDto }>()
 
-const { diff, before, after, metadata, ...details } = props.event
-
-const details_html = computed(() => prettyDiffToHtml(toSafeJson(details), { indentSize: 2 }))
-const before_html = computed(() => prettyDiffToHtml(before, { indentSize: 2 }))
-const after_html = computed(() => prettyDiffToHtml(after, { indentSize: 2 }))
-const diff_html = computed(() => prettyDiffToHtml(diff, { indentSize: 2 }))
-const meta_html = computed(() => prettyDiffToHtml(metadata, { indentSize: 2 }))
+const { $diff, $before, $after, $meta, $details } = useActivitiesModal(props)
 </script>
 
 <template>
@@ -24,27 +17,27 @@ const meta_html = computed(() => prettyDiffToHtml(metadata, { indentSize: 2 }))
     </template>
     <template #info>
       <div class="code-block">
-        <pre><code v-html="details_html"></code></pre>
+        <pre><code v-html="$details"></code></pre>
       </div>
     </template>
     <template #before>
       <div class="code-block">
-        <pre><code v-html="before_html"></code></pre>
+        <pre><code v-html="$before"></code></pre>
       </div>
     </template>
     <template #after>
       <div class="code-block">
-        <pre><code v-html="after_html"></code></pre>
+        <pre><code v-html="$after"></code></pre>
       </div>
     </template>
     <template #diff>
       <div class="code-block">
-        <pre><code v-html="diff_html"></code></pre>
+        <pre><code v-html="$diff"></code></pre>
       </div>
     </template>
     <template #metadata>
       <div class="code-block">
-        <pre><code v-html="meta_html"></code></pre>
+        <pre><code v-html="$meta"></code></pre>
       </div>
     </template>
   </Layout>

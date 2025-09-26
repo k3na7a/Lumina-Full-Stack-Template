@@ -5,37 +5,27 @@
 
     <div class="d-flex flex-column gap-1">
       <h6 class="fw-semibold">{{ $t('forms.details') }}</h6>
-      <div>
-        <slot name="info"></slot>
-      </div>
+      <slot name="info"></slot>
     </div>
 
     <div class="d-flex flex-column gap-1">
       <h6 class="fw-semibold">{{ $t('forms.before') }}</h6>
-      <div>
-        <slot name="before"></slot>
-      </div>
+      <slot name="before"></slot>
     </div>
 
     <div class="d-flex flex-column gap-1">
       <h6 class="fw-semibold">{{ $t('forms.after') }}</h6>
-      <div>
-        <slot name="after"></slot>
-      </div>
+      <slot name="after"></slot>
     </div>
 
     <div class="d-flex flex-column gap-1">
       <h6 class="fw-semibold">{{ $t('forms.changes') }}</h6>
-      <div>
-        <slot name="diff"></slot>
-      </div>
+      <slot name="diff"></slot>
     </div>
 
     <div class="d-flex flex-column gap-1">
       <h6 class="fw-semibold">{{ $t('forms.metadata') }}</h6>
-      <div>
-        <slot name="metadata"></slot>
-      </div>
+      <slot name="metadata"></slot>
     </div>
   </div>
 </template>

@@ -12,12 +12,14 @@ import ConfirmDeleteModal from '@/shared/components/modal/permanently-delete.com
 
 import NewGameModal from '../components/game.component.vue'
 import { AppStore, useAppStore } from '@/core/store/app.store'
+import JSONDetailsModal from '@/shared/components/modal/JSON-details.modal.vue'
 
 export function useGameAdminHandler(t: (key: string) => string): {
   create: (success?: (value: GameDto) => void | Promise<void>) => void
   getPaginated: (params: PaginationOptions) => Promise<PaginationDto<GameDto>>
   update: (game: GameDto, success?: (value: GameDto) => void | Promise<void>) => void
   remove: (game: GameDto, success?: (value: GameDto) => void | Promise<void>) => void
+  view: (value: GameDto) => void
 } {
   const toastStore: ToastStore = useToastStore()
   const modalStore: ModalStore = useModalStore()
@@ -65,6 +67,18 @@ export function useGameAdminHandler(t: (key: string) => string): {
             })
             .catch(showErrorToast)
         }
+      }
+    })
+  }
+
+  function view(value: GameDto): void {
+    const { openModal } = modalStore
+
+    openModal({
+      view: markRaw(JSONDetailsModal),
+      properties: {
+        item: value.raw,
+        title: 'administration.games-and-software.games.view.title'
       }
     })
   }
@@ -131,5 +145,5 @@ export function useGameAdminHandler(t: (key: string) => string): {
     })
   }
 
-  return { create, getPaginated, update, remove }
+  return { create, getPaginated, update, remove, view }
 }

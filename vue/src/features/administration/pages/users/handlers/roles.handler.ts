@@ -12,6 +12,7 @@ import { AppStore, useAppStore } from '@/core/store/app.store'
 import { CreateRoleDto, iCreateRole, RoleDto } from '@lib/dto/role.dto'
 
 import NewRoleModal from '../components/role.component.vue'
+import JSONDetailsModal from '@/shared/components/modal/JSON-details.modal.vue'
 
 export function useRoleAdminHandler(t: (key: string) => string): {
   create: (success?: (value: RoleDto) => void | Promise<void>) => void
@@ -19,6 +20,7 @@ export function useRoleAdminHandler(t: (key: string) => string): {
   getPaginated: (params: PaginationOptions) => Promise<PaginationDto<RoleDto>>
   update(role: RoleDto, success?: (value: RoleDto) => void): void
   remove: (role: RoleDto, success?: (value: RoleDto) => void | Promise<void>) => void
+  view: (value: RoleDto) => void
 } {
   const toastStore: ToastStore = useToastStore()
   const modalStore: ModalStore = useModalStore()
@@ -64,6 +66,18 @@ export function useRoleAdminHandler(t: (key: string) => string): {
             })
             .catch(showErrorToast)
         }
+      }
+    })
+  }
+
+  function view(value: RoleDto): void {
+    const { openModal } = modalStore
+
+    openModal({
+      view: markRaw(JSONDetailsModal),
+      properties: {
+        item: value.raw,
+        title: 'administration.user-management.roles.view.title'
       }
     })
   }
@@ -136,5 +150,5 @@ export function useRoleAdminHandler(t: (key: string) => string): {
     })
   }
 
-  return { getById, getPaginated, update, remove, create }
+  return { getById, getPaginated, update, remove, create, view }
 }

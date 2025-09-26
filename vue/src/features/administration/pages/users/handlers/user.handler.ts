@@ -11,12 +11,14 @@ import { PaginationOptions, PaginationDto, PaginationMeta } from '@lib/dto/pagin
 import { UserDto, UpdateUser, UpdateUserDto } from '@lib/dto/user.dto'
 import { LocalhostAPI } from '@/core/apis/localhost/localhost.api'
 import { AppStore, useAppStore } from '@/core/store/app.store'
+import JSONDetailsModal from '@/shared/components/modal/JSON-details.modal.vue'
 
 export function useUserAdminHandler(t: (key: string) => string): {
   getById: (id: string) => Promise<UserDto>
   getPaginated: (params: PaginationOptions) => Promise<PaginationDto<UserDto>>
   update(user: UserDto, success?: (value: UserDto) => void): void
   remove: (user: UserDto, success?: (value: UserDto) => void | Promise<void>) => void
+  view: (value: UserDto) => void
 } {
   const toastStore: ToastStore = useToastStore()
   const modalStore: ModalStore = useModalStore()
@@ -58,6 +60,18 @@ export function useUserAdminHandler(t: (key: string) => string): {
     return api.getPaginated(params, token).catch((error: AxiosError) => {
       showErrorToast(error)
       return { data: [], meta: new PaginationMeta({ pageOptions: params, itemCount: 0 }) }
+    })
+  }
+
+  function view(value: UserDto): void {
+    const { openModal } = modalStore
+
+    openModal({
+      view: markRaw(JSONDetailsModal),
+      properties: {
+        item: value.raw,
+        title: 'administration.user-management.users.view.title'
+      }
     })
   }
 
@@ -113,5 +127,5 @@ export function useUserAdminHandler(t: (key: string) => string): {
     })
   }
 
-  return { getById, getPaginated, update, remove }
+  return { getById, getPaginated, update, remove, view }
 }

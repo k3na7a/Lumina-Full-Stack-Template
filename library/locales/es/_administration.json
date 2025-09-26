@@ -41,6 +41,7 @@
         "remove-profile-picture": "Eliminar foto de perfil",
         "success": "Los cambios en la cuenta de usuario se guardaron correctamente."
       },
+      "view": { "title": "Ver usuario" },
       "delete": {
         "title": "Eliminar permanentemente usuario",
         "success": "La cuenta de usuario ha sido eliminada permanentemente."
@@ -56,6 +57,7 @@
         "title": "Crear nuevo rol de usuario",
         "success": "Nuevo rol de usuario creado correctamente."
       },
+      "view": { "title": "Ver rol" },
       "update": {
         "title": "Actualizar rol de usuario",
         "success": "El rol de usuario se actualizó correctamente."
@@ -80,6 +82,7 @@
         "title": "Crear nuevo permiso de usuario",
         "success": "Nuevo permiso de usuario creado correctamente."
       },
+      "view": { "title": "Ver permiso" },
       "update": {
         "title": "Actualizar permiso de usuario",
         "success": "El permiso de usuario se actualizó correctamente."
@@ -109,6 +112,7 @@
         "description": "Un juego de plataformas 2D de desplazamiento lateral y la primera entrega de la franquicia Super Mario. Super Mario Bros. sigue al fontanero italiano Mario a través de muchos niveles de desafíos de plataformas con enemigos hostiles para rescatar a la princesa Peach del rey Bowser.",
         "slug": "super-mario-bros"
       },
+      "view": { "title": "Ver juego o software" },
       "create": {
         "title": "Crear nuevo juego o software",
         "success": "Nuevo juego creado correctamente."
@@ -136,6 +140,7 @@
         "title": "Crear nueva plataforma",
         "success": "Nueva plataforma creada correctamente."
       },
+      "view": { "title": "Ver plataforma" },
       "update": {
         "title": "Actualizar plataforma",
         "success": "La plataforma se actualizó correctamente."

@@ -165,6 +165,7 @@ class UserDto extends BaseDto {
   public readonly email: string
   public readonly profile: Profile
   public readonly roles: RoleDto[]
+  public readonly raw: Record<string, unknown>
 
   public getFullName(): string {
     return [this.profile.name.first, this.profile.name.last].join(' ')
@@ -176,6 +177,7 @@ class UserDto extends BaseDto {
     this.email = user.email
     this.profile = new Profile(user.profile)
     this.roles = user.roles ? user.roles.map((value: iRole) => new RoleDto(value)) : []
+    this.raw = user as unknown as Record<string, unknown>
   }
 }
 

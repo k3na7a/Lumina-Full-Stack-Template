@@ -58,6 +58,9 @@ function useUserTable() {
   function remove(row: UserDto): void {
     handler.remove(row, (_: UserDto) => getPaginatedData(options.value))
   }
+  function view(row: UserDto): void {
+    handler.view(row)
+  }
 
   watch(
     () => $route.query,
@@ -67,7 +70,7 @@ function useUserTable() {
     }
   )
 
-  return { defaultOptions, tableColumns, response, options, loading, t, promise, update, remove }
+  return { defaultOptions, tableColumns, response, options, loading, t, promise, update, remove, view }
 }
 
 export { useUserTable }
