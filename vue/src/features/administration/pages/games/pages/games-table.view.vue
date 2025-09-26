@@ -45,12 +45,6 @@ await getPaginatedData(options.value)
           />
         </template>
 
-        <template #selected="{ selected }">
-          <button class="btn btn-dark btn-icon px-0" type="button" :disabled="!selected.length">
-            <font-awesome-icon :icon="['fas', 'trash']" />
-          </button>
-        </template>
-
         <template #game="{ row }">
           <div class="d-flex flex-row align-items-center gap-2" style="max-width: 40rem">
             <img class="cover-icon" :src="row.cover" />

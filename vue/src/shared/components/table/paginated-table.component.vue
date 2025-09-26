@@ -2,7 +2,7 @@
 import SearchInputComponent from '@/shared/components/inputs/search.input.vue'
 import SelectInputComponent from '@/shared/components/inputs/select.input.vue'
 import PaginationInputComponent from '@/shared/components/pagination/pagination.component.vue'
-import CheckboxInput from '@/shared/components/inputs/checkbox.input.vue'
+// import CheckboxInput from '@/shared/components/inputs/checkbox.input.vue'
 import { useI18n } from 'vue-i18n'
 
 import { proptype, usePaginatedTable } from './composables/paginated-table.composable'
@@ -11,8 +11,14 @@ import { BaseDto } from '@lib/dto/base.dto'
 
 const { t } = useI18n()
 const { columns, rows, pages, options, loading, caption, nocheck } = defineProps<proptype<T>>()
-const { resetPageAndUpdateQuery, updateQuery, handleSort, updateSelected, sortParam, orderParam, selected } =
-  usePaginatedTable<T>()
+const {
+  resetPageAndUpdateQuery,
+  updateQuery,
+  handleSort,
+  sortParam,
+  orderParam
+  // selected, updateSelected
+} = usePaginatedTable<T>()
 
 const [$caption, itemCount] = caption
 </script>
@@ -46,22 +52,22 @@ const [$caption, itemCount] = caption
       </div>
     </div>
 
-    <div v-if="!nocheck" class="d-flex align-items-center justify-content-between p-2 bg-alt3 gap-2">
+    <!-- <div v-if="!nocheck" class="d-flex align-items-center justify-content-between p-2 bg-alt3 gap-2">
       <small class="ps-1">{{ $t('forms.items-selected', selected.length) }}</small>
       <div class="d-flex align-items-center gap-2">
         <slot name="selected" :selected="selected"></slot>
       </div>
-    </div>
+    </div> -->
 
     <div class="table-responsive text-nowrap container-overflow" style="overflow-x: auto">
       <table class="m-0" :class="{ disabled: loading }">
         <thead>
           <tr>
-            <th v-if="!nocheck" class="d-flex align-items-center justify-content-center">
+            <!-- <th v-if="!nocheck" class="d-flex align-items-center justify-content-center">
               <div class="cell justify-content-center">
-                <!-- <CheckboxInput name="table-header" /> -->
+                <CheckboxInput name="table-header" />
               </div>
-            </th>
+            </th> -->
             <th scope="col" v-for="column in columns" :key="`${column.name}`">
               <div class="cell gap-2 fw-semibold">
                 <template v-if="column.sort">
@@ -96,11 +102,11 @@ const [$caption, itemCount] = caption
           <tbody>
             <template v-for="(row, idx) in rows" :key="`row:${idx}:${row.id}`">
               <tr>
-                <td v-if="!nocheck">
+                <!-- <td v-if="!nocheck">
                   <div class="cell justify-content-center">
                     <CheckboxInput :name="row.id" @update="(value: boolean) => updateSelected(value, row)" />
                   </div>
-                </td>
+                </td> -->
                 <td v-for="column in columns" :key="`cell:${column.name}:${idx}:${row.id}`">
                   <div class="cell">
                     <slot :name="column.name" :row="row"></slot>
