@@ -3,13 +3,13 @@
 }
 
 .table-w-checkbox {
-  tr td:first-child,
-  tr th:first-child {
-    .cell {
-      padding-left: 20px;
-      padding-right: 0px;
-    }
-  }
+  // tr td:first-child,
+  // tr th:first-child {
+  //   .cell {
+  //     padding-left: 20px;
+  //     padding-right: 0px;
+  //   }
+  // }
 
   tr td:not(:nth-child(1)) {
     width: 1%;
