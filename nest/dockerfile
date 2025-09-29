@@ -2,41 +2,41 @@
 
 # ---------- base ----------
 FROM node:20-bookworm-slim AS base
-WORKDIR /app
+WORKDIR /api
 RUN apt-get update && apt-get install -y --no-install-recommends \
     python3 build-essential bash ca-certificates && \
     rm -rf /var/lib/apt/lists/*
 
 # ---------- deps ----------
 FROM base AS deps
-WORKDIR /app/nest
+WORKDIR /api/nest
 COPY nest/package*.json ./
 RUN npm ci
 
 # ---------- build ----------
 FROM deps AS build
-WORKDIR /app
+WORKDIR /api
 
 COPY nest/tsconfig.json ./  
 COPY nest/tsconfig*.json nest/nest-cli.json ./nest/
 COPY nest/src ./nest/src
 COPY library ./library
 
-WORKDIR /app/nest
+WORKDIR /api/nest
 
 RUN npm run build
 RUN npm prune --omit=dev
 
 # ---------- runtime ----------
 FROM node:20-bookworm-slim AS runner
-WORKDIR /app/nest
+WORKDIR /api/nest
 ENV NODE_ENV=production
 
 RUN useradd -r -m appuser
 
 # runtime stage
-COPY --from=build /app/nest/node_modules ./node_modules
-COPY --from=build /app/nest/dist ./dist
+COPY --from=build /api/nest/node_modules ./node_modules
+COPY --from=build /api/nest/dist ./dist
 COPY nest/package*.json ./
 
 # bring in your existing runtime folders
@@ -46,7 +46,7 @@ COPY nest/public ./public
 COPY nest/certs ./certs
 
 # make sure appuser can write
-RUN chown -R appuser:appuser /app/nest
+RUN chown -R appuser:appuser /api/nest
 
 USER appuser
 

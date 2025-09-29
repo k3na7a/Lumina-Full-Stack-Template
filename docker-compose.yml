@@ -1,10 +1,4 @@
-version: '3.9'
 services:
-  redis:
-    image: redis:7-alpine
-    container_name: redis
-    ports:
-      - '6379:6379'
   api:
     build:
       context: .
@@ -14,18 +8,35 @@ services:
       - '3000:3000'
     env_file:
       - ./nest/.env
+    environment:
+      REDIS_HOST: redis
+      REDIS_PORT: 6379
     depends_on:
       - redis
     volumes:
-      - ./nest/upload:/app/nest/upload
-      - ./nest/logs:/app/nest/logs
-      - ./nest/public:/app/nest/public
-      - ./nest/certs:/app/nest/certs
+      - ./nest/upload:/api/nest/upload
+      - ./nest/logs:/api/nest/logs
+      - ./nest/public:/api/nest/public
+      - ./nest/certs:/api/nest/certs
+  redis:
+    image: redis:7-alpine
+    container_name: redis
+    ports:
+      - '6379:6379'
   web:
     build:
       context: .
-      dockerfile: web/Dockerfile
+      dockerfile: vue/Dockerfile
     ports:
       - '8080:80'
     depends_on:
       - api
+      - nginx
+  nginx:
+    image: nginx:latest
+    ports:
+      - '8080:8080'
+    volumes:
+      - ./vue/nginx.conf:/etc/nginx/conf.d/default.conf:ro
+      - ./vue/certs:/etc/nginx/certs:ro
+      - ./vue/dist:/usr/share/nginx/html:ro

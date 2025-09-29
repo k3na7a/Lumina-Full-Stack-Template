@@ -1,5 +1,6 @@
 {
   "compilerOptions": {
+    "baseUrl": ".",
     "target": "ES2020",
     "useDefineForClassFields": true,
     "module": "ESNext",
@@ -27,6 +28,6 @@
       "@src/*": ["./src/*"]
     }
   },
-  "include": ["src/**/*.ts", "src/**/*.tsx", "src/**/*.vue", "../library/*.ts", "../archive/multiplication-calulator.component.vue", "../library/enums/route-names.enum.ts", "../library/utilities/local-storage.util.ts"],
+  "include": ["src/**/*.ts", "src/**/*.tsx", "src/**/*.vue", "../library/*.ts"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }
