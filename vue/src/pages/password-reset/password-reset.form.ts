@@ -1,4 +1,4 @@
-import { PasswordValidation } from '@/library/regex/validation.regex'
+import { PasswordValidation } from '@lib/regex/validation.regex'
 import * as Yup from 'yup'
 
 const validationSchema = Yup.object().shape({

@@ -11,8 +11,6 @@ function useDropdown(): Dropdown {
   const dropdownRef = ref<InstanceType<typeof HTMLElement>>()
   const isOpen = ref(false)
 
-  let dropdownInstance: bootstrap.Dropdown | null = null
-
   function closeDropdown(): void {
     const dropdown = bootstrap.Dropdown.getOrCreateInstance(dropdownRef.value || '')
     dropdown.hide()
@@ -25,8 +23,6 @@ function useDropdown(): Dropdown {
 
   onMounted(() => {
     if (dropdownRef.value) {
-      dropdownInstance = bootstrap.Dropdown.getOrCreateInstance(dropdownRef.value)
-
       dropdownRef.value.addEventListener('shown.bs.dropdown', () => {
         isOpen.value = true
       })

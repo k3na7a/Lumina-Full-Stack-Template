@@ -13,7 +13,7 @@ const { validationSchema, onSubmit, loading } = useSignInModal(callback)
 </script>
 
 <template>
-  <Form @submit="onSubmit" :validation-schema v-slot="{ meta }">
+  <Form @submit="onSubmit" :validation-schema="validationSchema" v-slot="{ meta }">
     <div class="d-flex flex-column gap-3">
       <ModalTitleComponent :title="$t('authentication.log-in.modal-title')" />
       <div class="d-flex flex-column gap-3">

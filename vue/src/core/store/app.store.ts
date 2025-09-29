@@ -9,14 +9,15 @@ import {
   UpdatePasswordDto,
   UpdateProfileDto,
   UserDto
-} from '@/core/apis/localhost/administration/users/dto/user.dto'
+} from '@lib/dto/user.dto'
 import { Store, StoreDefinition, defineStore } from 'pinia'
-import { credentials, JWTDto } from '@/core/apis/localhost/dto/JWT.dto'
+import { credentials, JWTDto } from '@lib/dto/JWT.dto'
 import { second } from '@lib/constants/time.constants'
-import { useLocalStorageUtil } from '../../../../library/utilities/local-storage.util'
+import { useLocalStorageUtil } from '@lib/utilities/local-storage.util'
 
 import { PERMISSION_MATRIX, PermissionDomain, PermissionsKey } from '@lib/constants/permissions.constants'
-import { RoleDto } from '../apis/localhost/administration/users/dto/role.dto'
+import { RoleDto } from '@lib/dto/role.dto'
+import { PermissionDto } from '@lib/dto/permission.dto'
 
 interface IToken {
   token: string
@@ -102,7 +103,11 @@ const useAppStore: StoreDef = defineStore({
       this.$user = props.user
       this.$authenticated = true
       this.$permissions = Array.from(
-        new Set(props.user.roles?.flatMap((val: RoleDto) => val.permissions?.map((permission) => permission.name)))
+        new Set(
+          props.user.roles?.flatMap((val: RoleDto) =>
+            val.permissions?.map((permission: PermissionDto) => permission.name)
+          )
+        )
       )
       this.$access_token = {
         token: props.access_token,
