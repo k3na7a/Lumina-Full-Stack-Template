@@ -10,9 +10,9 @@ import { AuditEventDto, AuditPaginationOptions, Domain } from '@lib/dto/audit.dt
 
 const tableColumns: columns = [
   { name: 'time', label: 'forms.time', sort: 'audit_event.createdAt' },
-  { name: 'actor', label: 'forms.actor' },
-  { name: 'action', label: 'forms.action' },
-  { name: 'entity', label: 'forms.entity' },
+  { name: 'actor', label: 'forms.actor', sort: 'audit_event.actorType' },
+  { name: 'action', label: 'forms.action', sort: 'audit_event.action' },
+  { name: 'entity', label: 'forms.entity', sort: 'audit_event.subDomain' },
   { name: 'reason', label: 'forms.reason' },
   { name: 'actions' }
 ]

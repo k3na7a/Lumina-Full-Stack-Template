@@ -17,7 +17,7 @@ import { Permissions } from 'src/app/common/decorators/permissions.decorator';
 import { PaginationDto } from 'src/app/common/dto/pagination.dto';
 import { JwtAuthGuard } from 'src/app/common/guards/jwt-auth.guard';
 import { PermissionsGuard } from 'src/app/common/guards/permissions.guard';
-import { AuditPaginationOptionss } from 'src/app/modules/audit/dto/audit.dto';
+import { AuditPaginationOptions } from 'src/app/modules/audit/dto/audit.dto';
 import { AuditService } from 'src/app/modules/audit/service/audit.service';
 import { AuditEntity } from 'src/app/modules/audit/entities/audit.entity';
 
@@ -33,7 +33,7 @@ export class AuditAdminController {
   @ApiOkResponse({ type: PaginationDto<AuditEntity> })
   @Permissions(PERMISSION_MATRIX[PermissionDomain.AUDIT_MANAGEMENT].READ_AUDIT)
   async paginate(
-    @Query() params: AuditPaginationOptionss,
+    @Query() params: AuditPaginationOptions,
   ): Promise<PaginationDto<AuditEntity>> {
     return this.service.paginate(params);
   }

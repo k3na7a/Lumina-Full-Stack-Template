@@ -5,9 +5,12 @@ import { Action, Domain } from '@lib/dto/audit.dto';
 
 enum SORT_OPTIONS {
   CREATED = 'audit_event.createdAt',
+  ACTOR = 'audit_event.actorType',
+  ENTITY = 'audit_event.subDomain',
+  ACTION = 'audit_event.action',
 }
 
-export class AuditPaginationOptionss extends PaginationOptions {
+export class AuditPaginationOptions extends PaginationOptions {
   @ApiPropertyOptional({
     description: 'Sort order for the audit event list. Defaults to `CREATED`.',
     enum: SORT_OPTIONS,
