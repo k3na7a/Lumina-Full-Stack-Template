@@ -34,18 +34,15 @@ ENV NODE_ENV=production
 
 RUN useradd -r -m appuser
 
-# runtime stage
 COPY --from=build /api/nest/node_modules ./node_modules
 COPY --from=build /api/nest/dist ./dist
 COPY nest/package*.json ./
 
-# bring in your existing runtime folders
 COPY nest/upload ./upload
 COPY nest/logs ./logs
 COPY nest/public ./public
 COPY nest/certs ./certs
 
-# make sure appuser can write
 RUN chown -R appuser:appuser /api/nest
 
 USER appuser

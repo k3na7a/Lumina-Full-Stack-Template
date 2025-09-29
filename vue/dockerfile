@@ -2,12 +2,10 @@
 FROM node:20-bookworm-slim AS build
 WORKDIR /web
 
-# Install deps for Vue
 COPY vue/package*.json ./vue/
 WORKDIR /web/vue
 RUN npm ci
 
-# Copy root tsconfig so @lib aliases resolve
 WORKDIR /web
 
 COPY tsconfig*.json ./
