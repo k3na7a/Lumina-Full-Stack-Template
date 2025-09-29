@@ -3,7 +3,9 @@
   "dashboard": {
     "label": "Panel de control",
     "overview": {
-      "label": "Resumen"
+      "label": "Resumen",
+      "title": "Resumen del sistema",
+      "subtitle": "Una instantánea de métricas clave, actividad reciente y estado general."
     }
   },
   "resources": {
@@ -12,7 +14,7 @@
   "activity-logs": {
     "label": "Registros de actividad",
     "item": "Evento",
-    "modal-title": "Detalles de la actividad",
+    "modal-title": "Ver detalles en bruto de la actividad",
     "all-activities": {
       "label": "Todas las actividades",
       "title": "Registro de auditoría del sistema",
@@ -21,7 +23,7 @@
     },
     "user-management": {
       "title": "Registro de auditoría de gestión de usuarios",
-      "subtitle": "Rastree los cambios en las cuentas — quién creó, actualizó o eliminó usuarios, y por qué."
+      "subtitle": "Rastree los cambios en las cuentas — quién creó, actualizó o eliminó usuarios y por qué."
     },
     "games-and-software": {
       "title": "Registro de auditoría de juegos y software",
@@ -33,15 +35,15 @@
     "users": {
       "item": "Usuario",
       "label": "Usuarios",
-      "title": "Administrar los usuarios de su plataforma",
-      "subtitle": "Ver, buscar y administrar cuentas de usuario en toda la plataforma",
+      "title": "Administre los usuarios de su plataforma",
+      "subtitle": "Vea, busque y administre cuentas de usuario en toda la plataforma",
       "caption": "Mostrando {start}-{end} de {count} usuarios | Mostrando {start}-{end} de {count} usuario | Mostrando {start}-{end} de {count} usuarios",
       "update": {
         "title": "Actualizar detalles de la cuenta de usuario",
         "remove-profile-picture": "Eliminar foto de perfil",
         "success": "Los cambios en la cuenta de usuario se guardaron correctamente."
       },
-      "view": { "title": "Ver usuario" },
+      "view": { "title": "Ver detalles en bruto del usuario" },
       "delete": {
         "title": "Eliminar permanentemente usuario",
         "success": "La cuenta de usuario ha sido eliminada permanentemente."
@@ -57,11 +59,11 @@
         "title": "Crear nuevo rol de usuario",
         "success": "Nuevo rol de usuario creado correctamente."
       },
-      "view": { "title": "Ver rol" },
       "update": {
         "title": "Actualizar rol de usuario",
         "success": "El rol de usuario se actualizó correctamente."
       },
+      "view": { "title": "Ver detalles en bruto del rol" },
       "delete": {
         "title": "Eliminar permanentemente rol de usuario",
         "success": "El rol de usuario ha sido eliminado correctamente."
@@ -82,7 +84,7 @@
         "title": "Crear nuevo permiso de usuario",
         "success": "Nuevo permiso de usuario creado correctamente."
       },
-      "view": { "title": "Ver permiso" },
+      "view": { "title": "Ver detalles en bruto del permiso" },
       "update": {
         "title": "Actualizar permiso de usuario",
         "success": "El permiso de usuario se actualizó correctamente."
@@ -100,7 +102,7 @@
   },
   "games-and-software": {
     "header": "Juegos y software",
-    "no-of-games": "Nº de juegos",
+    "no-of-games": "N.º de juegos",
     "games": {
       "item": "Juego",
       "label": "Juegos",
@@ -112,7 +114,7 @@
         "description": "Un juego de plataformas 2D de desplazamiento lateral y la primera entrega de la franquicia Super Mario. Super Mario Bros. sigue al fontanero italiano Mario a través de muchos niveles de desafíos de plataformas con enemigos hostiles para rescatar a la princesa Peach del rey Bowser.",
         "slug": "super-mario-bros"
       },
-      "view": { "title": "Ver juego o software" },
+      "view": { "title": "Ver detalles en bruto del juego o software" },
       "create": {
         "title": "Crear nuevo juego o software",
         "success": "Nuevo juego creado correctamente."
@@ -136,11 +138,11 @@
         "name": "Nintendo Entertainment System",
         "slug": "nintendo-entertainment-system"
       },
+      "view": { "title": "Ver detalles en bruto de la plataforma" },
       "create": {
         "title": "Crear nueva plataforma",
         "success": "Nueva plataforma creada correctamente."
       },
-      "view": { "title": "Ver plataforma" },
       "update": {
         "title": "Actualizar plataforma",
         "success": "La plataforma se actualizó correctamente."

@@ -3,7 +3,9 @@
   "dashboard": {
     "label": "ダッシュボード",
     "overview": {
-      "label": "概要"
+      "label": "概要",
+      "title": "システム概要",
+      "subtitle": "主要な指標、最近のアクティビティ、全体的な状態をスナップショットで表示。"
     }
   },
   "resources": {
@@ -12,20 +14,20 @@
   "activity-logs": {
     "label": "アクティビティログ",
     "item": "イベント",
-    "modal-title": "アクティビティの詳細",
+    "modal-title": "生のアクティビティ詳細を表示",
     "all-activities": {
       "label": "すべてのアクティビティ",
-      "title": "システム全体の監査証跡",
-      "subtitle": "誰が、いつ、なぜ、何をしたのかを完全なコンテキストで確認できます。",
+      "title": "システム全体の監査ログ",
+      "subtitle": "誰が、いつ、なぜ、何をしたのかを完全なコンテキストで確認。",
       "caption": "{start}-{end} 件中 {count} 件のイベントを表示 | {start}-{end} 件中 {count} 件のイベントを表示 | {start}-{end} 件中 {count} 件のイベントを表示"
     },
     "user-management": {
       "title": "ユーザー管理監査ログ",
-      "subtitle": "アカウントの変更を追跡 — 誰がユーザーを作成、更新、削除したのか、そしてその理由。"
+      "subtitle": "アカウントの変更を追跡 — ユーザーを作成、更新、削除したのは誰か、そしてその理由。"
     },
     "games-and-software": {
       "title": "ゲームとソフトウェア監査ログ",
-      "subtitle": "すべてのゲームやプラットフォームの追加、更新、削除を追跡 — 詳細付き。"
+      "subtitle": "ゲームやプラットフォームの追加、更新、削除をすべて追跡 — 詳細付き。"
     }
   },
   "user-management": {
@@ -33,15 +35,15 @@
     "users": {
       "item": "ユーザー",
       "label": "ユーザー",
-      "title": "プラットフォームのユーザーを管理する",
-      "subtitle": "プラットフォーム全体のユーザーアカウントを表示、検索、管理します",
+      "title": "プラットフォームのユーザーを管理",
+      "subtitle": "プラットフォーム全体のユーザーアカウントを表示、検索、管理",
       "caption": "{start}-{end} 件中 {count} ユーザーを表示 | {start}-{end} 件中 {count} ユーザーを表示 | {start}-{end} 件中 {count} ユーザーを表示",
       "update": {
         "title": "ユーザーアカウントの詳細を更新",
         "remove-profile-picture": "プロフィール画像を削除",
         "success": "ユーザーアカウントへの変更が正常に保存されました。"
       },
-      "view": { "title": "ユーザーを表示" },
+      "view": { "title": "生のユーザー詳細を表示" },
       "delete": {
         "title": "ユーザーを完全に削除",
         "success": "ユーザーアカウントは完全に削除されました。"
@@ -51,24 +53,24 @@
       "label": "ロール",
       "item": "ロール",
       "title": "ユーザーロールを管理",
-      "subtitle": "システムの重要部分にアクセス・管理できる人を制御します。",
+      "subtitle": "システムの重要な部分にアクセス・管理できる人を制御します。",
       "caption": "{start}-{end} 件中 {count} ユーザーロールを表示 | {start}-{end} 件中 {count} ユーザーロールを表示 | {start}-{end} 件中 {count} ユーザーロールを表示",
       "create": {
         "title": "新しいユーザーロールを作成",
         "success": "新しいユーザーロールが正常に作成されました。"
       },
-      "view": { "title": "ロールを表示" },
       "update": {
         "title": "ユーザーロールを更新",
         "success": "ユーザーロールが正常に更新されました。"
       },
+      "view": { "title": "生のロール詳細を表示" },
       "delete": {
         "title": "ユーザーロールを完全に削除",
         "success": "ユーザーロールは正常に削除されました。"
       },
       "placeholders": {
         "label": "スーパー管理者",
-        "description": "すべてのリソースにフルアクセスを持っています。",
+        "description": "すべてのリソースに完全アクセスできます。",
         "name": "SUPER_ADMINISTRATOR"
       }
     },
@@ -76,13 +78,13 @@
       "label": "権限",
       "item": "権限",
       "title": "システム権限ディレクトリ",
-      "subtitle": "ユーザーが実行できるすべてのアクションの完全なリスト。",
+      "subtitle": "ユーザーが実行できるすべての操作の完全なリスト。",
       "caption": "{start}-{end} 件中 {count} 権限を表示 | {start}-{end} 件中 {count} 権限を表示 | {start}-{end} 件中 {count} 権限を表示",
       "create": {
         "title": "新しいユーザー権限を作成",
         "success": "新しいユーザー権限が正常に作成されました。"
       },
-      "view": { "title": "権限を表示" },
+      "view": { "title": "生の権限詳細を表示" },
       "update": {
         "title": "ユーザー権限を更新",
         "success": "ユーザー権限が正常に更新されました。"
@@ -93,7 +95,7 @@
       },
       "placeholders": {
         "label": "スーパー管理者",
-        "description": "すべてのリソースにフルアクセスを持っています。",
+        "description": "すべてのリソースに完全アクセスできます。",
         "name": "SUPER_ADMINISTRATOR"
       }
     }
@@ -105,14 +107,14 @@
       "item": "ゲーム",
       "label": "ゲーム",
       "title": "ゲームやソフトウェアを作成・編集",
-      "subtitle": "ゲームライブラリとソフトウェアリリースを管理します。",
+      "subtitle": "ゲームライブラリとソフトウェアのリリースを管理。",
       "caption": "{start}-{end} 件中 {count} ゲームを表示 | {start}-{end} 件中 {count} ゲームを表示 | {start}-{end} 件中 {count} ゲームを表示",
       "placeholders": {
         "name": "Super Mario Bros.",
-        "description": "横スクロール型の2Dプラットフォームゲームで、スーパーマリオシリーズの最初の作品。スーパーマリオブラザーズは、イタリアの配管工マリオが多数の敵や障害に挑み、ピーチ姫を邪悪なクッパ大王から救出する物語です。",
+        "description": "横スクロール型の2Dプラットフォームゲームで、スーパーマリオシリーズの最初の作品。スーパーマリオブラザーズは、配管工マリオが多くのステージの敵や障害を乗り越え、ピーチ姫を大魔王クッパから救出する物語です。",
         "slug": "super-mario-bros"
       },
-      "view": { "title": "ゲームまたはソフトウェアを表示" },
+      "view": { "title": "生のゲームまたはソフトウェア詳細を表示" },
       "create": {
         "title": "新しいゲームまたはソフトウェアを作成",
         "success": "新しいゲームが正常に作成されました。"
@@ -129,14 +131,14 @@
     "platforms": {
       "item": "プラットフォーム",
       "label": "プラットフォーム",
-      "title": "コンソール、オペレーティングシステム、または配信チャネル",
-      "subtitle": "すべてのサポートされているプラットフォームを一箇所で管理。",
+      "title": "コンソール、オペレーティングシステム、配信チャネル",
+      "subtitle": "サポートされているすべてのプラットフォームを一箇所で管理。",
       "caption": "{start}-{end} 件中 {count} プラットフォームを表示 | {start}-{end} 件中 {count} プラットフォームを表示 | {start}-{end} 件中 {count} プラットフォームを表示",
       "placeholders": {
         "name": "Nintendo Entertainment System",
         "slug": "nintendo-entertainment-system"
       },
-      "view": { "title": "プラットフォームを表示" },
+      "view": { "title": "生のプラットフォーム詳細を表示" },
       "create": {
         "title": "新しいプラットフォームを作成",
         "success": "新しいプラットフォームが正常に作成されました。"

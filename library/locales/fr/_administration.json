@@ -3,7 +3,9 @@
   "dashboard": {
     "label": "Tableau de bord",
     "overview": {
-      "label": "Aperçu"
+      "label": "Aperçu",
+      "title": "Vue d’ensemble du système",
+      "subtitle": "Un instantané des indicateurs clés, de l’activité récente et de l’état global."
     }
   },
   "resources": {
@@ -12,7 +14,7 @@
   "activity-logs": {
     "label": "Journaux d’activité",
     "item": "Événement",
-    "modal-title": "Détails de l’activité",
+    "modal-title": "Voir les détails bruts de l’activité",
     "all-activities": {
       "label": "Toutes les activités",
       "title": "Piste d’audit du système",
@@ -41,10 +43,10 @@
         "remove-profile-picture": "Supprimer la photo de profil",
         "success": "Les modifications du compte utilisateur ont été enregistrées avec succès."
       },
-      "view": { "title": "Voir l’utilisateur" },
+      "view": { "title": "Voir les détails bruts de l’utilisateur" },
       "delete": {
-        "title": "Supprimer définitivement l'utilisateur",
-        "success": "Le compte utilisateur a été définitivement supprimé."
+        "title": "Supprimer définitivement l’utilisateur",
+        "success": "Le compte utilisateur a été supprimé définitivement."
       }
     },
     "roles": {
@@ -57,11 +59,11 @@
         "title": "Créer un nouveau rôle d’utilisateur",
         "success": "Nouveau rôle d’utilisateur créé avec succès."
       },
-      "view": { "title": "Voir le rôle" },
       "update": {
         "title": "Mettre à jour le rôle d’utilisateur",
         "success": "Le rôle d’utilisateur a été mis à jour avec succès."
       },
+      "view": { "title": "Voir les détails bruts du rôle" },
       "delete": {
         "title": "Supprimer définitivement le rôle d’utilisateur",
         "success": "Le rôle d’utilisateur a été supprimé avec succès."
@@ -82,11 +84,11 @@
         "title": "Créer une nouvelle autorisation d’utilisateur",
         "success": "Nouvelle autorisation d’utilisateur créée avec succès."
       },
+      "view": { "title": "Voir les détails bruts de l’autorisation" },
       "update": {
         "title": "Mettre à jour l’autorisation d’utilisateur",
         "success": "L’autorisation d’utilisateur a été mise à jour avec succès."
       },
-      "view": { "title": "Voir l’autorisation" },
       "delete": {
         "title": "Supprimer définitivement l’autorisation d’utilisateur",
         "success": "L’autorisation d’utilisateur a été supprimée avec succès."
@@ -100,7 +102,7 @@
   },
   "games-and-software": {
     "header": "Jeux et logiciels",
-    "no-of-games": "Nb de jeux",
+    "no-of-games": "Nombre de jeux",
     "games": {
       "item": "Jeu",
       "label": "Jeux",
@@ -109,10 +111,10 @@
       "caption": "Affichage de {start}-{end} sur {count} jeux | Affichage de {start}-{end} sur {count} jeu | Affichage de {start}-{end} sur {count} jeux",
       "placeholders": {
         "name": "Super Mario Bros.",
-        "description": "Un jeu de plateforme 2D à défilement latéral et première entrée de la franchise Super Mario. Super Mario Bros. suit le plombier italien Mario à travers de nombreux niveaux de défis de plateforme avec des ennemis hostiles pour sauver la princesse Peach du roi Bowser.",
+        "description": "Un jeu de plateforme 2D à défilement latéral et premier opus de la franchise Super Mario. Super Mario Bros. suit le plombier italien Mario à travers de nombreux niveaux de défis pour sauver la princesse Peach du roi Bowser.",
         "slug": "super-mario-bros"
       },
-      "view": { "title": "Voir le jeu ou logiciel" },
+      "view": { "title": "Voir les détails bruts du jeu ou du logiciel" },
       "create": {
         "title": "Créer un nouveau jeu ou logiciel",
         "success": "Nouveau jeu créé avec succès."
@@ -136,7 +138,7 @@
         "name": "Nintendo Entertainment System",
         "slug": "nintendo-entertainment-system"
       },
-      "view": { "title": "Voir la plateforme" },
+      "view": { "title": "Voir les détails bruts de la plateforme" },
       "create": {
         "title": "Créer une nouvelle plateforme",
         "success": "Nouvelle plateforme créée avec succès."

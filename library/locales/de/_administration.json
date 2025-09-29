@@ -3,7 +3,9 @@
   "dashboard": {
     "label": "Dashboard",
     "overview": {
-      "label": "Übersicht"
+      "label": "Übersicht",
+      "title": "Systemübersicht",
+      "subtitle": "Eine Momentaufnahme der wichtigsten Kennzahlen, aktueller Aktivitäten und des Gesamtzustands."
     }
   },
   "resources": {
@@ -12,10 +14,10 @@
   "activity-logs": {
     "label": "Aktivitätsprotokolle",
     "item": "Ereignis",
-    "modal-title": "Aktivitätsdetails",
+    "modal-title": "Rohdaten der Aktivität anzeigen",
     "all-activities": {
       "label": "Alle Aktivitäten",
-      "title": "Systemweiter Prüfpfad",
+      "title": "Systemweites Prüfprotokoll",
       "subtitle": "Sehen Sie, wer was, wann und warum getan hat — mit vollem Kontext.",
       "caption": "{start}-{end} von {count} Ereignissen werden angezeigt | {start}-{end} von {count} Ereignis wird angezeigt | {start}-{end} von {count} Ereignissen werden angezeigt"
     },
@@ -34,14 +36,14 @@
       "item": "Benutzer",
       "label": "Benutzer",
       "title": "Verwalten Sie die Benutzer Ihrer Plattform",
-      "subtitle": "Anzeigen, suchen und verwalten Sie Benutzerkonten auf der Plattform",
+      "subtitle": "Benutzerkonten auf der Plattform anzeigen, suchen und verwalten",
       "caption": "{start}-{end} von {count} Benutzern werden angezeigt | {start}-{end} von {count} Benutzer wird angezeigt | {start}-{end} von {count} Benutzern werden angezeigt",
       "update": {
-        "title": "Benutzerkontodaten aktualisieren",
+        "title": "Benutzerkontodetails aktualisieren",
         "remove-profile-picture": "Profilbild entfernen",
         "success": "Änderungen am Benutzerkonto wurden erfolgreich gespeichert."
       },
-      "view": { "title": "Benutzer anzeigen" },
+      "view": { "title": "Rohdaten des Benutzers anzeigen" },
       "delete": {
         "title": "Benutzer dauerhaft löschen",
         "success": "Das Benutzerkonto wurde dauerhaft entfernt."
@@ -61,7 +63,7 @@
         "title": "Benutzerrolle aktualisieren",
         "success": "Benutzerrolle wurde erfolgreich aktualisiert."
       },
-      "view": { "title": "Rolle anzeigen" },
+      "view": { "title": "Rohdaten der Rolle anzeigen" },
       "delete": {
         "title": "Benutzerrolle dauerhaft löschen",
         "success": "Benutzerrolle wurde erfolgreich entfernt."
@@ -75,14 +77,14 @@
     "permissions": {
       "label": "Berechtigungen",
       "item": "Berechtigung",
-      "title": "Systemberechtigungsverzeichnis",
+      "title": "Verzeichnis der Systemberechtigungen",
       "subtitle": "Eine vollständige Liste aller Aktionen, die Benutzer ausführen können.",
       "caption": "{start}-{end} von {count} Berechtigungen werden angezeigt | {start}-{end} von {count} Berechtigung wird angezeigt | {start}-{end} von {count} Berechtigungen werden angezeigt",
       "create": {
         "title": "Neue Benutzerberechtigung erstellen",
         "success": "Neue Benutzerberechtigung wurde erfolgreich erstellt."
       },
-      "view": { "title": "Berechtigung anzeigen" },
+      "view": { "title": "Rohdaten der Berechtigung anzeigen" },
       "update": {
         "title": "Benutzerberechtigung aktualisieren",
         "success": "Benutzerberechtigung wurde erfolgreich aktualisiert."
@@ -109,10 +111,10 @@
       "caption": "{start}-{end} von {count} Spielen werden angezeigt | {start}-{end} von {count} Spiel wird angezeigt | {start}-{end} von {count} Spielen werden angezeigt",
       "placeholders": {
         "name": "Super Mario Bros.",
-        "description": "Ein seitlich scrollendes 2D-Plattformspiel und der erste Eintrag in der Super Mario-Reihe. Super Mario Bros. folgt dem italienischen Klempner Mario durch viele Level mit Plattform-Herausforderungen und feindlichen Gegnern, um Prinzessin Peach vom bösen König Bowser zu retten.",
+        "description": "Ein seitlich scrollendes 2D-Plattformspiel und der erste Eintrag in der Super-Mario-Reihe. Super Mario Bros. folgt dem italienischen Klempner Mario durch viele Level voller Herausforderungen und feindlicher Gegner, um Prinzessin Peach vom bösen König Bowser zu retten.",
         "slug": "super-mario-bros"
       },
-      "view": { "title": "Spiel oder Software anzeigen" },
+      "view": { "title": "Rohdaten des Spiels oder der Software anzeigen" },
       "create": {
         "title": "Neues Spiel oder neue Software erstellen",
         "success": "Neues Spiel wurde erfolgreich erstellt."
@@ -130,13 +132,13 @@
       "item": "Plattform",
       "label": "Plattformen",
       "title": "Konsolen, Betriebssysteme oder Vertriebskanäle",
-      "subtitle": "Alle unterstützten Plattformen an einem Ort.",
+      "subtitle": "Alle Ihre unterstützten Plattformen an einem Ort.",
       "caption": "{start}-{end} von {count} Plattformen werden angezeigt | {start}-{end} von {count} Plattform wird angezeigt | {start}-{end} von {count} Plattformen werden angezeigt",
       "placeholders": {
         "name": "Nintendo Entertainment System",
         "slug": "nintendo-entertainment-system"
       },
-      "view": { "title": "Plattform anzeigen" },
+      "view": { "title": "Rohdaten der Plattform anzeigen" },
       "create": {
         "title": "Neue Plattform erstellen",
         "success": "Neue Plattform wurde erfolgreich erstellt."

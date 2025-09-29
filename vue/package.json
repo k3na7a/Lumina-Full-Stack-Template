@@ -3,6 +3,7 @@
   "private": true,
   "version": "2.0.0",
   "type": "module",
+  "license": "ISC",
   "scripts": {
     "dev": "vite",
     "build": "vue-tsc && vite build",
