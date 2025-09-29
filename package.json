@@ -3,8 +3,11 @@
   "version": "2.0.0",
   "description": "Full-Stack Demo Web Application",
   "scripts": {
-    "web": "cd vue && npm run dev",
-    "server:dev": "cd nest && npm run start:dev "
+    "web:dev": "cd vue && npm run dev",
+    "server:dev": "cd nest && npm run start:dev",
+    "docker:build": "docker compose build",
+    "docker:up": "docker compose up --build",
+    "docker:down": "docker compose down -v"
   },
   "author": "John 'K3na7a' Desjardins",
   "license": "ISC"
