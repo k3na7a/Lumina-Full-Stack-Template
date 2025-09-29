@@ -1,0 +1,57 @@
+# syntax=docker/dockerfile:1
+
+# ---------- base ----------
+FROM node:20-bookworm-slim AS base
+WORKDIR /app
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    python3 build-essential bash ca-certificates && \
+    rm -rf /var/lib/apt/lists/*
+
+# ---------- deps ----------
+FROM base AS deps
+WORKDIR /app/nest
+COPY nest/package*.json ./
+RUN npm ci
+
+# ---------- build ----------
+FROM deps AS build
+WORKDIR /app
+
+COPY nest/tsconfig.json ./  
+COPY nest/tsconfig*.json nest/nest-cli.json ./nest/
+COPY nest/src ./nest/src
+COPY library ./library
+
+WORKDIR /app/nest
+
+RUN npm run build
+RUN npm prune --omit=dev
+
+# ---------- runtime ----------
+FROM node:20-bookworm-slim AS runner
+WORKDIR /app/nest
+ENV NODE_ENV=production
+
+RUN useradd -r -m appuser
+
+# runtime stage
+COPY --from=build /app/nest/node_modules ./node_modules
+COPY --from=build /app/nest/dist ./dist
+COPY nest/package*.json ./
+
+# bring in your existing runtime folders
+COPY nest/upload ./upload
+COPY nest/logs ./logs
+COPY nest/public ./public
+COPY nest/certs ./certs
+
+# make sure appuser can write
+RUN chown -R appuser:appuser /app/nest
+
+USER appuser
+
+EXPOSE 3000
+HEALTHCHECK --interval=30s --timeout=3s --retries=3 \
+  CMD node -e "require('http').get('http://127.0.0.1:3000/health', r => process.exit(r.statusCode===200?0:1)).on('error',()=>process.exit(1))"
+
+CMD ["node", "dist/nest/src/main.js"]

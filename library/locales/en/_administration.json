@@ -3,7 +3,9 @@
   "dashboard": {
     "label": "Dashboard",
     "overview": {
-      "label": "Overview"
+      "label": "Overview",
+      "title": "System Overview",
+      "subtitle": "A snapshot of key metrics, recent activity, and overall health."
     }
   },
   "resources": {

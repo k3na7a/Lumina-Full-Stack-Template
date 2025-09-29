@@ -24,7 +24,7 @@ const route: RouteRecordRaw = {
             {
               path: 'overview',
               name: ROUTE_NAMES.ADMIN_DASHBOARD_OVERVIEW,
-              component: () => import('@/features/home/home.view.vue'),
+              component: () => import('@/features/administration/pages/dashboard/pages/overview.view.vue'),
               meta: {
                 breadcrumbs: [
                   { name: 'navigation.home', to: ROUTE_NAMES.HOME },

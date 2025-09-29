@@ -1,8 +1,10 @@
 <script setup lang="ts">
 import moment from 'moment'
+
 import TablePaginatedComponent from '@/shared/components/table/paginated-table.component.vue'
 import ActionsComponent from '@/shared/components/dropdown/table-actions.dropdown.component.vue'
 import ContentLayout from '@/features/administration/layouts/content.layout.vue'
+
 import { usePlatformTable } from '../composables/platform-table.composable.ts'
 
 const {

@@ -27,11 +27,6 @@ const routes: side_navigation = [
 const footer = [
   {
     action: () => {},
-    label: 'settings.label',
-    icon: ['fas', 'gear']
-  },
-  {
-    action: () => {},
     label: 'actions.send-feedback',
     icon: ['fas', 'message']
   }

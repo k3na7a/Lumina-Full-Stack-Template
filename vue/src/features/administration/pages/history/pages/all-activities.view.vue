@@ -49,7 +49,7 @@ await getPaginatedData(options.value)
         <template #time="{ row }">
           <div class="d-flex flex-column">
             <small
-              class="text-info underline help"
+              class="fst-italic text-info underline help"
               v-tooltip="{ text: moment(row.createdAt).format('llll'), position: 'bottom', trigger: 'hover' }"
             >
               {{ moment(row.createdAt).fromNow() }}

@@ -1,0 +1,28 @@
+version: '3.9' # 3.9 was the last defined schema version before Docker stopped revving the number.
+
+services:
+  api:
+    build:
+      context: .
+      dockerfile: nest/Dockerfile
+    container_name: api
+    ports:
+      - '3000:3000'
+    env_file:
+      - ./nest/.env
+    environment:
+      REDIS_HOST: redis
+      REDIS_PORT: 6379
+    depends_on:
+      - redis
+    volumes:
+      - ./nest/upload:/app/nest/upload
+      - ./nest/logs:/app/nest/logs
+      - ./nest/public:/app/nest/public
+      - ./nest/certs:/app/nest/certs
+
+  redis:
+    image: redis:7-alpine
+    container_name: redis
+    ports:
+      - '6379:6379'
