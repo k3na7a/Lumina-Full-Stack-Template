@@ -38,9 +38,9 @@ Organize visibility, observability, and compliance logic.
 
 # Audit Trail System
 
-- [ ] Admin edits/deletes
+- [x] Admin edits/deletes
 - [ ] S3 + SendGrid usage
-- [ ] Major user updates (email, password, etc.)
+- [x] Major user updates (email, password, etc.)
 - [ ] Notification deliveries
 
 You can centralize these via a @core/telemetry module or two separate metrics + audit services.
@@ -89,7 +89,7 @@ These aren’t urgent, but should stay visible on the radar.
 - [x] Add `view_` permissions for each admin UI section:
   - `view_admin_dashboard`
   - `view_user_management_dashboard`
-- [ ] Add audit logs for CRUD on roles, permissions, sensitive user actions
+- [x] Add audit logs for CRUD on roles, permissions, sensitive user actions
 - [x] Add `useCan()` composable on frontend for permission checks (canActivate in application store)
 - [ ] Add `canActivate` tests (unit + e2e)
 
@@ -112,7 +112,7 @@ These aren’t urgent, but should stay visible on the radar.
 
 ## ⚙️ 3️⃣ Backend Resilience & Infrastructure
 
-- [ ] Organize log folder structure: `yyyy/mm/dd/yyyy-mm-dd.log` + rotation
+- [x] Organize log folder structure: `yyyy/mm/dd/yyyy-mm-dd.log` + rotation
 - [ ] Push old logs to cold storage (e.g., S3)
 - [ ] Implement log cleanup for old uploads/unparented images
 - [ ] Add job & queue logs: status, DLQ, retries
@@ -128,13 +128,13 @@ These aren’t urgent, but should stay visible on the radar.
 
 ## 🧑‍💻 4️⃣ Frontend Polish & UX
 
-- [ ] Fully localize static text, breadcrumbs, dashboard tabs, actions
-- [ ] Localize Platforms + Dashboard strings
+- [x] Fully localize static text, breadcrumbs, dashboard tabs, actions
+- [x] Localize Platforms + Dashboard strings
 - [ ] Add Create buttons to dropdown Actions menus (future: export, bulk)
-- [ ] Move table sorting to column headers instead of dropdown
+- [x] Move table sorting to column headers instead of dropdown
 - [ ] Refine pagination filters (modal vs inline form)
-- [ ] Update Search Bar “X” to bypass debounce and emit immediately
-- [ ] Redesign main actions dropdown for consistency
+- [x] Update Search Bar “X” to bypass debounce and emit immediately
+- [x] Redesign main actions dropdown for consistency
 - [ ] Add modern table UI: flexible selectors, bulk actions, better rows-per-page selector
 - [ ] Improve color picker, date input, phone input
 
@@ -154,7 +154,7 @@ These aren’t urgent, but should stay visible on the radar.
 
 ## 📝 6️⃣ Logging & Auditing Must-Haves
 
-- [ ] Log CRUD for sensitive entities (games, roles, permissions)
+- [x] Log CRUD for sensitive entities (games, roles, permissions)
 - [ ] Log bulk ops (e.g., batch user deletions)
 - [ ] Log app startup + graceful shutdown steps
 - [ ] Log failed dependency connections (DB, Redis, S3)
