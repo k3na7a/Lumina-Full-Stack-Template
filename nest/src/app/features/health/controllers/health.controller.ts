@@ -2,10 +2,10 @@ import { Controller, Get } from '@nestjs/common';
 import { ApiOkResponse, ApiTags } from '@nestjs/swagger';
 import { SkipThrottle } from '@nestjs/throttler';
 
-import { BullHealthIndicator } from 'src/app/features/health/indicators/bull-health.indicator';
-import { RedisHealthIndicator } from 'src/app/features/health/indicators/redis-health.indicator';
-import { DiskHealthIndicator } from 'src/app/features/health/indicators/disk-health.indicator';
-import { TypeOrmHealthIndicator } from 'src/app/features/health/indicators/typeorm-health.indicator';
+import { BullHealthIndicator } from 'src/app/common/indicators/bull-health.indicator';
+import { RedisHealthIndicator } from 'src/app/common/indicators/redis-health.indicator';
+import { DiskHealthIndicator } from 'src/app/common/indicators/disk-health.indicator';
+import { TypeOrmHealthIndicator } from 'src/app/common/indicators/typeorm-health.indicator';
 
 import { LoggerQueues } from 'src/app/queues/logging/enums/logger-actions.enum';
 

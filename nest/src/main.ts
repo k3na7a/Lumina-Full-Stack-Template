@@ -46,7 +46,7 @@ async function bootstrap(): Promise<void> {
   app.useGlobalFilters(new GlobalExceptionFilter(logService));
   app.useGlobalInterceptors(new HttpInterceptor(logService));
   app.enableCors({
-    origin: 'https://localhost:8080',
+    origin: process.env.WEB_URL,
     methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE'],
     allowedHeaders: ['Content-Type', 'Authorization', 'X-CSRF-Token'],
     exposedHeaders: ['Authorization', 'Set-Cookie'],
