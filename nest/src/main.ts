@@ -6,12 +6,12 @@ import { json, urlencoded } from 'express';
 import * as fs from 'fs';
 config();
 
-import { AppModule } from 'src/app/app.module';
+import { AppModule } from 'src/app.module';
 import { SendGridPlugin } from 'src/plugins/sendgrid.plugin';
 import { SwaggerPlugin } from 'src/plugins/swagger.plugin';
-import { GlobalExceptionFilter } from './app/common/filters/global-exceptions.filter';
-import { HttpInterceptor } from './app/common/interceptors/http.interceptor';
-import { LogService } from './app/queues/logging/services/log.service';
+import { GlobalExceptionFilter } from './common/filters/global-exceptions.filter';
+import { HttpInterceptor } from './common/interceptors/http.interceptor';
+import { LogService } from './queues/logging/services/log.service';
 import { BullBoardPlugin } from './plugins/bull-board.plugin';
 import { HelmetPlugin } from './plugins/helmet.plugin';
 

@@ -3,8 +3,8 @@ import { INestApplication } from '@nestjs/common';
 import { ExpressAdapter } from '@bull-board/express';
 import { createBullBoard } from '@bull-board/api';
 import { BullMQAdapter } from '@bull-board/api/bullMQAdapter';
-import { LogService } from 'src/app/queues/logging/services/log.service';
-import { EmailService } from 'src/app/queues/email/services/email.service';
+import { LogService } from 'src/queues/logging/services/log.service';
+import { EmailService } from 'src/queues/email/services/email.service';
 
 export class BullBoardPlugin {
   public static init(app: INestApplication, path: string): void {
