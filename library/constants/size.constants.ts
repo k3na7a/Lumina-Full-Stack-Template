@@ -1,5 +1,6 @@
 const byte = 1
-const kilobyte = 1000 * byte
-const megabyte = 1000 * kilobyte
+const kilobyte = 1024 * byte
+const megabyte = 1024 * kilobyte
+const gigabyte = 1024 * megabyte
 
-export { byte, kilobyte, megabyte }
+export { byte, kilobyte, megabyte, gigabyte }

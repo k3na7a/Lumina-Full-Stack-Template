@@ -14,6 +14,7 @@ export class BullHealthIndicator {
 
   async isHealthy(key: string): Promise<HealthIndicatorResult> {
     const indicator = this.healthIndicatorService.check(key);
+
     const queue = new Queue(key, { connection });
 
     const counts = await queue.getJobCounts();

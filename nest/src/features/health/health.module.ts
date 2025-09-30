@@ -7,6 +7,7 @@ import { DiskHealthIndicator } from 'src/common/indicators/disk-health.indicator
 import { TypeOrmHealthIndicator } from 'src/common/indicators/typeorm-health.indicator';
 import { HealthCheckService } from './services/health.service';
 import { ScheduleModule } from '@nestjs/schedule';
+import { SystemHealthIndicator } from 'src/common/indicators/system-health.indicator';
 
 @Module({
   imports: [TerminusModule, ScheduleModule.forRoot()],
@@ -17,6 +18,7 @@ import { ScheduleModule } from '@nestjs/schedule';
     DiskHealthIndicator,
     TypeOrmHealthIndicator,
     HealthCheckService,
+    SystemHealthIndicator
   ],
 })
 export class HealthModule {}

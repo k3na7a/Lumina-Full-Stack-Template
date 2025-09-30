@@ -1,6 +1,15 @@
 import * as Joi from 'joi';
 
 export const validationSchema = Joi.object({
+  APP_VERSION: Joi.string()
+    .pattern(
+      /^(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)(?:-[\da-z\-]+(?:\.[\da-z\-]+)*)?(?:\+[\da-z\-]+(?:\.[\da-z\-]+)*)?$/i,
+    )
+    .required()
+    .messages({
+      'string.pattern.base':
+        'APP_VERSION must be a valid semantic version (e.g. 1.2.3, 2.0.0-beta+exp.sha)',
+    }),
   PORT: Joi.number().port().required(),
   GLOBAL_PREFIX: Joi.string().required(),
   BASE_URL: Joi.string().uri().required(),
