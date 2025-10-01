@@ -1,4 +1,4 @@
-import { Injectable, OnModuleInit } from '@nestjs/common';
+import { Injectable, Logger, OnModuleInit } from '@nestjs/common';
 import { Queue, QueueEvents } from 'bullmq';
 import { LogService } from 'src/queues/logging/services/log.service';
 
@@ -15,6 +15,8 @@ export class QueueEventsProvider implements OnModuleInit {
   private readonly queueEvents: QueueEvents;
   private readonly dlq?: Queue;
 
+  private readonly LOGGER: Logger;
+
   constructor(private readonly options: QueueEventsProviderOptions) {
     const { connection, queueName, deadLetterQueueName } = this.options;
 
@@ -30,8 +32,11 @@ export class QueueEventsProvider implements OnModuleInit {
     const { deadLetterQueueName } = this.options;
 
     queueEvents.on('failed', async ({ jobId, failedReason }) => {
-      console.log('Job Failed:', jobId, failedReason);
-      
+      Logger.error(
+        `Job ${jobId} Failed: ${failedReason}`,
+        QueueEventsProvider.name,
+      );
+
       const job = await this.queue.getJob(jobId);
       if (!job) return;
 
@@ -48,6 +53,10 @@ export class QueueEventsProvider implements OnModuleInit {
           },
         };
 
+        Logger.verbose(
+          `Job ${jobId} added to DLQ ${deadLetterQueueName}`,
+          QueueEventsProvider.name,
+        );
         await this.dlq.add(deadLetterQueueName, failurePayload);
 
         return;
@@ -55,19 +64,15 @@ export class QueueEventsProvider implements OnModuleInit {
     });
 
     queueEvents.on('stalled', async ({ jobId }) => {
-      console.log('Job Stalled:', jobId);
-    });
-
-    queueEvents.on('error', async (error) => {
-      console.log('Job Error:', error);
+      Logger.warn(`Job ${jobId} Stalled!`, QueueEventsProvider.name);
     });
 
     queueEvents.on('added', async ({ jobId, name }) => {
-      console.log('Job Added:', name, jobId);
+      Logger.verbose(`Job ${jobId}:${name} Added!`, QueueEventsProvider.name);
     });
 
-    queueEvents.on('completed', ({ jobId, returnvalue }) => {
-      console.log('Job Completed:', jobId, returnvalue);
+    queueEvents.on('completed', ({ jobId }) => {
+      Logger.verbose(`Job ${jobId} Completed!`, QueueEventsProvider.name);
     });
 
     await queueEvents.waitUntilReady();
