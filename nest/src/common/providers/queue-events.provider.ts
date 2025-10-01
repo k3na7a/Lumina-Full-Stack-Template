@@ -29,11 +29,10 @@ export class QueueEventsProvider implements OnModuleInit {
     const queueEvents = this.queueEvents;
     const { deadLetterQueueName } = this.options;
 
+    const LOGGER = new Logger(QueueEventsProvider.name);
+
     queueEvents.on('failed', async ({ jobId, failedReason }) => {
-      Logger.error(
-        `Job ${jobId} Failed: ${failedReason}`,
-        QueueEventsProvider.name,
-      );
+      LOGGER.error(`Job ${jobId} Failed: ${failedReason}`);
 
       const job = await this.queue.getJob(jobId);
       if (!job) return;
@@ -51,10 +50,7 @@ export class QueueEventsProvider implements OnModuleInit {
           },
         };
 
-        Logger.verbose(
-          `Job ${jobId} added to DLQ ${deadLetterQueueName}`,
-          QueueEventsProvider.name,
-        );
+        LOGGER.verbose(`Job ${jobId} added to DLQ ${deadLetterQueueName}`);
         await this.dlq.add(deadLetterQueueName, failurePayload);
 
         return;
@@ -62,15 +58,15 @@ export class QueueEventsProvider implements OnModuleInit {
     });
 
     queueEvents.on('stalled', async ({ jobId }) => {
-      Logger.warn(`Job ${jobId} Stalled!`, QueueEventsProvider.name);
+      LOGGER.warn(`Job ${jobId} Stalled!`);
     });
 
     queueEvents.on('added', async ({ jobId, name }) => {
-      Logger.verbose(`Job ${jobId}:${name} Added!`, QueueEventsProvider.name);
+      LOGGER.verbose(`Job ${jobId}:${name} Added!`);
     });
 
     queueEvents.on('completed', ({ jobId }) => {
-      Logger.verbose(`Job ${jobId} Completed!`, QueueEventsProvider.name);
+      LOGGER.verbose(`Job ${jobId} Completed!`);
     });
 
     await queueEvents.waitUntilReady();
