@@ -1,6 +1,7 @@
 import { Processor, WorkerHost } from '@nestjs/bullmq';
 import { Job } from 'bullmq';
 import * as path from 'path';
+import { promises as fs } from 'fs';
 import * as moment from 'moment';
 
 import { useFileManager } from 'src/common/utilities/fileManager.util';
@@ -8,7 +9,6 @@ import { jobtype } from 'src/common/interfaces/logger.interface';
 import { LoggerQueues } from 'src/queues/logging/enums/logger-actions.enum';
 
 // const longestKey = Math.max(...Object.keys(data).map((k) => k.length));
-
 @Processor(LoggerQueues.LOG_QUEUE)
 export class LogQueueProcessor extends WorkerHost {
   private readonly fileManager = useFileManager();
@@ -55,8 +55,7 @@ export class LogQueueProcessor extends WorkerHost {
 
   async process(job: Job<jobtype>): Promise<void> {
     const { message, type, context, requestInfo: req } = job.data;
-    const { appendFile, accessFile, getFileSizeMB, createDirectory } =
-      this.fileManager;
+    const { appendFile, accessFile, getFileSizeMB } = this.fileManager;
 
     const now: moment.Moment = moment();
     const dateString: string = now.format('YYYYMMDD');
@@ -81,7 +80,7 @@ export class LogQueueProcessor extends WorkerHost {
     let exists: boolean = false;
     let srcPath: string = this.buildLogPath(job.data, now, dateString, suffix);
 
-    await createDirectory(this.directory_name);
+    await fs.mkdir(path.dirname(srcPath), { recursive: true });
 
     while (await accessFile(srcPath)) {
       const size = await getFileSizeMB(srcPath);

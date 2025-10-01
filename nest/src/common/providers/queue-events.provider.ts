@@ -30,6 +30,8 @@ export class QueueEventsProvider implements OnModuleInit {
     const { deadLetterQueueName } = this.options;
 
     queueEvents.on('failed', async ({ jobId, failedReason }) => {
+      console.log('Job Failed:', jobId, failedReason);
+      
       const job = await this.queue.getJob(jobId);
       if (!job) return;
 
@@ -52,11 +54,21 @@ export class QueueEventsProvider implements OnModuleInit {
       }
     });
 
-    queueEvents.on('stalled', async ({}) => {});
+    queueEvents.on('stalled', async ({ jobId }) => {
+      console.log('Job Stalled:', jobId);
+    });
 
-    queueEvents.on('added', async ({}) => {});
+    queueEvents.on('error', async (error) => {
+      console.log('Job Error:', error);
+    });
 
-    queueEvents.on('completed', ({}) => {});
+    queueEvents.on('added', async ({ jobId, name }) => {
+      console.log('Job Added:', name, jobId);
+    });
+
+    queueEvents.on('completed', ({ jobId, returnvalue }) => {
+      console.log('Job Completed:', jobId, returnvalue);
+    });
 
     await queueEvents.waitUntilReady();
   }
