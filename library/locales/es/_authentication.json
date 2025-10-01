@@ -3,29 +3,29 @@
   "not-authorized": "No está autorizado para ver este contenido",
   "password-security": "Por seguridad, ingrese su contraseña para continuar.",
   "log-in": {
-    "modal-title": "Iniciar sesión en Testhub",
+    "modal-title": "Iniciar sesión en @:navigation.site-name",
     "trouble": "¿Problemas para iniciar sesión?",
     "success": "Inicio de sesión exitoso. ¡Bienvenido de nuevo!"
   },
   "register": {
-    "modal-title": "Únase a Testhub hoy",
+    "modal-title": "Únase a @:navigation.site-name hoy",
     "success": "¡Bienvenido a bordo! Su cuenta está lista para usarse."
   },
   "log-out": {
-    "modal-title": "Cerrar sesión en Testhub",
-    "modal-body": "¿Está seguro de que desea cerrar sesión en su cuenta de Testhub?",
+    "modal-title": "Cerrar sesión en @:navigation.site-name",
+    "modal-body": "¿Está seguro de que desea cerrar sesión en su cuenta de @:navigation.site-name?",
     "success": "Ha cerrado sesión. ¡Hasta la próxima!"
   },
   "disable-account": {
-    "modal-title": "Desactivar su cuenta de Testhub",
-    "modal-body": "¿Está seguro de que desea desactivar permanentemente su cuenta de Testhub?"
+    "modal-title": "Desactivar su cuenta de @:navigation.site-name",
+    "modal-body": "¿Está seguro de que desea desactivar permanentemente su cuenta de @:navigation.site-name?"
   },
   "account-recovery": {
-    "title": "Recuperar el acceso a su cuenta de Testhub",
+    "title": "Recuperar el acceso a su cuenta de @:navigation.site-name",
     "subtitle": "Díganos algunos datos sobre su cuenta.",
     "label": "Ingrese el correo electrónico asociado a su cuenta para cambiar su contraseña.",
     "confirm-title": "Revise su correo electrónico",
-    "confirm-body-sent-link": "Vaya a su correo {0} y haga clic en el enlace de restablecimiento de contraseña que le hemos enviado para su cuenta de Testhub.",
+    "confirm-body-sent-link": "Vaya a su correo {0} y haga clic en el enlace de restablecimiento de contraseña que le hemos enviado para su cuenta de @:navigation.site-name.",
     "confirm-body-check-spam": "Puede tardar unos minutos en aparecer. Revise también las carpetas de spam y promociones, por si acaso.",
     "success": "Hemos enviado un enlace a su correo electrónico para que pueda restablecer su contraseña. Por favor, revise su bandeja de entrada."
   },

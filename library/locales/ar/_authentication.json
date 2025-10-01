@@ -3,29 +3,29 @@
   "not-authorized": "غير مصرح لك بعرض هذا المحتوى",
   "password-security": "لأسباب أمنية، يرجى إدخال كلمة المرور للمتابعة.",
   "log-in": {
-    "modal-title": "تسجيل الدخول إلى Testhub",
+    "modal-title": "تسجيل الدخول إلى @:navigation.site-name",
     "trouble": "هل تواجه مشكلة في تسجيل الدخول؟",
     "success": "تم تسجيل الدخول بنجاح. مرحبًا بعودتك!"
   },
   "register": {
-    "modal-title": "انضم إلى Testhub اليوم",
+    "modal-title": "انضم إلى @:navigation.site-name اليوم",
     "success": "مرحبًا بك! حسابك جاهز للاستخدام."
   },
   "log-out": {
-    "modal-title": "تسجيل الخروج من Testhub",
-    "modal-body": "هل أنت متأكد أنك تريد تسجيل الخروج من حساب Testhub الخاص بك؟",
+    "modal-title": "تسجيل الخروج من @:navigation.site-name",
+    "modal-body": "هل أنت متأكد أنك تريد تسجيل الخروج من حساب @:navigation.site-name الخاص بك؟",
     "success": "تم تسجيل الخروج. نراك في المرة القادمة!"
   },
   "disable-account": {
-    "modal-title": "تعطيل حسابك في Testhub",
-    "modal-body": "هل أنت متأكد أنك تريد تعطيل حساب Testhub الخاص بك بشكل دائم؟"
+    "modal-title": "تعطيل حسابك في @:navigation.site-name",
+    "modal-body": "هل أنت متأكد أنك تريد تعطيل حساب @:navigation.site-name الخاص بك بشكل دائم؟"
   },
   "account-recovery": {
-    "title": "استعادة الوصول إلى حسابك في Testhub",
+    "title": "استعادة الوصول إلى حسابك في @:navigation.site-name",
     "subtitle": "أدخل بعض المعلومات حول حسابك.",
     "label": "أدخل البريد الإلكتروني المرتبط بحسابك لتغيير كلمة المرور.",
     "confirm-title": "تحقق من بريدك الإلكتروني",
-    "confirm-body-sent-link": "يرجى الذهاب إلى بريدك الإلكتروني {0} والنقر على رابط إعادة تعيين كلمة المرور الذي أرسلناه لحساب Testhub الخاص بك.",
+    "confirm-body-sent-link": "يرجى الذهاب إلى بريدك الإلكتروني {0} والنقر على رابط إعادة تعيين كلمة المرور الذي أرسلناه لحساب @:navigation.site-name الخاص بك.",
     "confirm-body-check-spam": "قد يستغرق ظهوره بضع دقائق، وتأكد من التحقق من مجلدات البريد العشوائي والترويجي أيضًا — تحسبًا!",
     "success": "لقد أرسلنا رابطًا إلى بريدك الإلكتروني لتتمكن من إعادة تعيين كلمة المرور. يرجى التحقق من صندوق الوارد."
   },

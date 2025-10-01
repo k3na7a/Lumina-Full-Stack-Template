@@ -3,29 +3,29 @@
   "not-authorized": "Sie sind nicht berechtigt, diesen Inhalt zu sehen",
   "password-security": "Aus Sicherheitsgründen geben Sie bitte Ihr Passwort ein, um fortzufahren.",
   "log-in": {
-    "modal-title": "Bei Testhub anmelden",
+    "modal-title": "Bei @:navigation.site-name anmelden",
     "trouble": "Probleme beim Anmelden?",
     "success": "Anmeldung erfolgreich. Willkommen zurück!"
   },
   "register": {
-    "modal-title": "Testhub noch heute beitreten",
+    "modal-title": "@:navigation.site-name noch heute beitreten",
     "success": "Willkommen an Bord! Ihr Konto ist einsatzbereit."
   },
   "log-out": {
-    "modal-title": "Von Testhub abmelden",
-    "modal-body": "Sind Sie sicher, dass Sie sich von Ihrem Testhub-Konto abmelden möchten?",
+    "modal-title": "Von @:navigation.site-name abmelden",
+    "modal-body": "Sind Sie sicher, dass Sie sich von Ihrem @:navigation.site-name-Konto abmelden möchten?",
     "success": "Sie haben sich abgemeldet. Bis zum nächsten Mal!"
   },
   "disable-account": {
-    "modal-title": "Ihr Testhub-Konto deaktivieren",
-    "modal-body": "Sind Sie sicher, dass Sie Ihr Testhub-Konto dauerhaft deaktivieren möchten?"
+    "modal-title": "Ihr @:navigation.site-name-Konto deaktivieren",
+    "modal-body": "Sind Sie sicher, dass Sie Ihr @:navigation.site-name-Konto dauerhaft deaktivieren möchten?"
   },
   "account-recovery": {
-    "title": "Wieder Zugriff auf Ihr Testhub-Konto erhalten",
+    "title": "Wieder Zugriff auf Ihr @:navigation.site-name-Konto erhalten",
     "subtitle": "Geben Sie uns einige Informationen zu Ihrem Konto.",
     "label": "Geben Sie die E-Mail-Adresse ein, die mit Ihrem Konto verknüpft ist, um Ihr Passwort zu ändern.",
     "confirm-title": "Überprüfen Sie Ihre E-Mails",
-    "confirm-body-sent-link": "Bitte gehen Sie zu Ihrem {0}-Postfach und klicken Sie auf den Link zur Passwortzurücksetzung, den wir für Ihr Testhub-Konto gesendet haben.",
+    "confirm-body-sent-link": "Bitte gehen Sie zu Ihrem {0}-Postfach und klicken Sie auf den Link zur Passwortzurücksetzung, den wir für Ihr @:navigation.site-name-Konto gesendet haben.",
     "confirm-body-check-spam": "Es kann ein paar Minuten dauern, bis die E-Mail erscheint. Überprüfen Sie auch Ihren Spam- oder Werbeordner – nur für den Fall!",
     "success": "Wir haben einen Link an Ihre E-Mail gesendet, damit Sie Ihr Passwort zurücksetzen können. Bitte überprüfen Sie Ihren Posteingang."
   },

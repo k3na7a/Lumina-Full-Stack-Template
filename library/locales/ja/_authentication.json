@@ -3,29 +3,29 @@
   "not-authorized": "このコンテンツを表示する権限がありません",
   "password-security": "セキュリティのため、続行するにはパスワードを入力してください。",
   "log-in": {
-    "modal-title": "Testhub にログイン",
+    "modal-title": "@:navigation.site-name にログイン",
     "trouble": "ログインでお困りですか？",
     "success": "ログイン成功。お帰りなさい！"
   },
   "register": {
-    "modal-title": "今すぐ Testhub に参加",
+    "modal-title": "今すぐ @:navigation.site-name に参加",
     "success": "ようこそ！ アカウントの準備が整いました。"
   },
   "log-out": {
-    "modal-title": "Testhub からログアウト",
-    "modal-body": "Testhub アカウントからログアウトしてもよろしいですか？",
+    "modal-title": "@:navigation.site-name からログアウト",
+    "modal-body": "@:navigation.site-name アカウントからログアウトしてもよろしいですか？",
     "success": "ログアウトしました。またお会いしましょう！"
   },
   "disable-account": {
-    "modal-title": "Testhub アカウントを無効化",
-    "modal-body": "Testhub アカウントを完全に無効化してもよろしいですか？"
+    "modal-title": "@:navigation.site-name アカウントを無効化",
+    "modal-body": "@:navigation.site-name アカウントを完全に無効化してもよろしいですか？"
   },
   "account-recovery": {
-    "title": "Testhub アカウントに再アクセス",
+    "title": "@:navigation.site-name アカウントに再アクセス",
     "subtitle": "アカウントに関する情報をいくつか教えてください。",
     "label": "パスワードを変更するには、アカウントに関連付けられたメールアドレスを入力してください。",
     "confirm-title": "メールを確認してください",
-    "confirm-body-sent-link": "{0} のメールにアクセスし、Testhub アカウント用に送信されたパスワードリセットリンクをクリックしてください。",
+    "confirm-body-sent-link": "{0} のメールにアクセスし、@:navigation.site-name アカウント用に送信されたパスワードリセットリンクをクリックしてください。",
     "confirm-body-check-spam": "表示されるまで数分かかる場合があります。念のため、迷惑メールフォルダやプロモーションフォルダも確認してください。",
     "success": "パスワードをリセットできるリンクをメールに送信しました。受信箱をご確認ください。"
   },

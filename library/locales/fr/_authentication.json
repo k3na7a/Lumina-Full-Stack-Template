@@ -3,29 +3,29 @@
   "not-authorized": "Vous n’êtes pas autorisé à voir ce contenu",
   "password-security": "Pour des raisons de sécurité, veuillez entrer votre mot de passe pour continuer.",
   "log-in": {
-    "modal-title": "Se connecter à Testhub",
+    "modal-title": "Se connecter à @:navigation.site-name",
     "trouble": "Problèmes de connexion ?",
     "success": "Connexion réussie. Bon retour !"
   },
   "register": {
-    "modal-title": "Rejoignez Testhub dès aujourd’hui",
+    "modal-title": "Rejoignez @:navigation.site-name dès aujourd’hui",
     "success": "Bienvenue à bord ! Votre compte est prêt à être utilisé."
   },
   "log-out": {
-    "modal-title": "Se déconnecter de Testhub",
-    "modal-body": "Êtes-vous sûr de vouloir vous déconnecter de votre compte Testhub ?",
+    "modal-title": "Se déconnecter de @:navigation.site-name",
+    "modal-body": "Êtes-vous sûr de vouloir vous déconnecter de votre compte @:navigation.site-name ?",
     "success": "Vous vous êtes déconnecté. À la prochaine !"
   },
   "disable-account": {
-    "modal-title": "Désactiver votre compte Testhub",
-    "modal-body": "Êtes-vous sûr de vouloir désactiver définitivement votre compte Testhub ?"
+    "modal-title": "Désactiver votre compte @:navigation.site-name",
+    "modal-body": "Êtes-vous sûr de vouloir désactiver définitivement votre compte @:navigation.site-name ?"
   },
   "account-recovery": {
-    "title": "Récupérer l’accès à votre compte Testhub",
+    "title": "Récupérer l’accès à votre compte @:navigation.site-name",
     "subtitle": "Donnez-nous quelques informations sur votre compte.",
     "label": "Entrez l’adresse e-mail associée à votre compte pour changer votre mot de passe.",
     "confirm-title": "Vérifiez votre e-mail",
-    "confirm-body-sent-link": "Veuillez aller dans votre e-mail {0} et cliquer sur le lien de réinitialisation de mot de passe que nous avons envoyé pour votre compte Testhub.",
+    "confirm-body-sent-link": "Veuillez aller dans votre e-mail {0} et cliquer sur le lien de réinitialisation de mot de passe que nous avons envoyé pour votre compte @:navigation.site-name.",
     "confirm-body-check-spam": "Cela peut prendre quelques minutes à apparaître. Vérifiez aussi vos dossiers spam ou promotions — au cas où !",
     "success": "Nous avons envoyé un lien à votre e-mail pour réinitialiser votre mot de passe. Veuillez vérifier votre boîte de réception."
   },

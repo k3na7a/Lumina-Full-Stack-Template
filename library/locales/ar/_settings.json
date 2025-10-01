@@ -11,7 +11,7 @@
     },
     "avatar": {
       "label": "صورة الملف الشخصي",
-      "modal-title": "تحديث صورة ملفك الشخصي على Testhub",
+      "modal-title": "تحديث صورة ملفك الشخصي على @:navigation.site-name",
       "success": "رائع! تم تفعيل صورتك الشخصية الجديدة."
     },
     "remove-avatar": {
@@ -21,9 +21,9 @@
       "success": "تمت إزالة صورة الملف الشخصي. تم تعيين صورة افتراضية الآن."
     },
     "disable-account": {
-      "header": "تعطيل حسابك على Testhub",
+      "header": "تعطيل حسابك على @:navigation.site-name",
       "sub-header": "قم بإلغاء تنشيط حسابك بالكامل",
-      "form-header": "تعطيل حسابك على Testhub",
+      "form-header": "تعطيل حسابك على @:navigation.site-name",
       "success": "تم حذف حساب المستخدم وجميع البيانات المرتبطة به بنجاح."
     }
   },

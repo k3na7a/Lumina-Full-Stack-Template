@@ -11,7 +11,7 @@
     },
     "avatar": {
       "label": "プロフィール画像",
-      "modal-title": "Testhub のプロフィール画像を更新",
+      "modal-title": "@:navigation.site-name のプロフィール画像を更新",
       "success": "いい感じです！ 新しいプロフィール画像が反映されました。"
     },
     "remove-avatar": {
@@ -21,9 +21,9 @@
       "success": "プロフィール画像が削除されました。デフォルトのアバターが設定されています。"
     },
     "disable-account": {
-      "header": "Testhub アカウントの無効化",
+      "header": "@:navigation.site-name アカウントの無効化",
       "sub-header": "アカウントを完全に無効化",
-      "form-header": "Testhub アカウントを無効化",
+      "form-header": "@:navigation.site-name アカウントを無効化",
       "success": "ユーザーアカウントと関連データは正常に削除されました。"
     }
   },

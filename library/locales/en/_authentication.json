@@ -3,29 +3,29 @@
   "not-authorized": "You are not authorized to view this content",
   "password-security": "For security, please enter your password to continue.",
   "log-in": {
-    "modal-title": "Log in to Testhub",
+    "modal-title": "Log in to @:navigation.site-name",
     "trouble": "Trouble logging in?",
     "success": "Login successful. Welcome back!"
   },
   "register": {
-    "modal-title": "Join Testhub today",
+    "modal-title": "Join @:navigation.site-name today",
     "success": "Welcome aboard! Your account is ready to use."
   },
   "log-out": {
-    "modal-title": "Log out of Testhub",
-    "modal-body": "Are you sure you want to log out of your Testhub account?",
+    "modal-title": "Log out of @:navigation.site-name",
+    "modal-body": "Are you sure you want to log out of your @:navigation.site-name account?",
     "success": "You've logged out. See you next time!"
   },
   "disable-account": {
-    "modal-title": "Disable your Testhub account",
-    "modal-body": "Are you sure you want to permanently disable your Testhub account?"
+    "modal-title": "Disable your @:navigation.site-name account",
+    "modal-body": "Are you sure you want to permanently disable your @:navigation.site-name account?"
   },
   "account-recovery": {
-    "title": "Getting back into your Testhub account",
+    "title": "Getting back into your @:navigation.site-name account",
     "subtitle": "Tell us some information about your account.",
     "label": "Enter the email associated with your account to change your password.",
     "confirm-title": "Check your email",
-    "confirm-body-sent-link": "Please go to your {0} email and click the password reset link we've sent for your Testhub account.",
+    "confirm-body-sent-link": "Please go to your {0} email and click the password reset link we've sent for your @:navigation.site-name account.",
     "confirm-body-check-spam": "It could take a few minutes to appear, and be sure to check any spam and promotional folders—just in case!",
     "success": "We've sent a link to your email so you can reset your password. Please check your inbox."
   },

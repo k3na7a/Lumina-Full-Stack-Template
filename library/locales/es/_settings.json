@@ -11,7 +11,7 @@
     },
     "avatar": {
       "label": "Foto de perfil",
-      "modal-title": "Actualizar su foto de perfil de Testhub",
+      "modal-title": "Actualizar su foto de perfil de @:navigation.site-name",
       "success": "¡Muy bien! Su nueva foto de perfil ya está activa."
     },
     "remove-avatar": {
@@ -21,9 +21,9 @@
       "success": "La imagen de perfil se ha eliminado. Ahora hay un avatar predeterminado en su lugar."
     },
     "disable-account": {
-      "header": "Desactivación de su cuenta de Testhub",
+      "header": "Desactivación de su cuenta de @:navigation.site-name",
       "sub-header": "Desactive completamente su cuenta",
-      "form-header": "Desactivar su cuenta de Testhub",
+      "form-header": "Desactivar su cuenta de @:navigation.site-name",
       "success": "La cuenta de usuario y todos los datos asociados se han eliminado correctamente."
     }
   },
