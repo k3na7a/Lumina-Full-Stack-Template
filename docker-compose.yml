@@ -68,19 +68,9 @@ services:
     build:
       context: .
       dockerfile: vue/Dockerfile
-    environment:
-      TZ: America/Toronto
-    expose:
-      - '80'
-    depends_on:
-      - api
-      - nginx
-    deploy:
-      resources:
-        limits:
-          cpus: '0.5'
-          memory: 512m
-    restart: unless-stopped
+    command: echo "Build complete"
+    volumes:
+      - ./vue/dist:/usr/share/nginx/html:ro
   nginx:
     image: nginx:latest
     container_name: nginx
