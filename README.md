@@ -1,8 +1,12 @@
-# Full-Stack Vue 3 + NestJS + MySQL Application
+# Lumina – Full-Stack Vue 3 + NestJS + MySQL Template
 
 ## 🚀 Overview
 
-This is a modern, production-ready **full-stack application** built with:
+**Lumina** is a modern, production-ready **full-stack application template** designed to give teams a rock-solid foundation for building scalable, secure, and maintainable systems.
+
+It’s **business-logic agnostic** yet comes with deep technical value out of the box: audit trails, background job queues, file uploads, RBAC, metrics, i18n, and security best practices.
+
+Built with:
 
 - **Vue 3** (Composition API, composables, localization, stores, TypeScript)
 - **NestJS** (modular, layered, queues, logging, S3 uploads)
@@ -142,6 +146,16 @@ npm run docker:down
 - Expanded User Roles & Permissions System.
 - Administration Dashboard
 - API versioning for smooth upgrades
+
+---
+
+## 🧭 Design Principles
+
+- **Business-logic agnostic** → this is a template, not a toy app.
+- **Transparency by design** → audit logs, metrics, and monitoring built in.
+- **Security-first** → safe defaults, CORS, JWT, RBAC, CSRF, and logging.
+- **Maintainability** → modular NestJS architecture + composable Vue frontend.
+- **Production parity** → Dockerized stack, health checks, graceful shutdowns.
 
 ---
 
