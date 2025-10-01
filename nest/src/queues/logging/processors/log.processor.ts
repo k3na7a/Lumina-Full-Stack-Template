@@ -33,7 +33,7 @@ export class LogQueueProcessor extends WorkerHost {
   private formatLogBlock(
     data: Record<string, string | number | undefined>,
   ): string {
-    const KEY_WIDTH = 20;
+    const KEY_WIDTH = 15;
 
     const lines = Object.entries(data).map(([key, value]) => {
       let output: string;
