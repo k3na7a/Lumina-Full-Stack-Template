@@ -116,9 +116,32 @@ This document outlines our current security posture and how we mitigate common r
 
 If you discover a security vulnerability, please report it responsibly:
 
-1. **DO NOT** open a public GitHub issue.
-2. Email [YOUR CONTACT EMAIL] or reach out privately.
-3. We’ll triage and patch valid reports quickly.
+- **DO NOT** open a public GitHub issue.
+- Email [YOUR CONTACT EMAIL] or reach out privately.
+- We’ll triage and patch valid reports quickly.
+
+---
+
+## ✅ Role-Based Access Control (RBAC)
+
+Both frontend and backend enforce RBAC consistently:
+
+**Backend (NestJS)**
+
+- Uses a centralized permission matrix that defines domains, actions, and roles.
+- Guards (@UseGuards) ensure only authorized roles can access protected endpoints.
+- Permissions are seeded and versioned — no “ad-hoc” permissions.
+- Audit trail records who performed what action (role, user ID, IP, timestamp).
+
+**Frontend (Vue 3)**
+
+- Permission checks baked into route guards and UI components.
+- Restricted UI elements (e.g., admin buttons) are hidden/disabled for unauthorized users.
+- Pinia/Vuex state synchronizes current user’s role and permissions to avoid accidental access.
+- All sensitive admin routes require elevated roles.
+- Principle of Least Privilege: users get only the minimum role necessary.
+
+**All role and permission changes are logged and auditable.**
 
 ---
 

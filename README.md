@@ -51,6 +51,8 @@ The project demonstrates clean architecture, best practices, and robust develope
 - ✔️ CORS locked to trusted origins
 - ✔️ Logs, metrics, and graceful background jobs
 - ✔️ HTTPS, Helmet, rate limiting — ready for the real world.
+- ✔️ Flexible roles and permissions system built into both frontend and backend.
+- ✔️ Audit Trail for critical actions (user changes, role updates, entity modifications).
 
 ---
 
@@ -67,6 +69,15 @@ Handles secure uploads with content validation and temporary storage cleanup.
 
 ✨ **Authentication & Admin**\
 Includes modules for authentication flows, user profile management, and administration features.
+
+✨ **Role-Based Access Control (RBAC)**\
+Flexible roles and permissions system built into both frontend and backend.
+
+✨ **Audit & Transparency System**\
+Records who, what, where, when, and why for each event.
+
+✨ **Docker & Deployment**\
+Dockerized stack for consistent local + production environments.
 
 ---
 
@@ -86,31 +97,17 @@ Includes modules for authentication flows, user profile management, and administ
 
 ## 🏗️ Local Setup
 
-1. **Install dependencies**
+- **Setup environment variables**
 
-   ```bash
-   npm install
-   ```
+  ```bash
+  npm run docker:up
+  ```
 
-2. **Setup environment variables**
+**Access**
 
-   ```bash
-   cp .env.example .env
-   # Fill in your DB, Redis, S3 configs etc.
-   ```
-
-3. **Run services**
-
-   ```bash
-   npm run start:dev  # NestJS API
-   npm run web        # Vue frontend
-   ```
-
-4. **Access**
-
-   - **Frontend:** [https://localhost:8080](https://localhost:8080)
-   - **API docs:** [https://localhost:3000/api](https://localhost:3000/api)
-   - **BullBoard:** [https://localhost:3000/admin/queues](https://localhost:3000/admin/queues)
+- **Frontend:** [https://localhost:8080](https://localhost:8080)
+- **API docs:** [https://localhost:3000/api](https://localhost:3000/api)
+- **BullBoard:** [https://localhost:3000/admin/queues](https://localhost:3000/admin/queues)
 
 ---
 
