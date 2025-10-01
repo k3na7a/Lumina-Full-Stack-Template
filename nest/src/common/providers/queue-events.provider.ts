@@ -15,8 +15,6 @@ export class QueueEventsProvider implements OnModuleInit {
   private readonly queueEvents: QueueEvents;
   private readonly dlq?: Queue;
 
-  private readonly LOGGER: Logger;
-
   constructor(private readonly options: QueueEventsProviderOptions) {
     const { connection, queueName, deadLetterQueueName } = this.options;
 
