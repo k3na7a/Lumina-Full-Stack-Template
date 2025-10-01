@@ -97,11 +97,25 @@ Dockerized stack for consistent local + production environments.
 
 ## 🏗️ Local Setup
 
-- **Setup environment variables**
+**Setup environment variables**
 
-  ```bash
-  npm run docker:up
-  ```
+1. Start the stack
+
+```bash
+npm run docker:up
+```
+
+- Builds and runs the Docker Compose setup.
+- Starts API (NestJS), Frontend (Vue 3 with NGINX), MySQL, and Redis.
+- Volumes persist MySQL and Redis data between runs.
+
+2. Stop the stack
+
+```bash
+npm run docker:down
+```
+
+- Gracefully shuts down all containers and networks.
 
 **Access**
 
