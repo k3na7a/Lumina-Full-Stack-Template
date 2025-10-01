@@ -27,10 +27,26 @@ export class SystemHealthIndicator {
     const isLinux = os.platform() === 'linux';
     const isWindows = os.platform() === 'win32';
 
+    function fileExists(path: string): boolean {
+      try {
+        // eslint-disable-next-line @typescript-eslint/no-var-requires
+        return !!readFile(path) || require('fs').existsSync(path);
+      } catch {
+        return false;
+      }
+    }
+
     function detectContainer(): {
       readonly inContainer: boolean;
       readonly cgroupVersion: 'v2' | 'v1' | null;
-      readonly runtimeHint: string | null;
+      readonly runtimeHint:
+        | 'docker'
+        | 'podman'
+        | 'k8s'
+        | 'containerd'
+        | 'lxc'
+        | 'garden'
+        | null;
     } {
       if (!isLinux)
         return {
@@ -39,18 +55,69 @@ export class SystemHealthIndicator {
           runtimeHint: null,
         } as const;
 
-      const cg = readFile('/proc/1/cgroup');
-      const cgv2 = readFile('/sys/fs/cgroup/cgroup.controllers');
+      if (fileExists('/.dockerenv')) {
+        const cgv2 = readFile('/sys/fs/cgroup/cgroup.controllers');
+        return {
+          inContainer: true,
+          cgroupVersion: cgv2 != null ? 'v2' : 'v1',
+          runtimeHint: 'docker',
+        } as const;
+      }
 
-      const inContainer =
-        (!!cg && /docker|kubepods|containerd/i.test(cg)) ||
-        !!readFile('/run/.containerenv');
-      const runtimeHint = cg?.match(/docker|kubepods|containerd/i)?.[0] ?? null;
+      if (fileExists('/run/.containerenv')) {
+        const cgv2 = readFile('/sys/fs/cgroup/cgroup.controllers');
+        return {
+          inContainer: true,
+          cgroupVersion: cgv2 != null ? 'v2' : 'v1',
+          runtimeHint: 'podman',
+        } as const;
+      }
+
+      const cg1 = readFile('/proc/1/cgroup') || '';
+      const cgSelf = readFile('/proc/self/cgroup') || '';
+      const cgroupBlob = `${cg1}\n${cgSelf}`;
+
+      const hint =
+        (/kubepods/i.test(cgroupBlob) && 'k8s') ||
+        (/docker/i.test(cgroupBlob) && 'docker') ||
+        (/containerd/i.test(cgroupBlob) && 'containerd') ||
+        (/libpod|podman/i.test(cgroupBlob) && 'podman') ||
+        (/lxc/i.test(cgroupBlob) && 'lxc') ||
+        (/garden/i.test(cgroupBlob) && 'garden') ||
+        null;
+
+      const cgv2 = readFile('/sys/fs/cgroup/cgroup.controllers');
+      if (hint)
+        return {
+          inContainer: true,
+          cgroupVersion: cgv2 != null ? 'v2' : 'v1',
+          runtimeHint: hint,
+        } as const;
+
+      const memMax = readFile('/sys/fs/cgroup/memory.max');
+
+      let limited = false;
+      if (memMax && memMax !== 'max') {
+        const hostTotal = os.totalmem();
+        const limit = Number(memMax);
+        if (Number.isFinite(limit) && limit > 0 && limit < hostTotal)
+          limited = true;
+      }
+
+      const cpuMax = readFile('/sys/fs/cgroup/cpu.max');
+      if (cpuMax && cpuMax !== 'max') limited = true;
+
+      if (limited)
+        return {
+          inContainer: true,
+          cgroupVersion: cgv2 != null ? 'v2' : 'v1',
+          runtimeHint: null,
+        } as const;
 
       return {
-        inContainer,
+        inContainer: false,
         cgroupVersion: cgv2 != null ? 'v2' : 'v1',
-        runtimeHint: inContainer ? runtimeHint : null,
+        runtimeHint: null,
       } as const;
     }
 
