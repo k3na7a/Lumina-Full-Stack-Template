@@ -70,8 +70,6 @@ services:
       dockerfile: vue/Dockerfile
     environment:
       TZ: America/Toronto
-    ports:
-      - '8080:80'
     expose:
       - '80'
     depends_on:
