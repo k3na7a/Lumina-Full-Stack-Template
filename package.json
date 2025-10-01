@@ -10,5 +10,5 @@
     "docker:down": "docker compose down -v"
   },
   "author": "John 'K3na7a' Desjardins",
-  "license": "ISC"
+  "license": "MIT"
 }

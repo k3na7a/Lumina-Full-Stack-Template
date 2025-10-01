@@ -1,10 +1,10 @@
 {
-  "name": "nest",
+  "name": "nest_api",
   "version": "2.0.0",
-  "description": "",
-  "author": "",
+  "description": "NestJS API Template",
+  "author": "John Desjardins",
   "private": true,
-  "license": "ISC",
+  "license": "MIT",
   "scripts": {
     "seed": "ts-node src/seeds/seed.ts",
     "build": "nest build",
