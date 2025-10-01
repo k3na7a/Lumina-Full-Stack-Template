@@ -8,7 +8,6 @@ import { useFileManager } from 'src/common/utilities/fileManager.util';
 import { jobtype } from 'src/common/interfaces/logger.interface';
 import { LoggerQueues } from 'src/queues/logging/enums/logger-actions.enum';
 
-// const longestKey = Math.max(...Object.keys(data).map((k) => k.length));
 @Processor(LoggerQueues.LOG_QUEUE)
 export class LogQueueProcessor extends WorkerHost {
   private readonly fileManager = useFileManager();
