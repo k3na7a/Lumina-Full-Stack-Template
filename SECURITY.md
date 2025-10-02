@@ -2,7 +2,7 @@
 
 ## 🚀 Project Overview
 
-This repository (`Full-Stack-Vue3-NestJS-Application`) is a modern full-stack application using:
+This repository (`Lumina – Full-Stack Vue 3 + NestJS + MySQL Template`) is a modern full-stack application using:
 
 - **Vue 3** (frontend)
 - **NestJS** (backend)
