@@ -2,7 +2,6 @@ import { Controller, Get } from '@nestjs/common';
 import { ApiOkResponse, ApiTags } from '@nestjs/swagger';
 import { SkipThrottle } from '@nestjs/throttler';
 
-// import { BullHealthIndicator } from 'src/common/indicators/bull-health.indicator';
 import { RedisHealthIndicator } from 'src/common/indicators/redis-health.indicator';
 import { TypeOrmHealthIndicator } from 'src/common/indicators/typeorm-health.indicator';
 
@@ -14,7 +13,6 @@ import { SystemHealthIndicator } from 'src/common/indicators/system-health.indic
 @Controller('')
 export class HealthController {
   constructor(
-    // private readonly bull: BullHealthIndicator,
     private readonly redis: RedisHealthIndicator,
     private readonly database: TypeOrmHealthIndicator,
     private readonly system: SystemHealthIndicator,
@@ -28,8 +26,8 @@ export class HealthController {
   async check() {
     const results = await Promise.all([
       this.system.previewSystem('system'),
+      this.redis.overviewCheck('redis'),
       this.database.isHealthy('database'),
-      this.redis.pingCheck('redis'),
     ]);
 
     // const bullMQ = await Promise.all([

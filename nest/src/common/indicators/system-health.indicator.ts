@@ -10,7 +10,7 @@ import { useFileManager } from '../utilities/fileManager.util';
 import checkDiskSpace, { DiskSpace } from 'check-disk-space';
 import { getRootPath } from 'src/common/utilities/path.util';
 import { megabyte } from '@lib/constants/size.constants';
-import { isystemhealth } from 'src/features/health/dto/health.dto';
+import { isystemhealth, Warning } from 'src/features/health/dto/health.dto';
 
 @Injectable()
 export class SystemHealthIndicator {
@@ -319,7 +319,7 @@ export class SystemHealthIndicator {
 
     const openFds: number | null = await countOpenFds();
 
-    return indicator.up({
+    const payload = {
       host: {
         hostname: os.hostname(),
         os: {
@@ -367,6 +367,87 @@ export class SystemHealthIndicator {
         processSec: Math.floor(process.uptime()),
         systemSec: readSystemUptimeSec(),
       },
+      warnings: [],
+    };
+
+    return indicator.up({
+      ...payload,
+      warning: this.buildSystemWarnings(payload),
     });
+  }
+
+  private buildSystemWarnings(details: isystemhealth): Warning[] {
+    const warnings: Warning[] = [];
+
+    if (details.cpu.quotaCores != null)
+      warnings.push({
+        message: `CPU quota imposed (${details.cpu.quotaCores.toFixed(2)} cores)`,
+        severity: 'info',
+      });
+
+    if (
+      details.cpu.loadAvg &&
+      details.cpu.loadAvg[0] != null &&
+      details.cpu.loadAvg[0] > details.cpu.logicalCores
+    )
+      warnings.push({
+        message: `High 1m load average (${details.cpu.loadAvg[0].toFixed(2)})`,
+        severity: 'warning',
+      });
+
+    if (
+      details.memory.cgroupUsedPct != null &&
+      details.memory.cgroupUsedPct > 90
+    )
+      warnings.push({
+        message: `Memory usage high (${details.memory.cgroupUsedPct}%)`,
+        severity: 'critical',
+      });
+
+    if (details.memory.swapUsedMb && details.memory.swapUsedMb > 0)
+      warnings.push({
+        message: `Swap space in use (${details.memory.swapUsedMb} MB)`,
+        severity: 'warning',
+      });
+
+    if (details.disk && details.disk.sizeMb > 0) {
+      const freePct = (details.disk.freeMb / details.disk.sizeMb) * 100;
+      if (freePct < 10) {
+        warnings.push({
+          message: `Low disk space (${freePct.toFixed(1)}% free)`,
+          severity: 'critical',
+        });
+      }
+    }
+
+    if (details.limits.openFds != null && details.limits.nofile.soft != null) {
+      const fdPct = (details.limits.openFds / details.limits.nofile.soft) * 100;
+      if (fdPct > 80) {
+        warnings.push({
+          message: `File descriptor usage high (${fdPct.toFixed(1)}% of soft limit)`,
+          severity: 'warning',
+        });
+      }
+    }
+
+    if (details.uptime.systemSec < 300)
+      warnings.push({
+        message: `System restarted recently (${details.uptime.systemSec}s)`,
+        severity: 'info',
+      });
+
+    if (details.uptime.processSec < 60)
+      warnings.push({
+        message: `App process restarted recently (${details.uptime.processSec}s)`,
+        severity: 'info',
+      });
+
+    if (details.host.container.inContainer)
+      warnings.push({
+        message: `Running inside ${details.host.container.runtimeHint ?? 'container'}`,
+        severity: 'info',
+      });
+
+    return warnings;
   }
 }
