@@ -75,7 +75,7 @@ export function usePermissionAdminHandler(t: (key: string) => string): {
     openModal({
       view: markRaw(JSONDetailsModal),
       properties: {
-        item: value.raw,
+        items: [{ item: value.raw }],
         title: 'administration.user-management.permissions.view.title'
       }
     })

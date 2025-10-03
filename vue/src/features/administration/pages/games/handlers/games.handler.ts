@@ -77,7 +77,7 @@ export function useGameAdminHandler(t: (key: string) => string): {
     openModal({
       view: markRaw(JSONDetailsModal),
       properties: {
-        item: value.raw,
+        items: [{ item: value.raw }],
         title: 'administration.games-and-software.games.view.title'
       }
     })

@@ -75,7 +75,7 @@ export function usePlatformAdminHandler(t: (key: string) => string): {
     openModal({
       view: markRaw(JSONDetailsModal),
       properties: {
-        item: value.raw,
+        items: [{ item: value.raw }],
         title: 'administration.games-and-software.platforms.view.title'
       }
     })

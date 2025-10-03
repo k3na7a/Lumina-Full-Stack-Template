@@ -9,7 +9,7 @@ import { ToastStore, useToastStore } from '@/core/store/toast.store'
 import { AppStore, useAppStore } from '@/core/store/app.store'
 import { ModalStore, useModalStore } from '@/core/store/modal.store'
 
-import EventModal from '../components/event.modal.vue'
+import JSONDetailsModal from '@/shared/components/modal/JSON-details.modal.vue'
 
 export function useHistoryAdminHandler(t: (key: string) => string): {
   paginate: (params: AuditPaginationOptions) => Promise<PaginationDto<AuditEventDto>>
@@ -43,11 +43,19 @@ export function useHistoryAdminHandler(t: (key: string) => string): {
 
   function view(event: AuditEventDto): void {
     const { openModal } = modalStore
+    const { diff, before, after, metadata, ...details } = event
+
     openModal({
-      view: markRaw(EventModal),
+      view: markRaw(JSONDetailsModal),
       properties: {
         title: 'administration.activity-logs.modal-title',
-        event
+        items: [
+          { title: 'forms.details', item: details },
+          { title: 'forms.before', item: before },
+          { title: 'forms.after', item: after },
+          { title: 'forms.changes', item: diff },
+          { title: 'forms.metadata', item: metadata }
+        ]
       }
     })
   }

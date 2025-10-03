@@ -69,7 +69,7 @@ export function useUserAdminHandler(t: (key: string) => string): {
     openModal({
       view: markRaw(JSONDetailsModal),
       properties: {
-        item: value.raw,
+        items: [{ item: value.raw }],
         title: 'administration.user-management.users.view.title'
       }
     })
