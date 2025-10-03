@@ -1,14 +1,12 @@
 import { megabyte } from '@lib/constants/size.constants';
 import { Injectable } from '@nestjs/common';
-import {
-  HealthIndicatorResult,
-  HealthIndicatorService,
-} from '@nestjs/terminus';
+import { HealthIndicatorService } from '@nestjs/terminus';
 import Redis from 'ioredis';
 import { connection } from 'src/config/redis.config';
 import {
   iredisoverview,
   KeyspaceEntry,
+  RedisHealthResult,
   Warning,
 } from 'src/features/health/dto/health.dto';
 
@@ -18,12 +16,7 @@ export class RedisHealthIndicator {
     private readonly healthIndicatorService: HealthIndicatorService,
   ) {}
 
-  async overviewCheck<K extends string = 'redis'>(
-    key: K = 'redis' as K,
-  ): Promise<
-    | HealthIndicatorResult<K, 'up', iredisoverview>
-    | HealthIndicatorResult<K, 'down', { reason: string }>
-  > {
+  async overviewCheck(key: 'redis' = 'redis'): Promise<RedisHealthResult> {
     const indicator = this.healthIndicatorService.check(key);
     const redis = new Redis(connection);
 

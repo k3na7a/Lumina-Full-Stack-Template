@@ -1,9 +1,10 @@
 import { Injectable } from '@nestjs/common';
+import { HealthIndicatorService } from '@nestjs/terminus';
 import {
-  HealthIndicatorResult,
-  HealthIndicatorService,
-} from '@nestjs/terminus';
-import { Warning } from 'src/features/health/dto/health.dto';
+  DbHealthResult,
+  ITypeOrmHealth,
+  Warning,
+} from 'src/features/health/dto/health.dto';
 import { DataSource } from 'typeorm';
 
 @Injectable()
@@ -13,7 +14,7 @@ export class TypeOrmHealthIndicator {
     private readonly healthIndicatorService: HealthIndicatorService,
   ) {}
 
-  async isHealthy(key = 'database'): Promise<HealthIndicatorResult> {
+  async isHealthy(key: 'typeorm' = 'typeorm'): Promise<DbHealthResult> {
     const indicator = this.healthIndicatorService.check(key);
     const { options, driver } = this.dataSource;
 
@@ -62,7 +63,7 @@ export class TypeOrmHealthIndicator {
       connections,
       metrics,
       warnings,
-    };
+    } as ITypeOrmHealth;
 
     return indicator.up({ ...details });
   }

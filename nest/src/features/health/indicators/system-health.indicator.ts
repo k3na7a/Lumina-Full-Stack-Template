@@ -1,16 +1,17 @@
 import { Injectable } from '@nestjs/common';
-import {
-  HealthIndicatorResult,
-  HealthIndicatorService,
-} from '@nestjs/terminus';
+import { HealthIndicatorService } from '@nestjs/terminus';
 import * as os from 'os';
 import { promises as fs } from 'fs';
 
-import { useFileManager } from '../utilities/fileManager.util';
+import { useFileManager } from '../../../common/utilities/fileManager.util';
 import checkDiskSpace, { DiskSpace } from 'check-disk-space';
 import { getRootPath } from 'src/common/utilities/path.util';
 import { megabyte } from '@lib/constants/size.constants';
-import { isystemhealth, Warning } from 'src/features/health/dto/health.dto';
+import {
+  isystemhealth,
+  SystemHealthResult,
+  Warning,
+} from 'src/features/health/dto/health.dto';
 
 @Injectable()
 export class SystemHealthIndicator {
@@ -18,9 +19,7 @@ export class SystemHealthIndicator {
     private readonly healthIndicatorService: HealthIndicatorService,
   ) {}
 
-  async previewSystem<K extends string = 'system'>(
-    key: K = 'system' as K,
-  ): Promise<HealthIndicatorResult<K, 'up', isystemhealth>> {
+  async previewSystem(key: 'system' = 'system'): Promise<SystemHealthResult> {
     const indicator = this.healthIndicatorService.check(key);
     const { readFile } = useFileManager();
 

@@ -1,12 +1,11 @@
+import { DataSource } from 'typeorm';
 import { Injectable } from '@nestjs/common';
 import { Cron, CronExpression } from '@nestjs/schedule';
-import { DataSource } from 'typeorm';
-
-import { LogService } from 'src/queues/logging/services/log.service';
 import {
   LoggerActions,
   LoggerPath,
 } from 'src/queues/logging/enums/logger-actions.enum';
+import { LogService } from 'src/queues/logging/services/log.service';
 
 @Injectable()
 export class HealthCheckService {

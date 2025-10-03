@@ -1,26 +1,60 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { HealthIndicatorResult, HealthIndicatorStatus } from '@nestjs/terminus';
+import { HealthIndicatorResult } from '@nestjs/terminus';
+import { DataSourceOptions } from 'typeorm';
 
 export class HealthResponseDto {
   @ApiProperty({ example: 'ok' })
   public readonly status: string;
 
   @ApiProperty()
-  public readonly services: services;
+  public readonly services: ServicesHealth;
 
   @ApiProperty({ example: 1725116400000 })
   public readonly timestamp: number;
 
-  constructor(raw: { status: string; details: services }) {
+  constructor(raw: { status: string; details: ServicesHealth }) {
     this.status = raw.status;
     this.services = raw.details;
     this.timestamp = new Date().getTime();
   }
 }
 
-export type services =
-  | { [x: string]: { status: HealthIndicatorStatus } & Record<string, any> }
-  | { system: HealthIndicatorResult<'system', 'up', isystemhealth> };
+export type SystemHealthResult = HealthIndicatorResult<
+  'system',
+  'up',
+  isystemhealth
+>;
+
+export type RedisHealthResult =
+  | HealthIndicatorResult<'redis', 'up', iredisoverview>
+  | HealthIndicatorResult<'redis', 'down', { reason: string }>;
+
+export type DbHealthResult =
+  | HealthIndicatorResult<'typeorm', 'up', ITypeOrmHealth>
+  | HealthIndicatorResult<'typeorm', 'down', { reason: string }>;
+
+export type AllHealthResults =
+  | SystemHealthResult
+  | RedisHealthResult
+  | DbHealthResult;
+
+export type RedisServiceHealth =
+  | ({ status: 'up' } & iredisoverview)
+  | { status: 'down'; reason: string };
+
+export type SystemServiceHealth =
+  | ({ status: 'up' } & isystemhealth)
+  | { status: 'down'; reason: string };
+
+export type TypeOrmServiceHealth =
+  | ({ status: 'up' } & ITypeOrmHealth)
+  | { status: 'down'; reason: string };
+
+export interface ServicesHealth {
+  redis: RedisServiceHealth;
+  system: SystemServiceHealth;
+  typeorm: TypeOrmServiceHealth;
+}
 
 export interface isystemhealth {
   host: {
@@ -161,8 +195,29 @@ export interface iredisoverview {
   warnings: Warning[];
 }
 
-export interface SystemHealthResult extends HealthIndicatorResult {
-  system: {
-    status: HealthIndicatorStatus;
-  } & isystemhealth;
+export interface IDatabaseConnections {
+  used: number;
+  free: number;
+  queue: number;
+  limit: number;
+  percentUsed: number;
+}
+
+export interface IDatabaseMetrics {
+  uptimeSec?: number;
+  sessions?: number;
+  commits?: number;
+  rollbacks?: number;
+  slowQueries?: number;
+}
+
+export interface ITypeOrmHealth {
+  type: DataSourceOptions['type'];
+  host?: string;
+  port?: number;
+  database?: string;
+  ping: number;
+  connections: Partial<IDatabaseConnections>;
+  metrics: IDatabaseMetrics;
+  warnings: Warning[];
 }
