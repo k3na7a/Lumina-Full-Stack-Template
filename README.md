@@ -55,7 +55,6 @@ The project demonstrates clean architecture, best practices, and robust develope
 - ✔️ CORS locked to trusted origins
 - ✔️ Logs, metrics, and graceful background jobs
 - ✔️ HTTPS, Helmet, rate limiting — ready for the real world.
-- ✔️ Flexible roles and permissions system built into both frontend and backend.
 - ✔️ Audit Trail for critical actions (user changes, role updates, entity modifications).
 
 ---
