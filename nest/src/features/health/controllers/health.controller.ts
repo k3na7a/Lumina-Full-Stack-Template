@@ -5,8 +5,9 @@ import { SkipThrottle } from '@nestjs/throttler';
 import { RedisHealthIndicator } from 'src/features/health/indicators/redis-health.indicator';
 import { TypeOrmHealthIndicator } from 'src/features/health/indicators/typeorm-health.indicator';
 
-import { HealthResponseDto, ServicesHealth } from '../dto/health.dto';
+import { HealthResponseDto } from '../dto/health.dto';
 import { SystemHealthIndicator } from 'src/features/health/indicators/system-health.indicator';
+import { BullHealthIndicator } from '../indicators/bull-health.indicator';
 
 @SkipThrottle()
 @ApiTags('Health Check')
@@ -16,6 +17,7 @@ export class HealthController {
     private readonly redis: RedisHealthIndicator,
     private readonly database: TypeOrmHealthIndicator,
     private readonly system: SystemHealthIndicator,
+    private readonly bull: BullHealthIndicator,
   ) {}
 
   @Get('')
@@ -30,19 +32,26 @@ export class HealthController {
       this.database.isHealthy('typeorm'),
     ]);
 
-    // const bullMQ = await Promise.all([
-    //   this.bull.isHealthy(LoggerQueues.LOG_QUEUE),
-    //   this.bull.isHealthy(LoggerQueues.LOG_DLQ),
-    //   this.bull.isHealthy('email-queue'),
-    //   this.bull.isHealthy('email-dlq'),
-    // ]);
+    const [log, log_dql, email, email_dlq] = await Promise.all([
+      this.bull.isHealthy('logger-queue'),
+      this.bull.isHealthy('logger-dlq'),
+      this.bull.isHealthy('email-queue'),
+      this.bull.isHealthy('email-dlq'),
+    ]);
 
-    const services: ServicesHealth = {
-      system: system.system,
-      redis: redis.redis,
-      typeorm: typeorm.typeorm,
-    };
-
-    return new HealthResponseDto({ status: 'ok', details: services });
+    return new HealthResponseDto({
+      status: 'ok',
+      details: {
+        system: system.system,
+        redis: redis.redis,
+        typeorm: typeorm.typeorm,
+      },
+      queues: {
+        logger: log['logger-queue'],
+        logger_dlq: log_dql['logger-dlq'],
+        email: email['email-queue'],
+        email_dlq: email_dlq['email-dlq'],
+      },
+    });
   }
 }

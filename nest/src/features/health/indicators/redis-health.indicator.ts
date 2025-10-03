@@ -3,12 +3,12 @@ import { Injectable } from '@nestjs/common';
 import { HealthIndicatorService } from '@nestjs/terminus';
 import Redis from 'ioredis';
 import { connection } from 'src/config/redis.config';
+import { Warning } from 'src/features/health/dto/health.dto';
 import {
+  RedisHealthResult,
   iredisoverview,
   KeyspaceEntry,
-  RedisHealthResult,
-  Warning,
-} from 'src/features/health/dto/health.dto';
+} from '../dto/redis.dto';
 
 @Injectable()
 export class RedisHealthIndicator {

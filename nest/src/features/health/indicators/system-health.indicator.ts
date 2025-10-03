@@ -7,11 +7,8 @@ import { useFileManager } from '../../../common/utilities/fileManager.util';
 import checkDiskSpace, { DiskSpace } from 'check-disk-space';
 import { getRootPath } from 'src/common/utilities/path.util';
 import { megabyte } from '@lib/constants/size.constants';
-import {
-  isystemhealth,
-  SystemHealthResult,
-  Warning,
-} from 'src/features/health/dto/health.dto';
+import { Warning } from 'src/features/health/dto/health.dto';
+import { SystemHealthResult, isystemhealth } from '../dto/system.dto';
 
 @Injectable()
 export class SystemHealthIndicator {

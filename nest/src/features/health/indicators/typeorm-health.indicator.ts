@@ -1,11 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import { HealthIndicatorService } from '@nestjs/terminus';
-import {
-  DbHealthResult,
-  ITypeOrmHealth,
-  Warning,
-} from 'src/features/health/dto/health.dto';
+import { Warning } from 'src/features/health/dto/health.dto';
 import { DataSource } from 'typeorm';
+import { DbHealthResult, ITypeOrmHealth } from '../dto/typeorm.dto';
 
 @Injectable()
 export class TypeOrmHealthIndicator {
