@@ -1,10 +1,10 @@
 import { megabyte } from '@lib/constants/size.constants';
-import { iredisoverview, KeyspaceEntry, Warning } from '@lib/dto/health.dto';
 import { Injectable } from '@nestjs/common';
 import { HealthIndicatorService } from '@nestjs/terminus';
 import Redis from 'ioredis';
 import { connection } from 'src/config/redis.config';
-import { RedisHealthResult } from '../dto/redis.dto';
+import { iredisoverview, KeyspaceEntry, RedisHealthResult } from '../dto/redis.dto';
+import { Warning } from '../dto/health.dto';
 
 @Injectable()
 export class RedisHealthIndicator {

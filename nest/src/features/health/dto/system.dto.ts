@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { WarningDto } from './health.dto';
+import { Warning, WarningDto } from './health.dto';
 import { HealthIndicatorResult } from '@nestjs/terminus';
 
 export class SystemOsDto {
@@ -329,3 +329,66 @@ export type SystemHealthResult = HealthIndicatorResult<
   'up',
   SystemHealthDto
 >;
+
+export interface isystemhealth {
+  host: {
+    hostname: string;
+    os: {
+      platform: string;
+      kernel: string;
+      arch: string;
+    };
+    container: {
+      inContainer: boolean;
+      cgroupVersion: 'v2' | 'v1' | null;
+      runtimeHint: string | null;
+    };
+  };
+  runtime: {
+    node: string;
+    v8: string;
+    appVersion: string | null;
+    gitSha: string | null;
+  };
+  cpu: {
+    model: string;
+    logicalCores: number;
+    quotaCores: number | null;
+    limited: boolean;
+    loadAvg: null[] | number[];
+  };
+  memory: {
+    hostTotalMb: string | null;
+    cgroupLimitMb: string | null;
+    cgroupUsedMb: string | null;
+    cgroupUsedPct: number | null;
+    swapTotalMb: number | null;
+    swapUsedMb: number | null;
+  };
+  disk: {
+    diskPath: string;
+    freeMb: number;
+    sizeMb: number;
+    usedMb: number;
+  } | null;
+  limits: {
+    nofile: {
+      soft: number | null;
+      hard: number | null;
+    };
+    openFds: number | null;
+  };
+  network: {
+    primaryIp: string | null;
+    ifaces: {
+      name: string;
+      ipv4: string[];
+      ipv6: string[];
+    }[];
+  };
+  uptime: {
+    processSec: number;
+    systemSec: number;
+  };
+  warnings: Warning[];
+}

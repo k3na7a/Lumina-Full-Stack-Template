@@ -1,8 +1,8 @@
-import { Warning } from '@lib/dto/health.dto';
 import { Injectable } from '@nestjs/common';
 import { HealthIndicatorService } from '@nestjs/terminus';
 import { DataSource } from 'typeorm';
 import { DatabaseHealthDtoUp, DbHealthResult } from '../dto/typeorm.dto';
+import { Warning } from '../dto/health.dto';
 
 @Injectable()
 export class TypeOrmHealthIndicator {

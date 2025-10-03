@@ -1,5 +1,5 @@
 import { DataSourceOptions } from 'typeorm';
-import { WarningDto } from './health.dto';
+import { Warning, WarningDto } from './health.dto';
 import { HealthIndicatorResult } from '@nestjs/terminus';
 import { ApiProperty } from '@nestjs/swagger';
 
@@ -158,3 +158,30 @@ export class DatabaseHealthDtoUp {
 export type DbHealthResult =
   | HealthIndicatorResult<'typeorm', 'up', DatabaseHealthDtoUp>
   | HealthIndicatorResult<'typeorm', 'down', { reason: string }>;
+
+export interface IDatabaseConnections {
+  used: number;
+  free: number;
+  queue: number;
+  limit: number;
+  percentUsed: number;
+}
+
+export interface IDatabaseMetrics {
+  uptimeSec?: number;
+  sessions?: number;
+  commits?: number;
+  rollbacks?: number;
+  slowQueries?: number;
+}
+
+export interface ITypeOrmHealth {
+  type: string;
+  host?: string;
+  port?: number;
+  database?: string;
+  ping: number;
+  connections: Partial<IDatabaseConnections>;
+  metrics: IDatabaseMetrics;
+  warnings: Warning[];
+}

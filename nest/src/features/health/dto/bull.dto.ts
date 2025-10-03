@@ -1,8 +1,6 @@
 import { HealthIndicatorResult } from '@nestjs/terminus';
-import { WarningDto } from './health.dto';
+import { Warning, WarningDto } from './health.dto';
 import { ApiProperty } from '@nestjs/swagger';
-
-import { IBullHealth } from '@lib/dto/health.dto';
 
 export class BullHealthUpDto {
   @ApiProperty({
@@ -66,7 +64,26 @@ export class BullHealthUpDto {
   }
 }
 
+export interface IBullHealth {
+  activeJobs: number;
+  waitingJobs: number;
+  delayedJobs: number;
+  pausedJobs: number;
+  failedJobs: number;
+  completedJobs: number;
+  warnings: Warning[];
+}
+
 export type BullMQHealthResult =
   | HealthIndicatorResult<string, 'up', IBullHealth>
   | HealthIndicatorResult<string, 'down', { reason: string }>;
 
+export interface IBullQueueMetrics {
+  active: number;
+  waiting: number;
+  failed: number;
+  delayed: number;
+  paused: number;
+  completed: number;
+  isPaused: boolean;
+}

@@ -6,9 +6,9 @@ import { promises as fs } from 'fs';
 import checkDiskSpace, { DiskSpace } from 'check-disk-space';
 import { getRootPath } from 'src/common/utilities/path.util';
 import { megabyte } from '@lib/constants/size.constants';
-import { Warning } from '@lib/dto/health.dto';
 import { useFileManager } from 'src/common/utilities/fileManager.util';
 import { SystemHealthResult, SystemHealthDto } from '../dto/system.dto';
+import { Warning } from '../dto/health.dto';
 
 @Injectable()
 export class SystemHealthIndicator {

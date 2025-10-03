@@ -172,3 +172,8 @@ export class HealthResponseDto {
     this.timestamp = Date.now();
   }
 }
+
+export interface Warning {
+  message: string;
+  severity: WarningSeverity;
+}
