@@ -146,6 +146,8 @@ npm run docker:down
 - Administration Dashboard
 - API versioning for smooth upgrades
 
+[Future Improvements](./BRICKS)
+
 ---
 
 ## 🧭 Design Principles
