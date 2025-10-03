@@ -1,42 +1,72 @@
 import { HealthIndicatorResult } from '@nestjs/terminus';
-import { Warning, WarningDto } from './health.dto';
+import { WarningDto } from './health.dto';
 import { ApiProperty } from '@nestjs/swagger';
 
+import { IBullHealth } from '@lib/dto/health.dto';
+
 export class BullHealthUpDto {
-  @ApiProperty({ example: 'up' }) status: 'up';
-  @ApiProperty({ example: 0 }) activeJobs: number;
-  @ApiProperty({ example: 2 }) waitingJobs: number;
-  @ApiProperty({ example: 0 }) delayedJobs: number;
-  @ApiProperty({ example: 0 }) pausedJobs: number;
-  @ApiProperty({ example: 0 }) failedJobs: number;
-  @ApiProperty({ example: 100 }) completedJobs: number;
-  @ApiProperty({ type: [WarningDto] }) warnings: WarningDto[];
-}
+  @ApiProperty({
+    example: 'up',
+    description: 'Indicates the current status of the BullMQ queue',
+  })
+  public readonly status: 'up';
 
-export interface IBullQueueMetrics {
-  active: number;
-  waiting: number;
-  failed: number;
-  delayed: number;
-  paused: number;
-  completed: number;
-  isPaused: boolean;
-}
+  @ApiProperty({
+    example: 0,
+    description: 'Number of jobs currently being processed (active workers)',
+  })
+  public readonly activeJobs: number;
 
-export interface IBullHealth {
-  activeJobs: number;
-  waitingJobs: number;
-  delayedJobs: number;
-  pausedJobs: number;
-  failedJobs: number;
-  completedJobs: number;
-  warnings: Warning[];
+  @ApiProperty({
+    example: 2,
+    description: 'Number of jobs waiting to be processed',
+  })
+  public readonly waitingJobs: number;
+
+  @ApiProperty({
+    example: 0,
+    description: 'Number of jobs scheduled for a future time (delayed)',
+  })
+  public readonly delayedJobs: number;
+
+  @ApiProperty({
+    example: 0,
+    description: 'Number of jobs in a paused state (queue is paused)',
+  })
+  public readonly pausedJobs: number;
+
+  @ApiProperty({
+    example: 0,
+    description: 'Number of jobs that failed due to errors',
+  })
+  public readonly failedJobs: number;
+
+  @ApiProperty({
+    example: 100,
+    description: 'Total number of jobs successfully completed',
+  })
+  public readonly completedJobs: number;
+
+  @ApiProperty({
+    type: [WarningDto],
+    description:
+      'List of warnings about queue health (e.g., too many failed jobs, backlog issues)',
+  })
+  public readonly warnings: WarningDto[];
+
+  constructor(payload: IBullHealth) {
+    this.status = 'up';
+    this.activeJobs = payload.activeJobs;
+    this.waitingJobs = payload.waitingJobs;
+    this.delayedJobs = payload.delayedJobs;
+    this.pausedJobs = payload.pausedJobs;
+    this.failedJobs = payload.failedJobs;
+    this.completedJobs = payload.completedJobs;
+    this.warnings = payload.warnings;
+  }
 }
 
 export type BullMQHealthResult =
   | HealthIndicatorResult<string, 'up', IBullHealth>
   | HealthIndicatorResult<string, 'down', { reason: string }>;
 
-export type BullMQQueueHealth =
-  | ({ status: 'up' } & IBullHealth)
-  | { status: 'down'; reason: string };

@@ -1,12 +1,12 @@
 import { Module } from '@nestjs/common';
 import { TerminusModule } from '@nestjs/terminus';
 import { HealthController } from './controllers/health.controller';
-import { BullHealthIndicator } from 'src/features/health/indicators/bull-health.indicator';
-import { RedisHealthIndicator } from 'src/features/health/indicators/redis-health.indicator';
-import { TypeOrmHealthIndicator } from 'src/features/health/indicators/typeorm-health.indicator';
 import { HealthCheckService } from './services/health.service';
 import { ScheduleModule } from '@nestjs/schedule';
-import { SystemHealthIndicator } from 'src/features/health/indicators/system-health.indicator';
+import { BullHealthIndicator } from './indicators/bull-health.indicator';
+import { RedisHealthIndicator } from './indicators/redis-health.indicator';
+import { SystemHealthIndicator } from './indicators/system-health.indicator';
+import { TypeOrmHealthIndicator } from './indicators/typeorm-health.indicator';
 
 @Module({
   imports: [TerminusModule, ScheduleModule.forRoot()],
@@ -17,6 +17,12 @@ import { SystemHealthIndicator } from 'src/features/health/indicators/system-hea
     TypeOrmHealthIndicator,
     HealthCheckService,
     SystemHealthIndicator,
+  ],
+  exports: [
+    RedisHealthIndicator,
+    TypeOrmHealthIndicator,
+    SystemHealthIndicator,
+    BullHealthIndicator,
   ],
 })
 export class HealthModule {}

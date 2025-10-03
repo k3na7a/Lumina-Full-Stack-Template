@@ -3,12 +3,12 @@ import { HealthIndicatorService } from '@nestjs/terminus';
 import * as os from 'os';
 import { promises as fs } from 'fs';
 
-import { useFileManager } from '../../../common/utilities/fileManager.util';
 import checkDiskSpace, { DiskSpace } from 'check-disk-space';
 import { getRootPath } from 'src/common/utilities/path.util';
 import { megabyte } from '@lib/constants/size.constants';
-import { Warning } from 'src/features/health/dto/health.dto';
-import { SystemHealthResult, isystemhealth } from '../dto/system.dto';
+import { Warning } from '@lib/dto/health.dto';
+import { useFileManager } from 'src/common/utilities/fileManager.util';
+import { SystemHealthResult, SystemHealthDto } from '../dto/system.dto';
 
 @Injectable()
 export class SystemHealthIndicator {
@@ -368,11 +368,11 @@ export class SystemHealthIndicator {
 
     return indicator.up({
       ...payload,
-      warning: this.buildSystemWarnings(payload),
+      warnings: this.buildSystemWarnings(payload),
     });
   }
 
-  private buildSystemWarnings(details: isystemhealth): Warning[] {
+  private buildSystemWarnings(details: SystemHealthDto): Warning[] {
     const warnings: Warning[] = [];
 
     if (details.cpu.quotaCores != null)

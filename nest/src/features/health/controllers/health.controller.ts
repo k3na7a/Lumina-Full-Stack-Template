@@ -2,11 +2,11 @@ import { Controller, Get } from '@nestjs/common';
 import { ApiOkResponse, ApiTags } from '@nestjs/swagger';
 import { SkipThrottle } from '@nestjs/throttler';
 
-import { RedisHealthIndicator } from 'src/features/health/indicators/redis-health.indicator';
-import { TypeOrmHealthIndicator } from 'src/features/health/indicators/typeorm-health.indicator';
+import { RedisHealthIndicator } from '../indicators/redis-health.indicator';
+import { TypeOrmHealthIndicator } from '../indicators/typeorm-health.indicator';
 
 import { HealthResponseDto } from '../dto/health.dto';
-import { SystemHealthIndicator } from 'src/features/health/indicators/system-health.indicator';
+import { SystemHealthIndicator } from '../indicators/system-health.indicator';
 import { BullHealthIndicator } from '../indicators/bull-health.indicator';
 
 @SkipThrottle()
@@ -40,8 +40,7 @@ export class HealthController {
     ]);
 
     return new HealthResponseDto({
-      status: 'ok',
-      details: {
+      services: {
         system: system.system,
         redis: redis.redis,
         typeorm: typeorm.typeorm,

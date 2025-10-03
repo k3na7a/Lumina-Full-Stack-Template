@@ -2,8 +2,8 @@ import { Injectable } from '@nestjs/common';
 import { HealthIndicatorService } from '@nestjs/terminus';
 import { Queue } from 'bullmq';
 import { connection } from 'src/config/redis.config';
-import { Warning } from '../dto/health.dto';
-import { BullMQHealthResult, IBullQueueMetrics } from '../dto/bull.dto';
+import { IBullQueueMetrics, Warning } from '@lib/dto/health.dto';
+import { BullMQHealthResult } from '../dto/bull.dto';
 
 @Injectable()
 export class BullHealthIndicator {
