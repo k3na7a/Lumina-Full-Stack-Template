@@ -194,6 +194,77 @@ These aren’t urgent, but should stay visible on the radar.
 
 ---
 
+## 🏗️ DevOps / Infrastructure Additions
+
+**Prometheus + Grafana**
+
+- Prometheus scrapes metrics (Node app, Redis, MySQL exporters).
+- Grafana visualizes them.
+- Even a basic dashboard with DB connections + Redis memory + queue size looks very professional.
+
+**pgAdmin / Adminer / phpMyAdmin**
+
+- Lightweight DB management UI in Docker. Great for demoing and debugging your seeded permissions.
+
+**Mailhog / Mailpit**
+
+- Fake SMTP service in Docker. Lets you test email flows (e.g. notifications, password resets) without sending real emails.
+
+**Jaeger / OpenTelemetry Collector**
+
+- Distributed tracing. Since you’ve got queues, API, and frontend, this would let you trace a request end-to-end.
+
+---
+
+## 🚕 App Experience Helpers
+
+**Redis Commander**
+
+- Web UI for Redis — pairs nicely with your Redis overview panel.
+
+**Bull Board (BullMQ UI)**
+
+- You’ve built your own health check, but adding Bull Board is a nice extra for queue inspection.
+
+**MinIO**
+
+- S3-compatible object storage, local dev drop-in replacement for AWS S3. Perfect if you want to test uploads/log archival without touching AWS.
+
+**Localstack**
+
+- Emulates AWS services (S3, SES, SNS, etc.). Might be overkill, but it’s a flex.
+
+---
+
+## 🧱 Operational Hardening
+
+**Caddy or Traefik**
+
+- As an alternative to Nginx, both give you auto-TLS and service discovery.
+- For showcasing modern infra, Traefik’s dashboard can be impressive.
+
+**Fluent Bit or Loki**
+
+- Centralized log aggregation, so instead of tailing each container, you can stream logs into one place.
+
+**Watchtower**
+
+- Auto-updates Docker images when new versions are pushed. Nice touch for long-running deployments.
+
+---
+
+## 🧪 Testing & DX
+
+**Playwright / Cypress service**
+
+- Run frontend E2E tests in Docker.
+
+**Storybook**
+
+- Run component previews for your Vue UI library in isolation.
+
+---
+
 ## 🏆 Final Motto
 
 > **💎 Ship once, scale forever. Lock RBAC, secure auth, test thoroughly, then polish UX.**
