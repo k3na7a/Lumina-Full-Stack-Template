@@ -3,7 +3,7 @@ import { ConfigModule } from '@nestjs/config';
 import { ServeStaticModule } from '@nestjs/serve-static';
 import { join } from 'path';
 import { JwtModule } from '@nestjs/jwt';
-import { APP_GUARD, RouterModule } from '@nestjs/core';
+import { APP_GUARD } from '@nestjs/core';
 import { BullModule } from '@nestjs/bullmq';
 
 import { TypeOrmPlugin } from 'src/plugins/typeorm.plugin';
@@ -27,10 +27,10 @@ import { CoreModule } from './modules/shared/shared.module';
 import { ConnectionLogger } from './common/loggers/connection.logger';
 import { DataSource } from 'typeorm';
 import { LogService } from './queues/logging/services/log.service';
-import { UserAdminModule } from './features/administration/users/users.module';
-import { GamesAdminModule } from './features/administration/games/games.module';
 import { AuditModule } from './modules/audit/audit.module';
-import { AuditAdminModule } from './features/administration/audit/audit.module';
+import { EmailQueueModule } from './queues/email/email.module';
+import { RouterPlugin } from './plugins/router.plugin';
+import { SeederModule } from './modules/seeds/seeder.module';
 
 const rootPath = join(__dirname, '../..', 'public');
 const serveRoot = '/';
@@ -42,47 +42,21 @@ const envFilePath = '.env';
     ConfigModule.forRoot({ isGlobal: true, envFilePath, validationSchema }),
     ServeStaticModule.forRoot({ rootPath, serveRoot }),
     BullModule.forRoot({ connection }),
-    RouterModule.register([
-      {
-        path: 'authentication',
-        children: [AuthModule],
-      },
-      {
-        path: 'settings',
-        children: [SettingsModule],
-      },
-      {
-        path: 'administration',
-        children: [
-          {
-            path: 'audit-events',
-            children: [AuditAdminModule],
-          },
-          {
-            path: 'user-management',
-            children: [UserAdminModule],
-          },
-          {
-            path: 'games-and-software',
-            children: [GamesAdminModule],
-          },
-        ],
-      },
-      {
-        path: 'health-check',
-        children: [HealthModule],
-      },
-    ]),
-
+    RouterPlugin.register(),
     TypeOrmPlugin.forRoot,
     ThrottlerModule.forRoot({ throttlers: [{ ttl: 1 * minute, limit: 20 }] }),
 
-    CoreModule,
-    AuditModule,
+    // QUEUES
     LogQueueModule,
+    EmailQueueModule,
 
+    // MODULES
+    CoreModule,
     UserModule,
+    AuditModule,
+    SeederModule,
 
+    // FEATURES
     HealthModule,
     AuthModule,
     SettingsModule,

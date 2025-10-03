@@ -5,14 +5,15 @@ import entities from 'src/config/entities.config';
 import { LogQueueModule } from 'src/queues/logging/log-queue.module';
 import { LogService } from 'src/queues/logging/services/log.service';
 import { TypeOrmLogger } from 'src/common/loggers/typeorm.logger';
+import { DataSource, DataSourceOptions } from 'typeorm';
 
 type Logging = Array<
   'query' | 'error' | 'warn' | 'info' | 'log' | 'migration' | 'schema'
 >;
 
 const logging: Logging = ['error', 'warn', 'migration'];
-const connectionOptions: TypeOrmModuleOptions = {
-  type: 'mysql',
+const baseConfig = {
+  type: 'mysql' as const,
   host: String(process.env.DB_HOST),
   port: Number(process.env.DB_PORT),
   username: String(process.env.DB_USERNAME),
@@ -29,6 +30,17 @@ const connectionOptions: TypeOrmModuleOptions = {
   },
   timezone: 'Z',
 };
+
+export const connectionOptions: TypeOrmModuleOptions = {
+  ...baseConfig,
+  autoLoadEntities: false,
+};
+
+export const dataSourceOptions: DataSourceOptions = {
+  ...baseConfig,
+};
+
+export const AppDataSource = new DataSource(dataSourceOptions);
 
 export class TypeOrmPlugin {
   public static forRoot = TypeOrmModule.forRootAsync({

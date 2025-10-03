@@ -14,7 +14,7 @@ export const validationSchema = Joi.object({
   GLOBAL_PREFIX: Joi.string().required(),
   BASE_URL: Joi.string().uri().required(),
   WEB_URL: Joi.string().uri().required(),
-
+  DB_SEED: Joi.boolean().required(),
   NODE_ENV: Joi.string().valid('development', 'production').required(),
 
   JWT_SECRET_KEY: Joi.string().min(32).required(),

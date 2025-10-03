@@ -34,6 +34,7 @@ services:
     env_file:
       - ./nest/.env
     environment:
+      DB_SEED: true
       DB_HOST: db
       DB_PORT: 3306
       DB_USERNAME: appuser

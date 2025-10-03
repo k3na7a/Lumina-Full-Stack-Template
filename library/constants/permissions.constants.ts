@@ -1,5 +1,6 @@
 export enum PermissionDomain {
   SYSTEM = 'SYSTEM',
+  FRONT_END = 'FRONT_END',
   SELF_MANAGEMENT = 'SELF_MANAGEMENT',
   USER_MANAGEMENT = 'USER_MANAGEMENT',
   ROLE_MANAGEMENT = 'ROLE_MANAGEMENT',
@@ -16,6 +17,12 @@ export const iPermissionDomain: {
     name: 'System',
     key: PermissionDomain.SYSTEM,
     description: 'Core system-level permissions and operations reserved for internal or administrative use.'
+  },
+  [PermissionDomain.FRONT_END]: {
+    name: 'Front-End Permissions',
+    key: PermissionDomain.FRONT_END,
+    description:
+      'Permissions controlling access to the administrative user interface, including visibility of dashboards, menus, and front-end features.'
   },
   [PermissionDomain.SELF_MANAGEMENT]: {
     name: 'Self Management',
@@ -56,12 +63,23 @@ export const iPermissionDomain: {
 
 // SYSTEM
 export enum SystemPermissions {
-  HAS_ALL_PERMISSIONS = 'has_all_permissions',
-  CAN_VIEW_ADMIN_DASHBOARD = 'view_admin_dashboard'
+  HAS_ALL_PERMISSIONS = 'has_all_permissions'
+}
+
+// FRONT-END
+export enum FrontEndPermissions {
+  CAN_VIEW_ADMIN_DASHBOARD = 'view_admin_dashboard',
+  MANAGE_PERMISSIONS = 'manage_permissions',
+  MANAGE_ROLES = 'manage_roles',
+  MANAGE_USERS = 'manage_users',
+  MANAGE_GAMES = 'manage_games',
+  MANAGE_PLATFORMS = 'manage_platforms',
+  VIEW_AUDIT = 'view_audit'
 }
 
 // MANAGE SELF
 export enum SelfManagementPermissions {
+  MANAGE_SELF = 'manage_self',
   UPDATE_SELF = 'update_self',
   DELETE_SELF = 'delete_self'
 }
@@ -119,6 +137,7 @@ export type PermissionsKey =
 
 export const PERMISSION_MATRIX = {
   [PermissionDomain.SYSTEM]: SystemPermissions,
+  [PermissionDomain.FRONT_END]: FrontEndPermissions,
   [PermissionDomain.SELF_MANAGEMENT]: SelfManagementPermissions,
   [PermissionDomain.USER_MANAGEMENT]: UserManagementPermissions,
   [PermissionDomain.ROLE_MANAGEMENT]: RoleManagementPermissions,

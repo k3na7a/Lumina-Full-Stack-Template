@@ -194,6 +194,26 @@ These aren’t urgent, but should stay visible on the radar.
 
 ---
 
+## 💫 New Flow (Email Verification Before User Exists)
+
+**Registration request (POST /auth/register)**
+
+- Don’t create a full User record yet.
+- Instead, create a PendingRegistration entity (email, hashed password, name, role = default, timestamp, verificationToken).
+- Send an email with a verification link containing that token (e.g. /auth/verify?token=XYZ).
+- Verification request (GET /auth/verify?token=XYZ)
+- Backend looks up token in PendingRegistration.
+- If valid + not expired → create the real User entity from that record.
+- Delete the pending record.
+- Optionally auto-login at this point (issue JWT).
+- Expiration handling
+- Pending registrations older than, say, 24h should expire and be cleaned up.
+- A cron job or BullMQ job can purge them.
+- Resend flow
+- Add an endpoint to re-send verification if the user didn’t click the link.
+
+---
+
 ## 🏗️ DevOps / Infrastructure Additions
 
 **Prometheus + Grafana**
