@@ -1,4 +1,4 @@
-import { ApiProperty, getSchemaPath } from '@nestjs/swagger';
+import { ApiExtraModels, ApiProperty, getSchemaPath } from '@nestjs/swagger';
 import { RedisHealthUpDto } from './redis.dto';
 import { BullHealthUpDto } from './bull.dto';
 import { SystemHealthDto } from './system.dto';
@@ -130,6 +130,13 @@ export class QueueHealthDto {
   }
 }
 
+@ApiExtraModels(
+  RedisHealthUpDto,
+  BullHealthUpDto,
+  DatabaseHealthDtoUp,
+  SystemHealthDto,
+  DownDto,
+)
 export class HealthResponseDto {
   @ApiProperty({
     description: 'Overall health status of the system',
