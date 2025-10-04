@@ -1,0 +1,8 @@
+# ignore any .rdb file
+*.rdb
+
+# OR if it’s specifically named dump.rdb
+dump.rdb
+
+# OR if it’s inside a subfolder like /data
+/data/*.rdb
