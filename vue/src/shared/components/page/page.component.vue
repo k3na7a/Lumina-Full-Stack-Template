@@ -7,20 +7,20 @@ import ErrorBoundary from '@/shared/components/error-boundary/error-boundary.com
 <template>
   <RouterView v-slot="{ Component }">
     <template v-if="Component">
-      <!-- <ErrorBoundary> -->
-      <Suspense>
-        <template #default>
-          <component :is="Component" />
-        </template>
-        <template #fallback>
-          {{ $t('actions.loading') }}
-        </template>
-      </Suspense>
+      <ErrorBoundary>
+        <Suspense>
+          <template #default>
+            <component :is="Component" />
+          </template>
+          <template #fallback>
+            {{ $t('actions.loading') }}
+          </template>
+        </Suspense>
 
-      <!-- <template #error="{ error }">
-        {{ error }}
-      </template> -->
-      <!-- </ErrorBoundary> -->
+        <template #error="{ error }">
+          {{ error }}
+        </template>
+      </ErrorBoundary>
     </template>
   </RouterView>
 </template>

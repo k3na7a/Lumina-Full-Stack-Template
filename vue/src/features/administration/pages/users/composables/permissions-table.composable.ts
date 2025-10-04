@@ -19,7 +19,7 @@ const defaultOptions: PaginationOptions = {
   take: 25,
   order: Order.ASC,
   page: 1,
-  sort: 'permission.name',
+  sort: 'permission.domain',
   search: undefined
 }
 
