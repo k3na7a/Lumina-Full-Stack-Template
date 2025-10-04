@@ -21,14 +21,14 @@ The project demonstrates clean architecture, best practices, and robust develope
 
 Most boilerplates give you a backend skeleton or a frontend starter. Lumina goes further. It’s a **full-stack framework** designed to be **production-ready** from day one:
 
-- ⚡ Full-Stack Architecture – Vue 3 (Composition API) + NestJS + TypeORM + BullMQ + Redis + MySQL.
-- 🔐 Built-In Security – JWT auth, RBAC permissions, request logging, audit trails, and queue-based job handling.
-- 📊 Operations Ready – Health checks, system metrics, log archival, error tracking, and monitoring hooks.
-- 🧩 Custom UI Kit – Every component (inputs, dropdowns, tables, modals, overlays) built from scratch for consistency and accessibility.
+- ⚡ **Full-Stack Architecture** – Vue 3 (Composition API) + NestJS + TypeORM + BullMQ + Redis + MySQL.
+- 🔐 **Built-In Security** – JWT auth, RBAC permissions, request logging, audit trails, and queue-based job handling.
+- 📊 **Operations Ready** – Health checks, system metrics, log archival, error tracking, and monitoring hooks.
+- 🧩 **Custom UI Kit** – Every component (inputs, dropdowns, tables, modals, overlays) built from scratch for consistency and accessibility.
   - No Tailwind, no MUI, no external UI libraries.
-  - Only Bootstrap’s minimal CSS grid/reset.
+  - Only **Bootstrap**’s minimal CSS grid/reset.
   - Everything else handcrafted for a cohesive design system.
-- 🎨 Consistent Design Language – Dark-friendly, neon/pastel-accented palettes with reusable SCSS variables, shadows, spacing, and typography baked in.
+- 🎨 **Consistent Design Language** – Dark-friendly, neon/pastel-accented palettes with reusable SCSS variables, shadows, spacing, and typography baked in.
 
 Lumina isn’t just a template—it’s a **framework + UI kit + developer experience** that makes spinning up a **production-grade application** fast, opinionated, and maintainable.
 
@@ -40,9 +40,9 @@ Lumina isn’t just a template—it’s a **framework + UI kit + developer exper
 
 - Composition API with **composables** for clean, reusable logic.
 - Modular components.
-- Input validation with VeeValidate.
-- I18n with localized messages.
-- Axios API services.
+- Input validation with **VeeValidate**.
+- **I18n** with localized messages.
+- **Axios** API services.
 
 ✅ **NestJS Backend**
 
@@ -55,23 +55,23 @@ Lumina isn’t just a template—it’s a **framework + UI kit + developer exper
 - **Swagger** API docs.
 - Health checks for **Redis**, **database**, **queues**, and **disk usage**.
 - Global **exception filter**, **rate limiter**, **helmet** for security.
-- CORS configuration.
+- **CORS** configuration.
 - Routing via `RouterModule` for clean URL design.
 
 ✅ **Production-Ready**
 
 - ✔️ Environment variable validation.
-- ✔️ Custom TypeORM logger with queues.
+- ✔️ Custom **TypeORM** logger with queues.
 - ✔️ Graceful shutdown.
-- ✔️ BullBoard for queue monitoring.
-- ✔️ Request context with AsyncLocalStorage.
-- ✔️ JWT auth with secure refresh flow
-- ✔️ Scoped CSRF protection for cookie-based endpoints
+- ✔️ **BullBoard** for queue monitoring.
+- ✔️ Request context with **AsyncLocalStorage**.
+- ✔️ **JWT** auth with secure refresh flow
+- ✔️ Scoped **CSRF** protection for cookie-based endpoints
 - ✔️ Exact parent pagination for reliable tables
-- ✔️ RBAC with flexible roles + permissions
-- ✔️ CORS locked to trusted origins
+- ✔️ **RBAC** with flexible roles + permissions
+- ✔️ **CORS** locked to trusted origins
 - ✔️ Logs, metrics, and graceful background jobs
-- ✔️ HTTPS, Helmet, rate limiting — ready for the real world.
+- ✔️ **HTTPS**, **Helmet**, rate limiting — ready for the real world.
 - ✔️ Audit Trail for critical actions (user changes, role updates, entity modifications).
 
 ---
@@ -79,7 +79,7 @@ Lumina isn’t just a template—it’s a **framework + UI kit + developer exper
 ## 📌 Project Highlights
 
 ✨ **Queues & Logging**\
-Logs are handled via BullMQ, processed in the background, and written with daily rotation to avoid memory bloat.
+Logs are handled via **BullMQ**, processed in the background, and written with daily rotation to avoid memory bloat.
 
 ✨ **Custom Health Checks**\
 Includes custom **BullMQ**, **Redis**, and **database pool** indicators with detailed stats for operational monitoring.
@@ -159,8 +159,6 @@ npm run docker:down
 - Automated tests with Jest and e2e integration tests.
 - Deployment pipeline with Docker or CI/CD.
 - Service accounts and granular access controls.
-- Expanded User Roles & Permissions System.
-- Administration Dashboard
 - API versioning for smooth upgrades
 
 📌 [See More](./BRICKS.md)
