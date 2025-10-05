@@ -30,6 +30,12 @@ export const PERMISSIONS_SEED: PermissionSeed[] = [
 
   // FRONTEND
   {
+    key: FrontEndPermissions.MANAGE_SELF,
+    label: 'Manage Own Account',
+    description: 'General permission to manage one’s own account and settings.',
+    domain: PermissionDomain.FRONT_END
+  },
+  {
     key: FrontEndPermissions.CAN_VIEW_ADMIN_DASHBOARD,
     label: 'View Admin Dashboard',
     description: 'Allows the user to access the admin panel and view its main dashboard.',
@@ -74,20 +80,14 @@ export const PERMISSIONS_SEED: PermissionSeed[] = [
 
   // SELF MANAGEMENT
   {
-    key: SelfManagementPermissions.MANAGE_SELF,
-    label: 'Manage Own Account',
-    description: 'General permission to manage one’s own account and settings.',
-    domain: PermissionDomain.SELF_MANAGEMENT
-  },
-  {
     key: SelfManagementPermissions.UPDATE_SELF,
-    label: 'Update Own Account',
+    label: 'Update Self',
     description: 'Allows the user to update their own profile and account details.',
     domain: PermissionDomain.SELF_MANAGEMENT
   },
   {
     key: SelfManagementPermissions.DELETE_SELF,
-    label: 'Delete Own Account',
+    label: 'Delete Self',
     description: 'Allows the user to delete or deactivate their own account.',
     domain: PermissionDomain.SELF_MANAGEMENT
   },

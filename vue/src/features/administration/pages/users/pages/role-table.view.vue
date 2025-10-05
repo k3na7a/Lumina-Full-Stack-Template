@@ -8,7 +8,7 @@ import ActionsComponent from '@/shared/components/dropdown/table-actions.dropdow
 import { useRoleTable } from '../composables/role-table.composable'
 import { PermissionDto } from '@lib/dto/permission.dto'
 
-const max_permissions = 5
+const max_permissions = 2
 
 const { promise, create, update, remove, view, options, loading, response, tableColumns } = useRoleTable()
 await promise()
@@ -59,10 +59,12 @@ await promise()
           </div>
         </template>
 
-        <template #key="{ row }">
-          <small class="text-warning">
-            {{ row.name }}
-          </small>
+        <template #description="{ row }">
+          <div class="description-cell" style="max-width: 30rem">
+            <small class="text-light-alt clamped-text">
+              {{ row.description }}
+            </small>
+          </div>
         </template>
 
         <template #permissions="{ row }">
@@ -75,14 +77,12 @@ await promise()
               {{ permission.label }}
             </small>
             <template v-if="row.permissions.length > max_permissions">
-              <div class="d-flex align-items-center">
-                <small
-                  class="fw-semibold text-info underline help"
-                  v-tooltip="{ text: row.permissions.slice(max_permissions).map((value: PermissionDto) => value.name).join(', '), position: 'bottom', trigger: 'hover' }"
-                >
-                  {{ $t('forms.plus-more', { more: row.permissions.slice(max_permissions).length }) }}
-                </small>
-              </div>
+              <small
+                class="fw-semibold text-info underline help"
+                v-tooltip="{ text: row.permissions.slice(max_permissions).map((value: PermissionDto) => value.label).join(', '), position: 'bottom', trigger: 'hover' }"
+              >
+                {{ $t('forms.plus-more', { more: row.permissions.slice(max_permissions).length }) }}
+              </small>
             </template>
           </div>
         </template>

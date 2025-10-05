@@ -68,6 +68,7 @@ export enum SystemPermissions {
 
 // FRONT-END
 export enum FrontEndPermissions {
+  MANAGE_SELF = 'manage_self',
   CAN_VIEW_ADMIN_DASHBOARD = 'view_admin_dashboard',
   MANAGE_PERMISSIONS = 'manage_permissions',
   MANAGE_ROLES = 'manage_roles',
@@ -79,7 +80,6 @@ export enum FrontEndPermissions {
 
 // MANAGE SELF
 export enum SelfManagementPermissions {
-  MANAGE_SELF = 'manage_self',
   UPDATE_SELF = 'update_self',
   DELETE_SELF = 'delete_self'
 }

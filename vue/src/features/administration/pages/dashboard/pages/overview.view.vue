@@ -11,6 +11,6 @@ await LocalhostAPI.health.healthCheck().then((res) => (health.value = res))
 
 <template>
   <OverviewLayout>
-    <CodeBlockWidget :item="health" />
+    <CodeBlockWidget :item="health.services.system" />
   </OverviewLayout>
 </template>

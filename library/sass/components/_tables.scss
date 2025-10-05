@@ -148,3 +148,20 @@ table {
     max-width: none;
   }
 }
+
+.description-cell {
+  display: block;
+  width: 100%;
+  overflow: hidden;
+  width: 25rem;
+}
+
+.clamped-text {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  line-clamp: 2;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: normal;
+}

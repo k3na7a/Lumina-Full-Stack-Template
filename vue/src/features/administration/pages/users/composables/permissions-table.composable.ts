@@ -10,6 +10,7 @@ import { PermissionDto } from '@lib/dto/permission.dto'
 
 const tableColumns: columns = [
   { name: 'permission', label: 'forms.permissions', sort: 'permission.label' },
+  { name: 'description', label: 'forms.description' },
   { name: 'domain', label: 'forms.domain', sort: 'permission.domain' },
   { name: 'created', label: 'forms.created', sort: 'role.createdAt' },
   { name: 'actions' }

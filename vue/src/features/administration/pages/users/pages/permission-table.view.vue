@@ -57,6 +57,14 @@ await promise()
           </div>
         </template>
 
+        <template #description="{ row }">
+          <div class="description-cell" style="max-width: 30rem">
+            <small class="text-light-alt clamped-text">
+              {{ row.description }}
+            </small>
+          </div>
+        </template>
+
         <template #domain="{ row }">
           <small
             class="fw-semibold text-info underline help"
