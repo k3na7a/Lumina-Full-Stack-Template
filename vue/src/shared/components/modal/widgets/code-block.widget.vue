@@ -2,7 +2,7 @@
 import { prettyDiffToHtml, toSafeJson } from '@lib/utilities/object.util'
 import { computed, ComputedRef } from 'vue'
 
-const props = defineProps<{ item: Record<string, unknown>; title?: string }>()
+const props = defineProps<{ item: Record<string, unknown> | object; title?: string }>()
 const html: ComputedRef<string> = computed(() => prettyDiffToHtml(toSafeJson(props.item), { indentSize: 2 }))
 </script>
 

@@ -27,12 +27,8 @@ class authentication {
     return new JWTDto(response.data)
   }
 
-  public readonly register = async (payload: RegisterDto, csrfToken: string): Promise<JWTDto> => {
-    const response = await this.$api.put<IJWT>(
-      'authentication/register',
-      payload,
-      AxiosService.requestConfig({ withCredentials: true, csrfToken })
-    )
+  public readonly register = async (payload: RegisterDto): Promise<JWTDto> => {
+    const response = await this.$api.put<IJWT>('authentication/register', payload)
     return new JWTDto(response.data)
   }
 

@@ -3,10 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 
 import { UserPaginationOptions } from 'src/modules/users/dto/user.dto';
-import {
-  PaginationDto,
-  PaginationMeta,
-} from 'src/common/dto/pagination.dto';
+import { PaginationDto, PaginationMeta } from 'src/common/dto/pagination.dto';
 import { CreateUserInterface } from 'src/common/interfaces/user.interfaces';
 import { UserEntity } from 'src/modules/users/entities/user.entity';
 
@@ -44,6 +41,7 @@ export class UserService {
       .leftJoinAndSelect('user.profile', 'profile')
       .leftJoinAndSelect('profile.avatar', 'avatar')
       .leftJoinAndSelect('user.roles', 'roles')
+      .leftJoinAndSelect('roles.permissions', 'permissions')
       .where(
         "user.email like :query OR CONCAT(profile.name.first, ' ', profile.name.last) like :query",
         { query: `%${search}%` },

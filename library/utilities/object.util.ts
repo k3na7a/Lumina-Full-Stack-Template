@@ -61,7 +61,6 @@ export function prettyDiffToHtml(value: unknown, opts: Opts = {}, level = 0): st
 
 function renderArrayItem(v: unknown, opts: Opts, level: number, _index: number): string {
   const pad = '&nbsp;'.repeat((opts.indentSize ?? 2) * level)
-
   const bullet = `<span class="pd-bullet">-</span>`
 
   if (Array.isArray(v)) {
@@ -86,8 +85,10 @@ function renderArrayItem(v: unknown, opts: Opts, level: number, _index: number):
       return header + body
     }
 
-    const child = prettyDiffToHtml(obj, opts, level + 1)
-    return `${pad}${bullet}\n${child}`
+    const child = prettyDiffToHtml(v, opts, level + 1)
+      .replace(/^\s*(&nbsp;)+/, '') // 🟢 remove leading spaces
+      .replace(/^\n+/, '') // also remove any leading newline
+    return `${pad}${bullet} ${child}`
   }
 
   return `${pad}${bullet} <span class="pd-value">${formatPrimitive(v)}</span>`

@@ -123,6 +123,18 @@ export interface IHealthResponse {
 }
 
 // -------- DTOs --------
+export interface HealthBase {
+  status: 'up' | 'down'
+  reason?: string
+}
+
+export function resolveHealth<TUpDto extends HealthBase>(
+  payload: TUpDto,
+  UpDtoClass: new (payload: TUpDto) => TUpDto
+): HealthUnion<TUpDto> {
+  if (payload.status === 'down') return new DownDto(payload.reason ?? 'Unknown') as HealthUnion<TUpDto>
+  return new UpDtoClass(payload) as HealthUnion<TUpDto>
+}
 
 export class WarningDto implements IWarning {
   public readonly message: string
@@ -148,7 +160,16 @@ export class SystemHealthDto implements ISystemHealth {
   public readonly reason?: string
 
   constructor(payload: ISystemHealth) {
-    Object.assign(this, payload)
+    this.status = payload.status
+    this.host = payload.host
+    this.runtime = payload.runtime
+    this.cpu = payload.cpu
+    this.memory = payload.memory
+    this.disk = payload.disk
+    this.limits = payload.limits
+    this.network = payload.network
+    this.uptime = payload.uptime
+    this.reason = payload.reason
     this.warnings = payload.warnings?.map((w) => new WarningDto(w))
   }
 }
@@ -171,7 +192,20 @@ export class RedisHealthUpDto implements IRedisHealth {
   public readonly reason?: string
 
   constructor(payload: IRedisHealth) {
-    Object.assign(this, payload)
+    this.status = payload.status
+    this.collectedAt = payload.collectedAt
+    this.ping = payload.ping
+    this.host = payload.host
+    this.port = payload.port
+    this.server = payload.server
+    this.clients = payload.clients
+    this.memory = payload.memory
+    this.stats = payload.stats
+    this.keyspace = payload.keyspace
+    this.persistence = payload.persistence
+    this.replication = payload.replication
+    this.diagnostics = payload.diagnostics
+    this.reason = payload.reason
     this.warnings = payload.warnings?.map((w) => new WarningDto(w))
   }
 }
@@ -189,7 +223,15 @@ export class DatabaseHealthUpDto implements IDatabaseHealth {
   public readonly reason?: string
 
   constructor(payload: IDatabaseHealth) {
-    Object.assign(this, payload)
+    this.status = payload.status
+    this.type = payload.type
+    this.host = payload.host
+    this.port = payload.port
+    this.database = payload.database
+    this.ping = payload.ping
+    this.connections = payload.connections
+    this.metrics = payload.metrics
+    this.reason = payload.reason
     this.warnings = payload.warnings?.map((w) => new WarningDto(w))
   }
 }
@@ -206,7 +248,14 @@ export class BullHealthDto implements IBullHealth {
   public readonly reason?: string
 
   constructor(payload: IBullHealth) {
-    Object.assign(this, payload)
+    this.status = payload.status
+    this.activeJobs = payload.activeJobs
+    this.waitingJobs = payload.waitingJobs
+    this.delayedJobs = payload.delayedJobs
+    this.pausedJobs = payload.pausedJobs
+    this.failedJobs = payload.failedJobs
+    this.completedJobs = payload.completedJobs
+    this.reason = payload.reason
     this.warnings = payload.warnings?.map((w) => new WarningDto(w))
   }
 }
@@ -217,18 +266,9 @@ export class ServicesHealthDto implements IServicesHealth {
   public readonly typeorm: HealthUnion<DatabaseHealthUpDto>
 
   constructor(payload: IServicesHealth) {
-    this.system =
-      payload.system.status === 'down'
-        ? new DownDto(payload.system.reason ?? 'Unknown')
-        : new SystemHealthDto(payload.system)
-    this.redis =
-      payload.redis.status === 'down'
-        ? new DownDto(payload.redis.reason ?? 'Unknown')
-        : new RedisHealthUpDto(payload.redis)
-    this.typeorm =
-      payload.typeorm.status === 'down'
-        ? new DownDto(payload.typeorm.reason ?? 'Unknown')
-        : new DatabaseHealthUpDto(payload.typeorm)
+    this.system = resolveHealth(payload.system, SystemHealthDto)
+    this.redis = resolveHealth(payload.redis, RedisHealthUpDto)
+    this.typeorm = resolveHealth(payload.typeorm, DatabaseHealthUpDto)
   }
 }
 
@@ -239,25 +279,10 @@ export class QueueHealthDto implements IQueuesHealth {
   public readonly email_dlq: HealthUnion<BullHealthDto>
 
   constructor(payload: IQueuesHealth) {
-    this.logger =
-      payload.logger.status === 'down'
-        ? new DownDto(payload.logger.reason ?? 'Unknown')
-        : new BullHealthDto(payload.logger)
-
-    this.logger_dlq =
-      payload.logger_dlq.status === 'down'
-        ? new DownDto(payload.logger_dlq.reason ?? 'Unknown')
-        : new BullHealthDto(payload.logger_dlq)
-
-    this.email =
-      payload.email.status === 'down'
-        ? new DownDto(payload.email.reason ?? 'Unknown')
-        : new BullHealthDto(payload.email)
-
-    this.email_dlq =
-      payload.email_dlq.status === 'down'
-        ? new DownDto(payload.email_dlq.reason ?? 'Unknown')
-        : new BullHealthDto(payload.email_dlq)
+    this.logger = resolveHealth(payload.logger, BullHealthDto)
+    this.logger_dlq = resolveHealth(payload.logger_dlq, BullHealthDto)
+    this.email = resolveHealth(payload.email, BullHealthDto)
+    this.email_dlq = resolveHealth(payload.email_dlq, BullHealthDto)
   }
 }
 

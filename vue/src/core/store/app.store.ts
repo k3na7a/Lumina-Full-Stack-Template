@@ -160,10 +160,7 @@ const useAppStore: StoreDef = defineStore({
     },
 
     async register(props: RegisterDto): Promise<void> {
-      const token = await this.getValidCsrfToken()
-      if (!token) throw new Error('Could not verify rcsf token')
-
-      const dto: JWTDto = await API.authentication.register(props, token)
+      const dto: JWTDto = await API.authentication.register(props)
       this.authenticate(dto)
     },
 
