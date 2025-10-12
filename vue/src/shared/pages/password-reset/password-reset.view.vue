@@ -1,48 +1,68 @@
 <script setup lang="ts">
-import { reactive } from 'vue'
-import { Form } from 'vee-validate'
-import { useI18n } from 'vue-i18n'
-import { LocationQuery, RouteLocationNormalizedLoaded, Router, useRoute, useRouter } from 'vue-router'
+import { reactive } from "vue";
+import { Form } from "vee-validate";
+import { useI18n } from "vue-i18n";
+import {
+  LocationQuery,
+  RouteLocationNormalizedLoaded,
+  Router,
+  useRoute,
+  useRouter,
+} from "vue-router";
 
-import { useFormUtil } from '@/core/utils/forms.util'
-import { ResetPassword } from '@lib/dto/user.dto'
-import { useAppHandler } from '@/core/handlers/app.handler'
+import { useFormUtil } from "@/core/utils/forms.util";
+import { ResetPassword } from "@lib/dto/user.dto";
+import { useAppHandler } from "@/core/handlers/app.handler";
 
-import { ROUTE_NAMES } from '@lib/enums/route-names.enum'
-import TextInput from '@/shared/components/inputs/text.input.vue'
+import { ROUTE_NAMES } from "@lib/enums/route-names.enum";
+import TextInput from "@/shared/components/inputs/text.input.vue";
 
-import { validationSchema } from './password-reset.form'
+import { validationSchema } from "./password-reset.form";
 
 enum PAGES {
   FORM,
-  CONFIRMATION
+  CONFIRMATION,
 }
 
-const { t } = useI18n()
-const handler = useAppHandler(t)
-const { getSubmitFn } = useFormUtil()
+const { t } = useI18n();
+const handler = useAppHandler(t);
+const { getSubmitFn } = useFormUtil();
 
-const $route: RouteLocationNormalizedLoaded = useRoute()
-const $router: Router = useRouter()
+const $route: RouteLocationNormalizedLoaded = useRoute();
+const $router: Router = useRouter();
 
-const queryParams: LocationQuery = $route.query
+const queryParams: LocationQuery = $route.query;
 
-const state = reactive<{ loading: boolean; page: PAGES }>({ loading: false, page: PAGES.FORM })
+const state = reactive<{ loading: boolean; page: PAGES }>({
+  loading: false,
+  page: PAGES.FORM,
+});
 
 function callback(): void {
-  state.page = PAGES.CONFIRMATION
+  state.page = PAGES.CONFIRMATION;
 }
 
 function done(): void {
-  $router.push({ name: ROUTE_NAMES.HOME })
+  $router.push({ name: ROUTE_NAMES.HOME });
 }
 
-const onSubmit = getSubmitFn(validationSchema, async (values: ResetPassword): Promise<void> => {
-  if (!(queryParams.hasOwnProperty('reset_token') && typeof queryParams['reset_token'] === 'string')) return
+const onSubmit = getSubmitFn(
+  validationSchema,
+  async (values: ResetPassword): Promise<void> => {
+    if (
+      !(
+        queryParams.hasOwnProperty("reset_token") &&
+        typeof queryParams["reset_token"] === "string"
+      )
+    )
+      return;
 
-  state.loading = true
-  await handler.resetPassword(values, queryParams['reset_token'], callback).finally(() => (state.loading = false))
-})
+    state.loading = true;
+    await handler
+      .resetPassword(values, queryParams["reset_token"], callback)
+      .finally(() => (state.loading = false));
+  }
+);
 </script>
 
 <template>
@@ -50,20 +70,36 @@ const onSubmit = getSubmitFn(validationSchema, async (values: ResetPassword): Pr
     <template v-if="state.page == PAGES.FORM">
       <div style="max-width: 50rem" class="d-flex flex-column gap-3">
         <div class="d-flex flex-column gap-1">
-          <h3 class="display-font fw-bold">{{ $t('authentication.password-reset.title') }}</h3>
+          <h3 class="display-font fw-bold">
+            {{ $t("authentication.password-reset.title") }}
+          </h3>
           <h5 class="fw-normal text-muted">
-            {{ $t('authentication.password-reset.subtitle') }}
+            {{ $t("authentication.password-reset.subtitle") }}
           </h5>
         </div>
-        <Form @submit="onSubmit" :validationSchema v-slot="{ meta }" class="d-flex flex-column gap-3">
+        <Form
+          @submit="onSubmit"
+          :validationSchema
+          v-slot="{ meta }"
+          class="d-flex flex-column gap-3"
+        >
           <div class="d-flex flex-column gap-1">
-            <TextInput autocomplete="new-password" name="new_password" type="password" label="forms.new-password" />
+            <TextInput
+              autocomplete="new-password"
+              name="new_password"
+              type="password"
+              label="forms.new-password"
+            />
             <div class="d-flex flex-column">
-              <small>{{ $t('authentication.password-validation.label') }}</small>
+              <small>{{
+                $t("authentication.password-validation.label")
+              }}</small>
               <ul class="mb-0" style="list-style-type: circle">
                 <template v-for="idx in 4" :key="idx">
                   <li>
-                    <small>{{ $t(`authentication.password-validation.contains.${idx}`) }}</small>
+                    <small>{{
+                      $t(`authentication.password-validation.contains.${idx}`)
+                    }}</small>
                   </li>
                 </template>
               </ul>
@@ -76,10 +112,16 @@ const onSubmit = getSubmitFn(validationSchema, async (values: ResetPassword): Pr
             label="actions.confirm-new-password"
           />
           <div class="d-grid">
-            <button :disabled="!meta.valid || state.loading || !meta.dirty" class="btn btn-primary px-0" type="submit">
-              <div v-if="!state.loading" class="containter">{{ $t('actions.continue') }}</div>
+            <button
+              :disabled="!meta.valid || state.loading || !meta.dirty"
+              class="btn btn-primary px-0"
+              type="submit"
+            >
+              <div v-if="!state.loading" class="containter">
+                {{ $t("actions.continue") }}
+              </div>
               <div v-else class="containter">
-                {{ $t('actions.loading') }}
+                {{ $t("actions.loading") }}
               </div>
             </button>
           </div>
@@ -89,14 +131,14 @@ const onSubmit = getSubmitFn(validationSchema, async (values: ResetPassword): Pr
     <template v-else-if="state.page == PAGES.CONFIRMATION">
       <div style="max-width: 50rem" class="d-flex flex-column gap-3">
         <h3 class="display-font fw-bold">
-          {{ $t('authentication.password-reset.confirm-title') }}
+          {{ $t("authentication.password-reset.confirm-title") }}
         </h3>
         <h5 class="fw-normal text-muted">
-          {{ $t('authentication.password-reset.confirm-body') }}
+          {{ $t("authentication.password-reset.confirm-body") }}
         </h5>
         <div class="d-flex flex-row justify-content-end">
           <button class="btn btn-primary px-2" type="button" @click="done">
-            {{ $t('actions.done') }}
+            {{ $t("actions.done") }}
           </button>
         </div>
       </div>

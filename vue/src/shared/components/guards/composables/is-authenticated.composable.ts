@@ -1,24 +1,26 @@
-import { computed, ComputedRef } from 'vue'
-import { useI18n } from 'vue-i18n'
+import { computed, ComputedRef } from "vue";
+import { useI18n } from "vue-i18n";
 
-import { useAppStore, AppStore } from '@/core/store/app.store'
-import { useAppHandler } from '@/core/handlers/app.handler'
+import { useAppStore, AppStore } from "@/core/store/app.store";
+import { useAppHandler } from "@/core/handlers/app.handler";
 
 type IsAuthenticatedGuard = {
-  isAuthenticated: ComputedRef<boolean>
-}
+  isAuthenticated: ComputedRef<boolean>;
+};
 
 function useIsAuthenticatedGuard(): IsAuthenticatedGuard {
-  const { t } = useI18n()
-  const { signin } = useAppHandler(t)
+  const { t } = useI18n();
+  const { signin } = useAppHandler(t);
 
-  const appStore: AppStore = useAppStore()
-  const isAuthenticated: ComputedRef<boolean> = computed(() => appStore.isAuthenticated)
+  const appStore: AppStore = useAppStore();
+  const isAuthenticated: ComputedRef<boolean> = computed(
+    () => appStore.isAuthenticated
+  );
 
-  if (!isAuthenticated.value) signin()
+  if (!isAuthenticated.value) signin();
 
-  return { isAuthenticated }
+  return { isAuthenticated };
 }
 
-export type { IsAuthenticatedGuard }
-export { useIsAuthenticatedGuard }
+export type { IsAuthenticatedGuard };
+export { useIsAuthenticatedGuard };
