@@ -4,7 +4,6 @@
 @use "@/shared/sass/variables/index" as *;
 
 @use "bootstrap" with (
-  // 🎨 Core theme colors
   $primary: $primary,
   $secondary: $secondary,
   $success: $success,
@@ -14,32 +13,26 @@
   $light: $light,
   $body-bg: $background,
 
-  // 🧾 Text and general colors
   $body-color: $lightAlt,
   $text-muted: $muted,
 
-  // ✍️ Typography
   $font-family-base: $inter,
   $font-size-base: $font-size-5,
   $line-height-base: $line-height-base,
   $font-weight-base: $font-weight-normal,
   $headings-font-weight: $font-weight-semibold,
 
-  // 🧱 Layout / spacing
   $spacer: $spacer,
   $spacers: $spacers,
 
-  // 🧩 Components
   $border-radius: $border-radius,
   $table-color: $table-color,
   $table-bg: $table-bg,
   $table-border-color: $table-border-color,
 
-  // 🔘 Disabled + states
   $btn-disabled-opacity: $disabled-opacity,
   $input-disabled-bg: $backgroundAlt,
 
-  // 🍞 Toasts
   $toast-max-width: $toast-max-width
 );
 
