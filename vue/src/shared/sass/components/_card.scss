@@ -1,0 +1,35 @@
+@use "@/shared/sass/variables/index" as vars;
+
+.card {
+  box-shadow: vars.$boxShadow;
+  border: 0.1rem solid vars.$secondary;
+  border-radius: vars.$border-radius;
+
+  scrollbar-color: vars.$scrollbar-color vars.$backgroundLight;
+
+  background-color: vars.$backgroundLight;
+  color: vars.$light;
+
+  .section:not(:last-child) {
+    border-bottom: 0.1rem vars.$secondary solid;
+  }
+}
+
+.code-block {
+  display: flex;
+  flex-direction: column;
+  row-gap: 1rem;
+  padding: 1rem;
+  border: 0.1rem solid vars.$secondary;
+  background: vars.$background;
+  box-shadow: vars.$boxShadowInset;
+
+  pre {
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  code {
+    text-overflow: ellipsis;
+  }
+}

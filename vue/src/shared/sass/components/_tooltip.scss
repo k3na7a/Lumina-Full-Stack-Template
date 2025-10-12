@@ -1,0 +1,14 @@
+@use "@/shared/sass/variables/index" as vars;
+
+.tooltip {
+  border: 0.1rem vars.$light solid;
+  font-size: vars.$font-size-7;
+
+  .tooltip-inner {
+    background-color: vars.$background;
+  }
+
+  .tooltip-arrow {
+    display: none !important;
+  }
+}

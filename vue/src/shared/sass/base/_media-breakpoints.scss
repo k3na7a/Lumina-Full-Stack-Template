@@ -1,0 +1,45 @@
+@use "@/shared/sass/variables/index" as vars;
+@use "bootstrap" as bs;
+
+@include bs.media-breakpoint-down(lg) {
+  .admin-drawer {
+    width: 5rem;
+  }
+
+  .admin-content {
+    margin-left: 5rem;
+  }
+}
+
+@include bs.media-breakpoint-up(lg) {
+  .admin-drawer {
+    width: 24rem;
+  }
+
+  .admin-content {
+    margin-left: 24rem;
+  }
+}
+
+@include bs.media-breakpoint-down(md) {
+  h2 {
+    font-size: vars.$font-size-3 !important;
+  }
+}
+
+@include bs.media-breakpoint-up(md) {
+  .sub-navigation-layout {
+    overflow: hidden;
+  }
+
+  .sub-navigation-content {
+    overflow: auto;
+  }
+}
+
+@include bs.media-breakpoint-up(sm) {
+  .row-header,
+  .row-header > * {
+    width: 16rem;
+  }
+}

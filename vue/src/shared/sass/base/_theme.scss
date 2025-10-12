@@ -1,0 +1,101 @@
+@use "@/shared/sass/variables/index" as vars;
+
+html,
+body {
+  color-scheme: light dark;
+  color: vars.$light;
+
+  background-color: vars.$background;
+  scrollbar-color: vars.$scrollbar-color vars.$background;
+
+  ::selection {
+    color: vars.$light !important;
+    background-color: color-mix(
+      in srgb,
+      vars.$primary 50%,
+      transparent
+    ) !important;
+  }
+}
+
+.bg-alt {
+  background-color: vars.$backgroundAlt;
+}
+
+.bg-alt2 {
+  background-color: vars.$backgroundLight;
+}
+
+.bg-alt3 {
+  background-color: vars.$bg-dark;
+}
+
+.text-muted {
+  color: vars.$muted !important;
+}
+
+.text-light-alt {
+  color: vars.$lightAlt;
+}
+
+.text-grey {
+  color: grey;
+}
+
+.light-link {
+  color: vars.$lightAlt;
+  &:hover {
+    opacity: 80%;
+  }
+}
+
+a {
+  transition: all 0.15s ease-in-out;
+}
+
+.box-shadow {
+  box-shadow: vars.$boxShadow;
+}
+
+.border-radius {
+  border-radius: vars.$border-radius;
+}
+
+.pd-key {
+  color: #7aa2f7;
+  font-weight: 500;
+}
+
+.pd-colon {
+  color: #6b7280;
+}
+
+.pd-string {
+  color: #9ece6a;
+}
+
+.pd-number {
+  color: #e0af68;
+}
+
+.pd-boolean {
+  color: #f7768e;
+}
+
+.pd-null {
+  color: #c0caf5;
+  opacity: 0.85;
+}
+
+.pd-bracket {
+  color: #a3a3a3;
+}
+
+.pd-empty {
+  color: #9ca3af;
+  font-style: italic;
+}
+
+.pd-bullet {
+  color: #a3a3a3;
+}

@@ -285,6 +285,13 @@ These aren’t urgent, but should stay visible on the radar.
 
 ---
 
+npm warn deprecated csurf@1.11.0: This package is archived and no longer maintained. For support, visit https://github.com/expressjs/express/discussions
+
+npm warn deprecated bull-board@2.1.3: 2.x is no longer supported, we moved to use @bull-board scope
+
+
+---
+
 ## 🏆 Final Motto
 
 > **💎 Ship once, scale forever. Lock RBAC, secure auth, test thoroughly, then polish UX.**

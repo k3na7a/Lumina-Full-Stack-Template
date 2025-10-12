@@ -1,0 +1,80 @@
+@use "@/shared/sass/variables/index" as vars;
+
+body {
+  font-family: vars.$inter;
+  font-size: vars.$font-size-7;
+
+  text-size-adjust: 100%;
+  line-height: vars.$line-height-base;
+
+  font-weight: vars.$font-weight-normal;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.display-font {
+  font-family: vars.$outfit;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+span,
+small {
+  margin: 0;
+}
+
+h1 {
+  font-size: vars.$font-size-1;
+  line-height: vars.$line-height-sm;
+}
+
+h2 {
+  font-size: vars.$font-size-2;
+  line-height: vars.$line-height-sm;
+}
+
+h3 {
+  font-size: vars.$font-size-3;
+  line-height: vars.$line-height-sm;
+}
+
+h4 {
+  font-size: vars.$font-size-4;
+  line-height: vars.$line-height-sm;
+}
+
+h5 {
+  font-size: vars.$font-size-5;
+  line-height: vars.$line-height-base;
+}
+
+h6 {
+  font-size: vars.$font-size-6;
+  line-height: vars.$line-height-base;
+}
+
+p {
+  font-size: vars.$font-size-7;
+  line-height: vars.$line-height-base;
+}
+
+small {
+  font-size: vars.$font-size-8;
+  line-height: vars.$line-height-base;
+}
+
+pre,
+code {
+  margin: 0;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
+    "Liberation Mono", monospace;
+}

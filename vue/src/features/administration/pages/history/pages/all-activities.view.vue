@@ -6,7 +6,7 @@ import { useActivitiesTable } from '../composables/all-activities-table.composab
 import moment from 'moment'
 import { Action } from '@lib/dto/audit.dto.ts'
 import { computed } from 'vue'
-import { useActivityRoute } from '@/plugins/vuerouter.plugin.ts'
+import { useActivityRoute } from '@/core/plugins/vuerouter.plugin.ts'
 
 const route = useActivityRoute()
 const params = computed(() => {

@@ -1,0 +1,5 @@
+@use "@/shared/sass/variables/index" as vars;
+
+.error-alert {
+  border: 1px solid vars.$danger;
+}

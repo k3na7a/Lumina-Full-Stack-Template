@@ -6,8 +6,8 @@ import home from '@/features/home/routes/home.routes'
 import settings from '@/features/settings/routes/settings.routes'
 import admin from '@/features/administration/routes/administration.routes'
 
-import accountRecovery from '@/pages/account-recovery/routes/account-recovery.routes'
-import passwordReset from '@/pages/password-reset/routes/password-reset.routes'
+import accountRecovery from '@/shared/pages/account-recovery/routes/account-recovery.routes'
+import passwordReset from '@/shared/pages/password-reset/routes/password-reset.routes'
 
 const routes: RouteRecordRaw[] = [
   {

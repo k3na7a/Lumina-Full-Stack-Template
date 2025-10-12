@@ -1,0 +1,53 @@
+@use "@/shared/sass/variables/index" as vars;
+
+.btn {
+  border: none;
+  border-radius: vars.$border-radius;
+
+  height: 3rem;
+  line-height: vars.$line-height-base;
+
+  white-space: nowrap;
+
+  padding: 0;
+
+  font-weight: 700;
+  font-size: vars.$font-size-7;
+
+  transition: all 0.15s ease-in-out;
+
+  &.btn-icon {
+    width: 3rem;
+  }
+
+  &.btn-icon-sm {
+    width: 2.5rem;
+    height: 2.5rem;
+  }
+
+  &:disabled {
+    opacity: vars.$disabled-opacity;
+  }
+
+  &.btn-link {
+    text-decoration: none;
+    // transition: none !important;
+    transition: all 0.15s ease-in-out;
+    height: max-content;
+
+    text-decoration: underline;
+    text-underline-offset: 0.25em !important;
+  }
+
+  &.btn-dark {
+    background-color: transparent !important;
+
+    &:hover {
+      background-color: rgba(255, 255, 255, 0.075) !important;
+    }
+
+    &:active {
+      background-color: rgba(255, 255, 255, 0.125) !important;
+    }
+  }
+}

@@ -1,0 +1,36 @@
+@use "@/shared/sass/variables/index" as vars;
+
+main {
+  min-width: 36rem;
+}
+
+#app {
+  height: 100vh;
+  overflow: hidden;
+
+  display: flex;
+  flex-direction: column;
+}
+
+.content-wrapper {
+  margin-top: map-get(vars.$header-config, height, desktop);
+}
+
+.content-view-settings {
+  max-width: 90rem;
+}
+
+.content-view-administration {
+  max-width: 115rem;
+}
+
+.sub-navigation-layout {
+  min-width: 35rem;
+}
+
+.admin-drawer {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  z-index: 1;
+}

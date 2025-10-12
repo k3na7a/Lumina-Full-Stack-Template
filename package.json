@@ -1,14 +1,14 @@
 {
-  "name": "full-stack-demo-application",
+  "name": "lumina-full-stack-template",
   "version": "2.0.0",
-  "description": "Full-Stack Demo Web Application",
+  "description": "Modern, production-ready full-stack application template",
   "scripts": {
     "web:dev": "cd vue && npm run dev",
-    "server:dev": "cd nest && npm run start:dev",
+    "api:dev": "cd nest && npm run start:dev",
     "docker:build": "docker compose build",
     "docker:up": "docker compose up --build",
     "docker:down": "docker compose down -v"
   },
-  "author": "John 'K3na7a' Desjardins",
+  "author": "John Desjardins",
   "license": "MIT"
 }

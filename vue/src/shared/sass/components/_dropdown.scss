@@ -1,0 +1,67 @@
+@use "@/shared/sass/variables/index" as vars;
+
+.th-action-dropdown {
+  *:disabled {
+    opacity: 40%;
+  }
+}
+
+.dropdown-menu {
+  width: max-content;
+  min-width: 20rem;
+  max-width: 20rem;
+
+  max-height: 40rem;
+  overflow-y: auto;
+
+  box-shadow: vars.$boxShadow;
+  border-radius: vars.$border-radius;
+  background-color: vars.$backgroundAlt;
+
+  scrollbar-color: vars.$scrollbar-color vars.$backgroundAlt;
+  scrollbar-width: thin;
+
+  .dropdown-item {
+    transition: all 0.15s ease-in-out;
+  }
+
+  a.dropdown-item {
+    font-size: vars.$font-size-7 !important;
+    font-weight: 400 !important;
+    border-radius: vars.$border-radius;
+    color: vars.$light;
+
+    &.dropdown-item:hover,
+    &.dropdown-item:focus {
+      background-color: vars.$bg-hover;
+    }
+
+    &.dropdown-item.active {
+      background-color: vars.$bg-active;
+    }
+
+    &:disabled {
+      color: vars.$muted;
+    }
+  }
+
+  button.dropdown-item {
+    font-size: vars.$font-size-7 !important;
+    font-weight: 400 !important;
+    border-radius: vars.$border-radius;
+    color: vars.$light;
+
+    &.dropdown-item:hover,
+    &.dropdown-item:focus {
+      background-color: vars.$bg-hover;
+    }
+
+    &.dropdown-item.active {
+      background-color: vars.$bg-active;
+    }
+
+    &:disabled {
+      color: vars.$muted;
+    }
+  }
+}

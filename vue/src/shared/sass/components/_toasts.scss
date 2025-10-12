@@ -1,0 +1,25 @@
+@use "@/shared/sass/variables/index" as vars;
+
+$toast-themes: (
+  danger: vars.$danger,
+  primary: vars.$primary,
+  success: vars.$success,
+  warning: vars.$warning,
+  info: vars.$info,
+);
+
+@each $name, $color in $toast-themes {
+  .toast-#{$name} {
+    .highlight {
+      background-color: #{$color};
+    }
+
+    * > h5 {
+      color: #{$color};
+    }
+  }
+}
+
+.toast-container {
+  backface-visibility: hidden;
+}

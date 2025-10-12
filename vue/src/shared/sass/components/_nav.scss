@@ -1,0 +1,27 @@
+@use "@/shared/sass/variables/index" as vars;
+
+.admin-drawer {
+  scrollbar-width: thin;
+
+  .dropdown-item {
+    transition: all 0.15s ease-in-out;
+
+    border-radius: vars.$border-radius;
+    color: vars.$light;
+    height: 3rem;
+
+    &.dropdown-item:hover {
+      background-color: vars.$bg-hover;
+    }
+
+    &.dropdown-item:active {
+      background-color: vars.$bg-active;
+    }
+  }
+
+  .active {
+    background-color: vars.$bg-active;
+    pointer-events: none;
+    color: vars.$muted !important;
+  }
+}
