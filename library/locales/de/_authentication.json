@@ -21,6 +21,7 @@
     "modal-body": "Sind Sie sicher, dass Sie Ihr @:navigation.site-name-Konto dauerhaft deaktivieren möchten?"
   },
   "account-recovery": {
+    "page-title": "Kontowiederherstellung",
     "title": "Wieder Zugriff auf Ihr @:navigation.site-name-Konto erhalten",
     "subtitle": "Geben Sie uns einige Informationen zu Ihrem Konto.",
     "label": "Geben Sie die E-Mail-Adresse ein, die mit Ihrem Konto verknüpft ist, um Ihr Passwort zu ändern.",
@@ -30,6 +31,7 @@
     "success": "Wir haben einen Link an Ihre E-Mail gesendet, damit Sie Ihr Passwort zurücksetzen können. Bitte überprüfen Sie Ihren Posteingang."
   },
   "password-reset": {
+    "page-title": "Passwort zurücksetzen",
     "title": "Neues Passwort festlegen",
     "subtitle": "Legen Sie ein neues Passwort für Ihr Konto fest. Das Zurücksetzen Ihres Passworts macht alle bestehenden Anmeldesitzungen ungültig.",
     "confirm-title": "Passwort zurückgesetzt",

@@ -1,11 +1,11 @@
-import { ROUTE_NAMES } from '@lib/enums/route-names.enum'
-import { RouteRecordRaw } from 'vue-router'
+import { ROUTE_NAMES } from "@lib/enums/route-names.enum";
+import { RouteRecordRaw } from "vue-router";
 
 const route: RouteRecordRaw = {
-  path: '/home',
+  path: "/home",
   name: ROUTE_NAMES.HOME,
-  component: () => import('@/features/home/home.view.vue'),
-  meta: { pageTitle: 'Home' }
-}
+  component: () => import("@/features/home/home.view.vue"),
+  meta: { pageTitle: "navigation.home" },
+};
 
-export default route
+export default route;

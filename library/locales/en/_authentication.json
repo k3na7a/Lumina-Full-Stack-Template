@@ -21,6 +21,7 @@
     "modal-body": "Are you sure you want to permanently disable your @:navigation.site-name account?"
   },
   "account-recovery": {
+    "page-title": "Account Recovery",
     "title": "Getting back into your @:navigation.site-name account",
     "subtitle": "Tell us some information about your account.",
     "label": "Enter the email associated with your account to change your password.",
@@ -30,6 +31,7 @@
     "success": "We've sent a link to your email so you can reset your password. Please check your inbox."
   },
   "password-reset": {
+    "page-title": "Password Reset",
     "title": "Set New Password",
     "subtitle": "Set a new password for your account. Resetting your password will also invalidate any existing log in sessions.",
     "confirm-title": "Password Reset",

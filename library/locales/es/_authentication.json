@@ -21,6 +21,7 @@
     "modal-body": "¿Está seguro de que desea desactivar permanentemente su cuenta de @:navigation.site-name?"
   },
   "account-recovery": {
+    "page-title": "Recuperación de cuenta",
     "title": "Recuperar el acceso a su cuenta de @:navigation.site-name",
     "subtitle": "Díganos algunos datos sobre su cuenta.",
     "label": "Ingrese el correo electrónico asociado a su cuenta para cambiar su contraseña.",
@@ -30,6 +31,7 @@
     "success": "Hemos enviado un enlace a su correo electrónico para que pueda restablecer su contraseña. Por favor, revise su bandeja de entrada."
   },
   "password-reset": {
+    "page-title": "Restablecimiento de contraseña",
     "title": "Establecer nueva contraseña",
     "subtitle": "Establezca una nueva contraseña para su cuenta. Restablecer su contraseña también invalidará cualquier sesión de inicio activa.",
     "confirm-title": "Restablecimiento de contraseña",

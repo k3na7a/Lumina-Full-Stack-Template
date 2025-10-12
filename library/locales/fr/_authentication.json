@@ -21,6 +21,7 @@
     "modal-body": "Êtes-vous sûr de vouloir désactiver définitivement votre compte @:navigation.site-name ?"
   },
   "account-recovery": {
+    "page-title": "Récupération de compte",
     "title": "Récupérer l’accès à votre compte @:navigation.site-name",
     "subtitle": "Donnez-nous quelques informations sur votre compte.",
     "label": "Entrez l’adresse e-mail associée à votre compte pour changer votre mot de passe.",
@@ -30,6 +31,7 @@
     "success": "Nous avons envoyé un lien à votre e-mail pour réinitialiser votre mot de passe. Veuillez vérifier votre boîte de réception."
   },
   "password-reset": {
+    "page-title": "Réinitialisation du mot de passe",
     "title": "Définir un nouveau mot de passe",
     "subtitle": "Définissez un nouveau mot de passe pour votre compte. La réinitialisation de votre mot de passe invalidera aussi toute session active existante.",
     "confirm-title": "Réinitialisation du mot de passe",
