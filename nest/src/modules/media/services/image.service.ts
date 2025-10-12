@@ -29,7 +29,7 @@ export class ImageService {
 
   private async getImageMetadata(file: Express.Multer.File) {
     const buffer = await readFile(file.path);
-    const { width, height } = imageSize(buffer);
+    const { width, height } = imageSize(buffer as unknown as Uint8Array);
 
     if (!width || !height)
       throw new NotAcceptableException('Could not determine image dimensions');
@@ -39,7 +39,7 @@ export class ImageService {
 
   private async handleFileUpload(file: Express.Multer.File, type: string) {
     await this.s3service.uploadFile(file, type);
-    await unlink(file.path); // Remove local file after upload
+    await unlink(file.path);
   }
 
   public async create({
