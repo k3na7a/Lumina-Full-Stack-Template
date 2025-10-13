@@ -76,14 +76,7 @@ export enum SystemPermissions {
 
 // FRONT-END
 export enum FrontEndPermissions {
-  MANAGE_SELF = "manage_self",
   CAN_VIEW_ADMIN_DASHBOARD = "view_admin_dashboard",
-  MANAGE_PERMISSIONS = "manage_permissions",
-  MANAGE_ROLES = "manage_roles",
-  MANAGE_USERS = "manage_users",
-  MANAGE_GAMES = "manage_games",
-  MANAGE_PLATFORMS = "manage_platforms",
-  VIEW_AUDIT = "view_audit",
 }
 
 // MANAGE SELF

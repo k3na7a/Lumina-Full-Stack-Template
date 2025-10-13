@@ -5,7 +5,10 @@
   font-size: vars.$font-size-7;
 
   .tooltip-inner {
+    font-size: vars.$font-size-8;
+    font-weight: vars.$font-weight-normal;
     background-color: vars.$background;
+    color: vars.$light;
   }
 
   .tooltip-arrow {

@@ -70,8 +70,6 @@ services:
       context: .
       dockerfile: vue/Dockerfile
     command: echo "Build complete"
-    # volumes:
-    #   - ./vue/dist:/usr/share/nginx/html:ro
   nginx:
     image: lumina-full-stack-template-web:latest
     container_name: nginx
@@ -85,7 +83,6 @@ services:
     volumes:
       - ./vue/nginx.conf:/etc/nginx/conf.d/default.conf:ro
       - ./vue/certs:/etc/nginx/certs:ro
-    # - ./vue/dist:/usr/share/nginx/html:ro
     deploy:
       resources:
         limits:
