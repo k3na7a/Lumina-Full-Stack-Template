@@ -3,8 +3,6 @@ import vue from "@vitejs/plugin-vue";
 import path from "path";
 import * as fs from "fs";
 
-const env = loadEnv("development", process.cwd(), "");
-
 export default defineConfig({
   server: {
     https: {
