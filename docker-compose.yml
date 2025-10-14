@@ -1,7 +1,7 @@
 services:
-  db:
+  mysql:
     image: mysql:8.0
-    container_name: mysql
+    container_name: lumina-mysql
     restart: unless-stopped
     environment:
       MYSQL_ROOT_PASSWORD: SuperSecureRootPW_82#kl
@@ -28,7 +28,7 @@ services:
     build:
       context: .
       dockerfile: nest/Dockerfile
-    container_name: api
+    container_name: lumina-api
     ports:
       - "3000:3000"
     env_file:
@@ -53,7 +53,7 @@ services:
       - ./nest/certs:/api/nest/certs
   redis:
     image: redis:7-alpine
-    container_name: redis
+    container_name: lumina-redis
     ports:
       - "6379:6379"
     environment:
@@ -65,14 +65,14 @@ services:
           memory: 512m
     restart: unless-stopped
   web:
-    container_name: web
+    container_name: lumina-web
     build:
       context: .
       dockerfile: vue/Dockerfile
     command: echo "Build complete"
   nginx:
-    image: lumina-full-stack-template-web:latest
-    container_name: nginx
+    image: lumina-web:latest
+    container_name: lumina-nginx
     ports:
       - "8080:8080"
     environment:
