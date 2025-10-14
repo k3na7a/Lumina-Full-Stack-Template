@@ -18,6 +18,20 @@ services:
         limits:
           cpus: "0.75"
           memory: 1g
+  redis:
+    image: redis:7-alpine
+    container_name: lumina-redis
+    ports:
+      - "6379:6379"
+    environment:
+      TZ: America/Toronto
+    deploy:
+      resources:
+        limits:
+          cpus: "0.5"
+          memory: 512m
+    restart: unless-stopped
+
   api:
     deploy:
       resources:
@@ -44,26 +58,13 @@ services:
       REDIS_PORT: 6379
       TZ: America/Toronto
     depends_on:
-      - db
+      - mysql
       - redis
     volumes:
       - ./nest/upload:/api/nest/upload
       - ./nest/logs:/api/nest/logs
       - ./nest/public:/api/nest/public
       - ./nest/certs:/api/nest/certs
-  redis:
-    image: redis:7-alpine
-    container_name: lumina-redis
-    ports:
-      - "6379:6379"
-    environment:
-      TZ: America/Toronto
-    deploy:
-      resources:
-        limits:
-          cpus: "0.5"
-          memory: 512m
-    restart: unless-stopped
   web:
     container_name: lumina-web
     build:
