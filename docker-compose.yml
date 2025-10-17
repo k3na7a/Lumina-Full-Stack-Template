@@ -48,6 +48,8 @@ services:
       - "3306:3306"
     cpus: "0.75"
     mem_limit: 1g
+    storage_opt:
+      size: 2G
     healthcheck:
       test: ["CMD-SHELL", "mysqladmin ping -h 127.0.0.1 -u$$MYSQL_USER -p$$MYSQL_PASSWORD || exit 1"]
       interval: 5s
