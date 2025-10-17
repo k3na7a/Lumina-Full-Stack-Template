@@ -1,11 +1,8 @@
 services:
   api:
-    deploy:
-      resources:
-        limits:
-          cpus: "1.0"
-          memory: 1g
     restart: unless-stopped
+    cpus: "1.0"
+    mem_limit: 1g
     build:
       context: .
       dockerfile: nest/Dockerfile
@@ -25,8 +22,10 @@ services:
       REDIS_PORT: 6379
       TZ: America/Toronto
     depends_on:
-      - mysql
-      - redis
+      mysql:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
     volumes:
       - ./nest/upload:/api/nest/upload
       - ./nest/logs:/api/nest/logs
@@ -34,7 +33,7 @@ services:
       - ./nest/certs:/api/nest/certs
 
   mysql:
-    image: mysql:8.0
+    image: mysql:8.4
     container_name: lumina-mysql
     restart: unless-stopped
     environment:
@@ -44,14 +43,16 @@ services:
       MYSQL_PASSWORD: :X=F.t@s*xK}q>c#6quW
       TZ: America/Toronto
     volumes:
-      - db-data:/var/lib/mysql
+      - lumina_mysql_data:/var/lib/mysql
     ports:
       - "3306:3306"
-    deploy:
-      resources:
-        limits:
-          cpus: "0.75"
-          memory: 1g
+    cpus: "0.75"
+    mem_limit: 1g
+    healthcheck:
+      test: ["CMD-SHELL", "mysqladmin ping -h 127.0.0.1 -u$$MYSQL_USER -p$$MYSQL_PASSWORD || exit 1"]
+      interval: 5s
+      timeout: 3s
+      retries: 20
   redis:
     image: redis:7-alpine
     container_name: lumina-redis
@@ -59,12 +60,14 @@ services:
       - "6379:6379"
     environment:
       TZ: America/Toronto
-    deploy:
-      resources:
-        limits:
-          cpus: "0.5"
-          memory: 512m
+    cpus: "0.5"
+    mem_limit: 512m
     restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 3s
+      retries: 20
   web:
     container_name: lumina-web
     build:
@@ -84,12 +87,10 @@ services:
     volumes:
       - ./vue/nginx.conf:/etc/nginx/conf.d/default.conf:ro
       - ./vue/certs:/etc/nginx/certs:ro
-    deploy:
-      resources:
-        limits:
-          cpus: "0.25"
-          memory: 256m
+    cpus: "0.25"
+    mem_limit: 256m
     restart: unless-stopped
 volumes:
   redis-data:
-  db-data:
+  lumina_mysql_data:
+    name: lumina_mysql_data
