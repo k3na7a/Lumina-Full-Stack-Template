@@ -1,8 +1,8 @@
 services:
   api:
     restart: unless-stopped
-    cpus: "1.0"
-    mem_limit: 1g
+    cpus: 0.5
+    mem_limit: 256m
     build:
       context: .
       dockerfile: nest/Dockerfile
@@ -46,8 +46,8 @@ services:
       - lumina_mysql_data:/var/lib/mysql
     ports:
       - "3306:3306"
-    cpus: "0.75"
-    mem_limit: 1g
+    cpus: 0.5
+    mem_limit: 256m
     storage_opt:
       size: 2G
     healthcheck:
@@ -62,8 +62,8 @@ services:
       - "6379:6379"
     environment:
       TZ: America/Toronto
-    cpus: "0.5"
-    mem_limit: 512m
+    cpus: 0.10
+    mem_limit: 32m
     restart: unless-stopped
     healthcheck:
       test: ["CMD", "redis-cli", "ping"]
@@ -89,7 +89,7 @@ services:
     volumes:
       - ./vue/nginx.conf:/etc/nginx/conf.d/default.conf:ro
       - ./vue/certs:/etc/nginx/certs:ro
-    cpus: "0.25"
+    cpus: 0.25
     mem_limit: 256m
     restart: unless-stopped
 volumes:
