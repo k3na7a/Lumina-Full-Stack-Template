@@ -1,4 +1,38 @@
 services:
+  api:
+    deploy:
+      resources:
+        limits:
+          cpus: "1.0"
+          memory: 1g
+    restart: unless-stopped
+    build:
+      context: .
+      dockerfile: nest/Dockerfile
+    container_name: lumina-api
+    ports:
+      - "3000:3000"
+    env_file:
+      - ./nest/.env
+    environment:
+      DB_SEED: true
+      DB_HOST: mysql
+      DB_PORT: 3306
+      DB_USERNAME: appuser
+      DB_PASSWORD: :X=F.t@s*xK}q>c#6quW
+      DB_DATABASE: app_database
+      REDIS_HOST: redis
+      REDIS_PORT: 6379
+      TZ: America/Toronto
+    depends_on:
+      - mysql
+      - redis
+    volumes:
+      - ./nest/upload:/api/nest/upload
+      - ./nest/logs:/api/nest/logs
+      - ./nest/public:/api/nest/public
+      - ./nest/certs:/api/nest/certs
+
   mysql:
     image: mysql:8.0
     container_name: lumina-mysql
@@ -31,40 +65,6 @@ services:
           cpus: "0.5"
           memory: 512m
     restart: unless-stopped
-
-  api:
-    deploy:
-      resources:
-        limits:
-          cpus: "1.0"
-          memory: 1g
-    restart: unless-stopped
-    build:
-      context: .
-      dockerfile: nest/Dockerfile
-    container_name: lumina-api
-    ports:
-      - "3000:3000"
-    env_file:
-      - ./nest/.env
-    environment:
-      DB_SEED: true
-      DB_HOST: db
-      DB_PORT: 3306
-      DB_USERNAME: appuser
-      DB_PASSWORD: :X=F.t@s*xK}q>c#6quW
-      DB_DATABASE: app_database
-      REDIS_HOST: redis
-      REDIS_PORT: 6379
-      TZ: America/Toronto
-    depends_on:
-      - mysql
-      - redis
-    volumes:
-      - ./nest/upload:/api/nest/upload
-      - ./nest/logs:/api/nest/logs
-      - ./nest/public:/api/nest/public
-      - ./nest/certs:/api/nest/certs
   web:
     container_name: lumina-web
     build:
